@@ -1,0 +1,81 @@
+		CHANGES IN FLCore VERSION 2.0
+
+NEW FEATURES
+    o The FLQuant class now has 6 dimensions. The 6th dimension, called iter, contains
+      multiple iterations of an object, like those obtained from bootstrap or through
+      Bayesian analysis.
+    o The number of iterations on a new FLQuant can be specified through the iter
+      argument. When used with FLQuant(FLQuant), a new FLquant can be created with the 
+      original object dimensions and extra iterations.
+    o FLQuant() has an extra argument, fill.iter=TRUE, that determines whether all
+	    iterations of an FLQuant object should contain the same values as the first one. 
+    o FLCohort and its methods were moved from FLEDA.
+  	o New FLComp class from which all complex classes derive. This is a virtual class, so
+	    no objects belonging to it can be created, but other classes can exte3nd it and
+  	  inherit its methods.
+	  o A new FLModel class, from which FLSR is now derived. Methods for model fitting, like
+	    fmle() and nls() are available and will be inherited.
+  	o A new FLPar class, to be used in model classes for the parameter estimates.
+	  o Some life-history methods for FLBiol such as Leslie-type matrix models
+	    and other features that are generic to population modelling as a whole   
+    o FLModel now accepts FLQuant, FLCohort and numeric slots as input for fmle(), nls()
+      and glm()
+
+USER-VISIBLE CHANGES
+    o updated mcf method
+    o new [ for FLQuant
+    o new as.FLBiol for signature(object="FLStock")
+    o new qapply methods for FLStock, FLStocks, FLIndex and FLIndices
+    o new ssb method for FLBiol
+	  o new method cv (coefficient of variation) for FLQuant
+    o new propagate and iter<- methods for FLSR
+	  o new FLCohort class
+    o new flc2flq for FLCohort to convert FLCohort objects into FLQuant objects
+    o new trim for FLCohort
+    o new quant for FLCohort
+    o new units for FLCohort
+    o new units<- for FLCohort
+    o new as.data.frame for FLCohort
+    o new plot for FLCohort
+    o new [ for FLCohort
+    o new bubbles for signature(x="formula", data ="FLCohort")
+    o new ccplot for signature(x="formula", data ="FLCohort")
+    o new xyplot for signature("formula", "FLCohort")
+    o The method to create an FLSR object from an FLStock or an FLBiol object is as.FLSR
+      instead of FLSR.	
+    o New method 'iter' to extract the iterations from an 'FLSR' object.
+  	o type and type<- are now defined for FLIndex
+	  o New method mean.lifespan added to FLBiol, to compute the mean life-span 
+	    of a species, given the natural mortality.
+  	o print() has been defined for FLQuant
+	  o Default value for dimnames$iter of an FLQuant when its length=1 is '1'
+  	o setPlusGroup has been coded as an S4 method, available for FLQuant and FLStock
+    o window(FLQuant) has dims(x)$minyear and maxyear as defaults for start and end
+
+BUG FIXES
+    o as.FLIndex for signature(object="FLFleet")
+    o sr and predict now works with objects multiple iterations. Fits the model in
+  	  each iteration.							 
+    o computeCatches for FLIndex objects added (EJ)
+  	o FLQuant() for vector, array and matrix now returns an object with iter='none'
+	    when appropiate
+  	o FLQuant's subsetting operator can now handle objects with multiple iterations.
+    o The FLSR 'params'and 'se' slots store the iterations along the rows and 'var',
+	    'covar' and 'varacorr' numeric vectors. The 'covar' slot is a 3x3 matrix and
+  	  can't store iterations for the moment.
+	  o Signature for units() and units<- has been changed to match the new generic
+	    available in the base package of R 2.5.0
+  	o Use of names(dimnames(FLQuant)) to be avoided: use names(FLQuant) instead
+    o as.data.frame for FLQuant was building factors with the wrong order, now fixed.
+    o xyplot for FLQuants was building a formula that is nt necessary anymore.
+	  o Arith has been overloaded for signature('numeric', 'FLQuant') to ensure the correct
+	    objects were returned on those operations.
+  	o as.FLQuant(data.frame) can now create object from data.frames with no quant specified.
+	  o computeCatch and computeDiscards generics did not output the result object
+	
+UTILITIES
+
+DOCUMENTATION
+    o ssb equations for FLStock and FLBiol added to ssb help file
+    
+DEPRECATED & DEFUNCT
