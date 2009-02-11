@@ -229,22 +229,25 @@ setMethod("plot", signature(x="FLStock", y="missing"),
 	function(x, auto.key=TRUE, ...)
   {
     # create data.frame with catch/landings+discards/discards
-    obj <- as.data.frame(FLQuants(catch=catch(x), landings=landings(x)))
+    obj <- as.data.frame(FLQuants(catch=apply(catch(x), c(1,2,6), sum),
+      landings=apply(landings(x), c(1,2,6), sum)))
     obj$panel <- 'catch'
 
     # ssb
-    obj <- rbind(obj, data.frame(as.data.frame(FLQuants(ssb=ssb(x))), panel='SSB'))
+    obj <- rbind(obj, data.frame(as.data.frame(FLQuants(ssb=apply(ssb(x), c(1,2,6),
+      sum))), panel='SSB'))
 
     # harvest
     if(units(harvest(x)) == "f")
-      obj <- rbind(obj, data.frame(as.data.frame(FLQuants(harvest=fbar(x))),
-        panel='harvest'))
+      obj <- rbind(obj, data.frame(as.data.frame(FLQuants(harvest=apply(fbar(x),
+        c(1,2,6), sum))), panel='harvest'))
     else if(units(harvest(x)) == "harvest")
-      obj <- rbind(obj, data.frame(as.data.frame(FLQuants(harvest=quantSums(harvest(x)))),
-        panel='harvest'))
+      obj <- rbind(obj, data.frame(as.data.frame(FLQuants(harvest=apply(
+        quantSums(harvest(x)), c(1,2,6), sum))), panel='harvest'))
 
     # and rec
-    obj <- rbind(obj, data.frame(as.data.frame(FLQuants(rec=rec(x))), panel='recruits'))
+    obj <- rbind(obj, data.frame(as.data.frame(FLQuants(rec=apply(rec(x), c(1,2,6), sum))),
+      panel='recruits'))
 
     # default options
     options <- list(scales=list(relation='free'), ylab="", xlab="",
@@ -263,17 +266,23 @@ setMethod("plot", signature(x="FLStock", y="missing"),
         if(length(levels(iter)) > 1)
         {
           # median
-          panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-            tapply(y[idx], x[idx], median), type= 'l', ...)
+          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
+          panel.xyplot(unique(x[idx]),
+            tapply(y[idx], x[idx], median, na.rm=TRUE), type= 'l', ...)
           # 95% quantile
-          panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-            tapply(y[idx], x[idx], quantile, 0.95), type= 'l', lwd=1, lty=2, col='grey50')
+          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
+          panel.xyplot(unique(x[idx]),
+            tapply(y[idx], x[idx], quantile, 0.95, na.rm=TRUE), type= 'l', lwd=1, lty=2, 
+            col='grey50')
           # 5% quantile
-          panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-            tapply(y[idx], x[idx], quantile, 0.05), type= 'l', lwd=1, lty=2, col='grey50')
+          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
+          panel.xyplot(unique(x[idx]),
+            tapply(y[idx], x[idx], quantile, 0.05, na.rm=TRUE), type= 'l', lwd=1, lty=2, 
+            col='grey50')
           # landings bars
           idx <- groups == 'landings'
-          panel.barchart(x[idx][iter[idx] == levels(iter[idx])[1]],
+          #panel.barchart(x[idx][iter[idx] == levels(iter[idx])[1]],
+          panel.barchart(unique(x[idx]),
             tapply(y[idx], x[idx], median), horizontal=FALSE, col=rgb(0.1, 0.1, 0, 0.1),
             box.width=options$box.width, lwd=0, origin=0)
         }
@@ -298,12 +307,12 @@ setMethod("plot", signature(x="FLStock", y="missing"),
         if(length(levels(iter)) > 1)
         {
           # median
-          panel.xyplot(unique(x), tapply(y, x, median), type= 'l', ...)
+          panel.xyplot(unique(x), tapply(y, x, median, na.rm=TRUE), type= 'l', ...)
           # 95% quantile
-          panel.xyplot(unique(x), tapply(y, x, quantile, 0.95), type= 'l',
+          panel.xyplot(unique(x), tapply(y, x, quantile, 0.95, na.rm=TRUE), type= 'l',
             lwd=1, lty=2, col='grey50')
           # 5% quantile
-          panel.xyplot(unique(x), tapply(y, x, quantile, 0.05), type= 'l',
+          panel.xyplot(unique(x), tapply(y, x, quantile, 0.05, na.rm=TRUE), type= 'l',
             lwd=1, lty=2, col='grey50')
         }
         else

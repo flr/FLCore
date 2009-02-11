@@ -273,12 +273,15 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
   # data.frame with selected slots per stock
   dfs <- lapply(x, function(y) data.frame(as.data.frame(FLQuants(catch=catch(y),
     ssb=ssb(y), rec=rec(y), harvest=if(units(harvest(y)) == 'f'){fbar(y)} else {
-    quantSums(harvest(y))})), stock=name(y)))
+    quantSums(harvest(y))})), name=name(y)))
+
+  # stock index
+  dfs[[1]] <- cbind(dfs[[1]], stock=1)
 
   # rbind if more than one stock
   if(length(dfs) > 1)
     for(i in seq(2, length(dfs)))
-      dfs[[1]] <- rbind(dfs[[1]], dfs[[i]])
+      dfs[[1]] <- rbind(dfs[[1]], cbind(dfs[[i]], stock=i))
   dfs <- dfs[[1]]
 
   # default options
@@ -295,7 +298,7 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         idx <- x==max(x)
         panel.xyplot(x[idx], y[idx], type='p', groups=groups,
           subscripts=subscripts[idx], ...)
-      })))
+      }, key=list(text=list(lab=names(x)), lines=list(col=options$col)))))
   else
   {
   do.call(xyplot, c(options, list(x=data~year|qname, data=dfs, groups=expression(stock),
@@ -310,7 +313,7 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         # uppq
         do.call(panel.xyplot, c(list(unique(x), tapply(y, list(x), quantile, 0.95,
           na.rm=TRUE), col=options$col[group.number]), type='l', lty=2, lwd=1, alpha=0.5))
-      })))
+      }, key=list(text=list(lab=names(x)), lines=list(col=options$col)))))
 
   }
      }

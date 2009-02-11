@@ -1,7 +1,7 @@
 # io.FLIndex - 
 
 # Author: FLR Team
-# Last Change: 12 Sep 2008 11:43
+# Last Change: 11 Feb 2009 11:24
 # $Id$
 
 # Reference:
@@ -499,3 +499,17 @@ set.index <- function(smry.,index.,p.,l.,range) {
 			}
     return(l.)
 }	# }}}
+
+# read.FLIndex
+read.FLIndex <- function(...)
+{
+  warning("read.FLIndex has been renamed as readFLIndex and will de deprecated", inmediate. = TRUE)
+  readFLIndex(...)
+}
+
+# read.FLIndices
+read.FLIndices <- function(...)
+{
+  warning("read.FLIndices has been renamed as readFLIndices and will de deprecated", inmediate. = TRUE)
+  readFLIndices(...)
+}

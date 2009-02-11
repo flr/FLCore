@@ -2,7 +2,7 @@
 
 # Author: FLR Team
 # Additions:
-# Last Change: 02 Feb 2009 22:50
+# Last Change: 11 Feb 2009 11:24
 # $Id$
 
 ## readFLStock		{{{
@@ -471,3 +471,10 @@ one unit. Lowestoft VPA can't handle this unfortunately.")
     }
     return(invisible(NULL))
 }	# }}}
+
+# read.FLStock
+read.FLStock <- function(...)
+{
+  warning("read.FLStock has been renamed as readFLStock and will de deprecated", inmediate. = TRUE)
+  readFLStock(...)
+}
