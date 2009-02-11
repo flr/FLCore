@@ -4,6 +4,9 @@
 \alias{writeFLStock}
 \alias{readFLIndex}
 \alias{readFLIndices}
+\alias{read.FLStock}
+\alias{read.FLIndex}
+\alias{read.FLIndices}
 \title{Input/Output of FLR objects}
 \description{
   These functions read and save FLR objects of class \code{FLStock}, \code{FLIndex} and
