@@ -56,4 +56,5 @@ fb <- FLQuant(2, dim=c(10,20,1,1,1,10))
 all(fa/fb == 2)
 all(fb/fa == 0.5)
 
+
 finishTest()
