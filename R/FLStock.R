@@ -850,10 +850,11 @@ if (!isGeneric("rec"))
 setMethod('rec', signature(object='FLStock'),
   function(object, rec.age=ac(dims(object)$min))
   {
-    if(dims(object)$quant == 'age')
-      quantSums(stock.n(object)[rec.age,])
-    else
+    if(dims(object)$quant != 'age')
       stop("rec(FLStock) only defined for age-based objects")
+    res <- quantSums(stock.n(object)[rec.age,])
+    dimnames(res) <- list(age=rec.age)
+    return(res)
   }
 ) # }}}
 
