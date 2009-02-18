@@ -27,7 +27,8 @@ setMethod("FLCohort", signature("FLQuant"), function(object, ...){
 
 	# dimensions and co
 	dnobj <- dimnames(object)
-	astart <- ifelse(!is.na(dims(object)$min), dims(object)$min, 1)
+	astart <- ifelse(!is.na(dims(object)$min), dims(object)$min,
+    stop("FLQuant has no numeric 'age', cannot convert to FLCohort."))
 	ystart <- as.numeric(dnobj$year[1])
 	dobj <- dim(object)	
 	dflc <- dobj
