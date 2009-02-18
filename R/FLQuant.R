@@ -753,19 +753,19 @@ setMethod("window", signature="FLQuant",
 ## Sums         {{{
 if (!isGeneric("quantTotals"))
 	setGeneric("quantTotals", function(x, ...) standardGeneric("quantTotals"))
-setMethod('quantTotals', signature(x='FLQuant'), function(x) {
+setMethod('quantTotals', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 	sums <- x
 	for (i in 1:dim(x)[2])
-		sums[,i,,,,] <- rowSums(x, dim=1, na.rm=TRUE)
+		sums[,i,,,,] <- rowSums(x, dim=1, na.rm=na.rm)
 	return(sums)
 })
 
 if (!isGeneric("yearTotals"))
 	setGeneric("yearTotals", function(x, ...) standardGeneric("yearTotals"))
-setMethod('yearTotals', signature(x='FLQuant'), function(x) {
+setMethod('yearTotals', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 	sums <- x
 	for (i in 1:dim(x)[1])
-		sums[i,,,,] <- colSums(x, na.rm=TRUE)[,1,1,1,1]
+		sums[i,,,,] <- colSums(x, na.rm=na.rm)[,1,1,1,1]
 	return(sums)
 })
 
@@ -811,7 +811,7 @@ setMethod('dimSums', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRU
 if (!isGeneric("quantMeans"))
 	setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	res <- colMeans(x)
+	res <- colMeans(x, na.rm=na.rm)
 	dim(res) <- c(1, dim(res))
 	return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant(x),
     units=units(x)))
