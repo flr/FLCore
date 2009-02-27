@@ -75,13 +75,11 @@ setMethod('FLPar', signature('vector'),
 
 # FLPar(FLPar)
 setMethod('FLPar', signature('FLPar'),
-	function(object, params=dimnames(object)$params, iter=dim(object)['iter'],
+	function(object, params=dimnames(object)$params, iter=length(dimnames(object)$iter),
     units=object@units)
   {
-    res <- FLPar(iter=iter, params=params, units=units)
-    dmns <- dimnames(object)
-    res[dmns$iter, dmns$params[dmns$params %in% dimnames(res)$params]] <- object[, dimnames(res)$params[dimnames(res)$params %in% dmns$params]]
-    return(res)
+    res <- FLPar(NA, iter=iter, params=params, units=units)
+    return(do.call('[<-', c(list(res), dimnames(object), list(value=object))))
 	}
 ) # }}}
 
@@ -122,6 +120,12 @@ setMethod('[', signature(x='FLPar'),
 setMethod("[<-", signature(x="FLPar"),
 	function(x, i="missing", j="missing", ..., value="missing")
   {
+    if(!missing(i) && is.array(i))
+    {
+			x@.Data[i] <- value
+			return(x)
+		}
+    
     dx <- dim(x)
     if(missing(i))
 			i  <-  seq(1, length(dimnames(x@.Data)[1][[1]]))
@@ -303,9 +307,17 @@ setAs('FLPar', 'list',
 
 # propagate {{{
 setMethod("propagate", signature(object="FLPar"),
-  function(object, iter)
+  function(object, iter, fill.iter=TRUE)
   {
-    FLPar(object, iter=iter)
+    res <- FLPar(object, iter=seq(iter))
+    if(fill.iter == FALSE)
+    {
+      args <- list(x=res, iter=seq(iter)[-1], value=as.numeric(NA))
+      names(args)[2] <- letters[seq(9,
+        length=length(dim(res)))][names(dimnames(res))=='iter']
+      res <- do.call('[<-', args)
+    }
+    return(res)
   }
 ) # }}}
 
