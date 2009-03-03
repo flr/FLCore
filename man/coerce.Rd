@@ -40,7 +40,7 @@
   cases the \code{name} and \code{desc} slots are simply copied accross.
 }
 \section{Generic function}{
- coerce(from,to,strict) 
+ coerce(from, to, strict) 
 }
 \section{Methods}{
 \describe{
