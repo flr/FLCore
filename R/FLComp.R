@@ -333,21 +333,21 @@ setMethod("dims", signature(obj="FLComp"),
     function(obj, ...)
 	{
 		qnames <- names(getSlots(class(obj))[getSlots(class(obj))=="FLQuant"])
+    range <- as.list(range(obj))
 		res <- list(
             quant = quant(slot(obj, qnames[1])),
             quants = dim(slot(obj, qnames[2]))[1],
-            min = obj@range[["min"]],
-            max = obj@range[["max"]],
-            plusgroup=ifelse('plusgroup'%in%names(obj@range),
-              obj@range[['plusgroup']],
-              as.numeric(NA)),
+            min = range$min,
+            max = range$max,
             year = dim(slot(obj, qnames[1]))[2],
-            minyear = obj@range[["minyear"]],
-            maxyear = obj@range[["maxyear"]],
+            minyear = range$minyear,
+            maxyear = range$maxyear,
+            plusgroup = ifelse('plusgroup' %in% names(range), range$plusgroup, NA),
             unit = dim(slot(obj, qnames[1]))[3],
             season = dim(slot(obj, qnames[1]))[4],
             area = dim(slot(obj, qnames[1]))[5],
             iter = max(unlist(qapply(obj, function(x) dims(x)$iter))))
+    res <- lapply(res, function(x) if(is.null(x)) return(as.numeric(NA)) else return(x))
     names(res)[2] <- res$quant
     return(res)
     }
