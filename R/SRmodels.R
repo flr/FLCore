@@ -153,7 +153,7 @@ ricker <- function()
 			return(list(a=a, b=b, sigma2=var(log(rec) - log(a*ssb*exp(-b*ssb)), na.rm=TRUE)))
 		},
 		# lower and upper limits for optim()
-		lower=c(0.0001, 0.0001, 0.0001),
+		lower=rep(1e-10, 3),
 		upper=rep(Inf, 3)
 	)
 	model  <- rec~a*ssb*exp(-b*ssb)

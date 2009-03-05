@@ -629,7 +629,7 @@ setMethod('rec', signature(object='FLBiol'),
   function(object, rec.age=ac(dims(object)$min))
   {
     if(dims(object)$quant == 'age')
-      quantSums(n(object)[rec.age,])
+      n(object)[rec.age,]
     else
       stop("rec(FLBiol) only defined for age-based objects")
   }
