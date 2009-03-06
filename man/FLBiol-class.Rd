@@ -65,6 +65,8 @@ FLComp
 \item{}{\code{ signature(object=missing) }}
 \item{\link{wt<-}(FLCore) :}{replacement method for this slot.}
 \item{}{\code{ signature(object=FLBiol,value=FLQuant) }}
+\item{\link{fbar}(FLCore) :}{calculates fbar}
+\item{}{\code{ signature(object=FLBiol) }}
 }}
 \author{The FLR Team}
 \seealso{ \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce}, \link{fec}, \link{fec<-}, \link{m}, \link{m<-}, \link{n}, \link{n<-}, \link[graphics]{plot}, \link{spwn}, \link{spwn<-}, \link{ssb}, \link{wt}, \link{wt<-}, \link{FLComp} }

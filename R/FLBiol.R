@@ -634,3 +634,31 @@ setMethod('rec', signature(object='FLBiol'),
       stop("rec(FLBiol) only defined for age-based objects")
   }
 ) # }}}
+
+# fbar {{{
+setMethod("fbar", signature(object="FLBiol"),
+ function(object, ...)
+ {
+  if (!("minfbar" %in% names(range(object))))
+    range(object,"minfbar") <- dims(object)$min+1
+
+  if (!("maxfbar" %in% names(range(object))))
+    range(object,"maxfbar")<-dims(object)$max-1
+
+  if (is.na(object@range["minfbar"]))
+    object@range["minfbar"]<-object@range["min"]+1
+
+  if (is.na(object@range["maxfbar"]))
+    object@range["maxfbar"]<-object@range["max"]-1
+
+  fbarRng<-range(object,"minfbar"):(range(object,"maxfbar")-1)
+
+  res <- log(n(object)[ac(fbarRng),-dims(object)$year]/n(object)[ac(fbarRng+
+    1),-1])-m(object)[ac(fbarRng),-dims(object)$year]
+
+  res<-apply(res,c(2:6),mean)
+
+  return(res)
+
+  } 
+) # }}}
