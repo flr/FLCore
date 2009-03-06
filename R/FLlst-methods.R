@@ -268,12 +268,18 @@ setMethod('summary', signature(object='FLlst'),
 
 # plot(FLStocks)  {{{
 setMethod('plot', signature(x='FLStocks', y='missing'),
-  function(x, ...)
+  function(x, key=FALSE, ...)
   {
+  # TODO set defaults names and args for main and key
   # data.frame with selected slots per stock
   dfs <- lapply(x, function(y) data.frame(as.data.frame(FLQuants(catch=catch(y),
     ssb=ssb(y), rec=rec(y), harvest=if(units(harvest(y)) == 'f'){fbar(y)} else {
-    quantSums(harvest(y))})), name=name(y)))
+    quantSums(harvest(y))}))))
+
+  # element names
+  names <- names(x)
+  if(is.null(names))
+    names <- as.character(seq(length(dfs)))
 
   # stock index
   dfs[[1]] <- cbind(dfs[[1]], stock=1)
@@ -285,10 +291,16 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
   dfs <- dfs[[1]]
 
   # default options
-  options <- list(scales=list(relation='free'), ylab="", xlab="", main=paste(names(x),
-    collapse=" - "), col=rainbow(length(x)), lwd=2, cex=0.6)
+  options <- list(scales=list(relation='free'), ylab="", xlab="", col=rainbow(length(x)), 
+    lwd=2, cex=0.6)
   args <- list(...)
   options[names(args)] <- args
+
+  # key
+  if(key == TRUE)
+    options$key <- list(text=list(lab=names(x)), lines=list(col=options$col))
+  else if (!missing(key) && is(key, 'list'))
+    options$key <- key
 
   if(length(levels(dfs$iter)) == 1)
     do.call(xyplot, c(options, list(x=data~year|qname, data=dfs, groups=expression(stock),
@@ -298,7 +310,7 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         idx <- x==max(x)
         panel.xyplot(x[idx], y[idx], type='p', groups=groups,
           subscripts=subscripts[idx], ...)
-      }, key=list(text=list(lab=names(x)), lines=list(col=options$col)))))
+      })))
   else
   {
   do.call(xyplot, c(options, list(x=data~year|qname, data=dfs, groups=expression(stock),
@@ -313,7 +325,7 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         # uppq
         do.call(panel.xyplot, c(list(unique(x), tapply(y, list(x), quantile, 0.95,
           na.rm=TRUE), col=options$col[group.number]), type='l', lty=2, lwd=1, alpha=0.5))
-      }, key=list(text=list(lab=names(x)), lines=list(col=options$col)))))
+      })))
 
   }
      }
