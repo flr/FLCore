@@ -713,3 +713,14 @@ setMethod("fbar", signature(object="FLBiol"),
 
   } 
 ) # }}}
+
+# catch.n {{{
+setMethod("catch.n", signature(object="FLBiol"),
+  function(object)
+  {
+    hrvst<-harvest(object)
+    z <- hrvst+m(object)[,-dims(n(object))$year]
+    res <- n(object)[,-dims(n(object))$year]*hrvst/z*(1-exp(-z))
+    return(res)
+   }
+) # }}}
