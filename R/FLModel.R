@@ -535,8 +535,9 @@ setMethod('nls',
     formula@residuals <- log(formula@fitted/eval(as.list(formula@model)[[2]], data))
     
     # force dimnames[1:5] in 'fitted' and 'residuals' to match
-    dimnames(fitted(formula))[1:5] <- dimnames(do.call(as.character(
-      as.list(formula@model)[2]), list(formula)))[1:5]
+    
+    dimnames(fitted(formula))[1:5] <- dimnames(do.call(slot, list(formula,
+    as.character(as.list(formula@model)[2]))))[1:5]
     dimnames(residuals(formula)) <- dimnames(fitted(formula))
 
     return(formula)
