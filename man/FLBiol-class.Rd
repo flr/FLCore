@@ -67,6 +67,8 @@ FLComp
 \item{}{\code{ signature(object=FLBiol,value=FLQuant) }}
 \item{\link{fbar}(FLCore) :}{calculates fbar}
 \item{}{\code{ signature(object=FLBiol) }}
+\item{\link{fbar}(FLCore) :}{calculates harvest, as fishing mortality. The ratio of F between the plusgroup, if specified, and the previous age, \code{fratio}, defaults to 1.}
+\item{}{\code{ signature(object=FLBiol) }}
 }}
 \author{The FLR Team}
 \seealso{ \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce}, \link{fec}, \link{fec<-}, \link{m}, \link{m<-}, \link{n}, \link{n<-}, \link[graphics]{plot}, \link{spwn}, \link{spwn<-}, \link{ssb}, \link{wt}, \link{wt<-}, \link{FLComp} }
