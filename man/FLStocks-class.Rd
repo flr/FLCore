@@ -17,7 +17,8 @@ list
 vector
 }}
 \section{Methods}{\describe{
-\item{\link[graphics]{plot}(graphics):}{Describe method}
+\item{\link[graphics]{plot}(graphics):}{Default plot for FLStocks. Different lines for each stock object are shown in panel panels, corresponding to \emph{rec}, \emph{ssb}, 
+\emph{catch} and \emph{harvest}. A \emph{key} argument turns off (FALSE, default) or on (TRUE) a figure key. A new key can also be provided (see \emph{key} entry in \code{\link{xyplot}}.}
 \item{}{\code{signature(x=FLStocks,y=missing)}}
 }}
 \author{The FLR Team}
