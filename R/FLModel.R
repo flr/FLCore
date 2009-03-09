@@ -768,8 +768,8 @@ if (!isGeneric("lower<-"))
 setReplaceMethod("lower", signature(object="FLModel", value="numeric"),
   function(object, value)
   {
-    if(length(value) != dim(params(object))[2])
-      stop('Need to specify a lower value for each parameter')
+    if(length(value) < dim(params(object))[1])
+      value <- rep(value, length=dim(params(object))[1])
     attr(slot(object, 'initial'), 'lower') <- value
     return(object)
   }
@@ -788,8 +788,8 @@ if (!isGeneric("upper<-"))
 setReplaceMethod("upper", signature(object="FLModel", value="numeric"),
   function(object, value)
   {
-    if(length(value) != dim(params(object))[2])
-      stop('Need to specify a upper value for each parameter')
+    if(length(value) != dim(params(object))[1])
+      value <- rep(value, length=dim(params(object))[1])
     attr(slot(object, 'initial'), 'upper') <- value
     return(object)
   }
