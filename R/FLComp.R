@@ -121,14 +121,14 @@ if (!isGeneric("transform"))
 	setGeneric("transform", function(`_data`, ...) standardGeneric("transform"))
 
 setMethod("transform", signature(`_data`="FLComp"),
-	function(`_data`, ...) {
-		# An environment is created to avoid issues with
+	function(`_data`, ...)
+  {	
+    # An environment is created to avoid issues with
 		#  methods sharing names with slots - IM 26.08.07
-		env <- new.env()
+		env <- new.env(parent=parent.frame())
 		for (i in slotNames(`_data`))
 			assign(i, slot(`_data`, i), env=env)
     args <- eval(substitute(list(...)), env)
-
 		for (i in 1:length(args)) {
 			slot(`_data`, names(args)[i]) <- args[[i]]
 		}

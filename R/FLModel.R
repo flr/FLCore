@@ -431,12 +431,13 @@ setMethod('predict', signature(object='FLModel'),
       # check inputs
       if(it == 1)
       {
-        res <- propagate(eval(call, envir=c(params, data, dimdat)),
-          iters, fill.iter=FALSE)
+        res <- propagate(do.call(class(object@fitted), list(eval(call,
+          envir=c(params, data, dimdat)))), iters, fill.iter=FALSE)
       }
       else
       {
-        iter(res, it) <- eval(call, envir=c(params, data, dimdat))
+        iter(res, it) <- do.call(class(object@fitted), list(eval(call,
+          envir=c(params, data, dimdat))))
       }
     }
     return(res)

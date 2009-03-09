@@ -7,7 +7,7 @@
 
 .onLoad <- function(lib,pkg) {
 	require(methods)
-	cat("FLCore 2.1 \"Swordfish Polka\"\n")
+	cat("FLCore 3.0 \"\"\n")
   cat("------------------------------------\n")
 }
 
