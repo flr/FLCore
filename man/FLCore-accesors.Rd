@@ -254,12 +254,13 @@
 % harvest
 \alias{harvest}
 \alias{harvest-methods}
-\alias{harvest,FLStock-method}
+\alias{harvest,FLStock,missing-method}
 % harvest<-
 \alias{harvest<-}
 \alias{harvest<--methods}
 \alias{harvest<-,FLStock,character-method}
 \alias{harvest<-,FLStock,FLQuant-method}
+\alias{harvest<-,FLStock,numeric-method}
 % harvest.spwn
 \alias{harvest.spwn}
 \alias{harvest.spwn-methods}

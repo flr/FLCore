@@ -2,12 +2,11 @@
 \docType{methods}
 \alias{harvest,FLBiol-method}
 \alias{harvest,FLBiol,missing-method}
-\alias{harvest,FLStock,missing-method}
-\alias{harvest<-,FLStock,numeric-method}
 \title{Harvest calculations for FLBiol}
 \description{
-  The fishing mortality endured by a population, represented by an \code{FLBiol} object,
-  can be approximated by
+  Calculates the fishing mortality (F), based on abundance changes by year and age, 
+  and the difference between total mortality (Z) and natural mortality (M), for an object
+  of class \code{FLBiol}.
 }
 
 \section{Generic function}{
@@ -17,7 +16,9 @@
 \item{ signature(object=FLBiol) :}{Uses the method above to calculate an approximation of harvest rate}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLComp}, \link{FLStock-class}}
+\seealso{ \link{FLComp}, \link{FLBiol-class}}
 \examples{
+flb<-as(ple4, 'FLBiol')
+harvest(flb)
 }
 \keyword{methods}

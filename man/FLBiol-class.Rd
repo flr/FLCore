@@ -2,7 +2,6 @@
 \docType{class}
 \alias{FLBiol-class}
 \alias{catch.n,FLBiol-method}
-\alias{harvest,FLBiol-method}
 \title{Class FLBiol}
 \description{
  This is a class for the modelling of age/length or biomass structured populations.
