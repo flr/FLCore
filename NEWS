@@ -26,6 +26,8 @@ BUG FIXES
     by default. Use key=TRUE to get the standard key for groups.
   - transform(FLComp) did not create correctly the necessary environment, so arguments
     on parent.frame could not be found.
+  - The FLFleet example dataset, bt4, has been actualized to the new FLCatch class, where
+    the catch.* slots are now substituted by methods.
 	
 UTILITIES
 

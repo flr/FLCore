@@ -62,7 +62,19 @@ setMethod("FLCohort", signature("FLQuant"), function(object, ...){
 	# et voilá
 	new("FLCohort", flc, units=units(object))
 
-})  # }}}
+})
+
+setMethod('FLCohort', signature(object='FLCohort'),
+  function(object, units=units(object), quant=quant(object))
+  {
+    if(!missing(quant))
+      quant(object) <- quant
+    if(!missing(units))
+      units(object) <- units
+
+    return(object)
+  }
+) # }}}
 
 # FLCohort methods   {{{
 # coerce FLQuant into FLCohort
