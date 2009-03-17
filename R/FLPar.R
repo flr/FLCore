@@ -67,6 +67,10 @@ setMethod('FLPar', signature('vector'),
 	function(object, params=letters[seq(length(object)/length(iter))], iter=1, 
     byrow=FALSE, units='NA')
   {
+    # if length(iter)=1, then expand
+    if(length(iter) == 1 && as.character(iter) != '1')
+      iter <- seq(iter)
+
 		res <- array(matrix(object, ncol=length(iter), nrow=length(params), byrow=byrow),
         dim=c(length(params), length(iter)))
 		return(FLPar(res, units=units, params=params, iter=iter))
