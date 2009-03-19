@@ -300,13 +300,68 @@ setAs('FLPar', 'numeric',
 setAs('FLPar', 'list',
   function(from)
   {
-    res <- vector("list", length = dim(from)[2])
-    names(res) <- dimnames(from)$param
-    for(i in seq(names(res)))
-      res[[i]] <- as.vector(from[,i])
+    params <- dimnames(from)$params
+    res <- vector("list", length = length(params))
+    names(res) <- params
+    for(i in params)
+      res[[i]] <- as.vector(from[i,])
+
     return(res)
   }
 )
+
+setAs('FLQuant', 'FLPar',
+  function(from)
+  {
+    # check quant(from) == 'params'
+    if(quant(from) != 'params')
+      stop("'quant' in FLQuant must be 'params'")
+
+    # extract array with dims of length < 1 collapsed
+    res <- from@.Data[,,,,,,drop=TRUE]
+
+    res <- FLPar(res)
+
+    if(validObject(res))
+      return(res)
+    else
+      stop("created object is not valid, please check input")
+  }
+)
+
+setAs('FLPar', 'FLQuant',
+  function(from)
+  {
+    # extract array
+    data <- from@.Data
+    # and names
+    names <- names(dimnames(data))
+
+    # output FLQuant
+    res <- FLQuant(quant='params', units=ifelse(all(units(from) == 'NA'),
+      'NA', paste(units(from), collapse='_')))
+
+    # reshape data for FLQuant dimnames
+    idx <- match(names(res), names)
+    idx <- idx[!is.na(idx)]
+    aperm(data, idx)
+
+
+    # get dim and dimnames for FLQuant
+    idx <- names(res) %in% names(dimnames(data))
+    dim <- rep(1,6)
+    dim[idx] <- dim(data)
+    dnames <- dimnames(res)
+    dnames[idx] <- dimnames(data)
+  
+    res@.Data <- array(data, dim=dim, dimnames=dnames)
+
+    return(res)
+
+  }
+)
+
+
 # }}}
 
 # propagate {{{
