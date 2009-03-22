@@ -861,7 +861,7 @@ setMethod('rec', signature(object='FLStock'),
 # mergeFLStock {{{
 mergeFLStock<-function(x, y)
     {
-    if (!all(unlist(dims(ple4))==unlist(dims(ple4)))) stop("FLStock objects to combine have dim mismatch")
+    if (!all(unlist(dims(x))==unlist(dims(y)))) stop("FLStock objects to combine have dim mismatch")
 
     res<-FLStock(stock     =stock(     x)   +stock(  y),
                  stock.n   =stock.n(   x)   +stock.n(y),
