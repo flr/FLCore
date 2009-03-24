@@ -46,8 +46,7 @@ remove(validFLQuant)    # }}}
 ## FLQuant      {{{
 if (!isGeneric("FLQuant")) {
 	setGeneric("FLQuant", function(object, ...){
-		value  <-  standardGeneric("FLQuant")
-		value
+		standardGeneric("FLQuant")
 	})
 }   # }}}
 

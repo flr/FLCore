@@ -288,6 +288,7 @@ exportMethods(
 	"name",
 	"name<-",
 	"names",
+	"names<-",
 	"nls",
 	"params",
 	"params<-",

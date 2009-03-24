@@ -404,3 +404,26 @@ setMethod("dims", signature(obj="FLPar"),
 	}
 )   # }}}
 
+## names         {{{
+setMethod("names", signature(x="FLPar"),
+	function(x)
+    names(dimnames(x))
+)
+# }}}
+
+## names<-         {{{
+if (!isGeneric("names<-"))
+	setGeneric("names<-")
+
+setMethod("names<-", signature(x="FLPar", value="character"),
+	function(x, value)
+  {
+    # last dim must be 'iter', as in validFLPar
+    if(value[length(value)] != 'iter')
+      stop("last dimension must be named 'iter'")
+    
+    names(dimnames(x)) <- value
+    return(x)
+  }
+)
+# }}}
