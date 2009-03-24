@@ -54,7 +54,7 @@ setMethod('FLPar', signature(object="array"),
 	
 # FLPar(missing, iter, param)
 setMethod('FLPar', signature(object="missing"),
-	function(params='a', iter=1, dimnames=list(params=params, iter=seq(1:iter)), units='NA')
+	function(params='a', iter=1, dimnames=list(params=params, iter=seq(iter)), units='NA')
 	{
 		res <- array(as.numeric(NA), dim=unlist(lapply(dimnames, length)),
       dimnames=dimnames)
@@ -65,25 +65,35 @@ setMethod('FLPar', signature(object="missing"),
 # FLPar(vector)
 setMethod('FLPar', signature('vector'),
 	function(object, params=letters[seq(length(object)/length(iter))], iter=1, 
-    byrow=FALSE, units='NA')
+    dimnames=list(params=params, iter=seq(iter)), byrow=FALSE, units='NA')
   {
     # if length(iter)=1, then expand
     if(length(iter) == 1 && as.character(iter) != '1')
       iter <- seq(iter)
 
-		res <- array(matrix(object, ncol=length(iter), nrow=length(params), byrow=byrow),
-        dim=c(length(params), length(iter)))
-		return(FLPar(res, units=units, params=params, iter=iter))
+		res <- array(matrix(object, ncol=length(iter), nrow=length(dimnames$params),
+      byrow=byrow),dim=unlist(lapply(dimnames, length)))
+		return(FLPar(res, units=units, dimnames=dimnames))
 	}
 )
 
 # FLPar(FLPar)
 setMethod('FLPar', signature('FLPar'),
-	function(object, params=dimnames(object)$params, iter=length(dimnames(object)$iter),
-    units=object@units)
+	function(object, dimnames=attr(object, 'dimnames'), params=dimnames$params,
+    iter=dimnames$iter, units=object@units)
   {
-    res <- FLPar(NA, iter=iter, params=params, units=units)
-    return(do.call('[<-', c(list(res), dimnames(object), list(value=object))))
+    # get iter as vector if single number given
+    if(!missing(iter) && length(iter) == 1 && ac(iter) != '1')
+      iter <- ac(seq(as.numeric(iter)))
+
+    dimnames$params <- params
+    dimnames$iter <- ac(iter)
+    res <- FLPar(NA, dimnames=dimnames, units=units)
+    
+    # select target dimnames and change names for '[<-'
+    dimnames <- dimnames(object)
+    names(dimnames) <- letters[seq(9,length=length(dimnames))]
+    return(do.call('[<-', c(list(res), dimnames, list(value=object))))
 	}
 ) # }}}
 
@@ -368,7 +378,11 @@ setAs('FLPar', 'FLQuant',
 setMethod("propagate", signature(object="FLPar"),
   function(object, iter, fill.iter=TRUE)
   {
-    res <- FLPar(object, iter=seq(iter))
+    # dimnames of input object
+    dnames <- dimnames(object)
+    dnames$iter <- seq(iter)
+
+    res <- FLPar(object, dimnames=dnames)
     if(fill.iter == FALSE)
     {
       args <- list(x=res, iter=seq(iter)[-1], value=as.numeric(NA))
