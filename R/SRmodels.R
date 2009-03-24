@@ -273,26 +273,28 @@ ricker.c.b<-function ()
   } # }}}
 
 # Ricker parameterised for steepness & virgin biomass {{{
-Ricker.SV <- function(s,v,spr0,ssb)
-    {
-    param<-sv2ab(s,v,spr0,"ricker")
-
-    return(param["a"] * ssb * exp(-param["b"] * ssb))
-    }
+Ricker.SV <- function (steepness, vbiomass, spr0, ssb) 
+{
+  b <- log(5 * steepness) / (vbiomass * 0.8)
+  a <- exp(b * vbiomass) / spr0
+  return(a * ssb * exp(-b* ssb))      
+}
 
 ricker.sv <- function()
-    {
-    logl <- function(s, v, spr0, sigma2, rec, ssb)
-      sum(dnorm(log(rec),log(Ricker.SV(s,v,spr0,ssb)), sqrt(sigma2), TRUE), na.rm=TRUE)
+{
+  logl <- function(steepness, vbiomass, spr0, sigma2, rec, ssb)
+    sum(dnorm(log(rec), log(Ricker.SV(steepness, vbiomass, spr0, ssb)), sqrt(sigma2),
+    TRUE), na.rm=TRUE)
 
-    initial <- structure(function(rec, ssb) {
-        return(list(s = .75, v = mean(as.vector(ssb))*2, spr0=spr0, sigma2 = 0.3))
-    }, lower = c(.2, 1e-08, 1e-08, 1e-08), upper = c(5,rep(Inf, 3)))
+  initial <- structure(function(rec, ssb) {
+    return(list(steepness = .5, vbiomass = mean(as.vector(ssb))*2, spr0=spr0,
+      sigma2 = 0.3))
+  }, lower = c(.1, 1e-08, 1e-08, 1e-08), upper = c(5, rep(Inf, 3)))
 
-    model <- rec ~ Ricker.SV(s,v,spr0,ssb)
+  model <- rec ~ Ricker.SV(steepness, vbiomass, spr0, ssb)
 
-    return(list(logl = logl, model = model, initial = initial))
-    } # }}}
+  return(list(logl = logl, model = model, initial = initial))
+} # }}}
 
 # Bevholt {{{
 bevholt.d<-function() 

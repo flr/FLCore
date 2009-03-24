@@ -3,6 +3,7 @@
 \alias{FLCohort}
 \alias{FLCohort-methods}
 \alias{FLCohort,FLQuant-method}
+\alias{FLCohort,FLCohort-method}
 \title{Method FLCohort}
 \description{
 Creator method for the FLCohort class.

@@ -9,6 +9,8 @@
 \alias{coerce,NULL,FLCatch-method}
 \alias{coerce,FLPar,numeric-method}
 \alias{coerce,FLPar,list-method}
+\alias{coerce,FLPar,FLQuant-method}
+\alias{coerce,FLQuant,FLPar-method}
 \alias{coerce,FLCohort,FLQuant-method}
 \alias{coerce,FLQuant,FLCohort-method}
 \alias{coerce,FLBiol,FLStock-method}
