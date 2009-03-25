@@ -52,5 +52,12 @@ flq <- FLQuant(rnorm(50), dim=c(5,10))
 propagate(flq, 10)
 # Look at the %NA in summary
 summary(propagate(flq, 10, fill.iter=FALSE))
+
+flp <- FLPar(1:10, params=letters[1:10])
+propagate(flp, 10)
+propagate(flp, 10, fill.iter=TRUE)
+
+flp <- FLPar(1:15, params=letters[1:5], iter=3)
+propagate(flp, 10)
 }
 \keyword{methods}
