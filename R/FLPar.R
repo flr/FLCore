@@ -376,16 +376,17 @@ setAs('FLPar', 'FLQuant',
 
 # propagate {{{
 setMethod("propagate", signature(object="FLPar"),
-  function(object, iter, fill.iter=TRUE)
+  function(object, iter, fill.iter=FALSE)
   {
     # dimnames of input object
     dnames <- dimnames(object)
     dnames$iter <- seq(iter)
-
+    # new object
     res <- FLPar(object, dimnames=dnames)
-    if(fill.iter == FALSE)
+    # fill.iter
+    if(fill.iter == TRUE)
     {
-      args <- list(x=res, iter=seq(iter)[-1], value=as.numeric(NA))
+      args <- list(x=res, iter=seq(iter)[-1], value=object)
       names(args)[2] <- letters[seq(9,
         length=length(dim(res)))][names(dimnames(res))=='iter']
       res <- do.call('[<-', args)
