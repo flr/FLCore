@@ -12,6 +12,9 @@ USER-VISIBLE CHANGES
   - replacement method for FLPar '[<-', can now use a logical array for indexing.
   - propagate(FLPar) is now able to deal with all dimnames combinations.
   - default values for lower limit of parameters in 'ricker' model lowered to 1e-10.
+  - propagate(FLPar) is now defined. The fill.iter argument deafults to FALSE, in
+    contrast with FLQuant. Objects do not need to have iter=1 to be extended, but only
+    if fill.iter=FALSE.
 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.
