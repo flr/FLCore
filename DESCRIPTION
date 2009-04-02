@@ -10,4 +10,4 @@ License: GPL 2 or above
 Collate: FLArray.R FLQuant.R FLQuantPoint.R FLAccesors.R FLComp.R FLlst-class.R FLStock.R FLCatch.R FLQuants-methods.R FLPar.R io.FLStock.R FLBiol.R FLCohort.R FLMetier.R FLFleet.R FLIndex.R FLlst-methods.R io.FLIndices.R FLModel.R FLSR.R SRmodels.R FLtest.R coerce.R zzz.R
 LazyLoad: Yes
 LazyData: Yes
-SVN: $Rev$
+SVN: $ Rev $
