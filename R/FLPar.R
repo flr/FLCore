@@ -131,30 +131,36 @@ setMethod('[', signature(x='FLPar'),
 
 # "[<-"     {{{
 setMethod("[<-", signature(x="FLPar"),
-	function(x, i="missing", j="missing", ..., value="missing")
+	function(x, i, j, ..., value)
   {
     if(!missing(i) && is.array(i))
     {
 			x@.Data[i] <- value
 			return(x)
 		}
-    
-    dx <- dim(x)
-    if(missing(i))
-			i  <-  seq(1, length(dimnames(x@.Data)[1][[1]]))
-		if (missing(j))
-			j  <-  dimnames(x@.Data)[2][[1]]
 
-    if(length(dim(x)) == 2)
-      x@.Data[i, j] <- value
-		else {
-			args <- list(...)
-			if(length(args) == 0)
-				k <- seq(1, dx[3])
-			else
-				k <- args[[1]]
-			x@.Data[i, j, k] <- value
+    dx <- dimnames(x)
+    names(dx) <- letters[seq(9, length=length(dx))]
+
+    # set up for dims 1 and 2
+    if(!missing(i))
+      dx$i <- i
+		if (!missing(j))
+      dx$j <- j
+
+    # extra args, if given
+    args <- try(list(...))
+    if(is.list(try))
+    {
+      if (length(args) > 0)
+      {
+        names(args) <- letters[seq(11, length=length(args))]
+        dx[names(args)] <- args
+      }
     }
+
+    x <- do.call('[<-', c(list(x=x@.Data), dx, list(value=value)))
+
     return(x)
 	}
 )   # }}}

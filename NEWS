@@ -31,10 +31,12 @@ BUG FIXES
     on parent.frame could not be found.
   - The FLFleet example dataset, bt4, has been actualized to the new FLCatch class, where
     the catch.* slots are now substituted by methods.
+  - FLPar(vector) did not use the whole input vector. Vector is now applied along all
+    dimensions starting by row.
 	
 UTILITIES
 
 DOCUMENTATION
-  - FS#5 - The FLR citiation is wrong! D'oh!. Fixed.
+  - FS#5 - The FLR citation is wrong! D'oh!. Fixed.
     
 DEPRECATED & DEFUNCT
