@@ -7,7 +7,7 @@
 
 .onLoad <- function(lib,pkg) {
 	require(methods)
-	cat("FLCore 3.0 \"$Id$\"\n")
+	cat("FLCore 3.0 \"$Rev$\"\n")
   cat("------------------------------------\n")
 }
 
