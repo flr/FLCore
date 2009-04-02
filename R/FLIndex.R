@@ -239,51 +239,6 @@ setMethod("as.FLIndex", signature(object="FLFleet"),
     }
 )   # }}}
 
-## plot::FLIndex	{{{
-setMethod("plot", signature(x="FLIndex",y="missing"),
-    function(x, type=c("splom"), ...) {
-
-	    plotinternal <- function(x, ... ) {
-        pfun <- function(x,y,...){
-          panel.xyplot(x,y, ...)
-          if (length(x) > 1) panel.lmline(x,y, lty=1)
-        }
-        skip <- matrix(1,nrow=dims(x@index)$age-1, ncol=dims(x@index)$age-1)
-        xydf <- NULL
-        for (age in dims(x@index)$min:(dims(x@index)$max-1) ){
-          for (inc in 1:(dims(x@index)$max-age)) {
-              years <- dims(x@index)$minyear:(dims(x@index)$maxyear-inc)
-              xd <- as.numeric(x@index[as.character(age),as.character(years),])
-              yd <- as.numeric(x@index[as.character(age+inc),as.character(years+inc),])
-              d <- paste("age",age,"vs",age+inc)
-              xydf <- rbind(xydf,cbind(as.data.frame(cbind(xd,yd)),d))
-              skip[dims(x@index)$max-dims(x@index)$min+1-inc, age-dims(x@index)$min + 1] <-0
-          }
-        }
-        xydf <- xydf[xydf$xd != 0 & xydf$yd != 0 & !is.na(xydf$xd) & !is.na(xydf$yd),]
-        print(xyplot(yd~xd|d,outer=F, col="black", data=xydf, panel=pfun, scales=list(log="e",relation="sliced",draw=FALSE), layout=c(dims(x@index)$age-1,dims(x@index)$age-1), xlab="log index", ylab="log index", skip=as.numeric(skip), main=x@name))
-      }
-      plotts <- function(x, ...) {
-        dps <- as.data.frame(sweep(x@index,1,apply(x@index,  1,mean,na.rm=T),"/"))
-        dps$year <- as.numeric(as.character(dps$year))
-        dps$age <- as.factor(dps$age)
-        print(xyplot(data~year|age,outer=T, type="b", data=dps, scales=list(relation="sliced",draw=TRUE),lty=(5:1),lwd=1.5, ylab="standardised index", ...))
-      }
-
-      # The body of the plot method
-      validObject(x)
-	    type <- type[1]
-	    
-	    res <- switch(type,
-	      "splom" = plotinternal(x=x, ... ),
-	      "ts" = plotts(x=x, ... ),
-        cat("type must be 'splom' or 'ts' !\n"))
-	    # Return result invisibly
-	    invisible(res)
-
-    }
-)	# }}}
-
 ## computeCatch (added by EJ)   {{{
 setMethod(computeCatch, signature("FLIndex"), function(object){
 	catch <- object@catch.n*object@catch.wt
