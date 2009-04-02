@@ -138,7 +138,7 @@ setMethod("[<-", signature(x="FLPar"),
 			x@.Data[i] <- value
 			return(x)
 		}
-
+    
     dx <- dimnames(x)
     names(dx) <- letters[seq(9, length=length(dx))]
 
@@ -159,7 +159,7 @@ setMethod("[<-", signature(x="FLPar"),
       }
     }
 
-    x <- do.call('[<-', c(list(x=x@.Data), dx, list(value=value)))
+    x <- FLPar(do.call('[<-', c(list(x=x@.Data), dx, list(value=value))))
 
     return(x)
 	}

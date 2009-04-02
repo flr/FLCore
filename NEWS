@@ -5,6 +5,8 @@ NEW FEATURES
   - harvest method for FLBiol has been reformulated. It now computes F based on the 
     differences between Z and N, and handles the plusgroup, assumed to be the last age.
   - catch.n method for FLBiol now available. Calculates catch from abundance and harvest.
+  - a dimnames<- method for FLStock has been added. dimnames can be modified for all
+    FLQuant slots and the behaviour of non-quant ones is respected.
 
 USER-VISIBLE CHANGES
   - nls(FLModel) does not strictly require accessor for the input FLQuant slots to be
@@ -15,6 +17,7 @@ USER-VISIBLE CHANGES
   - propagate(FLPar) is now defined. The fill.iter argument deafults to FALSE, in
     contrast with FLQuant. Objects do not need to have iter=1 to be extended, but only
     if fill.iter=FALSE.
+  - improved selection and replacement for FLPar.
 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.
