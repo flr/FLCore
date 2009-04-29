@@ -31,4 +31,3 @@ checkTrue(is(flq, "FLQuant"))
 checkIdentical(flq, catch.n(ple4))
 
 finishTest()
-
