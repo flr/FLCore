@@ -127,7 +127,7 @@ ab2sv<-function(a,b,spr0,model)
 }
 # }}}
 
-
+# ab {{{
 setGeneric('ab', function(object, ...)
 		standardGeneric('ab'))
 
@@ -155,7 +155,7 @@ setMethod('ab', signature(object='FLSR'),
   params(object)<-par
 
   return(object)
-  })
+  })  # }}}
 
 # Ricker  {{{
 ricker <- function()

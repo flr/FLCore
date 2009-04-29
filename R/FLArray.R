@@ -115,16 +115,16 @@ setMethod("[", signature(x="FLArray", i="array"),
 
 ## "[<-"            {{{
 setMethod("[<-", signature(x="FLArray"),
-	function(x, i, j, k, l, m, n, ..., value)
+  function(x, i, j, k, l, m, n, ..., value)
   {
-		if(!missing(i) && is.array(i))
+    if(!missing(i) && is.array(i))
     {
-			x@.Data[i] <- value
-			return(x)
-		}
+	  x@.Data[i] <- value
+      return(x)
+    }
 
-		dx <- dim(x)
-		if (missing(i))
+    dx <- dim(x)
+	if (missing(i))
       i  <-  seq(1, dx[1])
     if (missing(j))
       j  <-  seq(1, dx[2])
@@ -360,4 +360,3 @@ setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
 		return(df)
 	}
 )   # }}}
-

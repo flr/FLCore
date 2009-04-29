@@ -301,7 +301,7 @@ setMethod('fmle',
       
       # output
       # place out$par in right iter dim
-      iter(object@params[names(out$par),], it)  <- out$par
+      iter(object@params[names(out$par),], it) <- out$par
       # fixed
       if(length(fixed) > 0)
         iter(object@params, it)[fixnm,] <- unlist(fixed)
