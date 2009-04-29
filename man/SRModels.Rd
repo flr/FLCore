@@ -70,7 +70,7 @@
 	shepherd.d.ar1()
 	shepherd.ndc()
 	shepherd.ndc.ar1()
-	sv2ab(steepness, vbiomass, spr0, sr.model)
+	sv2ab(steepness, vbiomass, spr0, model)
 }
 \arguments{
         \item{rho}{Autoregression}
@@ -80,7 +80,7 @@
         \item{steepness}{Steepness.}
         \item{vbiomass}{Virgin biomass.}
         \item{spr0}{Spawners per recruit at F=0, see \code{\link{spr0}}.}
-        \item{sr.model}{character vector with model name, 'bevholt' or 'ricker'.}
+        \item{model}{character vector with model name, either 'bevholt' or 'ricker'.}
 }
 \details{          
     

@@ -2,6 +2,7 @@
 \docType{methods}
 \alias{dimnames<-,ANY,missing-method}
 \alias{dimnames<-,FLQuant,list-method}
+\alias{dimnames<-,FLStock,list-method}
 \title{Modify dimnames of an FLQuant}
 \description{
   The \code{dimnames<-} method for objects of class \code{\link{FLQuant}} modifies the
@@ -16,7 +17,8 @@
  dimnames<-(x,value) 
 }
 \section{Methods}{\describe{
-\item{signature(x=FLQuant, value=list) :}{Modify FLQuant dimnames}
+\item{signature(x=FLQuant, value=list) :}{Modify FLQuant dimnames.}
+\item{signature(x=FLStock, value=list) :}{Modify dimnames of all FLQuant slots inside an FLStock object.}
 }}
 \author{The FLR Team}
 \seealso{\code{\link[base]{dimnames}}, \code{\link{FLQuant}}, \code{\link[base]{array}}}

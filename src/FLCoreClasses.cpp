@@ -22,8 +22,8 @@ FLRConstSRR getSRType(SEXP v)
    if (!isVector(v) || !isString(v))
       return FLRConst_Mean;;
 
-    SEXP dims     = GET_DIM(v);
-         //dimnames = GET_DIMNAMES(v);
+    SEXP dims     = GET_DIM(v),
+         dimnames = GET_DIMNAMES(v);
 
     short n = length(dims);
 
@@ -746,11 +746,11 @@ double FLStock::computeDiscards(int iyr, int iunit, int iseason, int iarea, int 
       {
       double z = m(iage, iyr, iunit, iseason, iarea, iter) + harvest(iage, iyr, iunit, iseason, iarea, iter);
 
-      val += discards_n( iage, iyr, iunit, iseason, iarea, iter)/
-             catch_n(    iage, iyr, iunit, iseason, iarea, iter)*
-             stock_n(    iage, iyr, iunit, iseason, iarea, iter)*
-             harvest(    iage, iyr, iunit, iseason, iarea, iter)/z*(1-exp(-z))*
-             discards_wt(iage, iyr, iunit, iseason, iarea, iter);
+      val +=  catch_n(   iage, iyr, iunit, iseason, iarea, iter)*
+              discards_n(iage, iyr, iunit, iseason, iarea, iter)/
+             (landings_n(iage, iyr, iunit, iseason, iarea, iter)+
+              discards_n(iage, iyr, iunit, iseason, iarea, iter))*
+              discards_wt(iage, iyr, iunit, iseason, iarea, iter);
       }
 
    return val;
@@ -1999,7 +1999,22 @@ void FLQuant2::Init(int i7, int _minquant, int _maxquant, int _minyr, int _maxyr
     }
 
 double& FLQuant2::operator()(int i7, int _age,int _yr,int _unit, int _season, int _area, int _iter) { 
-   if (i7<1 || i7 > flq_n   || 
+
+  //if (i7<1)                 return outofbounds_double;
+  //if (i7 > flq_n)           return outofbounds_double; 
+  //if (!InitFlag(i7))        return outofbounds_double;
+  //if (_age   <minquant(i7)) return outofbounds_double;
+  //if (_age   >maxquant(i7)) return outofbounds_double;
+  //if (_yr    <minyr(i7))    return outofbounds_double;
+  //if (_yr    >maxyr(i7))    return outofbounds_double;
+  //if (_unit  <1)            return outofbounds_double;
+  //if (_unit  >nunits(i7))   return outofbounds_double;
+  //if (_season<1)            return outofbounds_double;
+  //if (_season>nseasons(i7)) return outofbounds_double;
+  //if (_area  <1)            return outofbounds_double;
+  //if (_area  >nareas(i7))   return outofbounds_double;
+      
+  if (i7<1 || i7 > flq_n   || 
        !InitFlag(i7)        || 
        _age   <minquant(i7) || _age   >maxquant(i7) || 
        _yr    <minyr(i7)    || _yr    >maxyr(i7)    || 
@@ -2008,7 +2023,7 @@ double& FLQuant2::operator()(int i7, int _age,int _yr,int _unit, int _season, in
        _area  <1            || _area  >nareas(i7)) 
       return outofbounds_double;
    else
-      return (data)[i7][_age][_yr][_unit][_season][_area][__min(_iter,niters(i7))]; 
+      return (data)[i7][_age][_yr][_unit][_season][_area][__min(_iter,niters(i7))];  
    } 
 
 
@@ -3344,8 +3359,6 @@ void FLQuant4::alloc(int i9, int i8, int i7)
 
 void FLQuant4::unalloc(int i9, int i8, int i7)      
    {
-return;
-  
    if (i9<1 || i9>flq_n9) 
       return;
 

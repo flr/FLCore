@@ -76,7 +76,7 @@ setMethod('spr0', signature(ssb='FLSR', rec='missing', fbar='FLQuant'),
 
 # sv2ab & ab2sv {{{
 # calc steepness & virgin biomass from alpha & beta, given SSB per R at F=0
-sv2ab <- function(steepness, vbiomass, spr0, sr.model)
+sv2ab <- function(steepness, vbiomass, spr0, model)
 {
    bh.sv2ab<-function(steepness,vbiomass,spr0)
       {
@@ -97,12 +97,12 @@ sv2ab <- function(steepness, vbiomass, spr0, sr.model)
 			return(res)
 			}
 
-   if (sr.model=="bevholt") return(bh.sv2ab(steepness,vbiomass,spr0))
-   if (sr.model=="ricker")  return(rk.sv2ab(steepness,vbiomass,spr0))
+   if (model=="bevholt") return(bh.sv2ab(steepness,vbiomass,spr0))
+   if (model=="ricker")  return(rk.sv2ab(steepness,vbiomass,spr0))
 }
 
 #Get a & b from Steepness & virgin biomass
-ab2sv<-function(a,b,spr0,sr.model)
+ab2sv<-function(a,b,spr0,model)
    {
    bh.ab2sv<-function(a,b,spr0){
 			steepness <- a*spr0/(4*b+a*spr0)
@@ -122,10 +122,40 @@ ab2sv<-function(a,b,spr0,sr.model)
 			return(res)
       }
   
-   if (sr.model=="bevholt") return(bh.ab2sv(a,b,spr0))
-   if (sr.model=="ricker")  return(rk.ab2sv(a,b,spr0))
+   if (model=="bevholt") return(bh.ab2sv(a,b,spr0))
+   if (model=="ricker")  return(rk.ab2sv(a,b,spr0))
 }
 # }}}
+
+
+setGeneric('ab', function(object, ...)
+		standardGeneric('ab'))
+
+setMethod('ab', signature(object='FLSR'),
+  function(object, plusgroup=dims(object)$max, ...){
+
+  if (!(SRModelName(model(object)) %in% c("bevholt.sv","ricker.sv")))
+  return(object)
+
+  dmns<-dimnames(params(object))
+  dmns$params<-c("a","b")
+
+  if (SRModelName(model(object)) == "bevholt.sv")
+     model<-"bevholt"
+  else if (SRModelName(model(object)) == "ricker.sv")
+     model<-"ricker"
+
+  par<-FLPar(sv2ab(params(object)["s",],params(object)["v",],params(object)["spr0",],model=model),dimnames=dmns)
+
+  if (SRModelName(model(object)) == "bevholt.sv")
+     model(object)<-bevholt()
+  else if (SRModelName(model(object)) == "ricker.sv")
+     model(object)<-ricker()
+
+  params(object)<-par
+
+  return(object)
+  })
 
 # Ricker  {{{
 ricker <- function()
@@ -527,7 +557,7 @@ segreg <- function()
 	  sum(dnorm(log(rec), log(FLQuant(ifelse(ssb <= b, a*ssb, a*b))), sqrt(sigma2), TRUE), TRUE)
 
   model <- rec ~ FLQuant(ifelse(ssb <= b, a*ssb, a*b))
-
+  
   initial <- structure(function(rec, ssb)
   {
     a <- mean(rec/ssb)

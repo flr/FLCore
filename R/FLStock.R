@@ -906,8 +906,11 @@ mergeFLStock<-function(x, y)
        warning("adding harvest.spwn slots, this might not be want you want")
        harvest.spwn(res)<-(harvest.spwn(x)+harvest.spwn(y))/2
        }
-        
+
     mat(res)    <-(mat(x)*stock.n(x)+mat(y)*stock.n(y))/(stock.n(x)+stock.n(y))
+
+    harvest(res)<-FLQuant(harvest(res),dimnames=dimnames(m(res)))
+
     #harvest(res)<-calcF(m(res),catch.n(res),stock.n(res))
 
     return(res)

@@ -12,27 +12,28 @@
 }
 
 ## convert6d  {{{
-convert6d <- function(obj) {
- 
-    if(is(obj, 'FLQuant'))
-        return(FLQuant(obj@.Data, dimnames=dimnames(obj@.Data), units=units(obj)))
-    if(is(obj, 'FLQuants'))
+convert6d<-function(obj)
+    {
+    if (is(obj, "FLQuant"))
+        return(FLQuant(obj@.Data, dimnames = dimnames(obj@.Data),
+            units = units(obj)))
+
+    if (is(obj, "FLQuants"))
         return(lapply(obj, convert6d))
 
-    slots<-getSlots(class(obj))
-    slots<-names(slots[slots=="FLQuant"])
+    slots <- getSlots(class(obj))
+    slots <- names(slots[slots == "FLQuant"])
+    for (i in slots){
+       print(i)
+       slot(obj, i) <- FLQuant(slot(obj, i)@.Data, dimnames = dimnames(slot(obj, i)@.Data), units = attributes(slot(obj,i))$units)
+       }
 
-    for (i in slots)
-        slot(obj, i) <- FLQuant(slot(obj, i)@.Data, 
-            dimnames=dimnames(slot(obj, i)@.Data), units=units(slot(obj, i)))
-
-    if(is(obj, 'FLFleet'))
-      for (i in names(obj@metiers))
-        for (j in names(obj@metiers[[i]]@catches))
-          obj@metiers[[i]]@catches[[j]] <- qapply(obj@metiers[[i]]@catches[[j]], convert6d)
-        
+    if (is(obj, "FLFleet"))
+        for (i in names(obj@metiers)) for (j in names(obj@metiers[[i]]@catches)) obj@metiers[[i]]@catches[[j]] <- qapply(obj@metiers[[i]]@catches[[j]],
+            convert6d)
     return(obj)
-} # }}}
+    }
+# }}}
 
 # convertFLPar{{{
 if (!isGeneric("convertFLPar")) {
