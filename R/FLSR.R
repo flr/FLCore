@@ -71,11 +71,11 @@ setMethod('FLSR', signature(model='missing'),
 sr <- function(sr, ...)
 {
 	# if logl present, run fmle()
-	try <- try(fmle(sr), silent=TRUE)
+	try <- try(fmle(sr), silent=TRUE, ...)
 
 	if(is(try, 'try-error'))
 		# else if model present run nls()
-		try <- try(nls(sr), silent=TRUE)
+		try <- try(nls(sr), silent=TRUE, ...)
 			if(is(try, 'try-error'))
 				stop('neither nls() nor fmle() could be run on this object')
 	return(try)
