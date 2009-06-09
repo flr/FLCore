@@ -41,5 +41,6 @@ UTILITIES
 
 DOCUMENTATION
   - FS#5 - The FLR citation is wrong! D'oh!. Fixed.
+  - Classes man pages now include a section on Constructor and the contructor man pages were removed (EJ, 20090609)
     
 DEPRECATED & DEFUNCT
