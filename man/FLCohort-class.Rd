@@ -1,6 +1,11 @@
 \name{FLCohort}
 \docType{class}
 \alias{FLCohort-class}
+\alias{FLCohort}
+\alias{FLCohort-methods}
+\alias{FLCohort,FLQuant-method}
+\alias{FLCohort,FLCohort-method}
+
 \title{Class FLCohort}
 \description{
 This class represents cohorts in columns. It simply shifts the typical matrix representation where cohorts are found on the diagonals, into a matrix where cohorts are found in columns. It is very usefull for all analysis that want to make use of cohorts instead of years.
@@ -12,6 +17,13 @@ This class represents cohorts in columns. It simply shifts the typical matrix re
 \section{Extends}{\describe{
 FLArray
 array
+}}
+
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLCohort(object)} constructor method allows simple creation of new FLCatch with the methods described below.
+}
+\item{ signature(object=FLQuant) :}{Creates a FLCohort object from a FLQuant object. It simply shifts the matrix so that cohorts instead of years are located in the columns (second dimensions) of the array.}
 }}
 \section{Methods}{\describe{
 \item{\link[base]{[}(base) :}{Subset method}

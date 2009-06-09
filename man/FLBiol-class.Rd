@@ -2,6 +2,10 @@
 \docType{class}
 \alias{FLBiol-class}
 \alias{catch.n,FLBiol-method}
+\alias{FLBiol}
+\alias{FLBiol-methods}
+\alias{FLBiol,missing-method}
+\alias{FLBiol,FLQuant-method}
 \title{Class FLBiol}
 \description{
  This is a class for the modelling of age/length or biomass structured populations.
@@ -29,6 +33,15 @@
 \section{Extends}{\describe{
 FLComp
 }}
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLBiol(object, ...)} constructor method allows simple creation of new FLBiol objects with the methods described below.
+}
+  \item{object}{An initial FLQuant only used for sizing.}
+  \item{plusgroup}{The age/length to be considered as plusgroup.}
+  \item{...}{Extra objects to be allocated to given slots.}
+}}
+
 \section{Methods}{\describe{
 \item{\link{as.FLBiol}(FLCore) :}{Coerces object ino an \code{FLBiol} object.}
 \item{}{\code{ signature(object=missing) }}

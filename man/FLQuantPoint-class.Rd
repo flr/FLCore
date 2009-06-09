@@ -1,6 +1,10 @@
 \name{FLQuantPoint}
 \docType{class}
 \alias{FLQuantPoint-class}
+\alias{FLQuantPoint}
+\alias{FLQuantPoint-methods}
+\alias{FLQuantPoint,FLQuant-method}
+
 \title{Class FLQuantPoint}
 \description{
   The \code{FLQuantPoint} class summarizes the contents of an \code{FLQuant} object with
@@ -24,6 +28,12 @@
 FLQuant
 array
 }}
+\section{Constructor}{
+\describe{
+\item{}{Objects of class \code{\link{FLQuantPoint-class}} can be created using this method, applied to an object of class \code{\link{FLQuant}} with length two or more along its sixth dimension (\emph{iter}).}
+\item{ signature(object=FLQuant) :}{Describe method}
+}}
+
 \section{Methods}{\describe{
 \item{\link{lowq}(FLCore) :}{Accesor for \code{lowq} iteration}
 \item{}{\code{ signature(x=FLQuantPoint) }}

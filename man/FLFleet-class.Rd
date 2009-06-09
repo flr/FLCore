@@ -1,6 +1,16 @@
 \name{FLFleet}
 \docType{class}
 \alias{FLFleet-class}
+\alias{FLFleet}
+\alias{FLFleet-methods}
+\alias{FLFleet,FLFleet-method}
+\alias{FLFleet,FLMetiers-method}
+\alias{FLFleet,FLMetier-method}
+\alias{FLFleet,FLCatches-method}
+\alias{FLFleet,FLCatch-method}
+\alias{FLFleet,FLQuant-method}
+\alias{FLFleet,missing-method}
+
 \title{Class FLFleet}
 \description{
   The \code{FLFleet} class is a composite object storing some useful information for the 
@@ -57,6 +67,19 @@
 \section{Extends}{\describe{
 FLComp
 }}
+
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLFleet(object)} constructor method allows simple creation of new FLCatch with the methods described below.
+}
+\item{ signature(object=FLMetiers) :}{create a FLFleet object from a FLMetiers object}
+\item{ signature(object=FLMetier) :}{create a FLFleet object from a FLMetier object}
+\item{ signature(object=FLCatches) :}{create a FLFleet object from a FLCatches object}
+\item{ signature(object=FLCatch) :}{create a FLFleet object from a FLCatch object}
+\item{ signature(object=FLQuant) :}{create a FLFleet object from a FLQuant object}
+\item{ signature(object=missing) :}{create a void FLFleet object for future use}
+}}
+
 \section{Methods}{\describe{
 \item{\link{catch}(FLCore) :}{Accessor method for the catch slot across FLMetiers
 and FLCatches objects}
@@ -119,6 +142,14 @@ and FLCatches objects}
 \link[base]{coerce}, \link{discards}, \link{discards.n}, \link{discards.sel}, \link{discards.wt},
 \link{landings}, \link{landings.n}, \link{landings.sel}, \link{landings.wt}, \link{price}, \link{FLComp} }
 \examples{
+# creating objects
+my.fleet <- FLFleet(name='fleet1',metiers=FLMetiers(FLMetier(name='met1',catches=FLCatches(FLCatch()))))
+my.fleet <- FLFleet(FLMetier(name='met1',catches=FLCatches(FLCatch())))
+my.fleet <- FLFleet(FLCatches(FLCatch())) # a metier is implicitely created
+my.fleet <- FLFleet(FLCatch()) # a metier is implicitely created
+my.fleet <- FLFleet()
+
+# in house example
 data(bt4)
 
 catch(bt4, catch="PLE")   # returns a FLQuants object across metiers
@@ -129,5 +160,7 @@ effort(bt4) # a FLFleet slot
 effshare(bt4@metiers[[1]]) # a FLMetier slot for metier 1
 # => metier(bt4,met="OTH") is missing...exist but not in the NAMESPACE?
 catch(bt4@metiers[[1]]@catches[[1]]) # a FLCatch slot for metier 1 and catch 1
+
+
 }
 \keyword{classes}

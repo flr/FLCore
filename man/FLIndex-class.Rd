@@ -1,6 +1,11 @@
 \name{FLIndex}
 \docType{class}
 \alias{FLIndex-class}
+\alias{FLIndex}
+\alias{FLIndex-methods}
+\alias{FLIndex,missing-method}
+\alias{FLIndex,FLQuant-method}
+
 \title{Class FLIndex}
 \description{
  A class designed to hold data and parameters related to abundance indices 
@@ -22,6 +27,15 @@
 \section{Extends}{\describe{
 FLComp
 }}
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLIndex(object, ...)} constructor method allows simple creation of new FLIndex with the methods described below.
+}
+\item{ signature(object=missing) :}{Describe method}
+\item{ signature(object=FLQuant) :}{Describe method}
+
+}}
+
 \section{Methods}{\describe{
 \item{\link{catch.n}(FLCore) :}{Accessor for the catch.n slot in the object}
 \item{}{\code{ signature(object=missing) }}

@@ -1,6 +1,11 @@
 \name{FLStock-class}
 \docType{class}
 \alias{FLStock-class}
+\alias{FLStock}
+\alias{FLStock-methods}
+\alias{FLStock,missing-method}
+\alias{FLStock,FLQuant-method}
+
 \title{Class FLStock}
 \description{
 
@@ -38,6 +43,21 @@
 \section{Extends}{\describe{
 FLComp
 }}
+
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLStock(object, ...)} constructor method allows simple creation of new FLStock with the methods described below.
+}
+\item{ signature(object=missing) :}{Returns an \code{FLStock} using the first provided argument of class \code{FLQuant} for object sizing, or \code{FLQuant()} if none given.}
+\item{ signature(object=FLQuant) :}{Returns and \code{FLStock} that uses \emph{object} only for sizing.}
+}}
+\section{Constructor arguments}{
+  \describe{
+  \item{object}{An initial FLQuant only used for sizing.}
+  \item{plusgroup}{The age/length to be considered as plusgroup.}
+  \item{...}{Extra objects to be allocated to given slots.}
+  }
+}
 \section{Methods}{\describe{
 \item{\link[base]{[}(base) :}{Subsets an FLStock by subsetting each FLQuant slot in the object}
 \item{}{\code{ signature(x=FLStock,i=ANY,j=ANY,drop=missing) }}

@@ -1,6 +1,12 @@
 \name{FLlst}
 \docType{class}
 \alias{FLlst-class}
+\alias{FLlst}
+\alias{FLlst-methods}
+\alias{FLlst,ANY-method}
+\alias{FLlst,missing-method}
+\alias{FLlst,list-method}
+
 \title{Class FLlst}
 \description{
 \code{FLlst} is a class that extends \code{list} but implements a set of features that give a little bit more structure to list objects. First the elements of \code{FLlst} must all be of the same class. Second it implements a lock mechanism that, when turned on, does not allow the user to increase or decrease the object length. Both features are needed to propoerly implement \code{FLFleet} class. 
@@ -14,6 +20,16 @@
 \section{Extends}{\describe{
 list
 }}
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLlst(object)} constructor method allows simple creation of new FLlst with the methods described below.
+}
+\item{ signature(object=ANY) :}{Returns an \code{FLlst} object with the provided elements if they are all o the same class.}
+\item{ signature(object=missing) :}{Returns an empty \code{FLlst} object}
+\item{ signature(object=list) :}{Returns and \code{FLlst} object with the input list at its core}
+
+}}
+
 \section{Methods}{\describe{
 \item{\link[base]{[}(base) :}{Select method.}
 \item{}{\code{ signature(x=FLlst,i=ANY,j=missing,drop=missing) }}

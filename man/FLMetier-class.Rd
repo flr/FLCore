@@ -1,6 +1,13 @@
-\name{FLMetier-class}
+\name{FLMetier}
 \docType{class}
 \alias{FLMetier-class}
+\alias{FLMetier}
+\alias{FLMetier-methods}
+\alias{FLMetier,FLCatch-method}
+\alias{FLMetier,FLCatches-method}
+\alias{FLMetier,FLQuant-method}
+\alias{FLMetier,missing-method}
+
 \title{Class FLMetier}
 \description{The \code{FLMetier} class is an internal class of FLFleet storing all 
   information related to the activity of a fleet in a specific metier. A metier refers
@@ -39,6 +46,16 @@
 \section{Extends}{\describe{
 FLComp
 }}
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLMetier} constructor method allows creation of new FLMetier objects from either a FLQuant, a FLCatch or a FLCatches object.
+}
+\item{ signature(catches=FLCatch) :}{Creates a FLMetier object from a FLCatch object.}
+\item{ signature(catches=FLCatches) :}{Creates a FLMetier object from a FLCatches object.}
+\item{ signature(catches=FLQuant) :}{Creates a FLMetier object from a FLQuant object.}
+\item{ signature(catches=missing) :}{Creates a FLMetier from scratch}
+}}
+
 \section{Methods}{\describe{
 \item{\link{catch}(FLCore) :}{Accessor method for the catch slot for a given FLCatch
   or across the FLCatches objects  }

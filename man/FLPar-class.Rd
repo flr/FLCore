@@ -1,6 +1,12 @@
 \name{FLPar}
 \docType{class}
 \alias{FLPar-class}
+\alias{FLPar}
+\alias{FLPar-methods}
+\alias{FLPar,array-method}
+\alias{FLPar,missing-method}
+\alias{FLPar,vector-method}
+\alias{FLPar,FLPar-method}
 \title{Class FLPar}
 \description{
  The \code{FLPar} class is a class for storing the parameters of a model. It is based on 
@@ -17,6 +23,14 @@
 }}
 \section{Extends}{\describe{
 
+}}
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLPar(object)} constructor method allows simple creation of new FLPar with the methods described below.
+}
+\item{signature(object=array) :}{Describe method}
+\item{signature(object=missing) :}{Describe method}
+\item{signature(object=vector) :}{Describe method}
 }}
 \section{Methods}{\describe{
 \item{\link[base]{[}(base) :}{Subsetting method to access the parameter values.}

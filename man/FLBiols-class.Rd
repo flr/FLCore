@@ -2,6 +2,12 @@
 \docType{class}
 \alias{FLBiols}
 \alias{FLBiols-class}
+\alias{FLBiols}
+\alias{FLBiols-methods}
+\alias{FLBiols,ANY-method}
+\alias{FLBiols,missing-method}
+\alias{FLBiols,list-method}
+
 \title{Class FLBiols}
 \description{
  A list of \code{FLBiol} objects.
@@ -16,6 +22,14 @@
 FLlst
 list
 vector
+}}
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLBiols(object, ...)} constructor method allows simple creation of new FLBiols objects with the methods described below.
+}
+\item{ signature(object=ANY) :}{Returns an FLBiols object}
+\item{ signature(object=missing) :}{Returns an empty FLBiols object}
+\item{ signature(object=list) :}{Returns an FLBiols object}
 }}
 \section{Methods}{\describe{
 All methods are inherited.

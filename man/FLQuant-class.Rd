@@ -1,6 +1,14 @@
 \name{FLQuant}
 \docType{class}
 \alias{FLQuant-class}
+\alias{FLQuant}
+\alias{FLQuant-methods}
+\alias{FLQuant,missing-method}
+ \alias{FLQuant,vector-method}
+ \alias{FLQuant,array-method}
+ \alias{FLQuant,matrix-method}
+ \alias{FLQuant,FLQuant-method}
+
 \title{FLQuant class for numerical data}
 \description{
   The \code{FLQuant} class is a six-dimensional \code{\link[base]{array}} designed to 
@@ -27,6 +35,29 @@
 FLArray
 array
 }}
+
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLQuant} constructor method allows simple creation of new FLQuant objects from vectors, matrices and arrays.}
+\item{}{R standard recyling rules (row first) are applied in most cases, so if an input object smaller than the required dimensions is given, it will be reused. An exception is made for objects of class vector, which will be considered to go along the second dimension (\code{year}) instead of the first one. To recover the standard behaviour, a matrix can be created.}
+\item{}{The \code{iter} argument takes preference over \code{dim} but not over \code{dimnames}, so it is preferable to ensure consistency between arguments. \code{dim} and \code{dimnames} must match and an error is thrown otherwise.}
+\item{ signature(object=missing) :}{Describe method}
+\item{ signature(object=vector) :}{Describe method}
+\item{ signature(object=array) :}{Describe method}
+\item{ signature(object=matrix) :}{Describe method}
+\item{ signature(object=FLQuant) :}{Describe method}
+}}
+\section{Constructor Arguments}{
+  \describe{
+  \item{object}{An input object.}
+  \item{dim}{The dimensions of the object. A vector of class \code{numeric}.}
+  \item{dimnames}{The dimension names, as a \code{list}.}
+  \item{quant}{A \code{character} string with the name of the first dimension. Defaulta to 'quant'}
+  \item{units}{A \code{character} string with the units of measurement. Defaults to 'NA'}
+  \item{iter}{The number of iterations, i.e. the length of the sixth dimension, on the output object.}
+  \item{fill.iter}{TRUE}
+  }
+}
 \section{Methods}{\describe{
 \item{\link[base]{[}(base) :}{Extract elements}
 \item{}{\code{ signature(x=FLQuant,i=ANY,j=ANY,drop=missing) }}
@@ -183,6 +214,21 @@ array
 \seealso{ \link[base]{[}, \link[base]{[<-}, \link[base]{apply}, \link[base]{Arith}, \link[base]{as.data.frame}, \link{as.FLQuant}, \link[lattice]{barchart}, \link{bubbles}, \link[lattice]{bwplot}, \link{catch<-}, \link{catch.n<-}, \link{catch.wt<-}, \link[methods]{coerce}, \link{cv}, \link{dimnames<-}, \link{dims}, \link{discards<-}, \link{discards.n<-}, \link{discards.wt<-}, \link[lattice]{dotplot}, \link{E}, \link{fec<-}, \link{FLCatch}, \link{FLCohort}, \link{FLMetier}, \link{FLQuant}, \link{FLQuantPoint}, \link{FLSR}, \link{harvest<-}, \link[lattice]{histogram}, \link{iter}, \link{iter<-}, \link{iters}, \link{landings<-}, \link{landings.n<-}, \link{landings.wt<-}, \link{m<-}, \link{n<-}, \link[base]{names}, \link[graphics]{plot}, \link{price<-}, \link[base]{print}, \link{propagate}, \link{quant}, \link{quant<-}, \link{quantile}, \link[stats]{rlnorm}, \link[stats]{rnorm}, \link[base]{show}, \link{spwn<-}, \link[lattice]{stripplot}, \link[base]{summary}, \link{trim}, \link[base]{units}, \link[base]{units<-}, \link[stats]{window}, \link{wt<-}, \link[lattice]{xyplot}, \link[base]{array}}
 \examples{
 # creating a new FLQuant
+flq <- FLQuant()
+flq <- FLQuant(1:10, dim=c(2,5))
+summary(flq)
+
+# Vectors are used column first...
+dim(FLQuant(1:10))
+# ...while matrices go row first.
+dim(FLQuant(matrix(1:10)))
+
+FLQuant(matrix(rnorm(100), ncol=20))
+
+FLQuant(array(rnorm(100), dim=c(5,2,1,1,1,10)))
+FLQuant(array(rnorm(100), dim=c(5,2)), iter=10)
+
+# working with FLQuant objects
 flq <- FLQuant(rnorm(200), dimnames=list(age=1:5, year=2000:2008), units='diff')
 summary(flq)
 

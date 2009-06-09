@@ -1,6 +1,10 @@
 \name{FLCatch}
 \docType{class}
 \alias{FLCatch-class}
+\alias{FLCatch}
+\alias{FLCatch-methods}
+\alias{FLCatch,FLQuant-method}
+\alias{FLCatch,missing-method}
 \title{Class FLCatch}
 \description{
   An internal class for \code{FLMetier} objects that stores stock or species specific 
@@ -33,6 +37,23 @@
 \section{Extends}{\describe{
 FLComp
 }}
+
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLCatch(object)} constructor method allows simple creation of new FLCatch objects from a species name and optional FLQuants.
+}
+\item{ signature(object=FLQuant) :}{Creates a new FLCatch object using the dimensions of
+  the FLQuant. If no slot is specified, all slots are filled with NA. If one slot is 
+  specified, it will receive the value of the FLQuant, while other slots will be filled 
+  with NA. It is also possible to specify several slots receiving different values from 
+  different FLQuant, if their dimensions 2 to 6 are identical. The first dimension of the 
+  slots \code{catch}, \code{discards} and \code{landings} is by default "all".
+}
+\item{ signature(object=missing) :}{Creates a new FLCatch whose slots are filled with an empty FLQuant with quant="all" and year=1 }
+}}
+
+
+
 \section{Methods}{\describe{
 \item{\link[graphics]{as.data.frame}(base) :}{coerces the FLCatch object to a data.frame. Slot names are passed in the slot column. The name, desc and range slots is passed as an
   attribute of the data.frame}

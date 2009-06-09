@@ -2,6 +2,11 @@
 \docType{class}
 \alias{FLCatches-class}
 \title{Class FLCatches}
+\alias{FLCatches}
+\alias{FLCatches-methods}
+\alias{FLCatches,ANY-method}
+\alias{FLCatches,missing-method}
+\alias{FLCatches,list-method}
 \description{
 \code{FLCatches} is a class that extends \code{list} through \code{FLlst} but implements a set of features that give a little bit more structure to list objects. The elements of \code{FLCatches} must all be of class \code{FLCatch}. It implements a lock mechanism that, when turned on, does not allow the user to increase or decrease the object length. 
 }
@@ -15,6 +20,16 @@
 FLlst
 list
 }}
+
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLCatches(object)} constructor method allows simple creation of new FLCatches with the methods described below.
+}
+\item{ signature(object=ANY) :}{create a FLMetiers object from a set of FLMetier objects}
+\item{ signature(object=missing) :}{create a FLMetiers object as a void list for future use}
+\item{ signature(object=list) :}{create a FLMetiers object from a list of FLMetier objects}
+}}
+
 \section{Methods}{\describe{
 \item{\link{catch}(FLCore) :}{Accessor method for the \emph{catch} slots. Returns an object of class \code{\link{FLQuants-class}}.}
 \item{}{\code{ signature(object=FLCatches) }}

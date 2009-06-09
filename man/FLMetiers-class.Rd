@@ -1,6 +1,12 @@
 \name{FLMetiers}
 \docType{class}
 \alias{FLMetiers-class}
+\alias{FLMetiers}
+\alias{FLMetiers-methods}
+\alias{FLMetiers,ANY-method}
+ \alias{FLMetiers,missing-method}
+ \alias{FLMetiers,list-method}
+
 \title{Class FLMetiers}
 \description{
 \code{FLMetiers} is a class that extends \code{list} through \code{FLlst} but implements a set of features that give a little bit more structure to list objects. The elements of \code{FLMetiers} must all be of class \code{FLMetier}. It implements a lock mechanism that, when turned on, does not allow the user to increase or decrease the object length. 
@@ -16,6 +22,15 @@ FLlst
 list
 vector
 }}
+\section{Constructor}{
+\describe{
+\item{}{The \code{FLMetiers(object, ...)} constructor method allows simple creation of new FLMetiers with the methods described below.
+}
+\item{ signature(object=ANY) :}{create a FLMetiers object from a set of FLMetier objects}
+\item{ signature(object=missing) :}{create a FLMetiers object as a void list for future use}
+\item{ signature(object=list) :}{create a FLMetiers object from a list of FLMetier objects}
+}}
+
 \section{Methods}{\describe{
 \item{\link{catch}(FLCore) :}{Accessor method getting the FLCatch catch slots. Returns a FLQuants}
 \item{}{\code{ signature(object=missing) }}
