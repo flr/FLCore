@@ -11,9 +11,9 @@ FLCore contains the core classes and methods for FLR, a framework for fisheries 
 \details{
 \tabular{ll}{
 Package: \tab FLCore\cr
-Version: \tab 1.99-111\cr
-Date: \tab 2008\cr
-Depends: \tab methods, R(>= 2.8.0), graphics, stats, stats4, grid, lattice\cr
+Version: \tab 3.0\cr
+Date: \tab 2009\cr
+Depends: \tab methods, R(>= 2.8.1), graphics, stats, stats4, grid, lattice\cr
 License: \tab GPL 2 or above\cr
 Collate: \tab FLArray.R FLQuant.R FLQuantPoint.R FLAccesors.R FLComp.R FLlst-class.R FLStock.R FLCatch.R FLQuants-methods.R FLPar.R io.FLStock.R FLBiol.R FLCohort.R FLMetier.R FLFleet.R FLIndex.R FLlst-methods.R io.FLIndices.R FLModel.R FLSR.R SRmodels.R FLtest.R coerce.R zzz.R\cr
 LazyLoad: \tab Yes\cr
