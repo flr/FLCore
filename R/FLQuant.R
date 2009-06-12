@@ -995,7 +995,16 @@ setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="numeric"),
 setMethod("rnorm", signature(n='numeric', mean="numeric", sd="FLQuant"),
 	function(n=1, mean, sd)
 		rnorm(n, FLQuant(mean, dimnames=dimnames(sd)), sd)
-) # }}}
+)
+setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="missing"),
+	function(n=1, mean)
+		rnorm(n, mean, 1)
+)
+setMethod("rnorm", signature(n='numeric', mean="missing", sd="FLQuant"),
+	function(n=1, sd)
+		rnorm(n, 0, sd)
+)
+# }}}
 
 # rlnorm	{{{
 setGeneric("rlnorm", function(n, meanlog=0, sdlog=1) standardGeneric("rlnorm"))
@@ -1018,7 +1027,19 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="numeric"),
 setMethod("rlnorm", signature(n='numeric', meanlog="numeric", sdlog="FLQuant"),
 	function(n=1, meanlog, sdlog)
 		rlnorm(n, FLQuant(meanlog, dimnames=dimnames(sdlog)), sdlog)
-)	# }}}
+)
+
+setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="missing"),
+	function(n=1, meanlog, sdlog)
+		rlnorm(n, meanlog, 1)
+)
+
+setMethod("rlnorm", signature(n='numeric', meanlog="missing", sdlog="FLQuant"),
+	function(n=1, meanlog, sdlog)
+		rlnorm(n, 0, sdlog)
+)
+
+# }}}
 
 # rpois		{{{
 setGeneric("rpois", function(n, lambda) standardGeneric("rpois"))

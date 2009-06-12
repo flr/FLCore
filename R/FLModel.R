@@ -333,8 +333,8 @@ setMethod('fmle',
       
       # fitted & residuals
       iter(fitted(object), it) <- predict(iter(object, it))
-      iter(residuals(object), it) <- log(iter(slot(object,
-        as.list(object@model)[[2]]),it) / iter(fitted(object), it))
+      iter(residuals(object), it) <- iter(slot(object,
+        as.list(object@model)[[2]]),it) - iter(fitted(object), it)
     }
     # force dimnames[1:5] in 'fitted' and 'residuals' to match
     dimnames(fitted(object))[1:5] <- dimnames(do.call(as.character(
