@@ -360,3 +360,37 @@ setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
 		return(df)
 	}
 )   # }}}
+
+# scale {{{
+setGeneric("scale", useAsDefault = scale)
+setMethod("scale", signature(x="FLArray", center="ANY", scale="ANY"),
+  function(x, center, scale)
+  {
+    new(class(x), array(scale(x@.Data, center=center, scale=scale), dim=dim(x),
+      dimnames=dimnames(x)), units=units(x))
+  }
+)
+
+setMethod("scale", signature(x="FLArray", center="ANY", scale="missing"),
+  function(x, center)
+  {
+    new(class(x), array(scale(x@.Data, center=center, scale=TRUE), dim=dim(x),
+      dimnames=dimnames(x)), units=units(x))
+  }
+)
+
+setMethod("scale", signature(x="FLArray", center="missing", scale="ANY"),
+  function(x, scale)
+  {
+    new(class(x), array(scale(x@.Data, center=TRUE, scale=scale), dim=dim(x),
+      dimnames=dimnames(x)), units=units(x))
+  }
+)
+
+setMethod("scale", signature(x="FLArray", center="missing", scale="missing"),
+  function(x)
+  {
+    new(class(x), array(scale(x@.Data, center=TRUE, scale=TRUE), dim=dim(x),
+      dimnames=dimnames(x)), units=units(x))
+  }
+) # }}}
