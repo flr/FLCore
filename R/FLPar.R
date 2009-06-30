@@ -158,8 +158,7 @@ setMethod("[<-", signature(x="FLPar"),
         dx[names(args)] <- args
       }
     }
-
-    x <- FLPar(do.call('[<-', c(list(x=x@.Data), dx, list(value=value))))
+    x <- new(class(x), do.call('[<-', c(list(x=x@.Data), dx, list(value=value))))
 
     return(x)
 	}
