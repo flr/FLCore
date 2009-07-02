@@ -23,6 +23,6 @@
 \examples{
 data(ple4)
 
-expand(ple4, year=1957:2003)
+expand(ple4, year=1957:2013)
 }
 \keyword{methods}

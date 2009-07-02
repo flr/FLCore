@@ -416,14 +416,23 @@ setMethod("as.FLQuant", signature(x="data.frame"),
     em <- data.frame(quant=rep('all', n), year=rep(1,n), unit=rep('unique',n),
       season=rep('all',n), area=rep('unique',n), iter=rep(1,n), stringsAsFactors=FALSE)
     names(em)[names(em)=="quant"] <- qname
-    x[,!names(x)%in%'data'] <- 
-    as.data.frame(as.matrix(x[,!names(x)%in%'data']),
+    
+    # Not sure why the call to as.matrix was here, but is messes up names from numbers
+    #  sometimes, as 1 truns to " 1" is there is 10. Trying now without it. IM, 2/7/09
+    #
+    #x[,!names(x)%in%'data'] <- as.data.frame(as.matrix(x[,!names(x)%in%'data']),
+    #  stringsAsFactors=FALSE)
+    x[,!names(x)%in%'data'] <- as.data.frame(x[,!names(x)%in%'data'],
       stringsAsFactors=FALSE)
     em[names(x)] <- x
 
     # create array
-    flq <- tapply(em[,"data"], list(em[,qname], em[,"year"], em[,"unit"], em[,"season"],
-      em[,"area"], em[,"iter"]), sum)
+    flq <- tapply(em[,"data"], list(factor(x = em[,qname], levels = unique(em[,qname])),
+      factor(x = em[,"year"], levels = unique(em[,"year"])),
+      factor(x = em[,"unit"], levels = unique(em[,"unit"])),
+      factor(x = em[,"season"], levels = unique(em[,"season"])),
+      factor(x = em[,"area"], levels = unique(em[,"area"])),
+      factor(x = em[,"iter"], levels = unique(em[,"iter"]))), sum)
 
     # fix dimnames names
     names(dimnames(flq)) <- c(qname, 'year', 'unit', 'season', 'area', 'iter')

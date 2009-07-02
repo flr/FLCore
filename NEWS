@@ -39,6 +39,7 @@ BUG FIXES
   - FLPar(vector) did not use the whole input vector. Vector is now applied along all
     dimensions starting by row.
   - '[<-' for FLPar now returns the correct class if called with a derived class.
+  - as.FLQuant(data.frame) was sometimes adding spaces to dimnames.
 	
 UTILITIES
 

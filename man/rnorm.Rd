@@ -1,8 +1,10 @@
 \name{rnorm}
 \docType{methods}
 \alias{rnorm,numeric,FLQuant,FLQuant-method}
+\alias{rnorm,numeric,FLQuant,missing-method}
 \alias{rnorm,numeric,FLQuant,numeric-method}
 \alias{rnorm,numeric,numeric,FLQuant-method}
+\alias{rnorm,numeric,missing,FLQuant-method}
 \alias{rnorm,numeric,FLQuantPoint,missing-method}
 \title{Method rnorm}
 \description{
