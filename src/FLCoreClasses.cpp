@@ -613,10 +613,6 @@ void FLStock::Init(SEXP x)
    if (LENGTH(GET_SLOT(x, install("range"))) >= 7)
       maxfbar  = (int)REAL(GET_SLOT(x, install("range")))[6];
    
-   nunits   = 1;
-   nseasons = 1;
-   nareas   = 1;
-
    catch_.Init(      GET_SLOT(x, install("catch"))); 
    catch_n.Init(     GET_SLOT(x, install("catch.n"))); 
    catch_wt.Init(    GET_SLOT(x, install("catch.wt"))); 
@@ -652,6 +648,10 @@ void FLStock::Init(SEXP x)
    niters= __max(niters,harvest.niters());       
    niters= __max(niters,harvest_spwn.niters()); 
    niters= __max(niters,m_spwn.niters());       
+
+   nunits   = m.nunits();
+   nseasons = m.nseasons();
+   nareas   = m.nareas();
 
    //need to check seasons, areas & units
    }
