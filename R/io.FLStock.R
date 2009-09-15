@@ -21,6 +21,7 @@ readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a
                   PA = readPAFile(file),
                   CSA = readCSAFile(file),
                   stop("type must be either 'VPA', 'Adapt', 'PA' or 'CSA'!"))
+                  
     Mat <- res@stock.wt
     Mat[, , , , ] <- NA
     Dim <- dim(Mat)
@@ -53,8 +54,8 @@ readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a
     if (is.null(res@m.spwn)      || !all(dim(res@m.spwn)      == Dim)) 
         res@m.spwn      <- Mat
     Mat <- Mat[1, , , , ]
-    
-    if (is.null(res@catch) || !all(dim(res@catch) == dim(Mat))) 
+
+    if (is.null(res@catch) || !all(dim(res@catch) == dim(Mat)))
         res@catch <- Mat
     if (is.null(res@discards) || !all(dim(res@discards) == dim(Mat)))
         res@discards <- Mat
@@ -74,13 +75,16 @@ readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a
         quant(slot(res, s.)) <- quant
     }
 
+   stock(res) <- computeStock(res)
+
     if(no.discards)
-    {
+      {
       discards(res) <- 0
       discards.n(res) <- 0
       discards.wt(res) <- 0
       catch(res) <- computeCatch(res, 'all')
-    }
+      }
+      
     return(res)
 }	# }}}
 

@@ -264,3 +264,4 @@ setMethod('lowess', signature(x='FLSR', y='missing', f='ANY', delta='ANY', iter=
     return(x)
   }
 ) # }}}
+
