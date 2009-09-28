@@ -801,13 +801,12 @@ setMethod('[', signature(x='FLStock'),
 
 ## "[<-"            {{{
 setMethod("[<-", signature(x="FLStock", value="FLStock"),
-	function(x, i, j, k, l, m, n, ..., value)
-	{
-		if (missing(i))
+	function(x, i, j, k, l, m, n, ..., value) {
+    if (missing(i))
 			i  <-  dimnames(x@stock.n)[1][[1]]
 		if (missing(j))
 			j  <-  dimnames(x@stock.n)[2][[1]]
-   		if (missing(k))
+ 		if (missing(k))
    			k  <-  dimnames(x@stock.n)[3][[1]]
 		if (missing(l))
 			l  <-  dimnames(x@stock.n)[4][[1]]
@@ -816,18 +815,20 @@ setMethod("[<-", signature(x="FLStock", value="FLStock"),
 		if (missing(n))
 			n  <-  dimnames(x@stock.n)[6][[1]]
 
-	    quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", "landings.n",
-		    "landings.wt", "stock.n", "stock.wt", "m", "mat", "harvest", "harvest.spwn",
-    		"m.spwn")
-        for(q in quants)
-            slot(x, q)[i,j,k,l,m,n] <- slot(value, q)
+	  quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", "landings.n",
+		  "landings.wt", "stock.n", "stock.wt", "m", "mat", "harvest", "harvest.spwn",
+      "m.spwn")
+    for(q in quants)
+      slot(x, q)[i,j,k,l,m,] <- slot(value, q)
 	    
-        quants <- list("catch", "landings", "discards", "stock")
-        for(q in quants) {
-            slot(x, q)[1,j,k,l,m,n] <- slot(value,q)
-            }
+    quants <- list("catch", "landings", "discards", "stock")
+    for(q in quants)
+      slot(x, q)[1,j,k,l,m,] <- slot(value,q)
 
-   		return(x)
+    if(validObject(x))
+      return(x)
+    else
+      stop("Object is not valid")
 	}
 )   # }}}
 
