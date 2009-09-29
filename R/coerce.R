@@ -47,8 +47,7 @@ setAs('FLBiol', 'FLIndex',
     res@range<-c(res@range,startf=0.0,endf=0.01)
 
   return(res)
-	}
-)
+	})
 
 setAs('FLStock', 'FLIndex',
 	function(from)
@@ -56,24 +55,24 @@ setAs('FLStock', 'FLIndex',
     dmns<-dimnames(from@catch.n)
     dmns$age<-"all"
 
-		res<-FLIndex(index       =from@catch.n,
-                 index.var   =FLQuant(NA, dimnames=dimnames(from@catch.n)),
+		res<-FLIndex(index       =from@stock.n,
                  catch.n     =from@catch.n,
                  catch.wt    =from@catch.wt,
-                 effort      =apply(from@harvest[ac(from@range["min"]:from@range["max"])],2:6,mean),
-                 sel.pattern =sweep(from@harvest,2:6,apply(from@harvest[ac(from@range["min"]:from@range["max"])],2:6,mean),"/"),
-                 index.q     =FLQuant(1,  dimnames=dimnames(from@catch.n)),
-                 range      =from@range,
-                 type="number",
-			           name=from@name, desc=paste("Coerced from FLBiol:",from@desc))
+                 effort      =FLQuant(1,dimnames=dmns),
+                 index.q     =FLQuant(1,dimnames=dmns),
+                 index.var   =FLQuant(NA, dimnames=dimnames(from@stock.n)),
+                 sel.pattern =sweep(from@harvest,2:6,fbar(from),"/"),
+                 range       =from@range,
+                 type        ="number",
+			           name        =from@name,
+                 desc        =paste("Coerced from FLBiol:",from@desc))
 
-    units(res@index)  <-units(from@catch.n)
-    units(res@catch.n)<-units(from@catch.n)
+    units(res@index)   <-units(from@stock.n)
+    units(res@catch.n) <-units(from@catch.n)
     units(res@catch.wt)<-units(from@catch.wt)
 
   return(res)
-	}
-)
+	})
 # }}}
 
 # FLCatch	{{{
