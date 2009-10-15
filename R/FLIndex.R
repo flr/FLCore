@@ -31,9 +31,9 @@ validFLIndex <- function(object) {
       stop(cat("Mismatch in dims for", i))
       
   # first dim equal for all index.* slots
-  for(i in grep('index', names(dimnms), value=TRUE))
-    if(!all.equal(dimnms[[i]][1], dimnms[[1]][1]))
-      stop(cat("Mismatch in dims for", i))
+  #for(i in grep('index', names(dimnms), value=TRUE))
+  #  if(!all.equal(dimnms[[i]][1], dimnms[[1]][1]))
+  #    stop(cat("Mismatch in dims for", i))
 
   # effort should have quant='all'
   if (!(dims(slot(object,"effort"))[1] == 1))
