@@ -367,7 +367,7 @@ expandAgeFLStock<-function(object,maxage,...)
     if (class(object)!="FLStock") stop('not a FLStock object')
     if (!validObject(object)) stop('object not a valid FLStock')
     if (!(range(object,"max")== range(object,"plusgroup")) | (maxage<=range(object,"max"))) stop('maxage not valid')
-    
+
     res      <-object
     dmns     <-dimnames(m(res))
     oldMaxage<-dims(res)$max
@@ -402,14 +402,26 @@ expandAgeFLStock<-function(object,maxage,...)
     n               <-FLQuant(exp(-apply(slot(res,"m")[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)-apply(slot(res,"harvest")[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)))
     n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
     n               <-sweep(n,2:6,apply(n,2:6,sum),"/")
+    ## calc exp(-cum(Z)) i.e. the survivors
+    z            <-harvest(res)[ac(maxage)]+m(res)[ac(maxage)]
+    n            <-exp(-apply((m(res)[ac(oldMaxage:maxage)]-harvest(res)[ac(oldMaxage:maxage)])@.Data,2:6,cumsum))
+    n            <-FLQuant(c(n),dimnames=dimnames(n))
+    n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-z)-1.0))
+    n            <-sweep(n,2:6,apply(n,2:6,sum),"/")
     stock.n(res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],1:6,n,"*")
 
     z<-harvest(res)[ac(maxage)]+m(res)[ac(maxage)]
     
     catch.n(res)[   ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")    
+    catch.n(   res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")
+    if (dims(discards.n(res))$iter==1 & (dims(catch.n(res))$iter>1 | dims(Pdiscard)$iter>1))
+       discards.n(res)<-propagate(discards.n(res),dims(res)$iter)
+    if (dims(landings.n(res))$iter==1 & (dims(catch.n(res))$iter>1 | dims(Planding)$iter>1))
+       landings.n(res)<-propagate(landings.n(res),dims(res)$iter)
     discards.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Pdiscard,"*")
     landings.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Planding,"*")
     
+
     range(res,"max")      <-maxage
     range(res,"plusgroup")<-maxage
 
@@ -649,7 +661,6 @@ setMethod("trim", signature(x="FLStock"), function(x, ...){
 
 	args <- list(...)
 
-    c1 <- args[[quant(x@stock.n)]]
 	c2 <- args[["year"]]
 	c3 <- args[["unit"]]
 	c4 <- args[["season"]]
