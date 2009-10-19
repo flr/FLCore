@@ -9,14 +9,14 @@
 
 readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a", 
     type, "file. (", file, "). ", date()), m = 0.2, quant="age", quiet=TRUE,
-    no.discards=FALSE)
+    no.discards=FALSE, sep="")
 	{
     ow <- options()$warn
     options(warn = -1)
     on.exit(options(warn = ow))
 
     res <- switch(type,
-                  VPA = readVPA(file, quiet=quiet),
+                  VPA = readVPA(file, quiet=quiet, sep=sep),
                   Adapt = readAdaptFile(file,m),
                   PA = readPAFile(file),
                   CSA = readCSAFile(file),
@@ -338,7 +338,7 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
            if(quiet != TRUE) cat("File ", i, "does not exist", "\n")
            }
         if (file.exists(i)) {
-            a.   <-  readVPAFile(i, quiet=quiet)
+            a.   <-  readVPAFile(i, sep=sep, quiet=quiet)
 
             switch(as.character(scan(i, skip = 1, nlines = 1, sep = sep, comment.char='#', quiet=TRUE)[2]),
             "1" = FLStock.@landings    <-a.,

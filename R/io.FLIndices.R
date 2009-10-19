@@ -389,7 +389,7 @@ checkIndex <- function(Index, name=NULL, desc=NULL) {
 
 ## readFLIndices	{{{
 readFLIndices <- function(file, file2, type="VPA", index.names, descs,
-    desc = paste("Imported from ", type, " file '", file, "'", sep = ""),na.strings="NA") {
+    desc = paste("Imported from ", type, " file '", file, "'", sep = ""),na.strings="NA", sep="") {
 
     # TODO 26/11/2004 iagoazti: pass an open connection, but read.table!
     # open connection that closes on exit
@@ -398,10 +398,10 @@ readFLIndices <- function(file, file2, type="VPA", index.names, descs,
 
 	# Core of the function...
     res <- switch(type[1],
-        "VPA"   = readIndicesVPA(file,na.strings=na.strings),
+        "VPA"   = readIndicesVPA(file,na.strings=na.strings, sep=sep),
         "Adapt" = readIndicesAdapt(file,na.strings=na.strings),
         "CSA"   = readIndicesCSA(file,na.strings=na.strings),
-	    	"ICA"   = readIndicesICA(file, file2,na.strings=na.strings),
+	"ICA"   = readIndicesICA(file, file2,na.strings=na.strings),
         stop("type must be 'VPA', 'Adapt', 'ICA' or 'CSA'!"))
 
     # desc

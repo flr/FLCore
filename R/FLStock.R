@@ -661,6 +661,7 @@ setMethod("trim", signature(x="FLStock"), function(x, ...){
 
 	args <- list(...)
 
+        c1 <- args[[quant(landings.n(x))]]
 	c2 <- args[["year"]]
 	c3 <- args[["unit"]]
 	c4 <- args[["season"]]
