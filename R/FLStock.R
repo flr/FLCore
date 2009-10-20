@@ -621,12 +621,10 @@ setMethod("harvest", signature(object="FLStock", catch="missing"),
 )
 
 ## harvest<-
-if (!isGeneric("harvest<-")) {
-	setGeneric("harvest<-", function(object, value){
-		value <- standardGeneric("harvest<-")
-		value
-	})
-}
+if (!isGeneric("harvest<-"))
+	setGeneric("harvest<-", function(object, ..., value)
+	  standardGeneric("harvest<-")
+  )
 setMethod("harvest<-", signature(object="FLStock", value="character"),
 	function(object, value) {
 		units(slot(object, "harvest")) <- value
