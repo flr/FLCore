@@ -277,7 +277,7 @@ void FLQuant::Init(SEXP x)
          
          if (n >= 1 && INTEGER(dims)[0] >= 1) 
             {
-            c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 0), 0));
+            c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 0), 0));
 
             //check that name is not a text string
             for (int i=0; i<=(signed)strlen(c); i++)
@@ -293,7 +293,7 @@ void FLQuant::Init(SEXP x)
          if (n >= 2 && INTEGER(dims)[1] >= 1) 
             {
             t = 0;
-            c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 1), 0));
+            c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 1), 0));
 
             //check that name is not a text string
             for (int i=0; i<=(signed)strlen(c); i++)
@@ -1340,7 +1340,7 @@ void FL2D::Init(SEXP x)
              	   
             if (n >= 1 && INTEGER(dims)[0] >= 1) 
                {
-               c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 0), 0));
+               c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 0), 0));
 
                //check that name is not a text string
                for (int i=0; i<=(signed)strlen(c); i++)
@@ -1354,7 +1354,7 @@ void FL2D::Init(SEXP x)
   	            }
 		      if (n >= 2 && INTEGER(dims)[1] >= 1) 
                {
-	            c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 1), 0));
+	            c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 1), 0));
 
                //check that name is not a text string
                for (int i=0; i<=(signed)strlen(c); i++)
@@ -1929,7 +1929,7 @@ void FLQuant2::Init(int i7, SEXP x)
         
         if (n >= 1 && INTEGER(dims)[0] >= 1) 
            {
-           c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 0), 0));
+           c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 0), 0));
             //check that name is not a text string
            for (int i=0; i<=(signed)strlen(c); i++)
               if (isalpha(c[i])) t=1;
@@ -1942,7 +1942,7 @@ void FLQuant2::Init(int i7, SEXP x)
         if (n >= 2 && INTEGER(dims)[1] >= 1) 
            {
            t = 0;
-           c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 1), 0));
+           c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 1), 0));
            //check that name is not a text string
            for (int i=0; i<=(signed)strlen(c); i++)
               if (isalpha(c[i])) t=1;
@@ -2464,7 +2464,7 @@ void FLQuant3::Init(int i8, int i7, SEXP x)
         
         if (n >= 1 && INTEGER(dims)[0] >= 1) 
            {
-           c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 0), 0));
+           c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 0), 0));
             //check that name is not a text string
            for (int i=0; i<=(signed)strlen(c); i++)
               if (isalpha(c[i])) t=1;
@@ -2477,7 +2477,7 @@ void FLQuant3::Init(int i8, int i7, SEXP x)
         if (n >= 2 && INTEGER(dims)[1] >= 1) 
            {
            t = 0;
-           c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 1), 0));
+           c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 1), 0));
            //check that name is not a text string
            for (int i=0; i<=(signed)strlen(c); i++)
               if (isalpha(c[i])) t=1;
@@ -3082,7 +3082,7 @@ void FLQuant4::Init(int i9, int i8, int i7, SEXP x)
         
         if (n >= 1 && INTEGER(dims)[0] >= 1) 
            {
-           c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 0), 0));
+           c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 0), 0));
             //check that name is not a text string
            for (int i=0; i<=(signed)strlen(c); i++)
               if (isalpha(c[i])) t=1;
@@ -3095,7 +3095,7 @@ void FLQuant4::Init(int i9, int i8, int i7, SEXP x)
         if (n >= 2 && INTEGER(dims)[1] >= 1) 
            {
            t = 0;
-           c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 1), 0));
+           c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 1), 0));
            //check that name is not a text string
            for (int i=0; i<=(signed)strlen(c); i++)
               if (isalpha(c[i])) t=1;
@@ -3716,7 +3716,7 @@ void _FLQuant::Init(int i9, int i8, int i7, SEXP x)
         
         if (n >= 1 && INTEGER(dims)[0] >= 1) 
            {
-           c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 0), 0));
+           c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 0), 0));
             //check that name is not a text string
            for (int i=0; i<=(signed)strlen(c); i++)
               if (isalpha(c[i])) t=1;
@@ -3729,7 +3729,7 @@ void _FLQuant::Init(int i9, int i8, int i7, SEXP x)
         if (n >= 2 && INTEGER(dims)[1] >= 1) 
            {
            t = 0;
-           c = CHAR(VECTOR_ELT(VECTOR_ELT(dimnames, 1), 0));
+           c = CHAR(STRING_ELT(VECTOR_ELT(dimnames, 1), 0));
            //check that name is not a text string
            for (int i=0; i<=(signed)strlen(c); i++)
               if (isalpha(c[i])) t=1;
