@@ -36,7 +36,7 @@ FLRConstSRR getSRType(SEXP v)
 
     for (short i = 0; i<max; i++)
       {
-      t = strlwr((char *)CHAR(VECTOR_ELT(v, i)));
+      t = strlwr((char *)CHAR(STRING_ELT(v, i)));
    
       if       (strcmp(t, "m")==1)
          return FLRConst_Mean;
@@ -61,7 +61,7 @@ void InputAgeRange(SEXP obj, int *MinAge, int *MaxAge)
 
    for (int i=0; i<n; i++)
       {
-      const char *s = CHAR(VECTOR_ELT(names, i));
+      const char *s = CHAR(STRING_ELT(names, i));
 
       if (      strcmp(s, "min")==0)
          *MinAge     = (int)((a)[i]);
@@ -1047,12 +1047,12 @@ void FLVector::Init(SEXP x)
    if (LENGTH(names) == n) //index by name
       {
       //get indices
-      mindim = atoi(CHAR(VECTOR_ELT(names, 0))); 
+      mindim = atoi(CHAR(STRING_ELT(names, 0)));
       maxdim = mindim + n - 1;
 
       //check indices
       for (int i=1; i<n; i++)
-         if ((mindim+i) != atoi(CHAR(VECTOR_ELT(names, i))))
+         if ((mindim+i) != atoi(CHAR(STRING_ELT(names, i))))
             return;
       }
    else
@@ -1183,12 +1183,12 @@ void FLBool::Init(SEXP x)
    if (LENGTH(names) == n) //index by name
       {
       //get indices
-      mindim = atoi(CHAR(VECTOR_ELT(names, 0))); 
+      mindim = atoi(CHAR(STRING_ELT(names, 0)));
       maxdim = mindim + n - 1;
 
       //check indices
       for (int i=1; i<n; i++)
-         if ((mindim+i) != atoi(CHAR(VECTOR_ELT(names, i))))
+         if ((mindim+i) != atoi(CHAR(STRING_ELT(names, i))))
             return;
       }
    else
@@ -1393,7 +1393,7 @@ void FL2D::Init(SEXP x)
           int  t = 0;
           const char *c;
              	   
-          c = CHAR(VECTOR_ELT(names, 0));
+          c = CHAR(STRING_ELT(names, 0));
 
           //check that name is not a text string
           for (int i=0; i<=(signed)strlen(c); i++)
@@ -1405,7 +1405,7 @@ void FL2D::Init(SEXP x)
           min1 = t; 
  
           if (t==0)      
-            min1 = atoi(CHAR(VECTOR_ELT(names, 0))); 
+            min1 = atoi(CHAR(STRING_ELT(names, 0)));
           else 
             min1 = t;
 
