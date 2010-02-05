@@ -36,10 +36,8 @@ convert6d<-function(obj)
 # }}}
 
 # convertFLPar{{{
-if (!isGeneric("convertFLPar")) {
 	setGeneric("convertFLPar", function(object, ...)
 		standardGeneric("convertFLPar"))
-}
 setMethod('convertFLPar', signature(object='FLModel'),
   function(object)
   {

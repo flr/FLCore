@@ -34,6 +34,7 @@
   
   Each method is defined as a function returning a list with one or more elements as
   follows:
+  \itemize{
   \item{model}{Formula for the model, using the slot names (\emph{rec} and \emph{ssb}) to 
   refer to the usual inputs.}
   \item{logl}{Function to calculate the loglikelihood of the given model when estimated
@@ -43,9 +44,9 @@
     two attributes, \code{\link{lower}} and \code{\link{upper}}, that give lower and upper limits for 
     the parameter values, respectively. This is used by some of the methods defined in
     \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}.}
-  The \emph{model<-} method for \code{\link{FLModel-class}} can then be called with 
+  The \emph{model<-} method for \code{\linkS4class{FLModel}} can then be called with 
   \emph{value} being a list thus described, the name of the function returning such a 
-  list, or the function itself. See the examples below.
+  list, or the function itself. See the examples below.}
 }
 \usage{
   bevholt()
@@ -90,12 +91,13 @@
     parameters the variance of the log-residuals is also estimated.     
    
     % bevholt
+  \itemize{
     \item{bevholt:}{Beverton \& Holt stock-recruitment model fit:
       \deqn{R = \frac{a S}{b + S}}{R = alpha*S / (beta + S)}
       'a' is the maximum recruitment (asymptotically) and 'b' is the
       stock level needed to produce the half of maximum recruitment
       \eqn{\frac{a}{2}}{a/2}. (a, b >0).}
-
+    
     % geomean
      \item{geomean:}{Constant Recruitment model fit, equal to the historical
       geometric mean recruitment.
@@ -165,9 +167,11 @@
     \item{shepherd.ndc:}{Depensatory Shepherd stock-recruitment model. 
         \deqn{R = \frac{a (S - d)}{1+(\frac{S - d}{b})^c}}{ R = a * (S - d)/(1 + ((S - d)
         /b)^c)}}
+   }
      
    Beverton and Holt and Ricker stock recruitment models parameterized for steepness and virgin biomass:
     
+    \itemize{
     % bevholt.sv
     \item{bevholt.sv:}{Fits Beverton and Holt stock-recruitment model parameterised for
       steepness and virgin biomass.
@@ -181,9 +185,11 @@
       \deqn{a = e^{\frac{b \cdot vbiomass}{spro}}}{a = exp(b*vbiomass)/spr0}
       \deqn{b = \frac{\log(5 \cdot steepness)}{0.8 \cdot vbiomass}}{b = log(5*steepness)
       /(vbiomass*0.8)}}
-    
+    }
+
     Models fitted using autoregressive residuals of first order:
     
+    \itemize{
     %
     \item{bevholt.ar1, ricker.ar1, shepherd.ar1, shepherd.d.ar1,
       shepherd.ndc.ar1:}{Beverton and Holt, Ricker  and Shepherd stock-recruitment models 
@@ -196,9 +202,11 @@
       \deqn{x_t=\rho x_{t-1} + e}{x_t = rho*x_t-1 + e}
       Where 'e' follows a normal distribution with mean 0,
       \eqn{e \sim N(0, \sigma^2_{AR})}{e ~ N(0, sigma_ar^2)}.} 
-              
+    }
+
     Some additional useful functions:
     
+    \itemize{
       \item{Bevholt.SV, Ricker.SV:}{Returns the predicted values using Beverton and Holt 
         or Ricker stock recruitment model parameterized for steepness and virgin biomass. 
         The function calculates the 'a' and 'b' parameters of the original 
@@ -211,10 +219,8 @@
         parameters, (spr0 = spawning at recruit at F= 0.0parameters).
 	
         Beverton and Holt:
-          \deqn{a =  \frac{4 \cdot vbiomass \cdot steepness}{spr0*(5*steepness-1)}}
-          {a = vbiomass*4*steepness/(spr0*(5*steepness-1))}
-          \deqn{b = \frac{a \cdot spr0 (\frac{1}{steepness} - 1)}{4}}
-          {b = a*spr0*(1/steepness - 1)/4}
+          \deqn{a =  \frac{4 \cdot vbiomass \cdot steepness}{spr0*(5*steepness-1)}}{a = vbiomass*4*steepness/(spr0*(5*steepness-1))}
+          \deqn{b = \frac{a \cdot spr0 (\frac{1}{steepness} - 1)}{4}}{b = a*spr0*(1/steepness - 1)/4}
                 
         Ricker:
           \deqn{a = e^{\frac{b \cdot vbiomass}{spro}}}{a = exp(b*vbiomass)/spr0}
@@ -241,9 +247,10 @@
        is the predicted time series using certain model, the loglikelihood of the
        residuals (\eqn{X_t = Y_t - \hat{Y}_t}{X_t = Y_t - Yest_t}) is calculated using
        the autoregressive model parameters \eqn{\sigma^2}{sigma2}  and \eqn{\rho}{rho}.}
+    }
 }
 \seealso{
-    \link{FLSR-class}, \link{FLModel-class}
+    \linkS4class{FLSR}, \linkS4class{FLModel}
 }
 \examples{
 # inspect the output of one of the model functions

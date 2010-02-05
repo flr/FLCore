@@ -58,9 +58,6 @@ setClass("FLCatch",
 remove(validFLCatch) # }}}
 
 # FLCatch()                {{{
-setGeneric('FLCatch', function(object, ...)
-		standardGeneric('FLCatch'))
-
 # TODO Fix size of input objects and validity
 setMethod('FLCatch', signature(object='FLQuant'),
 	function(object, range='missing', name='NA', desc=character(0), ...) {
@@ -203,8 +200,6 @@ setMethod("[<-", signature(x="FLCatch", value="FLCatch"),
 )   # }}}
 
 # addFLCatch for FLCatch {{{
-setGeneric('addFLCatch', function(e1, e2, ...)
-		standardGeneric('addFLCatch'))
 setMethod('addFLCatch', signature(e1='FLCatch', e2='FLCatch'),
   function(e1, e2)
   {
@@ -251,14 +246,10 @@ setMethod('setPlusGroup', signature(x='FLCatch', plusgroup='numeric'),
 )# }}}
 
 # catchNames {{{
-setGeneric('catchNames', function(object, ...)
-		standardGeneric('catchNames'))
 setMethod('catchNames', signature(object='FLCatch'),
   function(object)
     return(object@name))
 
-setGeneric('catchNames<-', function(object, ..., value)
-		standardGeneric('catchNames<-'))
 setReplaceMethod('catchNames', signature(object='FLCatch', value='character'),
   function(object, value)
   {
@@ -367,9 +358,6 @@ setMethod('catch.wt', signature(object='FLCatch'),
 )
 
 # catch.sel
-setGeneric('catch.sel', function(object, ...)
-		standardGeneric('catch.sel')
-)
 setMethod('catch.sel', signature(object='FLCatch'),
   function(object)
   {

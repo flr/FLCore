@@ -27,18 +27,12 @@ setClass("FLArray",	representation("array", units="character"),
 ) # }}}
 
 # units {{{
-if (!isGeneric("units"))
-	setGeneric("units", useAsDefault=units)
 setMethod("units", signature(x="FLArray"),
 	function(x)
 		return(x@units)
 ) # }}}
 
 # units<- {{{
-if (!isGeneric("units<-"))
-	setGeneric("units<-", function(x, value)
-		standardGeneric("units<-"))
-
 setMethod("units<-", signature(x="FLArray", value="character"),
 	function(x, value) {
 		x@units <- value
@@ -47,10 +41,6 @@ setMethod("units<-", signature(x="FLArray", value="character"),
 ) # }}}
 
 # quant        {{{
-if (!isGeneric("quant"))
-	setGeneric("quant", function(object, ...)
-		standardGeneric("quant"))
-
 setMethod("quant", signature(object="FLArray"),
 	function(object)
   {
@@ -59,10 +49,6 @@ setMethod("quant", signature(object="FLArray"),
 ) # }}}
 
 # quant<-      {{{
-if (!isGeneric("quant<-"))
-	setGeneric("quant<-", function(object, value)
-		standardGeneric("quant<-"))
-
 setMethod("quant<-", signature(object="FLArray", value='character'),
 	function(object, value)
   {
@@ -107,9 +93,11 @@ setMethod("[", signature(x="FLArray", i="array"),
       dimn[[d]] <- dimn[[d]][apply(i, d, any, FALSE)==TRUE]
 
     if(length(x@.Data[i]) != prod(unlist(lapply(dimn, length))))
-      stop("Selected elements do not form a coherent 6D array")
-    return(new(class(x), array(x@.Data[i], dimnames=dimn,
-      dim=unlist(lapply(dimn, length)))))
+      return(x@.Data[i])
+    #      stop("Selected elements do not form a coherent 6D array")
+    else
+      return(new(class(x), array(x@.Data[i], dimnames=dimn,
+        dim=unlist(lapply(dimn, length)))))
   }
 )   # }}}
 
@@ -144,8 +132,6 @@ setMethod("[<-", signature(x="FLArray"),
 )   # }}}
 
 ## names         {{{
-if (!isGeneric("names"))
-	setGeneric("names")
 setMethod("names", signature(x="FLArray"),
 	function(x)
     names(dimnames(x))
@@ -153,9 +139,6 @@ setMethod("names", signature(x="FLArray"),
 # }}}
 
 # iter     {{{
-setGeneric("iter", function(object, ...)
-	standardGeneric("iter"))
-
 setMethod("iter", signature(object="FLArray"),
 	function(object, iter) {
     if(dims(object)$iter == 1)
@@ -166,9 +149,6 @@ setMethod("iter", signature(object="FLArray"),
 )   # }}}
 
 ## summary          {{{
-if (!isGeneric("summary")) {
-	setGeneric("summary", useAsDefault = summary)
-}
 setMethod("summary", signature(object="FLArray"),
 	function(object, ...)
 	{
@@ -222,8 +202,6 @@ setMethod("show", signature(object="FLArray"),
 )   # }}}
 
 # trim {{{
-setGeneric("trim", function(x, ...)
-	standardGeneric("trim"))
 setMethod('trim', signature(x='FLArray'),
   function(x, ...)
   {
@@ -254,8 +232,6 @@ setMethod('trim', signature(x='FLArray'),
 ) # }}}
 
 # expand {{{
-setGeneric("expand", function(x, ...)
-	standardGeneric("expand"))
 setMethod('expand', signature(x='FLArray'),
   function(x, ...)
   {
@@ -334,9 +310,6 @@ setMethod("Arith",
 )   # }}}
 
 ## as.data.frame        {{{
-if (!isGeneric("as.data.frame")) {
-	setGeneric("as.data.frame", useAsDefault = as.data.frame)
-}
 setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
   optional="missing"),
 	function(x, row.names="missing", optional="missing")
@@ -362,7 +335,6 @@ setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
 )   # }}}
 
 # scale {{{
-setGeneric("scale", useAsDefault = scale)
 setMethod("scale", signature(x="FLArray", center="ANY", scale="ANY"),
   function(x, center, scale)
   {

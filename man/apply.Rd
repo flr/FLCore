@@ -26,7 +26,8 @@
 \section{Methods}{\describe{
 \item{ signature(X=ANY,MARGIN=missing,FUN=missing) :}{New S4 generic based on base::apply}
 \item{ signature(X=FLQuant,MARGIN=numeric,FUN=function) :}{apply a given function over the
-	selected dimensions of an \link{FLQuant-class}. Returns an object of class \link{FLQuant-class}.}
+	selected dimensions of an \code{\linkS4class{FLQuant}}. Returns an object of class 
+  \code{\linkS4class{FLQuant}}.}
 }}
 \author{The FLR Team}
 \seealso{ \link[base]{apply} }

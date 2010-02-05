@@ -5,15 +5,12 @@
 \title{Class FLComp}
 \description{
   A virtual class that forms the basis for most FLR classes compoed of slots of 
-  class \code{\link{FLQuant-class}}. No objects of this class can be constructed.
+  class \code{\linkS4class{FLQuant}}. No objects of this class can be constructed.
 }
 \section{Slots}{\describe{
-\item{name (\code{character}):}{Describe slot}
-\item{desc (\code{character}):}{Describe slot}
-\item{range (\code{numeric}):}{Describe slot}
-}}
-\section{Extends}{\describe{
-
+\item{name}{A character vector for the object name}
+\item{desc}{As textual description of the object contents}
+\item{range}{A named numeric vector with various values on quant and year ranges, plusgroup, fishing mortality ranges, etc.}
 }}
 \section{Methods}{\describe{
 \item{\link[base]{[}(base) :}{Subsetting}
@@ -42,6 +39,5 @@
 \item{}{\code{ signature(x=FLComp) }}
 }}
 \author{The FLR Team}
-\seealso{ \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame}, \link{iter}, \link{propagate}, \link{qapply}, \link[base]{summary}, \link[base]{transform}, \link{trim}, \link{units,FLComp-method}, \link{units<-,FLComp,list-method}, \link[base]{window} }
-\examples{}
+\seealso{ \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame}, \link{iter}, \link{propagate}, \link{qapply}, \link[base]{summary}, \link[base]{transform}, \link{trim}, \link{units,FLComp-method}, \link{units<-,FLComp,list-method}, \link[stats]{window} }
 \keyword{classes}

@@ -123,23 +123,23 @@ plotResidAll<-function(resid,obs,prd,hat,indVar,indVar.,Xttl="X",Yttl="Y")
     invisible()
     }
 
-setGeneric('plot.', function(x,y, ...)
-		standardGeneric('plot.'))
-setMethod("plot.", signature(x="FLSR", y="missing"),
+setGeneric('plotA', function(x,y, ...)
+		standardGeneric('plotA'))
+setMethod("plotA", signature(x="FLSR", y="missing"),
 
-plot.<-	function(x)
+function(x)
 	{
-  resid <-residuals(psr)
-  obs   <-rec(      psr)
-  indVar<-ssb(      psr)
-  hat   <-fitted(   psr)
+  resid <-residuals(x)
+  obs   <-rec(x)
+  indVar<-ssb(x)
+  hat   <-fitted(x)
 
   # get values over 0 to max
   indVar.<-expand(apply(indVar,c(1,3:6),max),year=1:length(obs))
   mult<-seq(0,1,length.out=length(obs))
   for (i in length(obs):1)
      indVar.[,i]<-indVar.[,1]*mult[i]
-  prd <-predict(psr,ssb=indVar.)
+  prd <-predict(x,ssb=indVar.)
 
   plotResidAll(resid,obs,prd,hat,indVar,indVar.,Yttl="Recruits",Xttl="SSB")
   })

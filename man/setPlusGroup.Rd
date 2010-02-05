@@ -44,7 +44,7 @@
 averaged.}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLStock-class}, \link{FLQuant-class}, \link{FLBiol-class}, \link{FLCatch-class} }
+\seealso{ \linkS4class{FLStock}, \linkS4class{FLQuant}, \linkS4class{FLBiol}, \linkS4class{FLCatch} }
 \examples{
 data(ple4)
 ple4.pg <- setPlusGroup(ple4, 6)

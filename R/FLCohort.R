@@ -17,10 +17,6 @@ setClass("FLCohort",
 ) # }}}
 
 # constructor  {{{
-setGeneric("FLCohort", function(object, ...)
-	standardGeneric("FLCohort")
-)
-
 setMethod("FLCohort", signature("FLQuant"), function(object, ...){
 	# reduce with trim
 	if(!missing(...)) object <- trim(object, ...)
@@ -113,11 +109,6 @@ setAs("FLCohort", "FLQuant", function(from){
 
 # flc2flq {{{
 # this is a FLQuant creator method for FLCohorts 
-setGeneric("flc2flq", function(object, ...){
-	standardGeneric("flc2flq")
-	}
-)
-
 setMethod("flc2flq", signature("FLCohort"), function(object, ...){
 
 	# reduce with trim
@@ -184,9 +175,6 @@ setMethod("bubbles", signature(x="formula", data ="FLCohort"),
 ) # }}}
 
 # ccplot  {{{
-setGeneric("ccplot", function(x, data, ...)
-	standardGeneric("ccplot")
-)
 setMethod("ccplot", signature(x="formula", data ="FLCohort"), function(x, data, ...){
 
     dots <- list(...)
@@ -242,9 +230,6 @@ setMethod("dims", signature(obj="FLCohort"),
 )   # }}}
 
 # iter<-     {{{
-if (!isGeneric("iter<-"))
-	setGeneric("iter<-", function(object, ..., value)
-		standardGeneric("iter<-"))
 setMethod("iter<-", signature(object="FLCohort", value="FLCohort"),
 	function(object, iter, value)
 	{

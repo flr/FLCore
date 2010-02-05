@@ -134,12 +134,12 @@ and FLCatches objects}
 \item{\link{revenue}(FLCore) :}{describe...}
 \item{}{\code{ signature(fill...) }}
 \item{}{\code{ signature(fill...) }}
-\item{\link[methods]{summary}(methods) :}{returns the summary of the FLFleet object}
+\item{\link[base]{summary}(base) :}{returns the summary of the FLFleet object}
 \item{}{\code{ signature(fill...) }}
 }}
 \author{The FLR Team}
 \seealso{ \link{catch}, \link{catch.n}, \link{catch.wt}, \link{catch.sel},\link{catch.q},
-\link[base]{coerce}, \link{discards}, \link{discards.n}, \link{discards.sel}, \link{discards.wt},
+\link[methods]{coerce}, \link{discards}, \link{discards.n}, \link{discards.sel}, \link{discards.wt},
 \link{landings}, \link{landings.n}, \link{landings.sel}, \link{landings.wt}, \link{price}, \link{FLComp} }
 \examples{
 # creating objects

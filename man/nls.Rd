@@ -17,7 +17,7 @@
 }
 \section{Methods}{\describe{
 \item{ signature(formula=FLModel,data=missing,start=missing,control=missing,algorithm=missing,trace=missing,subset=missing,weights=missing,na.action=missing,model=missing,lower=missing,upper=missing) :}{Applies non-linear sum of squares to
-the model and data in the input \link{FLModel-class} object.}
+the model and data in the input \linkS4class{FLModel} object.}
 }}
 \author{The FLR Team}
 \seealso{ \link{FLComp} }

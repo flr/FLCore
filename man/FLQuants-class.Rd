@@ -32,7 +32,7 @@ list
 \section{Methods}{\describe{
 \item{\link[base]{*}(base) :}{Describe method}
 \item{}{\code{ signature(e1=FLQuants,e2=FLQuants) }}
-\item{\link[base]{Arith}(base) :}{Describe method}
+\item{\link[methods]{Arith}(methods) :}{Describe method}
 \item{}{\code{ signature(e1=FLQuants,e2=FLQuants) }}
 \item{\link[base]{as.data.frame}(base) :}{Describe method}
 \item{}{\code{ signature(x=FLQuants,row.names=missing,optional=missing) }}
@@ -52,5 +52,5 @@ list
 \item{}{\code{ signature(x=formula,data=FLQuants) }}
 }}
 \author{The FLR Team}
-\seealso{ \link[base]{*}, \link[base]{Arith}, \link[base]{as.data.frame}, \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame}, \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot}, \link{FLlst}, \link[base]{list}}
+\seealso{ \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame}, \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame}, \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot}, \link{FLlst}, \link[base]{list}}
 \keyword{classes}

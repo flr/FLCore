@@ -13,7 +13,7 @@
 }
 \section{Methods}{\describe{
 \item{signature(\_data=FLComp) :}{Method for all complex FLR classes that extend 
-  \code{\link{FLComp-class}}}
+  \code{\linkS4class{FLComp}}}
 }}
 \author{The FLR Team}
 \seealso{\code{\link[base]{transform}}}

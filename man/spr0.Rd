@@ -21,8 +21,9 @@
 \item{ signature(ssb=FLSR, rec=missing, f=FLQuant) :}{\code{rec} and \code{ssb} are obtained from an \code{FLSR} object, while \code{fbar} must be provided.}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLStock-class},  \link{FLSR-class}}
+\seealso{ \linkS4class{FLStock},  \linkS4class{FLSR}}
 \examples{
+data(ple4)
 # example FLStock dataset
 spr0(ple4)
 }

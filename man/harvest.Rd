@@ -16,9 +16,10 @@
 \item{ signature(object=FLBiol) :}{Uses the method above to calculate an approximation of harvest rate}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLComp}, \link{FLBiol-class}}
+\seealso{ \linkS4class{FLComp}, \linkS4class{FLBiol}}
 \examples{
-flb<-as(ple4, 'FLBiol')
+data(ple4)
+flb <- as(ple4, 'FLBiol')
 harvest(flb)
 }
 \keyword{methods}

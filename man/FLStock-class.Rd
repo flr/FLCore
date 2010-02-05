@@ -1,4 +1,4 @@
-\name{FLStock-class}
+\name{FLStock}
 \docType{class}
 \alias{FLStock-class}
 \alias{FLStock}

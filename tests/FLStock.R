@@ -3,7 +3,7 @@
 
 # Copyright 2003-2009 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, Cefas
-# Last Change: 17 Feb 2009 19:06
+# Last Change: 13 Jan 2010 18:29
 # $Id$
 
 # Reference:
@@ -18,6 +18,7 @@ setCon()
 zz <- startTest("FLStock.txt")
 tagTest("FLStock testing ...")
 
+data(ple4)
 
 # Bug IM_20090217_1855_rec
 # http://flr-project.org/bugs/index.php?do=details&task_id=6&project=2

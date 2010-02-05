@@ -11,7 +11,7 @@
 \title{Methods upper and lower}
 \description{
   Accesor and replacement methods for the \code{lower} and \code{upper} attributes of
-  objects of class \code{\link{FLModel-class}}. These are stored as part of the structure
+  objects of class \code{\linkS4class{FLModel}}. These are stored as part of the structure
   inside the \code{initial} slot. This slot contains a function to be used to provide 
   initial values to any of the fitting method (e.g. \code{\link{fmle}}).
 
@@ -34,7 +34,7 @@ lower<-(object, value)
 \item{signature(object=FLModel, value=numeric) :}{Describe method}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLModel-class} }
+\seealso{ \linkS4class{FLModel} }
 \examples{
 data(nsher)
 lower(nsher)

@@ -19,5 +19,11 @@
 }}
 \author{The FLR Team}
 \seealso{ \link{FLComp} }
-\examples{}
+\examples{
+fla <- FLQuant(rnorm(20), dim=c(2,10))
+flb <- FLQuant(rnorm(45), dim=c(3,15))
+fls <- FLQuants(a=fla, b=flb)
+flc <- mcf(fls)
+lapply(flc, dim)
+}
 \keyword{methods}

@@ -5,7 +5,7 @@
 \alias{ssn,FLBiol-method}
 \title{Method ssn}
 \description{
- Returns the Spawning Stock Numbers of \code{\link{FLBiol-class}} objects.
+ Returns the Spawning Stock Numbers of \code{\linkS4class{FLBiol}} objects.
 }
 
 \section{Generic function}{

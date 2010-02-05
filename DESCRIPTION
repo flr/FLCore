@@ -6,7 +6,7 @@ Author: FLR Team and various contributors. Initial design by Laurence T. Kell & 
 Description: FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R. Developed by a team of fisheries scientists in various countries. More information can be found at http://flr-project.org/, including a development mailing list.
 Depends: methods, R(>= 2.8.0), graphics, stats, stats4, grid, lattice
 Maintainer: FLR Team <flr-team@flr-project.org>
-License: GPL 2 or above
-Collate: FLArray.R FLQuant.R FLQuantPoint.R FLAccesors.R FLComp.R FLlst-class.R FLStock.R FLCatch.R FLQuants-methods.R FLPar.R io.FLStock.R FLBiol.R FLCohort.R FLMetier.R FLFleet.R FLIndex.R FLlst-methods.R io.FLIndices.R FLModel.R FLSR.R SRmodels.R FLtest.R coerce.R PlotDiagnostics.R zzz.R
+License: GPL 2
+Collate: genericMethods.R FLArray.R FLQuant.R FLQuantPoint.R FLAccesors.R FLComp.R FLlst-class.R FLStock.R FLCatch.R FLQuants-methods.R FLPar.R io.FLStock.R FLBiol.R FLCohort.R FLMetier.R FLFleet.R FLIndex.R FLlst-methods.R io.FLIndices.R FLModel.R FLSR.R SRmodels.R FLtest.R coerce.R PlotDiagnostics.R zzz.R
 LazyLoad: Yes
-LazyData: Yes
+LazyData: No

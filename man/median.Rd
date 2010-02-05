@@ -9,10 +9,10 @@
 \section{Generic function}{
  median(x,na.rm) 
 }
-\section{Methods}{\describe{
+\section{Methods}{\itemize{
 \item{ signature(x=FLQuantPoint,na.rm=missing) :}{Returns the median of x, see 
-\code{link}{median,FLQuantPoint-method}}.}
-\item{ signature(x=FLPar,na.rm=missing) :}{Returns the median of x along the \emph{iter} dimension.}
+\code{link}{median,FLQuantPoint-method}}.
+\item{ signature(x=FLPar,na.rm=missing) :}{Returns the median of x along the \emph{iter} dimension.}}
 }
 \author{The FLR Team}
 \seealso{\link[stats]{median}, \link[base]{apply}}

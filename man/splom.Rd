@@ -17,6 +17,7 @@
 \author{The FLR Team}
 \seealso{ \link[lattice]{splom} }
 \examples{
+data(nsher)
 splom(params(nsher))
 }
 \keyword{methods}

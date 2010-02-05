@@ -28,7 +28,7 @@ mean values over the specified time period.}
 \item{ signature(object=FLStock) :}{Returns the SBB-per-unit-recruit.}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLStock-class} }
+\seealso{ \linkS4class{FLStock} }
 \examples{
 
 data(ple4)

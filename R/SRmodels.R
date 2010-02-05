@@ -24,10 +24,6 @@ SRModelName<-function(formula)
 
 # spr0  {{{
 ## calcs spawner per recruit at F=0.0   
-if (!isGeneric("spr0"))
-  setGeneric("spr0", function(ssb, rec, fbar, ...)
-	  standardGeneric("spr0"))
-
 setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
    function(ssb, rec, fbar)
   {
@@ -128,9 +124,6 @@ ab2sv<-function(a,b,spr0,model)
 # }}}
 
 # ab {{{
-setGeneric('ab', function(object, ...)
-		standardGeneric('ab'))
-
 setMethod('ab', signature(object='FLSR'),
   function(object, plusgroup=dims(object)$max, ...){
 
@@ -557,7 +550,7 @@ segreg <- function()
 	  sum(dnorm(log(rec), log(FLQuant(ifelse(ssb <= b, a*ssb, a*b))), sqrt(sigma2), TRUE), TRUE)
 
   model <- rec ~ FLQuant(ifelse((ssb*a) <= (b/a), a * ssb, a * b))
-  
+
   initial <- structure(function(rec, ssb)
   {
     a <- mean(rec/ssb)

@@ -17,7 +17,7 @@
   Slots in this class attempt to map all the usual outputs for a modelling
   exercise, together with the standard inputs. Input data is stored in slots
   created by each of those classes based on FLModel.See, for example
-  \code{\link{FLSR-class}} for a class used for stock-recruitment models.
+  \code{\linkS4class{FLSR}} for a class used for stock-recruitment models.
 
   Various fitting algorithms, similar to those present in the basic R packages are 
   currently available for FLModel, including \code{\link{fmle}}, \code{\link{nls-FLCore}} 
@@ -43,7 +43,7 @@ FLComp
 }}
 \section{Constructor}{
 \describe{
-\item{}{Constructor method for objects of class \code{\link{FLModel-class}}. This method is to be called by the constructor methods of classes extending \code{FLModel}.}
+\item{}{Constructor method for objects of class \code{\linkS4class{FLModel}}. This method is to be called by the constructor methods of classes extending \code{FLModel}.}
 \item{}{An argument \code{class} instructs the constructor about the exact class of the returned object. Constructor methods for \code{FLModel}-based class should simply invoke this method with the appropriate class argument (See example below).}
 \item{ signature(object=formula) :}{First argument is a formula describing the model, to be placed in the \code{model} slot.}
 \item{ signature(object=missing) :}{Arguments, if given, are parsed and allocated by name to a iven slot. If none if provided, and empty \code{FLModel} object is returned.}

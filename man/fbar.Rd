@@ -19,7 +19,7 @@ fbar(object, ...)
   as found in the \code{range} slot, is returned.
 }
 \value{
-An object of class \code{\link{FLQuant-class}}
+An object of class \code{\linkS4class{FLQuant}}
 }
 \author{FLR Team}
 \examples{

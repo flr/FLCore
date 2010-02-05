@@ -20,9 +20,9 @@
 \item{effort}{ (\code{FLQuant}): Effort used to create the index}
 \item{sel.pattern}{ (\code{FLQuant}): Selection pattern for the index}
 \item{index.q}{ (\code{FLQuant}): Catchability of the index}
-\item{name}{ (\code{character}): Name of the stock inherited from FLComp-class}
-\item{desc}{ (\code{character}): General description of the object inherited from FLComp-class}
-\item{range}{ (\code{numeric}):}{Range of the object inherited from FLComp-class}
+\item{name}{ (\code{character}): Name of the stock inherited from FLComp}
+\item{desc}{ (\code{character}): General description of the object inherited from FLComp}
+\item{range}{ (\code{numeric}):}{Range of the object inherited from FLComp}
 }}
 \section{Extends}{\describe{
 FLComp
@@ -45,7 +45,7 @@ FLComp
 \item{}{\code{ signature(object=missing) }}
 \item{\link{catch.wt<-}(FLCore) :}{replacement function for the catch.wt slot in the object}
 \item{}{\code{ signature(object=FLIndex,value=FLQuant) }}
-\item{\link[base]{coerce}(methods) :}{Describe method}
+\item{\link[methods]{coerce}(methods) :}{Describe method}
 \item{}{\code{ signature(from=NULL,to=FLIndex,strict=missing) }}
 \item{\link{computeCatch}(FLCore) :}{Compute the catch in the FLIndex method, as catch.n and catch.wt}
 \item{}{\code{ signature(object=missing) }}
@@ -54,7 +54,7 @@ FLComp
 \item{\link{iter}(FLCore) :}{To extract or modify a subset of the iterations contained in the FLIndex object, the 
   \code{iter} and \code{iter<-} methods can be used}
 \item{}{\code{ signature(object=missing) }}
-\item{\link[graphics]{plot}(graphics) :}{Plot the FLIndex-class, takes an additional argument type, which defines the type of plot}
+\item{\link[graphics]{plot}(graphics) :}{Plot the FLIndex, takes an additional argument type, which defines the type of plot}
 \item{}{\code{ signature(x=FLIndex,y=missing) }}
 \item{\link{propagate}(FLCore) :}{\code{FLIndex} objects with a single iteration (length of 1 in the sixth dimension) can be extended using the \code{propagate} method. The \code{type} argument
   selects whether the new iterations are filled with the content of the first iteration (\code{type='all'}) or left empty (\code{type='first'}) }
@@ -72,5 +72,9 @@ FLComp
 }}
 \author{The FLR Team}
 \seealso{ \link{catch.n}, \link{catch.n<-}, \link{catch.wt}, \link{catch.wt<-}, \link{coerce}, \link{computeCatch}, \link{dims}, \link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary}, \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp} }
-\examples{}
+\examples{
+fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
+summary(fli)
+index(fli)
+}
 \keyword{classes}

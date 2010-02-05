@@ -33,9 +33,9 @@ FLCohorts               Class FLCohorts
 FLComp                  Class FLComp
 FLFleet                 Class FLFleet
 FLFleets                Class FLFleets
-FLIndex-class           Class FLIndex
+FLIndex                 Class FLIndex
 FLIndices               Class FLIndices
-FLMetier-class          Class FLMetier
+FLMetier                Class FLMetier
 FLMetiers               Class FLMetiers
 FLModel                 Class FLModel for statistical models
 FLPar                   Class FLPar
@@ -43,7 +43,7 @@ FLQuant                 FLQuant class for numerical data
 FLQuantPoint            Class FLQuantPoint
 FLQuants                Class FLQuants
 FLSR                    Class FLSR
-FLStock-class           Class FLStock
+FLStoc                  Class FLStock
 FLStocks                Class FLStocks
 FLlst                   Class FLlst
 }

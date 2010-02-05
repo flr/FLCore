@@ -4,13 +4,13 @@
 \alias{quantile,FLQuantPoint-method}
 \title{Method quantile}
 \description{
-  Quantiles for \code{\link{FLQuant-class}} objects can be obtained with this method. 
+  Quantiles for \code{\linkS4class{FLQuant}} objects can be obtained with this method. 
   Default quantiles returned are \code{seq(0, 1, 0.25)}, but they can be specified using
-  the \code{probs} argument. The returned \code{\link{FLQuant-class}} object uses the 
+  the \code{probs} argument. The returned \code{\linkS4class{FLQuant}} object uses the 
   sixth dimension (\emph{iter}) to store the requested quantiles, with appropriate 
   dimnames.
 
-  For objects of class \code{\link{FLQuantPoint-class}}, quantile is merely an accessor
+  For objects of class \code{\linkS4class{FLQuantPoint}}, quantile is merely an accessor
   for two elements of the sixth dimension, \code{lowq} and \code{uppq}. You could 
   use the \code{\link{lowq}} and \code{\link{uppq}} methods instead.
 }
@@ -22,7 +22,7 @@
 \item{ signature(x=FLQuantPoint) :}{Describe method}
 }}
 \author{The FLR Team}
-\seealso{\link[stats]{quantile}, \link{FLQuant-class}, \link{FLQuantPoint-class} }
+\seealso{\link[stats]{quantile}, \linkS4class{FLQuant}, \linkS4class{FLQuantPoint}}
 \examples{
 # Normally distributed FLQuant, with log-normal random mean and fixed sd of 20
 flq <- rnorm(100, FLQuant(rlnorm(20), dim=c(2,10)), 20)

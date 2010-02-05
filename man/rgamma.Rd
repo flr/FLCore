@@ -12,11 +12,10 @@ Random generation for the Gamma distribution with parameters 'shape' and 'scale'
 \item{ signature(n=numeric,shape=FLQuantPoint,rate=missing,scale=missing) :}{Returns an FLQuant for Gamma-distributed values.}
 }}
 \author{The FLR Team}
-\seealso{ \link[stats]{rgamma}, \link{FLQuantPoint-class} }
+\seealso{ \link[stats]{rgamma}, \linkS4class{FLQuantPoint} }
 \examples{
 flq <- FLQuant(rnorm(1000,mean=10,sd=2),dim=c(1,10,1,1,1,100))
 flqp <- FLQuantPoint(flq)
 rgamma(10,shape=flqp)
 }
-
 \keyword{methods}

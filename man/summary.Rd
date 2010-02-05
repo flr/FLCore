@@ -30,8 +30,10 @@
 \author{The FLR Team}
 \seealso{\link[base]{summary}}
 \examples{
+data(ple4)
 summary(ple4)
 
+data(nsher)
 summary(nsher)
 }
 \keyword{methods}

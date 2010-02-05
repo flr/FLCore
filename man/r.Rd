@@ -22,7 +22,7 @@
 r(object, ...)
 }
 \arguments{
-  \item{object}{ An object of type \code{\link{FLBiol-class}}.}
+  \item{object}{ An object of type \code{\linkS4class{FLBiol}}.}
   \item{\dots}{ Extra arguments accepted by each implementation.}
 }
 \details{
@@ -33,10 +33,10 @@ by supply either 'year' or 'cohort' as the 'by' argument (see below).
 The method can handle Monte Carlo samples (i.e. with iterations) in either the fec, m or both slots required to calculate r and the conversion is done internally so that we obtain an \code{FLQuant} of the correct dimensions.
 }
 \value{
-	An object of class \code{\link{FLQuant-class}}.
+	An object of class \code{\linkS4class{FLQuant}}.
 }
 \author{FLR Team}
-\seealso{\code{\link{FLBiol-class}}}
+\seealso{\code{\linkS4class{FLBiol}}}
 \examples{\dontrun{
 
 # call in the NS herring stock and biol objects

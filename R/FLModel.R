@@ -39,9 +39,6 @@ setClass('FLModel',
 invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params')))  # }}}
 
 # FLModel()  {{{
-setGeneric('FLModel', function(model, ...)
-    standardGeneric('FLModel'))
-
 setMethod('FLModel', signature(model='missing'),
   function(..., class='FLModel')
   {
@@ -142,10 +139,7 @@ setReplaceMethod('logLik', signature(object='FLModel', value='numeric'),
 )  # }}}
   
 # coef - same as params  {{{
-if (!isGeneric("coef"))
-  setGeneric('coef', useAsDefault = coef)
-setMethod('coef',
-  signature(object='FLModel'),
+setMethod('coef', signature(object='FLModel'),
   function(object, ...)
   {
     return(object@params)
@@ -200,6 +194,7 @@ setMethod('fmle',
     if(method == 'L-BFGS-B')
     {
       if(missing(lower) && !is.null(lower(object)))
+        # if is(lower, function)
         lower <- lower(object)[match(parnm, names(fixed), nomatch=0)==0]
       if(missing(upper) && !is.null(upper(object)))
         upper <- upper(object)[match(parnm, names(fixed), nomatch=0)==0]
@@ -263,12 +258,6 @@ setMethod('fmle',
       else
         data <- alldata
       
-      # check values
-      toolarge <- names(data)[unlist(lapply(data, max, na.rm=TRUE))>10000]
-      if(length(toolarge) > 0)
-        warning(paste("Values might be too large for optimizer in ",
-          paste(toolarge, collapse=", ")))
-    
       # add covar if defined and available
       if('covar' %in% slotNames(object))
       {
@@ -347,8 +336,6 @@ setMethod('fmle',
 )   # }}}
 
 # predict   {{{
-if (!isGeneric("predict"))
-  setGeneric('predict', useAsDefault = predict)
 setMethod('predict', signature(object='FLModel'),
   function(object, ...)
   {
@@ -445,8 +432,6 @@ setMethod('predict', signature(object='FLModel'),
 )   # }}}
 
 # AIC & BIC   {{{
-if (!isGeneric("AIC"))
-  setGeneric('AIC', useAsDefault = stats::AIC)
 setMethod('AIC', signature(object='FLModel', k='numeric'),
   function(object, k=2)
     return(AIC(object@logLik, k))
@@ -457,8 +442,6 @@ setMethod('AIC', signature(object='FLModel', k='missing'),
     return(AIC(object@logLik))
 )
 
-if (!isGeneric("BIC"))
-  setGeneric('BIC', useAsDefault = stats::BIC)
 setMethod('BIC', signature(object='FLModel'),
   function(object)
     return(BIC(object@logLik))
@@ -756,16 +739,10 @@ setAs('FLPar', 'list',
 ) # }}}
 
 # lower & upper {{{
-if (!isGeneric("lower"))
-  setGeneric("lower", function(object, ...)
-    standardGeneric("lower"))
 setMethod("lower", signature(object="FLModel"),
   function(object)
     return(attr(slot(object, 'initial'), 'lower'))
 )
-if (!isGeneric("lower<-"))
-  setGeneric("lower<-", function(object, ..., value)
-    standardGeneric("lower<-"))
 setReplaceMethod("lower", signature(object="FLModel", value="numeric"),
   function(object, value)
   {
@@ -776,16 +753,10 @@ setReplaceMethod("lower", signature(object="FLModel", value="numeric"),
   }
 )
 
-if (!isGeneric("upper"))
-  setGeneric("upper", function(object, ...)
-    standardGeneric("upper"))
 setMethod("upper", signature(object="FLModel"),
   function(object)
     return(attr(slot(object, 'initial'), 'upper'))
 )
-if (!isGeneric("upper<-"))
-  setGeneric("upper<-", function(object, ..., value)
-    standardGeneric("upper<-"))
 setReplaceMethod("upper", signature(object="FLModel", value="numeric"),
   function(object, value)
   {
@@ -844,10 +815,6 @@ setMethod("iter", signature(object="logLik"),
 # glm
 
 # params        {{{
-if (!isGeneric("params"))
-	setGeneric("params", function(object, ...)
-		standardGeneric("params"))
-
 setMethod("params", signature(object="FLModel"),
 	function(object, param=missing)
   {
@@ -859,10 +826,6 @@ setMethod("params", signature(object="FLModel"),
 ) # }}}
 
 # params<-      {{{
-if (!isGeneric("params<-"))
-	setGeneric("params<-", function(object, value)
-		standardGeneric("params<-"))
-
 setMethod("params<-", signature(object="FLModel", value='FLPar'),
 	function(object, value)
   {

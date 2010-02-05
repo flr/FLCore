@@ -94,8 +94,6 @@ remove(validFLStock)
 invisible(createFLAccesors("FLStock", exclude=c('name', 'desc', 'range', 'harvest')))	# }}}
 
 # FLStock()   {{{
-setGeneric('FLStock', function(object, ...)
-		standardGeneric('FLStock'))
 setMethod('FLStock', signature(object='FLQuant'),
   function(object, plusgroup=dims(object)$max, ...)
   {
@@ -151,9 +149,6 @@ is.FLStock <- function(x)
 	return(inherits(x, "FLStock"))	# }}}
 
 ## computeLandings	{{{
-if (!isGeneric("computeLandings"))
-setGeneric("computeLandings", function(object, ...)
-		standardGeneric("computeLandings"))
 setMethod("computeLandings", signature(object="FLStock"),
 	function(object, na.rm=TRUE) {
         res        <- quantSums(landings.n(object) * landings.wt(object), na.rm=na.rm)
@@ -163,9 +158,6 @@ setMethod("computeLandings", signature(object="FLStock"),
 )	# }}}
 
 ## computeDiscards	{{{
-if (!isGeneric("computeDiscards"))
-	setGeneric("computeDiscards", function(object, ...)
-		standardGeneric("computeDiscards"))
 setMethod("computeDiscards", signature(object="FLStock"),
 	function(object, na.rm=TRUE) {
         res <- quantSums(discards.n(object)*discards.wt(object), na.rm=na.rm)
@@ -175,9 +167,6 @@ setMethod("computeDiscards", signature(object="FLStock"),
 )	# }}}
 
 ## computeCatch	{{{
-if (!isGeneric("computeCatch"))
-	setGeneric("computeCatch", function(object, ...)
-		standardGeneric("computeCatch"))
 setMethod("computeCatch", signature(object="FLStock"),
     function(object, slot="catch", na.rm=TRUE)
 	{    
@@ -213,9 +202,6 @@ setMethod("computeCatch", signature(object="FLStock"),
 )	# }}}
 
 ## computeLandings	{{{
-if (!isGeneric("computeStock"))
-setGeneric("computeStock", function(object, ...)
-		standardGeneric("computeStock"))
 setMethod("computeStock", signature(object="FLStock"),
 	function(object, na.rm=TRUE) {
         res <- quantSums(stock.n(object) * stock.wt(object), na.rm=na.rm)
@@ -543,10 +529,6 @@ sg<-	function(x, plusgroup, na.rm=FALSE)
 )# }}}
 
 ## ssb		{{{
-if (!isGeneric("ssb"))
-	setGeneric("ssb", function(object, ...)
-		standardGeneric("ssb"))
-
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
 
@@ -570,10 +552,6 @@ setMethod("ssb", signature(object="FLStock"),
 )	# }}}
 
 ## fbar		{{{
-if (!isGeneric("fbar"))
-	setGeneric("fbar", function(object, ...)
-		standardGeneric("fbar"))
-
 setMethod("fbar", signature(object="FLStock"),
  function(object, ...) {
   if (is.na(object@range["minfbar"])) object@range["minfbar"]<-object@range["min"]
@@ -601,17 +579,7 @@ sop <- function(stock, slot="catch") {
 		slot(stock, paste(slot, ".wt", sep=""))) / slot(stock, slot))
 }	# }}}
 
-## as.FLStock	{{{
-if (!isGeneric("as.FLStock")) {
-	setGeneric("as.FLStock", function(object, ...)
-		standardGeneric("as.FLStock"))
-}	# }}}
-
 ## harvest		{{{
-if (!isGeneric("harvest"))
-	setGeneric("harvest", function(object, catch, ...)
-		standardGeneric("harvest"))
-
 setMethod("harvest", signature(object="FLStock", catch="missing"),
 	function(object, index="f") {
 		if (!missing(index) && units(slot(object, "harvest")) != index)
@@ -621,10 +589,6 @@ setMethod("harvest", signature(object="FLStock", catch="missing"),
 )
 
 ## harvest<-
-if (!isGeneric("harvest<-"))
-	setGeneric("harvest<-", function(object, ..., value)
-	  standardGeneric("harvest<-")
-  )
 setMethod("harvest<-", signature(object="FLStock", value="character"),
 	function(object, value) {
 		units(slot(object, "harvest")) <- value
@@ -691,14 +655,7 @@ setMethod("trim", signature(x="FLStock"), function(x, ...){
 
 }) # }}}
 
-## ssbpurec SSB per unit recruit {{{
-if (!isGeneric("ssbpurec")) {
-	setGeneric("ssbpurec", function(object, ...){
-		value <- standardGeneric("ssbpurec")
-		value
-	})
-}
-
+# ssbpurec  {{{
 setMethod("ssbpurec",signature(object="FLStock"),
 	function(object, start = "missing", end = "missing", type = "non-param", recs = "missing", spwns = "missing", plusgroup = TRUE, ...) {
 

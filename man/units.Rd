@@ -32,7 +32,7 @@
 \item{ signature(x=FLCohort) :}{Describe method}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLQuant-class}, \link{FLPar-class}, \link{FLCohort-class} }
+\seealso{ \linkS4class{FLQuant}, \linkS4class{FLPar}, \linkS4class{FLCohort}}
 \examples{
 flq <- FLQuant(rnorm(100), dim=c(5,20), units='kg')
 units(flq)

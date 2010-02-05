@@ -51,8 +51,6 @@ checkRun(x, con=getOption("con"))
 	\item{tolerance}{Allowed difference between two values in a comparison}
 	\item{...}{Extra arguments to be passed on to all.equal}
 }
-\details{
-}
 \value{
 	Output is directed to the file specified, so no objects are created in the workspace
 	by the check functions. A \code{connection} is created by \code{startTest} but is

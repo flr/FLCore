@@ -38,7 +38,8 @@
 \item{ signature(x=FLIndex) :}{Trims along the specified dimensions, but ignores the \emph{quant} (first) dimension for thoe slots where it is of length=1.}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLQuant-class},  \link{FLStock-class}, \link{FLCohort-class}, \link{FLIndex-class}}
+\seealso{ \linkS4class{FLQuant},  \linkS4class{FLStock}, \linkS4class{FLCohort}, 
+  \linkS4class{FLIndex}}
 \examples{
 data(ple4)
 

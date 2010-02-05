@@ -7,12 +7,12 @@
 \alias{FLSR,missing-method}
 \title{Class FLSR}
 \description{
-  Class for stock-recruitment models, based on \code{\link{FLModel-class}}. Two extra
-  \code{\link{FLQuant-class}} slots are used for input data: \code{rec} for the 
+  Class for stock-recruitment models, based on \code{\linkS4class{FLModel}}. Two extra
+  \code{\linkS4class{FLQuant}} slots are used for input data: \code{rec} for the 
   recruitment series, and \code{ssb} for Spawning Stock Biomass or any other index of
   reproductive potential.
 
-  All the main methods for this class are inherited from \code{\link{FLModel-class}}, 
+  All the main methods for this class are inherited from \code{\linkS4class{FLModel}}, 
   although the plot method is specific to FLSR, and methods exist to access the specific
   \code{FLQuant} slots, \code{rec} and \code{ssb}.
 
@@ -65,7 +65,7 @@ If no 'FLQuant' slots are supplied in the call to the constructor 'FLSR()', an '
 }}
 
 \section{Methods}{\describe{
-All methods are inherited from \code{\link{FLModel-class}}, except for
+All methods are inherited from \code{\linkS4class{FLModel}}, except for
 \item{\link[graphics]{plot}(graphics) :}{Plot an FLSR object}
 \item{}{\code{ signature(x=FLSR,y=missing) }}
 }}

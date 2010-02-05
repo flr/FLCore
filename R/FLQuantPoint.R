@@ -30,11 +30,8 @@ setValidity("FLQuantPoint", validFLQuantPoint)
 remove(validFLQuantPoint)   # }}}
 
 ## FLQuantPoint()	{{{
-if (!isGeneric("FLQuantPoint")) {
-	setGeneric("FLQuantPoint", function(object, ...){
-		standardGeneric("FLQuantPoint")
-	})
-}
+setGeneric("FLQuantPoint", function(object, ...)
+		standardGeneric("FLQuantPoint"))
 ## FLQuantPoint(FLQuant())
 setMethod("FLQuantPoint", signature(object="FLQuant"),
     function(object, ...) {
@@ -100,8 +97,7 @@ setMethod("mean", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(FLQuant(x[,,,,,'mean']))
 )
-if (!isGeneric("mean<-"))
-	setGeneric("mean<-", function(x, value) standardGeneric("mean<-"))
+setGeneric("mean<-", function(x, value) standardGeneric("mean<-"))
 setMethod("mean<-", signature(x="FLQuantPoint"),
 	function(x, value) {
 		x[,,,,,'mean'] <- value
@@ -115,8 +111,7 @@ setMethod("median", signature(x="FLQuantPoint"),
 	function(x, na.rm=FALSE)
 		return(FLQuant(x[,,,,,'median']))
 )
-if (!isGeneric("median<-"))
-	setGeneric("median<-", function(x, value) standardGeneric("median<-"))
+setGeneric("median<-", function(x, value) standardGeneric("median<-"))
 setMethod("median<-", signature(x="FLQuantPoint", value="ANY"),
 	function(x, value) {
 		x[,,,,,'median'] <- value
@@ -131,7 +126,6 @@ setMethod("var", signature(x="FLQuantPoint"),
 		return(FLQuant(x[,,,,,'var']))
 )
 
-if (!isGeneric("var<-"))
 setGeneric("var<-", function(x, value) standardGeneric("var<-"))
 setMethod("var<-", signature(x="FLQuantPoint", value="ANY"),
 	function(x, value) {
@@ -140,15 +134,13 @@ setMethod("var<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 )
 
-if (!isGeneric("uppq"))
-	setGeneric("uppq", function(x, ...) standardGeneric("uppq"))
+setGeneric("uppq", function(x, ...) standardGeneric("uppq"))
 setMethod("uppq", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(FLQuant(x[,,,,,'uppq']))
 )
 
-if (!isGeneric("uppq<-"))
-	setGeneric("uppq<-", function(x, value) standardGeneric("uppq<-"))
+setGeneric("uppq<-", function(x, value) standardGeneric("uppq<-"))
 setMethod("uppq<-", signature(x="FLQuantPoint", value="ANY"),
 	function(x, value) {
 		x[,,,,,'uppq'] <- value
@@ -156,15 +148,13 @@ setMethod("uppq<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 )
 
-if (!isGeneric("lowq"))
-	setGeneric("lowq", function(x, ...) standardGeneric("lowq"))
+setGeneric("lowq", function(x, ...) standardGeneric("lowq"))
 setMethod("lowq", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(FLQuant(x[,,,,,'lowq']))
 )
 
-if (!isGeneric("lowq<-"))
-	setGeneric("lowq<-", function(x, value) standardGeneric("lowq<-"))
+setGeneric("lowq<-", function(x, value) standardGeneric("lowq<-"))
 setMethod("lowq<-", signature(x="FLQuantPoint", value="ANY"),
 	function(x, value) {
 		x[,,,,,'lowq'] <- value

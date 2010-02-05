@@ -12,20 +12,20 @@
 survprob(object, ...)
 }
 \arguments{
-  \item{object}{ An object of type \code{\link{FLBiol-class}}.}
+  \item{object}{ An object of type \code{\linkS4class{FLBiol}}.}
   \item{\dots}{ Extra arguments accepted by each implementation.}
 }
 \details{
   Calculates the survival probability-at-quant given the mortality information in an 
-  \code{\link{FLBiol-class}}  object - survival probability from one year to the next is 
+  \code{\linkS4class{FLBiol}}  object - survival probability from one year to the next is 
   simply exp(-M) and the survival probaiblity to a given quant is merely the product
   along the quant dimension of the individual survival probabilities. 
 }
 \value{
-	An object of class \code{\link{FLQuant-class}}.
+	An object of class \code{\linkS4class{FLQuant}}.
 }
 \author{FLR Team}
-\seealso{\code{\link{FLBiol-class}}}
+\seealso{\code{\linkS4class{FLBiol}}}
 \examples{\dontrun{
 data(nsher.biol)
 nsh.ps <- survprob(nsh.biol,by='year')

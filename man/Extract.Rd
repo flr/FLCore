@@ -67,7 +67,7 @@
   \code{FLMetier} returns an \code{FLCatch} object.  The \code{[[} operators can be 
   combined to extract a single \code{FLCatch} from an \code{FLFleet} object (see below).
 
-  Objects of class \code{\link{FLIndex-class}} might have a combination of \code{FLQuant} 
+  Objects of class \code{\linkS4class{FLIndex}} might have a combination of \code{FLQuant}
   of various lengths along the first dimension. When extracting from an \code{FLIndex} 
   object, indices for the first dimension are ignored for those slots whose first 
   dimensions is of length=1.

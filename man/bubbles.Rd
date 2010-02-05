@@ -20,7 +20,7 @@ This method plots three dimensional data like matrices by age and year or age-cl
 \item{ signature(x=formula, data=data.frame) :}{Produce bubbles plot of the object.}
 }}
 \author{The FLR Team}
-\seealso{ \link[lattice]{lattice}, \code{\link{FLQuant-class}}, \code{\link{FLQuants-class}},\code{\link{FLCohort-class}}}
+\seealso{ \link[lattice]{lattice}, \code{\linkS4class{FLQuant}}, \code{\linkS4class{FLQuants}},\code{\linkS4class{FLCohort}}}
 \examples{
 data(ple4)
 bubbles(age~year, data=catch.n(ple4))

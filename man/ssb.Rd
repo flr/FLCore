@@ -8,7 +8,7 @@
 \description{
  Returns the Spawning Stock Biomass of \code{FLStock} and \code{FLBiol} objects.
  
- For \code{\link{FLStock-class}} objects the nature of the calculation depends
+ For \code{\linkS4class{FLStock}} objects the nature of the calculation depends
  on the units in the harvest slot. See details below.
 }
 
@@ -23,11 +23,11 @@
  prior to spawning then the calculated SSB will depend on the units of the
  harvest slot.
  
- For an \code{\link{FLStock-class}} with harvest units 'f' SSB is calculated as
+ For an \code{\linkS4class{FLStock}} with harvest units 'f' SSB is calculated as
 
     SSB = sum(N*exp(-F*propF-M*propM) * wt * mat)
 
- For an \code{\link{FLStock-class}} with harvest units 'hr' SSB is calculated as
+ For an \code{\linkS4class{FLStock}} with harvest units 'hr' SSB is calculated as
 
 		SSB = sum(N*(1-harvest)*exp(-M*propM) * wt * mat)
 
@@ -36,7 +36,7 @@
  harvest rate.
 }
 \item{ signature(object=FLBiol) :}{
- For an \code{\link{FLBiol-class}} the spawning biomass at the beginning of the
+ For an \code{\linkS4class{FLBiol}} the spawning biomass at the beginning of the
  year is calculated.
 
   	SSB = sum(N * wt * mat)
@@ -44,7 +44,7 @@
 }}
 
 \author{The FLR Team}
-\seealso{ \link{FLBiol-class} \link{FLStock-class}}
+\seealso{ \linkS4class{FLBiol} \linkS4class{FLStock}}
 \examples{
  data(ple4)
  units(harvest(ple4)) # check the units of the harvest slot

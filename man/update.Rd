@@ -14,7 +14,7 @@
 \item{ signature(object=FLModel) :}{Rerun using details(object)[['call']]}
 }}
 \author{The FLR Team}
-\seealso{\link{FLModel-class}, \link[stats]{update}}
+\seealso{\linkS4class{FLModel}, \link[stats]{update}}
 \examples{
 \dontrun{
 data(nsher)

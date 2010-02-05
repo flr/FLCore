@@ -89,6 +89,8 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 
 setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(x,i,j,drop){
 	lst <- as(x, "list")
+  # names dropped!
+  names(lst) <- names(x)
 	lst <- lst[i]
 	new(is(x), lst)
 })  # }}}

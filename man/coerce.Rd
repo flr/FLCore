@@ -59,13 +59,13 @@
   single catch element.}
 \item{from=FLStock,to=FLFleet}{As before but creating an \code{FLFleet} object with a 
   single metier and catch.}
-\item{from=FLQuant,to=FLCohort}{An \code{\link{FLCohort-class}} object is created from the
-  year-structured data in an \code{\link{FLQuant}}. See \code{\link{FLCohort}} for a 
-  description of the exact procedure.}
+\item{from=FLQuant,to=FLCohort}{An \code{\linkS4class{FLCohort}} object is created from  
+  the year-structured data in an \code{\linkS4class{FLQuant}}. See \code{\link{FLCohort}} 
+  for a description of the exact procedure.}
 \item{from=FLCohort,to=FLQuant}{The previous calculation is reversed and an 
-  \code{\link{FLQuant}} is returned.}
+  \code{\linkS4class{FLQuant}} is returned.}
 \item{from=FLlst,to=list}{An standard R \code{\link[base]{list}} object is created from an
-  \code{\link{FLlst-class}} by dropping the extra attributes.}
+  \code{\linkS4class{FLlst}} by dropping the extra attributes.}
 }
 }
 \author{The FLR Team}

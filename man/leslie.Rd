@@ -11,22 +11,24 @@
 leslie(object, ...)
 }
 \arguments{
-  \item{object}{ An object of type \code{\link{FLBiol-class}}.}
+  \item{object}{ An object of type \code{\linkS4class{FLBiol}}.}
   \item{\dots}{ Extra arguments accepted by each implementation.}
 }
 \details{
-Usual Leslie matrix type dynamics for ab \code{FLBiol} object. 
+Usual Leslie matrix type dynamics for a \code{FLBiol} object. 
 }
 \value{
-	An object of class \code{\link{FLBiol-class}}.
+	An object of class \code{\linkS4class{FLBiol}}.
 }
-\references{}
+\references{
+Leslie, P.H. (1945) The use of matrices in certain population mathematics. Biometrika,33(3), 183-212.
+
+Leslie, P.H. (1948) Some further notes on the use of matrices in population mathematics. Biometrika, 35(3-4), 213-245.
+}
 \author{FLR Team}
-\note{}
-\seealso{\code{\link{FLBiol-class}}}
-\examples{\dontrun{
-data(ple4biol)
+\seealso{\code{\linkS4class{FLBiol}}}
+\examples{
+data(ple4.biol)
 ple4.l <- leslie(ple4.biol,plusgroup=FALSE)
-}
 }
 \keyword{methods}

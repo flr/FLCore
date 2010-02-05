@@ -16,8 +16,8 @@
   \item{\dots}{Other parameters, depending on the model selected.}
 }
 \value{
-    An object of class \code{\link{FLSR-class}}
+    An object of class \code{\linkS4class{FLSR}}
 }
 \author{The FLR Team}
-\seealso{\code{\link{FLSR-class}}}
+\seealso{\code{\linkS4class{FLSR}}}
 \keyword{models}

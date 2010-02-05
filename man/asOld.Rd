@@ -27,10 +27,10 @@
 }
 \section{Generic function}{
   \describe{
-    \item{as.FLBiol(object)}{Convert to an \code{\link{FLBiol-class}}}
-    \item{as.FLIndex(object)}{Convert to an \code{\link{FLIndex-class}}}
-    \item{as.FLSR(object)}{Convert to an \code{\link{FLSR-class}}}
-    \item{as.FLQuant(x)}{Convert to an \code{\link{FLQuant-class}}}
+    \item{as.FLBiol(object)}{Convert to an \code{\linkS4class{FLBiol}}}
+    \item{as.FLIndex(object)}{Convert to an \code{\linkS4class{FLIndex}}}
+    \item{as.FLSR(object)}{Convert to an \code{\linkS4class{FLSR}}}
+    \item{as.FLQuant(x)}{Convert to an \code{\linkS4class{FLQuant}}}
   }
 }
 \section{Methods}{\describe{
@@ -47,5 +47,9 @@
 }}
 \author{The FLR Team}
 \seealso{ \link{FLComp} }
-\examples{}
+\examples{
+data(ple4)
+is(ple4)
+is(as.FLBiol(ple4))
+}
 \keyword{methods}

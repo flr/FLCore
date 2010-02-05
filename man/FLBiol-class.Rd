@@ -9,10 +9,10 @@
 \title{Class FLBiol}
 \description{
  This is a class for the modelling of age/length or biomass structured populations.
- It is  in its structure a subset of the \code{FLStock-class} class, but lacks the 
- harvesting information of that class. The slots are for mortality (natural or otherwise),
- fecundity/maturity/per capita birth rates, numbers, weight and mortality components 
- before spawning/birthing period. 
+ It is  in its structure a subset of the \code{\linkS4class{FLStock}} class, but lacks 
+ the harvesting information of that class. The slots are for mortality (natural or 
+ otherwise), fecundity/maturity/per capita birth rates, numbers, weight and mortality 
+ components before spawning/birthing period. 
 
  The non-accessor methods for this class calculate mature stock biomass/numbers of
  eggs/etc. and many life-history methods are available that calculate natural mortality 

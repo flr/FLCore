@@ -37,7 +37,7 @@ list
 \item{}{\code{ signature(x=FLlst,i=ANY,j=missing,value=ANY) }}
 \item{\link[base]{[[<-}(base) :}{Replacement method within elements.}
 \item{}{\code{ signature(x=FLlst,i=ANY,j=missing,value=missing) }}
-\item{\link[base]{\$<-}(base) :}{Replacement method for elements.}
+\item{\link[base]{$<-}(base) :}{Replacement method for elements.}
 \item{}{\code{ signature(x=FLlst,name=character,value=missing) }}
 \item{\link[methods]{coerce}(methods) :}{Coerce method.}
 \item{}{\code{ signature(from=FLlst,to=list,strict=missing) }}
@@ -47,7 +47,7 @@ list
 \item{}{\code{ signature(x=missing) }}
 }}
 \author{The FLR Team}
-\seealso{ \link[base]{[}, \link[base]{[<-}, \link[base]{[[<-}, \link[base][$<-]{\$<-}, \link[methods]{coerce}, \link[base]{lapply}, \link[stats]{window}, \link[base]{list}}
+\seealso{ \link[base]{[}, \link[base]{[<-}, \link[base]{[[<-}, \link[base]{$<-}, \link[methods]{coerce}, \link[base]{lapply}, \link[stats]{window}, \link[base]{list}}
 \examples{
 fll01 <- new("FLlst", list(a=1:10, b=10:20))
 fll02 <- new("FLlst", list(1:10, 10:20), names=c("a","b"))

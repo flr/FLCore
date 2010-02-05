@@ -37,5 +37,9 @@ All methods are inherited.
 }}
 \author{The FLR Team}
 \seealso{ \link{FLFleets} \link{FLlst}, \link[base]{list}}
-\examples{}
+\examples{
+data(bt4)
+is(bt4)
+summary(FLFleets(Fleet1=bt4, Fleet2=bt4))
+}
 \keyword{classes}

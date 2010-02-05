@@ -38,6 +38,9 @@
 \author{The FLR Team}
 \seealso{ \link[graphics]{plot} }
 \examples{
+data(ple4)
+data(ple4.biol)
+
 # FLQuant
 plot(catch.n(ple4)[, 1:20])
 plot(catch.n(ple4)[, 1:20], type='b', pch=19, cex=0.5)

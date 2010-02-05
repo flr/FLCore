@@ -22,7 +22,7 @@
 \item{units}{Units of measurement. \code{character}.}
 }}
 \section{Extends}{\describe{
-
+array
 }}
 \section{Constructor}{
 \describe{
@@ -66,5 +66,7 @@
 }}
 \author{The FLR Team}
 \seealso{ \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame}, \link[lattice]{densityplot}, \link[lattice]{histogram}, \link{iter}, \link{iter<-}, \link[base]{mean}, \link[stats]{median}, \link[graphics]{plot}, \link[lattice]{splom}, \link[base]{summary}, \link{units,FLPar-method}, \link{units<-,FLPar,character-method}, \link[stats]{var} }
-\examples{}
+\examples{
+FLPar(rnorm(4), params=c('a','b','c','sigma2'))
+}
 \keyword{classes}

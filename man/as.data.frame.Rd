@@ -23,17 +23,17 @@
 	first six contain the corresponding dimensions. The \code{year} and \code{data} columns
 	are of class \link[base]{numeric}, while the other five are of class \link[base]{factor}.
 
-	When converting an \code{\link{FLCohort-class}} object, the \code{year} column is 
+	When converting an \code{\linkS4class{FLCohort}} object, the \code{year} column is 
   substituted by \code{cohort}.
 
 	The \code{data.frame} returned for complex objects, i.e. those the inherit from class
 	\code{\link{FLComp}}, has an extra column, \code{slot}, that holds the name of the
 	slot in the original object.
 
-	The data.frame obtained from an \code{\link{FLQuants-class}} object also has an extra 
+	The data.frame obtained from an \code{\linkS4class{FLQuants}} object also has an extra 
   column, named \code{qname}, that refers to the name of each \code{FLQuant} object in 
   the list.
-  This column is named \code{cname} when an \code{\link{FLCohorts-class}} object is
+  This column is named \code{cname} when an \code{\linkS4class{FLCohorts}} object is
   converted.
 
 	Objects of class \link{FLQuants} can also be converted into a wide-format table, where

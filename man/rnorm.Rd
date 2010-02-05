@@ -9,9 +9,9 @@
 \title{Method rnorm}
 \description{
   Generates random numbers following a normal distribution. \emph{mean} and 
-  \emph{sd} can be specified as objects of class \code{\link{FLQuant-class}}, of the same 
-  dimensions, but any of the two could be given as a numeric. In this case the value will 
-  be reused accordingly.
+  \emph{sd} can be specified as objects of class \code{\linkS4class{FLQuant}}, of the 
+  same dimensions, but any of the two could be given as a numeric. In this case the value 
+  will be reused accordingly.
 }
 \section{Generic function}{
  rnorm(n, mean, sd) 
@@ -26,7 +26,7 @@
   mean and sd from the mean and var iterations.}
 }}
 \author{The FLR Team}
-\seealso{\link[stats]{rnorm}, \link{FLQuant-class}, \link{FLQuantPoint-class} }
+\seealso{\link[stats]{rnorm}, \linkS4class{FLQuant}, \linkS4class{FLQuantPoint} }
 \examples{
    data(ple4)
    rnorm(10,mean=harvest(ple4)[,"2001"], sd=harvest(ple4)[,"2001"])

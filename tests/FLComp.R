@@ -3,7 +3,7 @@
 
 # Copyright 2003-2009 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, Cefas
-# Last Change: 09 Jan 2009 16:18
+# Last Change: 13 Jan 2010 18:02
 # $Id$
 
 # Reference:
@@ -12,6 +12,8 @@
 # TODO Fri 09 Jan 2009 04:11:56 PM CET IM:
 
 library(FLCore)
+
+data(ple4)
 
 biol <- as(ple4, 'FLBiol')
 

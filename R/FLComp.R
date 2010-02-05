@@ -117,9 +117,6 @@ setMethod("iter<-", signature(object="FLComp", value="FLComp"),
 )   # }}}
 
 ## transform	{{{
-if (!isGeneric("transform"))
-	setGeneric("transform", function(`_data`, ...) standardGeneric("transform"))
-
 setMethod("transform", signature(`_data`="FLComp"),
 	function(`_data`, ...)
   {	
@@ -139,9 +136,6 @@ setMethod("transform", signature(`_data`="FLComp"),
 )	# }}}
 
 ## qapply		{{{
-if (!isGeneric("qapply"))
-	setGeneric("qapply", function(X, FUN, ...) standardGeneric("qapply"))
-
 setMethod('qapply', signature(X='FLComp', FUN='function'),
 	function(X, FUN, ..., exclude=missing) {
 		FUN <- match.fun(FUN)
@@ -296,9 +290,6 @@ setMethod("as.data.frame", signature(x="FLComp", row.names="missing", optional="
 )   # }}}
 
 ## mcf	{{{
-setGeneric("mcf", function(object, ...)
-	standardGeneric("mcf")
-)
 setMethod('mcf', signature(object='FLComp'),
 	function(object, second) {
 
@@ -424,8 +415,6 @@ setMethod("histogram", signature("formula", "FLComp"), function(x, data, ...){
 })  # }}}
 
 # model.frame {{{
-if (!isGeneric("model.frame"))
-	setGeneric("model.frame", useAsDefault = model.frame)
 setMethod('model.frame', signature(formula='FLComp'),
 	function(formula, ...)
   {
@@ -450,8 +439,7 @@ setMethod("range", "FLComp",
   }
 ) 
 
-if (!isGeneric("range<-"))
-	setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
+setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
 setReplaceMethod("range", "FLComp",
   function(x, i, value)
   {

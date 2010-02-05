@@ -4,32 +4,24 @@
 \title{Method lowess}
 \description{
   LOWESS smoother based on locally-weighted polynomial regression for objects of class
-  \code{\link{FLSR-class}}. The model fitted is of the form rec(x)~ssb(x).
+  \code{\linkS4class{FLSR}}. The model fitted is of the form rec(x)~ssb(x). Returns an
+  object of class \code{FLQuants} with elements named \code{ssb} and \code{rec}.
 }
 \section{Generic function}{
  lowess(x, y, f=2/3, iter=3, delta=0.01 * diff(range(xy\$x[o])))
 
 }
 \section{Methods}{\describe{
-\item{signature(x=FLSR,y=missing) :}{lowessb(x, y, f=2/3, iter=3, delta=0.01 * diff(range(ssb(x))))
+\item{signature(x=FLSR,y=missing) :}{lowess(x, y, f=2/3, iter=3, delta=0.01 * diff(range(ssb(x))))
 }
 }}
 \author{The FLR Team}
-\seealso{ \link[stats]{lowess} }
+\seealso{ \link[stats]{lowess}, \code{\linkS4class{FLSR}}}
 \examples{
 # use the North Sea herring SR dataset
 data(nsher)
 
 # fitting a rec ~ ssb lowess
-nsher <- lowess(nsher)
-
-summary(nsher)
-
-\dontrun{
-plot(nsher)
-}
-
-
-
+nshlos <- lowess(nsher)
 }
 \keyword{methods}

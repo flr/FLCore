@@ -22,7 +22,7 @@
 \item{ signature(object=FLQuant,value=ANY) :}{Set the name of the first dimension of an \code{FLQuant} object.}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLQuant-class}, \link{FLCohort-class}}
+\seealso{ \linkS4class{FLQuant}, \linkS4class{FLCohort}}
 \examples{
 # quant is 'quant' by default
 quant(FLQuant())

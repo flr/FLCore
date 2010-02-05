@@ -55,6 +55,7 @@
 \author{The FLR Team}
 \seealso{\link[lattice]{xyplot}, \link[lattice]{barchart}, \link[lattice]{bwplot}, \link[lattice]{densityplot}, \link[lattice]{dotplot}, \link[lattice]{histogram}, \link[lattice]{stripplot}}
 \examples{
+data(ple4)
 # xyplot on FLQuant
 xyplot(data~year|age, catch.n(ple4)[, 1:20])
 

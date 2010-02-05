@@ -82,10 +82,6 @@ sr <- function(sr, ...)
 }   #}}}
 
 ## as.FLSR   {{{
-if (!isGeneric("as.FLSR")) 
-	setGeneric("as.FLSR", function(object, ...)
-		standardGeneric("as.FLSR"))
-
 setMethod("as.FLSR", signature(object="FLStock"),
   function(object, rec.age = dims(stock.n(object))$min, ...)
 	{
@@ -139,7 +135,8 @@ setMethod("as.FLSR", signature(object="FLBiol"),
             stop("biol must have 'n', 'wt', 'm', 'fec' and 'spwn'")
 
         args <- list(...)
-        slots <- names(args)[ifelse(length(which(names(args) == "rec.age"))>0,-which(names(args) == "rec.age"), 1:length(args))]
+        slots <- names(args)[ifelse(length(which(names(args) == "rec.age"))>0,
+            -which(names(args) == "rec.age"), 1:length(args))]
 
         # calculate ssb and create FLSR object incorporating rec.age
         rec <- dimSums(object@n[as.character(rec.age),])
@@ -249,19 +246,11 @@ setMethod("plot", signature(x="FLSR", y="missing"),
 # }}}
 
 # lowess  {{{
-if (!isGeneric("lowess"))
-  setGeneric("lowess", useAsDefault = lowess)
 setMethod('lowess', signature(x='FLSR', y='missing', f='ANY', delta='ANY', iter='ANY'),
   function(x, f=2/3, iter=3, delta=0.01 * diff(range(ssb(x))))
   {
     res <- lowess(rec(x)~ssb(x), f=f, delta=delta, iter=iter)
-    idx <- order(as.numeric(ssb(x)))
-    fitted(x) <- FLQuant(res$y[idx], dimnames=dimnames(ssb(x)))
-    residuals(x) <- log(rec(x)/fitted(x))
-    model(x) <- rec~FLQuant(lowess(ssb, rec)$y[order(as.numeric(ssb))], 
-      dimnames=dimnames(rec))
-    params(x) <- FLPar()
-    return(x)
+    return(FLQuants(rec=FLQuant(res$y, dimnames=dimnames(rec(x))),
+      ssb=FLQuant(res$x, dimnames=dimnames(ssb(x)))))
   }
 ) # }}}
-

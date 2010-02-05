@@ -31,27 +31,27 @@ list
 }}
 
 \section{Methods}{\describe{
-\item{\link{catch}(FLCore) :}{Accessor method for the \emph{catch} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{catch}(FLCore) :}{Accessor method for the \emph{catch} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{catch.n}(FLCore) :}{Accessor method for the \emph{catch.n} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{catch.n}(FLCore) :}{Accessor method for the \emph{catch.n} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{catch.wt}(FLCore) :}{Accessor method for the \emph{catch.wt} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{catch.wt}(FLCore) :}{Accessor method for the \emph{catch.wt} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{discards}(FLCore) :}{Accessor method for the \emph{discards} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{discards}(FLCore) :}{Accessor method for the \emph{discards} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{discards.n}(FLCore) :}{Accessor method for the \emph{discards.n} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{discards.n}(FLCore) :}{Accessor method for the \emph{discards.n} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{discards.wt}(FLCore) :}{Accessor method for the \emph{discards.wt} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{discards.wt}(FLCore) :}{Accessor method for the \emph{discards.wt} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{landings}(FLCore) :}{Accessor method for the \emph{landings} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{landings}(FLCore) :}{Accessor method for the \emph{landings} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{landings.n}(FLCore) :}{Accessor method for the \emph{landings.n} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{landings.n}(FLCore) :}{Accessor method for the \emph{landings.n} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{landings.wt}(FLCore) :}{Accessor method for the \emph{landings.wt} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{landings.wt}(FLCore) :}{Accessor method for the \emph{landings.wt} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{catch.q}(FLCore) :}{Accessor method for the \emph{catch.q} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{catch.q}(FLCore) :}{Accessor method for the \emph{catch.q} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
-\item{\link{price}(FLCore) :}{Accessor method for the \emph{price} slots. Returns an object of class \code{\link{FLQuants-class}}.}
+\item{\link{price}(FLCore) :}{Accessor method for the \emph{price} slots. Returns an object of class \code{\linkS4class{FLQuants}}.}
 \item{}{\code{ signature(object=FLCatches) }}
 \item{\link{FLFleet}(FLCore) :}{Conversion method of a FLFleet object from a FLCatches object}
 \item{}{\code{ signature(object=FLCatches) }}

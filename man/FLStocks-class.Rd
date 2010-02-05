@@ -37,5 +37,9 @@ vector
 }}
 \author{The FLR Team}
 \seealso{\link[graphics]{plot}, \link{FLlst}, \link[base]{list}}
-\examples{}
+\examples{
+data(ple4)
+fls <- FLStocks(sa=ple4, sb=window(ple4, end=1980))
+summary(fls)
+}
 \keyword{classes}

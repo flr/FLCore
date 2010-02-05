@@ -17,7 +17,7 @@
 \item{signature(x=FLPar,y=missing,na.rm=missing,use=missing) :}{Returns the variance of each parameter, computed along the \emph{iter} dimension.}
 }}
 \author{The FLR Team}
-\seealso{\code{\link[stats]{var}}, \code{\link{FLPar-class}} }
+\seealso{\code{\link[stats]{var}}, \code{\linkS4class{FLPar}} }
 \examples{
 flp <- FLPar(rnorm(200), params=c('a', 'b'))
 var(flp)}

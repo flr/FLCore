@@ -34,6 +34,9 @@ list
 All methods are inherited.
 }}
 \author{The FLR Team}
-\seealso{ \link{FLlst-class}, \link[base]{list}}
-\examples{}
+\seealso{ \linkS4class{FLlst}, \link[base]{list}}
+\examples{
+data(ple4.index)
+flis <- FLIndices(INDa=ple4.index, INDb=window(ple4.index, end=2000))
+}
 \keyword{classes}

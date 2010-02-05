@@ -11,9 +11,8 @@
 bkey(object) 
 }
 \section{Methods}{\describe{
-\item{ signature(object=list) :}{The list must have at least the elements \code{data}, \code{cex}, \code{bub.col} and \code{bub.scale}.}
+\item{signature(object=list):}{The list must have at least the elements \code{data}, \code{cex}, \code{bub.col} and \code{bub.scale}.}
 }}
 \author{The FLR Team}
 \seealso{ \link{FLComp} }
-\examples{}
 \keyword{methods}

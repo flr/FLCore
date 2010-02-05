@@ -30,7 +30,7 @@ array
 }}
 \section{Constructor}{
 \describe{
-\item{}{Objects of class \code{\link{FLQuantPoint-class}} can be created using this method, applied to an object of class \code{\link{FLQuant}} with length two or more along its sixth dimension (\emph{iter}).}
+\item{}{Objects of class \code{FLQuantPoint} can be created using this method, applied to an object of class \code{\linkS4class{FLQuant}} with length two or more along its sixth dimension (\emph{iter}).}
 \item{ signature(object=FLQuant) :}{Describe method}
 }}
 

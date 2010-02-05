@@ -11,9 +11,10 @@
 # Validity  {{{
 validFLPar <- function(object) {
 
-	# Last dimension is called iter
+	# Last dimension is called 'iter' ...
   if(names(dimnames(object))[length(dim(object))] != "iter")
     return("last dimension must be named 'iter'")
+  # ... and the first 'params'
 
 	return(TRUE)
 }   # }}}
@@ -402,7 +403,9 @@ setMethod("propagate", signature(object="FLPar"),
 ## dims       {{{
 setMethod("dims", signature(obj="FLPar"),
 	# Return a list with different parameters
-	function(obj, ...){
+	function(obj, ...) {
+    dimnames(obj)
+    names(obj)
 		iter <- as.numeric(dimnames(obj)$iter)
     params <- dimnames(obj)$params
 		return(list(iter=iter, params=params))
@@ -432,3 +435,26 @@ setMethod("names<-", signature(x="FLPar", value="character"),
   }
 )
 # }}}
+
+## show     {{{
+setMethod("show", signature(object="FLPar"),
+	function(object) {
+    ndim <- length(dim(object))
+		cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
+		if(dim(object)[ndim] != 1)
+			cat("iters: ", dim(object)[ndim],"\n\n")
+    if(dim(object)[ndim] > 1)
+    {
+		  v1 <- apply(object@.Data, 1:(ndim-1), median, na.rm=TRUE)
+  		v2 <- apply(object@.Data, 1:(ndim-1), mad, na.rm=TRUE)	 
+      v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
+    }
+    else
+      v3 <- paste(format(apply(object@.Data, ndim-1, median, na.rm=TRUE),digits=5))
+		
+    print(array(v3, dim=dim(object)[1:(ndim-1)], dimnames=dimnames(object)[1:(ndim-1)]),
+      quote=FALSE)
+
+		cat("units: ", object@units, "\n")
+	}
+)   # }}}

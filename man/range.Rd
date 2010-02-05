@@ -10,7 +10,7 @@
 \title{Method range}
 \description{
   Extraction and modification of the \emph{range} slot from objects of any class
-  inheriting from \code{\link{FLComp-class}}.
+  inheriting from \code{\linkS4class{FLComp}}.
 }
 \section{Generic function}{
  range(x, i) 

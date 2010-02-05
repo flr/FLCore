@@ -3,7 +3,7 @@
 \title{ Calculates the sum of products correction }
 \description{
   Calculates the sum of products correction for quantities such a catch, discards, 
-  landings.  For example in an object of class \code{\link{FLStock-class}} there are 
+  landings.  For example in an object of class \code{\linkS4class{FLStock}} there are 
   slots \emph{catch.n}, \emph{catch.wt} and \emph{catch}. \emph{catch} should equal
   the products of catch.n*catch.wt summed over ages. This function returns the ratio
   (i.e. the correction) of \emph{catch.n}*\emph{catch.wt} : \emph{catch}, which can

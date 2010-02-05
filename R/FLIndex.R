@@ -109,8 +109,6 @@ remove(validFLIndex)    #   }}}
 invisible(createFLAccesors("FLIndex", exclude=c('name', 'desc', 'range', 'effort'))) # }}}
 
 # FLIndex()   {{{
-setGeneric('FLIndex', function(object, ...)
-		standardGeneric('FLIndex'))
 setMethod('FLIndex', signature(object='FLQuant'),
   function(object, plusgroup=dims(object)$max, ...)
   {
@@ -166,10 +164,6 @@ is.FLIndex <- function(x)
 # }}}
 
 ## as.FLIndex::FLFleet      {{{
-if (!isGeneric("as.FLIndex"))
-    setGeneric("as.FLIndex", function(object, ...)
-        standardGeneric("as.FLIndex"))
-
 setMethod("as.FLIndex", signature(object="FLFleet"),
     function(object, catchname="missing", catchtype="missing", ...) {
     

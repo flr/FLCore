@@ -55,7 +55,7 @@ FLComp
 
 
 \section{Methods}{\describe{
-\item{\link[graphics]{as.data.frame}(base) :}{coerces the FLCatch object to a data.frame. Slot names are passed in the slot column. The name, desc and range slots is passed as an
+\item{\link[base]{as.data.frame}(base) :}{coerces the FLCatch object to a data.frame. Slot names are passed in the slot column. The name, desc and range slots is passed as an
   attribute of the data.frame}
 \item{}{\code{ signature(x=FLCatch, row.names=missing, optional=missing) }}
 \item{\link{catch}(FLCore) :}{accessor method for the catch slot}

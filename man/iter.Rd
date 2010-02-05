@@ -46,7 +46,7 @@
 \item{ signature(object=FLPar) :}{Describe method}
 }}
 \author{The FLR Team}
-\seealso{ \link{FLComp}, \link{FLQuant-class} }
+\seealso{ \linkS4class{FLComp}, \linkS4class{FLQuant} }
 \examples{
 flq <- FLQuant(rnorm(800), dim=c(4,10,2), iter=10)
 iter(flq, 2)

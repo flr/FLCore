@@ -4,10 +4,10 @@
 \alias{FLQuant}
 \alias{FLQuant-methods}
 \alias{FLQuant,missing-method}
- \alias{FLQuant,vector-method}
- \alias{FLQuant,array-method}
- \alias{FLQuant,matrix-method}
- \alias{FLQuant,FLQuant-method}
+\alias{FLQuant,vector-method}
+\alias{FLQuant,array-method}
+\alias{FLQuant,matrix-method}
+\alias{FLQuant,FLQuant-method}
 
 \title{FLQuant class for numerical data}
 \description{
@@ -64,8 +64,8 @@ array
 \item{\link[base]{[<-}(base) :}{Substitute elements}
 \item{}{\code{ signature(x=FLQuant,i=ANY,j=ANY,value=missing) }}
 \item{\link[base]{apply}(base) :}{Operate with a function along certain dimensions}
-\item{}{\link[apply,FLQuant,missing,missing-method]{signature(X=FLQuant,MARGIN=missing,FUN=missing)}}
-\item{\link[base]{Arith}(base) :}{Arithmetic operations}
+\item{}{\code{signature(X=FLQuant,MARGIN=numeric,FUN=function)}}
+\item{\link[methods]{Arith}(methods) :}{Arithmetic operations}
 \item{}{\code{ signature(e1=FLQuant,e2=FLQuant) }}
 \item{\link[base]{as.data.frame}(base) :}{Convert to a data.frame with 7 columns}
 \item{}{\code{ signature(x=FLQuant,row.names=ANY,optional=ANY) }}
@@ -211,7 +211,7 @@ array
 \item{}{\code{ signature(x=formula,data=FLQuant) }}
 }}
 \author{The FLR Team}
-\seealso{ \link[base]{[}, \link[base]{[<-}, \link[base]{apply}, \link[base]{Arith}, \link[base]{as.data.frame}, \link{as.FLQuant}, \link[lattice]{barchart}, \link{bubbles}, \link[lattice]{bwplot}, \link{catch<-}, \link{catch.n<-}, \link{catch.wt<-}, \link[methods]{coerce}, \link{cv}, \link{dimnames<-}, \link{dims}, \link{discards<-}, \link{discards.n<-}, \link{discards.wt<-}, \link[lattice]{dotplot}, \link{E}, \link{fec<-}, \link{FLCatch}, \link{FLCohort}, \link{FLMetier}, \link{FLQuant}, \link{FLQuantPoint}, \link{FLSR}, \link{harvest<-}, \link[lattice]{histogram}, \link{iter}, \link{iter<-}, \link{iters}, \link{landings<-}, \link{landings.n<-}, \link{landings.wt<-}, \link{m<-}, \link{n<-}, \link[base]{names}, \link[graphics]{plot}, \link{price<-}, \link[base]{print}, \link{propagate}, \link{quant}, \link{quant<-}, \link{quantile}, \link[stats]{rlnorm}, \link[stats]{rnorm}, \link[base]{show}, \link{spwn<-}, \link[lattice]{stripplot}, \link[base]{summary}, \link{trim}, \link[base]{units}, \link[base]{units<-}, \link[stats]{window}, \link{wt<-}, \link[lattice]{xyplot}, \link[base]{array}}
+\seealso{ \link[base]{[}, \link[base]{[<-}, \link[base]{apply}, \link[methods]{Arith}, \link[base]{as.data.frame}, \link{as.FLQuant}, \link[lattice]{barchart}, \link{bubbles}, \link[lattice]{bwplot}, \link{catch<-}, \link{catch.n<-}, \link{catch.wt<-}, \link[methods]{coerce}, \link{cv}, \link{dimnames<-}, \link{dims}, \link{discards<-}, \link{discards.n<-}, \link{discards.wt<-}, \link[lattice]{dotplot}, \link{E}, \link{fec<-}, \link{FLCatch}, \link{FLCohort}, \link{FLMetier}, \link{FLQuant}, \link{FLQuantPoint}, \link{FLSR}, \link{harvest<-}, \link[lattice]{histogram}, \link{iter}, \link{iter<-}, \link{iters}, \link{landings<-}, \link{landings.n<-}, \link{landings.wt<-}, \link{m<-}, \link{n<-}, \link[base]{names}, \link[graphics]{plot}, \link{price<-}, \link[base]{print}, \link{propagate}, \link{quant}, \link{quant<-}, \link{quantile}, \link[stats]{rlnorm}, \link[stats]{rnorm}, \link[methods]{show}, \link{spwn<-}, \link[lattice]{stripplot}, \link[base]{summary}, \link{trim}, \link[base]{units}, \link[base]{units<-}, \link[stats]{window}, \link{wt<-}, \link[lattice]{xyplot}, \link[base]{array}}
 \examples{
 # creating a new FLQuant
 flq <- FLQuant()

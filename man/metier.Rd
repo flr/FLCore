@@ -9,8 +9,8 @@
 \alias{metier<-,FLFleet,ANY,FLMetier-method}
 \title{Method metier}
 \description{
-  \code{metier} returns a \code{link{FLMetier-class}} object from a
-  \code{link{FLFleet-class}}. They can also be accessed directly by using the
+  \code{metier} returns a \code{linkS4class{FLMetier}} object from a
+  \code{linkS4class{FLFleet}}. They can also be accessed directly by using the
   '[' and '[[' methods, see example below.
 }
 \section{Generic function}{

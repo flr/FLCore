@@ -53,9 +53,6 @@ createFLAccesors('FLMetier', exclude=c('range', 'catches', 'name', 'desc'))
 # }}}
 
 ## FLMetier()	{{{
-setGeneric('FLMetier', function(catches, ...)
-		standardGeneric('FLMetier')
-)
 # FLMetier(FLCatch)
 setMethod('FLMetier', signature(catches='FLCatch'),
 	function(catches, gear='NA', ...)

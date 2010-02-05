@@ -30,7 +30,7 @@
 \title{Method lowq}
 \description{
   These are the accesor and replacement methods for the various elements stored in an 
-  \code{\link{FLQuantPoint-class}} object along the sixth dimension.
+  \code{\linkS4class{FLQuantPoint}} object along the sixth dimension.
 }
 \section{Generic function}{
  lowq(x) 

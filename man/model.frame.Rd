@@ -16,7 +16,7 @@
 \item{ signature(formula=FLComp) :}{Returns a wide data.frame}
 }}
 \author{The FLR Team}
-\seealso{ \link[base]{model.frame}, \link{FLQuants-class}, \link{FLlst-class}}
+\seealso{ \link[stats]{model.frame}, \linkS4class{FLQuants}, \linkS4class{FLlst}}
 \examples{
 data(ple4)
 flqs <- FLQuants(stock=stock.n(ple4), catch=catch.n(ple4))

@@ -35,7 +35,7 @@ vector
 \section{Methods}{\describe{
 \item{\link[base]{*}(base) :}{Describe method}
 \item{}{\code{ signature(e1=FLCohorts,e2=FLCohorts) }}
-\item{\link[base]{Arith}(base) :}{Describe method}
+\item{\link[methods]{Arith}(methods) :}{Describe method}
 \item{}{\code{ signature(e1=FLCohorts,e2=FLCohorts) }}
 \item{\link[base]{as.data.frame}(base) :}{Describe method}
 \item{}{\code{ signature(x=FLCohorts,row.names=missing,optional=missing) }}
@@ -55,5 +55,5 @@ vector
 \item{}{\code{ signature(x=formula,data=FLCohorts) }}
 }}
 \author{The FLR Team}
-\seealso{ \link[base]{*}, \link[base]{Arith}, \link[base]{as.data.frame}, \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame}, \link[base]{show}, \link[base]{summary}, \link[lattice]{xyplot}, \link{FLlst}, \link[base]{list}}
+\seealso{ \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame}, \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame}, \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot}, \link{FLlst}, \link[base]{list}}
 \keyword{classes}

@@ -15,7 +15,7 @@
   selects whether the new iterations are filled with the content of the first iteration 
   (\code{type='all'}) or left empty (\code{type='first'}).
 
-  For objects of class \code{\link{FLPar-class}}, propagate will extend the object along
+  For objects of class \code{\linkS4class{FLPar}}, propagate will extend the object along
   the last dimension, \code{iter}. The fill.iter argument defaults to FALSE, in
   contrast with FLQuant. Objects do not need to have iter=1 to be extended, but only
   if fill.iter=FALSE.
@@ -35,14 +35,14 @@
 \section{Methods}{\describe{
 \item{signature(object=FLQuant) :}{Extends object along the \code{iter} dimension}
 \item{signature(object=FLPar) :}{Extends object along the \code{iter} dimension}
-\item{signature(object=FLComp) :}{Extends all \code{\link{FLQuant-class}} slots in the
+\item{signature(object=FLComp) :}{Extends all \code{\linkS4class{FLQuant}} slots in the
   object along the \code{iter} dimension}
-\item{signature(object=FLMetier) :}{Extends all \code{\link{FLQuant-class}} slots in the
+\item{signature(object=FLMetier) :}{Extends all \code{\linkS4class{FLQuant}} slots in the
   object along the \code{iter} dimension, as well as those of those objects of class
-  \code{\link{FLCatch-class}} inside the \code{catches} slot}
-\item{signature(object=FLFleet) :}{Extends all \code{\link{FLQuant-class}} slots in the
+  \code{\linkS4class{FLCatch}} inside the \code{catches} slot}
+\item{signature(object=FLFleet) :}{Extends all \code{\linkS4class{FLQuant}} slots in the
   object along the \code{iter} dimension, as well as those of those objects of class
-  \code{\link{FLMetier-class}} inside the \code{metiers} slot}
+  \code{\linkS4class{FLMetier}} inside the \code{metiers} slot}
 \item{signature(object=FLPar) :}{Extends object along the \code{iter} dimension}
 }}
 \author{The FLR Team}

@@ -15,12 +15,12 @@
 }
 \usage{
   readFLStock(file, type = "VPA", name, desc = paste("Imported from a", type, "file. (",
-    file, "). ", date()), m = 0.2, quant = "age", quiet = TRUE, no.discards = FALSE)
+    file, "). ", date()), m = 0.2, quant = "age", quiet = TRUE, no.discards = FALSE, sep="")
   readVPAFile(file, sep = "", units = "NA", quiet = TRUE)
   readFLIndex(file, type = "VPA", index.names, descs,
     desc =  paste("Imported from ", type, " file '", file, "'", sep = ""))
   readFLIndices(file, file2, type = "VPA", index.names, descs,
-    desc = paste("Imported from ", type, " file '", file, "'", sep = ""), na.strings = "NA")
+    desc = paste("Imported from ", type, " file '", file, "'", sep = ""), na.strings = "NA", sep="")
   writeFLStock(FLStock, output.file=FLStock@name, type = "VPA")
 }
 \arguments{
@@ -77,9 +77,10 @@
   via \code{file.path}) to specify where the files should be written.
 }
 \value{
+  An object of class \code{FLQuant}, \code{FLStock} or \code{FLIndex} depending on the function.
 }
 \seealso{
-
+\link{FLQuant}, \link{FLStock}, \link{FLIndex}.
 }
 \examples{
 \dontrun{
