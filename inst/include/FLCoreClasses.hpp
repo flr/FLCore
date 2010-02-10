@@ -10,6 +10,12 @@
 
 #define const_nan 0.0
 
+#ifdef WIN32
+   #define SEXPDLLExport __declspec(dllexport) SEXP __cdecl    
+#else
+   #define SEXPDLLExport SEXP    
+#endif
+
 #define  __min(x,y) (x<y?x:y)
 #define  __max(x,y) (x<y?y:x)
 extern int             outofbounds_int;
