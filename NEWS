@@ -20,6 +20,7 @@ USER-VISIBLE CHANGES
   - improved selection and replacement for FLPar.
   - rnorm for mean=missing and sd=missing are now defined, Default values are 0 and 1
     respectively.
+  - First dimension ('quant') in FLQuant cannot be named 'cohort'.
 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.
