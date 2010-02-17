@@ -16,11 +16,13 @@
 
   The sixth dimensions are named. The name of the first dimension can be altered
   by the user from its default, \code{quant}. This could typically be \code{age} or 
-  \code{length} for data related to natural populations. Other dimensions are always
-  names as follows: \code{year}, for the calendar year of the datapoint; \code{unit}, for 
-  any kind of division of the population, e.g. by sex; \code{season}, for any temporal
-  strata shorter than year; \code{area}, for any kind of spatial stratification; and 
-  \code{iter}, for replicates obtained through bootstrap, simulation or Bayesian analysis.
+  \code{length} for data related to natural populations. The only name not accepted is 
+  'cohort', as data structured along cohort should be stored using the 
+  \code{\link{FLCohort}} class instead. Other dimensions are always names as follows: 
+  \code{year}, for the calendar year of the datapoint; \code{unit}, for any kind of 
+  division of the population, e.g. by sex; \code{season}, for any temporal strata shorter 
+  than year; \code{area}, for any kind of spatial stratification; and \code{iter}, for 
+  replicates obtained through bootstrap, simulation or Bayesian analysis.
 
   In addition, \code{FLQuant} objects contain a \code{units} attribute, of class 
   \code{\link[base]{character}}, intended to contain the units of measurement relevant to 
