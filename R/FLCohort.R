@@ -17,54 +17,53 @@ setClass("FLCohort",
 ) # }}}
 
 # constructor  {{{
-setMethod("FLCohort", signature("FLQuant"), function(object, ...){
-	# reduce with trim
-	if(!missing(...)) object <- trim(object, ...)
+setMethod("FLCohort", signature("FLQuant"),
+  function(object, ...) {
+  	# reduce with trim
+	  if(!missing(...)) object <- trim(object, ...)
 
-	# dimensions and co
-	dnobj <- dimnames(object)
-	astart <- ifelse(!is.na(dims(object)$min), dims(object)$min,
-    stop("FLQuant has no numeric 'age', cannot convert to FLCohort."))
-	ystart <- as.numeric(dnobj$year[1])
-	dobj <- dim(object)	
-	dflc <- dobj
-	dflc[2] <- sum(dobj[1:2])-1
+  	# dimensions and co
+	  dnobj <- dimnames(object)
+  	astart <- ifelse(!is.na(dims(object)$min), dims(object)$min,
+      stop("FLQuant has no numeric 'age', cannot convert to FLCohort."))
+  	ystart <- as.numeric(dnobj$year[1])
+	  dobj <- dim(object)	
+  	dflc <- dobj
+	  dflc[2] <- sum(dobj[1:2])-1
 
-	# creating array flc
-	flc <- array(NA, dim=dflc)
-	coh.name <- ystart+((-dobj[1]+1):(dobj[2]-1))-astart	
-	dn.lst <- dimnames(object)
-	dn.lst[[2]] <- coh.name
-	names(dn.lst)[2] <- "cohort"
-	dimnames(flc) <- dn.lst
+  	# creating array flc
+  	flc <- array(NA, dim=dflc)
+	  coh.name <- ystart+((-dobj[1]+1):(dobj[2]-1))-astart	
+  	dn.lst <- dimnames(object)
+	  dn.lst[[2]] <- coh.name
+  	names(dn.lst)[2] <- "cohort"
+	  dimnames(flc) <- dn.lst
 
-	# creating the index
-	m <- matrix(flc[,,1,1,1,1], ncol=dflc[2], nrow=dflc[1], dimnames=dimnames(flc)[1:2])
-	lst <- split(1:ncol(object),1:ncol(object))
-	lst <- lapply(lst, function(count){	
-		paste("row(m)==(-col(m)+", dobj[1] + count, ")", sep="")
-	})
-	str <- paste(lst, collapse="|")
-	ind <- eval(parse(text = str))
-	flc.ind <- array(ind, dim=dflc)
+  	# creating the index
+	  m <- matrix(flc[,,1,1,1,1], ncol=dflc[2], nrow=dflc[1], dimnames=dimnames(flc)[1:2])
+  	lst <- split(1:ncol(object),1:ncol(object))
+	  lst <- lapply(lst, function(count){	
+		  paste("row(m)==(-col(m)+", dobj[1] + count, ")", sep="")
+  	})
+	  str <- paste(lst, collapse="|")
+  	ind <- eval(parse(text = str))
+	  flc.ind <- array(ind, dim=dflc)
 
-	# feeding the array with terrible hack to feed by "diagonal"
-	flc <- aperm(flc, c(2,1,3,4,5,6))
-	flc.ind <- aperm(flc.ind, c(2,1,3,4,5,6))
-	flq <- aperm(object@.Data, c(2,1,3,4,5,6))
-	flc[flc.ind] <- flq
-	flc <- aperm(flc, c(2,1,3,4,5,6))
+  	# feeding the array with terrible hack to feed by "diagonal"
+	  flc <- aperm(flc, c(2,1,3,4,5,6))
+  	flc.ind <- aperm(flc.ind, c(2,1,3,4,5,6))
+	  flq <- aperm(object@.Data, c(2,1,3,4,5,6))
+  	flc[flc.ind] <- flq
+	  flc <- aperm(flc, c(2,1,3,4,5,6))
 
-	# et voilá
-	new("FLCohort", flc, units=units(object))
-
-})
+  	# et voilá
+	  new("FLCohort", flc, units=units(object))
+  }
+)
 
 setMethod('FLCohort', signature(object='FLCohort'),
-  function(object, units=units(object), quant=quant(object))
+  function(object, units=units(object))
   {
-    if(!missing(quant))
-      quant(object) <- quant
     if(!missing(units))
       units(object) <- units
 
