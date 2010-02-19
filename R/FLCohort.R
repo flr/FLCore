@@ -154,7 +154,6 @@ setMethod("FLCohort", signature(object="missing"),
 
 		# dim missing
 		else if (missing(dim)) {
-      browser()
 			dimnames <- fillFLCdimnames(dimnames, iter=iter)
 			dim <- as.numeric(sapply(dimnames, length))
 		}
