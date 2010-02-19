@@ -22,6 +22,7 @@ USER-VISIBLE CHANGES
     respectively.
   - first dimension ('quant') in FLQuant cannot be named 'cohort'.
   - added FLCohort(array) constructor.
+  - added FLCohort(missing) constructor.
 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.

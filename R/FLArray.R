@@ -312,27 +312,10 @@ setMethod("Arith",
 ## as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
   optional="missing"),
-	function(x, row.names="missing", optional="missing")
-	{
-		# to avoid warnings when NA have to be added
-		options(warn=-1)
-        if(any(is.na(suppressWarnings(as.numeric(dimnames(x)[[1]])))))
-            quant <- as.character(dimnames(x)[[1]])
-        else
-            quant <- as.numeric(dimnames(x)[[1]])
-		df <- data.frame(expand.grid(quant=quant,
-			year=as.numeric(dimnames(x)[[2]]),
-			unit=factor(dimnames(x)[[3]], levels=dimnames(x)[[3]]),
-			season=factor(dimnames(x)[[4]], levels=dimnames(x)[[4]]),
-			area=factor(dimnames(x)[[5]], levels=dimnames(x)[[5]]),
-			iter=factor(dimnames(x)[[6]], levels=dimnames(x)[[6]])),
-			data=as.vector(x))
-		names(df)[1:2] <- names(dimnames(x))[1:2]
-		attributes(df)$units <- units(x)
-		options(warn=0)
-		return(df)
-	}
-)   # }}}
+	function(x, row.names="missing", optional="missing") {
+    as(x, 'data.frame')
+  }
+) # }}}
 
 # scale {{{
 setMethod("scale", signature(x="FLArray", center="ANY", scale="ANY"),
@@ -364,5 +347,18 @@ setMethod("scale", signature(x="FLArray", center="missing", scale="missing"),
   {
     new(class(x), array(scale(x@.Data, center=TRUE, scale=TRUE), dim=dim(x),
       dimnames=dimnames(x)), units=units(x))
+  }
+) # }}}
+
+# sweep {{{
+if (!isGeneric("sweep"))
+	setGeneric("sweep", function (x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)
+		standardGeneric("sweep"))
+
+setMethod('sweep', signature(x='FLArray'),
+  function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
+  {
+    res <- callNextMethod()
+    do.call(class(x), list(res, units=units(x)))
   }
 ) # }}}
