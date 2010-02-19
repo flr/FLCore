@@ -9,11 +9,22 @@
 # Notes:
 
 # Class {{{
+validFLCohort <-  function(object) {
+  # names
+  if(!all.equal(names(dimnames(object)), 
+      c("age", "cohort", "unit", "season", "area", "iter")))
+    return("names of FLCohort object are not correct")
+
+	# Everything is fine
+  return(TRUE)
+}
+
 setClass("FLCohort",
 	representation("FLArray"),
-	prototype(array(NA, dim=c(1,1,1,1,1,1),
-		dimnames=list(age="0", cohort="0", unit="unique", season="all", area="unique",
-		iter="none")), units="NA")
+	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
+		dimnames=list(age="1", cohort="1", unit="unique", season="all", area="unique",
+		iter="none")), units="NA"),
+  validity=validFLCohort
 ) # }}}
 
 # constructor  {{{
@@ -70,6 +81,109 @@ setMethod('FLCohort', signature(object='FLCohort'),
     return(object)
   }
 ) # }}}
+
+# FLCohort(array)		{{{
+setMethod("FLCohort", signature(object="array"),
+	function(object, dim=rep(1,6), dimnames="missing", units="NA",
+    iter=1, fill.iter=TRUE) {
+		# no dim or dimnames
+		if (missing(dim) && missing(dimnames)) {
+			# get dim from object and complete
+			dim <- c(dim(object), rep(1,5))[1:6]
+			# change dim[6] if iter is set
+			if(!missing(iter))
+				dim[6] <- iter
+			# if object has dimnames, use then
+			if(!is.null(dimnames(object))) {
+				dimnames <- fillFLCdimnames(dimnames(object), dim=dim)
+			}
+			# otherwise create from dim
+			else {
+				dimnames <- list(age=1:dim[1], cohort=1:dim[2], unit=1:dim[3],
+					season=1:dim[4], area=1:dim[5], iter=1:dim[6])
+				dimnames[which(dim==1)] <- list(age='1', cohort=1, unit='unique',
+					season='all', area='unique', iter='1')[which(dim==1)]
+			}
+		}
+
+		# dim missing
+		else if (missing(dim)) {
+      if(missing(iter) && length(dim(object)) == 6)
+        iter <- dim(object)[6]
+			dimnames <- fillFLCdimnames(dimnames, dim=c(dim(object), rep(1,6))[1:6], iter=iter)
+			# extract dim from dimnames
+			dim <- c(dim(object),
+				as.numeric(sapply(dimnames, length))[length(dim(object))+1:6])[1:6]
+			if(!missing(iter))
+				dim[6] <- iter
+		}
+
+		# dimnames missing
+		else if (missing(dimnames)) {
+			dim <- c(dim, rep(1,6))[1:6]
+			if(!missing(iter))
+				dim[6] <- iter
+			# create dimnames from dim
+			dimnames <- list(age=1:dim[1], cohort=1:dim[2], unit=1:dim[3],
+				season=1:dim[4], area=1:dim[5], iter=1:iter)
+			dimnames[which(dim==1)] <- list(age='1', cohort=1, unit='unique', season='all',
+				area='unique', iter='1')[which(dim==1)]
+		}
+    # TODO TEST
+		flc <- new("FLCohort", array(as.double(object), dim=dim, dimnames=dimnames),
+      units=units)
+
+		# Set extra iters to NA, unless array has 6 dimensions
+	    if(dims(flc)$iter > 1 && !fill.iter)
+    		flc[,,,,,2:dims(flc)$iter] <- as.numeric(NA)
+
+		return(flc)
+	}
+)	# }}}
+
+# FLCohort(missing)		{{{
+setMethod("FLCohort", signature(object="missing"),
+	function(object, dim=rep(1,6), dimnames="missing", units="NA", iter=1) {
+		
+		# no dim or dimnames
+		if (missing(dim) && missing(dimnames)) {
+			dim <- c(1,1,1,1,1,iter)
+			dimnames <- list(age=1, cohort=1, unit='unique', season='all', area='unique',
+				iter=1:dim[6])
+		}
+
+		# dim missing
+		else if (missing(dim)) {
+      browser()
+			dimnames <- fillFLCdimnames(dimnames, iter=iter)
+			dim <- as.numeric(sapply(dimnames, length))
+		}
+
+		# dimnames missing
+		else if (missing(dimnames)) {
+			dim <- c(dim, rep(1,6))[1:6]
+			if(!missing(iter))
+				dim[6] <- iter
+			dimnames <- list(
+				age=1:dim[1],
+				cohort=1:dim[2],
+				unit=if(dim[3]==1){"unique"}else{1:dim[3]},
+				season=if(dim[4]==1){"all"}else{1:dim[4]},
+				area=if(dim[5]==1){"unique"}else{1:dim[5]},
+				iter=1:dim[6])
+		}
+		# both
+		else {
+			dim <- c(dim, rep(1,6))[1:6]
+			if(!missing(iter))
+				dim[6] <- iter
+			dimnames <- fillFLCdimnames(dimnames, dim=dim, iter=iter)
+		}
+		flc <- new("FLCohort", array(as.numeric(NA), dim=dim, dimnames=dimnames), units=units)
+
+		return(flc)
+	}
+)	# }}}
 
 # FLCohort methods   {{{
 # coerce FLQuant into FLCohort
@@ -245,3 +359,15 @@ setMethod("propagate", signature(object="FLCohort"),
       list(iter=1:iter)), dim=c(dim(object)[-6], iter))))
   }
 ) # }}}
+
+## fillFLCdimnames       {{{
+fillFLCdimnames <- function(dnames, dim=rep(1,6), iter=1) {
+	# generate standard names for given dimensions
+  if(!missing(iter))
+    dim[6] <- iter
+	xnames <- dimnames(FLCohort(dim=dim))
+	for(i in names(dnames))
+	  xnames[[i]] <- dnames[[i]]
+
+	return(xnames)
+} # }}}
