@@ -36,7 +36,6 @@ FLRConstSRR getSRType(SEXP v)
 
     for (short i = 0; i<max; i++)
       {
-//      t = strlwr((char *)CHAR(VECTOR_ELT(v, i)));
       t = strlwr((char *)CHAR(STRING_ELT(v, i)));
 
       if       (strcmp(t, "m")==1)
@@ -62,7 +61,6 @@ void InputAgeRange(SEXP obj, int *MinAge, int *MaxAge)
 
    for (int i=0; i<n; i++)
       {
-//    const char *s = CHAR(VECTOR_ELT(names, i));
       const char *s = CHAR(STRING_ELT(names, i));
 
       if (      strcmp(s, "min")==0)
