@@ -136,7 +136,7 @@ setAs("FLlst", "list", function(from){
 vFLSs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(is(object[[i]])[[1]]!="FLStock") stop("Components must be FLStock")	
+		if(!is(object[[i]], "FLStock")) stop("Components must be FLStock")	
 	}
 	# Everything is fine
 	return(TRUE)
@@ -192,7 +192,7 @@ setMethod("is.FLStocks", "ANY", function(object){
 vFLIs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(is(object[[i]])[[1]]!="FLIndex") stop("Components must be FLIndex")	
+		if(!is(object[[i]], "FLIndex")) stop("Components must be FLIndex")	
 	}
 	# Everything is fine
 	return(TRUE)
@@ -248,7 +248,7 @@ setMethod("is.FLIndices", "ANY", function(object, ...){
 vFLBs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(is(object[[i]])[[1]]!="FLBiol") stop("Components must be FLBiol")	
+		if(!is(object[[i]], "FLBiol")) stop("Components must be FLBiol")	
 	}
 	# Everything is fine
 	return(TRUE)
@@ -488,7 +488,7 @@ setMethod("is.FLFleets", "ANY", function(object, ...){
 vFLQs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(is(object[[i]])[[1]]!="FLQuant") stop("Components must be FLQuant")	
+		if(!is(object[[i]], "FLQuant")) stop("Components must be FLQuant")	
 	}
 	# Everything is fine
 	return(TRUE)
@@ -548,7 +548,7 @@ setMethod("is.FLQuants", "ANY", function(object, ...){
 vFLQs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(is(object[[i]])[[1]]!="FLCohort") stop("Components must be FLCohort")	
+		if(!is(object[[i]], "FLCohort")) stop("Components must be FLCohort")	
 	}
 	# Everything is fine
 	return(TRUE)

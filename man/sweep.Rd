@@ -1,16 +1,17 @@
 \name{sweep}
 \docType{methods}
+\alias{sweep,FLArray-method}
 \alias{sweep,FLQuant-method}
 \title{Sweep out FLQuant Summaries}
 \description{
-  Return an \code{FLQuant} obtained from an input \code{FLQuant} by sweeping out a summary
-  statistic along the selected dimensions.
+  Return an \code{FLQuant} or \code{FLCohort}  obtained from an input object by 
+  sweeping out a summary statistic along the selected dimensions.
 }
 \section{Generic function}{
 sweep(x, MARGIN, STATS, FUN="-", check.margin=TRUE, \dots)
 }
 \section{Method arguments}{\describe{
-  \item{x}{an FLQuant.}
+  \item{x}{an FLQuant or FLCohort object.}
   \item{MARGIN}{a vector of indices giving the extents of \code{x}
     which correspond to \code{STATS}.}
   \item{STATS}{the summary statistic which is to be swept out.}
@@ -25,7 +26,7 @@ sweep(x, MARGIN, STATS, FUN="-", check.margin=TRUE, \dots)
   \item{\dots}{optional arguments to \code{FUN}.}
 }}
 \value{
-  An FLQuant with the same shape as \code{x}, but with the summary
+  An FLQuant or FLCohort with the same shape as \code{x}, but with the summary
   statistics swept out.
 }
 \author{The FLR Team}

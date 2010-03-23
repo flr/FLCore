@@ -243,14 +243,14 @@
 \alias{gear<-}
 \alias{gear<--methods}
 \alias{gear<-,FLMetier,character-method}
-% grad
-\alias{grad}
-\alias{grad-methods}
-\alias{grad,FLModel-method}
-% grad<-
-\alias{grad<-}
-\alias{grad<--methods}
-\alias{grad<-,FLModel,function-method}
+% gr
+\alias{gr}
+\alias{gr-methods}
+\alias{gr,FLModel-method}
+% gr<-
+\alias{gr<-}
+\alias{gr<--methods}
+\alias{gr<-,FLModel,function-method}
 % harvest
 \alias{harvest}
 \alias{harvest-methods}

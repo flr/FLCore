@@ -15,17 +15,24 @@ validFLModel <- function(object)
     if(class(slot(object, i)) != class)
       return(paste('FLQuant/FLCohort slots in object should all be of the same class: ',
         i))
+  
+  # initial returns an FLPar
+  init <- do.call(initial(object), lapply(formals(initial(object)), function(x) x<-0.1))
+  if(!is.null(init) & !is(init, 'FLPar'))
+    return("initial function must return an 'FLPar'")
+
   return(TRUE)
 }
 setClass('FLModel',
   representation('FLComp',
     model='formula',
     logl='function',
-    grad='function',
+    gr='function',
     initial='function',
     params='FLPar',
     logLik='logLik',
     vcov='array',
+    hessian='array',
     details='list',
     residuals='FLArray',
     fitted='FLArray'),
@@ -68,7 +75,6 @@ setMethod('FLModel', signature(model='formula'),
     # new object
     res <- new(class)
     slot(res, 'model') <- model
-
     # args
     args <- list(...)
     for (i in names(args))
@@ -123,8 +129,8 @@ setReplaceMethod('logLik', signature(object='FLModel', value='numeric'),
   function(object, value, df='missing', nall='missing', nobs='missing')
   {
     # check length
-    if(length(value) > 1)
-      stop('value must be of length 1')
+    #if(length(value) > 1)
+    #  stop('value must be of length 1')
 
     attr(value, 'class') <- 'logLik'
     if(!missing(df))
@@ -165,10 +171,12 @@ setMethod('fmle',
 setMethod('fmle',
   signature(object='FLModel', start='ANY'),
   function(object, start, method='L-BFGS-B', fixed=list(),
-    control=list(trace=1), lower=rep(-Inf, dim(params(object))[2]),
-    upper=rep(Inf, dim(params(object))[2]), seq.iter=TRUE, ...)
+    control=list(trace=1), lower=rep(-Inf, dim(params(object))[1]),
+    upper=rep(Inf, dim(params(object))[1]), seq.iter=TRUE, autoParscale=FALSE,
+    tiny_number=1e-6, relAutoParscale=TRUE, ...)
   {
     # TODO Check with FL
+    args <- list(...)
     call <- sys.call(1)
     logl <- object@logl
     
@@ -182,6 +190,8 @@ setMethod('fmle',
     if(any(!fixnm %in% parnm))
       stop("some named arguments in 'fixed' are not arguments to the
         supplied log-likelihood")
+    # HACK! clean up fixed list if elements are named vectors
+    fixed <- lapply(fixed, function(x){ names(x) <- NULL; x})
 
     # create list of input data
     #   get FLQuant slots' names
@@ -205,9 +215,9 @@ setMethod('fmle',
       upper <- Inf
     }
 
-    # grad function
-    if(!is.null(body(object@grad)))
-      gr <- object@grad
+    # gr function
+    if(!is.null(body(object@gr)))
+      gr <- object@gr
     else
       gr <- NULL
 
@@ -218,10 +228,15 @@ setMethod('fmle',
       params[fixnm] <- fixed
       return(-1*(do.call(logl, args=c(params, data))))
     }
+    
+    # input data
+    alldata <- list()
+    for (i in datanm)
+      alldata[[i]] <- slot(object, i)
 
     # iterations
     if(seq.iter)
-      iter <- dim(slot(object, datanm[1]))[6]
+      iter <- dims(object)$iter
     else
       iter <- 1
 
@@ -244,11 +259,8 @@ setMethod('fmle',
     object@vcov <- array(NA, dim=c(rep(length(parnm)-length(fixed),2), iter),
       dimnames=list(parnm[!parnm%in%names(fixed)],parnm[!parnm%in%names(fixed)],
       iter=1:iter))
+    object@hessian <- object@vcov
 
-    # input data
-    alldata <- list()
-    for (i in datanm)
-      alldata[[i]] <- slot(object, i)
 
     for (it in 1:iter)
     {
@@ -266,14 +278,16 @@ setMethod('fmle',
         if(length(covarnm))
           data <- c(data, covar(object)[covarnm])
       }
-
       # start values
-      if(missing(start))
-      # add call to @initial
-      if(is.function(object@initial))
-        start <- do.call(object@initial, args=data[names(formals(object@initial))])
-      else
-        start <- formals(logl)[names(formals(logl))%in%parnm]
+      if(missing(start)) {
+        # add call to @initial
+        if(is.function(object@initial))
+         start <- as(do.call(object@initial, args=data[names(formals(object@initial))]),
+           'list')
+        else
+          start <- formals(logl)[names(formals(logl))%in%parnm]
+      }
+
       if(!is.null(fixnm))
         start[fixnm] <- NULL
       if(any(!names(start) %in% parnm))
@@ -281,12 +295,45 @@ setMethod('fmle',
           supplied log-likelihood")
       start <- start[order(match(names(start), parnm))]
 
+      # add small number to start if 0
+      start <- lapply(start, function(x) if(x == 0) x/100000 else x)
+      
       if(is.null(start))
         stop("No starting values provided and no initial function available")
+    
+      # autoParscale
+      if(autoParscale && !'parscale' %in% names(control))
+      {
+        # named vectors for logl plus/minus tiny_number and diff
+        diff_logl <- logl_bump1 <- logl_bump2 <- unlist(start)
 
+        # get logLik for start values
+        logl_start <- do.call(logl, args=c(start, data, fixed)) 
+
+        for(j in names(start))
+        {
+          # bump up & down each param by tiny_number
+          bump_params <- start
+          bump_params[[j]] <- bump_params[[j]] * (1 + tiny_number)
+          logl_bump1[[j]] <- do.call(logl, args=c(data, bump_params, fixed))
+          #
+          bump_params <- start
+          bump_params[[j]] <- bump_params[[j]] * (1 - tiny_number)
+          logl_bump2[[j]] <- do.call(logl, args=c(data, bump_params, fixed))
+        }
+          diff_logl <- 1 / (abs(logl_bump1) + abs(logl_bump2)) / (unlist(start) *
+            2 * tiny_number)
+        
+        # relative
+        if(relAutoParscale)
+          diff_logl <- diff_logl / max(diff_logl)
+
+        control <- c(control, list(parscale=diff_logl))
+      }
+      
       # TODO protect environment
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
-        hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr, ...)))
+        hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
       
       # output
       # place out$par in right iter dim
@@ -304,7 +351,7 @@ setMethod('fmle',
         {
           if(det(out$hessian) != 0)
           {
-            tmphess <- try(solve(out$hessian))
+            tmphess <- try(solve(out$hessian), silent=TRUE)
             if(class(tmphess) =='try-error')
             {
               matrix(numeric(0), length(coef), length(coef), dimnames=list(names(coef),
@@ -315,11 +362,12 @@ setMethod('fmle',
             0
         } else
           0
+      object@hessian[,,it] <- -out$hessian
       
       # logLik
       object@logLik[it] <- -out$value
       attr(object@logLik, 'nobs') <- length(data[[1]])
-      
+
       # fitted & residuals
       iter(fitted(object), it) <- predict(iter(object, it))
       iter(residuals(object), it) <- iter(slot(object,
@@ -344,6 +392,7 @@ setMethod('predict', signature(object='FLModel'),
       stop('FLQuant or FLCohort inputs must be named to apply formula')
     # call
     call <- as.list(object@model)[[3]]
+    fittedSlot <- as.list(object@model)[[2]]
 
     # check vars in call match input in args
     if(length(args) > 0 & !any(names(args)%in%all.vars(call)))
@@ -415,6 +464,13 @@ setMethod('predict', signature(object='FLModel'),
 
       params <- as.vector(obj@params@.Data)
       names(params) <- dimnames(obj@params)[['params']]
+
+      # get right dimnames
+      if(length(args) > 0)
+        dimnames <- dimnames(args[[1]])
+      else
+        dimnames <- dimnames(slot(obj, fittedSlot))
+
       # check inputs
       if(it == 1)
       {
@@ -427,6 +483,7 @@ setMethod('predict', signature(object='FLModel'),
           envir=c(params, data, dimdat))))
       }
     }
+    dimnames(res)[1:5] <- dimnames[1:5]
     return(res)
   }
 )   # }}}
@@ -502,7 +559,7 @@ setMethod('nls',
     # start values
     if(missing(start))
       if(is.function(formula@initial))
-        start <- do.call(formula@initial, args=data)[parnm]
+        start <- as(do.call(formula@initial, args=data)[parnm], 'list')
       else
         stop("No start values provided and no initial function in object")
 
@@ -539,11 +596,11 @@ setMethod('summary', signature(object='FLModel'),
       print(slot(object, 'model'))
     if(is.null(slot(object, 'params')))
       cat("Parameters: EMPTY\n")
-    else if(length(dimnames(slot(object, 'params'))['iter']) == 1) {
+    else if(length(dimnames(slot(object, 'params'))[['iter']]) == 1) {
       cat("Parameters: \n")
         print(t(slot(object, 'params')@.Data), digits=4)
     } else {
-      cat("Parameters (median): \n")
+      cat("Parameters median(mad): \n")
       v1 <- apply(object@params@.Data, 1, median, na.rm=TRUE)
       v2 <- apply(object@params@.Data, 1, mad, na.rm=TRUE)	 
       v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
@@ -701,7 +758,7 @@ getFLPar <- function(object, formula=object@model)
   # get those in formula
   datanm <- datanm[datanm%in%all.vars(formula)]
   parnm <- all.vars(formula)[!all.vars(formula) %in% datanm]
-
+  
   # covar
   if('covar' %in% slotNames(object))
   {
@@ -715,12 +772,11 @@ getFLPar <- function(object, formula=object@model)
   }
 
   # check likelihood
-  if(!is.null(object@logl))
+  if(!is.null(body(object@logl)))
   {
     lkhnm <- names(formals(object@logl))
-    lkhnm <- lkhnm[!lkhnm %in% parnm]
     lkhnm <- lkhnm[!lkhnm %in% datanm]
-    parnm <- c(parnm, lkhnm)
+    parnm <- c(lkhnm, sort(parnm)[!sort(parnm) %in% sort(lkhnm)])
   }
     
   # params
@@ -808,12 +864,6 @@ setMethod("iter", signature(object="logLik"),
 	}
 )   # }}}
 
-# confint
-#     signature(object = "mle"): Confidence intervals from likelihood profiles.
-# profile(fitted, which)
-
-# glm
-
 # params        {{{
 setMethod("params", signature(object="FLModel"),
 	function(object, param=missing)
@@ -821,15 +871,214 @@ setMethod("params", signature(object="FLModel"),
     if(missing(param))
       return(object@params)
     else
-      return(object@params[,param])
+      return(object@params[param,])
 	}
 ) # }}}
 
 # params<-      {{{
-setMethod("params<-", signature(object="FLModel", value='FLPar'),
+setMethod("params<-", signature(object="FLModel", value="FLPar"),
 	function(object, value)
   {
     object@params <- value
     return(object)
 	}
 ) # }}}
+
+# parscale  {{{
+setMethod("parscale", signature(object="FLModel"),
+  function(object, start=missing, tiny_number=1e-6, ...) {
+    # get data
+    loglnames <- names(formals(logl(nsher)))
+    data <- loglnames[loglnames %in% slotNames(object)]
+    args <- list()
+    logl <- logl(object)
+
+    for(i in data)
+      args[[i]] <- slot(object, i)
+
+    # get start
+    if(missing(start))
+      start <- as(do.call(initial(object), args), 'list')
+
+    # named vectors for logl plus/minus tiny_number and diff
+    diff_logl <- logl_bump1 <- logl_bump2 <- unlist(start)
+
+    # get logLik for start values
+    logl_start <- do.call(logl, args=c(start, args)) 
+
+    for(j in names(start))
+    {
+      # bump up & down each param by tiny_number
+      bump_params <- start
+      bump_params[[j]] <- bump_params[[j]] * (1 + tiny_number)
+      logl_bump1[[j]] <- do.call(logl, args=c(args, bump_params))
+      #
+      bump_params <- start
+      bump_params[[j]] <- bump_params[[j]] * (1 - tiny_number)
+      logl_bump2[[j]] <- do.call(logl, args=c(args, bump_params))
+    }
+    diff_logl <- 1 / (abs(logl_bump1) + abs(logl_bump2)) / (unlist(start) * 2 * tiny_number)
+        
+    # relative
+    if(relAutoParscale)
+      diff_logl <- diff_logl / max(diff_logl)
+
+    return(diff_logl)
+  }
+) # }}}
+
+# profile {{{
+setMethod("profile", signature(fitted="FLModel"),
+  function(fitted, which, maxsteps=11, range=0.5, ci=c(0.25, 0.5, 0.75, 0.95),
+      plot=TRUE, fixed=list(), print=FALSE, control=list(trace=0), ...)
+  {
+    # vars
+    foo <- logl(fitted)
+    params <- params(fitted)
+    parnames <- dimnames(params)$params
+    fixnames <- names(fixed)
+    profiled <- list()
+    grid <- list()
+    plotfit <- TRUE
+
+    # HACK! clean up fixed list if elements are named vectors
+    fixed <- lapply(fixed, function(x){ names(x) <- NULL; x})
+
+    # which params to profile
+    if(missing(which))
+      which <- parnames[!parnames %in% fixnames]
+    if(length(which) > 2)
+        stop("surface only works over 2 parameters")
+    
+    # data
+    args <- list()
+    data <- names(formals(foo))
+    data <- data[data %in% slotNames(fitted)]
+    for(i in data)
+      args[i] <- list(slot(fitted, i))
+      
+    # use initial if model has not been estimated
+    if(all(is.na(params)))
+    {
+      params <- do.call(initial(fitted), args)
+      plotfit <- FALSE
+    }
+
+    # (1) create grid of param values for numeric range
+    if(is.numeric(range) && length(range) == 1)
+    {
+      if(!plotfit)
+        warning("model has not been fitted: initial values are used for profile range")
+      for(i in which)
+      {
+        # steps for param[i]
+        estim <- c(params[i,])
+        steps <- estim * seq(1-range, 1+range, length=maxsteps)
+        profiled[[i]] <- steps
+      }
+    # (2) and for list of ranges
+    } else if (is.list(range)) 
+    {
+      # if missing(which), which is names in range
+      if(missing(which))
+        which <- names(range)
+      else
+        # checks all params to be profiled specified
+        if(any(names(range) != which))
+          stop("range not specified for parameters:", which[!which%in%names(range)])
+      profiled <- lapply(range, sort)
+    }
+
+    # grid
+    grid <- do.call(expand.grid, profiled)
+
+    # col for logLik
+    grid$logLik <- as.numeric(NA)
+
+    dots <- list(...)
+    # calculate logLik for grid if no fitting
+    if(identical(order(c(which, fixnames)), order(parnames)))
+      for(i in seq(nrow(grid)))
+        grid[i, 'logLik'] <- do.call(logl(fitted), c(args, as.list(grid[i,which]), fixed))
+
+    # or fit over grid
+    else
+      for(i in seq(nrow(grid)))
+      {
+        fixed <- as.list(grid[i,which])
+        names(fixed) <- which
+        grid[i, 'logLik'] <- do.call('fmle', c(list(object=fitted, fixed=fixed,
+          control=control), dots[names(dots) %in% names(formals(optim))]))@logLik
+      }
+   
+    surface <- tapply(grid$logLik, grid[,which], sum)
+
+    # print
+    if(print)
+    {
+      cat(paste("max(profile) =", format(max(grid$logLik), digits=5), " "))
+      for(i in which)
+        cat(paste(i, " = ", format(grid[grid$logLik==max(grid$logLik),i], digits=5), " "))
+      cat("\n")
+      if(plotfit)
+      {
+        cat(paste("logLik =", format(logLik(fitted), digits=5), " "))
+        for(i in which)
+          cat(paste(i, " = ", format(c(params(fitted)[i]), digits=5), " "))
+        cat("\n")
+      }
+    }
+
+    # CIs
+    cis <- max(surface) - qchisq(ci, 2)
+    
+    # plot
+    if(plot)
+    {
+      if(length(which) == 2)
+      {
+        do.call('image', c(list(x=profiled[[1]], y=profiled[[2]], z=surface,
+          xlab=which[1], ylab=which[2]), dots[!names(dots) %in% names(formals(optim))]))
+
+        if(plotfit)
+          points(params[which[1]], params[which[2]], pch=19)
+
+        do.call('contour', list(x=sort(profiled[[1]]), y=sort(profiled[[2]]), z=surface,
+          levels=cis, add=TRUE, labcex=0.8, labels=ci))
+      }
+      else if(length(which) == 1)
+      {
+        plot(grid[,which], grid[,'logLik'], type='l', xlab=which, ylab="logLik", axes=F)
+        axis(1); box()
+        points(params[which], logLik(fitted), pch=19)
+      }
+    }
+    if(length(which) == 2)
+      invisible(list(x=grid[,which[1]], y=grid[,which[2]], z=surface))
+    else if(length(which) == 1)
+      invisible(list(x=grid[which], y=grid['logLik']))
+  }
+) # }}}
+
+# cor2cov {{{
+cor2cov <- function(Correl,Var)
+{
+  Covar  <-Correl
+
+   for (i in 1:dim(Correl)[1])
+      for (j in 1:dim(Correl)[2])
+      {
+         Prod = Correl[i,i] * Correl[j,j]
+
+         if (abs(Prod) > 0.0)
+            Covar[i,j] = Correl[i,j] * abs(Var[i] * Var[j])^0.5
+         else
+            Covar[i,j] = 0.0
+
+         if (i != j)
+            Covar[j,i] = Covar[i,j]
+         }
+
+   return(Covar)
+   }
+# }}}

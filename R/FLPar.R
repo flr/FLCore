@@ -42,10 +42,20 @@ setMethod('FLPar', signature(object="array"),
     if(!is.null(dimnames(object)))
     {
       dimnames <- dimnames(object)
+      # dimnames with no names
+      if(names(dimnames)[length(dimnames)] == "")
+        names(dimnames)[length(dimnames)] <- 'iter'
+
+      if(any(names(dimnames) == ""))
+        names(dimnames)[names(dimnames) == ""] <-
+          paste('dim', seq(sum(names(dimnames) == "")))
+
       pnames <- match(c('params', 'iter'), names(dimnames))
       object <- aperm(object, c(pnames[1], seq(1, length(dimnames))[!seq(1,
         length(dimnames)) %in% pnames], pnames[2]))
-      dimnames <- dimnames(object)
+      
+      if(is.null(dimnames[['iter']]))
+        dimnames['iter'] <- seq(dim(object)[length(dim(object))])
     }
 		
     res <- array(object, dim=dim(object), dimnames=dimnames)
@@ -55,10 +65,21 @@ setMethod('FLPar', signature(object="array"),
 	
 # FLPar(missing, iter, param)
 setMethod('FLPar', signature(object="missing"),
-	function(params='a', iter=1, dimnames=list(params=params, iter=seq(iter)), units='NA')
+	function(params='a', iter=1, dimnames=list(params=params, iter=seq(iter)),
+      units='NA', ...)
 	{
-		res <- array(as.numeric(NA), dim=unlist(lapply(dimnames, length)),
-      dimnames=dimnames)
+    args <- list(...)
+    if(length(args) > 0)
+    {
+      len <- length(args[[1]])
+      res <- array(NA, dim=c(length(args),len), 
+        dimnames=list(params=names(args), iter=seq(len)))
+      for (i in seq(length(args)))
+        res[i,] <- args[[i]]
+    }
+    else
+      res <- array(as.numeric(NA), dim=unlist(lapply(dimnames, length)),
+        dimnames=dimnames)
 		return(FLPar(res, units=units, dimnames=dimnames(res)))
 	}
 )
@@ -458,3 +479,98 @@ setMethod("show", signature(object="FLPar"),
 		cat("units: ", object@units, "\n")
 	}
 )   # }}}
+
+## Arith    {{{
+setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
+	signature(e1 = "FLPar", e2 = "FLArray"),
+	function(e1, e2)
+  {
+    if(length(e1) == 1)
+      return(new(class(e2), callGeneric(c(e1), e2@.Data), units=units(e2)))
+    else if(dim(e1)[length(dim(e1))] == dim(e2)[6] &&
+          all(dim(e1)[-length(dim(e1))] == 1))
+      for(i in seq(dim(e2[6])))
+      {
+        e2[,,,,,i] <- callGeneric(c(e1[,i]), e2[,,,,,i])
+        return(e2)
+      }
+    else
+      stop("Error in Arith(e1, e2): non-conformable arrays")
+	}
+)
+setMethod("Arith",
+	signature(e1 = "FLArray", e2 = "FLPar"),
+  function(e1, e2)
+  {
+    if(length(e2) == 1)
+      return(new(class(e1), callGeneric(e1@.Data, c(e2)), units=units(e1)))
+    else if(dim(e2)[length(dim(e2))] == dim(e1)[length(dim(e1))] &&
+          all(dim(e2)[-length(dim(e2))] == 1))
+      for(i in seq(dim(e1[6])))
+      {
+        e1[,,,,,i] <- callGeneric(e1[,,,,,i], c(e2[,i]))
+        return(e1)
+      }
+    else
+      stop("Error in Arith(e1, e2): non-conformable arrays")
+	}
+
+)
+# }}}
+
+# ab {{{
+setMethod('ab', signature(x='FLPar', model='character'),
+  function(x, model, spr0=NULL)
+  {
+    # input params and default values
+    param <- as(x, 'list')
+    args <- list(s=NULL, v=NULL, spr0=NULL, c=NULL, d=NULL)
+    args[names(param)] <- param
+    args['model'] <- model
+
+    res <- do.call('abPars', args)
+    
+    # get back c and d
+    cd <- args[c('c', 'd', 'spr0')]
+    res <- c(res, unlist(cd[!unlist(lapply(cd, is.null))]))
+
+    return(FLPar(res, params=names(res)))
+  })
+
+setMethod('ab', signature(x='FLPar', model='formula'),
+  function(x, model, spr0=NULL)
+  {
+    model <- SRModelName(model)
+    if(is.null(model))
+      stop("model provided has not been identified")
+    else
+      return(ab(x, model))
+  })# }}}
+
+# sv {{{
+setMethod('sv', signature(x='FLPar', model='character'),
+  function(x, model, spr0)
+  {
+    # input params and default values
+    param <- as(x, 'list')
+    args <- list(spr0=spr0, a=NULL, b=NULL, c=NULL, d=NULL)
+    args[names(param)] <- param
+    args['model'] <- model
+
+    res <- do.call('svPars', args)
+    # get back c and d
+    cd <- args[c('c', 'd')]
+    res <- c(res, unlist(cd[!unlist(lapply(cd, is.null))]))
+
+    return(FLPar(res, params=names(res)))
+  })
+
+setMethod('ab', signature(x='FLPar', model='formula'),
+  function(x, model, spr0=NULL)
+  {browser()
+    model <- SRModelName(model)
+    if(is.null(model))
+      stop("model provided has not been identified")
+    else
+      return(ab(x, model))
+  })# }}}

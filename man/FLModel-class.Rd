@@ -30,12 +30,13 @@
 \item{fitted}{Estimated values for rec. \code{FLQuant}.}
 \item{residuals}{Residuals obtained from the model fit. \code{FLQuant}.}
 \item{model}{Model formula. \code{formula}.}
-\item{grad}{Function returning the gradient of the model. \code{function}.}
+\item{gr}{Function returning the gradient of the likelihood. \code{function}.}
 \item{logl}{Log-likelihood function. \code{function}.}
-\item{initial}{Function returning initial parameter values for the optimizer. \code{function}.}
+\item{initial}{Function returning initial parameter values for the optimizer, as an object of class \code{FLPar}. \code{function}.}
 \item{params}{Estimated parameter values. \code{FLPar}.}
 \item{logLik}{Value of the log-likelihood. \code{logLik}.}
 \item{vcov}{Variance-covariance matrix. \code{array}.}
+\item{hessian}{Hessian matrix obtained from the parameter fitting. \code{array}.}
 \item{details}{extra information on the model fit procedure. \code{list}.}
 }}
 \section{Extends}{\describe{

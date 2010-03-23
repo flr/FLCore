@@ -5,6 +5,8 @@
 \alias{FLCohort-methods}
 \alias{FLCohort,FLQuant-method}
 \alias{FLCohort,FLCohort-method}
+\alias{FLCohort,array-method}
+\alias{FLCohort,missing-method}
 
 \title{Class FLCohort}
 \description{
@@ -24,6 +26,8 @@ array
 \item{}{The \code{FLCohort(object)} constructor method allows simple creation of new FLCatch with the methods described below.
 }
 \item{ signature(object=FLQuant) :}{Creates a FLCohort object from a FLQuant object. It simply shifts the matrix so that cohorts instead of years are located in the columns (second dimensions) of the array.}
+\item{ signature(object=array) :}{Creates a FLCohort object from an array.}
+\item{ signature(object=missing) :}{Creates a empty FLCohort object.}
 }}
 \section{Methods}{\describe{
 \item{\link[base]{[}(base) :}{Subset method}

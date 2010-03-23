@@ -32,6 +32,7 @@ setGeneric("nls", useAsDefault = nls)
 setGeneric("plot", useAsDefault = plot)
 setGeneric("predict", useAsDefault = predict)
 setGeneric("print", useAsDefault = print)
+setGeneric("profile", useAsDefault = profile)
 setGeneric("quantile", useAsDefault = quantile)
 setGeneric("rgamma", useAsDefault = rgamma)
 setGeneric("scale", useAsDefault = scale)
@@ -340,23 +341,17 @@ setGeneric('logl', function(object, ...)
 setGeneric('logl<-', function(object, ..., value)
 		standardGeneric('logl<-'))
 
-# grad
-setGeneric('grad', function(object, ...)
-		standardGeneric('grad'))
-setGeneric('grad<-', function(object, ..., value)
-		standardGeneric('grad<-'))
+# gr
+setGeneric('gr', function(object, ...)
+		standardGeneric('gr'))
+setGeneric('gr<-', function(object, ..., value)
+		standardGeneric('gr<-'))
 
 # initial
 setGeneric('initial', function(object, ...)
 		standardGeneric('initial'))
 setGeneric('initial<-', function(object, ..., value)
 		standardGeneric('initial<-'))
-
-# params
-setGeneric('params', function(object, ...)
-		standardGeneric('params'))
-setGeneric('params<-', function(object, ..., value)
-		standardGeneric('params<-'))
 
 # logLik
 setGeneric('logLik', function(object, ...)
@@ -369,6 +364,18 @@ setGeneric('vcov', function(object, ...)
 		standardGeneric('vcov'))
 setGeneric('vcov<-', function(object, ..., value)
 		standardGeneric('vcov<-'))
+
+# hessian
+setGeneric('hessian', function(object, ...)
+		standardGeneric('hessian'))
+setGeneric('hessian<-', function(object, ..., value)
+		standardGeneric('hessian<-'))
+
+# logerror
+setGeneric('logerror', function(object, ...)
+		standardGeneric('logerror'))
+setGeneric('logerror<-', function(object, ..., value)
+		standardGeneric('logerror<-'))
 
 # details
 setGeneric('details', function(object, ...)
@@ -524,3 +531,55 @@ setGeneric('FLModel', function(model, ...)
 # as.FLSR
 setGeneric("as.FLSR", function(object, ...)
   standardGeneric("as.FLSR"))
+
+# autoParscale
+setGeneric("autoParscale", function(object, ...)
+  standardGeneric("autoParscale"))
+
+# sigma
+setGeneric("sigma", function(object, ...)
+  standardGeneric("sigma"))
+
+# gradient
+setGeneric("gradient", function(func, x, ...)
+  standardGeneric("gradient"))
+
+# surface
+setGeneric("surface", function(fitted, ...)
+  standardGeneric("surface"))
+
+# parscale
+setGeneric("parscale", function(object, ...)
+  standardGeneric("parscale"))
+
+# computeHessian
+setGeneric("computeHessian", function(object, ...)
+  standardGeneric("computeHessian"))
+
+# computeD
+setGeneric("computeD", function(object, ...)
+  standardGeneric("computeD"))
+
+# loglAR1
+setGeneric("loglAR1", function(obs, hat, ...)
+  standardGeneric("loglAR1"))
+
+# rSq
+setGeneric("rSq", function(obs, hat, ...)
+  standardGeneric("rSq"))
+
+# ab
+setGeneric("ab", function(x, model, ...)
+  standardGeneric("ab"))
+
+# sv
+setGeneric("sv", function(x, model, ...)
+  standardGeneric("sv"))
+
+# fapex
+setGeneric("fapex", function(x, ...)
+  standardGeneric("fapex"))
+
+# qmax
+setGeneric("parmax", function(x, ...)
+  standardGeneric("parmax"))

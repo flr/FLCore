@@ -31,7 +31,7 @@
 \item{residuals}{Residuals obtained from the model fit. \code{FLQuant}.}
 \item{covar}{Covariates for SR model. \code{FLQuants}.}
 \item{model}{Model formula. \code{formula}.}
-\item{grad}{Function returning the gradient of the model. \code{function}.}
+\item{gr}{Function returning the gradient of the likelihood. \code{function}.}
 \item{logl}{Log-likelihood function. \code{function}.}
 \item{initial}{Function returning initial parameter values for the optimizer. \code{function}.}
 \item{params}{Estimated parameter values. \code{FLPar}.}

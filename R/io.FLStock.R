@@ -2,11 +2,10 @@
 
 # Author: FLR Team
 # Additions:
-# Last Change: 11 Feb 2009 11:24
+# Last Change: 19 Mar 2010 09:22
 # $Id$
 
 ## readFLStock		{{{
-
 readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a", 
     type, "file. (", file, "). ", date()), m = 0.2, quant="age", quiet=TRUE,
     no.discards=FALSE, sep="")

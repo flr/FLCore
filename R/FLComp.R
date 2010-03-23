@@ -237,28 +237,30 @@ setMethod('[', signature(x='FLComp'),
 
 ## "[<-"            {{{
 setMethod("[<-", signature(x="FLComp"),
-	function(x, i, j, k, l, m, n, ..., value="missing") {
-
+	function(x, i, j, k, l, m, n, ..., value="missing")
+  {
 		qnames <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant"])
 		dx <- dim(slot(x, qnames[1]))
+    di <- qapply(x, function(y) seq(1, dim(y)[1]))
+    dn <- qapply(x, function(y) seq(1, dim(y)[6]))
 
-		if (missing(i))
-			i <- seq(1, dx[1])
+		if (!missing(i))
+      di <- lapply(di, function(x) x <- i)
 		if (missing(j))
 			j <- seq(1, dx[2])
-   		if (missing(k))
+   	if (missing(k))
 			k <- seq(1, dx[3])
 		if (missing(l))
 			l <- seq(1, dx[4])
 		if (missing(m))
 			m <- seq(1, dx[5])
-		if (missing(n))
-			n <- seq(1, dx[6])
+		if (!missing(n))
+      dn <- lapply(dn, function(x) x <- n)
 
-        for(q in qnames)
-            slot(x, q)[i,j,k,l,m,n] <- slot(value, q)
+    for(q in qnames)
+      slot(x, q)[di[[q]],j,k,l,m,dn[[q]]] <- slot(value, q)
 	    
-   		return(x)
+   	return(x)
 	}
 )   # }}}
 

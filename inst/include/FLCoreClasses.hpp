@@ -29,26 +29,19 @@ int NElemList(SEXP);
 typedef enum tagFLRConstSRR 
 	{
    FLRConst_Mean            = 1,
-   FLRConst_SRR_geomean     = 1,
    FLRConst_BevHolt         = 2,
-   FLRConst_SRR_bevholt     = 2,
    FLRConst_Ricker          = 3,
-   FLRConst_SRR_ricker      = 3,
    FLRConst_SegReg          = 4,
-   FLRConst_SRR_segreg      = 4,      
-   FLRConst_SRR_shepherd    = 5,
-   FLRConst_SRR_bevholt_d   = 21,
-   FLRConst_SRR_bevholt_c_a = 22,
-   FLRConst_SRR_bevholt_c_b = 23,
-   FLRConst_SRR_bevholt_sv  = 24,
-   FLRConst_SRR_bevholt_ndc = 25,
-   FLRConst_SRR_bevholt_ar1 = 26,
-   FLRConst_SRR_ricker_d    = 31,
-   FLRConst_SRR_ricker_c_a  = 32,
-   FLRConst_SRR_ricker_c_b  = 33,
-   FLRConst_SRR_ricker_sv   = 34,
-   FLRConst_SRR_ricker_ndc  = 35,
-   FLRConst_SRR_ricker_ar1  = 36
+   FLRConst_Shepherd        = 5,
+   FLRConst_Cushing         = 6,
+   FLRConst_DerSch          = 7,
+   FLRConst_PellaT          = 8,
+   FLRConst_BevHoltD        = 21,
+   FLRConst_BevHoltSV       = 22,
+   FLRConst_RickerD         = 31,
+   FLRConst_RickerSV        = 32,
+   FLRConst_ShepherdD       = 51,
+   FLRConst_ShepherdSV      = 52
    } FLRConstSRR;
 
 typedef enum tagFLRConst_Target 

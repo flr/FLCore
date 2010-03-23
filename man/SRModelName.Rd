@@ -12,10 +12,10 @@
 SRModelName(formula)
 }
 \arguments{
-  \item{formula}{A formula defining the model}
+  \item{model}{A formula defining the model}
 }
 \value{
-  \item{model}{A character string or FALSE}
+  \item{name}{A character string or NULL}
 }
 \author{FLR Team}
 \seealso{\code{\link{SRModels}}}

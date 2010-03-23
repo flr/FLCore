@@ -168,35 +168,34 @@ setMethod("computeDiscards", signature(object="FLStock"),
 
 ## computeCatch	{{{
 setMethod("computeCatch", signature(object="FLStock"),
-    function(object, slot="catch", na.rm=TRUE)
-	{    
-        if(slot == "n"){
+  function(object, slot="catch", na.rm=TRUE) {
+    if(slot == "n"){
 		# NA to 0
-        	res <- landings.n(object) + discards.n(object)
-            if (units(discards.n(object)) == units(landings.n(object)))
-				units(res) <- units(discards.n(object))
-        }
-        else if(slot == "wt"){
-        	res <- (landings.wt(object) * landings.n(object) +
-        		discards.wt(object) * discards.n(object)) /
-        	 	(landings.n(object) + discards.n(object))
-			if (units(discards.wt(object)) == units(landings.wt(object)))
-				units(res) <- units(discards.wt(object))
-        }
-		else if (slot == "all"){
-      	ctch.n     <-computeCatch(object, slot="n")
-        ctch.wt    <-computeCatch(object, slot="wt")
-				ctch       <-quantSums(ctch.n*ctch.wt, na.rm=na.rm)
-        units(ctch)<-paste(units(ctch.n), units(ctch.wt))
+      res <- landings.n(object) + discards.n(object)
+      if (units(discards.n(object)) == units(landings.n(object)))
+			  units(res) <- units(discards.n(object))
+    }
+    else if(slot == "wt") {
+      res <- (landings.wt(object) * landings.n(object) +
+        discards.wt(object) * discards.n(object)) /
+        (landings.n(object) + discards.n(object))
+		  if (units(discards.wt(object)) == units(landings.wt(object)))
+		    units(res) <- units(discards.wt(object))
+    }
+		else if (slot == "all") {
+      ctch.n     <-computeCatch(object, slot="n")
+      ctch.wt    <-computeCatch(object, slot="wt")
+			ctch       <-quantSums(ctch.n*ctch.wt, na.rm=na.rm)
+      units(ctch)<-paste(units(ctch.n), units(ctch.wt))
 
-      	res <- FLQuants(catch.wt=ctch.wt,
-				                catch.n =ctch.n,
-                        catch   =ctch)
-		    }
-        else {
-			res <- quantSums(catch.n(object) * catch.wt(object), na.rm=na.rm)
-            units(res) <- paste(units(catch.n(object)), units(catch.wt(object)))
-        }
+      res <- FLQuants(catch.wt=ctch.wt,
+			  catch.n =ctch.n,
+        catch   =ctch)
+		}
+    else {
+		  res <- quantSums(catch.n(object) * catch.wt(object), na.rm=na.rm)
+        units(res) <- paste(units(catch.n(object)), units(catch.wt(object)))
+    }
 		return(res)
     }
 )	# }}}
@@ -385,13 +384,13 @@ expandAgeFLStock<-function(object,maxage,...)
        }
 
     ## calc exp(-cum(Z)) i.e. the survivors 
-    n               <-FLQuant(exp(-apply(slot(res,"m")[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)-apply(slot(res,"harvest")[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)))
+    n               <-FLQuant(exp(-apply(slot(res,"m")[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)-apply(slot(res,"harvest")[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)), quant='age')
     n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
     n               <-sweep(n,2:6,apply(n,2:6,sum),"/")
     ## calc exp(-cum(Z)) i.e. the survivors
     z            <-harvest(res)[ac(maxage)]+m(res)[ac(maxage)]
     n            <-exp(-apply((m(res)[ac(oldMaxage:maxage)]-harvest(res)[ac(oldMaxage:maxage)])@.Data,2:6,cumsum))
-    n            <-FLQuant(c(n),dimnames=dimnames(n))
+    n            <-FLQuant(c(n),dimnames=dimnames(n), quant='age')
     n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-z)-1.0))
     n            <-sweep(n,2:6,apply(n,2:6,sum),"/")
     stock.n(res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],1:6,n,"*")
@@ -424,12 +423,11 @@ expandAgeFLStock<-function(object,maxage,...)
     }
 
 setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
-sg<-	function(x, plusgroup, na.rm=FALSE)
+  function(x, plusgroup, na.rm=FALSE)
 	{
 	if (!validObject(x)) stop("x not a valid FLStock object")
 	
 	if (plusgroup>dims(x)$max) return(expandAgeFLStock(x, plusgroup))
-	
 	# FLQuants by operation
 	pg.wt.mean <-c("catch.wt","landings.wt","discards.wt")
 	pg.truncate<-c("harvest","m","mat","harvest.spwn","m.spwn")
@@ -976,3 +974,12 @@ setMethod('dimnames<-', signature(x='FLStock', value='list'),
     return(x)
   }
 ) # }}}
+
+# fapex {{{
+setMethod("fapex", signature(x="FLStock"),
+  function(x, ...)
+  {
+    return(apply(harvest(x), 2:6, max))
+  }
+)
+# }}}

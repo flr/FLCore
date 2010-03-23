@@ -162,7 +162,6 @@ setMethod("mcf", signature(object="list"), function(object){
 	lst <- list()
 	length(lst) <- nflq
 	lst <- object
-	names(lst) <- flqnames	
 
 	# filling up the quants	
 	for(j in 1:length(lst)){
@@ -171,6 +170,7 @@ setMethod("mcf", signature(object="list"), function(object){
 		flq0[dn2[[1]], dn2[[2]], dn2[[3]], dn2[[4]], dn2[[5]], dn2[[6]]] <- lst[[j]]
 		lst[[j]] <- flq0
 	}
+	names(lst) <- flqnames	
 	
 	# output
 	FLQuants(lst)	

@@ -145,7 +145,7 @@ setAs('FLCatch', 'FLMetiers',
   }
 )
 setAs('FLCatch', 'FLIndex',
-rr<-	function(from)
+  function(from)
 	{
     dmns    <-dimnames(from@landings.n)
     dmns$age<-"all"

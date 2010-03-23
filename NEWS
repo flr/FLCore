@@ -23,6 +23,10 @@ USER-VISIBLE CHANGES
   - first dimension ('quant') in FLQuant cannot be named 'cohort'.
   - added FLCohort(array) constructor.
   - added FLCohort(missing) constructor.
+  - autoParscale method for FLModel returns values for using in the parscale option
+    of optim. Parameter estimation is then carried out on params/parscale which
+    improves convergence.
+  - parscale method for FLModel.
 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.
