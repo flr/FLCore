@@ -196,3 +196,14 @@ setAs('FLArray', 'data.frame',
 		return(df)
 	}
 )	# }}}
+
+# FLPar	{{{
+setAs('FLPar', 'list',
+	function(from)
+	{
+    res <- list()
+    for(i in dimnames(from)[['params']])
+      res[[i]] <- c(from[i,])
+    return(res)
+	}
+)	# }}}

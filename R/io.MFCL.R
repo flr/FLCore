@@ -244,4 +244,14 @@ scanpipe<-function (cmd, ...) {
     out <- scan(con, ...)
     close(con)
     
-    out}    # }}}
+    out}
+    
+getoutputparfile <- function(plotrepfile="plot.rep") {
+  ##===============================================================
+  ## returns string with name (and path) of .par file corresponding
+  ## to the plotrepfile.
+  ##===============================================================
+  name <- getplotdat0("# Output par file = ",plotrepfile)
+  file.path(dirname(name),name)
+} 
+    # }}}
