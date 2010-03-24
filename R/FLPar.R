@@ -128,11 +128,11 @@ setMethod('[', signature(x='FLPar'),
       if (missing(j))
         j  <-  seq(1, dx[2])
       
-      if(drop)
-        return(x@.Data[i, j, ..., drop=TRUE])
-
       if(length(dx) == 2)
-        return(new(class(x), as.array(x@.Data[i, j, drop=FALSE])))
+        if(!drop)
+          return(new(class(x), as.array(x@.Data[i, j, drop=FALSE])))
+        else
+          return(x@.Data[i, j, drop=FALSE])
       else
       {
         # if ... is missing, list(...) fails
@@ -144,9 +144,11 @@ setMethod('[', signature(x='FLPar'),
         # and use only the section required when list(...) exists
           k <- c(args, lapply(as.list(dx[-seq(1:(2+length(args)))]),
             function(x) seq(1:x)))
-
-        return(new(class(x), as.array(do.call('[',
-          c(list(x@.Data, i, j), k, list(drop=FALSE))))))
+        if(!drop)
+          return(new(class(x), as.array(do.call('[',
+            c(list(x@.Data, i, j), k, list(drop=FALSE))))))
+        else
+          return(do.call('[', c(list(x@.Data, i, j), k, list(drop=TRUE))))
       }
     }
 )   # }}}
@@ -567,7 +569,7 @@ setMethod('sv', signature(x='FLPar', model='character'),
 
 setMethod('ab', signature(x='FLPar', model='formula'),
   function(x, model, spr0=NULL)
-  {browser()
+  {
     model <- SRModelName(model)
     if(is.null(model))
       stop("model provided has not been identified")
