@@ -223,10 +223,10 @@ setMethod('fmle',
 
     # create logl function
     loglfoo <- function(par) {
-      params <- as.list(par)
-      names(params) <- names(start)
-      params[fixnm] <- lapply(fixed, iter, it)
-      return(-1*(do.call(logl, args=c(params, data))))
+      pars <- as.list(par)
+      names(pars) <- names(start)
+      pars[fixnm] <- lapply(fixed, iter, it)
+      return(-1*(do.call(logl, args=c(pars, data))))
     }
     
     # input data

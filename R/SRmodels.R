@@ -150,7 +150,7 @@ rickerSV <- function()
     return(FLPar(s=s, v=v, spr0=spr0))
 	},
   ## bounds
-  lower=c(1e-8, rep(1e-8, 2)),
+  lower=c(rep(1e-8, 3)),
 	upper=c(10, Inf, Inf))
 
 	model  <- rec~abPars('ricker', s=s, v=v, spr0=spr0)['a']*ssb*exp(-abPars('ricker', s=s, v=v, spr0=spr0)['b']*ssb)
@@ -379,7 +379,6 @@ srr2s <- function(model, ssb=NULL, spr=NULL, a=NULL, b=NULL, c=1, d=NULL)
 abPars <- function(model, s=NULL, v, spr0, c=NULL, d=NULL)
 {
   # converts a & b parameterisation into steepness & virgin biomass (s & v)
-
   switch(model,
     "bevholt" ={a=(v+(v-s*v)/(5*s-1))/spr0; b=(v-s*v)/(5*s-1)},
     "ricker"  ={b=log(5*s)/(v*0.8); a=exp(v*b)/spr0},
