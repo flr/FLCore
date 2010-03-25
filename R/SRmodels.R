@@ -145,7 +145,7 @@ rickerSV <- function()
   initial <- structure(function(rec, ssb)
   {
     s <- 0.75
-    spr0 <- quantile(c(ssb/rec), prob = 0.9, rm.na = F, names=FALSE)
+    spr0 <- quantile(c(ssb/rec), prob = 0.9, na.rm = TRUE, names=FALSE)
     v <-mean(as.vector(ssb), na.rm = TRUE)*2
     return(FLPar(s=s, v=v, spr0=spr0))
 	},
@@ -171,7 +171,7 @@ bevholtSV <- function()
   initial <- structure(function(rec, ssb)
   {
     s <- 0.75
-    spr0 <- quantile(c(ssb/rec), prob = 0.9, rm.na = F, names=FALSE)
+    spr0 <- quantile(c(ssb/rec), prob = 0.9, na.rm = TRUE, names=FALSE)
     v <-mean(as.vector(ssb), na.rm = TRUE)*2
     return(FLPar(s=s, v=v, spr0=spr0))
 	},
@@ -199,7 +199,7 @@ shepherdSV <- function()
   initial <- structure(function(rec, ssb)
   {
     s <- 0.75
-    spr0 <- quantile(c(ssb/rec), prob = 0.9, rm.na = F, names=FALSE)
+    spr0 <- quantile(c(ssb/rec), prob = 0.9, na.rm = TRUE, names=FALSE)
     v <-mean(as.vector(ssb), na.rm = TRUE)*2
     return(FLPar(s=s, v=v, spr0=spr0, c=1))
 	},
