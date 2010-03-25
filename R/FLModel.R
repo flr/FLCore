@@ -237,12 +237,19 @@ setMethod('fmle',
     if(seq.iter)
     {
       iter <- dims(object)$iter
+      # iters in fixed
       if(length(fixnm) >= 1)
       {
-        fixiter <- max(unlist(lapply(fixed, length)))
-        if(iter == 1 & fixiter > 1)
-          iter <- fixiter
-        else if(fixiter > 1 & fixiter != iter)
+        fiter <- unlist(lapply(fixed, length))
+        fiter <- fiter[fiter > 1]
+        # all ietrs in fixed are equal?
+        if(any(fiter/fiter[1] != 1))
+          stop("objects in fixed have different number of iters")
+        # are iter in object 1 and fixiter > 1? use fixiter
+        if(iter == 1 & fiter > 1)
+          iter <- fiter
+        # are they different and > 1? STOP
+        else if(fiter > 1 & fiter != iter)
           stop("different iters in fixed and object")
       }
     }
