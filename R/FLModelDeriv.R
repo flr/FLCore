@@ -12,31 +12,14 @@
 
 # computeHessian {{{
 setMethod("computeHessian", signature(object="FLModel"),
-  function(object, initial=FALSE, eps=1e-4, d=0.0001,
+  function(object, eps=1e-4, d=0.0001,
     zero.tol=sqrt(.Machine$double.eps/7e-7), r=4, v=2) {
 
-    # check params are there unless initial=TRUE
-    if(all(is.na(params(object))) && !initial)
-      stop("")
 
     # get params
     parnames <- dimnames(params(object))$params
     params <- as.list(params(object))
     names(params) <- parnames
-
-    # if initial=TRUE
-    if(initial) {
-      data <- list()
-      datanm <- names(formals(logl(object)))
-      datanm <- datanm[!datanm %in% parnames]
-      for(i in datanm)
-        data[[i]] <- slot(object, i)
-      params <- do.call(initial(object), data)
-    }
-
-    # No NAs in params
-    if(any(is.na(params)))
-      stop("values in 'params' cannot be NA")
 
     # call numDeriv's hessian
     D <- computeD(object, params)
@@ -77,13 +60,13 @@ setMethod("computeD", signature(object="FLModel"),
     # params
     x <- unlist(params)
     if(any(is.na(x)))
-      x <- unlist(do.call(object@initial, data))
-
+      x <- unlist(as(do.call(object@initial, data), 'list'))
+    
     # f0
-    f0 <- do.call(logl(object), c(data, params))
+    f0 <- do.call(logl(object), c(data, x))
 
     # no. of params
-    p <- length(params)
+    p <- length(x)
 
     h0 <- abs(d*x) + eps*(abs(x) < zero.tol)
     D <- matrix(0, length(f0),(p*(p + 3))/2)
