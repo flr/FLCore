@@ -206,4 +206,4 @@ setAs('FLPar', 'list',
       res[[i]] <- c(from[i,])
     return(res)
 	}
-)	# }}}
+) # }}}
