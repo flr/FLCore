@@ -225,7 +225,7 @@ setMethod('fmle',
     loglfoo <- function(par) {
       params <- as.list(par)
       names(params) <- names(start)
-      params[fixnm] <- fixed
+      params[fixnm] <- lapply(fixed, iter, it)
       return(-1*(do.call(logl, args=c(params, data))))
     }
     
@@ -233,10 +233,19 @@ setMethod('fmle',
     alldata <- list()
     for (i in datanm)
       alldata[[i]] <- slot(object, i)
-
     # iterations
     if(seq.iter)
+    {
       iter <- dims(object)$iter
+      if(length(fixnm) >= 1)
+      {
+        fixiter <- max(unlist(lapply(fixed, length)))
+        if(iter == 1 & fixiter > 1)
+          iter <- fixiter
+        else if(fixiter > 1 & fixiter != iter)
+          stop("different iters in fixed and object")
+      }
+    }
     else
       iter <- 1
 
@@ -247,7 +256,7 @@ setMethod('fmle',
     object@logLik <- logLik
 
     # Correct FLPar, fitted and residuals
-    if(iter > dim(object@params)[1])
+    if(iter > dim(object@params)[length(dim(object@params))])
     {
       params(object) <- FLPar(iter=iter, params=dimnames(object@params)$params)
     }
@@ -340,7 +349,7 @@ setMethod('fmle',
       iter(object@params[names(out$par),], it) <- out$par
       # fixed
       if(length(fixed) > 0)
-        iter(object@params, it)[fixnm,] <- unlist(fixed)
+        iter(object@params, it)[fixnm,] <- unlist(lapply(fixed, iter, it))
       # TODO make details list of lists if iter > 1?
       object@details <- list(call=call, value=out$value, count=out$counts, 
         convergence=out$convergence, message=out$message)  
