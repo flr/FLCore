@@ -306,6 +306,9 @@ setMethod('fmle',
         else
           start <- formals(logl)[names(formals(logl))%in%parnm]
       }
+      else
+        # HACK! clean up fixed list if elements are named vectors
+        start <- lapply(start, function(x){ names(x) <- NULL; x})
 
       if(!is.null(fixnm))
         start[fixnm] <- NULL
