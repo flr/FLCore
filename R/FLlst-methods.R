@@ -24,7 +24,9 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			|
 			(is.numeric(i) & length(x)<i)))
 				stop("The object is locked. You can not replace non-existent elements.") 
-		lst <- as(x, "list")
+		
+    lst <- as(x, "list")
+    names(lst) <- names(x)
 	
 		if(length(lst)==0)
 		{
@@ -51,6 +53,8 @@ setReplaceMethod("$", signature(x="FLlst", name="character", value="ANY"),
 			stop("The object is locked. You can not replace non-existent elements.") 
 		
 		lst <- as(x, "list")
+    names(lst) <- names(x)
+
 		if(length(lst)==0)
 		{
 			cls <- is(value)[1]
