@@ -63,6 +63,8 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 setMethod("[", signature(x="FLArray"),
     function(x, i, j, k, l, m, n, ..., drop=FALSE)
     {
+      if(length(list(...)) > 0)
+        stop(paste(class(x), 'objects only have 6 dimensions'))
 	  	dx <- dim(x)
 		  if (missing(i))
         i  <-  seq(1, dx[1])
@@ -77,7 +79,7 @@ setMethod("[", signature(x="FLArray"),
       if (missing(n))
         n  <-  seq(1, dx[6])
 
-      if(drop == TRUE)
+      if(drop)
         return(x@.Data[i, j, k, l, m, n, drop=TRUE])
       else
         x@.Data <- x@.Data[i, j, k, l, m, n, drop=FALSE]
@@ -105,6 +107,9 @@ setMethod("[", signature(x="FLArray", i="array"),
 setMethod("[<-", signature(x="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
+    if(length(list(...)) > 0)
+      stop(paste(class(x), 'objects only have 6 dimensions'))
+
     if(!missing(i) && is.array(i))
     {
 	  x@.Data[i] <- value
