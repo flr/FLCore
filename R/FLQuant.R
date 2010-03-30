@@ -694,32 +694,6 @@ function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
 
 # }}}
 
-## apply            {{{
-if (!isGeneric("apply"))
-	setGeneric("apply", useAsDefault=apply)
-
-setMethod("apply", signature(X="FLQuant", MARGIN="numeric", FUN="function"),
-	function(X, MARGIN, FUN, ...)
-  {
-		data <- apply(X@.Data, MARGIN, FUN, ...)
-		# set dim
-		dim <- c(1,1,1,1,1,1)
-		if (is.null(dim(data)))
-			dim[MARGIN] <- length(data)
-		else
-			dim[MARGIN] <- dim(data)
-		# new flq
-		flq <- FLQuant(dim=dim, units=units(X), quant=quant(X))
-		flq[1:dim[1],1:dim[2],1:dim[3],1:dim[4],1:dim[5],1:dim[6]] <- data
-
-		# dimnames
-		dimnames <- dimnames(X)
-		dimnames(flq) <- dimnames[MARGIN]
-		
-    return(flq)
-	}
-)   # }}}
-
 ## window           {{{
 if (!isGeneric("window")) {
 	setGeneric("window", useAsDefault = window)

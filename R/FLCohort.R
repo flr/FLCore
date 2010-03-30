@@ -370,3 +370,22 @@ fillFLCdimnames <- function(dnames, dim=rep(1,6), iter=1) {
 
 	return(xnames)
 } # }}}
+
+## dimnames<-       {{{
+setMethod("dimnames<-", signature(x="FLCohort", value='list'),
+	function(x, value) {
+		if(any(!names(value) %in% c("age", "cohort", "unit", "season", "area", "iter")))
+			stop("names in value do not match those in FLCohort")
+		xnames <- dimnames(x)
+		for(i in 1:length(value)) {
+			if(any(names(value)[i]==c("cohort","unit","season","area","iter")))
+				xnames[[names(value)[i]]] <- value[[i]]
+			else {
+				xnames[[1]] <- value[[i]]
+				names(xnames)[1] <- names(value)[i]
+			}
+		}
+		attributes(x)$dimnames <- xnames
+		return(x)
+	}
+) # }}}
