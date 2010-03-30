@@ -209,7 +209,7 @@ setGeneric("leslie", function(object, ...)
 	standardGeneric("leslie"))
 
 # r
-setGeneric("r", function(object, ...)
+setGeneric("r", function(m, fec, ...)
   standardGeneric("r"))
 
 # survprob

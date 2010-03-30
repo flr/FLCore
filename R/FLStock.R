@@ -983,3 +983,26 @@ setMethod("fapex", signature(x="FLStock"),
   }
 )
 # }}}
+
+# r {{{
+setMethod("r", signature(m="FLStock", fec="missing"),
+	function(m, by = 'year', method = 'el',...) {
+    do.call('r', list(m=m(m), fec=mat(m), by=by, method=method))
+	}
+) # }}}
+
+# survprob {{{
+# estimate survival probabilities by year or cohort
+setMethod("survprob", signature(object="FLStock"),
+	function(object, by = 'year',...) {
+		
+		# estimate by year
+		if(by == 'year')
+      return(survprob(m(object)))
+		
+		# estimate by cohort
+    else if(by == 'cohort')
+      return(survprob(FLCohort(m(object))))
+
+	}
+) # }}}
