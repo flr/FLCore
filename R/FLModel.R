@@ -399,7 +399,7 @@ setMethod('fmle',
     dimnames(fitted(object))[1:5] <- dimnames(do.call(as.character(
       as.list(object@model)[2]), list(object)))[1:5]
     dimnames(residuals(object)) <- dimnames(fitted(object))
-
+    
     # return object
     return(object)
   }

@@ -583,3 +583,7 @@ setGeneric("fapex", function(x, ...)
 # qmax
 setGeneric("parmax", function(x, ...)
   standardGeneric("parmax"))
+
+# sp
+setGeneric('sp', function(stock, catch, ...)
+		standardGeneric('sp'))

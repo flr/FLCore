@@ -1006,3 +1006,29 @@ setMethod("survprob", signature(object="FLStock"),
 
 	}
 ) # }}}
+
+# sp {{{
+setMethod('sp', signature(stock='FLQuant', catch='FLQuant'),
+  function(stock, catch, rel=TRUE)
+  {
+    dmns <- dimnames(stock)$year
+    rng1 <- dmns[-length(dmns)]
+    rng2 <- dmns[-1]
+
+    deltaB <- stock[,rng1] - stock[,rng2]
+
+    res <- deltaB + catch[,rng1]
+  
+    if (rel)
+      return(res/stock[,rng1])
+     else
+      return(res)
+  }
+)
+
+setMethod('sp', signature(stock='FLStock', catch='missing'),
+	function(stock, rel=TRUE)
+  {
+    return(sp(stock(stock), catch(stock), rel=rel))
+  }
+) # }}}

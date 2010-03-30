@@ -331,6 +331,7 @@ exportMethods(
   "sel.pattern<-",
 	"setPlusGroup",
 	"show",
+  "sp",
 	"splom",
   "spr0",
 	"spwn",

@@ -289,3 +289,11 @@ setMethod("fmle", signature(object="FLSR", start="ANY"),
     return(res)
   }
 ) # }}}
+
+# ab  {{{
+setMethod('ab', signature(x='FLSR', model='missing'),
+  function(x)
+  {
+    return(ab(params(x), SRModelName(model(x))))
+  }
+) # }}}
