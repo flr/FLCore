@@ -317,8 +317,8 @@ SRModelName <- function(model)
       "FLQuant(ifelse(ssb<=b,a*ssb,a*b))" = "segreg",
       "FLQuant(a,dimnames=dimnames(rec))" = "mean",
       "a" = "mean",
-      'abPars("bevholt",s=s,v=v,spr0=spr0)["a"]*ssb/(abPars("bevholt",s=s,v=v,spr0=spr0)["b"]+ssb)' = "bevholt",
-      'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "ricker",
+      'abPars("bevholt",s=s,v=v,spr0=spr0)["a"]*ssb/(abPars("bevholt",s=s,v=v,spr0=spr0)["b"]+ssb)' = "bevholtSV",
+      'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "rickerSV",
       NULL))
 } # }}}
 
@@ -334,13 +334,12 @@ SRNameCode <- function(name)
     "cushing" = 6,
     "dersch" = 7,
     "pellat" = 8,
-    "shepherdD" = 51,
     "bevholtD" = 21,
     "bevholtSV" = 22,
-    "rickerdD" = 31,
-    "rickerdSV" = 32,
-    "rickerdD" = 51,
-    "rickerdSV" = 52,
+    "rickerD" = 31,
+    "rickerSV" = 32,
+    "shepherdD" = 51,
+    "shepherdSV" = 52,
     NA)
 
   if(is.na(code))
@@ -381,11 +380,17 @@ abPars <- function(model, s=NULL, v, spr0, c=NULL, d=NULL)
   # converts a & b parameterisation into steepness & virgin biomass (s & v)
   switch(model,
     "bevholt" ={a=(v+(v-s*v)/(5*s-1))/spr0; b=(v-s*v)/(5*s-1)},
+    "bevholtSV" ={a=(v+(v-s*v)/(5*s-1))/spr0; b=(v-s*v)/(5*s-1)},
     "ricker"  ={b=log(5*s)/(v*0.8); a=exp(v*b)/spr0},
+    "rickerSV"  ={b=log(5*s)/(v*0.8); a=exp(v*b)/spr0},
     "cushing" ={b=log(s)/log(0.2); a=(v^(1-b))/(spr0)},
+    "cushingSV" ={b=log(s)/log(0.2); a=(v^(1-b))/(spr0)},
     "shepherd"={b=v*(((0.2-s)/(s*0.2^c-0.2))^-(1/c)); a=((v/b)^c+1)/spr0},
+    "shepherdSV"={b=v*(((0.2-s)/(s*0.2^c-0.2))^-(1/c)); a=((v/b)^c+1)/spr0},
     "mean"    ={a=v/spr0;b=NULL},
+    "meanSV"    ={a=v/spr0;b=NULL},
     "segreg"  ={a=5*s/spr0; b=v/(a*spr0)},
+    "segregSV"  ={a=5*s/spr0; b=v/(a*spr0)},
     {stop("model name not recognized")})
 
   res <- c(a=a, b=b)

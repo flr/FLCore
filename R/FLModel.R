@@ -705,11 +705,20 @@ setReplaceMethod('model', signature(object='FLModel', value='function'),
 setReplaceMethod('model', signature(object='FLModel', value='list'),
   function(object, value)
   {
+    # fill up model def slots
     for(i in names(value))
       slot(object, i) <- value[[i]]
+    
+    # rebuild params
     params(object) <- getFLPar(object)
+
+    # empty result slots
     fitted(object) <- as.numeric(NA)
     residuals(object) <- as.numeric(NA)
+    vcov(object) <- array(NA)
+    hessian(object) <- array(NA)
+    logLik(object)[] <- as.numeric(NA)
+    
     return(object)
   }
 )

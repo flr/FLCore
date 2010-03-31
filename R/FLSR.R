@@ -294,6 +294,21 @@ setMethod("fmle", signature(object="FLSR", start="ANY"),
 setMethod('ab', signature(x='FLSR', model='missing'),
   function(x)
   {
-    return(ab(params(x), SRModelName(model(x))))
+    res <- x
+    model(res) <- sub('SV', '', SRModelName(model(x)))
+    params(res) <- ab(params(x), SRModelName(model(x)))
+    return(res)
+  }
+) # }}}
+
+# sv  {{{
+setMethod('sv', signature(x='FLSR', model='missing'),
+  function(x)
+  {
+    res <- x
+    model(res) <- SRModelName(model(x))
+    model(res) <- paste(SRModelName(model(x)), 'SV', sep='')
+    params(res) <- sv(params(x), SRModelName(model(x)), spr0=params(x)['spr0',])
+    return(res)
   }
 ) # }}}
