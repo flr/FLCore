@@ -373,10 +373,12 @@ setMethod('sigma', signature(object='FLArray'),
   function(object, hat=rep(0, length(object)))
   {
     ## calculates sigma squared for use in concentrated likelihood
-    hat <- hat[!is.na(hat)]
-    SS <- sum((object - hat) ^ 2, na.rm=T)
+    if(all(is.na(hat)))
+      return(Inf)
 
-    return((SS/length(hat)) ^ 0.5)
+    SS <- sum((object - hat) ^ 2, na.rm=TRUE)
+
+    return((SS/length(hat[!is.na(hat)])) ^ 0.5)
    }
 ) # }}}
 
