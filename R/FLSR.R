@@ -303,12 +303,12 @@ setMethod('ab', signature(x='FLSR', model='missing'),
 
 # sv  {{{
 setMethod('sv', signature(x='FLSR', model='missing'),
-  function(x)
+  function(x, spr0=params(x)['spr0',])
   {
     res <- x
     model(res) <- SRModelName(model(x))
     model(res) <- paste(SRModelName(model(x)), 'SV', sep='')
-    params(res) <- sv(params(x), SRModelName(model(x)), spr0=params(x)['spr0',])
+    params(res) <- sv(params(x), SRModelName(model(x)), spr0=spr0)
     return(res)
   }
 ) # }}}
