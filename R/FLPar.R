@@ -404,7 +404,7 @@ setAs('FLPar', 'FLQuant',
 
 # propagate {{{
 setMethod("propagate", signature(object="FLPar"),
-  function(object, iter, fill.iter=FALSE)
+  function(object, iter, fill.iter=TRUE)
   {
     # dimnames of input object
     dnames <- dimnames(object)
@@ -576,3 +576,12 @@ setMethod('ab', signature(x='FLPar', model='formula'),
     else
       return(ab(x, model))
   })# }}}
+
+# sweep {{{
+setMethod('sweep', signature(x='FLPar'),
+  function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
+  {
+    res <- callNextMethod()
+    do.call(class(x), list(res, units=units(x)))
+  }
+) # }}}
