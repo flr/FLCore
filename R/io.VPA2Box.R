@@ -10,7 +10,7 @@
 # TODO Thu 01 Apr 2010 11:08:00 AM CEST IM:
 
 # readVPA2Box {{{
-readVPA2Box <- function(data, results, m=as.numeric(NA))
+readVPA2Box <- function(data, results, m=as.numeric(NA), no.discards=TRUE)
 {
   # read input data in Adapt format
   res <- readFLStock(data, type='Adapt', m=m)
@@ -26,6 +26,14 @@ readVPA2Box <- function(data, results, m=as.numeric(NA))
     m(res) <- getM(m, ages=dim(m(res))[1])
   else if (is(m, FLQuant))
     m(res) <- m
+
+  # discards
+  if(no.discards)
+  {
+    discards.n(res) <- 0
+    discards.wt(res) <- landings.wt(res)
+    catch(res) <- computeCatch(res, 'all')
+  }
 
   # desc
   desc(res) <- paste('Imported from a set of VPA2Box files: [', data, ',', results,
