@@ -55,6 +55,7 @@ export(
   "geomean",
   "getPlural",
   "loglAR1",
+	"readVPA2Box",
 	"readVPAFile",
 	"readFLIndex",
 	"read.FLIndex",
