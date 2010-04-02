@@ -920,8 +920,6 @@ setMethod("iter<-", signature(object="FLQuant", value="FLQuant"),
 )   # }}}
 
 # propagate {{{
-setGeneric("propagate", function(object, ...) standardGeneric("propagate"))
-
 setMethod("propagate", signature(object="FLQuant"),
   function(object, iter, fill.iter=TRUE)
   {

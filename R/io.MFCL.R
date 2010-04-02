@@ -71,6 +71,8 @@ readMFCL <- function(repfile, parfile)
   return(stk)
 } # }}}
 
+# readMFCLCatch
+
 # getmfclstuff functions  {{{
 getqedlist<-function(plotrepfile="plot.rep"){
 ## List of catchability+effort dev. vectors by fishery

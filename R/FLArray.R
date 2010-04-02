@@ -356,10 +356,6 @@ setMethod("scale", signature(x="FLArray", center="missing", scale="missing"),
 ) # }}}
 
 # sweep {{{
-if (!isGeneric("sweep"))
-	setGeneric("sweep", function (x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)
-		standardGeneric("sweep"))
-
 setMethod('sweep', signature(x='FLArray'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
   {

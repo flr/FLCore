@@ -325,7 +325,7 @@ setMethod("dims", signature(obj="FLComp"),
     # Returns a list with different parameters
     function(obj, ...)
 	{
-		qnames <- names(getSlots(class(obj))[getSlots(class(obj))=="FLQuant"])
+    qnames <- getSlotNamesClass(obj, 'FLArray')
     range <- as.list(range(obj))
 		res <- list(
             quant = quant(slot(obj, qnames[1])),

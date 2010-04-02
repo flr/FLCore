@@ -587,3 +587,7 @@ setGeneric("parmax", function(x, ...)
 # sp
 setGeneric('sp', function(stock, catch, ...)
 		standardGeneric('sp'))
+
+# propagate
+setGeneric("propagate", function(object, ...)
+    standardGeneric("propagate"))

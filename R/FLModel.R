@@ -233,6 +233,22 @@ setMethod('fmle',
     alldata <- list()
     for (i in datanm)
       alldata[[i]] <- slot(object, i)
+
+    # add dimnames if used
+    dimna <- dimnames(slot(object, datanm[1]))[names(slot(object, datanm[1]))%in%
+      all.vars(object@model)]
+    if(length(dimna) > 0)
+    {
+      # get them in the right shape
+      dimdat <- lapply(dimna, function(x)
+        {
+          out <- slot(object, datanm[1])
+          out[] <- as.numeric(x)
+          return(out)
+        })
+      alldata <- c(alldata, dimdat)
+    }
+    
     # iterations
     if(seq.iter)
     {
@@ -357,6 +373,7 @@ setMethod('fmle',
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
         hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
       
+browser()      
       # output
       # place out$par in right iter dim
       iter(object@params[names(out$par),], it) <- out$par
@@ -497,7 +514,7 @@ setMethod('predict', signature(object='FLModel'),
       if(it == 1)
       {
         res <- propagate(do.call(class(object@fitted), list(eval(call,
-          envir=c(params, data, dimdat)))), iters, fill.iter=FALSE)
+          envir=c(params, data, dimdat)), dimnames=dimnames)), iters, fill.iter=FALSE)
       }
       else
       {
@@ -505,7 +522,6 @@ setMethod('predict', signature(object='FLModel'),
           envir=c(params, data, dimdat))))
       }
     }
-    dimnames(res)[1:5] <- dimnames[1:5]
     return(res)
   }
 )   # }}}
