@@ -7,6 +7,6 @@ Description: FLCore contains the core classes and methods for FLR, a framework f
 Depends: methods, R(>= 2.10.0), graphics, stats, stats4, grid, lattice
 Maintainer: FLR Team <flr-team@flr-project.org>
 License: GPL 2
-Collate: genericMethods.R FLArray.R FLQuant.R FLQuantPoint.R FLAccesors.R FLComp.R FLlst-class.R FLStock.R FLCatch.R FLQuants-methods.R FLPar.R io.FLStock.R io.MFCL.R io.VPA2Box FLBiol.R FLCohort.R FLMetier.R FLFleet.R FLIndex.R FLlst-methods.R io.FLIndices.R FLModel.R FLModelDeriv.R FLSR.R FLGrowth.R SRmodels.R FLtest.R coerce.R PlotDiagnostics.R zzz.R
+Collate: genericMethods.R FLArray.R FLQuant.R FLQuantPoint.R FLAccesors.R FLComp.R FLlst-class.R FLStock.R FLCatch.R FLQuants-methods.R FLPar.R io.FLStock.R io.MFCL.R io.VPA2Box.R FLBiol.R FLCohort.R FLMetier.R FLFleet.R FLIndex.R FLlst-methods.R io.FLIndices.R FLModel.R FLModelDeriv.R FLSR.R FLGrowth.R SRmodels.R FLtest.R coerce.R PlotDiagnostics.R zzz.R
 LazyLoad: Yes
 LazyData: No
