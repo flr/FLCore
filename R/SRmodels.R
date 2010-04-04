@@ -214,6 +214,30 @@ shepherdSV <- function()
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+# bevholtAR1 {{{
+bevholtAR1 <- function()
+  {
+  ## log likelihood, assuming normal log.
+  logl <- function(a, b, rho, rec, ssb)
+      loglAR1(log(rec), log(a*ssb/(b+ssb)), rho=rho)
+
+  ## initial parameter values
+  initial <- structure(function(rec, ssb) {
+    a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
+    b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
+    return(FLPar(a = a, b = a/b, rho=0))
+	},
+
+  ## bounds
+  lower=c(rep(10e-8, 2), -1),
+	upper=c(rep(Inf, 2), 1))
+
+  ## model to be fitted
+  model  <- rec~a*ssb/(b+ssb)
+  
+	return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # methods
 
 # spr0  {{{
