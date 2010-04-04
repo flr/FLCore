@@ -14,7 +14,7 @@ readVPA2Box <- function(data, results, m=as.numeric(NA), no.discards=TRUE)
 {
   # read input data in Adapt format
   res <- readFLStock(data, type='Adapt', m=m)
-
+  
   # read N and F from summary output file
   nf <- getNF(results)
   stock.n(res)[,dimnames(nf[["stock.n"]])$year]<-nf[["stock.n"]]

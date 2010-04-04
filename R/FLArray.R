@@ -378,12 +378,21 @@ setMethod('sigma', signature(object='FLArray'),
    }
 ) # }}}
 
-# parmax, parmin {{{
-setMethod("parmax", signature(x="FLArray"),
-  function(x, ..., na.rm=TRUE) {
-    return(FLQuant(pmax(x@.Data,...),units=units(x)))
+# qmax, qmin {{{
+setMethod("qmax", signature(x="FLArray"),
+  function(x, ..., na.rm=TRUE)
+  {
+    do.call(class(x), list(object=pmax(x@.Data,...), units=units(x)))
   }
-) # }}}
+) 
+setMethod("qmin", signature(x="FLArray"),
+  function(x, ..., na.rm=TRUE) 
+  {
+    do.call(class(x), list(object=pmin(x@.Data,...), units=units(x)))
+  }
+)
+
+# }}}
 
 ## apply            {{{
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),

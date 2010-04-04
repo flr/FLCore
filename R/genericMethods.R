@@ -581,8 +581,12 @@ setGeneric("fapex", function(x, ...)
   standardGeneric("fapex"))
 
 # qmax
-setGeneric("parmax", function(x, ...)
-  standardGeneric("parmax"))
+setGeneric("qmax", function(x, ...)
+  standardGeneric("qmax"))
+
+# qmin
+setGeneric("qmin", function(x, ...)
+  standardGeneric("qmin"))
 
 # sp
 setGeneric('sp', function(stock, catch, ...)
