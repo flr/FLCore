@@ -289,7 +289,7 @@ setMethod("fmle", signature(object="FLSR", start="ANY"),
     {
       n <- dim(rec(res))[2]
       rho <- c(params(res)['rho',])
-      residuals(res) <- NA
+      residuals(res) <- as.numeric(NA)
       residuals(res)[,-1] <- (rec(res)[,-1] - rho*rec(res)[,-n] - fitted(res)[,-1] +
         rho*fitted(res)[,-n])
     }

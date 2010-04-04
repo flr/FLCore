@@ -244,8 +244,9 @@ setGeneric('FLMetier', function(catches, ...)
   setGeneric('catches<-', function(object, ..., value) standardGeneric('catches<-'))
 
 # effort
-setGeneric("effort", function(object, metier, ...) standardGeneric("effort"))
-setGeneric("effort<-", function(object, ..., value) standardGeneric("effort<-"))
+  setGeneric("effort", function(object, metier, ...) standardGeneric("effort"))
+  setGeneric("effort<-", function(object, ..., value) standardGeneric("effort<-"))
+
 # fcost
   setGeneric('fcost', function(object, ...) standardGeneric('fcost'))
   setGeneric('fcost<-', function(object, ..., value) standardGeneric('fcost<-'))
@@ -307,12 +308,6 @@ setGeneric('catch.wt', function(object, ...)
 		standardGeneric('catch.wt'))
 setGeneric('catch.wt<-', function(object, ..., value)
 		standardGeneric('catch.wt<-'))
-
-# effort
-setGeneric('effort', function(object, ...)
-		standardGeneric('effort'))
-setGeneric('effort<-', function(object, ..., value)
-		standardGeneric('effort<-'))
 
 # sel.pattern
 setGeneric('sel.pattern', function(object, ...)
