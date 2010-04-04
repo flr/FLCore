@@ -284,7 +284,17 @@ setMethod("fmle", signature(object="FLSR", start="ANY"),
   function(object, start, ...)
   {
     res <- callNextMethod()
-    if(object@logerror)
+    # AR1 models
+    if('rho' %in% dimnames(params(object))$params)
+    {
+      n <- dim(rec(res))[2]
+      rho <- c(params(res)['rho',])
+      residuals(res) <- NA
+      residuals(res)[,-1] <- (rec(res)[,-1] - rho*rec(res)[,-n] - fitted(res)[,-1] +
+        rho*fitted(res)[,-n])
+    }
+    # lognormal models
+    else if(object@logerror)
       residuals(res) <- log(rec(res)) - log(fitted(res))
     return(res)
   }
