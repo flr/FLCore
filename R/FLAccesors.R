@@ -59,10 +59,6 @@ createFleetAccesors <- function(slot, fun, level=c(1:5), assigment=TRUE, class='
 	# replacement function
   if(assigment == TRUE)
   {
-	# generic
-    #	eval(substitute(if (!isGeneric(SLOT)) {
-    #setGeneric(SLOT, function(object, ..., value)
-    #		standardGeneric(SLOT))}, list(SLOT=paste(slot, '<-', sep=''))))
 	# FLCatch
   if(1 %in% level)
 	eval(substitute(setReplaceMethod(SLOT, signature(object='FLCatch', value=class),
@@ -100,10 +96,6 @@ createFleetAccesors <- function(slot, fun, level=c(1:5), assigment=TRUE, class='
   }
 
 	# accesor functions
-	# generic
-  #eval(substitute(if (!isGeneric(SLOT)) {
-  #	setGeneric(SLOT, function(object, ...)
-  #			standardGeneric(SLOT))}, list(SLOT=slot)))
 	# FLCatch
   if(1 %in% level)
 	eval(substitute(setMethod(SLOT, signature(object='FLCatch'),

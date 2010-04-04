@@ -408,3 +408,18 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	}
 )   # }}}
 
+# survprob {{{
+# estimate survival probabilities by year or cohort
+setMethod("survprob", signature(object="FLArray"),
+	function(object, ...) {
+		
+		ps <- mm <- object
+
+		# estimate by year
+			ps[1,,,,,] <- 1	
+			for(a in 2:dim(ps)[1])
+				ps[a,,,,,] <- ps[a-1,,,,,]*exp(-mm[a-1,,,,,])
+
+		return(ps)
+	}
+) # }}}

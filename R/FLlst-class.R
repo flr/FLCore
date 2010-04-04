@@ -94,11 +94,6 @@ getPlural <- function(object)
 }
 
 # constructor
-setGeneric("FLlst", function(object, ...){
-	standardGeneric("FLlst")
-	}
-)
-
 setMethod("FLlst", signature(object="ANY"), function(object, ...){
 	lst1 <- list(...)
 	nlst <- length(lst1)
@@ -148,11 +143,6 @@ setClass("FLStocks", contains="FLlst",
 )
 
 # constructor
-setGeneric("FLStocks", function(object, ...){
-	standardGeneric("FLStocks")
-	}
-)
-
 setMethod("FLStocks", signature(object="ANY"), function(object, ...){
 	lst1 <- list(...)
 	nlst <- length(lst1)
@@ -177,10 +167,8 @@ setMethod("FLStocks", "list", function(object){
 })
 
 # is
-setGeneric("is.FLStocks", function(object){
-	standardGeneric("is.FLStocks")
-	}
-)
+setGeneric("is.FLStocks", function(object)
+	standardGeneric("is.FLStocks"))
 
 setMethod("is.FLStocks", "ANY", function(object){
 	identical(is(object)[1],"FLStocks")

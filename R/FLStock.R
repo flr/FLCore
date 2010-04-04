@@ -560,12 +560,6 @@ setMethod("fbar", signature(object="FLStock"),
   if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr')
 	    {
 		quantMeans(object@harvest[as.character(object@range["minfbar"]:object@range["maxfbar"]),])
-#EJ       res <- colMeans(object@harvest[as.character(object@range["minfbar"]:object@range["maxfbar"]),])
-# 	dim(res) <- c(1, dim(res))
-# 	dnms <- dimnames(object@harvest)
-#         dnms[[1]] <- paste(object@range["minfbar"], object@range["maxfbar"], sep=":")
-#        return(FLQuant(res, dimnames = dimnames(object@stock)))
-#         return(FLQuant(res, dimnames = dnms, units=units(object@harvest)))
 		  } else
 	stop("Correct units (f or hr) not specified in the harvest slot")
 	}

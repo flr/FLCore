@@ -10,9 +10,6 @@ setClass('FLGrowth', representation('FLModel',
    mass='FLArray'))
 
 # constructor	{{{
-setGeneric('FLGrowth', function(model, ...)
-  standardGeneric('FLGrowth'))
-
 setMethod('FLGrowth', signature(model='ANY'),
    function(model, ...)
      return(FLModel(model, ..., class='FLGrowth')))
@@ -20,3 +17,9 @@ setMethod('FLGrowth', signature(model='ANY'),
 setMethod('FLGrowth', signature(model='missing'),
  function(...)
   return(FLModel(formula(NULL), ..., class='FLGrowth')))	# }}}
+
+# accessor
+setMethod('mass', signature(object='FLGrowth'),
+  function(object)
+    return(object@mass))
+

@@ -167,9 +167,6 @@ createFleetAccesors('price', price)
 # }}}
 
 # Sums(FLQuants)	{{{
-setGeneric('Sums', function(object, ...)
-		standardGeneric('Sums')
-)
 setMethod('Sums', signature(object='FLQuants'),
 	function(object, na.rm=FALSE, ...) {
 		if(length(object) == 1)
@@ -177,10 +174,6 @@ setMethod('Sums', signature(object='FLQuants'),
 		eval(parse(text=paste('object[[', paste(seq(length(object)),
 			collapse=']] + object[['), ']]', sep='')))
 	}
-)
-
-setGeneric('Products', function(object, ...)
-		standardGeneric('Products')
 )
 setMethod('Products', signature(object='FLQuants'),
 	function(object, na.rm=FALSE, ...)
@@ -208,9 +201,6 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
 # }}}
 
 # revenue	{{{
-setGeneric('revenue', function(object, ...)
-		standardGeneric('revenue')
-)
 setMethod('revenue', signature('FLCatch'),
 	function(object)
     if(!all(is.na(landings.n(object))))
@@ -267,9 +257,6 @@ setMethod("iter", signature(object="FLFleet"),
 ) # }}}
 
 # catches(fl, me, ca)	{{{
-setGeneric('catches', function(object, ...)
-		standardGeneric('catches')
-)
 setMethod('catches', signature(object='FLFleet'),
 	function(object, ...)
 		return(catches(object@metiers, ...))
@@ -320,9 +307,6 @@ setMethod('catches', signature(object='FLMetier'),
 )	# }}}
 
 # catches<-(fl, ca)	{{{
-setGeneric('catches<-', function(object, catch, ..., value)
-		standardGeneric('catches<-')
-)
 setMethod('catches<-', signature(object='FLMetier', value='FLCatch'),
 	function(object, catch, ..., value)
   {
@@ -419,9 +403,6 @@ setMethod("window", signature(x="FLFleet"),
 )	# }}}
 
 ## effort		{{{
-	setGeneric("effort", function(object, metier, ...)
-		standardGeneric("effort"))
-
 setMethod("effort", signature(object="FLFleet", metier="missing"),
 	function(object)
     return(slot(object, "effort")))
@@ -430,9 +411,6 @@ setMethod("effort", signature(object="FLFleet", metier="character"),
 	function(object, metier)
     return(slot(object, "effort") * slot(metier(object, metier), "effshare")))
 
-if (!isGeneric("effort<-"))
-	setGeneric("effort<-", function(object, ..., value)
-		standardGeneric("effort<-"))
 setReplaceMethod("effort", signature(object="FLFleet", value="FLQuant"),
 	function(object, value)
   {

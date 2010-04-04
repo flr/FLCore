@@ -441,7 +441,6 @@ setMethod("range", "FLComp",
   }
 ) 
 
-setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
 setReplaceMethod("range", "FLComp",
   function(x, i, value)
   {

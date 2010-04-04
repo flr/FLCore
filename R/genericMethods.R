@@ -51,6 +51,9 @@ setGeneric("xyplot", useAsDefault = xyplot)
 
 # NEW methods
 
+# range<-
+setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
+
 # units<-
 setGeneric("units<-", function(x, value) standardGeneric("units<-"))
 
@@ -241,6 +244,8 @@ setGeneric('FLMetier', function(catches, ...)
   setGeneric('catches<-', function(object, ..., value) standardGeneric('catches<-'))
 
 # effort
+setGeneric("effort", function(object, metier, ...) standardGeneric("effort"))
+setGeneric("effort<-", function(object, ..., value) standardGeneric("effort<-"))
 # fcost
   setGeneric('fcost', function(object, ...) standardGeneric('fcost'))
   setGeneric('fcost<-', function(object, ..., value) standardGeneric('fcost<-'))
@@ -591,3 +596,37 @@ setGeneric('sp', function(stock, catch, ...)
 # propagate
 setGeneric("propagate", function(object, ...)
     standardGeneric("propagate"))
+
+# Sums
+setGeneric('Sums', function(object, ...)
+		standardGeneric('Sums'))
+
+# Products
+setGeneric('Products', function(object, ...)
+		standardGeneric('Products'))
+
+# revenue
+setGeneric('revenue', function(object, ...)
+		standardGeneric('revenue'))
+
+# catches
+setGeneric('catches', function(object, ...)
+		standardGeneric('catches'))
+setGeneric('catches<-', function(object, catch, ..., value)
+		standardGeneric('catches<-'))
+
+# FLGrowth
+setGeneric('FLGrowth', function(model, ...)
+  standardGeneric('FLGrowth'))
+
+# mass
+setGeneric('mass', function(object, ...)
+  standardGeneric('mass'))
+
+# FLlst
+setGeneric("FLlst", function(object, ...)
+	standardGeneric("FLlst"))
+ 
+# FLStocks
+setGeneric("FLStocks", function(object, ...)
+	standardGeneric("FLStocks"))
