@@ -5,21 +5,13 @@
 # Maintainer: Iago Mosqueira, Cefas
 # $Id$
 
-# FLBiol	{{{
+# From FLBiol {{{
 setAs('FLBiol', 'FLStock',
 	function(from)
 	{
 		FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
 			name=from@name, desc=from@desc, mat=from@fec,
 			m.spwn=from@spwn,harvest.spwn=from@spwn, range=from@range)
-	}
-)
-setAs('FLStock', 'FLBiol',
-	function(from)
-	{
-		FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m,
-			name=from@name, desc=from@desc, fec=from@mat,
-			spwn=from@m.spwn, range=from@range)
 	}
 )
 
@@ -47,7 +39,18 @@ setAs('FLBiol', 'FLIndex',
     res@range<-c(res@range,startf=0.0,endf=0.01)
 
   return(res)
-	})
+	}
+) # }}}
+
+# From FLStock  {{{
+setAs('FLStock', 'FLBiol',
+	function(from)
+	{
+		FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m,
+			name=from@name, desc=from@desc, fec=from@mat,
+			spwn=from@m.spwn, range=from@range)
+	}
+)
 
 setAs('FLStock', 'FLIndex',
 	function(from)
@@ -61,21 +64,22 @@ setAs('FLStock', 'FLIndex',
                  effort      =FLQuant(1,dimnames=dmns),
                  index.q     =FLQuant(1,dimnames=dmns),
                  index.var   =FLQuant(NA, dimnames=dimnames(from@stock.n)),
-                 sel.pattern =sweep(from@harvest,2:6,fbar(from),"/"),
-                 range       =from@range,
+                 range       =c(from@range, startf=0, endf=1),
                  type        ="number",
 			           name        =from@name,
                  desc        =paste("Coerced from FLBiol:",from@desc))
+
+    if(units(harvest(from)) == 'f')
+      sel.pattern(res) <- sweep(from@harvest,2:6,fbar(from),"/")
 
     units(res@index)   <-units(from@stock.n)
     units(res@catch.n) <-units(from@catch.n)
     units(res@catch.wt)<-units(from@catch.wt)
 
   return(res)
-	})
-# }}}
+	}
+)
 
-# FLCatch	{{{
 setAs('FLStock', 'FLCatch',
 	function(from)
 	{
@@ -94,9 +98,29 @@ setAs('FLStock', 'FLCatch',
 
 		return(res)
 	}
-)	# }}}
+) 
 
-# FLStock	{{{
+setAs('FLStock', 'FLFleet',
+	function(from)
+	  {
+		# FLCatch from FLStock
+		res <- as(from, 'FLCatch')
+		return(FLFleet(res, range=from@range, effort=apply(harvest(from)[ac(range(from,"minfbar"):range(from,"maxfbar")),],c(2,4:6),mean)))
+  	}
+) 
+
+setAs('FLStock', 'FLMetier',
+	function(from)
+	{
+		# FLCatch from FLStock
+		res <- as(from, 'FLCatch')
+		return(FLMetier(res, range=from@range))
+	}
+)
+
+# }}}
+
+# From FLCatch	{{{
 setAs('FLCatch', 'FLStock',
 	function(from)
 	{
@@ -110,26 +134,8 @@ setAs('FLCatch', 'FLStock',
 	}
 )	# }}}
 
-# FLFleet	{{{
-# from FLStock
-setAs('FLStock', 'FLFleet',
-	function(from)
-	  {
-		# FLCatch from FLStock
-		res <- as(from, 'FLCatch')
-		return(FLFleet(res, range=from@range, effort=apply(harvest(from)[ac(range(from,"minfbar"):range(from,"maxfbar")),],c(2,4:6),mean)))
-  	}
-) # }}}
-
 # FLMetier	{{{
-setAs('FLStock', 'FLMetier',
-	function(from)
-	{
-		# FLCatch from FLStock
-		res <- as(from, 'FLCatch')
-		return(FLMetier(res, range=from@range))
-	}
-)	
+	
 
 setAs('FLCatch', 'FLMetier',
   function(from)

@@ -238,6 +238,30 @@ bevholtAR1 <- function()
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+# rickerAR1 {{{
+rickerAR1 <- function()
+  {
+  ## log likelihood, assuming normal log.
+  logl <- function(a, b, rho, rec, ssb)
+      loglAR1(log(rec), log(a*ssb*exp(-b*ssb)), rho=rho)
+
+  ## initial parameter values
+  initial <- structure(function(rec, ssb) {
+		# The function to provide initial values
+    res  <-coefficients(lm(c(log(rec/ssb))~c(ssb)))
+    return(FLPar(a=max(exp(res[1])), b=-max(res[2])), rho=0)
+	},
+  # lower and upper limits for optim()
+	lower=c(rep(1e-10, 2), -1),
+	upper=c(rep(Inf, 2), 1)
+	)
+
+  ## model to be fitted
+	model  <- rec~a*ssb*exp(-b*ssb)
+  
+	return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # methods
 
 # spr0  {{{

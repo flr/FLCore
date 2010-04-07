@@ -66,6 +66,7 @@ export(
 	"read.FLStock",
   "readMFCL",
 	"ricker",
+	"rickerAR1",
 	"rickerSV",
   "segreg",
 	"setCon",

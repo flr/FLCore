@@ -514,7 +514,7 @@ setMethod('predict', signature(object='FLModel'),
       {
         res <- propagate(do.call(class(object@fitted), list(eval(call,
           envir=c(params, data, dimdat)))), iters, fill.iter=FALSE)
-        dimnames(res) <- dimnames
+        dimnames(res)[1:5] <- dimnames[1:5]
       }
       else
       {
@@ -676,7 +676,7 @@ if (!isGeneric('sd'))
 setMethod('sd', signature(x='FLModel', na.rm='missing'),
   function(x)
   {
-    if(dim(params(x))[1] == 1)
+    if(dim(params(x))[2] == 1)
     {
       res <- as.vector(t(sqrt(apply(x@vcov, 3, diag))))
       names(res) <- dimnames(params(x))$params
@@ -693,8 +693,6 @@ setMethod('cv', signature(object='FLModel'),
   {
     if(dim(params(object))[1] == 1)
       return(sd(object)/apply(params(object), 2, mean))
-
-        #dimnames(vcov(object))[[1]]
     else
       return(sd(params(object))/mean(params(object)))
   }

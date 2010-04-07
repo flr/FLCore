@@ -101,6 +101,7 @@ setMethod('FLStock', signature(object='FLQuant'),
 
     # empty object
     object[] <- NA
+    units(object) <- 'NA'
     qobject <- quantSums(object)
 
     dims <- dims(object)

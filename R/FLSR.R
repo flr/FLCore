@@ -201,16 +201,16 @@ setMethod("plot", signature(x="FLSR", y="missing"),
 		condnames <- names((fitted(x)))[c(3:5)][dim(fitted(x))[c(3:5)]!=1]
 		cond <- paste(condnames, collapse="+")
 		if(cond != "") cond <- paste("|", cond)
+
 		# 1. SR values with fitted curve
     ssb <- FLQuant(seq(0, max(ssb(x) + (ssb(x)*0.15), na.rm=TRUE), length=dim(ssb(x))[2]),
       dimnames=dimnames(ssb(x))[1:5])
     fitted <- predict(x, ssb=ssb)
     print(xyplot(formula(paste("fitted~ssb", cond)), ylab='Recruits', xlab='SSB',
 			model.frame(FLQuants(rec=propagate(x@rec, dims(x)$iter), ssb=ssb, fitted=fitted)),
-      col='red', main=main,
-      xlim=c(0, max(ssb, na.rm=TRUE)), ylim=c(0, max(x@rec, na.rm=TRUE)+
-      (max(x@rec,na.rm=TRUE)/10)), groups=iter, type='l',
-      scales=scales), split=c(1,1,2,3), more=TRUE)
+      col='red', main=main, xlim=c(0, max(ssb, na.rm=TRUE)),
+      ylim=c(0, max(x@rec, na.rm=TRUE)+(max(x@rec,na.rm=TRUE)/10)),
+      groups=iter, type='l', scales=scales), split=c(1,1,2,3), more=TRUE)
 		# Add model line & lowess
 		trellis.focus("panel", 1, 1)
     lpoints(x@ssb, x@rec, col='black', cex=cex)
