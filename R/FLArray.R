@@ -382,13 +382,19 @@ setMethod('sigma', signature(object='FLArray'),
 setMethod("qmax", signature(x="FLArray"),
   function(x, ..., na.rm=TRUE)
   {
-    do.call(class(x), list(object=pmax(x@.Data,...), units=units(x)))
+    args <- c(list(x), list(...))
+    args <- lapply(args, function(x) x@.Data)
+    res <- do.call(pmax, args)
+    do.call(class(x), list(object=res, units=units(x)))
   }
 ) 
 setMethod("qmin", signature(x="FLArray"),
   function(x, ..., na.rm=TRUE) 
   {
-    do.call(class(x), list(object=pmin(x@.Data,...), units=units(x)))
+    args <- c(list(x), list(...))
+    args <- lapply(args, function(x) x@.Data)
+    res <- do.call(pmin, args)
+    do.call(class(x), list(object=res, units=units(x)))
   }
 )
 
