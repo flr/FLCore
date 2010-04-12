@@ -127,7 +127,6 @@ setMethod('FLStock', signature(object='missing'),
   function(...)
   {
     args <- list(...)
-
     # if no FLQuant argument given, then use empty FLQuant
     slots <- lapply(args, class)
     slots <- names(slots)[slots == 'FLQuant']
@@ -139,7 +138,7 @@ setMethod('FLStock', signature(object='missing'),
       if(length(qslots) > 0)
         object <- args[[qslots[1]]]
       else
-        object <- args[[slots]]
+        object <- args[[slots[1]]]
     }
     return(FLStock(object, ...))
   }
