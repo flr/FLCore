@@ -412,7 +412,7 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 		else
 			dim[MARGIN] <- dim(data)
 		# new flq
-		flq <- do.call(class(X), list(dim=dim, units=units(X)))
+		flq <- do.call(class(X), list(dim=dim, units=units(X), quant=quant(X)))
 		flq[1:dim[1],1:dim[2],1:dim[3],1:dim[4],1:dim[5],1:dim[6]] <- data
 
 		# dimnames
