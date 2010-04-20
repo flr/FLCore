@@ -24,8 +24,14 @@ readVPA2Box <- function(data, results, m=as.numeric(NA), no.discards=TRUE)
   # M
   if(is.character(m))
     m(res) <- getM(m, ages=dim(m(res))[1])
-  else if (is(m, FLQuant))
+  else if (is(m, 'FLQuant'))
     m(res) <- m
+  else if(is.vector(m))
+    if(length(m) == 1)
+      m(res) <- FLQuant(m, dimnames=dimnames(stock.n(res)))
+    else
+      m(res) <- FLQuant(matrix(m, ncol=1, nrow=length(m)),
+        dimnames=dimnames(stock.n(res)))
 
   # discards
   if(no.discards)
