@@ -46,7 +46,7 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	}
 )
 	
-setReplaceMethod("$", signature(x="FLlst", name="character", value="ANY"),
+setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 	function(x, name, value)
 	{
 		if(isTRUE(x@lock) & is.na(match(name, names(x))))
