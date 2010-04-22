@@ -328,19 +328,29 @@ setMethod("dims", signature(obj="FLComp"),
 	{
     qnames <- getSlotNamesClass(obj, 'FLArray')
     range <- as.list(range(obj))
-		res <- list(
-            quant = quant(slot(obj, qnames[1])),
-            quants = dim(slot(obj, qnames[2]))[1],
-            min = range$min,
-            max = range$max,
-            year = dim(slot(obj, qnames[1]))[2],
-            minyear = range$minyear,
-            maxyear = range$maxyear,
-            plusgroup = ifelse('plusgroup' %in% names(range), range$plusgroup, NA),
-            unit = dim(slot(obj, qnames[1]))[3],
-            season = dim(slot(obj, qnames[1]))[4],
-            area = dim(slot(obj, qnames[1]))[5],
-            iter = max(unlist(qapply(obj, function(x) dims(x)$iter))))
+    dimsl <- qapply(obj, dim)
+    dnames <- qapply(obj, dimnames)
+    dimsl <- dimsl[!names(dnames) %in% 'fbar']
+    dims <- matrix(unlist(dimsl), ncol=6, byrow=TRUE)
+    
+    # Hack for FLBRP
+    dnames <- dnames[!names(dnames) %in% 'fbar']
+    quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
+      function(x) x[1] == max(dims[,1])))][[1]]
+		
+    res <- list(
+      quant = quant(slot(obj, qnames[1])),
+      quants = max(dims[,1]),
+      min = as.numeric(quants[1]),
+      max = as.numeric(quants[max(dims[,1])]),
+      year = max(dims[,2]),
+      minyear = as.numeric(dnames[[1]]$year[1]),
+      maxyear = as.numeric(dnames[[1]]$year[max(dims[,2])]),
+      plusgroup = ifelse('plusgroup' %in% names(range), range$plusgroup, NA),
+      unit = max(dims[,3]),
+      season = max(dims[,4]),
+      area = max(dims[,5]),
+      iter = max(dims[,6]))
     res <- lapply(res, function(x) if(is.null(x)) return(as.numeric(NA)) else return(x))
     names(res)[2] <- res$quant
     return(res)
