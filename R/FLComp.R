@@ -26,7 +26,7 @@ validFLComp <- function(object)
 
   # all 'quant' should be equal
   if(any(quants != quants[1]))
-    stop("Not all 'quant' names are the same")
+    stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
 
 	return(TRUE)
 }
