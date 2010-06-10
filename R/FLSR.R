@@ -156,7 +156,7 @@ setMethod("as.FLSR", signature(object="FLBiol"),
 
         # create the FLSR object
         sr <- FLSR(rec = rec,ssb = ssb, name = object@name,
-            desc = "'rec' and 'ssb' slots obtained from a 'FLBiol' object")
+            desc = "'rec' and 'ssb' slots obtained from a 'FLBiol' object", ...)
 
         slot(sr, "fitted") <- FLQuant(dimnames = dimnames(slot(sr, "rec")))
         slot(sr, "residuals") <- FLQuant(dimnames = dimnames(slot(sr, "rec")))
@@ -165,10 +165,6 @@ setMethod("as.FLSR", signature(object="FLBiol"),
 	      units(slot(sr, "ssb")) <- units(slot(object, "wt"))
         units(slot(sr, "fitted")) <- units(slot(sr, "rec"))
 
-        for(s in slots)
-            slot(sr, s) <- args[[s]]
-
-        validObject(sr)
         return(sr)
    }
 ) # }}}
