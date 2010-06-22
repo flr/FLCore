@@ -694,37 +694,6 @@ function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
 
 # }}}
 
-## window           {{{
-if (!isGeneric("window")) {
-	setGeneric("window", useAsDefault = window)
-}
-setMethod("window", signature="FLQuant",
-	function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1) {
-
-		# get original min and max
-		min <- dims(x)$minyear
-		max <- dims(x)$maxyear
-
-		if(!extend && (start < min | end > max))
-			stop("FLQuant to be extended but extend=FALSE")
-		# construct new FLQuant
-		years <- seq(start, end, by=frequency)
-		dim <- dim(x)
-		dim[2] <- length(years)
-		flq <- FLQuant(NA, dim=dim, units=units(x), quant=quant(x))
-		# copy dimanmes ...
-		dimnames(flq)[c(1,3:6)] <- dimnames(x)[c(1,3:6)]
-		# ... but changing years
-		dimnames(flq) <- list(year=years)
-
-		# add data for matching years
-		flq[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]  <-
-			x[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]
-
-		return(flq)
-	}
-)   # }}}
-
 ## Sums         {{{
 setGeneric("quantTotals", function(x, ...) standardGeneric("quantTotals"))
 setMethod('quantTotals', signature(x='FLQuant'), function(x, na.rm=TRUE) {

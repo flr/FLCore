@@ -11,7 +11,8 @@ validFLCatch <- function(object)
 	names <- names(getSlots('FLCatch')[getSlots('FLCatch')=="FLQuant"])
   nits  <- sort(unique(unlist(qapply(object, function(x) dims(x)$iter))))
   
-  if (length(nits)>2) return(paste("All FLQuant must either have same number of iters or '1 & n'"))
+  if (length(nits)>2)
+		return(paste("All FLQuant must either have same number of iters or '1 & n'"))
 
 	for(i in names)
 	{

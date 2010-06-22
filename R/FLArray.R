@@ -438,3 +438,36 @@ setMethod("survprob", signature(object="FLArray"),
 		return(ps)
 	}
 ) # }}}
+
+## window           {{{
+setMethod("window", signature="FLArray",
+	function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1)
+  {
+		# get original min and max
+		min <- dims(x)$minyear
+		max <- dims(x)$maxyear
+
+    # if extend=FALSE and end/start ask for it, error
+		if(!extend && (start < min | end > max))
+			stop("FLQuant to be extended but extend=FALSE")
+
+    # if extend is a number, added to end
+    if(is.numeric(extend))
+        if (missing(end))
+          end <- dims(x)$maxyear + extend
+        else
+          stop("'extend' is numeric and 'end' provided, don't know what to do")
+		
+    # construct new FLQuant
+		years <- seq(start, end, by=frequency)
+    dnames <- dimnames(x)
+    dnames[[2]] <- years
+    flq <- do.call(class(x), list(NA, units=units(x), dimnames=dnames))
+
+		# add data for matching years
+		flq[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]  <-
+			x[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]
+
+		return(flq)
+	}
+)   # }}}

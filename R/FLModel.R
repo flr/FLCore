@@ -1053,7 +1053,7 @@ setMethod("profile", signature(fitted="FLModel"),
         fixed <- as.list(grid[i,which])
         names(fixed) <- which
         grid[i, 'logLik'] <- do.call('fmle', c(list(object=fitted, fixed=fixed,
-          control=control), dots[names(dots) %in% names(formals(optim))]))@logLik
+          control=control), dots))@logLik
       }
    
     surface <- tapply(grid$logLik, grid[,which], sum)
