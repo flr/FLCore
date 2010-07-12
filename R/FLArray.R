@@ -403,7 +403,7 @@ setMethod("qmin", signature(x="FLArray"),
 ## apply            {{{
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	function(X, MARGIN, FUN, ...)
-  {
+  {browser()
 		data <- apply(X@.Data, MARGIN, FUN, ...)
 		# set dim
 		dim <- c(1,1,1,1,1,1)
@@ -412,7 +412,7 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 		else
 			dim[MARGIN] <- dim(data)
 		# new flq
-		flq <- do.call(class(X), list(dim=dim, units=units(X), quant=quant(X)))
+		flq <- do.call(class(X), list(dim=dim, units=units(X)))
 		flq[1:dim[1],1:dim[2],1:dim[3],1:dim[4],1:dim[5],1:dim[6]] <- data
 
 		# dimnames
