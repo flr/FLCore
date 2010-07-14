@@ -169,59 +169,49 @@ readAdaptFile <- function(file., m. = m) {
     return(FLStock.)
 }	# }}}
 
-## readCSAFile		{{{
+#
+# readCSAFile		{{{
 readCSAFile <- function(file.) {
-    
     t.    <-scan(file=file.,skip=1,sep=",")
     nrow. <-length(t.)/9
     t.    <-t(array(t.,dim=c(9,nrow.)))
     t.    <-array(t.[,-1],dim=c(20,8),
-        dimnames=list(t.[,1],c("m","c.rec","c.full","w.rec","w.full","s.rat","u.rec","u.full")))
+    dimnames=list(t.[,1],c("m","c.rec","c.full","w.rec","w.full","s.rat","u.rec","u.full")))
 
-    s. <- FLStock(catch.n=as.FLQuant(t(array(cbind(t.[,"c.rec"],t.[,"c.full"]),
-        dim=c(nrow.,2)))))
-    s.@catch.n <- as.FLQuant(t(array(cbind(t.[,"c.rec"],t.[,"c.full"]),
-        dim=c(nrow.,2),
-        dimnames=list(dimnames(t.)[[1]],c("r","full")))))
-    s.@stock.wt <- as.FLQuant(t(array(cbind(t.[,"w.rec"],t.[,"w.full"]),
-        dim=c(nrow.,2),
-        dimnames=list(dimnames(t.)[[1]],c("r","full")))))
-    s.@catch.wt <- as.FLQuant(t(array(cbind(t.[,"w.rec"],t.[,"w.full"]),
-        dim=c(nrow.,2),
-        dimnames=list(dimnames(t.)[[1]],c("r","full")))))
-    s.@m <- as.FLQuant(t(array(t.[,"m"], 
-        dim=c(nrow.,2),
-        dimnames=list(dimnames(t.)[[1]],c("r","full")))))
-
-    mat.0 <- FLQuant(0,dimnames(s.@catch.n))
-    mat.na <- FLQuant(NA,dimnames(s.@catch.n))
+    dmns<-list(year=dimnames(t.)[[1]],age=c("r","full"))
+    s. <- FLStock(catch.n=as.FLQuant(t(array(cbind(t.[,"c.rec"],t.[,"c.full"]), dim=c(nrow.,2)))))
+    s.@catch.n  <- as.FLQuant(t(array(cbind(t.[,"c.rec"],t.[,"c.full"]), dim=c(nrow.,2), dimnames=dmns)))
+    s.@stock.wt <- as.FLQuant(t(array(cbind(t.[,"w.rec"],t.[,"w.full"]), dim=c(nrow.,2), dimnames=dmns)))
+    s.@catch.wt <- as.FLQuant(t(array(cbind(t.[,"w.rec"],t.[,"w.full"]), dim=c(nrow.,2), dimnames=dmns)))
+    s.@m        <- as.FLQuant(t(array(t.[,"m"], dim=c(nrow.,2),                          dimnames=dmns)))
+    mat.0       <- FLQuant( 0,dimnames=dmns)
+    mat.na      <- FLQuant(NA,dimnames=dmns)
 
     s.@harvest.spwn <- mat.0
     s.@m.spwn <- mat.0
 
-    s.@landings.n <- s.@catch.n
+    s.@landings.n  <- s.@catch.n
     s.@landings.wt <- s.@catch.wt
-    s.@discards.n <- mat.0
+    s.@discards.n  <- mat.0
     s.@discards.wt <- mat.0
 
-    d.            <- dimnames(s.@catch.n)
-    d.$age        <- "all"
-    s.@catch      <- as.FLQuant(apply(s.@catch.wt   *s.@catch.n,   2,sum),d.)
-    s.@landings   <- as.FLQuant(apply(s.@landings.wt*s.@landings.n,2,sum),d.)
-    s.@discards   <- as.FLQuant(apply(s.@discards.wt*s.@discards.n,2,sum),d.)
+    s.@catch       <- apply(s.@catch.wt   *s.@catch.n,   2,sum)
+    s.@landings    <- apply(s.@landings.wt*s.@landings.n,2,sum)
+    s.@discards    <- apply(s.@discards.wt*s.@discards.n,2,sum)
 
-    s.@mat        <-mat.na
-    s.@stock.n    <-mat.na
-    s.@harvest    <-FLQuant(NA,dimnames(s.@catch.n), units='f')
+    s.@mat         <-mat.na
+    s.@stock.n     <-mat.na
+    s.@harvest     <-FLQuant(NA,dimnames=dmns, units='f')
 
-    s.@range["minyear"]     <-min(t.[,1])   
-    s.@range["maxyear"]     <-max(t.[,1])   
+    s.@range["minyear"]     <-min(t.[,1])
+    s.@range["maxyear"]     <-max(t.[,1])
 
     s.@desc		<-"read in from CSA file"
 
     return(s.)
 }	# }}}
-    
+
+
 ## readPAFile		{{{
 readPAFile <- function(file.) {
     getmatrix <- function(file., start, nlines, yrs, ages) {
