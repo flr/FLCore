@@ -403,7 +403,7 @@ setMethod("qmin", signature(x="FLArray"),
 ## apply            {{{
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	function(X, MARGIN, FUN, ...)
-  {browser()
+    {
 		data <- apply(X@.Data, MARGIN, FUN, ...)
 		# set dim
 		dim <- c(1,1,1,1,1,1)
