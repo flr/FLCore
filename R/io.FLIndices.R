@@ -288,26 +288,22 @@ readIndicesCSA <- function(file.,na.strings="NA") {
     nrow. <- length(t.)/9
     t.    <- t(array(t.,dim=c(9,nrow.)))
     t.    <- array(t.[,-1],dim=c(20,8),
-        dimnames=list(t.[,1],c("m","c.rec","c.full","w.rec","w.full","s.rat","u.rec","u.full")))
+    dimnames=list(t.[,1],c("m","c.rec","c.full","w.rec","w.full","s.rat","u.rec","u.full")))
 
     c. <- FLIndex(
-        index=as.FLQuant(t(array(cbind(t.[,"u.rec"],t.[,"u.full"]),
-            dim=c(nrow.,2),
-            dimnames=list(dimnames(t.)[[1]],c("r","full"))))),
-	    effort=as.FLQuant(t(array(1, dim=c(nrow.,1),
-            dimnames=list(dimnames(t.)[[1]],"all"     )))),
-	    w=as.FLQuant(t(array(1, dim=c(nrow.,1),
-            dimnames=list(dimnames(t.)[[1]],"all"     )))),
-        p=as.FLQuant(t(array(t.[,"s.rat"], dim=c(nrow.,1),
-            dimnames=list(dimnames(t.)[[1]],"all"     )))))
-    c.@range["minyear"]     <-min(t.[,1])   
-    c.@range["maxyear"]     <-max(t.[,1])   
-    c.@range["startf"]<-0.0
-    c.@range["endf"]  <-0.0
+       index      =as.FLQuant(t(array(cbind(t.[,"u.rec"],t.[,"u.full"]), dim=c(nrow.,2), dimnames=list(year=dimnames(t.)[[1]],age=c("r","full"))))),
+	     effort     =as.FLQuant(t(array(1,                                 dim=c(nrow.,1), dimnames=list(year=dimnames(t.)[[1]],age="all"        )))),
+	     index.var  =as.FLQuant(t(array(1,                                 dim=c(nrow.,1), dimnames=list(year=dimnames(t.)[[1]],age="all"        )))),
+       sel.pattern=as.FLQuant(t(array(t.[,"s.rat"],                      dim=c(nrow.,1), dimnames=list(year=dimnames(t.)[[1]],age="all"        )))))
+            
+    c.@range["minyear"]     <-min(as.numeric(dimnames(t.)[[1]]))
+    c.@range["maxyear"]     <-max(as.numeric(dimnames(t.)[[1]]))
+    c.@range["startf"]      <-0.0
+    c.@range["endf"]        <-1.0
     c. <- FLIndices(c.)
     c.@desc <- paste("read in from CSA file", file.)
-return(c.)
-}	# }}}
+
+    return(c.)}
 
 ## readIndicesICA		{{{
 readIndicesICA <- function(file, file2, sep="", na.strings=na.strings) {
