@@ -317,8 +317,16 @@ setMethod("Arith",
 ## as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
   optional="missing"),
-	function(x, row.names="missing", optional="missing") {
+	function(x, row.names=NULL, optional="missing") {
     as(x, 'data.frame')
+  }
+)
+setMethod("as.data.frame", signature(x="FLArray", row.names="ANY",
+  optional="missing"),
+	function(x, row.names=NULL, optional="missing") {
+    df <- as(x, 'data.frame')
+    row.names(df) <- row.names
+    return(df)
   }
 ) # }}}
 
@@ -403,7 +411,7 @@ setMethod("qmin", signature(x="FLArray"),
 ## apply            {{{
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	function(X, MARGIN, FUN, ...)
-    {
+  {
 		data <- apply(X@.Data, MARGIN, FUN, ...)
 		# set dim
 		dim <- c(1,1,1,1,1,1)
