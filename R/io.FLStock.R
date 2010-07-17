@@ -203,8 +203,8 @@ readCSAFile <- function(file.) {
     s.@stock.n     <-mat.na
     s.@harvest     <-FLQuant(NA,dimnames=dmns, units='f')
 
-    s.@range["minyear"]     <-min(t.[,1])
-    s.@range["maxyear"]     <-max(t.[,1])
+    s.@range["minyear"]     <-min(as.numeric(dimnames(t.)[[1]]))
+    s.@range["maxyear"]     <-max(as.numeric(dimnames(t.)[[1]]))
 
     s.@desc		<-"read in from CSA file"
 
