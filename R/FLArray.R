@@ -238,7 +238,7 @@ setMethod('trim', signature(x='FLArray'),
 
 # expand {{{
 setMethod('expand', signature(x='FLArray'),
-  function(x, ...)
+expand.<-  function(x, ...)
   {
     args <- list(...)
     nargs <- names(args)
@@ -408,7 +408,6 @@ setMethod("qmin", signature(x="FLArray"),
 
 # }}}
 
-## apply            {{{
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	function(X, MARGIN, FUN, ...)
   {
@@ -424,12 +423,11 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 		flq[1:dim[1],1:dim[2],1:dim[3],1:dim[4],1:dim[5],1:dim[6]] <- data
 
 		# dimnames
-		dimnames <- dimnames(X)
+		dimnames      <- dimnames(X)
 		dimnames(flq) <- dimnames[MARGIN]
-		
-    return(flq)
-	}
-)   # }}}
+    names(dimnames(flq))[1]<-names(dimnames(X))[1]
+  
+    return(flq)})
 
 # survprob {{{
 # estimate survival probabilities by year or cohort
