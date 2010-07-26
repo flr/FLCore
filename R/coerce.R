@@ -184,11 +184,11 @@ setAs('FLArray', 'data.frame',
 	{
 		# to avoid warnings when NA have to be added
 		options(warn=-1)
-        if(any(is.na(suppressWarnings(as.numeric(dimnames(from)[[1]])))))
-            quant <- as.character(dimnames(from)[[1]])
-        else
-            quant <- as.numeric(dimnames(from)[[1]])
     dnames <- dimnames(from)
+        if(!any(is.na(suppressWarnings(as.numeric(dnames[[1]])))))
+            quant <- as.numeric(dimnames(from)[[1]])
+        else
+			      quant <- factor(dnames[[1]], levels=dnames[[1]])
 		df <- data.frame(expand.grid(quant=quant,
 			year=as.numeric(dnames[[2]]),
 			unit=factor(dnames[[3]], levels=dnames[[3]]),

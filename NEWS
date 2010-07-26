@@ -49,6 +49,11 @@ BUG FIXES
     dimensions starting by row.
   - '[<-' for FLPar now returns the correct class if called with a derived class.
   - as.FLQuant(data.frame) was sometimes adding spaces to dimnames.
+  - Call to quant argument in creator isnide apply made it fail for FLCohort.
+  - as.data.frame(FLQuant) and as.data.frame(FLQuants) now both return a column of class
+    numeric if 'quant' can be converted to it without warnings (only numbers are used)
+    and a factor otherwise. Conversion to factor is also carried out if an FLQuants
+    mixes FLQuant with numeric and text quant dimnames.
 	
 UTILITIES
 

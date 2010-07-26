@@ -177,24 +177,37 @@ setMethod("mcf", signature(object="list"), function(object){
 })  # }}}
 
 ## as.data.frame	{{{
-setMethod("as.data.frame", signature(x="FLQuants", row.names="missing", optional="missing"),
-    function(x) {
+setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="missing"),
+    function(x, row.names=NULL) {
 	# names 
 	if(!is.null(names(x))){
 		flqnames <- names(x)
 	} else {
 		flqnames <- paste("v", 1:length(x), sep="")
 	}
-
 	# data.frames
-	flqs.lst <- lapply(x, as.data.frame)
-	flqs.lst <- lapply(flqs.lst, function(x){x[,1] <- as.factor(x[,1]); x})
+	flqs.lst <- lapply(x, as.data.frame, row.names=row.names)
+  # test classes of quant
+  flqs.class <- unlist(lapply(flqs.lst, function(x) class(x[,1])))
+  if(any(flqs.class != flqs.class[1]))
+    flqs.lst <- lapply(flqs.lst, function(x) {x[,1] <- as.factor(x[,1]); x})
+
 	flqs.nlst <- lapply(flqs.lst, nrow)
 	flqs.df <- do.call("rbind", flqs.lst)
 	flqs.df$qname <- rep(flqnames, unlist(flqs.nlst))
+  row.names(flqs.df) <- row.names
 	flqs.df
 
-})  # }}}
+}) 
+
+setMethod("as.data.frame", signature(x="FLQuants", row.names="missing",
+  optional="missing"),
+    function(x, row.names=NULL) {
+      as.data.frame(x, row.names=NULL)
+    }
+)
+
+# }}}
 
 # bkey   {{{
 setGeneric("bkey", function(object, ...){

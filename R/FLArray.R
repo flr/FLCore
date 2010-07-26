@@ -408,6 +408,7 @@ setMethod("qmin", signature(x="FLArray"),
 
 # }}}
 
+# apply {{{
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	function(X, MARGIN, FUN, ...)
   {
@@ -424,10 +425,15 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 
 		# dimnames
 		dimnames      <- dimnames(X)
-		dimnames(flq) <- dimnames[MARGIN]
-    names(dimnames(flq))[1]<-names(dimnames(X))[1]
-  
-    return(flq)})
+    dimnames(flq) <- dimnames[MARGIN]
+    
+    # quant
+    if(is(flq, 'FLQuant'))
+      quant(flq) <- quant(X)
+
+    return(flq)
+	}
+)   # }}}
 
 # survprob {{{
 # estimate survival probabilities by year or cohort
