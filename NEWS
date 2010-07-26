@@ -29,6 +29,8 @@ USER-VISIBLE CHANGES
   - parscale method for FLModel.
   - window method now accepts numeric values for the extend argument in window. Objects
     are extended along the year dimension for as many years as indicated.
+  - setPlusGroup(FLQuant) now has an argument by, with values 'mean' or 'sum' to control 
+    how ages are aggregated.
 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.
