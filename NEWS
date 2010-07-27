@@ -56,6 +56,7 @@ BUG FIXES
     numeric if 'quant' can be converted to it without warnings (only numbers are used)
     and a factor otherwise. Conversion to factor is also carried out if an FLQuants
     mixes FLQuant with numeric and text quant dimnames.
+  - FS#29 '[' for FLStock could not accept characters for index i, quant.
 	
 UTILITIES
 

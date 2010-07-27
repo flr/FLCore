@@ -724,7 +724,7 @@ setMethod('[', signature(x='FLStock'),
 		if (!missing(i))
     {
       args <- c(args, list(i=i))
-      x@range['plusgroup'] <- min(i[length(i)], x@range['plusgroup'])
+      x@range['plusgroup'] <- min(as.numeric(i)[length(i)], x@range['plusgroup'])
     }
 		if (!missing(j))
       args <- c(args, list(j=j))
