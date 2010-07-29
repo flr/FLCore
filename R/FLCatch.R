@@ -263,6 +263,9 @@ setReplaceMethod('catchNames', signature(object='FLCatch', value='character'),
 setMethod("trim", signature("FLCatch"), function(x, ...){
 
 	args <- list(...)
+	
+  rng<-range(x)
+
 
   c1 <- args[[quant(x@landings.n)]]
 	c2 <- args[["year"]]
@@ -297,7 +300,8 @@ setMethod("trim", signature("FLCatch"), function(x, ...){
   if (length(c1) > 0) {
     x@range["min"] <- c1[1]
     x@range["max"] <- c1[length(c1)]
-    x@range["plusgroup"] <- NA
+    if (rng["max"] != x@range["max"])
+        x@range["plusgroup"] <- NA
   }
   if (length(c2)>0 ) {
     x@range["minyear"] <- c2[1]
