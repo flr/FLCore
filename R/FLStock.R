@@ -11,9 +11,9 @@
 ## class :: FLStock			{{{
 validFLStock <- function(object) {
 	
+	
 	names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
-	for(i in names)
-	{
+	for(i in names){
 		# all dimnames but iter are the same
 		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
 			unlist(dimnames(slot(object, i))[2:5])))
@@ -40,8 +40,7 @@ validFLStock <- function(object) {
 		as.numeric(dimnm$year[dim[2]]))))
 		return('Range does not match object dimensions')
 	
-	return(TRUE)
-}
+	return(TRUE)}
 
 setClass("FLStock",
 	representation(
@@ -127,22 +126,27 @@ setMethod('FLStock', signature(object='missing'),
   function(...)
   {
     args <- list(...)
+
     # if no FLQuant argument given, then use empty FLQuant
-    slots <- lapply(args, class)
-    slots <- names(slots)[slots == 'FLQuant']
+    argNms<- lapply(args, class)
+    slots <- names(argNms)[argNms == 'FLQuant']
+
+    flqs  <- names(argNms)[argNms == 'FLQuants']
+    if(length(flqs) != 0)
+       for (i in args[[flqs]])
+          for (j in names(i))
+             object <- i[[j]]
+
     if(length(slots) == 0)
       object <- FLQuant()
-    else
-    {
+    else{
       qslots <- slots[!slots %in% c('catch','stock','landings','discards')]
       if(length(qslots) > 0)
         object <- args[[qslots[1]]]
       else
-        object <- args[[slots[1]]]
-    }
-    return(FLStock(object, ...))
-  }
-) # }}}
+        object <- args[[slots[1]]]}
+
+    return(FLStock(object, ...))})
 
 # is.FLStock	{{{
 is.FLStock <- function(x)
@@ -344,38 +348,39 @@ calc.pg <- function(s., i., k., r., pg., action, na.rm) {
 	dimnames(q.)[[1]] <- minage:pg.
 	dimnames(q.)[2:6] <- a.[2:6]
 
-	return(q.)
-}
+	return(q.)}
 
-expandAgeFLStock<-function(object,maxage,...)
+expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...)
     {
     if (class(object)!="FLStock") stop('not a FLStock object')
     if (!validObject(object)) stop('object not a valid FLStock')
-    if (!(range(object,"max")== range(object,"plusgroup")) | (maxage<=range(object,"max"))) stop('maxage not valid')
 
-    res      <-object
+    res <-object
+    if (maxage<=range(res,"max")) stop('maxage not valid')
+    if (keepPlusGroup) range(res,c("max","plusgroup"))<-maxage else range(res,c("max","plusgroup"))<-c(maxage,NA)
+
     dmns     <-dimnames(m(res))
     oldMaxage<-dims(res)$max
     dmns$age <-as.numeric(dmns$age[1]):maxage
 
     Pdiscard<-discards.n(res)[ac(oldMaxage)]/catch.n(res)[ac(oldMaxage)]
     Planding<-landings.n(res)[ac(oldMaxage)]/catch.n(res)[ac(oldMaxage)]
-   
-    slts<-c("catch.n",     
-            "catch.wt",     
-            "discards.n",  
-            "discards.wt",     
-            "landings.n",  
-            "landings.wt",        
-            "stock.n", 
-            "stock.wt", 
-            "m",          
-            "mat",      
-            "harvest", 
-            "m.spwn", 
+
+    slts<-c("catch.n",
+            "catch.wt",
+            "discards.n",
+            "discards.wt",
+            "landings.n",
+            "landings.wt",
+            "stock.n",
+            "stock.wt",
+            "m",
+            "mat",
+            "harvest",
+            "m.spwn",
             "harvest.spwn")
-                  
-    ## create extra ages and fill with plusgroup                  
+
+    ## create extra ages and fill with plusgroup
     for (i in slts) {
        dmns$iter  <-dimnames(slot(res,i))$iter
        slot(res,i)<-FLQuant(slot(res,i),dimnames=dmns)
@@ -383,21 +388,17 @@ expandAgeFLStock<-function(object,maxage,...)
        slot(res,i)[ac((oldMaxage+1):maxage)]<-sweep(slot(res,i)[ac((oldMaxage+1):maxage)],2:6,slot(res,i)[ac(oldMaxage)],"+")
        }
 
-    ## calc exp(-cum(Z)) i.e. the survivors 
-    n               <-FLQuant(exp(-apply(slot(res,"m")[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)-apply(slot(res,"harvest")[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)), quant='age')
-    n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
-    n               <-sweep(n,2:6,apply(n,2:6,sum),"/")
     ## calc exp(-cum(Z)) i.e. the survivors
-    z            <-harvest(res)[ac(maxage)]+m(res)[ac(maxage)]
-    n            <-exp(-apply((m(res)[ac(oldMaxage:maxage)]-harvest(res)[ac(oldMaxage:maxage)])@.Data,2:6,cumsum))
-    n            <-FLQuant(c(n),dimnames=dimnames(n), quant='age')
-    n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-z)-1.0))
+    n            <-FLQuant(exp(-apply((slot(res,"m")+slot(res,"harvest"))[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)), quant='age')
+    if (print(keepPlusGroup))
+       n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
     n            <-sweep(n,2:6,apply(n,2:6,sum),"/")
+
     stock.n(res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],1:6,n,"*")
 
     z<-harvest(res)[ac(maxage)]+m(res)[ac(maxage)]
-    
-    catch.n(res)[   ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")    
+
+    catch.n(res)[   ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")
     catch.n(   res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")
     if (dims(discards.n(res))$iter==1 & (dims(catch.n(res))$iter>1 | dims(Pdiscard)$iter>1))
        discards.n(res)<-propagate(discards.n(res),dims(res)$iter)
@@ -405,10 +406,6 @@ expandAgeFLStock<-function(object,maxage,...)
        landings.n(res)<-propagate(landings.n(res),dims(res)$iter)
     discards.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Pdiscard,"*")
     landings.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Planding,"*")
-    
-
-    range(res,"max")      <-maxage
-    range(res,"plusgroup")<-maxage
 
     ## replace any slots passed in (...)
     args <-names(list(...))
@@ -423,11 +420,12 @@ expandAgeFLStock<-function(object,maxage,...)
     }
 
 setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
-  function(x, plusgroup, na.rm=FALSE)
+  function(x, plusgroup, na.rm=FALSE, keepPlusGroup=TRUE)
 	{
 	if (!validObject(x)) stop("x not a valid FLStock object")
-	
-	if (plusgroup>dims(x)$max) return(expandAgeFLStock(x, plusgroup))
+  if (!keepPlusGroup) range(x,"plusgroup")<-NA
+	if (plusgroup>dims(x)$max) return(expandAgeFLStock(x, plusgroup, keepPlusGroup=keepPlusGroup))
+
 	# FLQuants by operation
 	pg.wt.mean <-c("catch.wt","landings.wt","discards.wt")
 	pg.truncate<-c("harvest","m","mat","harvest.spwn","m.spwn")
@@ -609,13 +607,13 @@ setMethod("catch<-", signature(object="FLStock", value="FLQuants"),
 		return(object)
 	}
 ) # }}}
-
-## trim     {{{
 setMethod("trim", signature(x="FLStock"), function(x, ...){
 
 	args <- list(...)
 
-        c1 <- args[[quant(landings.n(x))]]
+  rng<-range(x)
+  
+  c1 <- args[[quant(landings.n(x))]]
 	c2 <- args[["year"]]
 	c3 <- args[["unit"]]
 	c4 <- args[["season"]]
@@ -636,16 +634,15 @@ setMethod("trim", signature(x="FLStock"), function(x, ...){
   if (length(c1) > 0) {
     x@range["min"] <- c1[1]
     x@range["max"] <- c1[length(c1)]
-    x@range["plusgroup"] <- NA
+    if (rng["max"] != x@range["max"])
+        x@range["plusgroup"] <- NA
   }
   if (length(c2)>0 ) {
     x@range["minyear"] <- c2[1]
     x@range["maxyear"] <- c2[length(c2)]
   }
 
-	return(x)
-
-}) # }}}
+	return(x)})
 
 # ssbpurec  {{{
 setMethod("ssbpurec",signature(object="FLStock"),
