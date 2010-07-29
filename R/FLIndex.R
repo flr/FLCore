@@ -244,6 +244,8 @@ setMethod(computeCatch, signature("FLIndex"), function(object){
 setMethod("trim", signature("FLIndex"), function(x, ...){
 
 	args <- list(...)
+  rng<-range(x)
+
   names <- getSlotNamesClass(x, 'FLArray')
 	quant <- quant(slot(x, names[1]))
   c1 <- args[[quant]]
@@ -265,7 +267,8 @@ setMethod("trim", signature("FLIndex"), function(x, ...){
   	if (length(c1) > 0) {
     	x@range["min"] <- c1[1]
 	    x@range["max"] <- c1[length(c1)]
-    	x@range["plusgroup"] <- NA
+      if (rng["max"] != x@range["max"])
+         x@range["plusgroup"] <- NA
 	}
   	if (length(c2)>0 ) {
     	x@range["minyear"] <- as.numeric(c2[1])
