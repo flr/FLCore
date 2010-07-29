@@ -6,8 +6,7 @@
 # $Id$
 
 # FLComp   {{{
-validFLComp <- function(object)
-{
+validFLComp <- function(object){
   dims <- unlist(qapply(object, function(x) dims(x)$iter))
   dimnms <- qapply(object, function(x) dimnames(x)$iter)
   quants <- unlist(qapply(object, quant))
@@ -28,8 +27,7 @@ validFLComp <- function(object)
   if(any(quants != quants[1]))
     stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
 
-	return(TRUE)
-}
+	return(TRUE)}
 
 setClass("FLComp", representation(name="character", desc="character",
 	range="numeric", "VIRTUAL"), prototype(name=character(0), desc=character(0),
@@ -162,6 +160,7 @@ setMethod("trim", signature("FLComp"),
 	function(x, ...)
 	{
 	  args <- list(...)
+	  
     names <- getSlotNamesClass(x, 'FLArray')
 
     c1 <- args[[quant(slot(x, names[1]))]]
@@ -175,7 +174,6 @@ setMethod("trim", signature("FLComp"),
     {
     	x@range["min"] <- c1[1]
 	    x@range["max"] <- c1[length(c1)]
-    	x@range["plusgroup"] <- NA
 	  }
   	if (length(c2)>0 )
     {
