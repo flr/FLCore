@@ -599,7 +599,8 @@ s.<-	function(x, plusgroup, na.rm=FALSE)
 
 # rec(FLBiol)  {{{
 setMethod('rec', signature(object='FLBiol'),
-  function(object, rec.age=ac(dims(object)$min))
+#  function(object, rec.age=ac(dims(object)$min))
+  function(object, rec.age=object@range["min"])
   {
     if(dims(object)$quant == 'age')
       n(object)[rec.age,]

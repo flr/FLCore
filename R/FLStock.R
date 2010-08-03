@@ -804,8 +804,10 @@ setAs("data.frame", "FLStock",
 if (!isGeneric("rec"))
 	setGeneric("rec", function(object, ...)
 		standardGeneric("rec"))
+
 setMethod('rec', signature(object='FLStock'),
-  function(object, rec.age=ac(dims(object)$min))
+#  function(object, rec.age=ac(dims(object)$min))
+  function(object, rec.age=object@range["min"])
   {
     if(dims(object)$quant != 'age')
       stop("rec(FLStock) only defined for age-based objects")

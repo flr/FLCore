@@ -31,7 +31,7 @@ USER-VISIBLE CHANGES
     are extended along the year dimension for as many years as indicated.
   - setPlusGroup(FLQuant) now has an argument by, with values 'mean' or 'sum' to control 
     how ages are aggregated.
-
+  - rec now uses the "min" age from the range of the FLStock or FLBiol objects 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.
   - dims(FLComp) was failing for those with less elements in @range.
