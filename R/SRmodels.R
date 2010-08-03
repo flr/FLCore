@@ -426,7 +426,7 @@ srr2s <- function(model, ssb=NULL, spr=NULL, a=NULL, b=NULL, c=1, d=NULL)
 } # }}}
 
 # abPars {{{
-abPars <- function(model, s=NULL, v, spr0, c=NULL, d=NULL)
+abPars <- function(model, spr0, s=NULL, v, c=NULL, d=NULL)
 {
   # converts a & b parameterisation into steepness & virgin biomass (s & v)
   switch(model,
