@@ -94,7 +94,7 @@ setMethod('FLMetier', signature(catches='FLCatches'),
 # FLMetier(FLQuant)
 setMethod('FLMetier', signature(catches='FLQuant'),
 	function(catches, gear='NA', ...)
-      return(FLMetier(FLCatch(catches), geasr=gear, ...))
+      return(FLMetier(FLCatch(catches), gear=gear, ...))
 )
 # FLMetier(missing)
 setMethod('FLMetier', signature(catches='missing'),
