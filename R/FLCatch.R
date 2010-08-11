@@ -192,7 +192,7 @@ setMethod("[<-", signature(x="FLCatch", value="FLCatch"),
     for(q in quants)
       slot(x, q)[i,j,k,l,m,n] <- slot(value, q)
 	    
-    quants <- list("catch", "landings", "discards")
+    quants <- list("landings", "discards")
     for(q in quants)
       slot(x, q)[1,j,k,l,m,n] <- slot(value,q)
 
