@@ -69,7 +69,8 @@ setMethod('FLMetier', signature(catches='FLCatches'),
       # if any in ... is FLQuant
       if(any('FLQuant' %in% classes))
         # take dimnames of first one
-        dimn <- dimnames(args[[names(classes['FLQuant' %in% classes])[1]]])
+        ## BUG FIX: dimn <- dimnames(args[[names(classes['FLQuant' %in% classes])[1]]])
+        dimn <- dimnames(args[[names(classes[classes %in% 'FLQuant'])[1]]])
     }
     if(!exists('dimn'))
     {
