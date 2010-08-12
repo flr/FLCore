@@ -196,6 +196,8 @@ setMethod('fmle',
     # create list of input data
     #   get FLQuant slots' names
     datanm <- getSlotNamesClass(object, 'FLArray')
+    # Include FLQuants too
+    datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
     datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
     #   get those in formals of logl
     datanm <- datanm[datanm%in%names(formals(logl))]
