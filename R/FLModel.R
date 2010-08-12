@@ -519,7 +519,7 @@ setMethod('predict', signature(object='FLModel'),
       else
         dimnames <- dimnames(slot(obj, fittedSlot))
 
-browser()
+    #browser()
 
       # check inputs
       if(it == 1)
