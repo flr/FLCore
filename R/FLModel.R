@@ -292,6 +292,8 @@ setMethod('fmle',
     fitted(object) <- propagate(fitted(object), iter)
     residuals(object) <- propagate(residuals(object), iter)
 
+#browser()
+
     # vcov
     object@vcov <- array(NA, dim=c(rep(length(parnm)-length(fixed),2), iter),
       dimnames=list(parnm[!parnm%in%names(fixed)],parnm[!parnm%in%names(fixed)],
@@ -374,6 +376,8 @@ setMethod('fmle',
       # TODO protect environment
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
         hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
+
+#browser()
       
       # output
       # place out$par in right iter dim
@@ -408,6 +412,8 @@ setMethod('fmle',
       object@logLik[it] <- -out$value
       attr(object@logLik, 'nobs') <- length(data[[1]])
 
+#browser()
+
       # fitted & residuals
       iter(fitted(object), it) <- predict(iter(object, it))
       iter(residuals(object), it) <- iter(slot(object,
@@ -427,6 +433,7 @@ setMethod('fmle',
 setMethod('predict', signature(object='FLModel'),
   function(object, ...)
   {
+
     args <- list(...)
     if(length(args) > 0 && is.null(names(args)))
       stop('FLQuant or FLCohort inputs must be named to apply formula')
@@ -442,6 +449,7 @@ setMethod('predict', signature(object='FLModel'),
     # create list of input data
     #   get FLQuant/FLCohort slots' names
     datanm <- getSlotNamesClass(object, 'FLArray')
+    datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
     datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
 
     # add dimnames if used
@@ -511,6 +519,8 @@ setMethod('predict', signature(object='FLModel'),
       else
         dimnames <- dimnames(slot(obj, fittedSlot))
 
+browser()
+
       # check inputs
       if(it == 1)
       {
@@ -564,7 +574,9 @@ setMethod('nls',
     flarrnm <- getSlotNamesClass(formula, 'FLArray')
     #   ... and those of class 'numeric'
     numernm <- getSlotNamesClass(formula, 'numeric')
-    datanm <- c(flarrnm, numernm)
+    # ... and those of class FLQuants
+    flqsnm <- getSlotNamesClass(formula, 'FLQuants')
+    datanm <- c(flarrnm, flqsnm, numernm)
     #   now get only those in formula
     datanm <- datanm[datanm%in%all.vars(formula@model)]
     # get names of parameters ...
@@ -721,6 +733,9 @@ setReplaceMethod('model', signature(object='FLModel', value='function'),
 setReplaceMethod('model', signature(object='FLModel', value='list'),
   function(object, value)
   {
+
+#browser()
+
     # fill up model def slots
     for(i in names(value))
       slot(object, i) <- value[[i]]
@@ -797,6 +812,7 @@ getFLPar <- function(object, formula=object@model)
 {
   # get FLQuant slots' names
   datanm <- getSlotNamesClass(object, 'FLArray')
+  datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
   datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
   datanm <- datanm[!datanm %in% c('residuals', 'fitted')]
   if(length(datanm) > 0)
