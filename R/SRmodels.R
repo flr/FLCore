@@ -9,25 +9,22 @@
 # Notes:
 
 # models
-
-# ricker  {{{
-ricker <- function()
-{
+ricker <- function(){
   logl <- function(a, b, rec, ssb)
       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))
 
   initial <- structure(function(rec, ssb) {
 		# The function to provide initial values
     res  <-coefficients(lm(c(log(rec/ssb))~c(ssb)))
-    return(FLPar(a=max(exp(res[1])), b=-max(res[2])))
-	},
+    return(FLPar(a=max(exp(res[1])), b=-max(res[2])))},
+    
   # lower and upper limits for optim()
-	lower=rep(1e-10, 2),
-	upper=rep(Inf, 2)
-	)
+	lower=rep(-Inf, 2),
+	upper=rep( Inf, 2))
+	
 	model  <- rec~a*ssb*exp(-b*ssb)
-	return(list(logl=logl, model=model, initial=initial))
-} # }}}
+
+	return(list(logl=logl, model=model, initial=initial))}
 
 # bevholt {{{
 bevholt <- function()
@@ -40,12 +37,20 @@ bevholt <- function()
   initial <- structure(function(rec, ssb) {
     a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
-    return(FLPar(a = a, b = a/b))
-	},
+    return(FLPar(a = a, b = a/b))},
+
+#rec=ssb*a/(b+ssb)
+#ssb/rec=b/a+ssb/a
+
+#    x <-c(ssb)
+#    y <-c(ssb)/c(rec)
+#    res <- lm(y~x, na.action = na.omit)
+
+#    return(FLPar(a = 1/coef(res)[2], b = coef(res)[1]*coef(res)[2]))},
 
   ## bounds
-  lower=rep(10e-8, 2),
-	upper=rep(Inf, 2))
+  lower=rep(-Inf, 2),
+	upper=rep( Inf, 2))
 
   ## model to be fitted
   model  <- rec~a*ssb/(b+ssb)
@@ -54,18 +59,16 @@ bevholt <- function()
 } # }}}
 
 # segreg  {{{
-segreg <- function()
-{
-	logl <- function(a, b, rec, ssb)
-    loglAR1(log(rec), log(ifelse(ssb<=b,a*ssb,a*b)))
+segreg <- function(){
+	logl <- function(a, b, rec, ssb){
 
-  model <- rec ~ FLQuant(ifelse(ssb<=b,a*ssb,a*b))
+    loglAR1(log(rec), FLQuant(log(ifelse(c(ssb)<=b,a*c(ssb),a*b)),dimnames=dimnames(ssb)))}
 
-  initial <- structure(function(rec, ssb)
-  {
-    return(FLPar(a=median(c(rec/ssb)), b=median(c(ssb))))
-  },
-    lower=rep(0, 1e-7),
+  model <- rec ~ FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))
+
+  initial <- structure(function(rec, ssb){
+    return(FLPar(a=median(c(rec/ssb)), b=median(c(ssb))))},
+    lower=rep(  0, 0),
     upper=rep(Inf, 2))
 
 	return(list(logl=logl, model=model, initial=initial))
@@ -105,8 +108,10 @@ shepherd <- function()
 
     return(FLPar(a=a,b=b,c=c))},
     
-    lower = c(1e-08, 1e-08, 1),
-    upper = c(1e02,  1e+08,10))
+    lower = c(  0,   0,  1),
+    upper = c(Inf, Inf, 10))
+#    lower = c(1e-08, 1e-08, 1),
+#    upper = c(1e02,  1e+08,10))
 
   model <- rec ~ a * ssb/(1 + (ssb/b)^c)
 
@@ -125,8 +130,10 @@ cushing<-function()
     b <- 1.0
     return(FLPar(a=a,b=b))
   },
-  lower=c(0, 0.0001),
-	upper=c(Inf, 1))
+  lower=c(-Inf, -Inf),
+	upper=c( Inf,  Inf))
+#  lower=c(0, 0.0001),
+#	upper=c(Inf, 1))
 
   model  <- rec~a*ssb^b
 
@@ -223,7 +230,7 @@ bevholtAR1 <- function()
 
   ## initial parameter values
   initial <- structure(function(rec, ssb) {
-    a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
+      a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
     return(FLPar(a = a, b = a/b, rho=0))
 	},
@@ -331,8 +338,8 @@ setMethod('rSq', signature(obs='FLQuant',hat='FLQuant'),
 
 # loglAR1 {{{
 setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
-  function(obs, hat, rho=0)
-  {
+  function(obs, hat, rho=0){
+  
     # calculates likelihood for AR(1) process
     n   <- dim(obs)[2]
     rsdl<-(obs[,-1] - rho*obs[,-n] - hat[,-1] + rho*hat[,-n])
@@ -340,7 +347,7 @@ setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
     s1  <-s2
 
     if (!all(is.na(rsdl[,1])))
-      s1 <- s1+(1-rho^2)*rsdl[,1]^2
+      s1 <- s1+(1-rho^2)*(obs[,1]-hat[,1])^2
 
     #if (all(is.na(hat))) sigma2<-1e100 else
 
@@ -353,25 +360,21 @@ setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
     if (!is.finite(res))
       res <- -1e100
 
-    return(res)
-  }
-) # }}}
+    return(res)})
 
-# SRModelName {{{
-SRModelName <- function(model)
-{
+SRModelName <- function(model){
   return(switch(gsub(" ", "", as.character(as.list(model)[3])),
-      "a*ssb*exp(-b*ssb)" = "ricker",
-      "a*ssb/(b+ssb)" = "bevholt",
-      "a*ssb/(1+(ssb/b)^c)" = "shepherd",
-      "a*ssb^b" = "cushing",
+      "a*ssb*exp(-b*ssb)"                 = "ricker",
+      "a*ssb/(b+ssb)"                     = "bevholt",
+      "a*ssb/(1+(ssb/b)^c)"               = "shepherd",
+      "a*ssb^b"                           = "cushing",
       "FLQuant(ifelse(ssb<=b,a*ssb,a*b))" = "segreg",
+      "a+ssb/ssb-1"                       = "mean",
       "FLQuant(a,dimnames=dimnames(rec))" = "mean",
-      "a" = "mean",
-      'abPars("bevholt",s=s,v=v,spr0=spr0)["a"]*ssb/(abPars("bevholt",s=s,v=v,spr0=spr0)["b"]+ssb)' = "bevholtSV",
+      "a"                                 = "mean",
+      'abPars("bevholt",s=s,v=v,spr0=spr0)["a"]*ssb/(abPars("bevholt",s=s,v=v,spr0=spr0)["b"]+ssb)'   = "bevholtSV",
       'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "rickerSV",
-      NULL))
-} # }}}
+      NULL))}
 
 # SRNameCode {{{
 SRNameCode <- function(name)
