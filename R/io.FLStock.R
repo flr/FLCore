@@ -163,8 +163,9 @@ readAdaptFile <- function(file., m. = m) {
         i <- skip.hash(i)
         t. <- scan(file., skip = i, nmax = nyears * (nages+1), quiet = TRUE)
 
-        FLStock.@stock.wt <- as.FLQuant(array(t., dim=dims2)[-1,], dimnames=dimnms)
-    }
+        FLStock.@stock.wt <- as.FLQuant(array(t., dim=dims2)[-1,], dimnames=dimnms)}
+    FLStock.@landings.wt<-FLStock.@stock.wt
+    
     FLStock.@m <- as.FLQuant(array(m., dim = dims, dimnames=dimnms))
     return(FLStock.)
 }	# }}}
