@@ -16,7 +16,7 @@ readVPA2Box <- function(data, results, m=as.numeric(NA), no.discards=TRUE){
   res <- readFLStock(data, type='Adapt', m=m)
 
   # read N and F from summary output file
-  nf <- getNF(results)
+  nf <- lapply(getNF(results), setPlusGroup, dims(res)$max)
 
   stock.n(res)[,dimnames(nf[["stock.n"]])$year]<-nf[["stock.n"]]
   harvest(res)[,dimnames(nf[["harvest"]])$year]<-nf[["harvest"]]
@@ -31,20 +31,20 @@ readVPA2Box <- function(data, results, m=as.numeric(NA), no.discards=TRUE){
     if(length(m) == 1)
       m(res) <- FLQuant(m, dimnames=dimnames(stock.n(res)))
     else
-      m(res) <- FLQuant(matrix(m, ncol=1, nrow=length(m)),
-        dimnames=dimnames(stock.n(res)))
+      m(res) <- FLQuant(m,dimnames=dimnames(stock.n(res)))
 
   # discards
-  if(no.discards)
-  {
+  if(no.discards){
     discards.n(res) <- 0
     discards.wt(res) <- landings.wt(res)
-    catch(res) <- computeCatch(res, 'all')
-  }
+    catch(res) <- computeCatch(res, 'all')}
 
   # desc
   desc(res) <- paste('Imported from a set of VPA2Box files: [', data, ',', results,
       ']', sep='')
+
+  range(res)["plusgroup"]<-range(res)["max"]
+
   return(res)
 } # }}}
 
