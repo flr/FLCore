@@ -27,7 +27,7 @@ setClass("FLCohort",
   validity=validFLCohort
 ) # }}}
 
-# constructor  {{{
+# FLCohort(FLQuant)  {{{
 setMethod("FLCohort", signature("FLQuant"),
   function(object, ...) {
   	# reduce with trim
@@ -70,8 +70,9 @@ setMethod("FLCohort", signature("FLQuant"),
   	# et voilá
 	  new("FLCohort", flc, units=units(object))
   }
-)
+) # }}}
 
+# FLCohort(FLCohort)  {{{
 setMethod('FLCohort', signature(object='FLCohort'),
   function(object, units=units(object))
   {
@@ -138,6 +139,21 @@ setMethod("FLCohort", signature(object="array"),
     		flc[,,,,,2:dims(flc)$iter] <- as.numeric(NA)
 
 		return(flc)
+	}
+)	# }}}
+
+# FLCohort(vector) {{{
+setMethod("FLCohort", signature(object="vector"),
+	function(object, dim=c(length(object), rep(1,5)), dimnames="missing",
+			units="NA", iter=1) 
+	{
+		if(!missing(dimnames))
+		{
+			dim <- unlist(lapply(dimnames, length))
+			return(FLCohort(array(object, dim=dim, dimnames=dimnames), units=units, iter=iter))
+		}
+		else
+			return(FLCohort(array(object, dim=dim), dimnames=dimnames, units=units, iter=iter))
 	}
 )	# }}}
 
