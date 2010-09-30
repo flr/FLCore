@@ -223,7 +223,7 @@ setMethod('[', signature(x='FLComp'),
     
     for(q in qnames)
       slot(x, q) <- do.call('[', c(list(x=slot(x,q)), args))
-
+    
     # range
     x@range['min'] <- dims(slot(x, qnames[1]))$min
     x@range['max'] <- dims(slot(x, qnames[1]))$max

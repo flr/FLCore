@@ -356,8 +356,9 @@ setMethod("names", signature(x="FLlst"),
 # }}}
 
 ## as.data.frame	{{{
-setMethod("as.data.frame", signature(x="FLCohorts", row.names="missing", optional="missing"),
-    function(x) {
+setMethod("as.data.frame", signature(x="FLCohorts", row.names="missing",
+	optional="missing"),
+		function(x) {
 	# names 
 	if(!is.null(names(x))){
 		flqnames <- names(x)

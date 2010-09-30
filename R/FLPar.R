@@ -85,9 +85,10 @@ setMethod('FLPar', signature(object="missing"),
 )
 
 # FLPar(vector)
-setMethod('FLPar', signature('vector'),
+setMethod('FLPar', signature(object='vector'),
 	function(object, params= if(length(names(object))==length(object)) names(object) else letters[seq(length(object)/length(iter))], iter=1,
-    dimnames=list(params=params, iter=seq(iter)), byrow=FALSE, units='NA'){
+    dimnames=list(params=params, iter=seq(iter)), byrow=FALSE, units='NA')
+  {
     # if length(iter) == 1, then expand
     if(length(iter) == 1 && as.character(iter) != '1')
       iter <- seq(iter)

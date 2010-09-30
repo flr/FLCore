@@ -7,6 +7,8 @@ NEW FEATURES
   - catch.n method for FLBiol now available. Calculates catch from abundance and harvest.
   - a dimnames<- method for FLStock has been added. dimnames can be modified for all
     FLQuant slots and the behaviour of non-quant ones is respected.
+	- FS#30 FLCohort(vector) method has been added
+	- FS#19 tsb (Total Stock Biomass) methods added for FLStock & FLBiol
 
 USER-VISIBLE CHANGES
   - nls(FLModel) does not strictly require accessor for the input FLQuant slots to be
