@@ -251,6 +251,17 @@ setMethod("ssb", signature(object="FLBiol"),
   }
 )	# }}}
 
+## tsb  {{{
+setMethod("tsb", signature(object="FLBiol"),
+	function(object, ...)
+  {
+		res <- quantSums(n(object) * wt(object) * exp(-spwn(object) * 
+      m(object)), na.rm=FALSE)
+    units(res) <- paste(units(n(object)), units(wt(object)), sep=' * ')
+    return(res)
+  }
+)	# }}}
+
 ## computeStock  {{{
 setMethod("computeStock", signature(object="FLBiol"),
 	function(object, ...)

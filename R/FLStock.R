@@ -146,7 +146,7 @@ setMethod('FLStock', signature(object='missing'),
       else
         object <- args[[slots[1]]]}
 
-    return(FLStock(object, ...))})
+    return(FLStock(object, ...))})	# }}}
 
 # is.FLStock	{{{
 is.FLStock <- function(x)
@@ -547,6 +547,29 @@ setMethod("ssb", signature(object="FLStock"),
 	}
 )	# }}}
 
+## tsb		{{{
+setMethod("tsb", signature(object="FLStock"),
+	function(object, ...) {
+
+	if(units(harvest(object)) == 'f')
+	{
+		res <- colSums(object@stock.n * exp(-object@harvest * object@harvest.spwn -
+      object@m * object@m.spwn) * object@stock.wt, na.rm=FALSE)
+		dim(res) <- c(1, dim(res))
+		dmns<-dimnames(object@stock)
+		dmns$iter<-dimnames(res)$iter
+		return(FLQuant(res, dimnames=dmns))
+	} else if(units(harvest(object)) == 'hr')
+  {
+		res <- colSums(object@stock.n * (1 - object@harvest * object@harvest.spwn) *
+      exp(-object@m * object@m.spwn) * object@harvest.spwn * object@stock.wt)
+		dim(res) <- c(1, dim(res))
+		return(FLQuant(res, dimnames=dimnames(object@stock)))
+  } else
+		stop("Correct units (f or hr) not specified in the harvest slot")
+	}
+)	# }}}
+
 ## fbar		{{{
 setMethod("fbar", signature(object="FLStock"),
  function(object, ...) {
@@ -607,6 +630,8 @@ setMethod("catch<-", signature(object="FLStock", value="FLQuants"),
 		return(object)
 	}
 ) # }}}
+
+# trim {{{
 setMethod("trim", signature(x="FLStock"), function(x, ...){
 
 	args <- list(...)
@@ -642,7 +667,7 @@ setMethod("trim", signature(x="FLStock"), function(x, ...){
     x@range["maxyear"] <- c2[length(c2)]
   }
 
-	return(x)})
+	return(x)}) # }}}
 
 # ssbpurec  {{{
 setMethod("ssbpurec",signature(object="FLStock"),
@@ -801,12 +826,7 @@ setAs("data.frame", "FLStock",
 ) # }}}
 
 # rec(FLStock)  {{{
-if (!isGeneric("rec"))
-	setGeneric("rec", function(object, ...)
-		standardGeneric("rec"))
-
 setMethod('rec', signature(object='FLStock'),
-#  function(object, rec.age=ac(dims(object)$min))
   function(object, rec.age=object@range["min"])
   {
     if(dims(object)$quant != 'age')
