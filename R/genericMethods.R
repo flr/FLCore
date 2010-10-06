@@ -159,6 +159,10 @@ setGeneric("computeStock", function(object, ...)
 	setGeneric("ssb", function(object, ...)
 		standardGeneric("ssb"))
 
+# tsb
+	setGeneric("tsb", function(object, ...)
+		standardGeneric("tsb"))
+
 # fbar
 	setGeneric("fbar", function(object, ...)
 		standardGeneric("fbar"))

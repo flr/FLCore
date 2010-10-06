@@ -204,7 +204,7 @@ setMethod("computeCatch", signature(object="FLStock"),
     }
 )	# }}}
 
-## computeLandings	{{{
+## computeStock	{{{
 setMethod("computeStock", signature(object="FLStock"),
 	function(object, na.rm=TRUE) {
         res <- quantSums(stock.n(object) * stock.wt(object), na.rm=na.rm)
