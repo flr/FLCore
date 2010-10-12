@@ -827,7 +827,7 @@ setAs("data.frame", "FLStock",
 
 # rec(FLStock)  {{{
 setMethod('rec', signature(object='FLStock'),
-  function(object, rec.age=object@range["min"])
+  function(object, rec.age=as.character(object@range["min"]))
   {
     if(dims(object)$quant != 'age')
       stop("rec(FLStock) only defined for age-based objects")
