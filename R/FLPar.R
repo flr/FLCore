@@ -471,7 +471,8 @@ setMethod("show", signature(object="FLPar"),
       v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
     }
     else
-      v3 <- paste(format(apply(object@.Data, ndim-1, median, na.rm=TRUE),digits=5))
+			# v3 <- paste(format(apply(object@.Data, ndim-1, median, na.rm=TRUE),digits=5))
+			v3 <- format(object@.Data, digits=5)
 		
     print(array(v3, dim=dim(object)[1:(ndim-1)], dimnames=dimnames(object)[1:(ndim-1)]),
       quote=FALSE)
