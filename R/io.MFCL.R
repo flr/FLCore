@@ -29,16 +29,16 @@ readMFCL <- function(repfile, parfile)
 
   # output stock
   stk <- FLStock(
-    catch       = FLQuant(NA, dimnames=dmns[-1]),
+    catch       = FLQuant(NA, dimnames=dmns[-1], quant='age'),
     catch.n     = FLQuant(NA, dimnames=dmns),
     catch.wt    = FLQuant(getwt.age(repfile), dimnames=dmns),
-    discards    = FLQuant(0, dimnames=dmns[-1]),
+    discards    = FLQuant(0, dimnames=dmns[-1], quant='age'),
     discards.n  = FLQuant(0, dimnames=dmns),
     discards.wt = FLQuant(getwt.age(repfile), dimnames=dmns),
-    landings    = FLQuant(NA, dimnames=dmns[-1]),
+    landings    = FLQuant(NA, dimnames=dmns[-1], quant='age'),
     landings.n  = FLQuant(NA, dimnames=dmns),
     landings.wt = FLQuant(getwt.age(repfile), dimnames=dmns),
-    stock       = FLQuant(NA, dimnames=dmns[-1]),
+    stock       = FLQuant(NA, dimnames=dmns[-1], quant='age'),
     stock.wt    = FLQuant(getwt.age(repfile), dimnames=dmns),
     harvest     = FLQuant(NA, dimnames=dmns, units="f"),
     m           = FLQuant(getM.age(   repfile)/nseason, dimnames=dmns),

@@ -231,7 +231,13 @@ setMethod('revenue', signature('FLMetiers'),
 )
 setMethod('revenue', signature('FLFleet'),
   function(object, ...)
-    return(revenue(object@metiers, ...))
+  {
+    lst <- lapply(object@metiers, revenue)
+    lst <- new('FLQuants', lst)
+    if(length(lst) > 1)
+      for (i in 2:length(lst))
+        lst[[1]] <- lst[[1]] + lst[[i]]
+  }
 ) # }}}
 
 ## iter {{{

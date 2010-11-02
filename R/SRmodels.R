@@ -8,7 +8,7 @@
 # Reference:
 # Notes:
 
-# models
+# ricker {{{
 ricker <- function(){
   logl <- function(a, b, rec, ssb)
       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))
@@ -25,6 +25,7 @@ ricker <- function(){
 	model  <- rec~a*ssb*exp(-b*ssb)
 
 	return(list(logl=logl, model=model, initial=initial))}
+  # }}}
 
 # bevholt {{{
 bevholt <- function()

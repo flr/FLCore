@@ -292,8 +292,6 @@ setMethod('fmle',
     fitted(object) <- propagate(fitted(object), iter)
     residuals(object) <- propagate(residuals(object), iter)
 
-#browser()
-
     # vcov
     object@vcov <- array(NA, dim=c(rep(length(parnm)-length(fixed),2), iter),
       dimnames=list(parnm[!parnm%in%names(fixed)],parnm[!parnm%in%names(fixed)],
@@ -377,8 +375,6 @@ setMethod('fmle',
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
         hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
 
-#browser()
-      
       # output
       # place out$par in right iter dim
       iter(object@params[names(out$par),], it) <- out$par
