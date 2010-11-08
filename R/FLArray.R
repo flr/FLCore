@@ -419,19 +419,21 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 			dim[MARGIN] <- length(data)
 		else
 			dim[MARGIN] <- dim(data)
-		# new flq
-		flq <- do.call(class(X), list(dim=dim, units=units(X)))
+		# new object
+		flq <- array(NA, dim=dim)
+		# inject data
 		flq[1:dim[1],1:dim[2],1:dim[3],1:dim[4],1:dim[5],1:dim[6]] <- data
+		# set dimnames
+		MRG <- dim(X) == dim(flq)
+		dimnames(flq)[MRG] <- dimnames(X)[MRG]
+		dimnames(flq)[!MRG] <- "all"
+		names(dimnames(flq)) <- names(dimnames(X))
+		# new FLobject
+		flq <- new(class(X),flq)
+		# set quant
+		if(is(flq, 'FLQuant')) quant(flq) <- quant(X)
+		return(flq)
 
-		# dimnames
-		dimnames      <- dimnames(X)
-    dimnames(flq) <- dimnames[MARGIN]
-    
-    # quant
-    if(is(flq, 'FLQuant'))
-      quant(flq) <- quant(X)
-
-    return(flq)
 	}
 )   # }}}
 
