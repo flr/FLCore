@@ -212,4 +212,10 @@ setAs('FLPar', 'list',
       res[[i]] <- c(from[i,])
     return(res)
 	}
-) # }}}
+) 
+
+setAs('FLPar', 'data.frame',
+  function(from)
+  {
+    return(as(as.FLQuant(from), 'FLPar'))
+  } # }}}
