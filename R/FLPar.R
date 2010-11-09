@@ -42,10 +42,18 @@ setMethod('FLPar', signature(object="array"),
     if(!is.null(dimnames(object)))
     {
       dimnames <- dimnames(object)
-      # dimnames with no names
+      
+      # if iter missing, add it
+      if(!any(names(dimnames) == "") & !'iter' %in% names(dimnames))
+      {
+        dimnames <- c(dimnames, list(iter=1))
+        object <- array(object, dimnames=dimnames, dim=c(unlist(lapply(dimnames, length))))
+      }
+      
+      # dimnames with no names, last one is iter ...
       if(names(dimnames)[length(dimnames)] == "")
         names(dimnames)[length(dimnames)] <- 'iter'
-
+      # ... others are dim*
       if(any(names(dimnames) == ""))
         names(dimnames)[names(dimnames) == ""] <-
           paste('dim', seq(sum(names(dimnames) == "")))
@@ -53,9 +61,6 @@ setMethod('FLPar', signature(object="array"),
       pnames <- match(c('params', 'iter'), names(dimnames))
       object <- aperm(object, c(pnames[1], seq(1, length(dimnames))[!seq(1,
         length(dimnames)) %in% pnames], pnames[2]))
-      
-      if(is.null(dimnames[['iter']]))
-        dimnames['iter'] <- seq(dim(object)[length(dim(object))])
     }
 		
     res <- array(object, dim=dim(object), dimnames=dimnames)
