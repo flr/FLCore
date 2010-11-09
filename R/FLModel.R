@@ -219,10 +219,18 @@ setMethod('fmle',
 
     # gr function
     if(!is.null(body(object@gr)))
-      gr <- object@gr
+    {
+      gr <- function(par)
+      {
+        pars <- as.list(par)
+        names(pars) <- names(start)
+        pars[fixnm] <- lapply(fixed, iter, it)
+        return(-1*(do.call(object@gr, args=c(pars, data))))
+      }
+    }
     else
       gr <- NULL
-
+    
     # create logl function
     loglfoo <- function(par) {
       pars <- as.list(par)
@@ -408,8 +416,6 @@ setMethod('fmle',
       object@logLik[it] <- -out$value
       attr(object@logLik, 'nobs') <- length(data[[1]])
 
-#browser()
-
       # fitted & residuals
       iter(fitted(object), it) <- predict(iter(object, it))
       iter(residuals(object), it) <- iter(slot(object,
@@ -514,8 +520,6 @@ setMethod('predict', signature(object='FLModel'),
         dimnames <- dimnames(args[[1]])
       else
         dimnames <- dimnames(slot(obj, fittedSlot))
-
-    #browser()
 
       # check inputs
       if(it == 1)
@@ -729,8 +733,6 @@ setReplaceMethod('model', signature(object='FLModel', value='function'),
 setReplaceMethod('model', signature(object='FLModel', value='list'),
   function(object, value)
   {
-
-#browser()
 
     # fill up model def slots
     for(i in names(value))
