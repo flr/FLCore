@@ -35,6 +35,7 @@ USER-VISIBLE CHANGES
     how ages are aggregated.
   - rec now uses the "min" age from the range of the FLStock or FLBiol objects 
   - abPars argument "spr0" is now the second in the list to be consistent with svPars
+
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.
   - dims(FLComp) was failing for those with less elements in @range.
@@ -60,6 +61,7 @@ BUG FIXES
     and a factor otherwise. Conversion to factor is also carried out if an FLQuants
     mixes FLQuant with numeric and text quant dimnames.
   - FS#29 '[' for FLStock could not accept characters for index i, quant.
+  - FLPar(array) now accepts arays with no iter, gets added at end with length=1
 	
 UTILITIES
 

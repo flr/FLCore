@@ -218,4 +218,5 @@ setAs('FLPar', 'data.frame',
   function(from)
   {
     return(as(as.FLQuant(from), 'FLPar'))
-  } # }}}
+  }
+)# }}}
