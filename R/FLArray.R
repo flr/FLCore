@@ -412,9 +412,11 @@ setMethod("qmin", signature(x="FLArray"),
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	function(X, MARGIN, FUN, ...)
   {
-		data <- apply(X@.Data, MARGIN, FUN, ...)
+	data <- apply(X@.Data, MARGIN, FUN, ...)
+	if(length(dim(data))<length(MARGIN)){
 		# set dim
 		dim <- c(1,1,1,1,1,1)
+		# if apply generated a new dimension
 		if (is.null(dim(data)))
 			dim[MARGIN] <- length(data)
 		else
@@ -433,9 +435,10 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 		# set quant
 		if(is(flq, 'FLQuant')) quant(flq) <- quant(X)
 		return(flq)
-
+	} else {
+		return(data)
 	}
-)   # }}}
+})   # }}}
 
 # survprob {{{
 # estimate survival probabilities by year or cohort
