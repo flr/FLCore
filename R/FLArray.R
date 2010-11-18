@@ -115,9 +115,8 @@ setMethod("[<-", signature(x="FLArray"),
 	  x@.Data[i] <- value
       return(x)
     }
-
     dx <- dim(x)
-	if (missing(i))
+  	if (missing(i))
       i  <-  seq(1, dx[1])
     if (missing(j))
       j  <-  seq(1, dx[2])
@@ -130,6 +129,7 @@ setMethod("[<-", signature(x="FLArray"),
     if (missing(n))
       n  <-  seq(1, dx[6])
 
+    #
 		x@.Data[i,j,k,l,m,n] <- value
 
    	return(x)
@@ -428,7 +428,7 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 		# set dimnames
 		MRG <- dim(X) == dim(flq)
 		dimnames(flq)[MRG] <- dimnames(X)[MRG]
-		dimnames(flq)[!MRG] <- "all"
+		dimnames(flq)[!MRG] <- dimnames(new(class(X),flq))[!MRG]
 		names(dimnames(flq)) <- names(dimnames(X))
 		# new FLobject
 		flq <- new(class(X),flq)
