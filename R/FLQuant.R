@@ -900,11 +900,11 @@ setMethod("propagate", signature(object="FLQuant"),
 setGeneric("rnorm", function(n, mean=0, sd=1) standardGeneric("rnorm"))
 setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
 	function(n=1, mean, sd) {
-		if(all(dim(mean) != dim(sd)))
+		if(any(dim(mean) != dim(sd)))
 			stop("dims of mean and sd must be equal")
 		FLQuant(array(rnorm(prod(dim(mean)[-6])*n, rep(iter(mean, 1)[drop=TRUE], n),
 			rep(iter(sd, 1)[drop=TRUE], n)), dim=c(dim(mean)[-6], n)),
-			dimnames=c(dimnames(mean)[-6], list(iter=seq(n))), fill.iter=TRUE)
+			dimnames=c(dimnames(mean)[-6], list(iter=seq(n))))
 	}
 )	
 setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="numeric"),
