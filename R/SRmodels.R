@@ -361,8 +361,9 @@ setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
     if (!is.finite(res))
       res <- -1e100
 
-    return(res)})
+    return(res)}) # }}}
 
+# SRModelName {{{
 SRModelName <- function(model){
   return(switch(gsub(" ", "", as.character(as.list(model)[3])),
       "a*ssb*exp(-b*ssb)"                 = "ricker",
@@ -375,7 +376,7 @@ SRModelName <- function(model){
       "a"                                 = "mean",
       'abPars("bevholt",s=s,v=v,spr0=spr0)["a"]*ssb/(abPars("bevholt",s=s,v=v,spr0=spr0)["b"]+ssb)'   = "bevholtSV",
       'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "rickerSV",
-      NULL))}
+      NULL))} # }}}
 
 # SRNameCode {{{
 SRNameCode <- function(name)
@@ -461,3 +462,35 @@ svPars <- function(model, spr0, a, b=NULL, c=NULL, d=NULL)
   return(c(s=s, v=v, spr0=spr0))
 }
 # }}}
+
+# abModel {{{
+abModel <- function(model)
+{
+  if(is(model, 'formula'))
+    modelname <- SRModelName(model)
+  else
+    modelname <- model
+  res <- switch(modelname,
+    'bevholtSV'='bevholt',
+    'rickerSV'='ricker',
+    'shepherdSV', 'shepherd')
+  if(is(model, 'formula'))
+    return(do.call(res, list())$model)
+  return(res)
+} # }}}
+
+# svModel {{{
+svModel <- function(model)
+{
+  if(is(model, 'formula'))
+    modelname <- SRModelName(model)
+  else
+    modelname <- model
+  res <- switch(modelname,
+    'bevholt'='bevholtSV',
+    'ricker'='rickerSV',
+    'shepherd', 'shepherdSV')
+  if(is(model, 'formula'))
+    return(do.call(res, list())$model)
+  return(res)
+} # }}}
