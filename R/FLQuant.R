@@ -8,7 +8,6 @@
 ## Class
 ## FLQuant     {{{
 validFLQuant  <-  function(object){
-
 	# Make sure there are at least 6 dimensions in the array named
 	# *, "year", "unit", "season", "area" and "iter"
 	DimNames  <-  names(object)
@@ -1068,4 +1067,3 @@ setMethod('jacknife', signature(object='FLQuant'),
     return(res)
   }
 ) # }}}
-

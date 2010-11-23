@@ -92,7 +92,7 @@ setMethod("[", signature(x="FLArray", i="array"),
   {
     dimn <- dimnames(i)
     for(d in 1:6)
-      dimn[[d]] <- dimn[[d]][apply(i, d, any, FALSE)==TRUE]
+      dimn[[d]] <- dimn[[d]][apply(i@.Data, d, any, FALSE)==TRUE]
 
     if(length(x@.Data[i]) != prod(unlist(lapply(dimn, length))))
       return(x@.Data[i])
