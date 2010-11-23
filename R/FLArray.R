@@ -427,9 +427,14 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 		flq[1:dim[1],1:dim[2],1:dim[3],1:dim[4],1:dim[5],1:dim[6]] <- data
 		# set dimnames
 		MRG <- dim(X) == dim(flq)
-		dimnames(flq)[MRG] <- dimnames(X)[MRG]
-		dimnames(flq)[!MRG] <- dimnames(new(class(X),flq))[!MRG]
-		names(dimnames(flq)) <- names(dimnames(X))
+    if(all(MRG))
+      dimnames(flq) <- dimnames(X)
+    else
+    {
+		  dimnames(flq)[MRG] <- dimnames(X)[MRG]
+  		dimnames(flq)[!MRG] <- dimnames(new(class(X)))[!MRG]
+	  	names(dimnames(flq)) <- names(dimnames(X))
+    } 
 		# new FLobject
 		flq <- new(class(X),flq)
 		# set quant
