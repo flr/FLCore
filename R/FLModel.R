@@ -536,7 +536,55 @@ setMethod('predict', signature(object='FLModel'),
     }
     return(res)
   }
-)   # }}}
+) 
+
+setMethod('predict', signature(object='formula'),
+  function(object, ...)
+  {
+    args <- list(...)
+    # Find FLPar elements in args
+    flpar <- unlist(lapply(args, is, 'FLPar'))
+    # Add not FLPar elements
+    envir <- args[!flpar]
+    # Turn them into list for envir
+    if (any(flpar))
+      envir <- c(envir, as.list(unlist(lapply(args[flpar], as, 'list'))))
+    # are all elements in envir named?
+    if(any(names(envir)==""))
+      stop("all input arguments must be named")
+    # TODO: what about dimnames used in formula?
+    eval(as.list(object)[[3]], envir)
+  }
+)
+
+setMethod('predict', signature(object='list'),
+  function(object, ...)
+  {
+    if (!'model' %in% names(object))
+      stop("object list provided must contain a formula element with name 'model'")
+    predict(object$model, ...)
+  }
+)
+
+setMethod('predict', signature(object='function'),
+  function(object, ...)
+  {
+    object <- do.call(object, args=list())
+    if (!'model' %in% names(object))
+      stop("object list obtained from function must contain a formula element with name 'model'")
+    predict(object$model, ...)
+  }
+)
+
+setMethod('predict', signature(object='character'),
+  function(object, ...)
+  {
+    object <- do.call(object, args=list())
+    if (!'model' %in% names(object))
+      stop("object list provided must contain a formula element with name 'model'")
+    predict(object$model, ...)
+  }
+) # }}}
 
 # AIC & BIC   {{{
 setMethod('AIC', signature(object='FLModel', k='numeric'),
