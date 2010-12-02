@@ -2,7 +2,7 @@
 
 # Author: FLR Team
 # Additions:
-# Last Change: 19 Mar 2010 09:22
+# Last Change: 29 Nov 2010 17:09
 # $Id$
 
 ## readFLStock		{{{
@@ -170,7 +170,6 @@ readAdaptFile <- function(file., m. = m) {
     return(FLStock.)
 }	# }}}
 
-#
 # readCSAFile		{{{
 readCSAFile <- function(file.) {
     t.    <-scan(file=file.,skip=1,sep=",")
@@ -211,7 +210,6 @@ readCSAFile <- function(file.) {
 
     return(s.)
 }	# }}}
-
 
 ## readPAFile		{{{
 readPAFile <- function(file.) {

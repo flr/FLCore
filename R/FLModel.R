@@ -542,47 +542,43 @@ setMethod('predict', signature(object='formula'),
   function(object, ...)
   {
     args <- list(...)
+    envir <- list()
+
+    # Find list elements and bind for envir
+    lst <- unlist(lapply(args, is, 'list'))
+    envir <- c(envir, do.call(c, args[lst]))
+
     # Find FLPar elements in args
     flpar <- unlist(lapply(args, is, 'FLPar'))
-    # Add not FLPar elements
-    envir <- args[!flpar]
     # Turn them into list for envir
-    if (any(flpar))
-      envir <- c(envir, as.list(unlist(lapply(args[flpar], as, 'list'))))
+    envir <- c(envir, as.list(unlist(lapply(args[flpar], as, 'list'))))
+    
+    # Add not FLPar elements
+    envir <- c(envir, args[!flpar & !lst])
+    
     # are all elements in envir named?
     if(any(names(envir)==""))
       stop("all input arguments must be named")
     # TODO: what about dimnames used in formula?
-    eval(as.list(object)[[3]], envir)
-  }
-)
-
-setMethod('predict', signature(object='list'),
-  function(object, ...)
-  {
-    if (!'model' %in% names(object))
-      stop("object list provided must contain a formula element with name 'model'")
-    predict(object$model, ...)
+    # Is right handside of formula a formula, a function or a name?
+    browser()
+    args <- formals(as.character(as.list(object)[[3]])[1])
+    args[names(envir)] <- envir
+    return(eval(as.list(object)[[3]], args))
   }
 )
 
 setMethod('predict', signature(object='function'),
   function(object, ...)
   {
-    object <- do.call(object, args=list())
-    if (!'model' %in% names(object))
-      stop("object list obtained from function must contain a formula element with name 'model'")
-    predict(object$model, ...)
+    stop("TODO")
   }
 )
 
 setMethod('predict', signature(object='character'),
   function(object, ...)
   {
-    object <- do.call(object, args=list())
-    if (!'model' %in% names(object))
-      stop("object list provided must contain a formula element with name 'model'")
-    predict(object$model, ...)
+    stop("TODO")
   }
 ) # }}}
 
