@@ -370,7 +370,7 @@ SRModelName <- function(model){
       "a*ssb/(b+ssb)"                     = "bevholt",
       "a*ssb/(1+(ssb/b)^c)"               = "shepherd",
       "a*ssb^b"                           = "cushing",
-      "FLQuant(ifelse(ssb<=b,a*ssb,a*b))" = "segreg",
+      "FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))" = "segreg",
       "a+ssb/ssb-1"                       = "mean",
       "FLQuant(a,dimnames=dimnames(rec))" = "mean",
       "a"                                 = "mean",
