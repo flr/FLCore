@@ -1,4 +1,3 @@
-\docType{methods}
 \alias{rpois,numeric,FLQuant-method}
 \name{rpois}
 \docType{methods}
