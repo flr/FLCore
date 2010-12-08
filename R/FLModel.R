@@ -1079,7 +1079,7 @@ setMethod("profile", signature(fitted="FLModel"),
         # steps for param[i]
         estim <- c(params[i,])
         steps <- estim * seq(1-range, 1+range, length=maxsteps)
-        profiled[[i]] <- steps
+        profiled[[i]] <- sort(steps)
       }
     # (2) and for list of ranges
     } else if (is.list(range)) 
