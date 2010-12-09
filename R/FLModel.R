@@ -182,7 +182,7 @@ setMethod('fmle',
     
     # get parameter names by matching elements in param slot
     parnm <- names(formals(logl))[names(formals(logl))%in%
-      dimnames(object@params)$param]
+			dimnames(object@params)$param]
     
     # get fixed parameter names
     fixnm <- names(fixed)
@@ -197,7 +197,7 @@ setMethod('fmle',
     #   get FLQuant slots' names
     datanm <- getSlotNamesClass(object, 'FLArray')
     # Include FLQuants too
-    datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
+		datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
     datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
     #   get those in formals of logl
     datanm <- datanm[datanm%in%names(formals(logl))]
@@ -315,7 +315,8 @@ setMethod('fmle',
       else
         data <- alldata
       
-      # add covar if defined and available
+			# add covar if defined and available
+			# TODO check for FLQuants class, wathever the name
       if('covar' %in% slotNames(object))
       {
         covarnm <- names(object@covar)
@@ -561,7 +562,6 @@ setMethod('predict', signature(object='formula'),
       stop("all input arguments must be named")
     # TODO: what about dimnames used in formula?
     # Is right handside of formula a formula, a function or a name?
-    browser()
     args <- formals(as.character(as.list(object)[[3]])[1])
     args[names(envir)] <- envir
     return(eval(as.list(object)[[3]], args))
@@ -854,7 +854,7 @@ getFLPar <- function(object, formula=object@model)
 {
   # get FLQuant slots' names
   datanm <- getSlotNamesClass(object, 'FLArray')
-  datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
+  datanm <- c(datanm, names(slot(object,getSlotNamesClass(object, 'FLQuants'))))
   datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
   datanm <- datanm[!datanm %in% c('residuals', 'fitted')]
   if(length(datanm) > 0)
