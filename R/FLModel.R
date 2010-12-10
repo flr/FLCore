@@ -777,6 +777,10 @@ setReplaceMethod('model', signature(object='FLModel', value='function'),
 setReplaceMethod('model', signature(object='FLModel', value='list'),
   function(object, value)
   {
+    # empty mode slots that might not be replaced
+    gr(object) <- function() NULL
+    logl(object) <- function() NULL
+    initial(object) <- function() NULL
 
     # fill up model def slots
     for(i in names(value))
