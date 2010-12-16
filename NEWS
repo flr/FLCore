@@ -62,6 +62,9 @@ BUG FIXES
     mixes FLQuant with numeric and text quant dimnames.
   - FS#29 '[' for FLStock could not accept characters for index i, quant.
   - FLPar(array) now accepts arays with no iter, gets added at end with length=1
+  - sort profile parameter values to avoid decreasing ranges with negative parameter 
+    values.
+  - model<-(list) now deletes slots logl, gr and initial in case they are not provided
 	
 UTILITIES
 
