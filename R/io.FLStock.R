@@ -8,7 +8,7 @@
 ## readFLStock		{{{
 readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a", 
     type, "file. (", file, "). ", date()), m = 0.2, quant="age", quiet=TRUE,
-    no.discards=FALSE, sep="")
+    no.discards=FALSE, harvest.units="f", sep="")
 	{
     ow <- options()$warn
     options(warn = -1)
@@ -83,6 +83,8 @@ readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a
       discards.wt(res) <- 0
       catch(res) <- computeCatch(res, 'all')
       }
+
+   units(harvest(res)) <- harvest.units
       
     return(res)
 }	# }}}
