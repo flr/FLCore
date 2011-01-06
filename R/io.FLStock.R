@@ -6,9 +6,9 @@
 # $Id$
 
 ## readFLStock		{{{
-readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a", 
+readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a", 
     type, "file. (", file, "). ", date()), m = 0.2, quant="age", quiet=TRUE,
-    no.discards=FALSE, harvest.units="f", sep="")
+    no.discards=FALSE, harvest.units, sep="")
 	{
     ow <- options()$warn
     options(warn = -1)
@@ -84,8 +84,13 @@ readFLStock <- function (file, type = "VPA", name, desc = paste("Imported from a
       catch(res) <- computeCatch(res, 'all')
       }
 
-   units(harvest(res)) <- harvest.units
-      
+#    if(type=="VPA") units(harvest(res)) <- "f"
+#    if(type=="Adapt") units(harvest(res)) <- "f"
+#    if(type=="PA") units(harvest(res)) <- "f"
+#    if(type=="CSA") units(harvest(res)) <- "hr"
+    if(missing(harvest.units)) harvest.units  <- switch(type, VPA = "f", Adapt = "f", PA = "f", CSA = "hr")
+    units(harvest(res)) <- harvest.units
+   
     return(res)
 }	# }}}
 
