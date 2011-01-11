@@ -377,7 +377,6 @@ setMethod('fmle',
           logl_bump2[[j]] <- do.call(logl, args=c(data, bump_params, fixed))
         }
 
-#browser()
 #          diff_logl <- 1 / (abs(logl_bump1) + abs(logl_bump2)) / (unlist(start) * 2 * tiny_number)
           diff_logl <- 1 / abs((logl_bump1 - logl_bump2) / (unlist(start) * tiny_number))
         
@@ -867,7 +866,9 @@ getFLPar <- function(object, formula=object@model)
 {
   # get FLQuant slots' names
   datanm <- getSlotNamesClass(object, 'FLArray')
-  datanm <- c(datanm, names(slot(object,getSlotNamesClass(object, 'FLQuants'))))
+  flqs <- getSlotNamesClass(object, 'FLQuants')
+  if(length(flqs) > 0)
+    datanm <- c(datanm, names(slot(object, flqs)))
   datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
   datanm <- datanm[!datanm %in% c('residuals', 'fitted')]
   if(length(datanm) > 0)
