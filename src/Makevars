@@ -1,2 +1,2 @@
 PKG_CXXFLAGS=-I../inst/include -DHAVE_CONFIG_H
-CXXFLAGS = -O0 -ggdb -Wall -fPIC
+CXXFLAGS = -O0 -Wall -fPIC
