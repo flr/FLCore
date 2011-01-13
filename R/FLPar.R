@@ -71,7 +71,7 @@ setMethod('FLPar', signature(object="array"),
 # FLPar(missing, iter, param)
 setMethod('FLPar', signature(object="missing"),
 	function(params='a', iter=1, dimnames=list(params=params, iter=seq(iter)),
-      units='NA', ...)
+      units=rep('NA', length(params)), ...)
 	{
     args <- list(...)
     if(length(args) > 0)
@@ -91,8 +91,9 @@ setMethod('FLPar', signature(object="missing"),
 
 # FLPar(vector)
 setMethod('FLPar', signature(object='vector'),
-	function(object, params= if(length(names(object))==length(object)) names(object) else letters[seq(length(object)/length(iter))], iter=1,
-    dimnames=list(params=params, iter=seq(iter)), byrow=FALSE, units='NA')
+	function(object, params= if(length(names(object))==length(object)) names(object) else
+    letters[seq(length(object)/length(iter))], iter=1,
+    dimnames=list(params=params, iter=seq(iter)), byrow=FALSE, units=rep('NA', length(params)))
   {
     # if length(iter) == 1, then expand
     if(length(iter) == 1 && as.character(iter) != '1')
