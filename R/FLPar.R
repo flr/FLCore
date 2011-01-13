@@ -305,7 +305,7 @@ setMethod("units<-", signature(x="FLPar", value="character"),
 # as.data.frame     {{{
 setMethod("as.data.frame", signature(x="FLPar"),
 	function(x, row.names='col', optional=FALSE)
-	  return(data.frame(expand.grid(dimnames(x)), data=as.vector(x@.Data)))
+	  return(as(x, 'data.frame'))
 )   # }}}
 
 # mean, median, var, quantile   {{{

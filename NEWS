@@ -35,6 +35,9 @@ USER-VISIBLE CHANGES
     how ages are aggregated.
   - rec now uses the "min" age from the range of the FLStock or FLBiol objects 
   - abPars argument "spr0" is now the second in the list to be consistent with svPars
+  - coercion to and from FLpar and data.frame is now available. data.frame must be in the wide
+    format with a column per dimension of the FLPar array. Colum nbs must exist named
+    'params' and 'data'.
 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.
