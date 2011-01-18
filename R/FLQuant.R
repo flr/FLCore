@@ -23,8 +23,8 @@ validFLQuant  <-  function(object){
 		return("units must be a string")
 
   # quant cannot be named 'cohort'
-  if(DimNames[1] == 'cohort')
-     return("first dimension in FLQuant cannot be named 'cohort'")
+#  if(DimNames[1] == 'cohort')
+#     return("first dimension in FLQuant cannot be named 'cohort'")
 	
 	# check contents are not integers
 #    if(any(is.integer(object)))
