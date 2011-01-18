@@ -23,7 +23,8 @@ validFLComp <- function(object){
 		stop(paste("Incorrect names on the iter dimension in ",
 			paste(names[test], collapse=', ')))
 
-  # all 'quant' should be equal
+return(TRUE)
+    # all 'quant' should be equal
   if(any(quants != quants[1]))
     stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
 
