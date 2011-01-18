@@ -302,17 +302,6 @@ setAs("data.frame", "FLIndex",
   }
 ) # }}}
 
-# coerce  {{{
-setAs("data.frame", "FLStock",
-  function(from)
-  {
-  lst <- list()
-  qnames <- as.character(unique(from$slot))
-  for (i in qnames)
-    lst[[i]] <- as.FLQuant(from[from$slot==i,-1])
-  do.call('FLIndex', lst)
-  }
-) # }}}
 
 ## effort		{{{
 setMethod("effort", signature(object="FLIndex", metier="missing"),
