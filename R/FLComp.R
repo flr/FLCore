@@ -23,12 +23,14 @@ validFLComp <- function(object){
 		stop(paste("Incorrect names on the iter dimension in ",
 			paste(names[test], collapse=', ')))
 
-return(TRUE)
-    # all 'quant' should be equal
+  return(TRUE)
+  
+  # all 'quant' should be equal
   if(any(quants != quants[1]))
     stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
 
-	return(TRUE)}
+	return(TRUE)
+}
 
 setClass("FLComp", representation(name="character", desc="character",
 	range="numeric", "VIRTUAL"), prototype(name=character(0), desc=character(0),

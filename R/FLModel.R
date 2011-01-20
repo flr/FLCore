@@ -120,7 +120,10 @@ setMethod('FLModel', signature(model='formula'),
     class(loglik) <- 'logLik'
     slot(res, 'logLik') <- loglik
 
-    return(res)
+    if(validObject(res))
+      return(res)
+    else
+      stop()
   }
 ) # }}}
 

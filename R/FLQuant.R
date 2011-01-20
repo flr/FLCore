@@ -22,14 +22,6 @@ validFLQuant  <-  function(object){
 	if(!is.character(object@units))
 		return("units must be a string")
 
-  # quant cannot be named 'cohort'
-#  if(DimNames[1] == 'cohort')
-#     return("first dimension in FLQuant cannot be named 'cohort'")
-	
-	# check contents are not integers
-#    if(any(is.integer(object)))
-#        return("FLQuants must be of type double or NA")
-
 	# Everything is fine
 	return(TRUE)
 }
@@ -42,7 +34,6 @@ setClass("FLQuant",
 	validity=validFLQuant
 )
 
-#setValidity("FLQuant", validFLQuant)
 remove(validFLQuant)    # }}}
 
 ## Methods
