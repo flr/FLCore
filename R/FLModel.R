@@ -199,8 +199,10 @@ setMethod('fmle',
     # create list of input data
     #   get FLQuant slots' names
     datanm <- getSlotNamesClass(object, 'FLArray')
-    # Include FLQuants too
-		datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
+    # Include FLQuants contents too
+		flqs <- getSlotNamesClass(object, 'FLQuants')
+    for (i in length(flqs))
+      datanm <- c(datanm, names(slot(object, flqs[i])))
     datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
     #   get those in formals of logl
     datanm <- datanm[datanm%in%names(formals(logl))]
@@ -318,15 +320,6 @@ setMethod('fmle',
       else
         data <- alldata
       
-			# add covar if defined and available
-			# TODO check for FLQuants class, wathever the name
-      if('covar' %in% slotNames(object))
-      {
-        covarnm <- names(object@covar)
-        covarnm <- covarnm[covarnm%in%names(formals(logl))]
-        if(length(covarnm))
-          data <- c(data, covar(object)[covarnm])
-      }
       # start values
       if(missing(start)) {
         # add call to @initial
