@@ -267,8 +267,8 @@ setMethod('lowess', signature(x='FLSR', y='missing', f='ANY', delta='ANY', iter=
         dim=dim(iter(rec(x),i)))
       out <- lowess(iter(rec(x),i)@.Data[!idx]~iter(ssb(x),i)@.Data[!idx],
         f=f, delta=delta, iter=iter)
-      iter(rec, i)[!idx] <- out$y
-      iter(ssb, i)[!idx] <- out$x
+      iter(rec, i)[!idx][order(ssb(x)[!idx])] <- out$y
+      iter(ssb, i)[!idx][order(ssb(x)[!idx])] <- out$x
      }
    
     return(FLQuants(rec=rec, ssb=ssb))
