@@ -1008,19 +1008,38 @@ setMethod('pv', signature(object='FLQuant'),
 setGeneric("setPlusGroup", function(x, plusgroup, ...)
 		standardGeneric("setPlusGroup"))
 setMethod("setPlusGroup", signature(x='FLQuant', plusgroup='numeric'),
-	function(x, plusgroup, na.rm=FALSE, by='mean')
-	{
+	function(x, plusgroup, na.rm=FALSE, by='mean') {
 	# only valid for age-based FLQuant
 	if(quant(x) != 'age')
 		stop('setPlusGroup onoy makes sense for age-based FLQuant objects')
 	# plusgroup not < than minage
-  	if ((plusgroup) < dims(x)$min)
-		stop("plusgroup < min age")
-	
-	res <- trim(x, age=dims(x)$min:plusgroup)
-	res[as.character(plusgroup)] <- switch(by,
+  if ((plusgroup) < dims(x)$min)
+	  stop("plusgroup < min age")
+  
+  # expand                       
+  if ((plusgroup) > dims(x)$max) {
+    dmns <-dimnames(x)
+    dmns$age <-dims(x)$min:plusgroup
+    oldMaxage<-dims(x)$max
+    
+    # create extra ages and fill with plusgroup
+    res  <-FLQuant(x, dimnames=dmns)
+    res[ac((oldMaxage+1):plusgroup)] <- 0;
+    res[ac((oldMaxage+1):plusgroup)] <- sweep(res[ac((oldMaxage+1):plusgroup)],
+      2:6, res[ac(oldMaxage)],"+")
+    
+    if (by != "mean")
+      res[ac((oldMaxage + 1):plusgroup)] <- res[ac((oldMaxage + 1):plusgroup)]/
+        (plusgroup-oldMaxage + 1)
+
+  }
+  # trim
+  else {
+    res <- trim(x, age=dims(x)$min:plusgroup)
+    res[as.character(plusgroup)] <- switch(by,
       'mean'= quantMeans(x[as.character(plusgroup:dims(x)$max)], na.rm=na.rm),
       'sum'= quantSums(x[as.character(plusgroup:dims(x)$max)], na.rm=na.rm))
+  }
 
 	return(res)
 	}
