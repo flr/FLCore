@@ -69,6 +69,7 @@ export(
   "readMFCL",
 	"ricker",
 	"rickerAR1",
+	"rickerCa",
 	"rickerSV",
   "segreg",
 	"setCon",
