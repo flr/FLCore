@@ -270,6 +270,24 @@ rickerAR1 <- function()
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+# Ricker with covariate  {{{
+rickerCa <- function() {
+  logl <- function(a, b, c, rec, ssb, covar)
+    loglAR1(log(rec), log(a * (1 - c * covar) * ssb * exp(-b * ssb)))
+ 
+  initial <- structure(function(rec, ssb) {
+		# The function to provide initial values
+    res  <-coefficients(lm(c(log(rec/ssb))~c(ssb)))
+    return(FLPar(a=max(exp(res[1])), b=-max(res[2]), c=1))},
+    
+  # lower and upper limits for optim()
+	lower=rep(-Inf, 3),
+	upper=rep( Inf, 3))
+	
+	model  <- rec ~ a * (1 - c * covar) * ssb * exp(-b * ssb)
+	return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # methods
 
 # spr0  {{{
@@ -493,24 +511,4 @@ svModel <- function(model)
   if(is(model, 'formula'))
     return(do.call(res, list())$model)
   return(res)
-} # }}}
-
-
-
-# Ricker with covariate  {{{
-rickerCa <- function() {
-  logl <- function(a, b, c, rec, ssb, covar)
-    loglAR1(log(rec), log(a * (1 - c * covar) * ssb * exp(-b * ssb)))
- 
-  initial <- structure(function(rec, ssb) {
-		# The function to provide initial values
-    res  <-coefficients(lm(c(log(rec/ssb))~c(ssb)))
-    return(FLPar(a=max(exp(res[1])), b=-max(res[2]), c=1))},
-    
-  # lower and upper limits for optim()
-	lower=rep(-Inf, 3),
-	upper=rep( Inf, 3))
-	
-	model  <- rec ~ a * (1 - c * covar) * ssb * exp(-b * ssb)
-	return(list(logl=logl, model=model, initial=initial))
 } # }}}

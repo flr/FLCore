@@ -238,8 +238,7 @@ setMethod('trim', signature(x='FLArray'),
 
 # expand {{{
 setMethod('expand', signature(x='FLArray'),
-expand.<-  function(x, ...)
-  {
+  function(x, ...) {
     args <- list(...)
     nargs <- names(args)
     
