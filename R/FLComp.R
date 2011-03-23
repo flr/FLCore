@@ -478,3 +478,33 @@ setMethod('expand', signature(x='FLComp'),
     return(x)
   }
 ) # }}}
+
+# '[['  {{{
+setMethod('[[', signature(x='FLComp', i='character'),
+  function(x, i, j, ..., drop=FALSE) {
+
+    res <- FLlst()
+    args <- list(...)
+
+    # j
+    if(!missing(j))
+      if(is(j, 'character'))
+        i <- c(i, j)
+      else
+        stop(paste('Only character vectors for slot names allowed:', as.character(j)))
+    # args
+    if(length(args) > 0)
+      if(all(unlist(lapply(args, function(x) is(x, 'character')))))
+        i <- c(i, unlist(args))
+      else
+        stop(paste('Only character vectors for slot names allowed:',
+          unlist(args[!unlist(lapply(args, function(x) is(x, 'character')))])))
+
+    for (j in 1:length(i))
+      res[[i[j]]] <- do.call(i[j],list(x))
+
+    names(res) <- i
+    
+    return(new(getPlural(res[[1]]), res))
+  }
+) # }}}
