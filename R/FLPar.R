@@ -489,6 +489,13 @@ setMethod("show", signature(object="FLPar"),
 
 ## Arith    {{{
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
+  signature(e1 = "FLPar", e2 = "FLPar"),
+  function(e1, e2)
+  {
+    return(new('FLPar', callGeneric(e1@.Data, e2@.Data)))
+  }
+)
+setMethod("Arith",
 	signature(e1 = "FLPar", e2 = "FLArray"),
 	function(e1, e2)
   {
