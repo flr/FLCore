@@ -508,3 +508,35 @@ setMethod('[[', signature(x='FLComp', i='character'),
     return(new(getPlural(res[[1]]), res))
   }
 ) # }}}
+
+# '[['  {{{
+setMethod('[[<-', signature(x='FLComp', i='character', value='FLlst'),
+  function(x, i, j, ..., value) {
+
+    args <- list(...)
+
+    # j
+    if(!missing(j))
+      if(is(j, 'character'))
+        i <- c(i, j)
+      else
+        stop(paste('Only character vectors for slot names allowed:', as.character(j)))
+    # args
+    if(length(args) > 0)
+      if(all(unlist(lapply(args, function(x) is(x, 'character')))))
+        i <- c(i, unlist(args))
+      else
+        stop(paste('Only character vectors for slot names allowed:',
+          unlist(args[!unlist(lapply(args, function(x) is(x, 'character')))])))
+    
+    # check names match
+    if(!all.equal(sort(names(value)), sort(i)))
+      stop('Names in list do not match those in selection.')
+
+browser()
+    for (j in 1:length(i))
+      slot(x, i[j]) <- value[[i[j]]]
+
+    return(x)
+  }
+) # }}}
