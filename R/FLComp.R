@@ -533,7 +533,6 @@ setMethod('[[<-', signature(x='FLComp', i='character', value='FLlst'),
     if(!all.equal(sort(names(value)), sort(i)))
       stop('Names in list do not match those in selection.')
 
-browser()
     for (j in 1:length(i))
       slot(x, i[j]) <- value[[i[j]]]
 
