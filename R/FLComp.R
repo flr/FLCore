@@ -509,7 +509,7 @@ setMethod('[[', signature(x='FLComp', i='character'),
   }
 ) # }}}
 
-# '[['  {{{
+# '[[<-'  {{{
 setMethod('[[<-', signature(x='FLComp', i='character', value='FLlst'),
   function(x, i, j, ..., value) {
 
@@ -521,6 +521,7 @@ setMethod('[[<-', signature(x='FLComp', i='character', value='FLlst'),
         i <- c(i, j)
       else
         stop(paste('Only character vectors for slot names allowed:', as.character(j)))
+
     # args
     if(length(args) > 0)
       if(all(unlist(lapply(args, function(x) is(x, 'character')))))
@@ -530,7 +531,7 @@ setMethod('[[<-', signature(x='FLComp', i='character', value='FLlst'),
           unlist(args[!unlist(lapply(args, function(x) is(x, 'character')))])))
     
     # check names match
-    if(!all.equal(sort(names(value)), sort(i)))
+    if(!identical(sort(names(value)), sort(i)))
       stop('Names in list do not match those in selection.')
 
     for (j in 1:length(i))
