@@ -491,7 +491,7 @@ abModel <- function(model)
   res <- switch(modelname,
     'bevholtSV'='bevholt',
     'rickerSV'='ricker',
-    'shepherdSV', 'shepherd')
+    'shepherdSV'= 'shepherd')
   if(is(model, 'formula'))
     return(do.call(res, list())$model)
   return(res)
