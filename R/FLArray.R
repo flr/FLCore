@@ -1,7 +1,7 @@
 # FLArray-class - Base class for FLQuant and FLCohort
 
 # Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, Cefas
+# Maintainer: Iago Mosqueira, JRC
 # $Id$
 
 ## Class {{{

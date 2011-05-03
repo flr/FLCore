@@ -1,7 +1,7 @@
 # genericMethods - «Short one line description»
 # genericMethods
 
-# Copyright 2009 Iago Mosqueira, Cefas. Distributed under the GPL 2 or later
+# Copyright 2009 Iago Mosqueira, JRC. Distributed under the GPL 2 or later
 # $Id:  $
 
 # Reference:

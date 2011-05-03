@@ -1,11 +1,10 @@
 # io.FLStock.R - read and write assessment input files into an FLStock
 
-# Author: FLR Team
-# Additions:
-# Last Change: 29 Nov 2010 17:09
+# Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, JRC
 # $Id$
 
-## readFLStock		{{{
+# readFLStock		{{{
 readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a", 
     type, "file. (", file, "). ", date()), m = 0.2, quant="age", quiet=TRUE,
     no.discards=FALSE, harvest.units, sep="")
@@ -94,7 +93,7 @@ readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a"
     return(res)
 }	# }}}
 
-## readAdaptFile	{{{
+# readAdaptFile	{{{
 readAdaptFile <- function(file., m. = m) {
     skip.hash <- function(i) {
         i <- i + 1
@@ -218,7 +217,7 @@ readCSAFile <- function(file.) {
     return(s.)
 }	# }}}
 
-## readPAFile		{{{
+# readPAFile		{{{
 readPAFile <- function(file.) {
     getmatrix <- function(file., start, nlines, yrs, ages) {
         m. <- t(as.matrix(read.table(file = file., skip = start - 
@@ -257,7 +256,7 @@ readPAFile <- function(file.) {
     return(FLStock.)
 }	# }}}
 
-## readVPAFile		{{{
+# readVPAFile		{{{
 readVPAFile <- function(file, sep = "", units = "NA", quiet = TRUE) {	
     if (!file.exists(file)){
         if(quiet==TRUE) stop()
@@ -308,7 +307,7 @@ readVPAFile <- function(file, sep = "", units = "NA", quiet = TRUE) {
     )
 }	# }}}
 
-## readVPA		{{{
+# readVPA		{{{
 readVPA <- function(file, sep = "", quiet=TRUE) {
     if (!file.exists(file)){
         if(quiet==TRUE) stop()
@@ -365,7 +364,7 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
     return(FLStock.)
 }	# }}}
 
-## writeFLStock	{{{
+# writeFLStock	{{{
 writeFLStock <- function(FLStock, output.file=FLStock@name, type="VPA") {
 	if (!inherits(FLStock, "FLStock"))
 		stop("FLStock must be an 'FLStock' object!")

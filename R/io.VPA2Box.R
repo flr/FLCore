@@ -1,13 +1,9 @@
 # io.VPA2Box - «Short one line description»
 # io.VPA2Box
 
-# Copyright 2010 Iago Mosqueira, Cefas. Distributed under the GPL 2 or later
+# Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, JRC
 # $Id:  $
-
-# Reference:
-# Notes:
-
-# TODO Thu 01 Apr 2010 11:08:00 AM CEST IM:
 
 # readVPA2Box {{{
 readVPA2Box <- function(data, results, m=as.numeric(NA), no.discards=TRUE){
