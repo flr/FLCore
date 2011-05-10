@@ -56,7 +56,7 @@ FLComp
 \item{}{\code{ signature(object=FLModel,k=numeric) }}
 \item{\link[stats]{AIC}(stats) :}{Describe method}
 \item{}{\code{ signature(object=FLModel,k=missing) }}
-\item{\link[stats4]{BIC}(stats4) :}{Describe method}
+\item{\link[stats]{BIC}(stats) :}{Describe method}
 \item{}{\code{ signature(object=missing) }}
 \item{\link{fmle}(FLCore) :}{Describe method}
 \item{}{\code{ signature(object=missing,start=missing) }}

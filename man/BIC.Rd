@@ -18,7 +18,7 @@
 	value of "penalty" is specified, thus k=2.}
 }}
 \author{The FLR Team}
-\seealso{ \link[stats4]{BIC}, \link[stats]{AIC}, \link{FLModel}, \link[stats]{logLik}}
+\seealso{ \link[stats]{BIC}, \link[stats]{AIC}, \link{FLModel}, \link[stats]{logLik}}
 \examples{
 data(nsher)
 BIC(nsher)
