@@ -268,7 +268,7 @@ setMethod("[<-", signature(x="FLComp"),
 
 ## as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLComp", row.names="missing", optional="missing"),
-	function(x, row.names, optional)
+	function(x, row.names, optional, drop=FALSE)
 	{
     qnames <- getSlotNamesClass(x, 'FLArray')
     quant <- quant(slot(x, qnames[1]))
@@ -284,6 +284,12 @@ setMethod("as.data.frame", signature(x="FLComp", row.names="missing", optional="
 
 			df  <- rbind(df, dfq)
 	  }
+    # drop
+    if(drop) {
+      idx <- apply(df, 2, function(x) length(unique(x))) == 1
+      df <- df[, !idx]
+    }
+
 		# add attributes
 		attributes(df)$desc <- x@desc
 		attributes(df)$name <- x@name

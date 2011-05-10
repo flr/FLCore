@@ -9,6 +9,8 @@ NEW FEATURES
     FLQuant slots and the behaviour of non-quant ones is respected.
 	- FS#30 FLCohort(vector) method has been added
 	- FS#19 tsb (Total Stock Biomass) methods added for FLStock & FLBiol
+  - as.data.frame methods now have a drop=FALSE argument to delete columns with a single
+    value stored.
 
 USER-VISIBLE CHANGES
   - nls(FLModel) does not strictly require accessor for the input FLQuant slots to be
