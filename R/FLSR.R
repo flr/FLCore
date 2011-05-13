@@ -318,3 +318,26 @@ setMethod('sv', signature(x='FLSR', model='missing'),
     return(res)
   }
 ) # }}}
+
+# parscale {{{
+setMethod('parscale', signature(object='FLSR'),
+  function(object) {
+    rec <- rec(object)
+    ssb <- ssb(object)
+    res <- switch(SRModelName(model(object)),
+      bevholt     =c(a=mean(rec,na.rm=T),      b=mean(ssb,na.rm=T)),
+      ricker      =c(a=mean(rec/ssb,na.rm=T),  b=mean(ssb,na.rm=T)),
+      segreg      =c(a=mean(rec/ssb,na.rm=T),  b=mean(ssb,na.rm=T)),
+      shepherd    =c(a=mean(rec,na.rm=T),      b=mean(ssb,na.rm=T), c=1),
+      cushing     =c(a=mean(rec/ssb,na.rm=T),  b=1),
+      bevholtSV   =c(s=1,v=mean(ssb,na.rm=T),spr0=mean(ssb/rec,na.rm=T)),
+      rickerSV    =c(s=1,v=mean(ssb,na.rm=T),spr0=mean(ssb/rec,na.rm=T)),
+      segregSV    =c(s=1,v=mean(ssb,na.rm=T),spr0=mean(ssb/rec,na.rm=T)),
+      cushingSV   =c(s=1,v=mean(ssb,na.rm=T),spr0=mean(ssb/rec,na.rm=T)),
+      shepherdSV  =c(s=1,v=mean(ssb,na.rm=T),c=1,spr0=mean(ssb/rec,na.rm=T)))
+    if(is.null(res))
+      stop("SR model not recognized")
+    else
+      return(res)
+  }
+) # }}}

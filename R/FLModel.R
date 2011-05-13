@@ -175,8 +175,7 @@ setMethod('fmle',
   signature(object='FLModel', start='ANY'),
   function(object, start, method='L-BFGS-B', fixed=list(),
     control=list(trace=1), lower=rep(-Inf, dim(params(object))[1]),
-    upper=rep(Inf, dim(params(object))[1]), seq.iter=TRUE, autoParscale=FALSE,
-    tiny_number=1e-6, relAutoParscale=FALSE, ...)
+    upper=rep(Inf, dim(params(object))[1]), seq.iter=TRUE, ...)
   {
     # TODO Check with FL
     args <- list(...)
@@ -346,44 +345,6 @@ setMethod('fmle',
       if(is.null(start))
         stop("No starting values provided and no initial function available")
     
-      # autoParscale
-      if(autoParscale && !'parscale' %in% names(control))
-      {
-        # named vectors for logl plus/minus tiny_number and diff
-        diff_logl <- logl_bump1 <- logl_bump2 <- unlist(start)
-
-        # get logLik for start values
-        logl_start <- do.call(logl, args=c(start, data, fixed)) 
-
-        for(j in names(start))
-        {
-          # bump up & down each param by tiny_number
-          bump_params <- start
-          bump_params[[j]] <- bump_params[[j]] * (1 + tiny_number)
-          logl_bump1[[j]] <- do.call(logl, args=c(data, bump_params, fixed))
-          # bumping to either side of the start point might seem like a good idea
-          # but if you start in exactly the right place (such as when fitting a Ricker)
-          # and the logl is symetrical about
-          # that start point, then logl_bump1 == logl_bump2 and your approximate diff is 0
-          # the reciprocal is then infinite.
-          # So make bump2 the start position
-          bump_params <- start
-          #bump_params[[j]] <- bump_params[[j]] * (1 - tiny_number)
-          bump_params[[j]] <- bump_params[[j]]
-          logl_bump2[[j]] <- do.call(logl, args=c(data, bump_params, fixed))
-        }
-
-#          diff_logl <- 1 / (abs(logl_bump1) + abs(logl_bump2)) / (unlist(start) * 2 * tiny_number)
-          diff_logl <- 1 / abs((logl_bump1 - logl_bump2) / (unlist(start) * tiny_number))
-        
-        # relative
-        # This is bad when there is only parameter as it sets diff_logl to 1
-        if(relAutoParscale)
-          diff_logl <- diff_logl / max(diff_logl)
-
-        control <- c(control, list(parscale=diff_logl))
-      }
-      
       # TODO protect environment
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
         hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
@@ -1001,49 +962,6 @@ setMethod("params<-", signature(object="FLModel", value="FLPar"),
     object@params <- value
     return(object)
 	}
-) # }}}
-
-# parscale  {{{
-setMethod("parscale", signature(object="FLModel"),
-  function(object, start=missing, tiny_number=1e-6, ...) {
-    # get data
-    loglnames <- names(formals(logl(nsher)))
-    data <- loglnames[loglnames %in% slotNames(object)]
-    args <- list()
-    logl <- logl(object)
-
-    for(i in data)
-      args[[i]] <- slot(object, i)
-
-    # get start
-    if(missing(start))
-      start <- as(do.call(initial(object), args), 'list')
-
-    # named vectors for logl plus/minus tiny_number and diff
-    diff_logl <- logl_bump1 <- logl_bump2 <- unlist(start)
-
-    # get logLik for start values
-    logl_start <- do.call(logl, args=c(start, args)) 
-
-    for(j in names(start))
-    {
-      # bump up & down each param by tiny_number
-      bump_params <- start
-      bump_params[[j]] <- bump_params[[j]] * (1 + tiny_number)
-      logl_bump1[[j]] <- do.call(logl, args=c(args, bump_params))
-      #
-      bump_params <- start
-      bump_params[[j]] <- bump_params[[j]] * (1 - tiny_number)
-      logl_bump2[[j]] <- do.call(logl, args=c(args, bump_params))
-    }
-    diff_logl <- 1 / (abs(logl_bump1) + abs(logl_bump2)) / (unlist(start) * 2 * tiny_number)
-        
-    # relative
-    if(relAutoParscale)
-      diff_logl <- diff_logl / max(diff_logl)
-
-    return(diff_logl)
-  }
 ) # }}}
 
 # profile {{{
