@@ -75,6 +75,7 @@ setMethod('FLModel', signature(model='formula'),
     # new object
     res <- new(class)
     slot(res, 'model') <- model
+
     # args
     args <- list(...)
     for (i in names(args))
