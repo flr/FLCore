@@ -18,11 +18,8 @@ importFrom("stats",
   "rpois",
   "sd",
   "window")
-importFrom("graphics",
-	"plot"
-)
-importFrom("stats4",
-  "BIC")
+importFrom("graphics","plot")
+importFrom("stats4",  "BIC")
 importFrom("lattice",
 	"xyplot",
 	"bwplot",
@@ -34,6 +31,7 @@ importFrom("lattice",
 	"histogram"
 )
 export(
+  "plot",
   "abModel",
   "abPars",
   "ac",
@@ -65,8 +63,6 @@ export(
 	"readFLIndices",
 	"read.FLIndices",
 	"readFLStock",
-	"read.FLStock",
-  "readMFCL",
 	"ricker",
 	"rickerAR1",
 	"rickerCa",
@@ -90,6 +86,7 @@ exportClasses(
 	"FLCatch",
 	"FLCatches",
 	"FLComp",
+	"FLComps",
 	"FLFleet",
 	"FLFleets",
 	"FLBiol",
@@ -109,6 +106,7 @@ exportClasses(
 	"FLQuantPoint",
 	"FLQuants",
 	"FLSR",
+	"FLSRs",
 	"FLStock",
 	"FLStocks"
 )
@@ -216,6 +214,7 @@ exportMethods(
 	"FLQuants",
 	"FLQuantPoint",
 	"FLSR",
+	"FLSRs",
 	"FLStock",
 	"FLStocks",
   "gear",
@@ -242,14 +241,8 @@ exportMethods(
 	"iterMeans",
 	"iterVars",
 	"iters",
-	"is.FLBiols",
-	"is.FLCatches",
-	"is.FLFleets",
-	"is.FLIndices",
-	"is.FLMetiers",
-	"is.FLStocks",
-	"is.FLQuants",
   "jacknife",
+  "jackSummary",
 	"landings",
 	"landings<-",
 	"landings.n",
@@ -323,6 +316,7 @@ exportMethods(
   "r",
   "range",
   "range<-",
+  "readMFCL",
 	"rec",
 	"rec<-",
 	"residuals",

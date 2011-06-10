@@ -5,30 +5,8 @@
 # Maintainer: Dorleta García, AZTI
 # $Id$
 
-# Reference:
-# Notes:
-
-# FLSR  {{{
-validFLSR <- function(object)
-{
-	return(TRUE)
-}
-setClass('FLSR',
-  representation(
-	  'FLModel',
-  	rec='FLQuant',
-	  ssb='FLQuant',
-  	covar='FLQuants',
-    logerror='logical'),
-  prototype(residuals=FLQuant(), fitted=FLQuant(), logerror=TRUE),
-	validity=validFLSR)
-remove(validFLSR)
-
-invisible(createFLAccesors("FLSR", include=c('rec', 'ssb', 'covar'))) # }}}
 
 # FLSR()	{{{
-setGeneric('FLSR', function(model, ...)
-		standardGeneric('FLSR'))
 setMethod('FLSR', signature(model='ANY'),
   function(model, ...)
   {

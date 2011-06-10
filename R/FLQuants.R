@@ -3,7 +3,7 @@
 
 # Copyright 2003-2007 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id$
+# $Id: FLQuants-methods.R 933 2011-05-03 12:32:03Z imosqueira $
 
 # Reference:
 # Notes:
@@ -178,7 +178,7 @@ setMethod("mcf", signature(object="list"), function(object){
 
 ## as.data.frame	{{{
 setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="missing"),
-  function(x, row.names=NULL)
+  function(x, row.names, drop=FALSE)
 	{
 		# names
 		if(is.null(names(x)))
@@ -192,7 +192,7 @@ setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="mi
 			flqnames <- names(x)
 
 		# data.frames
-		flqs.lst <- lapply(x, as.data.frame, row.names=row.names)
+		flqs.lst <- lapply(x, as.data.frame, row.names=row.names, drop=drop)
 
   	# test classes of quant
   	flqs.class <- unlist(lapply(flqs.lst, function(x) class(x[,1])))
@@ -208,8 +208,8 @@ setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="mi
 
 setMethod("as.data.frame", signature(x="FLQuants", row.names="missing",
   optional="missing"),
-    function(x, row.names=NULL) {
-      as.data.frame(x, row.names=NULL)
+    function(x, ...) {
+      as.data.frame(x, row.names=NULL, ...)
     }
 )
 

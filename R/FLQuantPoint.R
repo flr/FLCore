@@ -5,30 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 
-## Class    {{{
-validFLQuantPoint <- function(object) {
-    
-    # iter dimensions is of length 5 and with names:
-    if(dim(object)[6] != 5)
-        return("dims of object do not match those of the FLQuantPoint class")
-
-    # dimnames are 'mean', 'median', 'var', 'uppq', 'lowq'
-    if(any(dimnames(object)$iter != c('mean', 'median', 'var', 'uppq', 'lowq')))
-        return("dimnames of object do not match those of the FLQuantPoint class")
-    
-	# Everything is fine
-    return(TRUE)
-}
-setClass("FLQuantPoint",
-    representation("FLQuant"),
-    prototype(FLQuant(iter=5,
-		dimnames=list(iter=c('mean', 'median', 'var', 'uppq', 'lowq')))),
-    validity=validFLQuantPoint
-)
-
-setValidity("FLQuantPoint", validFLQuantPoint)
-remove(validFLQuantPoint)   # }}}
-
 ## FLQuantPoint()	{{{
 setGeneric("FLQuantPoint", function(object, ...)
 		standardGeneric("FLQuantPoint"))

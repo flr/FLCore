@@ -5,58 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 
-## FLCatch               {{{
-validFLCatch <- function(object)
-{	
-	names <- names(getSlots('FLCatch')[getSlots('FLCatch')=="FLQuant"])
-  nits  <- sort(unique(unlist(qapply(object, function(x) dims(x)$iter))))
-  
-  if (length(nits)>2)
-		return(paste("All FLQuant must either have same number of iters or '1 & n'"))
-
-	for(i in names)
-	{
-		# all dimnames but iter are the same
-		if(!identical(unlist(dimnames(object@landings.n)[2:5]),
-			unlist(dimnames(slot(object, i))[2:5])))
-			return(paste('All elements must share dimensions 2 to 5: Error in FLCatch', i))
-	}
-	for (i in names[!names%in%c('landings', 'discards', 'catch.q')])
-	{
-		# quant is n
-		if(!identical(unlist(dimnames(object@landings.n)[1]),
-			unlist(dimnames(slot(object, i))[1])))
-			return(paste('All elements must share quant names: Error in FLCatch', i))
-	}
-	for (i in c('landings', 'discards'))
-	{
-		# quant is 1
-		if(dim(slot(object, i))[1] != 1)
-			return(paste('Wrong dimensions for slot ', i, 'in FLCatch'))
-	}
-	return(TRUE)
-}
-setClass("FLCatch",
-    representation(
-		'FLComp',
-      landings    = "FLQuant", landings.n = "FLQuant",
-		  landings.wt = "FLQuant", landings.sel = "FLQuant",
-      discards    = "FLQuant", discards.n = "FLQuant",
-      discards.wt = "FLQuant", discards.sel= "FLQuant",
-		  catch.q = "FLQuant", price       = "FLQuant"),
-    prototype=prototype(
-		name		= character(0),
-		desc		= character(0),
-	  range       = as.numeric(c(min=NA, max=NA, plusgroup=NA,
-			minyear=NA, maxyear=NA)),
-    landings = new("FLQuant"), landings.n = new("FLQuant"),
-    landings.wt = new("FLQuant"), landings.sel = new("FLQuant"),
-    discards = new("FLQuant"), discards.n  = new("FLQuant"),
-    discards.wt = new("FLQuant"), discards.sel= new("FLQuant"),
-    catch.q     = new("FLQuant"), price = new("FLQuant")),
-	validity=validFLCatch
-)
-remove(validFLCatch) # }}}
 
 # FLCatch()                {{{
 # TODO Fix size of input objects and validity

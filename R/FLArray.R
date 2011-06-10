@@ -4,28 +4,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 
-## Class {{{
-validFLArray  <-  function(object){
-	# Make sure there are at least 6 dimensions in the array
-	Dim  <-  dim(object)
-	if (length(Dim) != 6) 
-		return("the array must have 6 dimensions")
-
-	if (!is.numeric(object) && !is.na(object)) 
-		return("array is not numeric")
-
-	# check "units" slot
-	if(!is.character(object@units))
-		return("units must be a string")
-	# Everything is fine
-	return(TRUE)
-}
-
-setClass("FLArray",	representation("array", units="character"),
-	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1)), units="NA"),
-	validity=validFLArray
-) # }}}
-
 # units {{{
 setMethod("units", signature(x="FLArray"),
 	function(x)
@@ -316,13 +294,13 @@ setMethod("Arith",
 ## as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
   optional="missing"),
-	function(x, row.names=NULL, optional="missing") {
+	function(x) {
     as(x, 'data.frame')
   }
 )
 setMethod("as.data.frame", signature(x="FLArray", row.names="ANY",
   optional="missing"),
-	function(x, row.names=NULL, optional="missing") {
+	function(x, row.names=NULL) {
     df <- as(x, 'data.frame')
     row.names(df) <- row.names
     return(df)

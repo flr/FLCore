@@ -29,7 +29,7 @@ setGeneric("median", useAsDefault = median)
 setGeneric("model.frame", useAsDefault = model.frame)
 setGeneric("names")
 setGeneric("nls", useAsDefault = nls)
-setGeneric("plot", useAsDefault = plot)
+setGeneric("plot")
 setGeneric("predict", useAsDefault = predict)
 setGeneric("print", useAsDefault = print)
 setGeneric("profile", useAsDefault = profile)
@@ -633,3 +633,47 @@ setGeneric("FLlst", function(object, ...)
 # FLStocks
 setGeneric("FLStocks", function(object, ...)
 	standardGeneric("FLStocks"))
+
+# FLIndices
+setGeneric("FLIndices", function(object, ...)
+	standardGeneric("FLIndices"))
+
+# FLBiols
+setGeneric("FLBiols", function(object, ...)
+	standardGeneric("FLBiols"))
+
+# FLCatches
+setGeneric("FLCatches", function(object, ...)
+	standardGeneric("FLCatches"))
+
+# FLMetiers
+setGeneric("FLMetiers", function(object, ...)
+	standardGeneric("FLMetiers"))
+
+# FLFleets
+setGeneric("FLFleets", function(object, ...)
+	standardGeneric("FLFleets"))
+
+# readMFCL
+setGeneric("readMFCL", function(file, ...)
+  standardGeneric("readMFCL"))
+
+# FLSRs
+setGeneric("FLSRs", function(object, ...)
+  standardGeneric("FLSRs"))
+
+# FLSR
+setGeneric("FLSR", function(model, ...)
+		standardGeneric("FLSR"))
+
+# FLQuant
+	setGeneric("FLQuant", function(object, ...)
+		standardGeneric("FLQuant"))
+
+# jackknife
+setGeneric("jacknife", function(object, ...)
+	standardGeneric("jacknife"))
+
+# jackSummary
+setGeneric("jackSummary", function(object, ...)
+	standardGeneric("jackSummary"))

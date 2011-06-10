@@ -8,24 +8,6 @@
 # Reference:
 # Notes:
 
-# Class {{{
-validFLCohort <-  function(object) {
-  # names
-  if(!all.equal(names(dimnames(object)), 
-      c("age", "cohort", "unit", "season", "area", "iter")))
-    return("names of FLCohort object are not correct")
-
-	# Everything is fine
-  return(TRUE)
-}
-
-setClass("FLCohort",
-	representation("FLArray"),
-	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
-		dimnames=list(age="1", cohort="1", unit="unique", season="all", area="unique",
-		iter="none")), units="NA"),
-  validity=validFLCohort
-) # }}}
 
 # FLCohort(FLQuant)  {{{
 setMethod("FLCohort", signature("FLQuant"),

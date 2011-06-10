@@ -5,41 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 
-## Class
-## FLQuant     {{{
-validFLQuant  <-  function(object){
-	# Make sure there are at least 6 dimensions in the array named
-	# *, "year", "unit", "season", "area" and "iter"
-	DimNames  <-  names(object)
-  if (length(DimNames) != 6)
-    return("the array must have 6 dimensions")
-  if (!all(DimNames[2:6] == c("year", "unit", "season", "area", "iter")))
-    return("dimension names of the array are incorrect")
-	if (!is.numeric(object) && !is.na(object))
-		return("array is not numeric")
-
-	# check "units" slot
-	if(!is.character(object@units))
-		return("units must be a string")
-
-	# Everything is fine
-	return(TRUE)
-}
-
-setClass("FLQuant",
-	representation("FLArray"),
-	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
-		dimnames=list(quant="all", year="1", unit="unique", season="all",
-		area="unique", iter="1")), units="NA"),
-	validity=validFLQuant
-)
-
-remove(validFLQuant)    # }}}
-
-## Methods
-## FLQuant      {{{
-	setGeneric("FLQuant", function(object, ...)
-		standardGeneric("FLQuant"))# }}}
 
 # FLQuant(missing)		{{{
 # FLQuant  <- FLQuant()
@@ -1059,20 +1024,66 @@ setMethod('sweep', signature(x='FLQuant'),
 ) # }}}
 
 # jacknife  {{{
-setGeneric("jacknife", function(object, ...)
-	standardGeneric("jacknife"))
 setMethod('jacknife', signature(object='FLQuant'),
-  function(object)
-  {
+  function(object) {
     # get dimensions
     dmo <- dim(object)
 
     # propagate
-    res <- propagate(object, prod(dmo))
+    res <- propagate(object, prod(dmo) + 1)
   
     # create array with 1 at each location by iter
-    idx <- array(c(TRUE,rep(NA, prod(dmo[-6]))), dim=dim(res))
-    res[idx] <- NA
+    idx <- array(c(TRUE, rep(NA, prod(dmo[-6]))), dim=c(dmo[-6], prod(dmo)))
+    res[,,,,,-1][idx] <- NA
+
+    return(res)
+  }
+) # }}}
+
+# jackSummary {{{
+setMethod("jackSummary", signature(object="FLQuant"),
+  function(object, ...) {
+   
+   n <- dims(object)$iter - 1
+   
+   mn <- iter(object,  1)
+   u <- iter(object, -1)
+   mnU <- apply(u, 1:5, mean)   
+
+   SS <- apply(sweep(u, 1:5, mnU,"-")^2, 1:5, sum)
+
+   bias <- (n - 1) * (mnU - mn)
+   se <- sqrt(((n-1)/n)*SS)
+
+   return(list(jack.mean=mn, jack.se=se, jack.bias=bias))
+  }
+) # }}}
+
+# as.data.frame(FLQuant) {{{
+setMethod("as.data.frame", signature(x="FLQuant", row.names="missing",
+  optional="missing"),
+	function(x, cohort=FALSE, drop=FALSE) {
+    as.data.frame(x, row.names=NULL, cohort=cohort, drop=drop)
+  }
+)
+setMethod("as.data.frame", signature(x="FLQuant", row.names="ANY",
+  optional="missing"),
+	function(x, row.names, cohort=FALSE, drop=FALSE) {
+
+    res <- callNextMethod(x)
+    
+    # create cohort column as year - age
+    if(cohort) {
+      res$cohort  <-  as.numeric(NA)
+      if(quant(x) == "age")
+        try(res$cohort <- res$year - res$age)
+    }
+
+    # drops columns with a single value, i.e. dims of length=1
+    if(drop) {
+      idx <- names(x)[dim(x) > 1]
+      res <- res[, c(idx, 'data')]
+    }
 
     return(res)
   }

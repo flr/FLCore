@@ -6,52 +6,6 @@
 # $Id$
 
 
-## FLMetier		{{{
-validFLMetier <- function(object) {
-	# FLQuant slots share dims 1:5 ...
-  dnames <- qapply(object, function(x) dimnames(x)[3:5])
-	for(i in names(dnames))
-		if(!identical(dnames[[i]], dnames[[1]]))
-			return('All FLQuant slots must have the same dimensions')
-
-  # ... and are consistent with catches
-  catdnames <- lapply(object@catches, function(x)
-    qapply(object, function(x) dimnames(x)[3:5]))
-  for(i in seq(length=length(catdnames)))
-    for(j in names(catdnames[[1]]))
-	    if(!identical(catdnames[[i]][[j]], dnames[[1]]))
-			  return('All FLQuant slots must have the same dimensions')
-  
-  # Year range of FLMetier covers all catches
-  catyears <- matrix(unlist(lapply(object@catches, function(x) 
-    unlist(dims(x)[c('minyear', 'maxyear')]))), byrow=TRUE, ncol=2)
-  if(any(dims(object)$minyear < catyears [,1]) |
-    any(dims(object)$maxyear > catyears [,2]))
-    return('Year range of metier should encompass those of catch(es)')
-
-  # iter is consistent between metier and catches
-  if(any(dims(object)$iter != unlist(lapply(object@catches, function(x) dims(x)$iter))))
-    return('iter must be 1 or N across all slots and levels')
-
-	return(TRUE)
-}
-
-setClass('FLMetier',
-	representation('FLComp',
-		gear='character',
-		effshare='FLQuant',
-		vcost='FLQuant',
-		catches='FLCatches'),
-	prototype(name=character(0), desc=character(0),
-		range= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1)),
-		gear=character(0), catches=new('FLCatches'), effshare=FLQuant(1), vcost=FLQuant(NA)),
-	validity=validFLMetier)
-
-remove(validFLMetier)
-# Accesors
-createFLAccesors('FLMetier', exclude=c('range', 'catches', 'name', 'desc'))
-# }}}
-
 ## FLMetier()	{{{
 # FLMetier(FLCatch)
 setMethod('FLMetier', signature(catches='FLCatch'),

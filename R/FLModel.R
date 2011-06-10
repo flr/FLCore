@@ -5,45 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 
-# FLModel  {{{
-validFLModel <- function(object)
-{
-  # All FLArray slots are of the same exact class
-  flarr <- getSlotNamesClass(object, 'FLArray')
-  class <- class(slot(object, flarr[1]))
-  for(i in flarr[-1])
-    if(class(slot(object, i)) != class)
-      return(paste('FLQuant/FLCohort slots in object should all be of the same class: ',
-        i))
-  
-  # initial returns an FLPar
-  init <- do.call(initial(object), lapply(formals(initial(object)), function(x) x<-0.1))
-  if(!is.null(init) & !is(init, 'FLPar'))
-    return("initial function must return an 'FLPar'")
-
-  return(TRUE)
-}
-setClass('FLModel',
-  representation('FLComp',
-    model='formula',
-    logl='function',
-    gr='function',
-    initial='function',
-    params='FLPar',
-    logLik='logLik',
-    vcov='array',
-    hessian='array',
-    details='list',
-    residuals='FLArray',
-    fitted='FLArray'),
-  prototype(name=character(0),
-    desc=character(0),
-    range=unlist(list(min=NA, max=NA, minyear=1, maxyear=1)),
-    model=formula(NULL),
-    fitted=FLQuant(),
-    residuals=FLQuant())
-)
-invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params')))  # }}}
 
 # FLModel()  {{{
 setMethod('FLModel', signature(model='missing'),

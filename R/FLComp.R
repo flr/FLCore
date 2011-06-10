@@ -5,40 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 
-# FLComp   {{{
-validFLComp <- function(object){
-  dims <- unlist(qapply(object, function(x) dims(x)$iter))
-  dimnms <- qapply(object, function(x) dimnames(x)$iter)
-  quants <- unlist(qapply(object, quant))
-	
-	# FLQuant slots must have either 1 or n iter
-  test <- dims != max(dims) & dims != 1
-	if (any(test))
-		stop(paste("All slots must have iters equal to 1 or 'n': error in",
-			paste(names[test], collapse=', ')))
-	
-  # and dimname for iter[1] should be '1'
-	test <- unlist(dimnms[dims == 1])
-	if(!all(test==test))
-		stop(paste("Incorrect names on the iter dimension in ",
-			paste(names[test], collapse=', ')))
-
-  return(TRUE)
-  
-  # all 'quant' should be equal
-  if(any(quants != quants[1]))
-    stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
-
-	return(TRUE)
-}
-
-setClass("FLComp", representation(name="character", desc="character",
-	range="numeric", "VIRTUAL"), prototype(name=character(0), desc=character(0),
-  range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))), 
-  validity=validFLComp)
-
-invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
-#  }}}
 
 ## summary		{{{
 setMethod("summary", signature(object="FLComp"),

@@ -5,61 +5,6 @@
 # Maintainer:
 # $Id$
 
-## FLFleet		{{{
-validFLFleet <- function(object) {
-
-	# FLQuant slots share dims 3:5 ...
-  dnames <- qapply(object, function(x) dimnames(x)[3:5])
-	for(i in names(dnames))
-		if(!identical(dnames[[i]], dnames[[1]]))
-			return('All FLQuant slots must have the same dimensions')
-
-  # ... and are consistent with metiers
-  metdnames <- lapply(object@metiers, function(x)
-    qapply(object, function(x) dimnames(x)[3:5]))
-  for(i in seq(length=length(metdnames)))
-    for(j in names(metdnames[[1]]))
-	    if(!identical(metdnames[[i]][[j]], dnames[[1]]))
-			  return('All FLQuant slots must have the same dimensions')
-  
-  # Year range of FLFleet covers all metiers
-  metyears <- matrix(unlist(lapply(object@metiers, function(x) 
-    unlist(dims(x)[c('minyear', 'maxyear')]))), byrow=TRUE, ncol=2)
-
-  if(any(dims(object)$minyear < metyears [,1]) |
-    any(dims(object)$maxyear > metyears [,2]))
-    return('Year range of fleet should encompass those of metier(s)')
-
-  # iter is consistent between fleet and metiers
-  if(any(dims(object)$iter != unlist(lapply(object@metiers, function(x) dims(x)$iter))))
-    return('iter must be 1 or N across all slots and levels')
-
-  # effshares must add up to one
-  #effshs <- lapply(object@metiers, effshare)
-  #if(length(effshs) > 1)
-  #  for(i in 2:length(effshs))
-  #    effshs[[1]] <- effshs[[1]] + effshs[[i]]
-  #if(!isTRUE(all.equal(as.vector(effshs[[1]]), rep(1,prod(dim(effshs[[1]]))))))
-  #  return('sum of effshare must add up to 1')
-
-	return(TRUE)
-}
-
-setClass('FLFleet',
-	representation('FLComp',
-		effort='FLQuant',
-		fcost='FLQuant',
-		capacity='FLQuant',
-		crewshare ="FLQuant",
-		metiers='FLMetiers'),
-	prototype(name=character(0), desc=character(0),
-		range= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1)),
-		effort=FLQuant(), fcost=FLQuant(), capacity=FLQuant(),
-		crewshare=FLQuant(), metiers=FLMetiers()),
-	validity=validFLFleet)
-remove(validFLFleet)
-
-invisible(createFLAccesors("FLFleet", exclude=c('range', 'effort', 'name', 'desc')))	# }}}
 
 # FLFleet()		{{{
 setMethod('FLFleet', signature(object='FLMetiers'),

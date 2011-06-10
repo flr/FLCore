@@ -5,26 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 
-# Reference:
-# Notes:
-
-# Validity  {{{
-validFLPar <- function(object) {
-
-	# Last dimension is called 'iter' ...
-  if(names(dimnames(object))[length(dim(object))] != "iter")
-    return("last dimension must be named 'iter'")
-  # ... and the first 'params'
-
-	return(TRUE)
-}   # }}}
-
-# FLPar {{{
-setClass('FLPar', representation('array', units='character'),
-	prototype=prototype(array(as.numeric(NA), dim=c(1,1),
-	dimnames=list(param="", iter=1)), units='NA'), validity=validFLPar)
-remove(validFLPar)
-# }}}
 
 # Constructors  {{{
 if (!isGeneric("FLPar"))
@@ -433,7 +413,7 @@ setMethod("dims", signature(obj="FLPar"),
 	function(obj, ...) {
     dimnames(obj)
     names(obj)
-		iter <- as.numeric(dimnames(obj)$iter)
+		iter <- length(dimnames(obj)$iter)
     params <- dimnames(obj)$params
 		return(list(iter=iter, params=params))
 	}
@@ -595,5 +575,35 @@ setMethod('sweep', signature(x='FLPar'),
   {
     res <- callNextMethod()
     do.call(class(x), list(res, units=units(x)))
+  }
+) # }}}
+
+# apply {{{
+setMethod('apply', signature(X='FLPar'),
+  function(X, MARGIN, FUN, ...)
+  {
+    res <- callNextMethod()
+    do.call(class(X), list(res, units=units(X)))
+  }
+) # }}}
+
+# jackSummary {{{
+setMethod("jackSummary", signature(object="FLPar"),
+  function(object, ...) {
+
+   nms <-names(dimnames(object))
+   idx <-seq(length(nms))[nms != 'iter']
+   n <-dims(object)$iter - 1
+   
+   mn <-iter(object,  1)
+   u <-iter(object, -1)
+   mnU <-apply(u, idx, mean)   
+
+   SS <-apply(sweep(u, idx, mnU,"-")^2, idx, sum)
+
+   bias <- (n - 1) * (mnU - mn)
+   se <- sqrt(((n-1)/n)*SS)
+
+   return(list(jack.mean=mn, jack.se=se, jack.bias=bias))
   }
 ) # }}}
