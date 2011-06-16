@@ -352,7 +352,7 @@ invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params
 
 ## FLCatch               {{{
 validFLCatch <- function(object)
-{	
+{
 	names <- names(getSlots('FLCatch')[getSlots('FLCatch')=="FLQuant"])
   nits  <- sort(unique(unlist(qapply(object, function(x) dims(x)$iter))))
   

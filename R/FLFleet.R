@@ -47,12 +47,7 @@ setMethod('FLFleet', signature(object='FLCatch'),
 setMethod('FLFleet', signature(object='FLFleet'),
 	function(object, metier, catch, ...)
 	{
-    res <- object
-    if(!missing(metier))
-      res@metiers <- res@metiers[metier]
-    if(!missing(catch))
-
-		FLFleet(, ...)
+    stop("TODO")
 	}
 )
 setMethod('FLFleet', signature(object='missing'),
@@ -158,30 +153,28 @@ setMethod('revenue', signature('FLCatches'),
 		return(lapply(object, revenue))
 )
 setMethod('revenue', signature('FLMetier'),
-  function(object, ...)
-    return(revenue(object@catches, ...))
+  function(object, ...) {
+    res <- mcf(revenue(object@catches, ...))
+    if(length(res) > 1)
+      for (i in seq(length(res))[-1])
+        res[[1]]  <- res[[1]] + res[[i]]
+    return(res[[1]])
+  }
 )
 setMethod('revenue', signature('FLMetiers'),
-  function(object, metier, catch, ...)
+  function(object)
   {
-  if(missing(catch) && missing(metier))
-    return(TRUE)
-  else if(missing(catch))
-    revenue(metier(object, metier))
-  else if(missing(metier))
-    Sums(lapply(object@metiers, revenue))
-  else
-    return(TRUE)
+		return(lapply(object, revenue))
   }
 )
 setMethod('revenue', signature('FLFleet'),
   function(object, ...)
   {
-    lst <- lapply(object@metiers, revenue)
-    lst <- new('FLQuants', lst)
-    if(length(lst) > 1)
-      for (i in 2:length(lst))
-        lst[[1]] <- lst[[1]] + lst[[i]]
+    res <- mcf(revenue(object@metiers, ...))
+    if(length(res) > 1)
+      for (i in seq(length(res))[-1])
+        res[[1]]  <- res[[1]] + res[[i]]
+    return(res[[1]])
   }
 ) # }}}
 

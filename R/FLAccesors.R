@@ -60,39 +60,68 @@ createFleetAccesors <- function(slot, fun, level=c(1:5), assigment=TRUE, class='
   if(assigment == TRUE)
   {
 	# FLCatch
-  if(1 %in% level)
+  if(1 %in% level) {
 	eval(substitute(setReplaceMethod(SLOT, signature(object='FLCatch', value=class),
 		function(object, value) {
 			slot(object, SLOT) <- value
 			return(object)}), list(SLOT=slot)))
+  eval(substitute(setReplaceMethod(SLOT, signature(object='FLCatch', value='numeric'),
+		function(object, value) {
+			slot(object, SLOT)[] <- value
+			return(object)}), list(SLOT=slot)))
+  }
 	# FLCatches
-  if(2 %in% level)
+  if(2 %in% level) {
 	eval(substitute(setReplaceMethod(SLOT, signature(object='FLCatches', value=class),
 		function(object, catch, value) {
 			slot(object[[catch]], SLOT) <- value
 			return(object)
 		}),list(SLOT=slot)))
+	eval(substitute(setReplaceMethod(SLOT, signature(object='FLCatches', value='numeric'),
+		function(object, catch, value) {
+			slot(object[[catch]], SLOT)[] <- value
+			return(object)
+		}),list(SLOT=slot)))
+  }
 	# FLMetier
-  if(3 %in% level)
+  if(3 %in% level) {
 	eval(substitute(setReplaceMethod(SLOT, signature(object='FLMetier', value=class),
 		function(object, catch, value) {
 			slot(object@catches[[catch]], SLOT) <- value
 			return(object)
 		}),list(SLOT=slot)))
+	eval(substitute(setReplaceMethod(SLOT, signature(object='FLMetier', value='numeric'),
+		function(object, catch, value) {
+			slot(object@catches[[catch]], SLOT)[] <- value
+			return(object)
+		}),list(SLOT=slot)))
+  }
 	# FLMetiers
-  if(4 %in% level)
+  if(4 %in% level) {
 	eval(substitute(setReplaceMethod(SLOT, signature(object='FLMetiers', value=class),
 		function(object, metier, catch, value) {
 			slot(object[[metier]]@catches[[catch]], SLOT) <- value
 			return(object)
 		}), list(SLOT=slot)))
+	eval(substitute(setReplaceMethod(SLOT, signature(object='FLMetiers', value='numeric'),
+		function(object, metier, catch, value) {
+			slot(object[[metier]]@catches[[catch]], SLOT)[] <- value
+			return(object)
+		}), list(SLOT=slot)))
+  }
 	# FLFleet
-  if(5 %in% level)
+  if(5 %in% level) {
 	eval(substitute(setReplaceMethod(SLOT, signature(object='FLFleet', value=class),
 		function(object, metier, catch, value) {
 			slot(object@metiers[[metier]]@catches[[catch]], SLOT) <- value
 			return(object)
 		}), list(SLOT=slot)))
+  eval(substitute(setReplaceMethod(SLOT, signature(object='FLFleet', value='numeric'),
+		function(object, metier, catch, value) {
+			slot(object@metiers[[metier]]@catches[[catch]], SLOT)[] <- value
+			return(object)
+		}), list(SLOT=slot)))
+  }
   }
 
 	# accesor functions
