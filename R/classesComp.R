@@ -1,5 +1,5 @@
-# .R - 
-# /R/.R
+# classesComp.R - 
+# FLCore/R/classesComp.R
 
 # Copyright 2003-2007 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC

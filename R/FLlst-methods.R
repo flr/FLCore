@@ -261,13 +261,16 @@ setMethod('summary', signature(object='FLlst'),
     for(i in seq(1, length(object)))
     {
 		  qnames <- getSlotNamesClass(object[[i]], 'FLArray')
+      qdims <- dims(object[[i]])
+
       cat("Name:", name(object[[i]]), "\n")
   		cat("\tDescription:", desc(object[[i]]), "\n")
 	  	cat("\tRange:\t", paste(sub('plusgroup', 'pgroup', names(range(object[[i]]))),
         collapse="\t"), "\n")
   		cat("\t", range(object[[i]]), "\n", sep="\t")
-	  	cat("\tQuant:", quant(slot(object[[i]], qnames[1])), "\n")
-	  	cat("\tdim:", dim(slot(object[[i]], qnames[1])), "\n")
+	  	cat("\tQuant:", qdims$quant, "\n")
+	  	cat("\tdim:", unlist(qdims[c(qdims$quant, 'year', 'unit', 'season', 'area')]
+          , use.names=FALSE), "\n")
    }
   }
 ) # }}}
