@@ -475,14 +475,31 @@ setMethod("[", signature(x="FLFleet", i="ANY", j="ANY"),
 	}
 )
 
-setMethod("[[", signature(x="FLFleet", i="ANY", j="missing"),
+setMethod("[", signature(x="FLFleet", i="missing", j="ANY"),
+  function(x, i, j, drop=FALSE)
+  {
+    if(length(x@metiers) > 1)
+      stop("No metier selected, but more than one in FLFleet object")
+    else
+      x@metiers <- lapply(x@metiers, '[', j)
+    return(x)
+	}
+)
+
+setMethod("[[", signature(x="FLFleet", i="character", j="missing"),
   function(x, i, drop=FALSE)
   {
-	  if (missing(i))
-      stop("invalid subscript type")
     return(x@metiers[[i]])
 	}
-) # }}}
+) 
+
+setMethod("[[", signature(x="FLFleet", i="numeric", j="missing"),
+  function(x, i, drop=FALSE)
+  {
+    return(x@metiers[[i]])
+	}
+) 
+# }}}
 
 # as.data.frame {{{
 setMethod('as.data.frame', signature(x='FLFleet', row.names='missing',

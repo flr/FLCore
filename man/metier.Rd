@@ -23,13 +23,13 @@
 \seealso{\link{FLMetier}, \link{FLFleet}, \link{FLCatch}, \link{Extract-FLCore}}
 \examples{
 data(bt4)
-names(bt4@metiers)
+names(metiers(bt4))
 
 # calling the FLMetier with the metier method
 met <- metier(bt4,metier='TBB')
 met <- metier(bt4,'TBB')
 
-# calling the lower levels with the '[' and the '[[' levels
+# calling the lower levels with the '[' and the '[[' operators
 fl1  <- bt4['TBB']      # returns a fleet with only the 'TBB' metier
 met1 <- bt4[['TBB']]    # returns the metier
 

@@ -307,6 +307,7 @@ setMethod("dims", signature(obj="FLComp"),
     dims <- matrix(unlist(dimsl), ncol=6, byrow=TRUE)
     
     # Hack for FLBRP
+    # TODO Fix for FLstock
     dnames <- dnames[!names(dnames) %in% 'fbar']
     quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
       function(x) x[1] == max(dims[,1])))][[1]]
@@ -314,9 +315,10 @@ setMethod("dims", signature(obj="FLComp"),
     res <- list(
       quant = quant(slot(obj, qnames[1])),
       quants = max(dims[,1]),
-      min = ifelse(is.numeric(quants[1]), quants[1], as.numeric(NA)),
-      max = ifelse(is.numeric(quants[max(dims[,1])]), quants[max(dims[,1])],
-        as.numeric(NA)),
+      min = ifelse(!is.na(suppressWarnings(as.numeric(quants[1]))),
+        as.numeric(quants[1]), as.numeric(NA)),
+      max = ifelse(!is.na(suppressWarnings(as.numeric(quants[max(dims[,1])]))),
+        as.numeric(quants[max(dims[,1])]), as.numeric(NA)),
       year = max(dims[,2]),
       minyear = as.numeric(dnames[[1]]$year[1]),
       maxyear = as.numeric(dnames[[1]]$year[max(dims[,2])]),
