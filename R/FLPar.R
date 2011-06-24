@@ -285,8 +285,14 @@ setMethod("units<-", signature(x="FLPar", value="character"),
 
 # as.data.frame     {{{
 setMethod("as.data.frame", signature(x="FLPar"),
-	function(x, row.names='col', optional=FALSE)
-	  return(as(x, 'data.frame'))
+	function(x, row.names='col', optional=FALSE, drop=FALSE) {
+	  res <- as(x, 'data.frame')
+    if(drop) {
+      idx <- names(x)[dim(x) > 1]
+      res <- res[, c(idx, 'data')]
+    }
+    return(res)
+  }
 )   # }}}
 
 # mean, median, var, quantile   {{{

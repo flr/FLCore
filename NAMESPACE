@@ -21,14 +21,20 @@ importFrom("stats",
   "window")
 importFrom("graphics","plot")
 importFrom("lattice",
-	"xyplot",
+	"barchart",
 	"bwplot",
 	"densityplot",
 	"dotplot",
-	"barchart",
+	"histogram",
+  "llines",
+  "lpoints",
 	"splom",
 	"stripplot",
-	"histogram"
+  "trellis.device",
+  "trellis.focus",
+  "trellis.par.set",
+  "trellis.unfocus",
+	"xyplot"
 )
 export(
   "plot",
@@ -56,6 +62,7 @@ export(
   "getPlural",
   "getSlotNamesClass",
   "loglAR1",
+  "readADMB",
 	"readVPA2Box",
 	"readVPAFile",
 	"readFLIndex",
@@ -79,6 +86,7 @@ export(
   "svModel",
   "svPars",
 	"tagTest",
+  "writeADMB",
 	"writeFLStock"
 )
 exportClasses(

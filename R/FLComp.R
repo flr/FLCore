@@ -412,7 +412,7 @@ setMethod('model.frame', signature(formula='FLComp'),
     for(i in names)
       lst[[i]] <- slot(formula, i)
     names(lst) <- names
-    return(model.frame(lst))
+    return(model.frame(lst, ...))
   }
 )
 # }}}

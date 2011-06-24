@@ -142,7 +142,7 @@ setMethod("unlock", "FLlst", function(object){object@lock <- FALSE; object})  # 
 
 ## model.frame	{{{
 setMethod('model.frame', signature(formula='FLlst'),
-	function(formula, ...)
+	function(formula, drop=FALSE, ...)
 	{
 		# initial FLQuant
 		res <- as.data.frame(formula[[1]])
@@ -153,6 +153,13 @@ setMethod('model.frame', signature(formula='FLlst'),
 
 		# get names right
 		names(res)[(ncol(res)-length(formula)+1):ncol(res)] <- unlist(names(formula))
+
+    # drop
+    if(drop) {
+      idx <- apply(matrix(unlist(lapply(formula, dim)), nrow=6), 1, max) == 1
+      idx <- c(idx, rep(FALSE, length(formula)))
+      res <- res[, !idx]
+    }
 
 		return(res)
 	}
