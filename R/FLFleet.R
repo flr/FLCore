@@ -157,7 +157,7 @@ setMethod('revenue', signature('FLMetier'),
     res <- mcf(revenue(object@catches, ...))
     if(length(res) > 1)
       for (i in seq(length(res))[-1])
-        res[[1]] <- addFLCatch(res[[1]], res[[i]])
+        res[[1]] <- res[[1]] + res[[i]]
     return(res[[1]])
   }
 )
@@ -173,7 +173,7 @@ setMethod('revenue', signature('FLFleet'),
     res <- mcf(revenue(object@metiers, ...))
     if(length(res) > 1)
       for (i in seq(length(res))[-1])
-        res[[1]] <- addFLCatch(res[[1]], res[[i]])
+        res[[1]] <- res[[1]] + res[[i]]
     return(res[[1]])
   }
 ) # }}}
@@ -226,7 +226,7 @@ setMethod('catches', signature(object='FLMetiers'),
     if(length(res) > 1 && sum==TRUE)
     {
       res <- mcf(res)
-      res[[1]] <- addFLCatch(res[[1]], res[[2]])
+      res[[1]] <- res[[1]] + res[[2]]
       if(length(res) > 2)
         for(i in seq(3, length(res)))
         {
