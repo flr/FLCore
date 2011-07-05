@@ -593,7 +593,7 @@ setGeneric("qmin", function(x, ...)
   standardGeneric("qmin"))
 
 # sp
-setGeneric('sp', function(stock, catch, ...)
+setGeneric('sp', function(stock, catch, harvest, ...)
 		standardGeneric('sp'))
 
 # propagate

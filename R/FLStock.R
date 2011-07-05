@@ -935,7 +935,7 @@ setMethod("survprob", signature(object="FLStock"),
 ) # }}}
 
 # sp {{{
-setMethod('sp', signature(stock='FLQuant', catch='FLQuant'),
+setMethod('sp', signature(stock='FLQuant', catch='FLQuant', harvest='missing'),
   function(stock, catch, rel=TRUE)
   {
     dmns <- dimnames(stock)$year
@@ -953,7 +953,7 @@ setMethod('sp', signature(stock='FLQuant', catch='FLQuant'),
   }
 )
 
-setMethod('sp', signature(stock='FLStock', catch='missing'),
+setMethod('sp', signature(stock='FLStock', catch='missing', harvest='missing'),
 	function(stock, rel=TRUE)
   {
     return(sp(stock(stock), catch(stock), rel=rel))
