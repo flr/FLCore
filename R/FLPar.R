@@ -524,7 +524,7 @@ setMethod('ab', signature(x='FLPar', model='character'),
   {
     # input params and default values
     param <- as(x, 'list')
-    args <- list(s=NULL, v=NULL, spr0=NULL, c=NULL, d=NULL)
+    args <- list(s=NULL, v=NULL, spr0=spr0, c=NULL, d=NULL)
     args[names(param)] <- param
     args['model'] <- model
 
