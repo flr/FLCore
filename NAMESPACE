@@ -120,6 +120,10 @@ exportClasses(
 )
 exportMethods(
   "+",
+  "%*%",
+  "%+%",
+  "%/%",
+  "%-%",
   "[",
 	"[<-",
   "ab",
@@ -154,6 +158,7 @@ exportMethods(
 	"catches",
 	"catches<-",
 	"catchNames",
+  "catchSel",
 	"ccplot",
 	"coerce",
 	"computeDiscards",

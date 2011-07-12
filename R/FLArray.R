@@ -217,6 +217,7 @@ setMethod('trim', signature(x='FLArray'),
 # expand {{{
 setMethod('expand', signature(x='FLArray'),
   function(x, ...) {
+
     args <- list(...)
     nargs <- names(args)
     
@@ -238,6 +239,11 @@ setMethod('expand', signature(x='FLArray'),
     
     # match specified dimensions and dimnames
     dimnames <- dimnames(x)
+    
+    # check new dimnames contain old ones
+    for(i in names(select))
+      if(!dimnames[[i]] %in% select[[i]])
+        stop("New dimnames do not contain existing ones")
     dimnames[names(select)] <- select
 
     # output object

@@ -519,13 +519,6 @@ setMethod("plot", signature(x="FLQuant", y="missing"),
 
 ## lattice plots	{{{
 # xyplot
-
-if (!isGeneric("xyplot")) {
-	setGeneric("xyplot", useAsDefault = xyplot)
-}
-
-# strip=strip.default(strip.names=c(T,T))
-# Error in inherits(unit, "unit") : argument "which.given" is missing, with no default
 setMethod("xyplot", signature("formula", "FLQuant"),
 	function(x, data, ...){
 	lst <- substitute(list(...))
@@ -536,10 +529,6 @@ setMethod("xyplot", signature("formula", "FLQuant"),
 })
 
 # bwplot
-if (!isGeneric("bwplot")) {
-	setGeneric("bwplot", useAsDefault = bwplot)
-}
-
 setMethod("bwplot", signature("formula", "FLQuant"),
 
 	function(x, data, ...){
@@ -553,9 +542,6 @@ setMethod("bwplot", signature("formula", "FLQuant"),
 })
 
 # dotplot
-if (!isGeneric("dotplot"))
-	setGeneric("dotplot", useAsDefault = dotplot)
-
 setMethod("dotplot", signature("formula", "FLQuant"), function(x, data, ...){
 
 	lst <- substitute(list(...))
@@ -568,9 +554,6 @@ setMethod("dotplot", signature("formula", "FLQuant"), function(x, data, ...){
 })
 
 # barchart
-if (!isGeneric("barchart"))
-	setGeneric("barchart", useAsDefault = barchart)
-
 setMethod("barchart", signature("formula", "FLQuant"), function(x, data, ...){
 
 	lst <- substitute(list(...))
@@ -582,9 +565,6 @@ setMethod("barchart", signature("formula", "FLQuant"), function(x, data, ...){
 })
 
 # stripplot
-if (!isGeneric("stripplot"))
-	setGeneric("stripplot", useAsDefault = stripplot)
-
 setMethod("stripplot", signature("formula", "FLQuant"), function(x, data, ...){
 
 	lst <- substitute(list(...))
@@ -597,11 +577,6 @@ setMethod("stripplot", signature("formula", "FLQuant"), function(x, data, ...){
 })
 
 # histogram
-if (!isGeneric("histogram")) {
-	setGeneric("histogram", useAsDefault = histogram)
-}
-
-
 setMethod("histogram", signature("formula", "FLQuant"), function(x, data, ...){
 
 	lst <- substitute(list(...))
@@ -613,11 +588,6 @@ setMethod("histogram", signature("formula", "FLQuant"), function(x, data, ...){
 })
 
 # bubbles
-setGeneric("bubbles", function(x, data, ...){
-    standardGeneric("bubbles")
-    }
-)
-
 setMethod("bubbles", signature(x="formula", data ="FLQuant"),
 function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
 	dots <- list(...)
@@ -1088,3 +1058,137 @@ setMethod("as.data.frame", signature(x="FLQuant", row.names="ANY",
     return(res)
   }
 ) # }}}
+
+# %% operators {{{
+# %+% {{{
+setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
+	function(x, y) {
+
+    d1 <- dim(x)
+    d2 <- dim(y)
+    
+    # x and y have same dims
+    if(all(d1 == d2)) {
+        return(x + y)
+    }
+
+    # diffs are 1 vs. n
+    dd1 <- d1[d1 != d2]
+    dd2 <- d2[d1 != d2]
+    if(!all(pmin(dd1, dd2) == 1))
+      stop("Smaller object must have different dim of length=1")
+
+    # d1 > d2
+    if(all(d1 >= d2)) {
+      ndim <- (1:6)[dim(y)!=pmax(dim(x), dim(y))]
+      return(sweep(x, (1:6)[!(1:6 %in% ndim)], y, "+"))
+    # d2 > d1
+    } else if (all(d2 >= d1)) {
+      ndim <- (1:6)[dim(x)!=pmax(dim(x), dim(y))]
+      return(sweep(y, (1:6)[!(1:6 %in% ndim)], x, "+"))
+    # dim diffs must be one way only
+    } else
+      stop("Objects can only differ in dims one way")
+ }
+)
+# }}}
+
+# %*% {{{
+setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
+	function(x, y) {
+
+    d1 <- dim(x)
+    d2 <- dim(y)
+    
+    # x and y have same dims
+    if(all(d1 == d2)) {
+        return(x * y)
+    }
+
+    # diffs are 1 vs. n
+    dd1 <- d1[d1 != d2]
+    dd2 <- d2[d1 != d2]
+    if(!all(pmin(dd1, dd2) == 1))
+      stop("Smaller object must have different dim of length=1")
+
+    # d1 > d2
+    if(all(d1 >= d2)) {
+      ndim <- (1:6)[dim(y)!=pmax(dim(x), dim(y))]
+      return(sweep(x, (1:6)[!(1:6 %in% ndim)], y, "*"))
+    # d2 > d1
+    } else if (all(d2 >= d1)) {
+      ndim <- (1:6)[dim(x)!=pmax(dim(x), dim(y))]
+      return(sweep(y, (1:6)[!(1:6 %in% ndim)], x, "*"))
+    # dim diffs must be one way only
+    } else
+      stop("Objects can only differ in dims one way")
+ }
+)
+# }}}
+
+# %-% {{{
+setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
+	function(x, y) {
+
+    d1 <- dim(x)
+    d2 <- dim(y)
+    
+    # x and y have same dims
+    if(all(d1 == d2)) {
+        return(x - y)
+    }
+
+    # diffs are 1 vs. n
+    dd1 <- d1[d1 != d2]
+    dd2 <- d2[d1 != d2]
+    if(!all(pmin(dd1, dd2) == 1))
+      stop("Smaller object must have different dim of length=1")
+
+    # d1 > d2
+    if(all(d1 >= d2)) {
+      ndim <- (1:6)[dim(y)!=pmax(dim(x), dim(y))]
+      return(sweep(x, (1:6)[!(1:6 %in% ndim)], y, "-"))
+    # d2 > d1
+    } else if (all(d2 >= d1)) {
+      ndim <- (1:6)[dim(x)!=pmax(dim(x), dim(y))]
+      return(sweep(-y, (1:6)[!(1:6 %in% ndim)], x, "+"))
+    # dim diffs must be one way only
+    } else
+      stop("Objects can only differ in dims one way")
+ }
+)
+# }}}
+
+# %/% {{{
+setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
+	function(e1, e2) {
+
+    d1 <- dim(e1)
+    d2 <- dim(e2)
+    
+    # x and y have same dims
+    if(all(d1 == d2)) {
+        return(e1 - e2)
+    }
+
+    # diffs are 1 vs. n
+    dd1 <- d1[d1 != d2]
+    dd2 <- d2[d1 != d2]
+    if(!all(pmin(dd1, dd2) == 1))
+      stop("Smaller object must have different dim of length=1")
+
+    # d1 > d2
+    if(all(d1 >= d2)) {
+      ndim <- (1:6)[dim(e2)!=pmax(dim(e1), dim(e2))]
+      return(sweep(e1, (1:6)[!(1:6 %in% ndim)], e2, "/"))
+    # d2 > d1
+    } else if (all(d2 >= d1)) {
+      ndim <- (1:6)[dim(e1)!=pmax(dim(e1), dim(e2))]
+      return(sweep(1/e2, (1:6)[!(1:6 %in% ndim)], e1, "*"))
+    # dim diffs must be one way only
+    } else
+      stop("Objects can only differ in dims one way")
+ }
+)
+# }}}
+# }}}

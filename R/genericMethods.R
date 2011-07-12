@@ -677,3 +677,19 @@ setGeneric("jacknife", function(object, ...)
 # jackSummary
 setGeneric("jackSummary", function(object, ...)
 	standardGeneric("jackSummary"))
+
+# catchSel
+setGeneric("catchSel", function(object, ...){
+	standardGeneric("catchSel")})
+
+# %*%
+setGeneric("%+%", function(x, y)
+  standardGeneric("%+%"))
+
+# %-%
+setGeneric("%-%", function(x, y)
+  standardGeneric("%-%"))
+
+# bubbles
+setGeneric("bubbles", function(x, data, ...)
+    standardGeneric("bubbles"))

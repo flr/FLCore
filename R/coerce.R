@@ -67,7 +67,7 @@ setAs('FLStock', 'FLIndex',
                  range       =c(from@range, startf=0, endf=1),
                  type        ="number",
 			           name        =from@name,
-                 desc        =paste("Coerced from FLBiol:",from@desc))
+                 desc        =paste("Coerced from FLStock:",from@desc))
 
     if(units(harvest(from)) == 'f')
       sel.pattern(res) <- sweep(from@harvest,2:6,fbar(from),"/")

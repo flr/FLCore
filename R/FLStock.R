@@ -959,3 +959,9 @@ setMethod('sp', signature(stock='FLStock', catch='missing', harvest='missing'),
     return(sp(stock(stock), catch(stock), rel=rel))
   }
 ) # }}}
+
+# catchSel {{{
+setMethod("catchSel", signature(object="FLStock"),
+   function(object,fn="fapex")
+    sweep(harvest(object),2:6,do.call(fn,list(object)),"/")
+) # }}}
