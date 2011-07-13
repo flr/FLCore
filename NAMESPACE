@@ -19,7 +19,8 @@ importFrom("stats",
   "rpois",
   "sd",
   "window")
-importFrom("graphics","plot")
+importFrom("graphics",
+  "plot")
 importFrom("lattice",
 	"barchart",
 	"bwplot",
