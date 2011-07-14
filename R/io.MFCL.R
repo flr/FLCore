@@ -151,7 +151,20 @@ getnreal<-function(plotrepfile="plot.rep"){
 getnfish<-function(plotrepfile="plot.rep"){
 ## Number of fisheries
   getplotdat1(plotrepfile,h="# Number of fisheries")}
-  
+
+getplotdat0 <- function(h,plotrepfile) {
+  ##=================================================
+  ## List remainder of line containing header h. 
+  ##=================================================
+  dat <- readLines(plotrepfile)
+  recnum <- grep(h, dat)
+  if(length(recnum) != 1)
+     stop(paste("zero or multiple instances of",
+                '"',h,'"',"in",plotrepfile," Die yuppie scum!"))
+  tt <- (strsplit(dat[recnum], split = " +"))[[1]]
+  tt[length(tt)]
+}
+
 getplotdat4<-function(h="",plotrepfile) {
 ## Start listing after header h.  Quit if encounter
 ##  "^#"

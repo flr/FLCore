@@ -41,6 +41,7 @@ USER-VISIBLE CHANGES
     wide format with a column per dimension of the FLPar array. Colum nbs must exist named
     'params' and 'data'.
   - A method [[<- has been added for FLComp, with value of class FLlst.
+  - Deafult method in fmle() is now 'Melder-Nead'.
 
 BUG FIXES
   - FS#2 - FLCohort breaks for a single age quant.

@@ -47,8 +47,8 @@ setMethod('FLPar', signature(object="array"),
 	
 # FLPar(missing, iter, param)
 setMethod('FLPar', signature(object="missing"),
-	function(params='a', iter=1, dimnames=list(params=params, iter=seq(iter)),
-      units=rep('NA', length(params)), ...)
+	function(..., params='a', iter=1, dimnames=list(params=params, iter=seq(iter)),
+      units=rep('NA', length(params)))
 	{
     args <- list(...)
     if(length(args) > 0)

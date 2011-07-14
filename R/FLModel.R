@@ -123,7 +123,7 @@ setGeneric('fmle', function(object, start, ...)
 
 setMethod('fmle',
   signature(object='FLModel', start='FLPar'),
-  function(object, start, method='L-BFGS-B', fixed=list(),
+  function(object, start, method='Nelder-Mead', fixed=list(),
     control=list(trace=1), lower=rep(-Inf, dim(params(object))[2]),
     upper=rep(Inf, dim(params(object))[2]), ...)
   {
@@ -135,7 +135,7 @@ setMethod('fmle',
 )
 setMethod('fmle',
   signature(object='FLModel', start='ANY'),
-  function(object, start, method='L-BFGS-B', fixed=list(),
+  function(object, start, method='Nelder-Mead', fixed=list(),
     control=list(trace=1), lower=rep(-Inf, dim(params(object))[1]),
     upper=rep(Inf, dim(params(object))[1]), seq.iter=TRUE, ...)
   {
@@ -311,43 +311,49 @@ setMethod('fmle',
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
         hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
 
-      # output
-      # place out$par in right iter dim
-      iter(object@params[names(out$par),], it) <- out$par
-      # fixed
-      if(length(fixed) > 0)
-        iter(object@params, it)[fixnm,] <- unlist(lapply(fixed, iter, it))
-      # TODO make details list of lists if iter > 1?
-      object@details <- list(call=call, value=out$value, count=out$counts, 
-        convergence=out$convergence, message=out$message)  
-      # vcov & hessian
-      coef <- out$par
-      object@vcov[,,it] <-
-        if (length(coef))
-        {
-          if(det(out$hessian) != 0)
+      # warning if convergence is not 0, and do not load results
+      if(out$convergence != 0) {
+        warning("optimizer could not achieve convergence")
+      } else {
+
+        # output
+        # place out$par in right iter dim
+        iter(object@params[names(out$par),], it) <- out$par
+        # fixed
+        if(length(fixed) > 0)
+          iter(object@params, it)[fixnm,] <- unlist(lapply(fixed, iter, it))
+        # TODO make details list of lists if iter > 1?
+        object@details <- list(call=call, value=out$value, count=out$counts, 
+          convergence=out$convergence, message=out$message)  
+        # vcov & hessian
+        coef <- out$par
+        object@vcov[,,it] <-
+          if (length(coef))
           {
-            tmphess <- try(solve(out$hessian), silent=TRUE)
-            if(class(tmphess) =='try-error')
+            if(det(out$hessian) != 0)
             {
-              matrix(numeric(0), length(coef), length(coef), dimnames=list(names(coef),
-                names(coef)))
+              tmphess <- try(solve(out$hessian), silent=TRUE)
+              if(class(tmphess) =='try-error')
+              {
+                matrix(numeric(0), length(coef), length(coef), dimnames=list(names(coef),
+                  names(coef)))
+              } else
+              tmphess
             } else
-            tmphess
+              0
           } else
             0
-        } else
-          0
-      object@hessian[,,it] <- -out$hessian
+        object@hessian[,,it] <- -out$hessian
       
-      # logLik
-      object@logLik[it] <- -out$value
-      attr(object@logLik, 'nobs') <- length(data[[1]])
+        # logLik
+        object@logLik[it] <- -out$value
+        attr(object@logLik, 'nobs') <- length(data[[1]])
 
-      # fitted & residuals
-      iter(fitted(object), it) <- predict(iter(object, it))
-      iter(residuals(object), it) <- iter(slot(object,
-        as.list(object@model)[[2]]),it) - iter(fitted(object), it)
+        # fitted & residuals
+        iter(fitted(object), it) <- predict(iter(object, it))
+        iter(residuals(object), it) <- iter(slot(object,
+          as.list(object@model)[[2]]),it) - iter(fitted(object), it)
+      }
     }
     # force dimnames[1:5] in 'fitted' and 'residuals' to match
     dimnames(fitted(object))[1:5] <- dimnames(do.call(as.character(
