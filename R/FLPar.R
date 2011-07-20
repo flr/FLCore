@@ -609,3 +609,27 @@ setMethod("jackSummary", signature(object="FLPar"),
    return(list(jack.mean=mn, jack.se=se, jack.bias=bias))
   }
 ) # }}}
+
+# rbind {{{
+setMethod('rbind', signature('FLPar'),
+  function(..., deparse.level=1) {
+    
+    args <- list(...)
+    
+    idx <- unlist(lapply(args, is, 'FLPar'))
+    if(!all(idx))
+      stop("input objects must all be of class 'FLPar'")
+
+    res <- args[[1]]@.Data
+    if(length(args) > 1)
+      for (i in seq(length(args))[-1])
+        res <- rbind(res, args[[i]]@.Data)
+    
+    # dimnames
+    names(dimnames(res)) <- names(dimnames(args[[1]]))
+    if(any(unlist(lapply(dimnames(res), function(x) any((x==x[1])[-1])))))
+      warning("Repeated dimnames in output FLPar")
+   
+    return(FLPar(res))
+  }
+) # }}}

@@ -330,6 +330,7 @@ exportMethods(
   "r",
   "range",
   "range<-",
+  "rbind",
   "readMFCL",
 	"rec",
 	"rec<-",
