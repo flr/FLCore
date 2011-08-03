@@ -8,8 +8,6 @@ setMethod("readASPIC",     signature(x="character", type="character",scen="missi
 setMethod("readASPIC",     signature(x="character", type="character",scen="data.frame"), function(x,type,scen,...)    .readASPIC(  x,type,scen,scale="msy",...))
 setMethod("readASPIC",     signature(x="character", type="character",scen="character"),  function(x,type,scen,...)    .readASPIC(  x,type,scen,scale="msy",...))
 
-setMethod("readSS3",       signature(x="character"),                   function(x,...)                                .readSS3(    x,yrs,scen,...))
-
 
 #### ASPIC #####################################################################################
 #### Historic series
