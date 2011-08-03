@@ -1,16 +1,29 @@
-#### Exported functions in FLCore NAMESPACE
+# io.ASPIC.R - 
+# FLCore/R/io.ASPIC.R
 
-##### New code #####################################################################################
-setGeneric("readASPIC",    function(x,type,scen,...) standardGeneric("readASPIC"))
+# Copyright 2003-2011 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, JRC
+# $Id:  $
 
-setMethod("readASPIC",     signature(x="character", type="missing",  scen="missing"),    function(x,type,scen,...)    .readASPIC(  x,type,scale="msy",...))
-setMethod("readASPIC",     signature(x="character", type="character",scen="missing"),    function(x,type,scen,...)    .readASPIC(  x,type,scale="msy",...))
-setMethod("readASPIC",     signature(x="character", type="character",scen="data.frame"), function(x,type,scen,...)    .readASPIC(  x,type,scen,scale="msy",...))
-setMethod("readASPIC",     signature(x="character", type="character",scen="character"),  function(x,type,scen,...)    .readASPIC(  x,type,scen,scale="msy",...))
+# readASPIC {{{
+setMethod("readASPIC", signature(x="character", type="missing", scen="missing"),
+  function(x, type, scen,...)
+    readASPICFile(x, type, scale="msy", ...))
 
+setMethod("readASPIC", signature(x="character", type="character", scen="missing"),
+  function(x, type, scen, ...)
+    readASPICFile(x, type, scale="msy", ...))
 
-#### ASPIC #####################################################################################
-#### Historic series
+setMethod("readASPIC", signature(x="character", type="character", scen="data.frame"),
+  function(x, type, scen, ...)
+    readASPICFile(x, type, scen, scale="msy", ...))
+
+setMethod("readASPIC", signature(x="character", type="character", scen="character"),
+  function(x, type, scen, ...)
+    readASPICFile(x, type, scen, scale="msy", ...))
+# }}}
+
+# Functions {{{
 aspicTS<-function(file,scale="msy"){
    t.  <-scan(file,skip=4)
    nits<-scan(file,skip=1,nmax=1)
@@ -78,7 +91,7 @@ readASPICProj<-function(dir,scen,TAC,scale="msy"){
     prjP      <-ddply(prjP,.(scenario,year,TAC), function(x) cbind(f=mean(x$f,na.rm=T),b=mean(x$b,na.rm=T),p=mean(x$p,na.rm=T),collapsed=mean(x$collapsed)))
     return(prjP)}
 
-.readASPIC<-function(x,type,scen="missing",scale="msy"){
+readASPICFile<-function(x,type,scen="missing",scale="msy"){
   
   if (!missing(scen)){
      if (substr(tolower(type[1]),1,1)=="b") return(readASPICAssess(x,scen))
@@ -91,4 +104,4 @@ readASPICProj<-function(dir,scen,TAC,scale="msy"){
        "p"=aspicProj(x))
 
   return(res)}
-################################################################################
+# }}}
