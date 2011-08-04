@@ -64,6 +64,7 @@ export(
   "getSlotNamesClass",
   "loglAR1",
   "readADMB",
+  "readASPIC",
 	"readVPA2Box",
 	"readVPAFile",
 	"readFLIndex",
