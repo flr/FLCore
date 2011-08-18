@@ -631,6 +631,33 @@ setMethod('rbind', signature('FLPar'),
     if(any(unlist(lapply(dimnames(res), function(x) any((x==x[1])[-1])))))
       warning("Repeated dimnames in output FLPar")
    
-    return(FLPar(res))
+    return(FLPar(res, units=units(args[[1]])))
+  }
+) # }}}
+
+# cbind {{{
+setMethod('cbind', signature('FLPar'),
+  function(..., deparse.level=1) { browser()
+    
+    args <- list(...)
+    
+    idx <- unlist(lapply(args, is, 'FLPar'))
+    if(!all(idx))
+      stop("input objects must all be of class 'FLPar'")
+
+    res <- args[[1]]@.Data
+    if(length(args) > 1)
+      for (i in seq(length(args))[-1])
+        res <- cbind(res, args[[i]]@.Data)
+    
+    # dimnames
+    names(dimnames(res)) <- names(dimnames(args[[1]]))
+    # correct for iter dimnames
+    dimnames(res)$iter <- seq(length(dimnames(res)$iter))
+
+    if(any(unlist(lapply(dimnames(res), function(x) any((x==x[1])[-1])))))
+      warning("Repeated dimnames in output FLPar")
+   
+    return(FLPar(res, units=units(args[[1]])))
   }
 ) # }}}

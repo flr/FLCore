@@ -695,8 +695,12 @@ setGeneric("bubbles", function(x, data, ...)
     standardGeneric("bubbles"))
 
 # rbind
-#setGeneric("rbind", function(..., deparse.level=1) 
-#    standardGeneric("rbind"), signature = "...")
+setGeneric("rbind", function(..., deparse.level=1) 
+    standardGeneric("rbind"), signature = "...")
+
+# rbind
+setGeneric("cbind", function(..., deparse.level=1) 
+    standardGeneric("cbind"), signature = "...")
 
 # readASPIC
 setGeneric("readASPIC", function(x, type, scen, ...)

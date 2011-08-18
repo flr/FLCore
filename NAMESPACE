@@ -159,6 +159,7 @@ exportMethods(
 	"catches<-",
 	"catchNames",
   "catchSel",
+  "cbind",
 	"ccplot",
 	"coerce",
 	"computeDiscards",
