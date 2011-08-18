@@ -38,7 +38,7 @@ setMethod('FLPar', signature(object="array"),
       # forcing iter to be last dim, all others as given
       iterpos <- match(c('iter'), names(dimnames))
       object <- aperm(object, c(seq(1, length(dimnames))[!seq(1,length(dimnames)) %in%
-        pnames], iterpos))
+        iterpos], iterpos))
     }
 		
     res <- array(object, dim=dim(object), dimnames=dimnames)
