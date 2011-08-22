@@ -6,7 +6,7 @@
 # $Id:  $
 
 # readVPA2Box {{{
-readVPA2Box <- function(file, args=missing, ...) {
+readVPA2Box <- function(file, args=missing,m=NULL,...) {
 
   if(!missing(args))
     args <- c(args, list(...))
@@ -102,6 +102,8 @@ readVPA2Box <- function(file, args=missing, ...) {
 
   if (file.exists(paste(dir,"MAA.OUT",sep="/")))
     m(stk) <- readBinary(paste(dir,"MAA.OUT",sep="/"), dmns)
+  if (!is.null(m)) m(stk)[]=m
+  
   if (file.exists(paste(dir,"FAA.OUT",sep="/")))
     harvest(stk) <- readBinary(paste(dir,"FAA.OUT",sep="/"), dmns)
   if (file.exists(paste(dir,"NAA.OUT",sep="/")))
@@ -122,6 +124,7 @@ readVPA2Box <- function(file, args=missing, ...) {
     discards.wt(stk) <- stock.wt(stk)
   }
 
+  
   # replace any slots
   slt <- names(getSlots("FLStock"))[getSlots("FLStock")=="FLQuant"]
   for(i in names(args)[names(args) %in% slt]) {
