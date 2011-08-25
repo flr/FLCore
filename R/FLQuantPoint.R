@@ -6,14 +6,43 @@
 # $Id$
 
 ## FLQuantPoint()	{{{
-setGeneric("FLQuantPoint", function(object, ...)
-		standardGeneric("FLQuantPoint"))
+
 ## FLQuantPoint(FLQuant())
+setMethod("FLQuantPoint", signature(object="missing"),
+  function(..., units='NA') {
+
+    args <- list(...)
+
+    # empty object
+    if(length(args) == 0) {
+      res <- new('FLQuantPoint')
+      units(res) <- units
+    }
+    else {
+      # valid names
+      if(any(!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')))
+       stop(paste("Invalid names for FLQuantPoint elements:",
+          names(args)[!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')]))
+  
+      # check dimnames
+      browser()
+      dmns <- c(dimnames(args[[1]])[1:5],
+        list(iter=c('mean', 'median', 'var', 'uppq', 'lowq')))
+
+      res <- new('FLQuantPoint', FLQuant(NA, dimnames=dmns, units=units))
+
+      for(i in length(args))
+        res[,,,,,i] <- args[[i]]
+    }
+    return(res)
+  }
+)
 setMethod("FLQuantPoint", signature(object="FLQuant"),
-    function(object, ...) {
+  function(object, ..., units='NA') {
+
         # new object
         res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
-            iter=list(c('mean', 'median', 'var', 'uppq', 'lowq')))))
+            iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))), units=units))
        
         # load values
         res[,,,,,'mean'] <- apply(object, 1:5, mean, na.rm=TRUE)
