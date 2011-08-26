@@ -10,20 +10,26 @@ setMethod("readASPIC", signature(x="character", type="missing", scen="missing"),
   function(x, type, scen,...)
     readASPICFile(x, type, scale="msy", ...))
 
-setMethod("readASPIC", signature(x="character", type="character", scen="missing"),
-  function(x, type, scen, ...)
-    readASPICFile(x, type, scale="msy", ...))
 
-setMethod("readASPIC", signature(x="character", type="character", scen="data.frame"),
-  function(x, type, scen, ...)
-    readASPICFile(x, type, scen, scale="msy", ...))
+#### ASPIC #####################################################################################
+getFile<-function(file) substr(file,max(gregexpr(.Platform$file.sep,file)[[1]])+1,nchar(file))
+getExt <-function(file) substr(file,max(gregexpr("\\.",             file)[[1]])+1,nchar(file))
 
-setMethod("readASPIC", signature(x="character", type="character", scen="character"),
-  function(x, type, scen, ...)
-    readASPICFile(x, type, scen, scale="msy", ...))
-# }}}
+.readASPIC<-function(x,type,scen="missing",scale="msy"){
+  
+  if (!missing(scen)){
+     if (substr(tolower(type[1]),1,1)=="b") return(readASPICAssess(x,scen))
+     if (substr(tolower(type[1]),1,1)=="p") return(readASPICProj(  x,scen))}
+  
+  if(missing(type)) type=getExt(x)
 
-# Functions {{{
+  res<-switch(substr(tolower(type[1]),1,1),
+       "b"=aspicTS(  x),
+       "p"=aspicProj(x))
+
+  return(res)}
+
+#### Historic series
 aspicTS<-function(file,scale="msy"){
    t.  <-scan(file,skip=4)
    nits<-scan(file,skip=1,nmax=1)
@@ -91,17 +97,4 @@ readASPICProj<-function(dir,scen,TAC,scale="msy"){
     prjP      <-ddply(prjP,.(scenario,year,TAC), function(x) cbind(f=mean(x$f,na.rm=T),b=mean(x$b,na.rm=T),p=mean(x$p,na.rm=T),collapsed=mean(x$collapsed)))
     return(prjP)}
 
-readASPICFile<-function(x,type,scen="missing",scale="msy"){
-  
-  if (!missing(scen)){
-     if (substr(tolower(type[1]),1,1)=="b") return(readASPICAssess(x,scen))
-     if (substr(tolower(type[1]),1,1)=="p") return(readASPICProj(  x,scen))}
-  
-  if(missing(type)) type=getExt(x)
-
-  res<-switch(substr(tolower(type[1]),1,1),
-       "b"=aspicTS(  x),
-       "p"=aspicProj(x))
-
-  return(res)}
 # }}}
