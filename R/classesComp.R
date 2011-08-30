@@ -333,6 +333,7 @@ setClass('FLModel',
     model='formula',
     logl='function',
     gr='function',
+    distribution='factor',
     initial='function',
     params='FLPar',
     logLik='logLik',
@@ -345,10 +346,13 @@ setClass('FLModel',
     desc=character(0),
     range=unlist(list(min=NA, max=NA, minyear=1, maxyear=1)),
     model=formula(NULL),
+    distribution=factor(levels=c('beta', 'dbinom', 'cauchy', 'chisq', 'exp',
+        'f', 'gamma', 'geom', 'hyper', 'lnorm', 'multinom', 'nbinom', 'norm',
+        'pois', 't', 'unif', 'weibull')),
     fitted=FLQuant(),
     residuals=FLQuant())
 )
-invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params')))  # }}}
+invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution')))  # }}}
 
 ## FLCatch               {{{
 validFLCatch <- function(object)

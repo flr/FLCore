@@ -1087,3 +1087,22 @@ cor2cov <- function(Correl,Var)
    return(Covar)
    }
 # }}}
+
+# distribution {{{
+setMethod("distribution", signature(object="FLModel"),
+  function(object) {
+    return(object@distribution)
+  }
+)
+setMethod("distribution<-", signature(object="FLModel", value="factor"),
+  function(object, value) {
+    slot(object, "distribution") <- value
+    return(object)
+  }
+)
+setMethod("distribution<-", signature(object="FLModel", value="character"),
+  function(object, value) {
+    slot(object, "distribution") <- as.factor(value)
+    return(object)
+  }
+) # }}}

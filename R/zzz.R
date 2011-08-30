@@ -69,3 +69,27 @@ setMethod('convertFLPar', signature(object='FLPar'),
 # ac
 ac <- function(x, ...)
   as.character(x, ...)
+
+# convertFLModel{{{
+	setGeneric("convertFLModel", function(object, ...)
+		standardGeneric("convertFLModel"))
+setMethod('convertFLModel', signature(object='FLModel'),
+  function(object) {
+
+    res <- new(class(object))
+
+    idx <- slotNames(object)
+    idx <- idx[idx != "distribution"]
+    
+    for (i in idx) {
+      slot(res, i) <- slot(object, i)
+    }
+
+    if(validObject(res))
+      return(res)
+    else
+      stop('FLModel object is still invalid')
+  }
+)
+# }}}
+
