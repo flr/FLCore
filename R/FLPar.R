@@ -482,8 +482,10 @@ setMethod("Arith",
 	signature(e1 = "FLPar", e2 = "FLArray"),
 	function(e1, e2)
   {
+    # FLPar has a single element
     if(length(e1) == 1)
       return(new(class(e2), callGeneric(c(e1), e2@.Data), units=units(e2)))
+    # or shares iters with FLArray
     else if(dim(e1)[length(dim(e1))] == dim(e2)[6] &&
           all(dim(e1)[-length(dim(e1))] == 1))
       for(i in seq(dim(e2[6])))
@@ -499,8 +501,10 @@ setMethod("Arith",
 	signature(e1 = "FLArray", e2 = "FLPar"),
   function(e1, e2)
   {
+    # FLPar has a single element
     if(length(e2) == 1)
       return(new(class(e1), callGeneric(e1@.Data, c(e2)), units=units(e1)))
+    # or shares iters with FLArray
     else if(dim(e2)[length(dim(e2))] == dim(e1)[length(dim(e1))] &&
           all(dim(e2)[-length(dim(e2))] == 1))
       for(i in seq(dim(e1[6])))
@@ -637,7 +641,7 @@ setMethod('rbind', signature('FLPar'),
 
 # cbind {{{
 setMethod('cbind', signature('FLPar'),
-  function(..., deparse.level=1) { browser()
+  function(..., deparse.level=1) {
     
     args <- list(...)
     
