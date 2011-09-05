@@ -162,6 +162,7 @@ exportMethods(
   "cbind",
 	"ccplot",
 	"coerce",
+  "combine",
 	"computeDiscards",
 	"computeCatch",
 	"computeD",

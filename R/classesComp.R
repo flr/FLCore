@@ -354,7 +354,7 @@ setClass('FLModel',
 )
 invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution')))  # }}}
 
-## FLCatch               {{{
+# FLCatch               {{{
 validFLCatch <- function(object)
 {
 	names <- names(getSlots('FLCatch')[getSlots('FLCatch')=="FLQuant"])

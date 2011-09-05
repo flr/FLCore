@@ -715,3 +715,7 @@ setGeneric("distribution", function(object, ...)
 		standardGeneric("distribution"))
 setGeneric("distribution<-", function(object, ..., value)
     standardGeneric("distribution<-"))
+
+# combine
+setGeneric('combine', function(x, y, ...)
+  standardGeneric('combine'))
