@@ -1,36 +1,26 @@
-# io.ASPIC.R - 
-# FLCore/R/io.ASPIC.R
+setGeneric("readASPIC",    function(x,type,scen,...) standardGeneric("readASPIC"))
 
-# Copyright 2003-2011 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# $Id:  $
-
-# readASPIC {{{
-setMethod("readASPIC", signature(x="character", type="missing", scen="missing"),
-  function(x, type, scen,...)
-    readASPICFile(x, type, scale="msy", ...))
-
+setMethod("readASPIC",     signature(x="character",type="missing"   , scen="missing"   ), function(x,type,scen,...)   .readASPIC( x,type,scen,...))
+setMethod("readASPIC",     signature(x="character",type="character" , scen="missing"   ), function(x,type,scen,...)   .readASPIC( x,type,scen,...))
+setMethod("readASPIC",     signature(x="character",type="character" , scen="character" ), function(x,type,scen,...)   .readASPIC( x,type,scen,...))
+setMethod("readASPIC",     signature(x="character",type="character" , scen="data.frame"), function(x,type,scen,...)   .readASPIC( x,type,scen,...))
+setMethod("readASPIC",     signature(x="character",type="missing"   , scen="character" ), function(x,type,scen,...)   .readASPIC( x,type,scen,...))
+setMethod("readASPIC",     signature(x="character",type="missing"   , scen="data.frame"), function(x,type,scen,...)   .readASPIC( x,type,scen,...))
 
 #### ASPIC #####################################################################################
-getFile<-function(file) substr(file,max(gregexpr(.Platform$file.sep,file)[[1]])+1,nchar(file))
-getExt <-function(file) substr(file,max(gregexpr("\\.",             file)[[1]])+1,nchar(file))
+.readASPIC<-function(x,type=c("bio","prj"),scen){
 
-.readASPIC<-function(x,type,scen="missing",scale="msy"){
-  
   if (!missing(scen)){
-     if (substr(tolower(type[1]),1,1)=="b") return(readASPICAssess(x,scen))
-     if (substr(tolower(type[1]),1,1)=="p") return(readASPICProj(  x,scen))}
-  
-  if(missing(type)) type=getExt(x)
+    if ((substr(tolower(type[1]),1,1))=="p") return(readASPICProj(  x,scen)) 
+    if ((substr(tolower(type[1]),1,1))=="b") return(readASPICAssess(x,scen))}
 
-  res<-switch(substr(tolower(type[1]),1,1),
-       "b"=aspicTS(  x),
-       "p"=aspicProj(x))
-
-  return(res)}
+  if (missing(type)) type=getExt(x)
+  return(switch(substr(tolower(type[1]),1,1),
+               "b"=aspicTS(  x),
+               "p"=aspicProj(x)))}
 
 #### Historic series
-aspicTS<-function(file,scale="msy"){
+aspicTS<-function(file){
    t.  <-scan(file,skip=4)
    nits<-scan(file,skip=1,nmax=1)
    yrs <-scan(file,skip=2,nmax=2)
@@ -44,11 +34,11 @@ aspicTS<-function(file,scale="msy"){
    
    bmsy<-FLQuant(t.[unlist(tapply(((1:nits)-1)*nval+1,     1:nits,function(x,y=1)      x:(x+y-1)))],dimnames=list(                        iter=1:nits))
    fmsy<-FLQuant(t.[unlist(tapply(((1:nits)-1)*nval+nyrs+3,1:nits,function(x,y=1)      x:(x+y-1)))],dimnames=list(                        iter=1:nits))
-   
+
    return(FLQuants(biomass=sweep(b.,6,bmsy,"/"),harvest=sweep(f.,6,fmsy,"/"),bmsy=bmsy,fmsy=fmsy))}
 
 ## Projections
-aspicProj<-function(file,scale="msy"){
+aspicProj<-function(file){
         ## Stuff
         nits<-scan(file,skip=1,nmax=1)
         yrs <-scan(file,skip=2,nmax=2)
@@ -71,30 +61,34 @@ aspicProj<-function(file,scale="msy"){
 
         return(FLQuants(harvest=f.,biomass=b.))}
 
-readASPICAssess<-function(dir,scen,scale="msy"){
-    res   <-mdply(scen, function(x,dir) as.data.frame(readASPIC(paste(dir,"/",scen,".bio",sep=""))), dir=dir)
-    ts    <-subset(res, qname %in% c("biomass","harvest"))
-    refpts<-subset(res, qname %in% c("bmsy",   "fmsy"))
+readASPICAssess<-function(x,scen){
+   res   <-mdply(scen, function(x,dir) as.data.frame(readASPIC(paste(dir,"/",x,".bio",sep=""))), dir=x)
+   ts    <-subset(res, qname %in% c("biomass","harvest"))
+   refpts<-subset(res, qname %in% c("bmsy",   "fmsy"))
 
-    ## Quantiles in data.frame
-    qtls<-transform(melt(ddply(ts,.(X1,year,qname),function(x) quantile(x$data,prob=c(0.25,0.5,0.75))),id.vars=c("X1","qname","year")),
-		      Scenario=factor(X1),Quantity=factor(qname), Year=year, Quantile=variable)[,c("scenario","quantity","year","qantile","value")]
+   ## Quantiles in data.frame
+   qtls<-transform(melt(ddply(ts,.(X1,year,qname),function(x) quantile(x$data,prob=c(0.25,0.5,0.75))),id.vars=c("X1","qname","year")),
+  		    scenario=factor(X1),quantity=factor(qname), quantile=variable)[,c("scenario","quantity","year","quantile","value")]
 
-    ## Model frame with points
-    ts<-cast(subset(res, qname %in% c("biomass","harvest"),select=c("X1","year","iter","data","qname")), 
-		  X1+year+iter~qname,value="data")
-    names(ts)<-c("Scenario","Year","iter","biomass","harvest")
+   ## Model frame with points
+   ts<-cast(subset(res, qname %in% c("biomass","harvest"),select=c("X1","year","iter","data","qname")), 
+ 		X1+year+iter~qname,value="data")
+   names(ts)<-c("scenario","year","iter","biomass","harvest")
 
-    return(list(ts=ts,quantiles=qtls,refpts=refpts))}
+   return(list(ts=ts,quantiles=qtls,refpts=refpts))}
 
-readASPICProj<-function(dir,scen,TAC,scale="msy"){
-    prj       <-subset(mdply(scen, function(scen,TAC,dir) as.data.frame(readASPIC(paste(dir,"/",scen,TAC,".prb",sep=""))), dir=dir), !is.na(data))   
+### projections  
+readASPICProj<-function(x,scen){
+    prj       <-subset(mdply(scen, function(scen,TAC,dir) as.data.frame(readASPIC(paste(dir,"/",scen,TAC,".prb",sep=""))), dir=x), !is.na(data))   
     prj       <-cast(prj,scen+year+TAC+iter~qname,value="data") 
     names(prj)<-c("scenario","year","TAC","iter","biomass","harvest")
 
     prjP      <-cbind(prj,kobeP(prj$biomass,prj$harvest))
 
-    prjP      <-ddply(prjP,.(scenario,year,TAC), function(x) cbind(f=mean(x$f,na.rm=T),b=mean(x$b,na.rm=T),p=mean(x$p,na.rm=T),collapsed=mean(x$collapsed)))
-    return(prjP)}
+    prjP      <-ddply(prjP,.(scenario,year,TAC), function(x) with(x, cbind(f=mean(f),b=mean(b),p=mean(p),
+                                                                           collapsed  =mean(collapsed))))
 
-# }}}
+    return(list(prj=prj,prjP=prjP))}
+
+################################################################################
+
