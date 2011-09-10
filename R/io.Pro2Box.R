@@ -153,7 +153,6 @@ pro2Out<-function(x,files,minyear=1,data.frame=TRUE,rel=FALSE){
                        yield    =unlist(res7[,3:dim(res1)[2]]))
 
        if (rel) {;}
-                       oogle.es/oogle.es/
        if (!data.frame){
           res2<-array(list(),dim=c(length(unique(res[,"scen"])),7),
                                 dimnames=list(scen=unique(res[,"scen"]),
