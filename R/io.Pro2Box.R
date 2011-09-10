@@ -40,7 +40,7 @@ createRefpts<-function(x,data.frame=FALSE,file="BENCH-1.OUT"){
      res       =read.table(x,skip=1)
      names(res)=nmsRef
 
-     rfpts<-refpts(NA,refpt=c("msy","fmax","f0.1","spr.20","spr.30","spr.40","fmax.90","fmax.75"),iter=max(res[,1]+1))
+     rfpts<-refpts(NA,refpt=c("msy","fmax","f0.1","spr.20","spr.30","spr.40","fmax.90","fmax.75"),iter=0:max(res[,1]))
 
      ## MSY
      rfpts["msy","harvest",res[,1]]<-res[,"fmsy"]
