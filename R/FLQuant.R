@@ -1201,7 +1201,7 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
     dy <- dim(y)
 
     # dim(x)[1:5] == dim(x)[1:5]
-    if(dx[-6] != dy[-6])
+    if(any(dx[-6] != dy[-6]))
       stop("Object dimensions [1:5] must match")
 
     #
