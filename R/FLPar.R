@@ -611,7 +611,7 @@ setMethod("jackSummary", signature(object="FLPar"),
    bias <- (n - 1) * (mnU - mn)
    se <- sqrt(((n-1)/n)*SS)
 
-   return(list(jack.mean=mn, jack.se=se, jack.bias=bias))
+   return(list(hat=mn, mean=mnU, se=se, bias=bias))
   }
 ) # }}}
 
