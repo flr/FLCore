@@ -606,9 +606,10 @@ function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
 setMethod("bubbles", signature(x="formula", data ="data.frame"),
 function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
 	dots <- list(...)
+  datanm <- as.character(as.list(x)[[2]])
 	dots$data <- data
-	dots$cex <- bub.scale*(abs(data$data)/max(abs(data$data),na.rm=T))+bub.scale*0.1
-	dots$col <- ifelse(data$data>0, col[1], col[2])
+	dots$cex <- bub.scale*(abs(data[,datanm])/max(abs(data[,datanm]),na.rm=T))+bub.scale*0.1
+	dots$col <- ifelse(data[,datanm]>0, col[1], col[2])
 	dots$panel <- function(x, y, ..., cex, subscripts){
 		panel.xyplot(x, y, cex=cex[subscripts], ...)
 	}
