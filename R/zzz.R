@@ -7,8 +7,8 @@
 
 .onLoad <- function(lib,pkg) {
 	require(methods)
-  #cat("FLCore 3.0 \"\"\n")
-  #cat("------------------------------------\n")
+  cat("FLCore 2.4 \"The Duke of Prawns\"\n")
+  cat("------------------------------------\n")
 }
 
 ## convert6d  {{{
