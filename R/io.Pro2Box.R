@@ -40,7 +40,11 @@ createRefpts<-function(x,data.frame=FALSE,file="BENCH-1.OUT"){
      res       =read.table(x,skip=1)
      names(res)=nmsRef
 
-     rfpts<-refpts(NA,refpt=c("msy","fmax","f0.1","spr.20","spr.30","spr.40","fmax.90","fmax.75"),iter=1:(max(res[,1])+1))
+     dmns=list(refpt   =c("msy","fmax","f0.1","spr.20","spr.30","spr.40","fmax.90","fmax.75"),
+               quantity=c("harvest","yield","rec","ssb","biomass","revenue","cost","profit"),
+               iter    =1:(max(res[,1])+1))
+  
+     rfpts<-FLPar(array(as.numeric(NA),dim=unlist(lapply(dmns,length)),dimnames=dmns))
 
      ## MSY
      rfpts["msy","harvest",res[,1]]<-res[,"fmsy"]
@@ -91,7 +95,7 @@ createRefpts<-function(x,data.frame=FALSE,file="BENCH-1.OUT"){
      rfpts["fmax.75","yield",  res[,1]]<-res[,"yr75max"]*(res[,"ssb75max"]/res[,"sr75max"])
 
      if (data.frame){
-       res=cast(as.data.frame(rfpts), refpt+iter~quantity, mean)
+       res=cast(as.data.frame(rfpts), refpt+iter~quantity, mean, value="data")
        res$iter=factor(as.integer(ac(res$iter))-1)
        return(res)
      }else return(rfpts)}
