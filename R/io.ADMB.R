@@ -11,7 +11,7 @@ readADMB<-function(file){
     ## Get values
     vals <-lapply(strsplit(dat[grep("#",dat,invert=TRUE)]," "), function(x) as.numeric(x[nchar(x)>0]))
     ## name elements
-    names(vals)<-lapply(grep("#",dat,value=T),function(x) substr(x,3,nchar(x)-1))
+    names(vals)<-lapply(grep("#",dat,value=T),function(x) substr(x,3,nchar(x)))
     return(vals)}
   
 writeADMB<-function(x,file){
