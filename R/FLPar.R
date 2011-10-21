@@ -478,44 +478,51 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
     return(new('FLPar', callGeneric(e1@.Data, e2@.Data)))
   }
 )
-setMethod("Arith",
-	signature(e1 = "FLPar", e2 = "FLArray"),
-	function(e1, e2)
-  {
-    # FLPar has a single element
-    if(length(e1) == 1)
+
+setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
+  function(e1, e2) {
+
+    d1 <- dim(e1)
+    d2 <- dim(e2)
+    
+    # e1 must have length 1, except iters
+    if(sum(d1[-length(d1)]) > 1)
+      stop("Error in Arith(e1, e2): non-conformable arrays")
+
+    # same iters, or e1 is 1
+    if(d2[6] == d1[length(d1)] | d2[6] > 1 && d1[length(d1)] == 1) {
+      return(callGeneric(array(rep(as.vector(e1), each=prod(d2[-6])), dim=d2), e2))
+    }
+    # e1 > 1, e2 no iters
+    else if(d2[6] == 1 & d1[length(d1)] > 1) {
       return(new(class(e2), callGeneric(c(e1), e2@.Data), units=units(e2)))
-    # or shares iters with FLArray
-    else if(dim(e1)[length(dim(e1))] == dim(e2)[6] &&
-          all(dim(e1)[-length(dim(e1))] == 1))
-      for(i in seq(dim(e2[6])))
-      {
-        e2[,,,,,i] <- callGeneric(c(e1[,i]), e2[,,,,,i])
-        return(e2)
-      }
+    }
     else
       stop("Error in Arith(e1, e2): non-conformable arrays")
 	}
 )
-setMethod("Arith",
-	signature(e1 = "FLArray", e2 = "FLPar"),
-  function(e1, e2)
-  {
-    # FLPar has a single element
-    if(length(e2) == 1)
+
+setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
+  function(e1, e2) {
+
+    d1 <- dim(e1)
+    d2 <- dim(e2)
+    
+    # e2 must have length 1, except iters
+    if(sum(d2[-length(d2)]) > 1)
+      stop("Error in Arith(e1, e2): non-conformable arrays")
+
+    # same iters, or e2 is 1
+    if(d1[6] == d2[length(d2)] | d1[6] > 1 && d2[length(d2)] == 1) {
+      return(callGeneric(e1, array(rep(as.vector(e2), each=prod(d1[-6])), dim=d1)))
+    }
+    # e2 > 1, e1 no iters
+    else if(d1[6] == 1 & d2[length(d2)] > 1) {
       return(new(class(e1), callGeneric(e1@.Data, c(e2)), units=units(e1)))
-    # or shares iters with FLArray
-    else if(dim(e2)[length(dim(e2))] == dim(e1)[length(dim(e1))] &&
-          all(dim(e2)[-length(dim(e2))] == 1))
-      for(i in seq(dim(e1[6])))
-      {
-        e1[,,,,,i] <- callGeneric(e1[,,,,,i], c(e2[,i]))
-        return(e1)
-      }
+    }
     else
       stop("Error in Arith(e1, e2): non-conformable arrays")
 	}
-
 )
 # }}}
 
