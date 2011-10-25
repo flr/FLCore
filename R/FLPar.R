@@ -479,52 +479,79 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
   }
 )
 
-setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
-  function(e1, e2) {
-
-    d1 <- dim(e1)
-    d2 <- dim(e2)
-    
-    # e1 must have length 1, except iters
-    if(sum(d1[-length(d1)]) > 1)
-      stop("Error in Arith(e1, e2): non-conformable arrays")
-
-    # same iters, or e1 is 1
-    if(d2[6] == d1[length(d1)] | d2[6] > 1 && d1[length(d1)] == 1) {
-      return(callGeneric(array(rep(as.vector(e1), each=prod(d2[-6])), dim=d2), e2))
-    }
-    # e1 > 1, e2 no iters
-    else if(d2[6] == 1 & d1[length(d1)] > 1) {
-      return(new(class(e2), callGeneric(c(e1), e2@.Data), units=units(e2)))
-    }
-    else
-      stop("Error in Arith(e1, e2): non-conformable arrays")
-	}
-)
-
 setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
   function(e1, e2) {
 
+    # objects dims
     d1 <- dim(e1)
     d2 <- dim(e2)
-    
-    # e2 must have length 1, except iters
-    if(sum(d2[-length(d2)]) > 1)
-      stop("Error in Arith(e1, e2): non-conformable arrays")
+    l2 <- length(d2)
+    n1 <- names(dimnames(e1))
+    n2 <- names(dimnames(e2))
 
-    # same iters, or e2 is 1
-    if(d1[6] == d2[length(d2)] | d1[6] > 1 && d2[length(d2)] == 1) {
-      return(callGeneric(e1, array(rep(as.vector(e2), each=prod(d1[-6])), dim=d1)))
+    # dims of length > 1 (except iter), must be in FLArray
+    if(any(!(n2[-l2][d2[-l2] > 1]) %in% (n1[-6][d1[-6] > 1])))
+      stop(paste("FLPar object cannot have dimensions of length > 1 not in",
+        ac(class(e1))))
+
+    # reshape FLPar
+    m2 <- match(n1, n2)
+    m2 <- c(1, m2[!is.na(m2)])
+    e2 <- aperm(e2, m2)
+
+    # iter of output
+    it <- max(d1[6], d2[l2])
+
+    # iters from FLQ
+    if(d1[6] >= d2[l2]) {
+      return(new(class(e1), array(callGeneric(e1@.Data, array(e2, dim=c(d1[-6], it))),
+        dim=d1, dimnames=dimnames(e1)), units=units(e1)))
     }
-    # e2 > 1, e1 no iters
-    else if(d1[6] == 1 & d2[length(d2)] > 1) {
-      return(new(class(e1), callGeneric(e1@.Data, c(e2)), units=units(e1)))
+    else {
+      return(new(class(e1), array(callGeneric(array(e1@.Data, dim=c(c(d1[-6], it))),
+        array(e2, dim=c(d1[-6], it))), dim=c(d1[-6], it),
+        dimnames=c(dimnames(e1)[-6], list(iter=seq(it)))), units=units(e1))
+      )
     }
-    else
-      stop("Error in Arith(e1, e2): non-conformable arrays")
-	}
+  }
 )
-# }}}
+
+setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
+  function(e1, e2) {
+
+    # objects dims
+    d1 <- dim(e1)
+    d2 <- dim(e2)
+    l1 <- length(d1)
+    n1 <- names(dimnames(e1))
+    n2 <- names(dimnames(e2))
+
+    # dims of length > 1 (except iter), must be in FLArray
+    if(any(!(n1[-l1][d1[-l1] > 1]) %in% (n2[-6][d2[-6] > 1])))
+      stop(paste("FLPar object cannot have dimensions of length > 1 not in",
+        ac(class(e2))))
+
+    # reshape FLPar
+    m1 <- match(n2, n1)
+    m1 <- c(1, m1[!is.na(m1)])
+    e1 <- aperm(e1, m1)
+
+    # iter of output
+    it <- max(d1[l1], d2[6])
+
+    # iters from FLQ
+    if(d2[6] >= d1[l1]) {
+      return(new(class(e2), array(callGeneric(array(e1, dim=c(d2[-6], it)),
+        e2@.Data), dim=d2, dimnames=dimnames(e2)), units=units(e2)))
+    }
+    else {
+      return(new(class(e2), array(callGeneric(array(e1, dim=c(d2[-6], it)),
+        array(e2@.Data, dim=c(c(d2[-6], it)))), dim=c(d2[-6], it),
+        dimnames=c(dimnames(e2)[-6], list(iter=seq(it)))), units=units(e2))
+      )
+    }
+  }
+) # }}}
 
 # ab {{{
 setMethod('ab', signature(x='FLPar', model='character'),
