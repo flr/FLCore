@@ -411,7 +411,7 @@ setMethod("propagate", signature(object="FLPar"),
   }
 ) # }}}
 
-## dims       {{{
+# dims       {{{
 setMethod("dims", signature(obj="FLPar"),
 	# Return a list with different parameters
 	function(obj, ...) {
@@ -423,14 +423,14 @@ setMethod("dims", signature(obj="FLPar"),
 	}
 )   # }}}
 
-## names         {{{
+# names         {{{
 setMethod("names", signature(x="FLPar"),
 	function(x)
     names(dimnames(x))
 )
 # }}}
 
-## names<-         {{{
+# names<-         {{{
 if (!isGeneric("names<-"))
 	setGeneric("names<-")
 
@@ -447,7 +447,7 @@ setMethod("names<-", signature(x="FLPar", value="character"),
 )
 # }}}
 
-## show     {{{
+# show     {{{
 setMethod("show", signature(object="FLPar"),
 	function(object) {
     ndim <- length(dim(object))
@@ -470,7 +470,7 @@ setMethod("show", signature(object="FLPar"),
 	}
 )   # }}}
 
-## Arith    {{{
+# Arith    {{{
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
   signature(e1 = "FLPar", e2 = "FLPar"),
   function(e1, e2)
@@ -501,7 +501,6 @@ setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
     m2 <- m2[!is.na(m2)]
 
     e2 <- aperm(array(e2, dim=d1[m2]), m2)
-
 
     # iters from FLQ
     if(d1[6] >= d2[l2]) {
@@ -537,7 +536,6 @@ setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
     m1 <- m1[!is.na(m1)]
 
     e1 <- aperm(array(e1, dim=d2[m1]), m1)
-
 
     # iters from FLQ
     if(d2[6] >= d1[l1]) {
