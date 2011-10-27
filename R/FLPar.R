@@ -524,7 +524,7 @@ setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
     n2 <- names(dimnames(e2))
 
     # iter of output
-    it <- max(d1[l2], d1[6])
+    it <- max(d1[l1], d1[6])
 
     # dims of length > 1 (except iter), must be in FLArray
     if(any(!(n1[-l1][d1[-l1] > 1]) %in% (n2[-6][d2[-6] > 1])))
