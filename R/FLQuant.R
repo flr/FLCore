@@ -1068,6 +1068,11 @@ setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
     d1 <- dim(x)
     d2 <- dim(y)
     
+    nits=max(d1[6],d2[6])
+    if (nits>1)
+      if      (d1[6]==1) d1=propagate(d1,nits)
+      else if (d2[6]==1) d2=propagate(d2,nits)
+ 
     # x and y have same dims
     if(all(d1 == d2)) {
         return(x + y)
@@ -1100,7 +1105,12 @@ setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
 
     d1 <- dim(x)
     d2 <- dim(y)
-    
+         
+    nits=max(d1[6],d2[6])
+    if (nits>1)
+      if      (d1[6]==1) d1=propagate(d1,nits)
+      else if (d2[6]==1) d2=propagate(d2,nits)
+ 
     # x and y have same dims
     if(all(d1 == d2)) {
         return(x * y)
@@ -1134,6 +1144,11 @@ setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
     d1 <- dim(x)
     d2 <- dim(y)
     
+    nits=max(d1[6],d2[6])
+    if (nits>1)
+      if      (d1[6]==1) d1=propagate(d1,nits)
+      else if (d2[6]==1) d2=propagate(d2,nits)
+ 
     # x and y have same dims
     if(all(d1 == d2)) {
         return(x - y)
@@ -1167,6 +1182,11 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
     d1 <- dim(e1)
     d2 <- dim(e2)
     
+    nits=max(d12[6],d2[6])
+    if (nits>1)
+      if      (d1[6]==1) d1=propagate(d1,nits)
+      else if (d2[6]==1) d2=propagate(d2,nits)
+ 
     # x and y have same dims
     if(all(d1 == d2)) {
         return(e1 - e2)
