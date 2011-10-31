@@ -445,7 +445,7 @@ setMethod("survprob", signature(object="FLArray"),
 ) # }}}
 
 ## window           {{{
-setMethod("window", signature="FLArray",
+setMethod("window", signature(x="FLArray"),
 	function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1)
   {
 		# get original min and max

@@ -965,3 +965,24 @@ setMethod("catchSel", signature(object="FLStock"),
    function(object,fn="fapex")
     sweep(harvest(object),2:6,do.call(fn,list(object)),"/")
 ) # }}}
+
+
+setGeneric("wt<-", function(object,...,value){
+  standardGeneric("wt<-")})
+setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
+  function(object, ..., value) {
+    
+    recycleFLQuantOverYrs<-function(object,flq){
+      ### if averaged over years then expand years
+      if (dim(flq)[2]==1 & dim(object)[2]>=1){
+         object[]<-rep(c(flq),dim(object)[2])
+         return(object)} else
+         return(flq)}
+
+		stock.wt(   object)<-recycleFLQuantOverYrs(stock.wt(   object),value)
+		catch.wt(   object)<-recycleFLQuantOverYrs(catch.wt(   object),value)
+		landings.wt(object)<-recycleFLQuantOverYrs(landings.wt(object),value)
+		discards.wt(object)<-recycleFLQuantOverYrs(discards.wt(object),value)
+
+		return(object)})
+
