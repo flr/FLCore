@@ -7,7 +7,7 @@
 
 .onLoad <- function(lib,pkg) {
 	require(methods)
-  cat("FLCore 2.5.0 development version\"\n")
+  cat("FLCore 2.5.0 development version\n")
 #  cat("---------------------------------------------------------\n")
 #  cat("* Note that FLR packages are under constant development,\n") 
 #  cat("    please report bugs to flr-team@flr-project.org.\n")
