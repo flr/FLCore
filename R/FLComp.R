@@ -405,13 +405,15 @@ setMethod("histogram", signature("formula", "FLComp"), function(x, data, ...){
 
 # model.frame {{{
 setMethod('model.frame', signature(formula='FLComp'),
-	function(formula, ...)
+	function(formula, mcf=TRUE, ...)
   {
     lst <- FLQuants()
     names <- getSlotNamesClass(formula, 'FLQuant')
     for(i in names)
       lst[[i]] <- slot(formula, i)
     names(lst) <- names
+    if(mcf)
+      lst <- mcf(lst)
     return(model.frame(lst, ...))
   }
 )

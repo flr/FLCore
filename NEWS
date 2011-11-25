@@ -1,87 +1,14 @@
 		CHANGES IN FLCore VERSION 3.0
 
 NEW FEATURES
-  - fbar method for FLBiol added.
-  - harvest method for FLBiol has been reformulated. It now computes F based on the 
-    differences between Z and N, and handles the plusgroup, assumed to be the last age.
-  - catch.n method for FLBiol now available. Calculates catch from abundance and harvest.
-  - a dimnames<- method for FLStock has been added. dimnames can be modified for all
-    FLQuant slots and the behaviour of non-quant ones is respected.
-	- FS#30 FLCohort(vector) method has been added
-	- FS#19 tsb (Total Stock Biomass) methods added for FLStock & FLBiol
-  - as.data.frame methods now have a drop=FALSE argument to delete columns with a single
-    value stored.
 
 USER-VISIBLE CHANGES
-  - nls(FLModel) does not strictly require accessor for the input FLQuant slots to be
-    defined, but it is still recommended to do so.
-  - replacement method for FLPar '[<-', can now use a logical array for indexing.
-  - propagate(FLPar) is now able to deal with all dimnames combinations.
-  - default values for lower limit of parameters in 'ricker' model lowered to 1e-10.
-  - propagate(FLPar) is now defined. The fill.iter argument deafults to FALSE, in
-    contrast with FLQuant. Objects do not need to have iter=1 to be extended, but only
-    if fill.iter=FALSE.
-  - improved selection and replacement for FLPar.
-  - rnorm for mean=missing and sd=missing are now defined, Default values are 0 and 1
-    respectively.
-  - first dimension ('quant') in FLQuant cannot be named 'cohort'.
-  - added FLCohort(array) constructor.
-  - added FLCohort(missing) constructor.
-  - autoParscale method for FLModel returns values for using in the parscale option
-    of optim. Parameter estimation is then carried out on params/parscale which
-    improves convergence.
-  - parscale method for FLModel.
-  - window method now accepts numeric values for the extend argument in window. Objects
-    are extended along the year dimension for as many years as indicated.
-  - setPlusGroup(FLQuant) now has an argument by, with values 'mean' or 'sum' to control 
-    how ages are aggregated.
-  - rec now uses the "min" age from the range of the FLStock or FLBiol objects 
-  - abPars argument "spr0" is now the second in the list to be consistent with svPars
-  - coercion to and from FLpar and data.frame is now available. data.frame must be in the 
-    wide format with a column per dimension of the FLPar array. Colum nbs must exist named
-    'params' and 'data'.
-  - A method [[<- has been added for FLComp, with value of class FLlst.
-  - Default optim method in fmle() is now 'Melder-Nead'.
-  - A new slot, 'distribution', has been added to FLModel. This is of type 'factor', with
-    allowed levels following the names of probability distributions provided by R, see
-    ?distributions.
-  - convertFLModel() will convert existing FLModel/FLKSr objects to the new format, by
-    adding a 'distribution' slot.
+  - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
 
 BUG FIXES
-  - FS#2 - FLCohort breaks for a single age quant.
-  - dims(FLComp) was failing for those with less elements in @range.
-  - FS#3 - Option to handle NAs in quantMeans is not implemented. Added as well for
-    quantTotals and yearTotals.
-  - FS#4 - Problems changing lower and upper in fmle. upper<- and lower<- now extend
-    value to the required length by recycling the input vector.
-  - FS#6 - Quant name of rec() is inappropriate. Value now taken from dimnames$quant.
-  - FLPar(FLPar) did not handle properly all dimnames combinations.
-  - plot(FLStocks) can now handle objects without @name. key and main are now turned off
-    by default. Use key=TRUE to get the standard key for groups.
-  - transform(FLComp) did not create correctly the necessary environment, so arguments
-    on parent.frame could not be found.
-  - The FLFleet example dataset, bt4, has been actualized to the new FLCatch class, where
-    the catch.* slots are now substituted by methods.
-  - FLPar(vector) did not use the whole input vector. Vector is now applied along all
-    dimensions starting by row.
-  - '[<-' for FLPar now returns the correct class if called with a derived class.
-  - as.FLQuant(data.frame) was sometimes adding spaces to dimnames.
-  - Call to quant argument in creator isnide apply made it fail for FLCohort.
-  - as.data.frame(FLQuant) and as.data.frame(FLQuants) now both return a column of class
-    numeric if 'quant' can be converted to it without warnings (only numbers are used)
-    and a factor otherwise. Conversion to factor is also carried out if an FLQuants
-    mixes FLQuant with numeric and text quant dimnames.
-  - FS#29 '[' for FLStock could not accept characters for index i, quant.
-  - FLPar(array) now accepts arays with no iter, gets added at end with length=1
-  - sort profile parameter values to avoid decreasing ranges with negative parameter 
-    values.
-  - model<-(list) now deletes slots logl, gr and initial in case they are not provided
 	
 UTILITIES
 
 DOCUMENTATION
-  - FS#5 - The FLR citation is wrong! D'oh!. Fixed.
-  - Classes man pages now include a section on Constructor and the contructor man pages were removed (EJ, 20090609)
     
 DEPRECATED & DEFUNCT
