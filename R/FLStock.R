@@ -714,11 +714,11 @@ setMethod("[<-", signature(x="FLStock", value="FLStock"),
 		  "landings.wt", "stock.n", "stock.wt", "m", "mat", "harvest", "harvest.spwn",
       "m.spwn")
     for(q in quants)
-      slot(x, q)[i,j,k,l,m,] <- slot(value, q)
+      slot(x, q)[i,j,k,l,m,n] <- slot(value, q)
 	    
     quants <- list("catch", "landings", "discards", "stock")
     for(q in quants)
-      slot(x, q)[1,j,k,l,m,] <- slot(value,q)
+      slot(x, q)[1,j,k,l,m,n] <- slot(value,q)
 
     if(validObject(x))
       return(x)
