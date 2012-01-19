@@ -1061,157 +1061,154 @@ setMethod("as.data.frame", signature(x="FLQuant", row.names="ANY",
 ) # }}}
 
 # %% operators {{{
-# %+% {{{
-setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
-	function(x, y) {
-
-    d1 <- dim(x)
-    d2 <- dim(y)
-    
-    nits=max(d1[6],d2[6])
-    if (nits>1)
-      if      (d1[6]==1) d1=propagate(d1,nits)
-      else if (d2[6]==1) d2=propagate(d2,nits)
- 
-    # x and y have same dims
-    if(all(d1 == d2)) {
-        return(x + y)
-    }
-
-    # diffs are 1 vs. n
-    dd1 <- d1[d1 != d2]
-    dd2 <- d2[d1 != d2]
-    if(!all(pmin(dd1, dd2) == 1))
-      stop("Smaller object must have different dim of length=1")
-
-    # d1 > d2
-    if(all(d1 >= d2)) {
-      ndim <- (1:6)[dim(y)!=pmax(dim(x), dim(y))]
-      return(sweep(x, (1:6)[!(1:6 %in% ndim)], y, "+"))
-    # d2 > d1
-    } else if (all(d2 >= d1)) {
-      ndim <- (1:6)[dim(x)!=pmax(dim(x), dim(y))]
-      return(sweep(y, (1:6)[!(1:6 %in% ndim)], x, "+"))
-    # dim diffs must be one way only
-    } else
-      stop("Objects can only differ in dims one way")
- }
-)
-# }}}
-
 # %*% {{{
+# Multiply two FLQuant objects by matching dimensions, expands 1 to n
 setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
 	function(x, y) {
 
-    d1 <- dim(x)
-    d2 <- dim(y)
-         
-    nits=max(d1[6],d2[6])
-    if (nits>1)
-      if      (d1[6]==1) d1=propagate(d1,nits)
-      else if (d2[6]==1) d2=propagate(d2,nits)
- 
-    # x and y have same dims
-    if(all(d1 == d2)) {
-        return(x * y)
-    }
+    # get dims
+    dx <- dim(x)
+    dy <- dim(y)
 
-    # diffs are 1 vs. n
-    dd1 <- d1[d1 != d2]
-    dd2 <- d2[d1 != d2]
-    if(!all(pmin(dd1, dd2) == 1))
-      stop("Smaller object must have different dim of length=1")
+    # final dims
+    di <- pmax(dx, dy)
+    dli <- lapply(as.list(di), function(x) rep(1, x))
 
-    # d1 > d2
-    if(all(d1 >= d2)) {
-      ndim <- (1:6)[dim(y)!=pmax(dim(x), dim(y))]
-      return(sweep(x, (1:6)[!(1:6 %in% ndim)], y, "*"))
-    # d2 > d1
-    } else if (all(d2 >= d1)) {
-      ndim <- (1:6)[dim(x)!=pmax(dim(x), dim(y))]
-      return(sweep(y, (1:6)[!(1:6 %in% ndim)], x, "*"))
-    # dim diffs must be one way only
-    } else
-      stop("Objects can only differ in dims one way")
- }
-)
-# }}}
+    # TEST: No expansion n -> m allowed, must be originally 1
+    if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
+      stop("dims to be expanded in cannot be of length > 1")
 
-# %-% {{{
-setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
-	function(x, y) {
+    # new x
+    dlx <- lapply(as.list(dx), seq)
+    dlx[di > dx] <- dli[di > dx]
 
-    d1 <- dim(x)
-    d2 <- dim(y)
-    
-    nits=max(d1[6],d2[6])
-    if (nits>1)
-      if      (d1[6]==1) d1=propagate(d1,nits)
-      else if (d2[6]==1) d2=propagate(d2,nits)
- 
-    # x and y have same dims
-    if(all(d1 == d2)) {
-        return(x - y)
-    }
+    rx <- do.call('[', c(list(x=x@.Data, drop=FALSE), dlx))
 
-    # diffs are 1 vs. n
-    dd1 <- d1[d1 != d2]
-    dd2 <- d2[d1 != d2]
-    if(!all(pmin(dd1, dd2) == 1))
-      stop("Smaller object must have different dim of length=1")
+    # new y
+    dly <- lapply(as.list(dy), seq)
+    dly[di > dy] <- dli[di > dy]
 
-    # d1 > d2
-    if(all(d1 >= d2)) {
-      ndim <- (1:6)[dim(y)!=pmax(dim(x), dim(y))]
-      return(sweep(x, (1:6)[!(1:6 %in% ndim)], y, "-"))
-    # d2 > d1
-    } else if (all(d2 >= d1)) {
-      ndim <- (1:6)[dim(x)!=pmax(dim(x), dim(y))]
-      return(sweep(-y, (1:6)[!(1:6 %in% ndim)], x, "+"))
-    # dim diffs must be one way only
-    } else
-      stop("Objects can only differ in dims one way")
- }
-)
-# }}}
+    ry <- do.call('[', c(list(x=y@.Data, drop=FALSE), dly))
+
+    # dimnames
+    dni <- dimnames(x)
+    dni[di > dx] <- dimnames(y)[di > dx]
+
+    return(FLQuant(rx * ry, dimnames=dni, units=paste(units(x), units(y), sep="*")))
+  }
+) # }}}
 
 # %/% {{{
+# Divide two FLQuant objects by matching dimensions, expands 1 to n
 setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
 	function(e1, e2) {
 
-    d1 <- dim(e1)
-    d2 <- dim(e2)
-    
-    nits=max(d12[6],d2[6])
-    if (nits>1)
-      if      (d1[6]==1) d1=propagate(d1,nits)
-      else if (d2[6]==1) d2=propagate(d2,nits)
- 
-    # x and y have same dims
-    if(all(d1 == d2)) {
-        return(e1 - e2)
-    }
+    # get dims
+    de1 <- dim(e1)
+    de2 <- dim(e2)
 
-    # diffs are 1 vs. n
-    dd1 <- d1[d1 != d2]
-    dd2 <- d2[d1 != d2]
-    if(!all(pmin(dd1, dd2) == 1))
-      stop("Smaller object must have different dim of length=1")
+    # final dims
+    di <- pmax(de1, de2)
+    dli <- lapply(as.list(di), function(x) rep(1, x))
 
-    # d1 > d2
-    if(all(d1 >= d2)) {
-      ndim <- (1:6)[dim(e2)!=pmax(dim(e1), dim(e2))]
-      return(sweep(e1, (1:6)[!(1:6 %in% ndim)], e2, "/"))
-    # d2 > d1
-    } else if (all(d2 >= d1)) {
-      ndim <- (1:6)[dim(e1)!=pmax(dim(e1), dim(e2))]
-      return(sweep(1/e2, (1:6)[!(1:6 %in% ndim)], e1, "*"))
-    # dim diffs must be one way only
-    } else
-      stop("Objects can only differ in dims one way")
- }
-)
-# }}}
+    # TEST: No expansion n -> m allowed, must be originally 1
+    if(any(di != de1 &  de1 != 1) | any(di != de2 &  de2 != 1))
+      stop("dims to be expanded cannot be of length > 1")
+
+    # new x
+    dle1 <- lapply(as.list(de1), seq)
+    dl1[di > de1] <- dli[di > de1]
+
+    re1 <- do.call('[', c(list(x=e1@.Data, drop=FALSE), dle1))
+
+    # new y
+    dle2 <- lapply(as.list(de2), seq)
+    dle2[di > de2] <- dli[di > de2]
+
+    re2 <- do.call('[', c(list(x=e2@.Data, drop=FALSE), dle2))
+
+    # dimnames
+    dni <- dimnames(e1)
+    dni[di > de1] <- dimnames(e2)[di > de1]
+
+    return(FLQuant(re1 / re2, dimnames=dni, units=paste(units(e1), units(e2), sep="/")))
+  }
+) # }}}
+
+# %+% {{{
+# Add two FLQuant objects by matching dimensions, expands 1 to n
+setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
+	function(x, y) {
+
+    # get dims
+    dx <- dim(x)
+    dy <- dim(y)
+
+    # final dims
+    di <- pmax(dx, dy)
+    dli <- lapply(as.list(di), function(x) rep(1, x))
+
+    # TEST: No expansion n -> m allowed, must be originally 1
+    if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
+      stop("dims to be expanded in cannot be of length > 1")
+
+    # new x
+    dlx <- lapply(as.list(dx), seq)
+    dlx[di > dx] <- dli[di > dx]
+
+    rx <- do.call('[', c(list(x=x@.Data, drop=FALSE), dlx))
+
+    # new y
+    dly <- lapply(as.list(dy), seq)
+    dly[di > dy] <- dli[di > dy]
+
+    ry <- do.call('[', c(list(x=y@.Data, drop=FALSE), dly))
+
+    # dimnames
+    dni <- dimnames(x)
+    dni[di > dx] <- dimnames(y)[di > dx]
+
+    return(FLQuant(rx + ry, dimnames=dni, units=paste(units(x), units(y), sep="+")))
+  }
+) # }}}
+
+# %-% {{{
+# Sustract two FLQuant objects by matching dimensions, expands 1 to n
+setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
+	function(x, y) {
+
+    # get dims
+    dx <- dim(x)
+    dy <- dim(y)
+
+    # final dims
+    di <- pmax(dx, dy)
+    dli <- lapply(as.list(di), function(x) rep(1, x))
+
+    # TEST: No expansion n -> m allowed, must be originally 1
+    if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
+      stop("dims to be expanded in cannot be of length > 1")
+
+    # new x
+    dlx <- lapply(as.list(dx), seq)
+    dlx[di > dx] <- dli[di > dx]
+
+    rx <- do.call('[', c(list(x=x@.Data, drop=FALSE), dlx))
+
+    # new y
+    dly <- lapply(as.list(dy), seq)
+    dly[di > dy] <- dli[di > dy]
+
+    ry <- do.call('[', c(list(x=y@.Data, drop=FALSE), dly))
+
+    # dimnames
+    dni <- dimnames(x)
+    dni[di > dx] <- dimnames(y)[di > dx]
+
+    return(FLQuant(rx - ry, dimnames=dni, units=paste(units(x), units(y), sep="-")))
+  }
+) # }}}
+
 # }}}
 
 # combine {{{

@@ -5,9 +5,9 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 
+
 .onLoad <- function(lib,pkg) {
-	require(methods)
-  cat("FLCore 2.5.0 development version\n")
+  packageStartupMessage("FLCore 2.5.0 development version\n", appendLF = TRUE)
 #  cat("---------------------------------------------------------\n")
 #  cat("* Note that FLR packages are under constant development,\n") 
 #  cat("    please report bugs to flr-team@flr-project.org.\n")
@@ -17,30 +17,6 @@
 #  cat("    subscribe the mailing list flr-list@flr-project.org.\n")
 #  cat("---------------------------------------------------------\n")
 }
-
-## convert6d  {{{
-convert6d<-function(obj)
-    {
-    if (is(obj, "FLQuant"))
-        return(FLQuant(obj@.Data, dimnames = dimnames(obj@.Data),
-            units = units(obj)))
-
-    if (is(obj, "FLQuants"))
-        return(lapply(obj, convert6d))
-
-    slots <- getSlots(class(obj))
-    slots <- names(slots[slots == "FLQuant"])
-    for (i in slots){
-       print(i)
-       slot(obj, i) <- FLQuant(slot(obj, i)@.Data, dimnames = dimnames(slot(obj, i)@.Data), units = attributes(slot(obj,i))$units)
-       }
-
-    if (is(obj, "FLFleet"))
-        for (i in names(obj@metiers)) for (j in names(obj@metiers[[i]]@catches)) obj@metiers[[i]]@catches[[j]] <- qapply(obj@metiers[[i]]@catches[[j]],
-            convert6d)
-    return(obj)
-    }
-# }}}
 
 # convertFLPar{{{
 	setGeneric("convertFLPar", function(object, ...)
@@ -99,4 +75,3 @@ setMethod('convertFLModel', signature(object='FLModel'),
   }
 )
 # }}}
-

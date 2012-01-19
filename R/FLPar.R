@@ -699,3 +699,115 @@ setMethod('cbind', signature('FLPar'),
     return(FLPar(res, units=units(args[[1]])))
   }
 ) # }}}
+
+# %*% {{{
+# Multiply FLQuant against FLPar by matching dimnames, expands 1 to n
+setMethod("%*%", signature(x="FLPar", y="FLQuant"),
+	function(x, y) {
+
+    # dims & dimnames
+    dx <- dim(x)
+    dnx <- dimnames(x)
+    dy <- dim(y)
+    dny <- dimnames(y)
+
+    # TEST: non-matching dnames in x should be of length 1
+    idy <- !dnx %in% dny
+    if(any(dx[idy] > 1))
+      stop("dimensions in 'x' not matching those in 'y' must be of length=1")
+
+    # result dims
+    di <- rep(1, 6)
+    di[dny %in% dnx] <- dx
+
+    # x data in 6D array
+    rx <- array(x@.Data, dim=di)
+
+    # expansion done in %*%(FLQuant, FLQuant)
+    return(FLQuant(rx) %*% y)
+  }
+) # }}}
+
+# %/% {{{
+# Multiply FLQuant against FLPar by matching dimnames, expands 1 to n
+setMethod("%/%", signature(e1="FLPar", e2="FLQuant"),
+	function(e1, e2) {
+
+    # dims & dimnames
+    de1 <- dim(e1)
+    dne1 <- dimnames(e1)
+    de2 <- dim(e2)
+    dne2 <- dimnames(e2)
+
+    # TEST: non-matching dnames in x should be of length 1
+    ide2 <- !de1 %in% dne2
+    if(any(de1[ide2] > 1))
+      stop("dimensions in 'e1' not matching those in 'e2' must be of length=1")
+
+    # result dims
+    di <- rep(1, 6)
+    di[dne2 %in% dne1] <- de1
+
+    # x data in 6D array
+    re1 <- array(e1@.Data, dim=di)
+
+    # expansion done in %/%(FLQuant, FLQuant)
+    return(FLQuant(re1) %/% e2)
+  }
+) # }}}
+
+# %+% {{{
+# Add FLQuant against FLPar by matching dimnames, expands 1 to n
+setMethod("%+%", signature(x="FLPar", y="FLQuant"),
+	function(x, y) {
+
+    # dims & dimnames
+    dx <- dim(x)
+    dnx <- dimnames(x)
+    dy <- dim(y)
+    dny <- dimnames(y)
+
+    # TEST: non-matching dnames in x should be of length 1
+    idy <- !dnx %in% dny
+    if(any(dx[idy] > 1))
+      stop("dimensions in 'x' not matching those in 'y' must be of length=1")
+
+    # result dims
+    di <- rep(1, 6)
+    di[dny %in% dnx] <- dx
+
+    # x data in 6D array
+    rx <- array(x@.Data, dim=di)
+
+    # expansion done in %+%(FLQuant, FLQuant)
+    return(FLQuant(rx) %+% y)
+  }
+) # }}}
+
+# %-% {{{
+# Substracting FLQuant against FLPar by matching dimnames, expands 1 to n
+setMethod("%-%", signature(x="FLPar", y="FLQuant"),
+	function(x, y) {
+
+    # dims & dimnames
+    dx <- dim(x)
+    dnx <- dimnames(x)
+    dy <- dim(y)
+    dny <- dimnames(y)
+
+    # TEST: non-matching dnames in x should be of length 1
+    idy <- !dnx %in% dny
+    if(any(dx[idy] > 1))
+      stop("dimensions in 'x' not matching those in 'y' must be of length=1")
+
+    # result dims
+    di <- rep(1, 6)
+    di[dny %in% dnx] <- dx
+
+    # x data in 6D array
+    rx <- array(x@.Data, dim=di)
+
+    # expansion done in %-%(FLQuant, FLQuant)
+    return(FLQuant(rx) %-% y)
+  }
+) # }}}

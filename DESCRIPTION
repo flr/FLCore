@@ -8,6 +8,6 @@ Depends: methods, R(>= 2.13.2), grid, lattice
 Imports: stats, graphics
 Maintainer: FLR Team <flr-team@flr-project.org>
 License: GPL 2
-Collate: genericMethods.R FLAccesors.R classesArr.R FLArray.R FLQuant.R FLQuantPoint.R classesComp.R FLlst-class.R FLComp.R FLStock.R FLCatch.R FLBiol.R FLMetier.R FLFleet.R FLIndex.R FLModel.R FLModelDeriv.R FLQuants.R FLSR.R FLPar.R io.Adapt.R io.VPAsuite.R io.FLStock.R io.MFCL.R io.Pro2Box.R io.VPA2Box.R io.ADMB.R io.ASPIC.R FLCohort.R FLlst-methods.R io.FLIndices.R FLGrowth.R SRmodels.R FLtest.R coerce.R PlotDiagnostics.R FLQuantJK.R zzz.R
+Collate: genericMethods.R FLAccesors.R classesArr.R FLArray.R FLQuant.R FLQuantPoint.R classesComp.R FLlst-class.R FLComp.R FLStock.R FLCatch.R FLBiol.R FLMetier.R FLFleet.R FLIndex.R FLModel.R FLModelDeriv.R FLQuants.R FLSR.R FLPar.R io.Adapt.R io.VPAsuite.R io.FLStock.R io.MFCL.R io.VPA2Box.R io.ADMB.R FLCohort.R FLlst-methods.R io.FLIndices.R FLGrowth.R SRmodels.R FLtest.R coerce.R PlotDiagnostics.R FLQuantJK.R zzz.R
 LazyLoad: Yes
 LazyData: No
