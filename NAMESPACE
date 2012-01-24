@@ -195,7 +195,6 @@ exportMethods(
 	"discards.wt<-",
   "distribution",
 	"dotplot",
-	"E",
 	"effort",
 	"effort<-",
 	"effshare",

@@ -476,3 +476,10 @@ setMethod("window", signature(x="FLArray"),
 		return(flq)
 	}
 )   # }}}
+
+# cv        {{{
+setMethod("cv", signature(x="FLArray"),
+	function(x, na.rm=TRUE){
+    return(sd(c(x), na.rm=na.rm) / mean((x), na.rm=na.rm))
+	}
+)   # }}}

@@ -662,8 +662,6 @@ setMethod('summary', signature(object='FLModel'),
 )  # }}}
 
 # sd {{{
-if (!isGeneric('sd'))
-  setGeneric('sd', useAsDefault = sd)
 setMethod('sd', signature(x='FLModel', na.rm='missing'),
   function(x)
   {
@@ -679,13 +677,13 @@ setMethod('sd', signature(x='FLModel', na.rm='missing'),
 ) # }}}
 
 # cv {{{
-setMethod('cv', signature(object='FLModel'),
-  function(object, ...)
+setMethod('cv', signature(x='FLModel'),
+  function(x, ...)
   {
-    if(dim(params(object))[1] == 1)
-      return(sd(object)/apply(params(object), 2, mean))
+    if(dim(params(x))[1] == 1)
+      return(sd(x)/apply(params(x), 2, mean))
     else
-      return(sd(params(object))/mean(params(object)))
+      return(sd(params(x))/mean(params(x)))
   }
 ) # }}}
 

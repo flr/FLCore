@@ -409,26 +409,6 @@ setMethod("as.FLQuant", signature(x="data.frame"),
   }
 ) # }}}
 
-## filldimnames       {{{
-filldimnames <- function(dnames, dim=rep(1,6), iter=1) {
-	# check only one name for quant in input
-	if(length(names(dnames)[!names(dnames)%in%c("year","unit","season","area","iter")]) > 1)
-		stop("more than one vector of names given for the first dimension")
-	# generate standard names for given dimensions
-	xnames <- dimnames(FLQuant(dim=dim, iter=iter))
-	for(i in 1:length(dnames)) {
-		# non-quant names
-		if(any(names(dnames)[i]==c("year","unit","season","area","iter")))
-			xnames[[names(dnames)[i]]] <- dnames[[i]]
-		# quant
-		else {
-			xnames[[1]] <- dnames[[i]]
-			names(xnames)[1] <- names(dnames)[i]
-		}
-	}
-	return(xnames)
-} # }}}
-
 ## dimnames<-       {{{
 setMethod("dimnames<-", signature(x="FLQuant", value='list'),
 	function(x, value) {
@@ -486,9 +466,6 @@ setMethod("print", signature(x="FLQuant"),
 )   # }}}
 
 ## plot     {{{
-if (!isGeneric("plot")) {
-	setGeneric("plot", useAsDefault = plot)
-}
 setMethod("plot", signature(x="FLQuant", y="missing"),
 	function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
 		type='p', ...)
@@ -743,40 +720,7 @@ setMethod('dimVars', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRU
 	return(apply(x, dim, var, na.rm=na.rm))
 })   # }}}
 
-## E        {{{
-setGeneric("E", function(object, ...) {
-	value  <-  standardGeneric("E")
-	value
-	}
-)
-
-
-setMethod("E", signature(object="FLQuant"),
-	function(object){
-		return(apply(object, 1:5, median, na.rm=TRUE))
-	}
-)   # }}}
-
-# cv        {{{
-setGeneric("cv", function(object, ...)
-	standardGeneric("cv")
-)
-setMethod("cv", signature(object="FLQuant"),
-	function(object){
-	
-		# check for multiple iterations
-		
-		if(dim(object)[6] == 1)
-			stop("Error in cv: FLQuant supplied does not have multiple iterations!")
-		
-		return(apply(object, 1:5, function(x){sd(x,na.rm=T)/mean(x,na.rm=T)}))
-	}
-)   # }}}
-
 # quantile   {{{
-if (!isGeneric("quantile"))
-	setGeneric("quantile", useAsDefault=quantile)
-
 setMethod("quantile", signature(x="FLQuant"),
 	function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, dim=1:5, ...) {
     res <- FLQuant(NA, dimnames=c(dimnames(x)[-6], list(iter=ac(probs))), units=units(x))
@@ -1060,157 +1004,6 @@ setMethod("as.data.frame", signature(x="FLQuant", row.names="ANY",
   }
 ) # }}}
 
-# %% operators {{{
-# %*% {{{
-# Multiply two FLQuant objects by matching dimensions, expands 1 to n
-setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
-	function(x, y) {
-
-    # get dims
-    dx <- dim(x)
-    dy <- dim(y)
-
-    # final dims
-    di <- pmax(dx, dy)
-    dli <- lapply(as.list(di), function(x) rep(1, x))
-
-    # TEST: No expansion n -> m allowed, must be originally 1
-    if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
-      stop("dims to be expanded in cannot be of length > 1")
-
-    # new x
-    dlx <- lapply(as.list(dx), seq)
-    dlx[di > dx] <- dli[di > dx]
-
-    rx <- do.call('[', c(list(x=x@.Data, drop=FALSE), dlx))
-
-    # new y
-    dly <- lapply(as.list(dy), seq)
-    dly[di > dy] <- dli[di > dy]
-
-    ry <- do.call('[', c(list(x=y@.Data, drop=FALSE), dly))
-
-    # dimnames
-    dni <- dimnames(x)
-    dni[di > dx] <- dimnames(y)[di > dx]
-
-    return(FLQuant(rx * ry, dimnames=dni, units=paste(units(x), units(y), sep="*")))
-  }
-) # }}}
-
-# %/% {{{
-# Divide two FLQuant objects by matching dimensions, expands 1 to n
-setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
-	function(e1, e2) {
-
-    # get dims
-    de1 <- dim(e1)
-    de2 <- dim(e2)
-
-    # final dims
-    di <- pmax(de1, de2)
-    dli <- lapply(as.list(di), function(x) rep(1, x))
-
-    # TEST: No expansion n -> m allowed, must be originally 1
-    if(any(di != de1 &  de1 != 1) | any(di != de2 &  de2 != 1))
-      stop("dims to be expanded cannot be of length > 1")
-
-    # new x
-    dle1 <- lapply(as.list(de1), seq)
-    dl1[di > de1] <- dli[di > de1]
-
-    re1 <- do.call('[', c(list(x=e1@.Data, drop=FALSE), dle1))
-
-    # new y
-    dle2 <- lapply(as.list(de2), seq)
-    dle2[di > de2] <- dli[di > de2]
-
-    re2 <- do.call('[', c(list(x=e2@.Data, drop=FALSE), dle2))
-
-    # dimnames
-    dni <- dimnames(e1)
-    dni[di > de1] <- dimnames(e2)[di > de1]
-
-    return(FLQuant(re1 / re2, dimnames=dni, units=paste(units(e1), units(e2), sep="/")))
-  }
-) # }}}
-
-# %+% {{{
-# Add two FLQuant objects by matching dimensions, expands 1 to n
-setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
-	function(x, y) {
-
-    # get dims
-    dx <- dim(x)
-    dy <- dim(y)
-
-    # final dims
-    di <- pmax(dx, dy)
-    dli <- lapply(as.list(di), function(x) rep(1, x))
-
-    # TEST: No expansion n -> m allowed, must be originally 1
-    if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
-      stop("dims to be expanded in cannot be of length > 1")
-
-    # new x
-    dlx <- lapply(as.list(dx), seq)
-    dlx[di > dx] <- dli[di > dx]
-
-    rx <- do.call('[', c(list(x=x@.Data, drop=FALSE), dlx))
-
-    # new y
-    dly <- lapply(as.list(dy), seq)
-    dly[di > dy] <- dli[di > dy]
-
-    ry <- do.call('[', c(list(x=y@.Data, drop=FALSE), dly))
-
-    # dimnames
-    dni <- dimnames(x)
-    dni[di > dx] <- dimnames(y)[di > dx]
-
-    return(FLQuant(rx + ry, dimnames=dni, units=paste(units(x), units(y), sep="+")))
-  }
-) # }}}
-
-# %-% {{{
-# Sustract two FLQuant objects by matching dimensions, expands 1 to n
-setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
-	function(x, y) {
-
-    # get dims
-    dx <- dim(x)
-    dy <- dim(y)
-
-    # final dims
-    di <- pmax(dx, dy)
-    dli <- lapply(as.list(di), function(x) rep(1, x))
-
-    # TEST: No expansion n -> m allowed, must be originally 1
-    if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
-      stop("dims to be expanded in cannot be of length > 1")
-
-    # new x
-    dlx <- lapply(as.list(dx), seq)
-    dlx[di > dx] <- dli[di > dx]
-
-    rx <- do.call('[', c(list(x=x@.Data, drop=FALSE), dlx))
-
-    # new y
-    dly <- lapply(as.list(dy), seq)
-    dly[di > dy] <- dli[di > dy]
-
-    ry <- do.call('[', c(list(x=y@.Data, drop=FALSE), dly))
-
-    # dimnames
-    dni <- dimnames(x)
-    dni[di > dx] <- dimnames(y)[di > dx]
-
-    return(FLQuant(rx - ry, dimnames=dni, units=paste(units(x), units(y), sep="-")))
-  }
-) # }}}
-
-# }}}
-
 # combine {{{
 setMethod('combine', signature(x='FLQuant', y='FLQuant'),
   function(x, y) {
@@ -1236,3 +1029,24 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
     return(res)
   }
 ) # }}}
+
+# NOT EXPORTED
+## filldimnames       {{{
+filldimnames <- function(dnames, dim=rep(1,6), iter=1) {
+	# check only one name for quant in input
+	if(length(names(dnames)[!names(dnames)%in%c("year","unit","season","area","iter")]) > 1)
+		stop("more than one vector of names given for the first dimension")
+	# generate standard names for given dimensions
+	xnames <- dimnames(FLQuant(dim=dim, iter=iter))
+	for(i in 1:length(dnames)) {
+		# non-quant names
+		if(any(names(dnames)[i]==c("year","unit","season","area","iter")))
+			xnames[[names(dnames)[i]]] <- dnames[[i]]
+		# quant
+		else {
+			xnames[[1]] <- dnames[[i]]
+			names(xnames)[1] <- names(dnames)[i]
+		}
+	}
+	return(xnames)
+} # }}}

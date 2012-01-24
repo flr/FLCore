@@ -727,3 +727,7 @@ setGeneric("jackknife", function(object, ...)
 # orig
 setGeneric("orig", function(object, ...)
 	standardGeneric("orig"))
+
+# cv
+setGeneric("cv", function(x, ...)
+	standardGeneric("cv"))
