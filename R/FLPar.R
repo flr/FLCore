@@ -80,11 +80,10 @@ setMethod('FLPar', signature(object='vector'),
 		res <- array(object,dim=unlist(lapply(dimnames, length)))
 		return(FLPar(res, units=units, dimnames=dimnames))})
 
-# FLPar(FLPar)
 setMethod('FLPar', signature('FLPar'),
-	function(object, dimnames=attr(object, 'dimnames'), params=dimnames$params,
-    iter=dimnames$iter, units=object@units)
-  {
+  function(object, dimnames=attr(object, 'dimnames'), params=dimnames$params,
+    iter=dimnames$iter, units=object@units, newDim="missing"){
+    
     # get iter as vector if single number given
     if(!missing(iter) && length(iter) == 1 && ac(iter) != '1')
       iter <- ac(seq(as.numeric(iter)))
@@ -96,9 +95,18 @@ setMethod('FLPar', signature('FLPar'),
     # select target dimnames and change names for '[<-'
     dimnames <- dimnames(object)
     names(dimnames) <- letters[seq(9,length=length(dimnames))]
-    return(do.call('[<-', c(list(res), dimnames, list(value=object))))
-	}
-) # }}}
+    
+    res2=do.call('[<-', c(list(res), dimnames, list(value=object)))
+    
+    if (missing(newDim)) return(res2)
+    
+    dimnames <- dimnames(res2)
+    ord=length(dimnames)
+    ord=c(1:(ord-1),ord+1:length(newDim),ord)
+    dimnames[names(newDim)]=newDim
+    res3                    =FLPar(rep(c(res2), length(unlist(newDim))),dimnames=dimnames[ord],units=units)
+ 
+    return(res3)})
 
 # '['   {{{
 setMethod('[', signature(x='FLPar'),
