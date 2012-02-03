@@ -55,10 +55,8 @@ setMethod('FLPar', signature(object="missing"),
     if(length(args) > 0)
     {
       len <- length(args[[1]])
-      res <- array(NA, dim=c(length(args),len), 
-        dimnames=list(params=names(args), iter=seq(len)))
-      for (i in seq(length(args)))
-        res[i,] <- args[[i]]
+      res <- array(unlist(args), dim=c(length(args), iter), 
+        dimnames=list(params=names(args), iter=seq(iter)))
     }
     else
       res <- array(as.numeric(NA), dim=unlist(lapply(dimnames, length)),
