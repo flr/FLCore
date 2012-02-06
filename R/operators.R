@@ -459,30 +459,31 @@ setMethod("%*%", signature(x="FLPar", y="FLPar"),
     # dims & dimnames
     dnx <- dimnames(x)
     dny <- dimnames(y)
-    
-    dns <- unique(c(names(dny), names(dnx)))
-    dnsx <- unlist(lapply(dnx[dns], length))
-    dnsy <- unlist(lapply(dny[dns], length))
-    dnd <- rbind(dnsx, dnsy)
+
+    # select dimnames from larger FLPar
+    if(length(dnx) > length(dny)) {
+      dnr <- names(dnx)
+      dnmr <- dnx
+    }
+    else {
+      dnr <- names(dny)
+      dnmr <- dny
+    }
+
+    # vector of final dim
+    dnsx <- unlist(lapply(dnx[dnr], length))
+    dnsy <- unlist(lapply(dny[dnr], length))
+    dr <- pmax(dnsx, dnsy)
 
     # TEST: non-matching dnames in x or y should be of length 1
+    dnd <- rbind(dnsx, dnsy)
     if(any(apply(dnd, 2, function(x) all(x > 0) && max(x)/min(x) != max(x))))
       stop("dimensions in 'x' not matching in length those in 'y' must be of length=1")
 
-    # result dims
-    dnr <- pmax(dnsx, dnsy)
-
-    di <- rep(1, 6)
-    di[dnx %in% dny] <- dy
-
-    # x data in 6D array
-    ry <- array(y@.Data, dim=di)
-
-    # expansion done in %*%(FLQuant, FLQuant)
-    return(x %*% FLQuant(ry))
+    # expand & aperm FLPars
+    FLPar(array(x@.Data, dim=dr) * array(y@.Data, dim=dr, dimnames=dnmr))
   }
 ) # }}}
-
 
 # matchDimnames {{{
 matchDimnames <- function(dnp, dnq) {

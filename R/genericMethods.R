@@ -47,6 +47,8 @@ setGeneric("units", useAsDefault=units)
 setGeneric("var", useAsDefault = var)
 setGeneric("window", useAsDefault = window)
 setGeneric("xyplot", useAsDefault = xyplot)
+setGeneric("rnorm", useAsDefault=rnorm)
+setGeneric("rlnorm", useAsDefault=rlnorm)
 
 
 # NEW methods
