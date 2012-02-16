@@ -733,3 +733,11 @@ setGeneric("orig", function(object, ...)
 # cv
 setGeneric("cv", function(x, ...)
 	standardGeneric("cv"))
+
+# computeLogLik
+setGeneric("computeLogLik", function(object, ...)
+  standardGeneric("computeLogLik"))
+
+# fmle
+setGeneric('fmle', function(object, start, ...)
+    standardGeneric('fmle'))

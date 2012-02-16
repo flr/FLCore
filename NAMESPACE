@@ -167,6 +167,7 @@ exportMethods(
 	"computeD",
 	"computeHessian",
 	"computeLandings",
+	"computeLogLik",
 	"computeStock",
   "convertFLPar",
   "convertFLModel",

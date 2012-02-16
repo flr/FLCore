@@ -118,9 +118,6 @@ setMethod('coef', signature(object='FLModel'),
 )  # }}}
 
 # fmle()    {{{
-setGeneric('fmle', function(object, start, ...)
-    standardGeneric('fmle'))
-
 setMethod('fmle',
   signature(object='FLModel', start='FLPar'),
   function(object, start, method='Nelder-Mead', fixed=list(),
@@ -921,147 +918,147 @@ setMethod("params", signature(object="FLModel"),
 	}
 ) # }}}
 
-# params<-      {{{
-setMethod("params<-", signature(object="FLModel", value="FLPar"),
-	function(object, value)
-  {
-    object@params <- value
-    return(object)
-	}
-) # }}}
-
-# profile {{{
-setMethod("profile", signature(fitted="FLModel"),
-  function(fitted, which, maxsteps=11, range=0.5, ci=c(0.25, 0.5, 0.75, 0.95),
-      plot=TRUE, fixed=list(), print=FALSE, control=list(trace=0), ...)
-  {
-    # vars
-    foo <- logl(fitted)
-    params <- params(fitted)
-    parnames <- dimnames(params)$params
-    fixnames <- names(fixed)
-    profiled <- list()
-    grid <- list()
-    plotfit <- TRUE
-
-    # HACK! clean up fixed list if elements are named vectors
-    fixed <- lapply(fixed, function(x){ names(x) <- NULL; x})
-
-    # which params to profile
-    if(missing(which))
-      which <- parnames[!parnames %in% fixnames]
-    if(length(which) > 2)
-        stop("surface only works over 2 parameters")
-    
-    # data
-    args <- list()
-    data <- names(formals(foo))
-    data <- data[data %in% slotNames(fitted)]
-    for(i in data)
-      args[i] <- list(slot(fitted, i))
-      
-    # use initial if model has not been estimated
-    if(all(is.na(params)))
+  # params<-      {{{
+  setMethod("params<-", signature(object="FLModel", value="FLPar"),
+    function(object, value)
     {
-      params <- do.call(initial(fitted), args)
-      plotfit <- FALSE
+      object@params <- value
+      return(object)
     }
+  ) # }}}
 
-    # (1) create grid of param values for numeric range
-    if(is.numeric(range) && length(range) == 1)
+  # profile {{{
+  setMethod("profile", signature(fitted="FLModel"),
+    function(fitted, which, maxsteps=11, range=0.5, ci=c(0.25, 0.5, 0.75, 0.95),
+        plot=TRUE, fixed=list(), print=FALSE, control=list(trace=0), ...)
     {
-      if(!plotfit)
-        warning("model has not been fitted: initial values are used for profile range")
-      for(i in which)
-      {
-        # steps for param[i]
-        estim <- c(params[i,])
-        steps <- estim * seq(1-range, 1+range, length=maxsteps)
-        profiled[[i]] <- sort(steps)
-      }
-    # (2) and for list of ranges
-    } else if (is.list(range)) 
-    {
-      # if missing(which), which is names in range
+      # vars
+      foo <- logl(fitted)
+      params <- params(fitted)
+      parnames <- dimnames(params)$params
+      fixnames <- names(fixed)
+      profiled <- list()
+      grid <- list()
+      plotfit <- TRUE
+
+      # HACK! clean up fixed list if elements are named vectors
+      fixed <- lapply(fixed, function(x){ names(x) <- NULL; x})
+
+      # which params to profile
       if(missing(which))
-        which <- names(range)
-      else
-        # checks all params to be profiled specified
-        if(any(names(range) != which))
-          stop("range not specified for parameters:", which[!which%in%names(range)])
-      profiled <- lapply(range, sort)
-    }
-
-    # grid
-    grid <- do.call(expand.grid, profiled)
-
-    # col for logLik
-    grid$logLik <- as.numeric(NA)
-
-    dots <- list(...)
-    # calculate logLik for grid if no fitting
-    if(identical(order(c(which, fixnames)), order(parnames)))
-      for(i in seq(nrow(grid)))
-        grid[i, 'logLik'] <- do.call(logl(fitted), c(args, as.list(grid[i,which]), fixed))
-
-    # or fit over grid
-    else
-      for(i in seq(nrow(grid)))
+        which <- parnames[!parnames %in% fixnames]
+      if(length(which) > 2)
+          stop("surface only works over 2 parameters")
+      
+      # data
+      args <- list()
+      data <- names(formals(foo))
+      data <- data[data %in% slotNames(fitted)]
+      for(i in data)
+        args[i] <- list(slot(fitted, i))
+        
+      # use initial if model has not been estimated
+      if(all(is.na(params)))
       {
-        fixed <- as.list(grid[i,which])
-        names(fixed) <- which
-        grid[i, 'logLik'] <- do.call('fmle', c(list(object=fitted, fixed=fixed,
-          control=control), dots))@logLik
+        params <- do.call(initial(fitted), args)
+        plotfit <- FALSE
       }
-   
-    surface <- tapply(grid$logLik, grid[,which], sum)
 
-    # print
-    if(print)
-    {
-      cat(paste("max(profile) =", format(max(grid$logLik), digits=5), " "))
-      for(i in which)
-        cat(paste(i, " = ", format(grid[grid$logLik==max(grid$logLik),i], digits=5), " "))
-      cat("\n")
-      if(plotfit)
+      # (1) create grid of param values for numeric range
+      if(is.numeric(range) && length(range) == 1)
       {
-        cat(paste("logLik =", format(logLik(fitted), digits=5), " "))
+        if(!plotfit)
+          warning("model has not been fitted: initial values are used for profile range")
         for(i in which)
-          cat(paste(i, " = ", format(c(params(fitted)[i]), digits=5), " "))
+        {
+          # steps for param[i]
+          estim <- c(params[i,])
+          steps <- estim * seq(1-range, 1+range, length=maxsteps)
+          profiled[[i]] <- sort(steps)
+        }
+      # (2) and for list of ranges
+      } else if (is.list(range)) 
+      {
+        # if missing(which), which is names in range
+        if(missing(which))
+          which <- names(range)
+        else
+          # checks all params to be profiled specified
+          if(any(names(range) != which))
+            stop("range not specified for parameters:", which[!which%in%names(range)])
+        profiled <- lapply(range, sort)
+      }
+
+      # grid
+      grid <- do.call(expand.grid, profiled)
+
+      # col for logLik
+      grid$logLik <- as.numeric(NA)
+
+      dots <- list(...)
+      # calculate logLik for grid if no fitting
+      if(identical(order(c(which, fixnames)), order(parnames)))
+        for(i in seq(nrow(grid)))
+          grid[i, 'logLik'] <- do.call(logl(fitted), c(args, as.list(grid[i,which]), fixed))
+
+      # or fit over grid
+      else
+        for(i in seq(nrow(grid)))
+        {
+          fixed <- as.list(grid[i,which])
+          names(fixed) <- which
+          grid[i, 'logLik'] <- do.call('fmle', c(list(object=fitted, fixed=fixed,
+            control=control), dots))@logLik
+        }
+     
+      surface <- tapply(grid$logLik, grid[,which], sum)
+
+      # print
+      if(print)
+      {
+        cat(paste("max(profile) =", format(max(grid$logLik), digits=5), " "))
+        for(i in which)
+          cat(paste(i, " = ", format(grid[grid$logLik==max(grid$logLik),i], digits=5), " "))
         cat("\n")
-      }
-    }
-
-    # CIs
-    cis <- max(surface) - qchisq(ci, 2)
-    
-    # plot
-    if(plot)
-    {
-      if(length(which) == 2)
-      {
-        do.call('image', c(list(x=profiled[[1]], y=profiled[[2]], z=surface,
-          xlab=which[1], ylab=which[2]), dots[!names(dots) %in% names(formals(optim))]))
-
         if(plotfit)
-          points(params[which[1]], params[which[2]], pch=19)
+        {
+          cat(paste("logLik =", format(logLik(fitted), digits=5), " "))
+          for(i in which)
+            cat(paste(i, " = ", format(c(params(fitted)[i]), digits=5), " "))
+          cat("\n")
+        }
+      }
 
-        do.call('contour', list(x=sort(profiled[[1]]), y=sort(profiled[[2]]), z=surface,
-          levels=cis, add=TRUE, labcex=0.8, labels=ci))
-      }
-      else if(length(which) == 1)
+      # CIs
+      cis <- max(surface) - qchisq(ci, 2)
+      
+      # plot
+      if(plot)
       {
-        plot(grid[,which], grid[,'logLik'], type='l', xlab=which, ylab="logLik", axes=F)
-        axis(1); box()
-        points(params[which], logLik(fitted), pch=19)
+        if(length(which) == 2)
+        {
+          do.call('image', c(list(x=profiled[[1]], y=profiled[[2]], z=surface,
+            xlab=which[1], ylab=which[2]), dots[!names(dots) %in% names(formals(optim))]))
+
+          if(plotfit)
+            points(params[which[1]], params[which[2]], pch=19)
+
+          do.call('contour', list(x=sort(profiled[[1]]), y=sort(profiled[[2]]), z=surface,
+            levels=cis, add=TRUE, labcex=0.8, labels=ci))
+        }
+        else if(length(which) == 1)
+        {
+          plot(grid[,which], grid[,'logLik'], type='l', xlab=which, ylab="logLik", axes=F)
+          axis(1); box()
+          points(params[which], logLik(fitted), pch=19)
+        }
       }
+      if(length(which) == 2)
+        invisible(list(x=grid[,which[1]], y=grid[,which[2]], z=surface))
+      else if(length(which) == 1)
+        invisible(list(x=grid[which], y=grid['logLik']))
     }
-    if(length(which) == 2)
-      invisible(list(x=grid[,which[1]], y=grid[,which[2]], z=surface))
-    else if(length(which) == 1)
-      invisible(list(x=grid[which], y=grid['logLik']))
-  }
-) # }}}
+  ) # }}}
 
 # cor2cov {{{
 cor2cov <- function(Correl,Var)
@@ -1102,5 +1099,29 @@ setMethod("distribution<-", signature(object="FLModel", value="character"),
   function(object, value) {
     slot(object, "distribution") <- as.factor(value)
     return(object)
+  }
+) # }}}
+
+# computeLogLik {{{
+setMethod('computeLogLik', signature(object='FLModel'),
+  function(object, ...) {
+
+  #
+  args <- as.list(formals(logl(object)))
+
+  # get slots
+  for (i in names(args)[names(args) %in% slotNames(object)])
+    args[[i]] <- slot(object, i)
+
+  # get params
+  for (i in dimnames(params(object))$params)
+    args[[i]] <- c(params(object)[i,])
+ 
+  # logLik
+  res <- logLik(object)
+  res[] <- c(do.call(logl(object), args))
+  attr(res, 'df') <- dim(params(object))[1]
+
+  return(res)
   }
 ) # }}}
