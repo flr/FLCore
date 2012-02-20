@@ -14,7 +14,7 @@ citEntry(
     person("M.", "Pastoors"),
     person("J.J.", "Poos"),
     person("F.", "Scott"),
-    person("R.D.", "Scott"),),
+    person("R.D.", "Scott")),
   journal="ICES J. of Mar. Sci.",
   year="2007",
   volume="64",
