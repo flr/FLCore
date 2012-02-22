@@ -91,24 +91,24 @@ setMethod('propagate', signature(object='FLMetier'),
 ) # }}}
 
 ## iter {{{
-setMethod("iter", signature(object="FLMetier"),
-	  function(object, iter)
+setMethod("iter", signature(obj="FLMetier"),
+	  function(obj, iter)
 	  {
 		# FLQuant slots
-		names <- names(getSlots(class(object))[getSlots(class(object))=="FLQuant"])
+		names <- names(getSlots(class(obj))[getSlots(class(obj))=="FLQuant"])
 		for(s in names) 
 		{
-			if(dims(slot(object, s))$iter == 1)
-				slot(object, s) <- iter(slot(object, s), 1)
+			if(dims(slot(obj, s))$iter == 1)
+				slot(obj, s) <- iter(slot(obj, s), 1)
 			else
-				slot(object, s) <- iter(slot(object, s), iter)
+				slot(obj, s) <- iter(slot(obj, s), iter)
 		}
 		# FLCatches
-		names <- names(object@catches)
+		names <- names(obj@catches)
 		for (s in names)
-			catches(object, s) <- iter(catches(object, s), iter)
+			catches(obj, s) <- iter(catches(obj, s), iter)
 		
-		return(object)
+		return(obj)
 	  }
 ) # }}}
 

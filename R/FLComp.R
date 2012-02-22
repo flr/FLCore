@@ -58,20 +58,20 @@ setMethod("propagate", signature(object="FLComp"),
 ) # }}}
 
 ## iter {{{
-setMethod("iter", signature(object="FLComp"),
-	  function(object, iter) {
+setMethod("iter", signature(obj="FLComp"),
+	  function(obj, iter) {
 	  	
 		# copy the iterate into the new slots
-		names. <- c(getSlotNamesClass(object, 'FLArray'),getSlotNamesClass(object, 'FLPar'))
+		names. <- c(getSlotNamesClass(obj, 'FLArray'),getSlotNamesClass(obj, 'FLPar'))
 		for(s. in names.)
 		{
-			if(dims(slot(object, s.))$iter == 1)
-				slot(object, s.) <- iter(slot(object, s.), 1)
+			if(dims(slot(obj, s.))$iter == 1)
+				slot(obj, s.) <- iter(slot(obj, s.), 1)
 			else
-				slot(object, s.) <- iter(slot(object, s.), iter)
+				slot(obj, s.) <- iter(slot(obj, s.), iter)
 		}
 		
-		return(object)
+		return(obj)
 	  }
 ) # }}}
 

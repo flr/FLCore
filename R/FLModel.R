@@ -867,43 +867,43 @@ setReplaceMethod("upper", signature(object="FLModel", value="numeric"),
 ) # }}}
 
 # iter {{{
-setMethod("iter", signature(object="FLModel"),
-	  function(object, it) {
+setMethod("iter", signature(obj="FLModel"),
+	  function(obj, it) {
   
     # FLArray
-    object <- qapply(object, FUN=iter, it)
+    obj <- qapply(obj, FUN=iter, it)
     # params
-    params(object) <- iter(params(object), it)
+    params(obj) <- iter(params(obj), it)
     # vcov
     if(length(dim(vcov)) > 2)
       if(dim(vcov)[3] > 1)
-        vcov(object) <- vcov(object)[,,it]
+        vcov(obj) <- vcov(obj)[,,it]
       else
-        vcov(object) <- vcov(object)[,,1]
+        vcov(obj) <- vcov(obj)[,,1]
     # logLik
-    logLik(object) <- iter(object@logLik, it)
+    logLik(obj) <- iter(obj@logLik, it)
 
-		return(object)
+		return(obj)
 	  }
 ) # }}}
 
 # iter     {{{
-setMethod("iter", signature(object="vector"),
-	function(object, iter) {
-    if(length(object)== 1)
-      return(object)
+setMethod("iter", signature(obj="vector"),
+	function(obj, iter) {
+    if(length(obj)== 1)
+      return(obj)
     else
-      return(object[iter])
+      return(obj[iter])
 	}
 )   # }}}
 
 # iter     {{{
-setMethod("iter", signature(object="logLik"),
-	function(object, iter) {
-    if(length(object)== 1)
-      return(object)
+setMethod("iter", signature(obj="logLik"),
+	function(obj, iter) {
+    if(length(obj)== 1)
+      return(obj)
     else
-      return(object[iter])
+      return(obj[iter])
 	}
 )   # }}}
 

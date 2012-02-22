@@ -78,6 +78,7 @@ setMethod('FLPar', signature(object='vector'),
 		res <- array(object,dim=unlist(lapply(dimnames, length)))
 		return(FLPar(res, units=units, dimnames=dimnames))})
 
+# FLPar(FLPar)
 setMethod('FLPar', signature('FLPar'),
   function(object, dimnames=attr(object, 'dimnames'), params=dimnames$params,
     iter=dimnames$iter, units=object@units, newDim="missing"){
@@ -104,7 +105,7 @@ setMethod('FLPar', signature('FLPar'),
     dimnames[names(newDim)]=newDim
     res3                    =FLPar(rep(c(res2), length(unlist(newDim))),dimnames=dimnames[ord],units=units)
  
-    return(res3)})
+    return(res3)}) # }}}
 
 # '['   {{{
 setMethod('[', signature(x='FLPar'),
@@ -177,13 +178,13 @@ setMethod("[<-", signature(x="FLPar"),
 )   # }}}
 
 # iter, iter<-     {{{
-setMethod("iter", signature(object="FLPar"),
-	function(object, iter) {
-    if(dim(object)[length(dim(object))] == 1)
-      return(object)
+setMethod("iter", signature(obj="FLPar"),
+	function(obj, iter) {
+    if(dim(obj)[length(dim(obj))] == 1)
+      return(obj)
     else {
-    	lst <- list(x=object, pos=iter)
-    	names(lst) <- c('x', letters[8+length(dim(object))])
+    	lst <- list(x=obj, pos=iter)
+    	names(lst) <- c('x', letters[8+length(dim(obj))])
     	return(do.call('[', lst))
 	  }
 	}
@@ -658,15 +659,20 @@ setMethod("jackSummary", signature(object="FLPar"),
 # rbind {{{
 setMethod('rbind', signature('FLPar'),
   function(..., deparse.level=1) {
+
     args <- list(...)
+
+    # dims
+    dimar <- lapply(args, function(x) dim(x))
+    iterar <- lapply(dimar, function(x) x[length(x)])
+    
     
    # idx <- unlist(lapply(args, is, 'FLPar'))
    # if(!all(idx))
    #   stop("input objects must all be of class 'FLPar'")
+   browser() 
 
     # extend iters
-    dimar <- lapply(args, function(x) dim(x))
-    iterar <- lapply(dimar, function(x) x[length(x)])
 
     res <- args[[1]]@.Data
     if(length(args) > 1)

@@ -122,12 +122,12 @@ setMethod("names", signature(x="FLArray"),
 # }}}
 
 # iter     {{{
-setMethod("iter", signature(object="FLArray"),
-	function(object, iter) {
-    if(dims(object)$iter == 1)
-      return(object)
+setMethod("iter", signature(obj="FLArray"),
+	function(obj, iter) {
+    if(dims(obj)$iter == 1)
+      return(obj)
     else
-      return(object[,,,,,iter])
+      return(obj[,,,,,iter])
 	}
 )   # }}}
 

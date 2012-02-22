@@ -84,12 +84,12 @@ setMethod("histogram", signature("formula", "FLQuants"), function(x, data, ...)
 }) # }}}
 
 ## iter {{{
-setMethod("iter", signature(object="FLQuants"),
-	  function(object, iter) {
+setMethod("iter", signature(obj="FLQuants"),
+	  function(obj, iter) {
 	  	
 		# simply use lapply and iter from FLQuant methods
 
-		flqs <- FLQuants(lapply(object,function(x,iter){x <- iter(x,iter)},iter))
+		flqs <- FLQuants(lapply(obj,function(x,iter){x <- iter(x,iter)},iter))
 		return(flqs)
 	  }
 ) # }}}

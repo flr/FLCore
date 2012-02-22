@@ -458,7 +458,7 @@ setGeneric("quant<-", function(object, value)
   standardGeneric("quant<-"))
 
 # iter, iter<-
-setGeneric("iter", function(object, ...)
+setGeneric("iter", function(obj, ...)
 	standardGeneric("iter"))
 setGeneric("iter<-", function(object, value)
   standardGeneric("iter<-"))

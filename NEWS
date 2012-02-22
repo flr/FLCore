@@ -4,6 +4,8 @@ NEW FEATURES
 
 USER-VISIBLE CHANGES
   - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
+  - computeLogLik method added to FLModel. Will return a logLik object calculated with
+    the data and params in the object
 
 BUG FIXES
 	
