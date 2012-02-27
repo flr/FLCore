@@ -741,3 +741,33 @@ setGeneric("computeLogLik", function(object, ...)
 # fmle
 setGeneric('fmle', function(object, start, ...)
     standardGeneric('fmle'))
+
+# quantTotals
+setGeneric("quantTotals", function(x, ...)
+    standardGeneric("quantTotals"))
+
+# yearTotals
+setGeneric("yearTotals", function(x, ...)
+    standardGeneric("yearTotals"))
+
+setGeneric("quantSums", function(x, ...) standardGeneric("quantSums"))
+setGeneric("yearSums", function(x, ...) standardGeneric("yearSums"))
+setGeneric("unitSums", function(x, ...) standardGeneric("unitSums"))
+setGeneric("seasonSums", function(x, ...) standardGeneric("seasonSums"))
+setGeneric("areaSums", function(x, ...) standardGeneric("areaSums"))
+setGeneric("dimSums", function(x, ...) standardGeneric("dimSums"))
+setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
+setGeneric("yearMeans", function(x, ...) standardGeneric("yearMeans"))
+setGeneric("unitMeans", function(x, ...) standardGeneric("unitMeans"))
+setGeneric("seasonMeans", function(x, ...) standardGeneric("seasonMeans"))
+setGeneric("areaMeans", function(x, ...) standardGeneric("areaMeans"))
+setGeneric("iterMeans", function(x, ...) standardGeneric("iterMeans"))
+setGeneric("dimMeans", function(x, ...) standardGeneric("dimMeans"))
+setGeneric("quantVars", function(x, ...) standardGeneric("quantVars"))
+setGeneric("yearVars", function(x, ...) standardGeneric("yearVars"))
+setGeneric("unitVars", function(x, ...) standardGeneric("unitVars"))
+setGeneric("seasonVars", function(x, ...) standardGeneric("seasonVars"))
+setGeneric("areaVars", function(x, ...) standardGeneric("areaVars"))
+setGeneric("iterVars", function(x, ...) standardGeneric("iterVars"))
+setGeneric("dimVars", function(x, ...) standardGeneric("dimVars"))
+setGeneric("iterMedians", function(x, ...) standardGeneric("iterMedians"))

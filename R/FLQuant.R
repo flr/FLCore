@@ -597,57 +597,54 @@ ans
 
 # }}}
 
-## Sums         {{{
-setGeneric("quantTotals", function(x, ...) standardGeneric("quantTotals"))
-setMethod('quantTotals', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-sums <- x
-for (i in 1:dim(x)[2])
-sums[,i,,,,] <- rowSums(x, dim=1, na.rm=na.rm)
-return(sums)
-})
+# totals {{{
+setMethod('quantTotals', signature(x='FLQuant'),
+  function(x, na.rm=TRUE) {
+    sums <- x
+    for (i in 1:dim(x)[2])
+      sums[,i,,,,] <- rowSums(x, dim=1, na.rm=na.rm)
+    return(sums)
+  }
+)
 
-setGeneric("yearTotals", function(x, ...) standardGeneric("yearTotals"))
-setMethod('yearTotals', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-sums <- x
-for (i in 1:dim(x)[1])
-sums[i,,,,] <- colSums(x, na.rm=na.rm)[,1,1,1,1]
-return(sums)
-})
+setMethod('yearTotals', signature(x='FLQuant'),
+  function(x, na.rm=TRUE) {
+    sums <- x
+    for (i in 1:dim(x)[1])
+      sums[i,,,,] <- colSums(x, na.rm=na.rm)[,1,1,1,1]
+    return(sums)
+  }
+) # }}}
 
-setGeneric("quantSums", function(x, ...) standardGeneric("quantSums"))
+# sums         {{{
 setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-res <- colSums(x, na.rm=na.rm)
-dim(res) <- c(1, dim(res))
-return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant(x),
+  res <- colSums(x, na.rm=na.rm)
+  dim(res) <- c(1, dim(res))
+  return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant(x),
     units=units(x)))
 })
 
-setGeneric("yearSums", function(x, ...) standardGeneric("yearSums"))
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1,3:6), sum, na.rm=na.rm))
 })
 
-setGeneric("unitSums", function(x, ...) standardGeneric("unitSums"))
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:2,4:6), sum, na.rm=na.rm))
 })
 
-setGeneric("seasonSums", function(x, ...) standardGeneric("seasonSums"))
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:3,5:6), sum, na.rm=na.rm))
 })
 
-setGeneric("areaSums", function(x, ...) standardGeneric("areaSums"))
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:4), sum, na.rm=na.rm))
+return(apply(x, c(1:4,6), sum, na.rm=na.rm))
 })
 
-setGeneric("dimSums", function(x, ...) standardGeneric("dimSums"))
 setMethod('dimSums', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
 return(apply(x, dim, sum, na.rm=na.rm))
-})
+}) # }}}
 
-setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
+# means         {{{
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 res <- colMeans(x, na.rm=na.rm)
 dim(res) <- c(1, dim(res))
@@ -655,67 +652,62 @@ return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant
     units=units(x)))
 })
 
-setGeneric("yearMeans", function(x, ...) standardGeneric("yearMeans"))
 setMethod('yearMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1,3:6), mean, na.rm=na.rm))
 })
 
-setGeneric("unitMeans", function(x, ...) standardGeneric("unitMeans"))
 setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:2,4:6), mean, na.rm=na.rm))
 })
 
-setGeneric("seasonMeans", function(x, ...) standardGeneric("seasonMeans"))
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:3,6), mean, na.rm=na.rm))
 })
 
-setGeneric("areaMeans", function(x, ...) standardGeneric("areaMeans"))
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:4,6), mean, na.rm=na.rm))
 })
 
-setGeneric("iterMeans", function(x, ...) standardGeneric("iterMeans"))
 setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:5), mean, na.rm=na.rm))
 })
 
-setGeneric("dimMeans", function(x, ...) standardGeneric("dimMeans"))
 setMethod('dimMeans', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
 return(apply(x, dim, mean, na.rm=na.rm))
+})  # }}}
+
+# medians {{{
+setMethod('iterMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
+return(apply(x, c(1:5), median, na.rm=na.rm))
 })
 
-setGeneric("quantVars", function(x, ...) standardGeneric("quantVars"))
+# }}}
+
+# vars         {{{
 setMethod('quantVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, 2:6, var, na.rm=na.rm))
 })
 
-setGeneric("yearVars", function(x, ...) standardGeneric("yearVars"))
 setMethod('yearVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1,3:6), var, na.rm=na.rm))
 })
 
-setGeneric("unitVars", function(x, ...) standardGeneric("unitVars"))
 setMethod('unitVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:2,4:6), var, na.rm=na.rm))
 })
 
-setGeneric("seasonVars", function(x, ...) standardGeneric("seasonVars"))
 setMethod('seasonVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:3,5:6), var, na.rm=na.rm))
 })
 
-setGeneric("areaVars", function(x, ...) standardGeneric("areaVars"))
 setMethod('areaVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:4,6), var, na.rm=na.rm))
 })
 
-setGeneric("iterVars", function(x, ...) standardGeneric("iterVars"))
 setMethod('iterVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:5), var, na.rm=na.rm))
 })
 
-setGeneric("dimVars", function(x, ...) standardGeneric("dimVars"))
 setMethod('dimVars', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
 return(apply(x, dim, var, na.rm=na.rm))
 })   # }}}
