@@ -467,8 +467,8 @@ abPars <- function(model, spr0, s=NULL, v, c=NULL, d=NULL)
     "segregSV"  ={a=5*s/spr0; b=v/(a*spr0)},
     {stop("model name not recognized")})
 
-  res <- c(a=a, b=b)
-  return(res[!is.null(res)])
+  res <- list(a=a, b=b)
+  return(res[!apply(res, is.null)])
 } # }}}
 
 # svPars {{{
@@ -477,7 +477,9 @@ svPars <- function(model, spr0, a, b=NULL, c=NULL, d=NULL)
   v <- spr2v(model, spr0, a, b, c, d)
   s <- srr2s(model, ssb=v*.2, a=a, b=b, c=c, d=d) / srr2s(model, ssb=v, a=a,
       b=b, c=c, d=d)
-  return(c(s=s, v=v, spr0=spr0))
+  return(
+         list(s=s, v=v, spr0=spr0)
+         )
 }
 # }}}
 

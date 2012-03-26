@@ -714,3 +714,46 @@ setMethod('cbind', signature('FLPar'),
     return(FLPar(res, units=units(args[[1]])))
   }
 ) # }}}
+
+# rlnorm {{{
+setMethod("rlnorm", signature(n='numeric', meanlog="FLPar", sdlog="FLPar"),
+  function(n=1, meanlog, sdlog) {
+    if(all(dim(meanlog) != dim(sdlog)))
+      stop("dims of meanlog and sdlog must be equal")
+    
+    FLPar(array(rlnorm(prod(dim(meanlog)[-6])*n,
+      rep(iter(meanlog, 1)[drop=TRUE], n),
+      rep(iter(sdlog, 1)[drop=TRUE],n)),
+        dim=c(dim(meanlog)[-length(dim(meanlog))], n)),
+      dimnames=c(dimnames(meanlog)[-length(dim(meanlog))], list(iter=seq(n))))
+  }
+)
+
+setMethod("rlnorm", signature(n='numeric', meanlog="FLPar", sdlog="numeric"),
+  function(n=1, meanlog, sdlog) {
+    rlnorm(n, meanlog, FLPar(sdlog, dimnames=dimnames(meanlog)))
+  }
+)
+
+setMethod("rlnorm", signature(n='numeric', meanlog="numeric", sdlog="FLPar"),
+  function(n=1, meanlog, sdlog)
+    rlnorm(n, FLPar(meanlog, dimnames=dimnames(sdlog)), sdlog)
+)
+
+setMethod("rlnorm", signature(n='numeric', meanlog="FLPar", sdlog="missing"),
+  function(n=1, meanlog, sdlog)
+    rlnorm(n, meanlog, 1)
+)
+
+setMethod("rlnorm", signature(n='numeric', meanlog="missing", sdlog="FLPar"),
+  function(n=1, meanlog, sdlog)
+    rlnorm(n, 0, sdlog)
+)
+
+setMethod("rlnorm", signature(n='FLPar', meanlog="ANY", sdlog="ANY"),
+  function(n, meanlog=0, sdlog=1) {
+    FLPar(rlnorm(length(n), meanlog, sdlog), dimnames=dimnames(n))
+  }
+)
+
+# }}}

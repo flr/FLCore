@@ -222,47 +222,16 @@ setAs('FLPar', 'data.frame',
 ) 
 
 setAs('data.frame', 'FLPar',
-  function(from)
-  {
-  # data
-  if(!'data' %in% names(from))
-  stop("data.frame must have a column named 'data'")
-  data <- as.numeric(unique(from$data))
+  function(from) {
 
-  # assemble dimnames for array
-  dnms <- vector('list', length=dim(from)[2]-1)
-  ndnms <- dimnames(from)[[2]][dimnames(from)[[2]] != 'data']
-  names(dnms) <- ndnms
+    # iter names from rownames, if present
+    iters <- rownames(from, do.NULL=TRUE, prefix="")
 
-  # iter
-  if('iter' %in% names(from))
-    dnms$iter <- as.numeric(unique(from$iter))
-  else
-    iter <- 1
-  # params
-  if(!'params' %in% names(from))
-    stop("data.frame must have a column named 'params'")
-  dnms$params <- as.character(unique(from$params))
-  # other
-  other <- names(from)[!names(from) %in% c('params', 'iter', 'data')]
-  if(length(other) > 0)
-  {
-    for(i in other)
-      dnms[[i]] <- as.character(unique(from[,i]))
-  }
+    # param names from columns
+    dmns <- list(params=names(from), iter=iters)
 
-  # dim
-  dim <- lapply(dnms, length)
-
-  # array
-  # reshape data to match array dim order
-  arr <- array(data, dim=dim[ndnms], dimnames=dnms[ndnms])
-  arr <- aperm(arr, c('params', ndnms[!ndnms %in% c('params', 'iter')], 'iter'))
-
-  return(FLPar(arr))
+    return(FLPar(c(unlist(from)), dimnames=dmns))
   }
 )
-
-
 
 # }}}

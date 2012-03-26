@@ -9,6 +9,7 @@ USER-VISIBLE CHANGES
   - New iterMedians(FLQuant) method to applky median along iter dim
   - coerce method for data.frame to FLPar now assumes a 2D structure with iters as rows
     and params as columns
+  - rlnorm(FLPar, ...) now available
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim
