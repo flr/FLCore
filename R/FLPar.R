@@ -720,12 +720,14 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLPar", sdlog="FLPar"),
   function(n=1, meanlog, sdlog) {
     if(all(dim(meanlog) != dim(sdlog)))
       stop("dims of meanlog and sdlog must be equal")
+
+    lastdim <- length(dim(meanlog))
     
-    FLPar(array(rlnorm(prod(dim(meanlog)[-6])*n,
+    FLPar(array(rlnorm(prod(dim(meanlog)[-lastdim])*n,
       rep(iter(meanlog, 1)[drop=TRUE], n),
       rep(iter(sdlog, 1)[drop=TRUE],n)),
-        dim=c(dim(meanlog)[-length(dim(meanlog))], n)),
-      dimnames=c(dimnames(meanlog)[-length(dim(meanlog))], list(iter=seq(n))))
+        dim=c(dim(meanlog)[-lastdim], n)),
+      dimnames=c(dimnames(meanlog)[-lastdim], list(iter=seq(n))))
   }
 )
 
@@ -757,3 +759,76 @@ setMethod("rlnorm", signature(n='FLPar', meanlog="ANY", sdlog="ANY"),
 )
 
 # }}}
+
+# rnorm {{{
+setMethod("rnorm", signature(n='numeric', mean="FLPar", sd="FLPar"),
+  function(n=1, mean, sd) {
+    if(all(dim(mean) != dim(sd)))
+      stop("dims of mean and sd must be equal")
+
+    lastdim <- length(dim(mean))
+    
+    FLPar(array(rnorm(prod(dim(mean)[-lastdim])*n,
+      rep(iter(mean, 1)[drop=TRUE], n),
+      rep(iter(sd, 1)[drop=TRUE],n)),
+        dim=c(dim(mean)[-lastdim], n)),
+      dimnames=c(dimnames(mean)[-lastdim], list(iter=seq(n))))
+  }
+)
+
+setMethod("rnorm", signature(n='numeric', mean="FLPar", sd="numeric"),
+  function(n=1, mean, sd) {
+    rnorm(n, mean, FLPar(sd, dimnames=dimnames(mean)))
+  }
+)
+
+setMethod("rnorm", signature(n='numeric', mean="numeric", sd="FLPar"),
+  function(n=1, mean, sd)
+    rnorm(n, FLPar(mean, dimnames=dimnames(sd)), sd)
+)
+
+setMethod("rnorm", signature(n='numeric', mean="FLPar", sd="missing"),
+  function(n=1, mean, sd)
+    rnorm(n, mean, 1)
+)
+
+setMethod("rnorm", signature(n='numeric', mean="missing", sd="FLPar"),
+  function(n=1, mean, sd)
+    rnorm(n, 0, sd)
+)
+
+setMethod("rnorm", signature(n='FLPar', mean="ANY", sd="ANY"),
+  function(n, mean=0, sd=1) {
+    FLPar(rnorm(length(n), mean, sd), dimnames=dimnames(n))
+  }
+)
+
+# }}}
+
+# model.frame {{{
+setMethod("model.frame", signature(formula="FLPar"),
+  function(formula, ...) {
+    dmn <- dim(formula)
+
+    # extract array
+    res <- formula@.Data
+
+    # shape into matrix (no. params, all other dims)
+    dim(res) <- c(dmn[1], prod(dmn[-1]))
+
+    # rotate and data.frame
+    res <- as.data.frame(t(res))
+
+    # add params names
+    names(res) <- dimnames(formula)$params
+
+    # add other cols
+    res <- cbind(res, expand.grid(dimnames(formula)[-1]))
+
+    # make year numeric
+    if("year" %in% names(res))
+      res$year <- as.numeric(res$year)
+
+    return(res)
+  }
+) # }}}
