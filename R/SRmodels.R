@@ -453,22 +453,23 @@ abPars <- function(model, spr0, s=NULL, v, c=NULL, d=NULL)
 {
   # converts a & b parameterisation into steepness & virgin biomass (s & v)
   switch(model,
-    "bevholt" ={a=(v+(v-s*v)/(5*s-1))/spr0; b=(v-s*v)/(5*s-1)},
+    "bevholt"   ={a=(v+(v-s*v)/(5*s-1))/spr0; b=(v-s*v)/(5*s-1)*spr0/spr0},
     "bevholtSV" ={a=(v+(v-s*v)/(5*s-1))/spr0; b=(v-s*v)/(5*s-1)},
-    "ricker"  ={b=log(5*s)/(v*0.8); a=exp(v*b)/spr0},
+    "ricker"    ={b=log(5*s)/(v*0.8); a=exp(v*b)/spr0},
     "rickerSV"  ={b=log(5*s)/(v*0.8); a=exp(v*b)/spr0},
-    "cushing" ={b=log(s)/log(0.2); a=(v^(1-b))/(spr0)},
+    "cushing"   ={b=log(s)/log(0.2); a=(v^(1-b))/(spr0)},
     "cushingSV" ={b=log(s)/log(0.2); a=(v^(1-b))/(spr0)},
-    "shepherd"={b=v*(((0.2-s)/(s*0.2^c-0.2))^-(1/c)); a=((v/b)^c+1)/spr0},
+    "shepherd"  ={b=v*(((0.2-s)/(s*0.2^c-0.2))^-(1/c)); a=((v/b)^c+1)/spr0},
     "shepherdSV"={b=v*(((0.2-s)/(s*0.2^c-0.2))^-(1/c)); a=((v/b)^c+1)/spr0},
-    "mean"    ={a=v/spr0;b=NULL},
+    "mean"      ={a=v/spr0;b=NULL},
     "meanSV"    ={a=v/spr0;b=NULL},
-    "segreg"  ={a=5*s/spr0; b=v/(a*spr0)},
+    "segreg"    ={a=5*s/spr0; b=v/(a*spr0)},
     "segregSV"  ={a=5*s/spr0; b=v/(a*spr0)},
     {stop("model name not recognized")})
 
   res <- list(a=a, b=b)
-  return(res[!apply(res, is.null)])
+  print(res)
+  return(res[unlist(lapply(res, function(x) !is.null(x)))])
 } # }}}
 
 # svPars {{{
