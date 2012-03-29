@@ -808,7 +808,7 @@ setMethod("rnorm", signature(n='FLPar', mean="ANY", sd="ANY"),
 # model.frame {{{
 setMethod("model.frame", signature(formula="FLPar"),
   function(formula, ...) {
-browser()    
+    
     dmn <- dim(formula)
 
     # extract array
