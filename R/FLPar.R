@@ -808,6 +808,7 @@ setMethod("rnorm", signature(n='FLPar', mean="ANY", sd="ANY"),
 # model.frame {{{
 setMethod("model.frame", signature(formula="FLPar"),
   function(formula, ...) {
+browser()    
     dmn <- dim(formula)
 
     # extract array
@@ -820,7 +821,7 @@ setMethod("model.frame", signature(formula="FLPar"),
     res <- as.data.frame(t(res))
 
     # add params names
-    names(res) <- dimnames(formula)$params
+    names(res) <- dimnames(formula)[[1]]
 
     # add other cols
     res <- cbind(res, expand.grid(dimnames(formula)[-1]))
