@@ -454,8 +454,7 @@ setMethod("%-%", signature(x="FLQuant", y="FLPar"),
 # Multiply FLPar against FLPar by matching dimnames, expands 1 to n, creates missing
 setMethod("%*%", signature(x="FLPar", y="FLPar"),
 	function(x, y) {
-    browser()
-
+    
     # dims & dimnames
     dnx <- dimnames(x)
     dny <- dimnames(y)

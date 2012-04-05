@@ -468,7 +468,7 @@ abPars <- function(model, spr0, s=NULL, v, c=NULL, d=NULL)
     {stop("model name not recognized")})
 
   res <- list(a=a, b=b)
-  print(res)
+
   return(res[unlist(lapply(res, function(x) !is.null(x)))])
 } # }}}
 

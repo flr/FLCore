@@ -610,11 +610,11 @@ setMethod('sv', signature(x='FLPar', model='character'),
 setMethod('ab', signature(x='FLPar', model='formula'),
   function(x, model, spr0=NULL)
   {
-    model <- SRModelName(model)
-    if(is.null(model))
+   model <- SRModelName(model)
+   if(is.null(model))
       stop("model provided has not been identified")
     else
-      return(ab(x, model))
+     return(ab(x, model))
   })# }}}
 
 # sweep {{{

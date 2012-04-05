@@ -25,7 +25,6 @@ setMethod("FLQuantPoint", signature(object="missing"),
           names(args)[!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')]))
   
       # check dimnames
-      browser()
       dmns <- c(dimnames(args[[1]])[1:5],
         list(iter=c('mean', 'median', 'var', 'uppq', 'lowq')))
 
