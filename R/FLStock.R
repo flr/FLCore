@@ -909,6 +909,9 @@ setMethod("fapex", signature(x="FLStock"),
     return(apply(harvest(x), 2:6, max))
   }
 )
+setMethod("fapex", signature(x="FLQuant"),
+  function(x, ...)
+    return(apply(x, 2:6, max)))
 # }}}
 
 # r {{{

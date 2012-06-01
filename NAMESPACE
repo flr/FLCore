@@ -62,7 +62,6 @@ export(
   "getSlotNamesClass",
   "loglAR1",
   "readADMB",
-	"readVPA2Box",
 	"readVPAFile",
 	"readFLIndex",
 	"read.FLIndex",

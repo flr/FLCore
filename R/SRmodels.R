@@ -68,7 +68,7 @@ segreg <- function(){
   model <- rec ~ FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))
 
   initial <- structure(function(rec, ssb){
-    return(FLPar(a=median(c(rec/ssb)), b=median(c(ssb))))},
+    return(FLPar(a=median(c(rec/ssb),na.rm=TRUE), b=median(c(ssb),na.rm=TRUE)))},
     lower=rep(  0, 0),
     upper=rep(Inf, 2))
 
@@ -166,13 +166,14 @@ rickerSV <- function()
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+
 # bevholtSV {{{
 bevholtSV <- function()
   {
   logl <- function(s, v, spr0, rec, ssb)
   {
-    pars <- abPars('bevholt', s=s, v=v, spr0=spr0)
-    loglAR1(log(rec), log(pars['a']*ssb/(pars['b']+ssb)))
+    pars <- FLPar(abPars('bevholt', s=s, v=v, spr0=spr0))
+    loglAR1(log(rec), log(pars['a']%*%ssb/(pars['b']%+%ssb)))
   }
 
   ## initial parameter values
@@ -182,17 +183,17 @@ bevholtSV <- function()
     spr0 <- quantile(c(ssb/rec), prob = 0.9, na.rm = TRUE, names=FALSE)
     v <-mean(as.vector(ssb), na.rm = TRUE)*2
     return(FLPar(s=s, v=v, spr0=spr0))
-	},
+  },
   ## bounds
   lower=c(0.2, rep(10e-8, 2)),
 	upper=c(0.999, Inf, Inf))
 
   ## model to be fitted
-  model  <- rec~abPars('bevholt', s=s, v=v, spr0=spr0)['a']*ssb /
-    (abPars('bevholt', s=s, v=v, spr0=spr0)['b']+ssb)
+  model  <- rec~FLPar(abPars('bevholt', s=s, v=v, spr0=spr0))['a']%*%ssb %/% (FLPar(abPars('bevholt', s=s, v=v, spr0=spr0))['b']%+%ssb)
   
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
+
 
 # shepherdSV {{{
 shepherdSV <- function()
@@ -358,7 +359,7 @@ setMethod('rSq', signature(obs='FLQuant',hat='FLQuant'),
 # loglAR1 {{{
 setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
   function(obs, hat, rho=0){
-  
+print(hat)  
     # calculates likelihood for AR(1) process
     n   <- dim(obs)[2]
     rsdl<-(obs[,-1] - rho*obs[,-n] - hat[,-1] + rho*hat[,-n])

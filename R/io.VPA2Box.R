@@ -6,7 +6,7 @@
 # $Id:  $
 
 # readVPA2Box {{{
-readVPA2Box <- function(file, args=missing,m=NULL,...) {
+readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
 
   if(!missing(args))
     args <- c(args, list(...))
@@ -32,7 +32,7 @@ readVPA2Box <- function(file, args=missing,m=NULL,...) {
          I=grep("I",dat)[2])
   
   # function to convert data in "csv" file into an FLQuant
-  aaIn <- function(aa,minage=1) {
+  aaIn <- function(aa,minage=minage) {
     aa <- aa[nchar(aa)>1]
     N <- length(aa)
     aa <- unlist(strsplit(aa," +"))
