@@ -51,11 +51,11 @@ setMethod('jackknife', signature(object='FLQuant'),
     res <- new("FLQuantJK", res, orig=object)
 
     jk.NA=function(x,object){
-        flag=seq(dims(res)$iter)[c(is.na(object))]
-        return(res[,,,,,flag])}
-
-    if (rm.na) res=jk.NA(res,object)    
-      
+        flag=seq(dims(x)$iter)[c(!is.na(object))]
+        return(x[,,,,,flag])}
+    
+    if (rm.na)  res=jk.NA(res,object)
+ 
     return(res)
   }
 ) # }}}
