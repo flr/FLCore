@@ -53,6 +53,10 @@ setMethod('convertFLPar', signature(object='FLPar'),
 ac <- function(x, ...)
   as.character(x, ...)
 
+# an
+an <- function(x, ...)
+  as.numeric(x, ...)
+
 # convertFLModel{{{
 	setGeneric("convertFLModel", function(object, ...)
 		standardGeneric("convertFLModel"))

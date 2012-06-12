@@ -41,6 +41,7 @@ export(
   "abModel",
   "abPars",
   "ac",
+  "an",
 	"bevholt",
 	"bevholtAR1",
 	"bevholtSV",

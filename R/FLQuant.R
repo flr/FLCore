@@ -409,23 +409,27 @@ return(flq)
   }
 ) # }}}
 
-## dimnames<-       {{{
+# dimnames<-       {{{
 setMethod("dimnames<-", signature(x="FLQuant", value='list'),
-function(x, value) {
-if(length(names(value)[!names(value)%in%c("year","unit","season","area","iter")]) > 1)
-stop("more than one vector of names given for the first dimension")
-xnames <- dimnames(x)
-for(i in 1:length(value)) {
-if(any(names(value)[i]==c("year","unit","season","area","iter")))
-xnames[[names(value)[i]]] <- value[[i]]
-else {
-xnames[[1]] <- value[[i]]
-names(xnames)[1] <- names(value)[i]
-}
-}
-attributes(x)$dimnames <- xnames
-return(x)
-}
+  function(x, value) {
+
+    if(length(names(value)[!names(value)%in%c("year","unit","season","area","iter")]) > 1)
+      stop("more than one vector of names given for the first dimension")
+
+    xnames <- dimnames(x)
+
+    for(i in 1:length(value)) {
+      if(any(names(value)[i]==c("year","unit","season","area","iter")))
+        xnames[[names(value)[i]]] <- value[[i]]
+      else {
+      xnames[[1]] <- value[[i]]
+      names(xnames)[1] <- names(value)[i]
+      }
+    }
+    attributes(x)$dimnames <- xnames
+    
+    return(x)
+  }
 ) # }}}
 
 ## dims       {{{
@@ -759,16 +763,18 @@ setMethod("propagate", signature(object="FLQuant"),
 ) # }}}
 
 # rnorm{{{
-setGeneric("rnorm", function(n, mean=0, sd=1) standardGeneric("rnorm"))
 setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
-function(n=1, mean, sd) {
-if(any(dim(mean) != dim(sd)))
-stop("dims of mean and sd must be equal")
-FLQuant(array(rnorm(prod(dim(mean)[-6])*n, rep(iter(mean, 1)[drop=TRUE], n),
-rep(iter(sd, 1)[drop=TRUE], n)), dim=c(dim(mean)[-6], n)),
-dimnames=c(dimnames(mean)[-6], list(iter=seq(n))))
-}
+  function(n=1, mean, sd) {
+    if(dim(mean)[6] > 1 | dim(sd)[6] > 1)
+      stop("mean or sd can only have iter=1")
+    if(any(dim(mean) != dim(sd)))
+      stop("dims of mean and sd must be equal")
+    FLQuant(array(rnorm(prod(dim(mean)[-6])*n, rep(iter(mean, 1)[drop=TRUE], n),
+      rep(iter(sd, 1)[drop=TRUE], n)), dim=c(dim(mean)[-6], n)),
+      dimnames=c(dimnames(mean)[-6], list(iter=seq(n))))
+  }
 )
+
 setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="numeric"),
 function(n=1, mean, sd)
 rnorm(n, mean, FLQuant(sd, dimnames=dimnames(mean)))
@@ -790,6 +796,8 @@ rnorm(n, 0, sd)
 # rlnorm {{{
 setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="FLQuant"),
   function(n=1, meanlog, sdlog) {
+    if(dim(meanlog)[6] > 1 | dim(sdlog)[6] > 1)
+      stop("meanlog or sdlog can only have iter=1")
     if(all(dim(meanlog) != dim(sdlog)))
       stop("dims of meanlog and sdlog must be equal")
     FLQuant(array(rlnorm(prod(dim(meanlog)[-6])*n,
@@ -829,9 +837,10 @@ setMethod("rlnorm", signature(n='FLQuant', meanlog="ANY", sdlog="ANY"),
 # }}}
 
 # rpois{{{
-setGeneric("rpois", function(n, lambda) standardGeneric("rpois"))
 setMethod("rpois", signature(n='numeric', lambda="FLQuant"),
 function(n=1, lambda) {
+    if(dim(lambda)[6] > 1)
+      stop("lambda can only have iter=1")
 FLQuant(array(rnorm(prod(dim(lambda)[-6])*n, rep(iter(lambda, 1)[drop=TRUE], n)),
       dim=c(dim(lambda)[-6], n)),
 dimnames=c(dimnames(lambda)[-6], list(iter=seq(n))), fill.iter=TRUE)
@@ -938,7 +947,12 @@ setMethod('sweep', signature(x='FLQuant'),
 
 # jacknife  {{{
 setMethod('jacknife', signature(object='FLQuant'),
-  function(object) {
+  function(object, na.rm=TRUE) {
+
+    # drop NAs if na.rm=TRUE
+    if(na.rm)
+      object <- object[!is.na(object)]
+
     # get dimensions
     dmo <- dim(object)
 

@@ -140,7 +140,7 @@ setGeneric("unlock", function(object, ...){
 
 setMethod("unlock", "FLlst", function(object){object@lock <- FALSE; object})  # }}}
 
-## model.frame	{{{
+# model.frame	{{{
 setMethod('model.frame', signature(formula='FLlst'),
 	function(formula, drop=FALSE, ...)
 	{

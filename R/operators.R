@@ -454,7 +454,7 @@ setMethod("%-%", signature(x="FLQuant", y="FLPar"),
 # Multiply FLPar against FLPar by matching dimnames, expands 1 to n, creates missing
 setMethod("%*%", signature(x="FLPar", y="FLPar"),
 	function(x, y) {
-    
+
     # dims & dimnames
     dnx <- dimnames(x)
     dny <- dimnames(y)
@@ -466,8 +466,6 @@ setMethod("%*%", signature(x="FLPar", y="FLPar"),
     
 
     dr <- pmax(dnsx, dnsy)
-
-
 
     # select dimnames from larger FLPar
     if(length(dnx) > length(dny)) {
@@ -483,8 +481,6 @@ setMethod("%*%", signature(x="FLPar", y="FLPar"),
     if(any(apply(dnd, 2, function(x) all(x > 0) && max(x)/min(x) != max(x))))
       stop("dimensions in 'x' not matching in length those in 'y' must be of length=1")
     
-
-
     # TODO expand & aperm FLPars
     FLPar(
           array(x@.Data, dim=dr, dimnames=dnmr)

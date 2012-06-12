@@ -176,7 +176,7 @@ setMethod("mcf", signature(object="list"), function(object){
 	FLQuants(lst)	
 })  # }}}
 
-## as.data.frame	{{{
+# as.data.frame	{{{
 setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="missing"),
   function(x, row.names, drop=FALSE)
 	{
@@ -322,3 +322,24 @@ setAs('FLComp', 'FLQuants',
     return(res)
   }
 ) # }}}
+
+# combine {{{
+setMethod('combine', signature(x='FLQuants', y='missing'),
+  function(x) {
+
+    ln <- length(x)
+    dm <- matrix(unlist(lapply(x, dim)), ncol=6, nrow=ln, byrow=TRUE)
+
+    # dim(...)[1:5] == dim(...)[1:5]
+    if(any(apply(dm[,1:5], 1, function(x) x/dm[1,1:5]) != 1))
+      stop("Object dimensions [1:5] must match")
+
+    its <- dm[,6]
+
+    res <- FLQuant(unlist(x), dimnames=c(dimnames(x[[1]])[1:5], list(iter=seq(sum(its)))),
+      units=units(x[[1]]))
+
+    return(res)
+  }
+) # }}}
+
