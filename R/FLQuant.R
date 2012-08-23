@@ -855,12 +855,14 @@ setMethod("mvrnorm",
     dmu <- dim(mu)
 
     # input checks
+    if(any(dmu[3:6] > 1))
+      stop("mvrnorm can only work on 'quant' by 'year' FLQuant objects")
     if (!isSymmetric(Sigma, tol = sqrt(.Machine$double.eps), 
-        check.attributes = FALSE)) {
-        stop("Sigma must be a symmetric matrix")
+      check.attributes = FALSE)) {
+      stop("Sigma must be a symmetric matrix")
     }
     if (dmu[1] != nrow(sigma)) {
-        stop("mu and Sigma have non-conforming size")
+      stop("mu and Sigma have non-conforming size")
     }
 
     # "chol" method, from mvtnorm pkg
