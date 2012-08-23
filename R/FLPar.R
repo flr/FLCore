@@ -670,7 +670,6 @@ setMethod('rbind', signature('FLPar'),
    # idx <- unlist(lapply(args, is, 'FLPar'))
    # if(!all(idx))
    #   stop("input objects must all be of class 'FLPar'")
-   #browser()
 
     # extend iters
 
