@@ -166,7 +166,6 @@ rickerSV <- function()
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
-
 # bevholtSV {{{
 bevholtSV <- function()
   {
@@ -193,7 +192,6 @@ bevholtSV <- function()
   
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
-
 
 # shepherdSV {{{
 shepherdSV <- function()

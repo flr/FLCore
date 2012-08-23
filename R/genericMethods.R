@@ -50,6 +50,7 @@ setGeneric("xyplot", useAsDefault = xyplot)
 setGeneric("rnorm", useAsDefault=rnorm)
 setGeneric("rlnorm", useAsDefault=rlnorm)
 setGeneric("rpois", useAsDefault=rpois)
+setGeneric("mvrnorm", useAsDefault=mvrnorm)
 
 
 # NEW methods

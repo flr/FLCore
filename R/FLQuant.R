@@ -847,6 +847,51 @@ dimnames=c(dimnames(lambda)[-6], list(iter=seq(n))), fill.iter=TRUE)
 }
 ) # }}}
 
+# mvrnorm {{{
+setMethod("mvrnorm",
+  signature(n="numeric", mu="FLQuant", Sigma="matrix"), 
+  function(n=1, mu, Sigma) {
+
+    dmu <- dim(mu)
+
+    # input checks
+    if (!isSymmetric(Sigma, tol = sqrt(.Machine$double.eps), 
+        check.attributes = FALSE)) {
+        stop("Sigma must be a symmetric matrix")
+    }
+    if (dmu[1] != nrow(sigma)) {
+        stop("mu and Sigma have non-conforming size")
+    }
+
+    # "chol" method, from mvtnorm pkg
+    retval <- chol(Sigma, pivot = TRUE)
+    o <- order(attr(retval, "pivot"))
+    retval <- retval[, o]
+
+    retval <- matrix(rnorm(n * prod(dmu)), nrow = n * dmu[2]) %*% retval
+
+    # iter, year, age, unit, season, area
+    dim(retval)<-c(n, dmu[2], dmu[1], 1, 1, 1)
+
+    # aperm into FLQ
+    retval <- mu + FLQuant(aperm(retval, c(3,2,4,5,6,1)))
+
+    return(retval)
+  }
+)
+
+setMethod("mvrnorm",
+  signature(n="numeric", mu="FLQuant", Sigma="missing"), 
+  function(n=1, mu) {
+
+    #
+    Sigma <- cov(t(mu[, drop=TRUE]))
+
+    return(mvrnorm(n, mu, Sigma))
+    
+  }
+)# }}}
+
 # PV{{{
 setGeneric("pv", function(object, ...)
 standardGeneric("pv"))

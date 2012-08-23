@@ -1,5 +1,7 @@
 useDynLib("FLCore")
 import("methods")
+importFrom("MASS",
+  "mvrnorm")
 importFrom("stats",
   "update",
   "AIC",

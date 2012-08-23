@@ -10,6 +10,7 @@ USER-VISIBLE CHANGES
   - coerce method for data.frame to FLPar now assumes a 2D structure with iters as rows
     and params as columns
   - rlnorm(FLPar, ...) and rnorm(FLPar, ...) now available
+  - mvrnorm(numeric, FLQuant) and mvrnorm(numeric, FLQuant, matrix) now available
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim
