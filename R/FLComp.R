@@ -173,7 +173,7 @@ setMethod("units<-", signature(x="FLComp", value="list"),
 setMethod('[', signature(x='FLComp'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE) {
 
-		qnames <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant"])
+		qnames <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant" | getSlots(class(x))=="FLArray" | getSlots(class(x))=="FLCohort"])
 		dx <- dim(slot(x, qnames[1]))
     args <- list(drop=FALSE)
 
