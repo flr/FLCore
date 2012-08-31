@@ -525,7 +525,10 @@ setMethod("harvest<-", signature(object="FLStock", value="character"),
 setMethod("harvest<-", signature(object="FLStock", value="FLQuant"),
 	function(object, value) {
 		slot(object, "harvest") <- value
-		return(object)
+    if(validObject(object))
+      return(object)
+    else
+      stop("Object not valid")
 	}
 )
 setMethod("harvest<-", signature(object="FLStock", value="numeric"),

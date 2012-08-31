@@ -16,16 +16,14 @@ validFLComp <- function(object){
   test <- dims != max(dims) & dims != 1
 	if (any(test))
 		stop(paste("All slots must have iters equal to 1 or 'n': error in",
-			paste(names[test], collapse=', ')))
+			paste(names(test[!test]), collapse=', ')))
 	
   # and dimname for iter[1] should be '1'
 	test <- unlist(dimnms[dims == 1])
 	if(!all(test==test))
 		stop(paste("Incorrect names on the iter dimension in ",
-			paste(names[test], collapse=', ')))
+			paste(names(test[!test]), collapse=', ')))
 
-  return(TRUE)
-  
   # all 'quant' should be equal
   if(any(quants != quants[1]))
     stop("Not all 'quant' names are the same. Check using qapply(x, quant)")

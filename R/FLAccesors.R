@@ -34,7 +34,7 @@ createFLAccesors <- function(class, exclude=character(1), include=missing) {
 		eval(
 		substitute(setReplaceMethod(x, signature(object=y, value=v),
       function(object, value)
-			{slot(object, s) <- value; if(validObject(object)) object else stop("")}),
+			{slot(object, s) <- value; if(validObject(object)) object else stop("Object not valid")}),
       list(x=x, y=class, s=x, v=unname(slots[x])))
 		)
     if(any(unname(slots[x]) %in% c('FLArray', 'FLQuant', 'FLCohort')))
