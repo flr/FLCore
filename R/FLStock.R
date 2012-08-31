@@ -748,8 +748,9 @@ setMethod('rec', signature(object='FLStock'),
   {
     if(dims(object)$quant != 'age')
       stop("rec(FLStock) only defined for age-based objects")
-    res <- quantSums(stock.n(object)[rec.age,])
-    dimnames(res) <- list(age=rec.age)
+    if(length(rec.age) > 1)
+      stop("rec.age can only be of length 1")
+    res <- stock.n(object)[rec.age,]
     return(res)
   }
 ) # }}}
