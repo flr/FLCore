@@ -644,77 +644,88 @@ setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 return(apply(x, c(1:4,6), sum, na.rm=na.rm))
 })
 
+setMethod('iterSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
+return(apply(x, c(1:5), sum, na.rm=na.rm))
+})
+
 setMethod('dimSums', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
 return(apply(x, dim, sum, na.rm=na.rm))
 }) # }}}
 
 # means         {{{
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-res <- colMeans(x, na.rm=na.rm)
-dim(res) <- c(1, dim(res))
-return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant(x),
+  res <- colMeans(x, na.rm=na.rm)
+  dim(res) <- c(1, dim(res))
+  return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant(x),
     units=units(x)))
 })
 
 setMethod('yearMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1,3:6), mean, na.rm=na.rm))
+  return(apply(x, c(1,3:6), mean, na.rm=na.rm))
 })
 
 setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:2,4:6), mean, na.rm=na.rm))
+  return(apply(x, c(1:2,4:6), mean, na.rm=na.rm))
 })
 
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:3,6), mean, na.rm=na.rm))
+  return(apply(x, c(1:3,6), mean, na.rm=na.rm))
 })
 
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:4,6), mean, na.rm=na.rm))
+  return(apply(x, c(1:4,6), mean, na.rm=na.rm))
 })
 
 setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:5), mean, na.rm=na.rm))
+  return(apply(x, c(1:5), mean, na.rm=na.rm))
 })
 
 setMethod('dimMeans', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
-return(apply(x, dim, mean, na.rm=na.rm))
+  return(apply(x, dim, mean, na.rm=na.rm))
 })  # }}}
 
 # medians {{{
 setMethod('iterMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:5), median, na.rm=na.rm))
+  return(apply(x, c(1:5), median, na.rm=na.rm))
 })
 
 # }}}
 
 # vars         {{{
 setMethod('quantVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, 2:6, var, na.rm=na.rm))
+  return(apply(x, 2:6, var, na.rm=na.rm))
 })
 
 setMethod('yearVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1,3:6), var, na.rm=na.rm))
+  return(apply(x, c(1,3:6), var, na.rm=na.rm))
 })
 
 setMethod('unitVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:2,4:6), var, na.rm=na.rm))
+  return(apply(x, c(1:2,4:6), var, na.rm=na.rm))
 })
 
 setMethod('seasonVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:3,5:6), var, na.rm=na.rm))
+  return(apply(x, c(1:3,5:6), var, na.rm=na.rm))
 })
 
 setMethod('areaVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:4,6), var, na.rm=na.rm))
+  return(apply(x, c(1:4,6), var, na.rm=na.rm))
 })
 
 setMethod('iterVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:5), var, na.rm=na.rm))
+  return(apply(x, c(1:5), var, na.rm=na.rm))
 })
 
 setMethod('dimVars', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
-return(apply(x, dim, var, na.rm=na.rm))
+  return(apply(x, dim, var, na.rm=na.rm))
 })   # }}}
+
+# CVs {{{
+setMethod('iterCVs', signature(x='FLQuant'), function(x, na.rm=TRUE) {
+  return(sqrt(iterVars(x))/iterMeans(x))
+})
+
+# }}}
 
 # quantile   {{{
 setMethod("quantile", signature(x="FLQuant"),

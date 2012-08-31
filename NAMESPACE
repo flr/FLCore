@@ -256,7 +256,9 @@ exportMethods(
   "initial<-",
 	"iter",
 	"iter<-",
+	"iterCVs",
 	"iterMeans",
+	"iterMedians",
 	"iterVars",
 	"iters",
   "jacknife",
@@ -405,5 +407,6 @@ exportMethods(
 	"yearMeans",
 	"yearSums",
 	"yearTotals",
-	"yearVars"
+	"yearVars",
+  "Z"
 )

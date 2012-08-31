@@ -752,11 +752,13 @@ setGeneric("quantTotals", function(x, ...)
 setGeneric("yearTotals", function(x, ...)
     standardGeneric("yearTotals"))
 
+# dim Sums, Means, Medians & CVs
 setGeneric("quantSums", function(x, ...) standardGeneric("quantSums"))
 setGeneric("yearSums", function(x, ...) standardGeneric("yearSums"))
 setGeneric("unitSums", function(x, ...) standardGeneric("unitSums"))
 setGeneric("seasonSums", function(x, ...) standardGeneric("seasonSums"))
 setGeneric("areaSums", function(x, ...) standardGeneric("areaSums"))
+setGeneric("iterSums", function(x, ...) standardGeneric("iterSums"))
 setGeneric("dimSums", function(x, ...) standardGeneric("dimSums"))
 setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
 setGeneric("yearMeans", function(x, ...) standardGeneric("yearMeans"))
@@ -773,3 +775,8 @@ setGeneric("areaVars", function(x, ...) standardGeneric("areaVars"))
 setGeneric("iterVars", function(x, ...) standardGeneric("iterVars"))
 setGeneric("dimVars", function(x, ...) standardGeneric("dimVars"))
 setGeneric("iterMedians", function(x, ...) standardGeneric("iterMedians"))
+setGeneric("iterCVs", function(x, ...) standardGeneric("iterCVs"))
+
+# Z
+setGeneric("Z", function(object, ...)
+    standardGeneric("Z"))

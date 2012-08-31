@@ -993,3 +993,12 @@ setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
 
 		return(object)})
 
+# Z {{{
+setMethod("Z", "FLStock", function(object, ...) {
+  f <- harvest(object)
+  if(units(f) != 'f') {
+    stop("Your exploitation rate is not defined as F, cannot be added to M")
+  } else { 
+    return(m(object) + f)
+  }
+}) # }}}
