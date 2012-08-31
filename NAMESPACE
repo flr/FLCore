@@ -408,5 +408,5 @@ exportMethods(
 	"yearSums",
 	"yearTotals",
 	"yearVars",
-  "Z"
+  "z"
 )

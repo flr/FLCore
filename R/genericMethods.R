@@ -778,5 +778,5 @@ setGeneric("iterMedians", function(x, ...) standardGeneric("iterMedians"))
 setGeneric("iterCVs", function(x, ...) standardGeneric("iterCVs"))
 
 # Z
-setGeneric("Z", function(object, ...)
-    standardGeneric("Z"))
+setGeneric("z", function(object, ...)
+    standardGeneric("z"))
