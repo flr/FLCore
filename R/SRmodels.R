@@ -360,6 +360,7 @@ setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
     # calculates likelihood for AR(1) process
     n   <- dim(obs)[2]
     rsdl<-(obs[,-1] - rho*obs[,-n] - hat[,-1] + rho*hat[,-n])
+    
     s2  <- sum(rsdl^2, na.rm=T)
     s1  <-s2
 
