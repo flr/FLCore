@@ -306,6 +306,7 @@ exportMethods(
 	"model",
 	"model<-",
 	"model.frame",
+  "mvrnorm",
 	"n",
 	"n<-",
 	"name",
