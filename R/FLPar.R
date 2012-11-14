@@ -576,7 +576,9 @@ setMethod('ab', signature(x='FLPar', model='character'),
     cd <- args[c('c', 'd', 'spr0')]
     res <- c(res, unlist(cd[!unlist(lapply(cd, is.null))]))
 
-    return(FLPar(unlist(res), params=names(res)))
+    return(
+           FLPar(unlist(res), params=names(res))
+           )
   })
 
 setMethod('ab', signature(x='FLPar', model='formula'),
