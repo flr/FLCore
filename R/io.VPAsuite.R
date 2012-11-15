@@ -63,11 +63,13 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
         if(quiet==TRUE) stop()
         if(quiet!=TRUE) stop(paste("VPA index file", file, "does not exist"))
     }
-
-    dir <- dirname(file)
+    dir    <- dirname(file)
     files. <- scan(file, what = "character", skip = 2, sep = sep, quiet=quiet)
-    files. <- file.path(dir, files., fsep = .Platform$file.sep)
-
+    
+    for(i in seq(length(files.)))
+      if (!grepl(dir,files.[i]))    
+        files.[i] <- file.path(dir, files.[i], fsep = .Platform$file.sep)
+    
     range1 <- scan(files.[1], skip = 2, nlines = 1, sep = sep, quiet=quiet)
     range2 <- scan(files.[1], skip = 3, nlines = 1, sep = sep, quiet=quiet)
     range  <- c(range1[1:2],range2[1:2])
@@ -76,7 +78,7 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
     yrs <- range[1:2]
 
     FLStock. <- FLStock(catch.n=FLQuant(NA, dimnames = list(age = ages[1]:ages[2], year = yrs[1]:yrs[2], unit = "unique", season = "all",  area = "unique")))
-
+    
     for (i in files.) {
         if (!file.exists(i)){
            if(quiet != TRUE) cat("File ", i, "does not exist", "\n")
@@ -127,25 +129,27 @@ one season. Lowestoft VPA can't handle this unfortunately.")
 one unit. Lowestoft VPA can't handle this unfortunately.")
 
     #List of configuration information
-    config.df  <-  rbind(
-      c(1, "landings", "LATON", "total landings"),
-      c(2, "landings.n", "LANUM", "landings-at-age"),
-      c(3, "landings.wt", "WELAND", "landings weight-at-age"),
-      c(4, "stock.wt", "WEST", "stock weight-at-age"),
-      c(5, "m", "NATMOR", "natural mortality"),
-      c(6, "mat", "MATPROP", "maturity-at-age ogive"),
-      c(7, "harvest.spwn", "FPROP", "proportion of F before spawning"), 
-      c(8, "m.spwn", "MPROP", "proportion of M before spawning"),
-      c(12,"harvest", "F", "fishing mortality"),
-      c(13,"stock.n", "N", "stock numbers at age"),
-      c(21, "discards", "DISTON", "total discards"),
-      c(22, "discards.n", "DISNUM", "discards-at-age"),
-      c(23, "discards.wt", "WEDIS", "discards weight-at-age"),
-      c(24, "catch", "CATON", "total catch"),                                  
-      c(25, "catch.n", "CANUM", "catch-at-age"),
-      c(26, "catch.wt", "WECA", "catch weight-at-age"))
-    colnames(config.df) <-  c("idx","stock.slot","file.ext","desc")
-
+    config.df  <-  as.data.frame(rbind(
+      c(1,  5, "landings", "LATON", "total landings"),
+      c(2,  1, "landings.n", "LANUM", "landings-at-age"),
+      c(3,  1, "landings.wt", "WELAND", "landings weight-at-age"),
+      c(4,  1, "stock.wt", "WEST", "stock weight-at-age"),
+      c(5,  1, "m", "NATMOR", "natural mortality"),
+      c(6,  1, "mat", "MATPROP", "maturity-at-age ogive"),
+      c(7,  1, "harvest.spwn", "FPROP", "proportion of F before spawning"), 
+      c(8,  1, "m.spwn", "MPROP", "proportion of M before spawning"),
+      c(12, 1, "harvest", "F", "fishing mortality"),
+      c(13, 1, "stock.n", "N", "stock numbers at age"),
+      c(21, 5, "discards", "DISTON", "total discards"),
+      c(22, 1, "discards.n", "DISNUM", "discards-at-age"),
+      c(23, 1, "discards.wt", "WEDIS", "discards weight-at-age"),
+      c(24, 5, "catch", "CATON", "total catch"),                                  
+      c(25, 1, "catch.n", "CANUM", "catch-at-age"),
+      c(26, 1, "catch.wt", "WECA", "catch weight-at-age")))
+    colnames(config.df) <-  c("idx","dfi","stock.slot","file.ext","desc")
+    config.df$idx=as.numeric(as.character(config.df$idx))
+    config.df$dfi=as.numeric(as.character(config.df$dfi))
+    
     config.df   <- as.data.frame(config.df)
 
     #Only write the harvest slot if units are f.
@@ -162,7 +166,7 @@ one unit. Lowestoft VPA can't handle this unfortunately.")
     nyear <- dims(FLStock)$year
 
     #Function to write files. Based on original code by David Bromley, CEFAS
-    writeVPAFile <- function(file.ext,stock.slot,idx,desc)
+    writeVPAFile <- function(file.ext,stock.slot,idx,dfi,desc)
     {
       # handles the annoying "strings as factors" option
       stock.slot <- as.character(stock.slot)
@@ -181,12 +185,14 @@ one unit. Lowestoft VPA can't handle this unfortunately.")
         cat(1, idx,"\n", file=temp, sep="\t")
         cat(FLStock@range["minyear"], FLStock@range["maxyear"], "\n",
           file=temp, sep="\t")
-        cat(FLStock@range["min"], FLStock@range["max"], "\n", file=temp,
-          sep="\t")
-        cat(1,"\n",  file=temp)
+        cat(FLStock@range["min"], FLStock@range["max"], "\n", file=temp,  sep="\t")
+        cat(dfi,"\n",  file=temp)
         # append the data to the file
- 			  write(matrix(slot(FLStock,stock.slot), nrow=nage, ncol=nyear),
-          ncolumns=nage, file=temp)
+        if (dfi==1) 			  
+           write(matrix(slot(FLStock,stock.slot), nrow=nage, ncol=nyear),ncolumns=nage, file=temp)
+        else if (dfi==5)
+           write(matrix(slot(FLStock,stock.slot), nrow=1, ncol=nyear),ncolumns=1, file=temp)
+      
         close(temp)
     }
 
@@ -195,8 +201,8 @@ one unit. Lowestoft VPA can't handle this unfortunately.")
     {
       #Write all the data out, and an index file
       #Write the slots sequentially
-      do.call(mapply,list(config.df$file.ext, config.df$stock.slot,
-        config.df$idx, config.df$desc, FUN=writeVPAFile))
+      #do.call(mapply,list(config.df$file.ext, config.df$stock.slot, config.df$idx, config.df$desc, FUN=writeVPAFile))
+      mapply(config.df$file.ext, config.df$stock.slot, config.df$idx,config.df$dfi, config.df$desc, FUN=writeVPAFile)
       # produces the index file
       temp <- file(paste(output.file, "-INDEX.txt", sep=""), "w")
       cat(FLStock@name, "\n", file=temp)
