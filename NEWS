@@ -1,6 +1,8 @@
 		CHANGES IN FLCore VERSION 3.0
 
 NEW FEATURES
+	- [<- FLArray now accepts an input FLQuant and keeps the structure, still recyling
+	  as appropriate.
 
 USER-VISIBLE CHANGES
   - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim

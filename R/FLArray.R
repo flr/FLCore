@@ -114,6 +114,56 @@ setMethod("[<-", signature(x="FLArray"),
 	}
 )   # }}}
 
+## "[<-"            {{{
+setMethod("[<-", signature(x="FLArray", value="FLArray"),
+  function(x, i, j, k, l, m, n, ..., value)
+  {
+		# check dims !> 6
+    if(length(list(...)) > 0)
+      stop(paste(class(x), 'objects only have 6 dimensions'))
+
+		# array (logical) used to index
+    if(!missing(i) && is.array(i))
+    {
+	  x@.Data[i] <- value
+      return(x)
+    }
+		
+		# default dims = all
+    dx <- dim(x)
+  	if (missing(i))
+      i  <-  seq(1, dx[1])
+    if (missing(j))
+      j  <-  seq(1, dx[2])
+    if (missing(k))
+      k  <-  seq(1, dx[3])
+    if (missing(l))
+      l  <-  seq(1, dx[4])
+    if (missing(m))
+      m  <-  seq(1, dx[5])
+    if (missing(n))
+      n  <-  seq(1, dx[6])
+
+    # aperm array, not common dims last
+		same <- which(dim(value) == dim(x))
+		diff <- which(dim(value) != dim(x))
+		dper <- c(same, diff)
+		y <- aperm(x, dper)
+		
+		# 
+		iper <- list(i, j, k, l, m, n)[dper]
+		names(iper) <- c('i','j','k','l','m','n')
+		
+		# call [<-
+		y <- do.call('[<-', c(list(x=y), iper, list(value=aperm(value, dper))))
+
+		# re-aperm
+		y <- aperm(y, order(dper))
+
+   	return(FLQuant(y, units=units(x)))
+	}
+)   # }}}
+
 ## names         {{{
 setMethod("names", signature(x="FLArray"),
 	function(x)
