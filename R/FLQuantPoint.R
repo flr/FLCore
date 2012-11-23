@@ -42,8 +42,8 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
         # new object
         res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
             iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))), units=units))
-       
-        # load values
+        
+# load values
         res[,,,,,'mean'] <- apply(object, 1:5, mean, na.rm=TRUE)
         res[,,,,,'median'] <- apply(object, 1:5, median, na.rm=TRUE)
         res[,,,,,'var'] <- apply(object, 1:5, var, NULL, na.rm=TRUE)

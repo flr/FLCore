@@ -155,12 +155,12 @@ setMethod("[<-", signature(x="FLArray", value="FLArray"),
 		names(iper) <- c('i','j','k','l','m','n')
 		
 		# call [<-
-		y <- do.call('[<-', c(list(x=y), iper, list(value=aperm(value, dper))))
+		y <- do.call('[<-', c(list(x=y), iper, list(value=aperm(unname(value), dper))))
 
 		# re-aperm
 		y <- aperm(y, order(dper))
 
-   	return(FLQuant(y, units=units(x)))
+   	return(new(class(x), y, units=units(x)))
 	}
 )   # }}}
 

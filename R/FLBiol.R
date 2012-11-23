@@ -541,7 +541,7 @@ s.<-	function(x, plusgroup, na.rm=FALSE)
 setMethod('rec', signature(object='FLBiol'),
 #  function(object, rec.age=ac(dims(object)$min))
   function(object, rec.age=dims(object)$min)
-  {browser()
+  {
     if(dims(object)$quant == 'age')
       n(object)[ac(rec.age),]
     else
