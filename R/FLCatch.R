@@ -1,7 +1,7 @@
 # FLCatch - Class for catch data stored in FLMetier and FLFleet objects
 # FLCore/R/FLCatch.R
 
-# Copyright 2003-2007 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
 # $Id$
 

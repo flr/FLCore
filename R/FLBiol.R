@@ -1,7 +1,7 @@
 # FLBiol - class for representing a natural population
 # FLCore/R/FLBiol.R
 
-# Copyright 2003-2007 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Laurie Kell, CEFAS
 # $Id$
 
@@ -540,10 +540,10 @@ s.<-	function(x, plusgroup, na.rm=FALSE)
 # rec(FLBiol)  {{{
 setMethod('rec', signature(object='FLBiol'),
 #  function(object, rec.age=ac(dims(object)$min))
-  function(object, rec.age=object@range["min"])
-  {
+  function(object, rec.age=dims(object)$min)
+  {browser()
     if(dims(object)$quant == 'age')
-      n(object)[rec.age,]
+      n(object)[ac(rec.age),]
     else
       stop("rec(FLBiol) only defined for age-based objects")
   }

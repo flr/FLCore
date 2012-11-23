@@ -1,12 +1,10 @@
 # FLQuants - A list of FLQuant objects
-# FLCore/R/FLQuants-methods.R
+# FLCore/R/FLQuants.R
 
-# Copyright 2003-2007 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLQuants-methods.R 933 2011-05-03 12:32:03Z imosqueira $
 
-# Reference:
-# Notes:
 
 ## FLQuants     {{{
 #
@@ -343,3 +341,17 @@ setMethod('combine', signature(x='FLQuants', y='missing'),
   }
 ) # }}}
 
+# Sums(FLQuants)	{{{
+setMethod('Sums', signature(object='FLQuants'),
+	function(object, na.rm=FALSE, ...) {
+		if(length(object) == 1)
+			return(object)
+		eval(parse(text=paste('object[[', paste(seq(length(object)),
+			collapse=']] + object[['), ']]', sep='')))
+	}
+)
+setMethod('Products', signature(object='FLQuants'),
+	function(object, na.rm=FALSE, ...)
+		eval(parse(text=paste('object[[', paste(seq(length(object)),
+			collapse=']] * object[['), ']]', sep='')))
+)	# }}}
