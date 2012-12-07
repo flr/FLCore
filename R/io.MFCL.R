@@ -13,22 +13,18 @@ setGeneric("readMFCL",     function(file,...)      standardGeneric("readMFCL"))
 
 setMethod( "readMFCL", signature(file="character"),
   function(file, ...) {
-
+    
   for (i in file) {
      if (getExt(i)=="rep") repfile<-i
      if (getExt(i)=="par") parfile<-i}
 
   nreg <- getnreg(repfile)
   if (nreg>1)
-     nreg=1:nreg
-  else
-     nreg="unique"
+     nreg=1:nreg else nreg="unique"
 
   # seasons
-  if (getnpd(repfile) != getnyr(repfile))
-    seasons <- 1:(getnpd(repfile)/getnyr(repfile))
-  else
-    seasons <- "all"
+  if (getnpd(repfile) != getnyr(repfile)) 
+    seasons <- 1:(getnpd(repfile)/getnyr(repfile)) else seasons <- "all"
 
   minage <- 1
   minyr <- floor(min(unlist(getrtimes(repfile))))

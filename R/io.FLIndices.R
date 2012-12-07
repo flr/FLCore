@@ -223,9 +223,10 @@ readIndicesVPA <- function(file., sep="", quiet=TRUE, cchar='#', na.strings=na.s
         temp <- FLIndex(index=index)
         temp@catch.n <- catch
         temp@effort <- effort
-		temp@name	<- paste(name, collapse=" ")
+    		temp@name	<- paste(name, collapse=" ")
         temp@desc	<- desc
         temp@range  <- c(ages[1], ages[2], ages[2], yrs[1], yrs[2], alpha, beta)
+        temp@type="numbers"
         names(temp@range)<-c("min","max","plusgroup","minyear","maxyear","startf","endf")
 
         # Creates the FLIndices list of fleets
