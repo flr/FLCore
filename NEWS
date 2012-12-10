@@ -13,9 +13,11 @@ USER-VISIBLE CHANGES
     and params as columns
   - rlnorm(FLPar, ...) and rnorm(FLPar, ...) now available
   - mvrnorm(numeric, FLQuant) and mvrnorm(numeric, FLQuant, matrix) now available
+	- propagate(FLComp) now propagates FLPar slots as well
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim
+	- coerce from FLPar to data.frame now works as expected
 	
 UTILITIES
 

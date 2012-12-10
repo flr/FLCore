@@ -53,8 +53,17 @@ setMethod("window", signature(x="FLComp"),
 
 ## propagate {{{
 setMethod("propagate", signature(object="FLComp"),
-	  function(object, iter, fill.iter=TRUE)
-      qapply(object, propagate, iter=iter, fill.iter=fill.iter)
+	function(object, iter, fill.iter=TRUE) {
+    
+		object <- qapply(object, propagate, iter=iter, fill.iter=fill.iter)
+		
+		pnms <- getSlots(class(object))
+		pnames <- names(pnms)[pnms == "FLPar"]
+		for(i in pnames)
+			slot(object, i) <- propagate(slot(object, i), iter)
+
+		return(object)
+	}
 ) # }}}
 
 ## iter {{{
