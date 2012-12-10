@@ -224,13 +224,22 @@ setAs('FLPar', 'data.frame',
 setAs('data.frame', 'FLPar',
   function(from) {
 
-    # iter names from rownames, if present
-    iters <- rownames(from, do.NULL=TRUE, prefix="")
+    # iter names from df
+		if("iter" %in% names(from))
+			iters <- from$iter
+		# or from rownames, if present
+		else
+    	iters <- rownames(from, do.NULL=TRUE, prefix="")
 
-    # param names from columns
-    dmns <- list(params=names(from), iter=iters)
+    # param named columns
+		pnames <- names(from)[!names(from) %in% c("data", "iter")]
+		
+		pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
+		pnames <- lapply(pnames, as.character)
 
-    return(FLPar(c(unlist(from)), dimnames=dmns))
+	  dmns <- c(pnames, list(iter=iters))
+    
+		return(FLPar(from$data, dimnames=dmns))
   }
 )
 
