@@ -14,8 +14,8 @@ readADMB<-function(file){
     names(vals)<-lapply(grep("#",dat,value=T),function(x) substr(x,3,nchar(x)))
     return(vals)}
   
-writeADMB<-function(x,file){
-    cat("#", names(x[1]),"\n",file=file,append=FALSE)
+writeADMB<-function(x,file,append=FALSE){
+    cat("#", names(x[1]),"\n",file=file,append=append)
     cat(x[[1]],"\n",file=file,append=TRUE)
     for (i in 2:length(x)){
       cat("#", names(x[i]),"\n",file=file,append=TRUE)

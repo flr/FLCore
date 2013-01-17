@@ -253,7 +253,8 @@ void FLQuant::Init(SEXP x)
     dim[2] = INTEGER(dims)[2];
     dim[3] = INTEGER(dims)[3];
     dim[4] = INTEGER(dims)[4];
-    dim[5] = n>=6 ? INTEGER(dims)[5] : 1; 
+    //dim[5] = n>=6 ? INTEGER(dims)[5] : 1; 
+    dim[5] = INTEGER(dims)[5]; 
       
     if (((int)dim[0]) <  1 || ((int)dim[1]) < 1 || 
         ((int)dim[2]) <  1 || ((int)dim[3]) < 1 || ((int)dim[4]) < 1 || ((int)dim[5]) < 1)
@@ -604,6 +605,7 @@ void FLStock::Init(SEXP x)
    plusgrp  = (int)REAL(GET_SLOT(x, install("range")))[2];
    minyr    = (int)REAL(GET_SLOT(x, install("range")))[3];
    maxyr    = (int)REAL(GET_SLOT(x, install("range")))[4];
+   niters   = 1;
  
    minfbar  = minquant; 
    maxfbar  = maxquant; 

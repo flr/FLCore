@@ -420,6 +420,46 @@ protected:
    void unalloc(   int i7=1, int i8=1, int i9=1);         
    }; 
 
+
+class FLPar
+{
+public:        
+   FLPar(void);      
+   FLPar(SEXP);
+   FLPar(int, int, int, int, int, int, int, int, double);
+  ~FLPar(void);      
+
+   void alloc(void);      
+   void Init(SEXP);      
+   void Init(int, int, int, int, int, int, int, int, double val=0.0);     
+   SEXP Return(void);      
+
+   double& operator () (int _i, int _yr, int _unit=1, int _season=1, int _area=1, int _iter=1);
+
+   bool &InitFlag();
+
+   int &min(),      &max(),
+       &minyr(),    &maxyr(),
+       &nunits(),
+       &nseasons(),
+       &nareas(),
+       &niters();
+
+protected: 
+   bool flq_InitFlag;
+
+   int flp_min,     flp_max,
+       flp_minyr,   flp_maxyr,
+       flp_nunits,
+       flp_nseasons,
+       flp_nareas,
+       flp_niters;
+
+   double ******data;   
+
+   void unalloc(void);         
+   };  
+
 class FLStock 
 {
 public:        

@@ -1,4 +1,4 @@
-# FLComp - «Short one line description»
+# FLComp - ??Short one line description??
 # FLCore/R/FLComp.R
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
