@@ -1131,3 +1131,52 @@ setMethod("FLSRs", signature(object="list"),
       )
 
 }) # }}}
+
+# FLPars {{{
+# validity
+vFLPs <- function(object){
+	# Make sure the list contains all items of the same class
+	for(i in 1:length(object)){
+		if(!is(object[[i]], "FLPar")) stop("Components must be FLPar")	
+	}
+	# Everything is fine
+	return(TRUE)
+}
+
+# class
+setClass("FLPars", contains="FLlst",
+	validity=vFLPs
+)
+
+# constructor
+setGeneric("FLPars", function(object, ...){
+	standardGeneric("FLPars")
+	}
+)
+
+setMethod("FLPars", signature(object="ANY"), function(object, ...){
+	lst1 <- list(...)
+	nlst <- length(lst1)
+	lst <- list()
+	length(lst) <- nlst + 1
+	lst[[1]] <- object
+	lst[-1] <- lst1
+	new("FLPars", lst)
+})
+
+setMethod("FLPars", "missing", function(...){
+	if(missing(...)){
+		new("FLPars")
+	} else { 
+		lst <- list(...)
+		new("FLPars", lst)
+	}
+})
+
+setMethod("FLPars", "list", function(object){
+	new("FLPars", object)
+})
+
+setMethod("FLPars", "FLPars", function(object){
+	return(object)
+}) # }}}

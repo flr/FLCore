@@ -111,6 +111,7 @@ exportClasses(
 	"FLMetiers",
 	"FLModel",
 	"FLPar",
+	"FLPars",
 	"FLQuant",
 	"FLQuantJK",
 	"FLQuantPoint",

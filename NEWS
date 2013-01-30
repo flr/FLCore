@@ -14,6 +14,7 @@ USER-VISIBLE CHANGES
   - rlnorm(FLPar, ...) and rnorm(FLPar, ...) now available
   - mvrnorm(numeric, FLQuant) and mvrnorm(numeric, FLQuant, matrix) now available
 	- propagate(FLComp) now propagates FLPar slots as well
+	- added FLPars class
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim
