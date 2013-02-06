@@ -1,2 +1,10 @@
-FLCore
-======
+# FLCore
+
+**Core package of FLR, fisheries modelling in R.**
+
+FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R. Developed by a team of fisheries scientists in various countries. More information can be found at http://flr-project.org/, including a development mailing list.
+
+Kell L.T., Mosqueira I., Grosjean P., Fromentin J-M., Garcia D.,
+		Hillary R., Jardim E., Pastoors M., Poos J.J., Scott F. & Scott R.D. 2007.
+		FLR: an open-source framework for the evaluation and development of management
+		strategies. ICES J. of Mar. Sci. 20: 289-290.
