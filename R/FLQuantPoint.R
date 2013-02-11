@@ -3,7 +3,7 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id$
+# $Id: FLQuantPoint.R 1779 2012-11-23 09:39:31Z imosqueira $
 
 ## FLQuantPoint()	{{{
 

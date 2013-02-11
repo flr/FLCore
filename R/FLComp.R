@@ -1,9 +1,9 @@
-# FLComp - ??Short one line description??
+# FLComp - «Short one line description»
 # FLCore/R/FLComp.R
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id$
+# $Id: FLComp.R 1790 2012-12-10 10:57:27Z imosqueira $
 
 
 ## summary		{{{
@@ -101,7 +101,7 @@ setMethod("transform", signature(`_data`="FLComp"),
 		#  methods sharing names with slots - IM 26.08.07
 		env <- new.env(parent=parent.frame())
 		for (i in slotNames(`_data`))
-			assign(i, slot(`_data`, i), env=env)
+			assign(i, slot(`_data`, i), envir=env)
     args <- eval(substitute(list(...)), env)
 		for (i in 1:length(args)) {
 			slot(`_data`, names(args)[i]) <- args[[i]]

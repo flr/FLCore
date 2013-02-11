@@ -2,7 +2,7 @@
 
 # Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id$
+# $Id: io.FLStock.R 1022 2011-06-10 11:07:33Z imosqueira $
 
 # readFLStock		{{{
 readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a", 
