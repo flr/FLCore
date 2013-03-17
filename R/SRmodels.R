@@ -378,7 +378,28 @@ setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
     if (!is.finite(res))
       res <- -1e100
 
-    return(res)}) # }}}
+    return(res)}) 
+
+
+setMethod("loglAR1", signature(obs = "numeric", hat = "numeric"),
+  function(obs, hat, rho = 0) 
+  {
+     # calculates likelihood for AR(1) process
+     n <- length(obs)
+     rsdl <- (obs[-1] - rho * obs[-n] - hat[-1] + rho * hat[-n])
+     s2 <- sum(rsdl^2, na.rm = T)
+     s1 <- s2
+     if (!all(is.na(rsdl[1]))) 
+        s1 <- s1 + (1 - rho^2) * (obs[1] - hat[1])^2
+     sigma2 <- sum((obs - hat)^2)
+     n <- length(obs[!is.na(obs)])
+     sigma2.a <- (1 - rho^2) * sigma2
+     res <- (log(1/(2 * pi)) - n * log(sigma2.a) + log(1 - rho^2) - s1/(2 * sigma2.a))/2
+     if (!is.finite(res)) res <- -1e+100
+     return(res)}) # }}}
+
+
+
 
 # SRModelName {{{
 SRModelName <- function(model){
