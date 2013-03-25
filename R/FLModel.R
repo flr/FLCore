@@ -3,7 +3,7 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id$
+# $Id: FLModel.R 1778 2012-11-23 08:43:57Z imosqueira $
 
 
 # FLModel()  {{{
@@ -134,7 +134,7 @@ setMethod('fmle',
   signature(object='FLModel', start='ANY'),
   function(object, start, method='Nelder-Mead', fixed=list(),
     control=list(trace=1), lower=rep(-Inf, dim(params(object))[1]),
-    upper=rep(Inf, dim(params(object))[1]), seq.iter=TRUE, ...)
+    upper=rep(Inf, dim(params(object))[1]), seq.iter=TRUE, preconvert = FALSE, ...)
   {
     # TODO Check with FL
     args <- list(...)
@@ -277,6 +277,9 @@ setMethod('fmle',
         data <- lapply(alldata, iter, it)
       else
         data <- alldata
+      
+      # do preconversion of data objects
+      if (preconvert) data <- lapply(data, c)
       
       # start values
       if(missing(start)) {

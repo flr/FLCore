@@ -242,13 +242,6 @@ getplotdat2 <- function(h,k="",plotrepfile) {
   tt}
 
 getBHSR<-function(plotrepfile="plot.rep"){
-  scanText<-function(string, what = character(0), ...){
-    ## Like scan() but reading from a vector of character strings
-    tc <- textConnection(string)
-    result <- scan(tc, what = what, quiet = TRUE, ...)
-    close(tc)
-    return(result)}
-
   ## Beverton-Holt stock-recruitment relationship report
     qq <- if(.Platform$OS.type!="unix") '\" '
           else "' "

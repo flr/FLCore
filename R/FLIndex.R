@@ -3,7 +3,7 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Richard Hillary, Imperial College London
-# $Id$
+# $Id: FLIndex.R 1778 2012-11-23 08:43:57Z imosqueira $
 
 
 ## Accesors {{{
@@ -63,76 +63,6 @@ setMethod('FLIndex', signature(object='missing'),
 is.FLIndex <- function(x)
     return(inherits(x, "FLIndex"))
 # }}}
-
-## as.FLIndex::FLFleet      {{{
-setMethod("as.FLIndex", signature(object="FLFleet"),
-    function(object, catchname="missing", catchtype="missing", ...) {
-    
-    # Check if valid fleet
-    validObject(object)
-    
-    # If only one spp in @catch and spp=missing, take it
-    if (missing(catchname) && length(object@catches)==1)
-
-    indstock <- 1
-
-    # If spp is character, look for it in @catch
-    else if (is.character(catchname)) {
-        if(length(object@catches) == 1) {
-            if(object@catches[[1]]@name != catchname)
-                stop(paste("Catchname ", catchname, "cannot be found in object"))
-            else
-                indstock <- 1
-            } else {
-
-            # get vector of spp in FLCatch
-            indstock <- vector()
-            for(i in seq(along=object@catches))
-                if (object@catches[[i]]@name == catchname) indstock[i] <- i
-                    indstock <- indstock[!is.na(indstock)]
-                if (length(indstock)==0) stop(paste("Catchname ", catchname,
-                    "cannot be found in fleet by as.FLIndex()"))
-                if (length(indstock)>0)  stop(paste("More than 1 occurrence of ", catchname,
-                    " found in fleet by as.FLIndex()"))
-            }
-
-        } else
-            stop("stock must be a character string or a number")
-
-        # Output FLIndex object
-        # now, indstock contains the catches which need to be put in new Index object.
-        # length of indstock==1, so simple copying of slots. If length >1 then calculations are needed
-
-        if (length(indstock)==1){
-            fli <- FLIndex(name=paste("catchtype ",
-                ifelse((missing(catchtype)||catchtype == "catch"),"catch","landings"),
-                "derived from FLfleet, with catchname " , catchname),
-                iniFLQuant=object@catches[[indstock]]@landings.n)
-
-            # range (20/5/2005; treated separately because plusgroup is missing in fleet@range
-            fli@range["min"] <- object@catches[[indstock]]@range["min"]
-            fli@range["max"] <- object@catches[[indstock]]@range["max"]
-            fli@range["minyear"] <- object@catches[[indstock]]@range["minyear"]
-            fli@range["maxyear"] <- object@catches[[indstock]]@range["maxyear"]
-            fli@range["plusgroup"] <- object@catches[[indstock]]@range["max"]
-
-            # q
-            fli@index.q <- object@catches[[indstock]]@catchability
-
-            # effort, catch
-            fli@effort   <-  object@effort
-            if (missing(catchtype) || catchtype == "catch") {
-                fli@index    <-  object@catches[[indstock]]@catch.n
-                fli@catch.wt <-  object@catches[[indstock]]@catch.wt
-            } else if (catchtype == "landings") {
-                fli@index    <-  object@catches[[indstock]]@landings.n
-                fli@catch.wt <-  object@catches[[indstock]]@landings.wt
-            } else
-                stop(paste("Catchtype ", catchtype, " not recognized"))
-        }
-    return(fli)
-    }
-)   # }}}
 
 ## computeCatch (added by EJ)   {{{
 setMethod(computeCatch, signature("FLIndex"), function(object){
@@ -202,7 +132,6 @@ setAs("data.frame", "FLIndex",
   do.call('FLIndex', lst)
   }
 ) # }}}
-
 
 ## effort		{{{
 setMethod("effort", signature(object="FLIndex", metier="missing"),
@@ -396,11 +325,11 @@ plotInternalConsistency <-  function(idx,log.scales=TRUE,
               if(is.numeric(mark.significant)) signif.level <- mark.significant 
               if(p.value < signif.level & slope >0) {  #If marking significance, only fill panel and draw line when its significant
                 number.format <- "%4.3f*"      #If its a significant correlation, mark with a *
-                panel.fill(col = rgb(colFn(panel.colour),max=255))   #Colour panel based on the coefficient of determination (r^2)
+                panel.fill(col = rgb(colFn(panel.colour),maxColorValue=255))   #Colour panel based on the coefficient of determination (r^2)
                 panel.lmline(x.filtered,y.filtered,lwd=2)
               }                
           } else {  #If not marking significance, always fill panel and draw best fit line
-              panel.fill(col = rgb(colFn(panel.colour),max=255))   #Colour panel based on the coefficient of determination (r^2)
+              panel.fill(col = rgb(colFn(panel.colour),maxColorValue=255))   #Colour panel based on the coefficient of determination (r^2)
               panel.lmline(x.filtered,y.filtered,lwd=2)
           }
         }
@@ -433,10 +362,10 @@ plotInternalConsistency <-  function(idx,log.scales=TRUE,
               if(is.numeric(mark.significant)) signif.level <- mark.significant 
               if(p.value < signif.level & slope > 0) {  #If marking significance, only fill panel when its significant & positive
                 number.format <- "%4.3f*"      #If its a significant correlation, mark with a *
-                panel.fill(col = rgb(colFn(panel.colour),max=255))   #Colour panel based on the coefficient of determination (r^2)
+                panel.fill(col = rgb(colFn(panel.colour),maxColorValue=255))   #Colour panel based on the coefficient of determination (r^2)
               }                
           } else {  #If not marking significance, always fill panel 
-              panel.fill(col = rgb(colFn(panel.colour),max=255))   #Colour panel based on the coefficient of determination (r^2)
+              panel.fill(col = rgb(colFn(panel.colour),maxColorValue=255))   #Colour panel based on the coefficient of determination (r^2)
           }
           grid::grid.text(label =sprintf(number.format,panel.number),x = unit(0.5, "npc"),
             y = unit(0.5,"npc"),just="center")}})

@@ -1,2 +1,0 @@
-PKG_CPPFLAGS=-I../inst/include -DHAVE_CONFIG_H
-PKG_CXXFLAGS=-I../inst/include -DHAVE_CONFIG_H

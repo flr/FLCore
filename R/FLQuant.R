@@ -3,7 +3,7 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id$
+# $Id: FLQuant.R 1778 2012-11-23 08:43:57Z imosqueira $
 
 
 # FLQuant(missing){{{
@@ -776,9 +776,8 @@ setMethod("propagate", signature(object="FLQuant"),
 # rnorm{{{
 setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
   function(n=1, mean, sd) {
-		dms <- c(dim(mean)[6], dim(sd)[6])
-		if(any(dms != 1 & dms != n))
-      stop("mean or sd can only have iter = n or iter = 1")
+    if(dim(mean)[6] > 1 | dim(sd)[6] > 1)
+      stop("mean or sd can only have iter=1")
     if(any(dim(mean) != dim(sd)))
       stop("dims of mean and sd must be equal")
     FLQuant(array(rnorm(prod(dim(mean)[-6])*n, rep(iter(mean, 1)[drop=TRUE], n),
@@ -808,9 +807,8 @@ rnorm(n, 0, sd)
 # rlnorm {{{
 setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="FLQuant"),
   function(n=1, meanlog, sdlog) {
-		dms <- c(dim(meanlog)[6], dim(sdlog)[6])
-		if(any(dms != 1 & dms != n))
-      stop("meanlog or sdlog can only have iter = n or iter = 1")
+    if(dim(meanlog)[6] > 1 | dim(sdlog)[6] > 1)
+      stop("meanlog or sdlog can only have iter=1")
     if(all(dim(meanlog) != dim(sdlog)))
       stop("dims of meanlog and sdlog must be equal")
     FLQuant(array(rlnorm(prod(dim(meanlog)[-6])*n,

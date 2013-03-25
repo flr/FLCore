@@ -231,10 +231,6 @@ setGeneric("survprob", function(object, ...)
 setGeneric("rec", function(object, ...)
   standardGeneric("rec"))
 
-# FLMetier
-setGeneric('FLMetier', function(catches, ...)
-		standardGeneric('FLMetier'))
-
 # gear
   setGeneric('gear', function(object, ...) standardGeneric('gear'))
   setGeneric('gear<-', function(object, ..., value) standardGeneric('gear<-'))
@@ -270,10 +266,6 @@ setGeneric('FLMetier', function(catches, ...)
 # metiers
   setGeneric('metiers', function(object, ...) standardGeneric('metiers'))
   setGeneric('metiers<-', function(object, ..., value) standardGeneric('metiers<-'))
-
-# FLFleet
-setGeneric('FLFleet', function(object, ...)
-		standardGeneric('FLFleet'))
 
 # metier
 setGeneric('metier', function(object, metier, ...)
@@ -473,14 +465,6 @@ setGeneric("trim", function(x, ...)
 setGeneric("expand", function(x, ...)
 	standardGeneric("expand"))
 
-# FLCatch
-setGeneric('FLCatch', function(object, ...)
-		standardGeneric('FLCatch'))
-
-# addFLCatch
-setGeneric('addFLCatch', function(e1, e2, ...)
-		standardGeneric('addFLCatch'))
-
 # catchNames
 setGeneric('catchNames', function(object, ...)
 		standardGeneric('catchNames'))
@@ -645,18 +629,6 @@ setGeneric("FLIndices", function(object, ...)
 # FLBiols
 setGeneric("FLBiols", function(object, ...)
 	standardGeneric("FLBiols"))
-
-# FLCatches
-setGeneric("FLCatches", function(object, ...)
-	standardGeneric("FLCatches"))
-
-# FLMetiers
-setGeneric("FLMetiers", function(object, ...)
-	standardGeneric("FLMetiers"))
-
-# FLFleets
-setGeneric("FLFleets", function(object, ...)
-	standardGeneric("FLFleets"))
 
 # readMFCL
 setGeneric("readMFCL", function(file, ...)

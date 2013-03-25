@@ -1,4 +1,3 @@
-useDynLib("FLCore")
 import("methods")
 importFrom("MASS",
   "mvrnorm")
@@ -92,12 +91,8 @@ export(
 )
 exportClasses(
 	"FLArray",
-	"FLCatch",
-	"FLCatches",
 	"FLComp",
 	"FLComps",
-	"FLFleet",
-	"FLFleets",
 	"FLBiol",
 	"FLBiols",
 	"FLCohort",
@@ -107,8 +102,6 @@ exportClasses(
 	"FLIndex",
 	"FLIndices",
 	"FLlst",
-	"FLMetier",
-	"FLMetiers",
 	"FLModel",
 	"FLPar",
 	"FLPars",
@@ -215,20 +208,15 @@ exportMethods(
 	"flc2flq",
 	"FLBiol",
 	"FLBiols",
-	"FLCatch",
-	"FLCatches",
 	"FLCohort",
 	"FLCohorts",
-	"FLFleet",
-	"FLFleets",
 	"FLGrowth",
 	"FLIndex",
 	"FLIndices",
 	"FLlst",
-	"FLMetier",
-	"FLMetiers",
   "FLModel",
 	"FLPar",
+	"FLPars",
 	"FLQuant",
 	"FLQuants",
 	"FLQuantPoint",

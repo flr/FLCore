@@ -3,15 +3,13 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Ernesto Jardim, IPIMAR
-# $Id$
+# $Id: FLlst-methods.R 1778 2012-11-23 08:43:57Z imosqueira $
 
 # coerce NULL {{{
 setAs("NULL", "FLStock", function(from) FLStock())
 setAs("NULL", "FLIndex", function(from) FLIndex())
 setAs("NULL", "FLBiol", function(from) FLBiol())
-setAs("NULL", "FLFleet", function(from) FLFleet())
 setAs("NULL", "FLQuant", function(from) FLQuant())
-setAs("NULL", "FLCatch", function(from) FLCatch())
 # }}}
 
 # replacement {{{
@@ -164,28 +162,6 @@ setMethod('model.frame', signature(formula='FLlst'),
 		return(res)
 	}
 )	# }}}
-
-## dims(FLFleets) {{{
-setMethod("dims", signature(obj="FLFleets"),
-  # Returns a list with different parameters
-  function(obj, ...)
-	{
-		return(list(
-      fleets=names(obj),
-      metiers=unique(unlist(lapply(obj, function(x) names(x@metiers)))),
-      catches=unique(unlist(lapply(obj, function(x) lapply(x@metiers, function(x) names(x@catches))))),
-      quant = unlist(lapply(obj, function(x) quant(landings.n(x, 1, 1)))),
-      min=min(unlist(lapply(obj, function(obj) min(as.numeric(unlist(lapply(obj@metiers, function(x) lapply(x@catches, function(x) dimnames(x@landings.n)[[1]][1])))))))),
-      max=max(unlist(lapply(obj, function(obj) as.numeric(unlist(lapply(obj@metiers, function(x) lapply(x@catches, function(x) dimnames(x@landings.n)[[1]][dim(x@landings.n)[1]]))))))),
-      minyear=min(unlist(lapply(obj, function(obj) as.numeric(unlist(lapply(obj@metiers, function(x) lapply(x@catches, function(x) dimnames(x@landings.n)[[2]][1]))))))),
-      maxyear=max(unlist(lapply(obj, function(obj) as.numeric(unlist(lapply(obj@metiers, function(x) lapply(x@catches, function(x) dimnames(x@landings.n)[[2]][dim(x@landings.n)[2]]))))))),
-      unit=unlist(lapply(obj, function(obj) unique(unlist(lapply(obj@metiers, function(x) lapply(x@catches, function(x) length(dimnames(x@landings.n)[[3]]))))))),
-      season=unlist(lapply(obj, function(obj) unique(unlist(lapply(obj@metiers, function(x) lapply(x@catches, function(x) length(dimnames(x@landings.n)[[4]]))))))),
-      area=unlist(lapply(obj, function(obj) unique(unlist(lapply(obj@metiers, function(x) lapply(x@catches, function(x) length(dimnames(x@landings.n)[[5]]))))))),
-      iter=unlist(lapply(obj, function(x) max(unlist(lapply(x@metiers, function(x) lapply(x@catches, function(x) qapply(x, function(x) length(dimnames(x)[[6]]))))))))
-    ))
-    }
-)    # }}}
 
 # plot(FLIndices)  {{{
 setMethod("plot", signature(x="FLIndices",y="missing"),

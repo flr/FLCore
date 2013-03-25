@@ -2,7 +2,7 @@
 
 # Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id$
+# $Id: FLArray.R 1779 2012-11-23 09:39:31Z imosqueira $
 
 # units {{{
 setMethod("units", signature(x="FLArray"),
