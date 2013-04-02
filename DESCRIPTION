@@ -48,7 +48,6 @@ Collate:
     'io.FLIndices.R'
     'FLGrowth.R'
     'SRmodels.R'
-    'FLtest.R'
     'coerce.R'
     'PlotDiagnostics.R'
     'FLQuantJK.R'

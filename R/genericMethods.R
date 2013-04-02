@@ -1,13 +1,7 @@
 # genericMethods - «Short one line description»
 # genericMethods
 
-# Copyright 2009 Iago Mosqueira, JRC. Distributed under the GPL 2 or later
-# $Id:  $
-
-# Reference:
-# Notes:
-
-# TODO Wed 25 Nov 2009 05:48:37 PM CET IM:
+# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 
 # Existing methods/functions
 
@@ -672,11 +666,11 @@ setGeneric("bubbles", function(x, data, ...)
 
 # rbind
 setGeneric("rbind", function(..., deparse.level=1) 
-    standardGeneric("rbind"), signature = "...")
+    standardGeneric("rbind"))
 
 # cbind
 setGeneric("cbind", function(..., deparse.level=1)
-    standardGeneric("cbind"), signature = "...")
+    standardGeneric("cbind"))
 
 # readASPIC
 setGeneric("readASPIC", function(x, type, scen, ...)

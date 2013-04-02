@@ -279,7 +279,8 @@ setMethod('fmle',
         data <- alldata
       
       # do preconversion of data objects
-      if (preconvert) data <- lapply(data, c)
+      if (preconvert) 
+				data <- lapply(data, c)
       
       # start values
       if(missing(start)) {

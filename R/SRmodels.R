@@ -398,9 +398,6 @@ setMethod("loglAR1", signature(obs = "numeric", hat = "numeric"),
      if (!is.finite(res)) res <- -1e+100
      return(res)}) # }}}
 
-
-
-
 # SRModelName {{{
 SRModelName <- function(model){
   return(switch(gsub(" ", "", as.character(as.list(model)[3])),
