@@ -26,6 +26,7 @@ setClass("FLArray",	representation("array"),
 
 # FLQuant     {{{
 validFLQuant  <-  function(object){
+	
 	# Make sure there are at least 6 dimensions in the array named
 	# *, "year", "unit", "season", "area" and "iter"
 	DimNames  <-  names(dimnames(object))
@@ -35,10 +36,6 @@ validFLQuant  <-  function(object){
     return("dimension names of the array are incorrect")
 	if (!is.numeric(object) && !is.na(object))
 		return("array is not numeric")
-
-	# check "units" slot
-	if(!is.character(object@units))
-		return("units must be a string")
 
 	# Everything is fine
 	return(TRUE)
@@ -163,21 +160,14 @@ remove(validFLQuantPoint)   # }}}
 
 # FLQuantVar    {{{
 validFLQuantVar <- function(object) {
-    
-    # iter dimensions is of length 5 and with names:
-    if(dim(object)[6] != 5)
-        return("dims of object do not match those of the FLQuantVar class")
 
-    # dimnames are 'mean', 'median', 'var', 'uppq', 'lowq'
-    if(any(dimnames(object)$iter != c('mean', 'median', 'var', 'uppq', 'lowq')))
-        return("dimnames of object do not match those of the FLQuantVar class")
-    
 	# Everything is fine
     return(TRUE)
 }
 setClass("FLQuantVar",
-    representation("FLArray", var="FLArray", dist="character", units="character"),
-	prototype(new("FLArray"), var=new("FLArray"), dist="lnorm", units="NA"))
+    representation("FLQuant", var="FLArray", distr="character"),
+	prototype(new("FLQuant"), var=new("FLArray"), distr="lnorm"))
+
 #setValidity("FLQuantVar", validFLQuantVar)
 remove(validFLQuantVar)   # }}}
 

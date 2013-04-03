@@ -57,16 +57,15 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
 
 ## show     {{{
 # TODO show median(var) or [lowq-uppq]
-setMethod("show", signature(object="FLQuantPoint"),
+setMethod("show", signature(object="FLQuantVar"),
 	function(object){
-		cat("An object of class \"FLQuantPoint\":\n")
-		cat("-- median:\n")
-		if(any(complete.cases(object)))
-			print(unclass(apply(mean(object)@.Data, 1:5, median, na.rm=TRUE)), digits=3)
-		else
-			print(unclass(array(NA, dimnames=dimnames(object@.Data)[1:5],
-				dim=dim(object@.Data)[1:5])))
+		cat("An object of class \"FLQuantVar\":\n")
+
+    v3 <- paste(format(object@.Data,digits=5),"(", format(object@var, digits=3), ")", sep="")
+    print(array(v3, dim=dim(object)[1:5], dimnames=dimnames(object)[1:5]), quote=FALSE)
+
 		cat("units: ", object@units, "\n")
+		cat("distr: ", object@dist, "\n")
 	}
 )   # }}}
 
