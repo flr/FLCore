@@ -1,5 +1,5 @@
-# .R - 
-# /R/.R
+# classesArr.R - 
+# FLCore/R/classesArr.R - 
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
@@ -15,15 +15,12 @@ validFLArray  <-  function(object){
 	if (!is.numeric(object) && !is.na(object)) 
 		return("array is not numeric")
 
-	# check "units" slot
-	if(!is.character(object@units))
-		return("units must be a string")
 	# Everything is fine
 	return(TRUE)
 }
 
-setClass("FLArray",	representation("array", units="character"),
-	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1)), units="NA"),
+setClass("FLArray",	representation("array"),
+	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1))),
 	validity=validFLArray
 ) # }}}
 
@@ -130,7 +127,7 @@ validFLQuant  <-  function(object){
 # 2 }}}
 
 setClass("FLQuant",
-	representation("FLArray"),
+	representation("FLArray", units="character"),
 	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
 		dimnames=list(quant="all", year="1", unit="unique", season="all",
 		area="unique", iter="1")), units="NA"),
@@ -163,6 +160,26 @@ setClass("FLQuantPoint",
 
 setValidity("FLQuantPoint", validFLQuantPoint)
 remove(validFLQuantPoint)   # }}}
+
+# FLQuantVar    {{{
+validFLQuantVar <- function(object) {
+    
+    # iter dimensions is of length 5 and with names:
+    if(dim(object)[6] != 5)
+        return("dims of object do not match those of the FLQuantVar class")
+
+    # dimnames are 'mean', 'median', 'var', 'uppq', 'lowq'
+    if(any(dimnames(object)$iter != c('mean', 'median', 'var', 'uppq', 'lowq')))
+        return("dimnames of object do not match those of the FLQuantVar class")
+    
+	# Everything is fine
+    return(TRUE)
+}
+setClass("FLQuantVar",
+    representation("FLArray", var="FLArray", dist="character", units="character"),
+	prototype(new("FLArray"), var=new("FLArray"), dist="lnorm", units="NA"))
+#setValidity("FLQuantVar", validFLQuantVar)
+remove(validFLQuantVar)   # }}}
 
 # FLCohort {{{
 validFLCohort <-  function(object) {

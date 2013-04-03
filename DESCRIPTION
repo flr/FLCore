@@ -27,6 +27,7 @@ Collate:
     'FLArray.R'
     'FLQuant.R'
     'FLQuantPoint.R'
+    'FLQuantVar.R'
     'classesComp.R'
     'FLlst-class.R'
     'FLComp.R'
