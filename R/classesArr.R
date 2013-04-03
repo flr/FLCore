@@ -41,7 +41,7 @@ validFLQuant  <-  function(object){
 	return(TRUE)
 }
 
-# 2 {{{
+# FLQuant class 2 {{{
 #' FLQuant class for numerical data
 #' 
 #' The \code{FLQuant} class is a six-dimensional \code{\link[base]{array}}
@@ -161,6 +161,14 @@ remove(validFLQuantPoint)   # }}}
 # FLQuantVar    {{{
 validFLQuantVar <- function(object) {
 
+	# .Data & var have same dims
+	if(!all(dim(object@.Data) == dim(object@var)))
+		return("object slots' dimensions must match")
+
+	# .Data & var have same dimnames
+	if(!all.equal(dimnames(object@.Data), dimnames(object@var)))
+		return("object slots' dimnames must match")
+
 	# Everything is fine
     return(TRUE)
 }
@@ -168,7 +176,7 @@ setClass("FLQuantVar",
     representation("FLQuant", var="FLArray", distr="character"),
 	prototype(new("FLQuant"), var=new("FLArray"), distr="lnorm"))
 
-#setValidity("FLQuantVar", validFLQuantVar)
+setValidity("FLQuantVar", validFLQuantVar)
 remove(validFLQuantVar)   # }}}
 
 # FLCohort {{{

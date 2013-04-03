@@ -680,6 +680,10 @@ setGeneric("readASPIC", function(x, type, scen, ...)
 setGeneric("FLQuantPoint", function(object, ...)
 		standardGeneric("FLQuantPoint"))
 
+# FLQuantVar
+setGeneric("FLQuantVar", function(object, var, ...)
+		standardGeneric("FLQuantVar"))
+
 # distribution
 setGeneric("distribution", function(object, ...)
 		standardGeneric("distribution"))

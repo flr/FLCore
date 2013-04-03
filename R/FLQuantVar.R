@@ -36,7 +36,7 @@ setMethod("FLQuantPoint", signature(object="missing"),
     return(res)
   }
 )
-setMethod("FLQuantPoint", signature(object="FLQuant"),
+setMethod("FLQuantVar", signature(object="FLQuant"),
   function(object, ..., units='NA') {
 
         # new object
