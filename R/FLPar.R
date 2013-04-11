@@ -661,20 +661,13 @@ setMethod("jackSummary", signature(object="FLPar"),
 # rbind {{{
 setMethod('rbind', signature('FLPar'),
   function(..., deparse.level=1) {
-
     args <- list(...)
 
     # dims
     dimar <- lapply(args, function(x) dim(x))
     iterar <- lapply(dimar, function(x) x[length(x)])
-    
-    
-   # idx <- unlist(lapply(args, is, 'FLPar'))
-   # if(!all(idx))
-   #   stop("input objects must all be of class 'FLPar'")
 
     # extend iters
-
     res <- args[[1]]@.Data
     if(length(args) > 1)
       for (i in seq(length(args))[-1])

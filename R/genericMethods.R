@@ -666,11 +666,11 @@ setGeneric("bubbles", function(x, data, ...)
 
 # rbind
 setGeneric("rbind", function(..., deparse.level=1) 
-    standardGeneric("rbind"))
+    standardGeneric("rbind"), signature="...")
 
 # cbind
 setGeneric("cbind", function(..., deparse.level=1)
-    standardGeneric("cbind"))
+    standardGeneric("cbind"), signature="...")
 
 # readASPIC
 setGeneric("readASPIC", function(x, type, scen, ...)
@@ -680,9 +680,9 @@ setGeneric("readASPIC", function(x, type, scen, ...)
 setGeneric("FLQuantPoint", function(object, ...)
 		standardGeneric("FLQuantPoint"))
 
-# FLQuantVar
-setGeneric("FLQuantVar", function(object, var, ...)
-		standardGeneric("FLQuantVar"))
+# FLQuantDistr
+setGeneric("FLQuantDistr", function(object, var, ...)
+		standardGeneric("FLQuantDistr"))
 
 # distribution
 setGeneric("distribution", function(object, ...)
