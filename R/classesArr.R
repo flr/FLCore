@@ -158,8 +158,8 @@ setClass("FLQuantPoint",
 setValidity("FLQuantPoint", validFLQuantPoint)
 remove(validFLQuantPoint)   # }}}
 
-# FLQuantVar    {{{
-validFLQuantVar <- function(object) {
+# FLQuantDistr    {{{
+validFLQuantDistr <- function(object) {
 
 	# .Data & var have same dims
 	if(!all(dim(object@.Data) == dim(object@var)))
@@ -172,12 +172,12 @@ validFLQuantVar <- function(object) {
 	# Everything is fine
     return(TRUE)
 }
-setClass("FLQuantVar",
+setClass("FLQuantDistr",
     representation("FLQuant", var="FLArray", distr="character"),
 	prototype(new("FLQuant"), var=new("FLArray"), distr="lnorm"))
 
-setValidity("FLQuantVar", validFLQuantVar)
-remove(validFLQuantVar)   # }}}
+setValidity("FLQuantDistr", validFLQuantDistr)
+remove(validFLQuantDistr)   # }}}
 
 # FLCohort {{{
 validFLCohort <-  function(object) {

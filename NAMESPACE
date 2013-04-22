@@ -99,7 +99,7 @@ exportClasses(
 	"FLQuantJK",
 	"FLQuantPoint",
 	"FLQuants",
-	"FLQuantVar",
+	"FLQuantDistr",
 	"FLSR",
 	"FLSRs",
 	"FLStock",
