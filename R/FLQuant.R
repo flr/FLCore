@@ -1100,6 +1100,14 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
   }
 ) # }}}
 
+## show     {{{
+setMethod("show", signature(object="FLQuant"),
+	function(object){
+		callNextMethod()
+		cat("units: ", object@units, "\n")
+	}
+)   # }}}
+
 # NOT EXPORTED
 ## filldimnames       {{{
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {

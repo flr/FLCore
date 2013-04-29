@@ -6,54 +6,37 @@
 # $Id: FLQuantPoint.R 1779 2012-11-23 09:39:31Z imosqueira $
 
 ## FLQuantDistr()	{{{
+setMethod("FLQuantDistr", signature(object="ANY", var="ANY"),
+	function(object, var, ...) {
 
-## FLQuantDistr(FLQuant())
-setMethod("FLQuantPoint", signature(object="missing"),
-  function(..., units='NA') {
+		# object
+		object <- FLQuant(object)
 
-    args <- list(...)
+		# var
+		var <- new('FLArray', FLQuant(var)@.Data)
 
-    # empty object
-    if(length(args) == 0) {
-      res <- new('FLQuantPoint')
-      units(res) <- units
-    }
-    else {
-      # valid names
-      if(any(!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')))
-       stop(paste("Invalid names for FLQuantPoint elements:",
-          names(args)[!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')]))
-  
-      # check dimnames
-      dmns <- c(dimnames(args[[1]])[1:5],
-        list(iter=c('mean', 'median', 'var', 'uppq', 'lowq')))
-
-      res <- new('FLQuantPoint', FLQuant(NA, dimnames=dmns, units=units))
-
-      for(i in length(args))
-        res[,,,,,i] <- args[[i]]
-    }
-    return(res)
-  }
+		return(FLQuantDistr(object=object, var=var, ...))
+	}
 )
-setMethod("FLQuantDistr", signature(object="FLQuant"),
-  function(object, ..., units='NA') {
 
-        # new object
-        res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
-            iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))), units=units))
-        
-# load values
-        res[,,,,,'mean'] <- apply(object, 1:5, mean, na.rm=TRUE)
-        res[,,,,,'median'] <- apply(object, 1:5, median, na.rm=TRUE)
-        res[,,,,,'var'] <- apply(object, 1:5, var, NULL, na.rm=TRUE)
-		# quantile free or 0.05 & 0.95
-        res[,,,,,'lowq'] <- quantile(object, 0.25, na.rm=TRUE)
-        res[,,,,,'uppq'] <-quantile(object, 0.75, na.rm=TRUE) 
+setMethod("FLQuantDistr", signature(object="FLQuant", var="FLQuant"),
+  function(object, var, ...) {
+	var <- new('FLArray', var@.Data)
+	return(FLQuantDistr(object, var=var, ...))
+	}
+)
 
-        return(res)
-    }
-)	# }}}
+setMethod("FLQuantDistr", signature(object="FLQuant", var="FLArray"),
+  function(object, var, units='NA', distr="norm") {
+		
+		# set units in .Data object
+		if(!missing(units))
+			units(object) <- units
+		
+		return(new("FLQuantDistr", object, var=var, distr=distr))
+	}
+)
+	# }}}
 
 ## show     {{{
 # TODO show median(var) or [lowq-uppq]
@@ -65,7 +48,7 @@ setMethod("show", signature(object="FLQuantDistr"),
     print(array(v3, dim=dim(object)[1:5], dimnames=dimnames(object)[1:5]), quote=FALSE)
 
 		cat("units: ", object@units, "\n")
-		cat("distr: ", object@dist, "\n")
+		cat("distr: ", object@distr, "\n")
 	}
 )   # }}}
 

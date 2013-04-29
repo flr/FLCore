@@ -230,7 +230,7 @@ setMethod("show", signature(object="FLArray"),
 		
     print(array(v3, dim=dim(object)[1:5], dimnames=dimnames(object)[1:5]), quote=FALSE)
 
-		cat("units: ", object@units, "\n")
+		# cat("units: ", object@units, "\n")
 	}
 )   # }}}
 

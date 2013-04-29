@@ -686,9 +686,9 @@ setGeneric("FLQuantDistr", function(object, var, ...)
 
 # distribution
 setGeneric("distribution", function(object, ...)
-		standardGeneric("distribution"))
+	standardGeneric("distribution"))
 setGeneric("distribution<-", function(object, ..., value)
-    standardGeneric("distribution<-"))
+	standardGeneric("distribution<-"))
 
 # combine
 setGeneric('combine', function(x, y, ...)
