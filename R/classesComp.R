@@ -8,26 +8,33 @@
 
 # FLComp   {{{
 validFLComp <- function(object){
-  dims <- unlist(qapply(object, function(x) dims(x)$iter))
-  dimnms <- qapply(object, function(x) dimnames(x)$iter)
-  quants <- unlist(qapply(object, quant))
-	
-	# FLQuant slots must have either 1 or n iter
-  test <- dims != max(dims) & dims != 1
-	if (any(test))
-		stop(paste("All slots must have iters equal to 1 or 'n': error in",
-			paste(names(test[!test]), collapse=', ')))
-	
-  # and dimname for iter[1] should be '1'
-	test <- unlist(dimnms[dims == 1])
-	if(!all(test==test))
-		stop(paste("Incorrect names on the iter dimension in ",
-			paste(names(test[!test]), collapse=', ')))
 
-  # all 'quant' should be equal
-  if(any(quants != quants[1]))
-    stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
+	# Any FLArray?
+	slots <- getSlots(class(object))
+	
+	if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
 
+		# FLQuant slots must have either 1 or n iter
+  	dims <- unlist(qapply(object, function(x) dims(x)$iter))
+	  test <- dims != max(dims) & dims != 1
+		if (any(test))
+			stop(paste("All slots must have iters equal to 1 or 'n': error in",
+				paste(names(test[!test]), collapse=', ')))
+	
+	  # and dimname for iter[1] should be '1'
+  	dimnms <- qapply(object, function(x) dimnames(x)$iter)
+		test <- unlist(dimnms[dims == 1])
+		if(!all(test==test))
+			stop(paste("Incorrect names on the iter dimension in ",
+				paste(names(test[!test]), collapse=', ')))
+
+	  # all 'quant' should be equal
+  	quants <- unlist(qapply(object, quant))
+	  if(any(quants != quants[1]))
+  	  stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
+
+	}
+	
 	return(TRUE)
 }
 

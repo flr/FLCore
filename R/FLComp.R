@@ -115,11 +115,14 @@ setMethod("transform", signature(`_data`="FLComp"),
 ## qapply		{{{
 setMethod('qapply', signature(X='FLComp', FUN='function'),
 	function(X, FUN, ..., exclude=missing) {
+
 		FUN <- match.fun(FUN)
 		slots <- getSlotNamesClass(X, 'FLArray')
-    if(!missing(exclude))
-      slots <- slots[!slots%in%exclude]
-		if(is(do.call(FUN, list(slot(X,slots[1]), ...)), 'FLArray')) {
+
+		if(!missing(exclude))
+      slots <- slots[!slots %in% exclude]
+		
+		if(is(do.call(FUN, list(slot(X, slots[1]), ...)), 'FLArray')) {
 			res <- X
 			for (i in slots)
 				slot(res, i) <- do.call(FUN, list(slot(X,i), ...))
@@ -129,6 +132,7 @@ setMethod('qapply', signature(X='FLComp', FUN='function'),
 			for (i in slots)
 				res[[i]] <- do.call(FUN, list(slot(X,i), ...))
 		}
+		
 		return(res)
 	}
 )   # }}}
