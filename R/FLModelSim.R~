@@ -40,7 +40,7 @@ setGeneric("distr<-", function(object, ..., value) standardGeneric("distr<-"))
 invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "distr")))  # }}}
 
 # mvrnorm {{{
-setMethod("mvrnorm", signature(n="numeric", mu="FLModelSim", Sigma="missing",
+setMethod("mvrnorm", signature(n="numeric", mu="FLSimpleModel", Sigma="missing",
 	tol="missing", empirical="missing", EISPACK="missing"),
 	function(n, mu) {
 		
@@ -60,11 +60,11 @@ setMethod("mvrnorm", signature(n="numeric", mu="FLModelSim", Sigma="missing",
 		dimnames(res) <- dnm
 		res <- FLPar(res)
 		units(res) <- units(mu)
-		return(FLModelSim(model=model(object), params=res))
+		return(FLSimpleModel(model=model(object), params=res))
 	}
 )
 
-setMethod("mvrnorm", signature(n="FLModelSim", mu="missing", Sigma="missing",
+setMethod("mvrnorm", signature(n="FLSimpleModel", mu="missing", Sigma="missing",
 	tol="missing", empirical="missing", EISPACK="missing"),
 	function(n) {
 		
@@ -81,7 +81,7 @@ setMethod("mvrnorm", signature(n="FLModelSim", mu="missing", Sigma="missing",
 				res[,i] <- do.call("mvrnorm", list(mu=mu[,i], Sigma=Sigma[,,i]))
 			res <- FLPar(res)
 			units(res) <- units(mu)
-			res <- FLModelSim(model=model(object), params=res)
+			res <- FLSimpleModel(model=model(object), params=res)
 		} else {
 			res <- mvrnorm(1,object)
 		}
@@ -90,7 +90,7 @@ setMethod("mvrnorm", signature(n="FLModelSim", mu="missing", Sigma="missing",
 ) # }}}
 
 # predict {{{
-setMethod("predict", signature(object="FLModelSim"),
+setMethod("predict", signature(object="FLSimpleModel"),
 	function(object, ...) {
 
 	args <- list(...)
