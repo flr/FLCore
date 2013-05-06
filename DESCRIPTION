@@ -36,6 +36,7 @@ Collate:
     'FLIndex.R'
     'FLModel.R'
     'FLModelDeriv.R'
+    'FLModelSim.R'
     'FLQuants.R'
     'FLSR.R'
     'FLPar.R'

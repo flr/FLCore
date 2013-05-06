@@ -330,17 +330,13 @@ setAs('FLPar', 'numeric',
     return(res)
   }
 )
-setAs('FLPar', 'list',
-  function(from)
-  {
-    params <- dimnames(from)$params
-    res <- vector("list", length = length(params))
-    names(res) <- params
-    for(i in params)
-      res[[i]] <- as.vector(from[i,])
 
-    return(res)
-  }
+setAs("FLPar", "list",
+	function(from) {
+		lst <- split(from@.Data, 1:nrow(from))
+		names(lst) <- dimnames(from)[[1]]
+		return(lst)
+	}
 )
 
 setAs('FLQuant', 'FLPar',
@@ -826,4 +822,11 @@ setMethod("model.frame", signature(formula="FLPar"),
 
     return(res)
   }
+) # }}}
+
+# itermMedians {{{
+setMethod("iterMedians", "FLPar",
+	function(x) {
+		apply(x, -match("iter", names(dimnames(x))), median)
+	}
 ) # }}}
