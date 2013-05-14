@@ -127,8 +127,8 @@ setAs('FLPar', 'data.frame',
 
 setAs('data.frame', 'FLPar',
   function(from) {
-
-    # iter names from df
+    
+		# iter names from df
 		if("iter" %in% names(from))
 			iters <- from$iter
 		# or from rownames, if present
@@ -141,9 +141,9 @@ setAs('data.frame', 'FLPar',
 		pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
 		pnames <- lapply(pnames, as.character)
 
-	  dmns <- c(pnames, list(iter=iters))
+	  dmns <- c(pnames, list(iter=unique(iters)))
     
-		return(FLPar(from$data, dimnames=dmns))
+		return(FLPar(from$data, dimnames=dmns, units="NA"))
   }
 )
 

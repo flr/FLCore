@@ -22,6 +22,7 @@ BUG FIXES
 	- coerce from FLPar to data.frame now works as expected
 	- Added check for range names to FLComp class validity. Elements must be named with
 	  non-empty strings and contain, at least, min, max, minyear and maxyear
+	- coerce from data.frame to FLPar now handles correctly iters
 	
 UTILITIES
 
