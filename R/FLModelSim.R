@@ -13,7 +13,7 @@ setClass("FLModelSim",
 		distr = "character"),
 	prototype = prototype(
 		model = ~a,
-		params = new('FLPar'),
+		params = FLPar(a=1),
 		vcov = new("array"),
 		distr = "norm")
 ) # }}}
