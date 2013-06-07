@@ -4,6 +4,28 @@
 # Copyright 2003-2013 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: FLR Team
 
+# validity
+validFLMS <- function(object){
+
+	pars <- object@params
+	frm <- object@model
+	vc <- object@vcov
+	# check vcov has the same names
+	dnms <- dimnames(vc)
+	v1 <- all.equal(dnms[[1]], dnms[[2]])
+
+	# check that the params and the model have the same params names
+	v2 <- dimnames(pars)$params %in% all.vars(frm)
+
+	# check that the params and the vcov have the same params names
+	v3 <- dnms[[1]] %in% all.vars(frm)
+
+	if(sum(!c(v1, v2, v3))>0) return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
+
+	return(TRUE)
+}
+
+
 # FLModelSim {{{
 setClass("FLModelSim",
 	representation(
@@ -15,7 +37,8 @@ setClass("FLModelSim",
 		model = ~a,
 		params = new("FLPar", array(1, dim=c(1,1), dimnames=list(params="a", iter="1"))),
 		vcov = new("array"),
-		distr = "norm")
+		distr = "norm"),
+	validity=validFLMS
 ) # }}}
 
 # FLModelSim() {{{
@@ -35,6 +58,7 @@ setMethod("FLModelSim", signature(object="missing"),
 	  }
   }
 )
+
 setGeneric("distr", function(object, ...) standardGeneric("distr"))
 setGeneric("distr<-", function(object, ..., value) standardGeneric("distr<-"))
 invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "distr")))  # }}}
