@@ -50,7 +50,7 @@ setMethod("mvrnorm", signature(n="numeric", mu="FLModelSim", Sigma="missing",
 		dnm <- dimnames(mu)
 
 		# check that params second dim is "iter"
-		if(dnm[2]!="iter") stop("To apply this method params must have 2 dimensions only and the second has to be \"iter\".")	
+		if(names(dnm)[2]!="iter") stop("To apply this method params must have 2 dimensions only and the second has to be \"iter\".")	
 
 		Sigma = apply(vcov(object),c(1,2),median)
 		res <- do.call("mvrnorm", list(mu=c(mu), Sigma=Sigma, n=n))
@@ -78,7 +78,7 @@ setMethod("mvrnorm", signature(n="FLModelSim", mu="missing", Sigma="missing",
 		dnm <- dimnames(mu)
 
 		# check that params second dim is "iter"
-		if(dnm[2]!="iter") stop("To apply this method params must have 2 dimensions only and the second has to be \"iter\".")	
+		if(names(dnm)[2]!="iter") stop("To apply this method params must have 2 dimensions only and the second has to be \"iter\".")	
 
 		Sigma = vcov(object)
 		
