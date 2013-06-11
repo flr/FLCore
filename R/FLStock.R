@@ -973,9 +973,7 @@ setMethod("catchSel", signature(object="FLStock"),
     sweep(harvest(object),2:6,do.call(fn,list(object)),"/")
 ) # }}}
 
-
-setGeneric("wt<-", function(object,...,value){
-  standardGeneric("wt<-")})
+# wt<- {{{
 setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
   function(object, ..., value) {
     
@@ -991,7 +989,7 @@ setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
 		landings.wt(object)<-recycleFLQuantOverYrs(landings.wt(object),value)
 		discards.wt(object)<-recycleFLQuantOverYrs(discards.wt(object),value)
 
-		return(object)})
+		return(object)}) # }}}
 
 # z {{{
 setMethod("z", "FLStock", function(object, ...) {
