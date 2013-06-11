@@ -103,7 +103,9 @@ exportClasses(
 	"FLQuants",
 	"FLSR",
 	"FLSRs",
+	"FLS",
 	"FLStock",
+	"FLStockLen",
 	"FLStocks"
 )
 exportMethods(

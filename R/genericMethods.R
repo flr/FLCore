@@ -750,3 +750,9 @@ setGeneric("iterCVs", function(x, ...) standardGeneric("iterCVs"))
 # Z
 setGeneric("z", function(object, ...)
     standardGeneric("z"))
+
+# midpoint
+setGeneric("midpoint", function(object, ...)
+  standardGeneric("midpoint"))
+setGeneric("midpoint<-", function(object, ..., value)
+    standardGeneric("midpoint<-"))

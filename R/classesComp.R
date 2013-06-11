@@ -49,8 +49,94 @@ setClass("FLComp", representation(name="character", desc="character",
   range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))), 
   validity=validFLComp)
 
-invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
+#invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #  }}}
+
+# FLS			{{{
+validFLS <- function(object) {
+
+	# TODO
+	return(TRUE)
+
+	names <- names(getSlots('FLS')[getSlots('FLS')=="FLQuant"])
+	for(i in names){
+		# all dimnames 2:5 are the same
+		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
+			unlist(dimnames(slot(object, i))[2:5])))
+			return(paste('All elements must share dimensions 2 to 5: Error in object@', i))
+		# no. iter are equal or one
+	}
+	for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
+	{
+		# quant is n
+		if(!identical(unlist(dimnames(object@catch.n)[1]),
+			unlist(dimnames(slot(object, i))[1])))
+			return(paste('All elements must share quant names: Error in object', i))
+	}
+	for (i in c('catch', 'landings', 'discards'))
+	{
+		# quant is 1
+		if(dim(slot(object, i))[1] != 1)
+			return(paste('Wrong dimensions for slot ', i, 'in object'))
+	}
+	# check range
+	dim <- dim(object@catch.n)
+	dimnm <- dimnames(object@catch.n)
+	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
+		as.numeric(dimnm$year[dim[2]]))))
+		return('Range does not match object dimensions')
+	
+	return(TRUE)}
+
+setClass("FLS",
+	representation(
+	"FLComp",
+	catch	    	="FLQuant",
+	catch.n	    ="FLQuant",
+	catch.wt		="FLQuant",
+	discards		="FLQuant",
+	discards.n  ="FLQuant",
+	discards.wt ="FLQuant",
+	landings		="FLQuant",
+	landings.n  ="FLQuant",
+	landings.wt ="FLQuant",
+	stock	    	="FLQuant",
+	stock.n	    ="FLQuant",
+	stock.wt		="FLQuant",
+	m						="FLQuant",
+	mat		    	="FLQuant",
+	harvest	    ="FLQuant",
+	harvest.spwn="FLQuant",
+	m.spwn	    ="FLQuant",
+	"VIRTUAL"
+	),
+	prototype=prototype(
+		name	= character(0),
+		desc	= character(0),
+		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
+		catch	= FLQuant(),
+		catch.n	= FLQuant(),
+		catch.wt= FLQuant(),
+		discards= FLQuant(),
+		discards.n = FLQuant(),
+		discards.wt= FLQuant(),
+		landings   = FLQuant(),
+		landings.n = FLQuant(),
+		landings.wt= FLQuant(),
+		stock	   = FLQuant(),
+		stock.n	 = FLQuant(),
+		stock.wt = FLQuant(),
+		m		 = FLQuant(),
+		mat		 = FLQuant(),
+		harvest	 = FLQuant(units="f"),
+		harvest.spwn = FLQuant(),
+		m.spwn	 = FLQuant()
+	),
+  validity=validFLS
+)
+remove(validFLS)
+
+invisible(createFLAccesors("FLS", exclude=c('name', 'desc', 'range', 'harvest')))	# }}}
 
 # FLStock			{{{
 validFLStock <- function(object) {
@@ -87,24 +173,7 @@ validFLStock <- function(object) {
 
 setClass("FLStock",
 	representation(
-	"FLComp",
-	catch	    ="FLQuant",
-	catch.n	    ="FLQuant",
-	catch.wt	="FLQuant",
-	discards	="FLQuant",
-	discards.n  ="FLQuant",
-	discards.wt ="FLQuant",
-	landings	="FLQuant",
-	landings.n  ="FLQuant",
-	landings.wt ="FLQuant",
-	stock	    ="FLQuant",
-	stock.n	    ="FLQuant",
-	stock.wt	="FLQuant",
-	m			="FLQuant",
-	mat		    ="FLQuant",
-	harvest	    ="FLQuant",
-	harvest.spwn="FLQuant",
-	m.spwn	    ="FLQuant"
+	"FLS"
 	),
 	prototype=prototype(
 		name	= character(0),
@@ -130,10 +199,79 @@ setClass("FLStock",
 	),
   validity=validFLStock
 )
-setValidity("FLStock", validFLStock)
 remove(validFLStock)
 
-invisible(createFLAccesors("FLStock", exclude=c('name', 'desc', 'range', 'harvest')))	# }}}
+#invisible(createFLAccesors("FLStock", exclude=c('name', 'desc', 'range', 'harvest')))	# }}}
+
+# FLStockLen			{{{
+validFLStockLen <- function(object) {
+
+	# TODO
+	return(TRUE)
+	
+	names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
+	for(i in names){
+		# all dimnames but iter are the same
+		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
+			unlist(dimnames(slot(object, i))[2:5])))
+			return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
+		# no. iter are equal or one
+	}
+	for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
+	{
+		# quant is n
+		if(!identical(unlist(dimnames(object@catch.n)[1]),
+			unlist(dimnames(slot(object, i))[1])))
+			return(paste('All elements must share quant names: Error in FLStock', i))
+	}
+	for (i in c('catch', 'landings', 'discards'))
+	{
+		# quant is 1
+		if(dim(slot(object, i))[1] != 1)
+			return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
+	}
+	# check range
+	dim <- dim(object@catch.n)
+	dimnm <- dimnames(object@catch.n)
+	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
+		as.numeric(dimnm$year[dim[2]]))))
+		return('Range does not match object dimensions')
+	
+	return(TRUE)}
+
+setClass("FLStockLen",
+	representation(
+	"FLS",
+	midpoint = "numeric"
+	),
+	prototype=prototype(
+		name	= character(0),
+		desc	= character(0),
+		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
+		midpoint = as.numeric(NA),
+		catch	= FLQuant(),
+		catch.n	= FLQuant(),
+		catch.wt= FLQuant(),
+		discards= FLQuant(),
+		discards.n = FLQuant(),
+		discards.wt= FLQuant(),
+		landings   = FLQuant(),
+		landings.n = FLQuant(),
+		landings.wt= FLQuant(),
+		stock	   = FLQuant(),
+		stock.n	 = FLQuant(),
+		stock.wt = FLQuant(),
+		m		 = FLQuant(),
+		mat		 = FLQuant(),
+		harvest	 = FLQuant(units="f"),
+		harvest.spwn = FLQuant(),
+		m.spwn	 = FLQuant()
+	),
+  validity=validFLStockLen
+)
+remove(validFLStockLen)
+
+invisible(createFLAccesors("FLStockLen", include=c('midpoint')))	# }}}
 
 # FLBiol {{{
 validFLBiol <- function(object){
