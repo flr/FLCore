@@ -256,7 +256,7 @@ rickerAR1 <- function()
   initial <- structure(function(rec, ssb) {
 		# The function to provide initial values
     res  <-coefficients(lm(c(log(rec/ssb))~c(ssb)))
-    return(FLPar(a=max(exp(res[1])), b=-max(res[2])), rho=0)
+    return(FLPar(a=max(exp(res[1])), b=-max(res[2]), rho=0))
 	},
   # lower and upper limits for optim()
 	lower=c(rep(1e-10, 2), -1),

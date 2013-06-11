@@ -14,10 +14,6 @@ validFLComp <- function(object){
 	# with non/empty strings
 	if(any(nchar(nms) == 0))
 		return("names in range cannot be empty")
-	# and include min, max, minyear and maxyear
-	if(any(!c("min", "max", "minyear", "maxyear") %in% nms))
-		return("names in range must contain 'min, 'max', ',minyear' and 'maxyear'")
-
 
 	# Any FLArray?
 	slots <- getSlots(class(object))
@@ -307,23 +303,6 @@ setClass("FLIndex",
 
 setValidity("FLIndex", validFLIndex)
 remove(validFLIndex)    #   }}}
-
-# FLPar {{{
-validFLPar <- function(object) {
-
-	# Last dimension is called 'iter' ...
-  if(names(dimnames(object))[length(dim(object))] != "iter")
-    return("last dimension must be named 'iter'")
-  # ... and the first 'params'
-
-	return(TRUE)
-}
-
-setClass('FLPar', representation('array', units='character'),
-	prototype=prototype(array(as.numeric(NA), dim=c(1,1),
-	dimnames=list(param="", iter=1)), units='NA'), validity=validFLPar)
-remove(validFLPar)
-# }}}
 
 # FLModel  {{{
 validFLModel <- function(object)
