@@ -242,34 +242,36 @@ validFLStockLen <- function(object) {
 setClass("FLStockLen",
 	representation(
 	"FLS",
-	halfwidth = "numeric"
+	midpoint = "numeric"
 	),
 	prototype=prototype(
 		name	= character(0),
 		desc	= character(0),
 		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
-		halfwidth = as.numeric(NA),
-		catch	= FLQuant(dimnames=list(len=as.numeric(NA))),
-		catch.n	= FLQuant(dimnames=list(len=as.numeric(NA))),
-		catch.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
-		discards= FLQuant(dimnames=list(len=as.numeric(NA))),
-		discards.n = FLQuant(dimnames=list(len=as.numeric(NA))),
-		discards.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
-		landings   = FLQuant(dimnames=list(len=as.numeric(NA))),
-		landings.n = FLQuant(dimnames=list(len=as.numeric(NA))),
-		landings.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
-		stock	   = FLQuant(dimnames=list(len=as.numeric(NA))),
-		stock.n	 = FLQuant(dimnames=list(len=as.numeric(NA))),
-		stock.wt = FLQuant(dimnames=list(len=as.numeric(NA))),
-		m		 = FLQuant(dimnames=list(len=as.numeric(NA))),
-		mat		 = FLQuant(dimnames=list(len=as.numeric(NA))),
-		harvest	 = FLQuant(dimnames=list(len=as.numeric(NA))),
-		harvest.spwn = FLQuant(dimnames=list(len=as.numeric(NA))),
-		m.spwn	 = FLQuant(dimnames=list(len=as.numeric(NA)))
+		midpoint = as.numeric(NA),
+		catch	= FLQuant(),
+		catch.n	= FLQuant(),
+		catch.wt= FLQuant(),
+		discards= FLQuant(),
+		discards.n = FLQuant(),
+		discards.wt= FLQuant(),
+		landings   = FLQuant(),
+		landings.n = FLQuant(),
+		landings.wt= FLQuant(),
+		stock	   = FLQuant(),
+		stock.n	 = FLQuant(),
+		stock.wt = FLQuant(),
+		m		 = FLQuant(),
+		mat		 = FLQuant(),
+		harvest	 = FLQuant(units="f"),
+		harvest.spwn = FLQuant(),
+		m.spwn	 = FLQuant()
 	),
   validity=validFLStockLen
 )
-remove(validFLStockLen) # }}}
+remove(validFLStockLen)
+
+invisible(createFLAccesors("FLStockLen", include=c('midpoint')))	# }}}
 
 # FLBiol {{{
 validFLBiol <- function(object){
@@ -951,54 +953,5 @@ setMethod("FLPars", "list", function(object){
 })
 
 setMethod("FLPars", "FLPars", function(object){
-	return(object)
-}) # }}}
-
-# FLModelSims {{{
-# validity
-vFLMs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLModelSim")) stop("Components must be FLModelSim")	
-	}
-	# Everything is fine
-	return(TRUE)
-}
-
-# class
-setClass("FLModelSims", contains="FLlst",
-	validity=vFLMs
-)
-
-# constructor
-setGeneric("FLModelSims", function(object, ...){
-	standardGeneric("FLModelSims")
-	}
-)
-
-setMethod("FLModelSims", signature(object="ANY"), function(object, ...){
-	lst1 <- list(...)
-	nlst <- length(lst1)
-	lst <- list()
-	length(lst) <- nlst + 1
-	lst[[1]] <- object
-	lst[-1] <- lst1
-	new("FLModelSims", lst)
-})
-
-setMethod("FLModelSims", "missing", function(...){
-	if(missing(...)){
-		new("FLModelSims")
-	} else { 
-		lst <- list(...)
-		new("FLModelSims", lst)
-	}
-})
-
-setMethod("FLModelSims", "list", function(object){
-	new("FLModelSims", object)
-})
-
-setMethod("FLModelSims", "FLModelSims", function(object){
 	return(object)
 }) # }}}

@@ -34,8 +34,8 @@ setClass("FLModelSim",
 		vcov = "array",
 		distr = "character"),
 	prototype = prototype(
-		model = ~1,
-		params = new("FLPar"),
+		model = ~a,
+		params = new("FLPar", array(1, dim=c(1,1), dimnames=list(params="a", iter="1"))),
 		vcov = new("array"),
 		distr = "norm"),
 	validity=validFLMS
