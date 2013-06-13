@@ -18,7 +18,6 @@ getPlural <- function(object)
     'FLBiol'='FLBiols',
     'FLFleet'='FLFleets',
     'FLSR'='FLSRs',
-    'FLModelSim'='FLModelSims',
     'list'
     )
 } # }}}

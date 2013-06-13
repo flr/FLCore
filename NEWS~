@@ -1,7 +1,6 @@
 		CHANGES IN FLCore VERSION 3.0
 
 NEW FEATURES
-	- FLModelSim and FLModelSims new classes
 	- [<- FLArray now accepts an input FLQuant and keeps the structure, still recyling
 	  as appropriate.
 
