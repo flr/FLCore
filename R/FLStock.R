@@ -3,8 +3,7 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Rob Scott, CEFAS
-# $Id: FLStock.R 1778 2012-11-23 08:43:57Z imosqueira $
-
+# Notes:
 
 # FLStock()   {{{
 setMethod('FLStock', signature(object='FLQuant'),
@@ -32,7 +31,10 @@ setMethod('FLStock', signature(object='FLQuant'),
   	for(i in names(args))
 			slot(res, i) <- args[[i]]
 
-    return(res)
+		if(validObject(res))
+			return(res)
+		else
+			stop("Invalid object created, check input FLQuant(s)")
   }
 )
 

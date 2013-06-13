@@ -242,36 +242,34 @@ validFLStockLen <- function(object) {
 setClass("FLStockLen",
 	representation(
 	"FLS",
-	midpoint = "numeric"
+	halfwidth = "numeric"
 	),
 	prototype=prototype(
 		name	= character(0),
 		desc	= character(0),
 		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
-		midpoint = as.numeric(NA),
-		catch	= FLQuant(),
-		catch.n	= FLQuant(),
-		catch.wt= FLQuant(),
-		discards= FLQuant(),
-		discards.n = FLQuant(),
-		discards.wt= FLQuant(),
-		landings   = FLQuant(),
-		landings.n = FLQuant(),
-		landings.wt= FLQuant(),
-		stock	   = FLQuant(),
-		stock.n	 = FLQuant(),
-		stock.wt = FLQuant(),
-		m		 = FLQuant(),
-		mat		 = FLQuant(),
-		harvest	 = FLQuant(units="f"),
-		harvest.spwn = FLQuant(),
-		m.spwn	 = FLQuant()
+		halfwidth = as.numeric(NA),
+		catch	= FLQuant(dimnames=list(len=as.numeric(NA))),
+		catch.n	= FLQuant(dimnames=list(len=as.numeric(NA))),
+		catch.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
+		discards= FLQuant(dimnames=list(len=as.numeric(NA))),
+		discards.n = FLQuant(dimnames=list(len=as.numeric(NA))),
+		discards.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
+		landings   = FLQuant(dimnames=list(len=as.numeric(NA))),
+		landings.n = FLQuant(dimnames=list(len=as.numeric(NA))),
+		landings.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
+		stock	   = FLQuant(dimnames=list(len=as.numeric(NA))),
+		stock.n	 = FLQuant(dimnames=list(len=as.numeric(NA))),
+		stock.wt = FLQuant(dimnames=list(len=as.numeric(NA))),
+		m		 = FLQuant(dimnames=list(len=as.numeric(NA))),
+		mat		 = FLQuant(dimnames=list(len=as.numeric(NA))),
+		harvest	 = FLQuant(dimnames=list(len=as.numeric(NA))),
+		harvest.spwn = FLQuant(dimnames=list(len=as.numeric(NA))),
+		m.spwn	 = FLQuant(dimnames=list(len=as.numeric(NA)))
 	),
   validity=validFLStockLen
 )
-remove(validFLStockLen)
-
-invisible(createFLAccesors("FLStockLen", include=c('midpoint')))	# }}}
+remove(validFLStockLen) # }}}
 
 # FLBiol {{{
 validFLBiol <- function(object){

@@ -89,6 +89,9 @@ setGeneric('discards.wt<-', function(object, ..., value) standardGeneric('discar
 # FLStock
 setGeneric('FLStock', function(object, ...) standardGeneric('FLStock'))
 
+# FLStockLen
+setGeneric('FLStockLen', function(object, ...) standardGeneric('FLStockLen'))
+
 # landings
 setGeneric('landings', function(object, ...) standardGeneric('landings'))
 setGeneric('landings<-', function(object, ..., value) standardGeneric('landings<-'))
@@ -750,9 +753,18 @@ setGeneric("iterCVs", function(x, ...) standardGeneric("iterCVs"))
 # Z
 setGeneric("z", function(object, ...)
     standardGeneric("z"))
+# breaks
+setGeneric("breaks", function(object, ...) standardGeneric("breaks"))
 
-# midpoint
-setGeneric("midpoint", function(object, ...)
-  standardGeneric("midpoint"))
-setGeneric("midpoint<-", function(object, ..., value)
-    standardGeneric("midpoint<-"))
+# halfwidth
+setGeneric("halfwidth", function(object, ...) standardGeneric("halfwidth"))
+setGeneric("halfwidth<-", function(object, ..., value) standardGeneric("halfwidth<-"))
+
+# leftbound
+setGeneric("leftbound", function(object, ...) standardGeneric("leftbound"))
+
+# rightbound
+setGeneric("rightbound", function(object, ...) standardGeneric("rightbound"))
+
+# mids
+setGeneric("mids", function(object, ...) standardGeneric("mids"))
