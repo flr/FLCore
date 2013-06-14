@@ -40,7 +40,7 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 ## "["             {{{
 setMethod("[", signature(x="FLArray"),
     function(x, i, j, k, l, m, n, ..., drop=FALSE)
-    {browser()
+    {
       if(length(list(...)) > 0)
         stop(paste(class(x), 'objects only have 6 dimensions'))
 	  	dx <- dim(x)
