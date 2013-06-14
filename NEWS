@@ -18,6 +18,7 @@ USER-VISIBLE CHANGES
 	- propagate(FLComp) now propagates FLPar slots as well
 	- FLFleet, FLMetier and FLCatch classes (plus their plurals) and methods have been
 	  moved to the FLFleet package
+	- ifelse has now been definedx for test="FLQuant"
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim
