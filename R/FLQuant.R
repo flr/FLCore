@@ -1108,6 +1108,24 @@ setMethod("show", signature(object="FLQuant"),
 	}
 )   # }}}
 
+# ifelse {{{
+setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),
+	function(test, yes, no) {
+
+		#
+		uts <- units(test)
+		dmns <- dimnames(test)
+		
+		test <- as(test, 'logical')
+		yes <- c(yes)
+		no <- c(no)
+		
+		res <- callNextMethod()
+		
+		return(FLQuant(res, dimnames=dmns, units=uts))
+	}
+) # }}}
+
 # NOT EXPORTED
 ## filldimnames       {{{
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {
@@ -1128,3 +1146,5 @@ names(xnames)[1] <- names(dnames)[i]
 }
 return(xnames)
 } # }}}
+
+

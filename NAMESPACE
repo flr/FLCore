@@ -236,6 +236,7 @@ exportMethods(
   "hessian",
   "hessian<-",
 	"histogram",
+	"ifelse",
   "index",
   "index<-",
   "index.q",
