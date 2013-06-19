@@ -163,7 +163,7 @@ setMethod("[<-", signature(x="FLPar"),
 
     # extra args, if given
     args <- try(list(...))
-    if(is.list(try))
+    if(is.list(args))
     {
       if (length(args) > 0)
       {
