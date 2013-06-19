@@ -49,7 +49,7 @@ setClass("FLComp", representation(name="character", desc="character",
   range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))), 
   validity=validFLComp)
 
-#invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
+invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #  }}}
 
 # FLS			{{{
