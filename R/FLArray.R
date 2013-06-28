@@ -469,7 +469,7 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	  	names(dimnames(flq)) <- names(dimnames(X))
     } 
 		# new FLobject
-		flq <- new(class(X),flq)
+		flq <- new(class(X), flq, units=units(X))
 		# set quant
 		if(is(flq, 'FLQuant')) quant(flq) <- quant(X)
 		return(flq)
