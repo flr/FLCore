@@ -53,6 +53,8 @@ setMethod("FLModelSim", signature(object="missing"),
     # or not
   	} else {
       args <- list(...)
+      if("vcov" %in% names(args))
+      	if(length(dim(args$vcov))==1) dim(args$vcov) <- c(1,1) 
 	  args$Class <- 'FLModelSim'
       do.call("new", args)
 	  }
@@ -67,7 +69,7 @@ invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "d
 setMethod("mvrnorm", signature(n="numeric", mu="FLModelSim", Sigma="missing",
 	tol="missing", empirical="missing", EISPACK="missing"),
 	function(n, mu) {
-		
+		browser()
 		object <- mu
 		mu <- iterMedians(params(object))
 		dm <- dim(mu)
