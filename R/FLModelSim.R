@@ -132,7 +132,7 @@ setMethod("predict", signature(object="FLModelSim"),
 		eval(as.list(model(object))[[2]], envir=c(args, lst))
 	})
 	res <- matrix(res, ncol=dim(pr)[2])
-	dimnames(res) <- list(pred=1:nrow(res), iter=1:dim(pr)[2])
+	dimnames(res) <- list(1:nrow(res), iter=1:dim(pr)[2])
 	return(res)
 	}
 ) # }}}
