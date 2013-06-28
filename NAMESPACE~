@@ -403,11 +403,5 @@ exportMethods(
 	"yearSums",
 	"yearTotals",
 	"yearVars",
-  "z",
-  	"rngyear",
-  	"rngyear<-",
-	"rngage", 
-	"rngage<-", 
-	"vecyear",
-	"vecage"
+  "z"
 )

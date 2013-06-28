@@ -69,7 +69,6 @@ invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "d
 setMethod("mvrnorm", signature(n="numeric", mu="FLModelSim", Sigma="missing",
 	tol="missing", empirical="missing", EISPACK="missing"),
 	function(n, mu) {
-		browser()
 		object <- mu
 		mu <- iterMedians(params(object))
 		dm <- dim(mu)
