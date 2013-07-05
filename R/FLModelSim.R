@@ -4,6 +4,7 @@
 # Copyright 2003-2013 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: FLR Team
 
+# FLModelSim {{{
 # validity
 validFLMS <- function(object){
 
@@ -20,13 +21,13 @@ validFLMS <- function(object){
 	# check that the params and the vcov have the same params names
 	v3 <- dnms[[1]] %in% all.vars(frm)
 
-	if(sum(!c(v1, v2, v3))>0) return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
+	if(sum(!c(v1, v2, v3))>0)
+		return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
 
 	return(TRUE)
 }
 
 
-# FLModelSim {{{
 setClass("FLModelSim",
 	representation(
 		model = "formula",

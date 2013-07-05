@@ -795,6 +795,39 @@ setMethod("rnorm", signature(n='FLPar', mean="ANY", sd="ANY"),
 
 # }}}
 
+# mvrnorm {{{
+setMethod("mvrnorm", signature(n="numeric", mu="FLPar", Sigma="matrix",
+	tol="missing", empirical="missing", EISPACK="missing"),
+	function(n, mu, Sigma) {
+		
+		dm <- dim(mu)
+		dnm <- dimnames(mu)
+		
+		# Check that params second dim is "iter"
+		if(names(dnm)[2]!="iter")
+			stop("To apply this method params must have 2 dimensions only and the
+				second has to be \"iter\".")	
+
+		# Check dims
+		if(dm[2] > 1)
+			stop("mu FLPar cannot have iterations")
+
+		res <- do.call("mvrnorm", list(mu=c(mu), Sigma=Sigma, n=n))
+		
+		if(n>1)
+			res <- t(res)
+		else
+			res <- matrix(res, ncol=1)
+
+		dnm$iter <- 1:n
+		dimnames(res) <- dnm
+		res <- FLPar(res)
+		units(res) <- units(mu)
+
+		return(res)
+	}
+) # }}}
+
 # model.frame {{{
 setMethod("model.frame", signature(formula="FLPar"),
   function(formula, ...) {
