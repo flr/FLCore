@@ -768,14 +768,3 @@ setGeneric("rightbound", function(object, ...) standardGeneric("rightbound"))
 
 # mids
 setGeneric("mids", function(object, ...) standardGeneric("mids"))
-
-# vecs and rngs
-
-setGeneric("rngyear", function(object, ...) standardGeneric("rngyear"))
-setGeneric("rngyear<-", function(object,value) standardGeneric("rngyear<-"))
-setGeneric("rngage", function(object, ...) standardGeneric("rngage"))
-setGeneric("rngage<-", function(object,value) standardGeneric("rngage<-"))
-setGeneric("vecyear", function(object, ...) standardGeneric("vecyear"))
-setGeneric("vecage", function(object, ...) standardGeneric("vecage"))
-
-

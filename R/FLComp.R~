@@ -537,6 +537,7 @@ setMethod('[[<-', signature(x='FLComp', i='character', value='FLlst'),
 #' @return a \code{vector} object
 #' @author EJ \email{ernesto.jardim@@jrc.ec.europa.eu}
 #' @export
+setGeneric("rngyear", function(object, ...) standardGeneric("rngyear"))
 setMethod("rngyear", "FLComp", function(object){
 	object@range[c("minyear","maxyear")]
 })
@@ -548,6 +549,7 @@ setMethod("rngyear", "FLComp", function(object){
 #' @return a \code{a4aM} object
 #' @author EJ \email{ernesto.jardim@@jrc.ec.europa.eu}
 #' @export
+setGeneric("rngyear<-", function(object,value) standardGeneric("rngyear<-"))
 setReplaceMethod("rngyear", "FLComp", function(object, value){
 	object@range[c("minyear","maxyear")] <- value
 	object
@@ -559,6 +561,7 @@ setReplaceMethod("rngyear", "FLComp", function(object, value){
 #' @return a \code{vector} object
 #' @author EJ \email{ernesto.jardim@@jrc.ec.europa.eu}
 #' @export
+setGeneric("rngage", function(object, ...) standardGeneric("rngage"))
 setMethod("rngage", "FLComp", function(object){
 	object@range[c("min","max")]
 })
@@ -570,6 +573,7 @@ setMethod("rngage", "FLComp", function(object){
 #' @return a \code{a4aM} object
 #' @author EJ \email{ernesto.jardim@@jrc.ec.europa.eu}
 #' @export
+setGeneric("rngage<-", function(object,value) standardGeneric("rngage<-"))
 setReplaceMethod("rngage", "FLComp", function(object, value){
 	object@range[c("min","max")] <- value
 	object
@@ -581,6 +585,7 @@ setReplaceMethod("rngage", "FLComp", function(object, value){
 #' @return a \code{vector} object
 #' @author EJ \email{ernesto.jardim@@jrc.ec.europa.eu}
 #' @export
+setGeneric("vecyear", function(object, ...) standardGeneric("vecyear"))
 setMethod("vecyear", "FLComp", function(object){
 	rng <- object@range[c("minyear","maxyear")]
 	rng[1]:rng[2]
@@ -592,6 +597,7 @@ setMethod("vecyear", "FLComp", function(object){
 #' @return a \code{vector} object
 #' @author EJ \email{ernesto.jardim@@jrc.ec.europa.eu}
 #' @export
+setGeneric("vecage", function(object, ...) standardGeneric("vecage"))
 setMethod("vecage", "FLComp", function(object){
 	rng <- object@range[c("min","max")]
 	rng[1]:rng[2]
