@@ -19,6 +19,7 @@ USER-VISIBLE CHANGES
 	- FLFleet, FLMetier and FLCatch classes (plus their plurals) and methods have been
 	  moved to the FLFleet package
 	- ifelse has now been definedx for test="FLQuant"
+	- New wide.frame method to convert FLQ into a wide format data.frame
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim
