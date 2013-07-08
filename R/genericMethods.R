@@ -778,4 +778,5 @@ setGeneric("rngage<-", function(object,value) standardGeneric("rngage<-"))
 setGeneric("vecyear", function(object, ...) standardGeneric("vecyear"))
 setGeneric("vecage", function(object, ...) standardGeneric("vecage"))
 
-
+# wide.frame
+setGeneric("wide.frame", function(data, formula, ...) standardGeneric("wide.frame"))

@@ -230,3 +230,50 @@ setMethod("summary", signature(object="FLQuantPoint"),
 		cat("3rd Qu.: ", mean(uppq(object)), "\n")
 	}
 )   # }}}
+
+# wide.frame {{{
+setMethod("wide.frame", signature(data="FLQuant", formula="formula"),
+	function(data, formula, relabel=TRUE) {
+
+		dm <- dimnames(data)
+		dn <- names(dm)
+
+		# CHECK formula[[2]] == "data"
+		if(formula[[2]] != "data")
+			stop("First element in formula must be 'data'")
+
+		# MUST condition on just ONE dim
+		wide <- unlist(strsplit(as.character(as.list(formula[[3]])[[3]]), "[+]"))
+		if(length(wide) != 1)
+			stop("Formula must specify only one dimension as wide")
+		
+		dims <- dn[!dn %in% wide]
+
+		# CONSTRUCT data.frame
+		
+		# WIDE colnames
+		widm <- dm[[wide]]
+		
+		# DF output
+		df <- expand.grid(dm[dims])
+		wdf <- as.data.frame(apply(data, which(dn == wide), c))
+		
+		# ADD dimname if relabel (to get iter1, ...)
+		if(relabel)
+			names(wdf) <- paste(wide, widm, sep="")
+
+		# SELECT dimensions to output
+		dout <- as.character(as.list(formula[[3]])[[2]])
+		if(dout == ".")
+			return(cbind(df, wdf))
+		else {
+			dout <- dout[-(grep("[[:punct:]]",dout))]
+		
+			# CHECK they are in dn
+			if(!all(dout %in% dn))
+				stop("Formula selects dimension names not in object")
+
+			return(cbind(df[,dout], wdf))
+		}
+	}
+) # }}}
