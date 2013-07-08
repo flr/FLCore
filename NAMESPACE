@@ -409,5 +409,6 @@ exportMethods(
 	"rngage", 
 	"rngage<-", 
 	"vecyear",
-	"vecage"
+	"vecage",
+	"wide.frame"
 )
