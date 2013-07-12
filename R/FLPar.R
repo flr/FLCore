@@ -561,21 +561,19 @@ setMethod('ab', signature(x='FLPar', model='character'),
   function(x, model, spr0=NULL)
   {
     # input params and default values
-    param <- as(x, 'list')
-    args <- list(s=NULL, v=NULL, spr0=spr0, c=NULL, d=NULL)
-    args[names(param)] <- param
+    args <- c(as(x, 'list'), as.list(spr0))
+		names(args)[length(args)] <- "spr0"
     args['model'] <- model
 
     res <- do.call('abPars', args)
-    
-    # get back c and d
+
+    # get back c and d and spr0
     cd <- args[c('c', 'd', 'spr0')]
     res <- c(res, unlist(cd[!unlist(lapply(cd, is.null))]))
 
-    return(
-           FLPar(unlist(res), params=names(res))
-           )
+    return(do.call('FLPar', res))
   })
+
 
 setMethod('ab', signature(x='FLPar', model='formula'),
   function(x, model, spr0=NULL)
@@ -592,9 +590,8 @@ setMethod('sv', signature(x='FLPar', model='character'),
   function(x, model, spr0)
   {
     # input params and default values
-    param <- as(x, 'list')
-    args <- list(spr0=spr0, a=NULL, b=NULL, c=NULL, d=NULL)
-    args[names(param)] <- param
+    args <- c(as(x, 'list'), as.list(spr0))
+		names(args)[length(args)] <- "spr0"
     args['model'] <- model
 
     res <- do.call('svPars', args)
@@ -602,17 +599,17 @@ setMethod('sv', signature(x='FLPar', model='character'),
     cd <- args[c('c', 'd')]
     res <- c(res, unlist(cd[!unlist(lapply(cd, is.null))]))
 
-    return(FLPar(res, params=names(res)))
+    return(do.call('FLPar', res))
   })
 
-setMethod('ab', signature(x='FLPar', model='formula'),
-  function(x, model, spr0=NULL)
+setMethod('sv', signature(x='FLPar', model='formula'),
+  function(x, model, spr0)
   {
    model <- SRModelName(model)
    if(is.null(model))
       stop("model provided has not been identified")
     else
-     return(ab(x, model))
+     return(sv(x, model=model, spr0=spr0))
   })# }}}
 
 # sweep {{{

@@ -230,4 +230,3 @@ setMethod("summary", signature(object="FLQuantPoint"),
 		cat("3rd Qu.: ", mean(uppq(object)), "\n")
 	}
 )   # }}}
-
