@@ -31,10 +31,13 @@ or, to install the development version
 
 ## Details
 
-## Downloads
-
 - Version: 2.5.20130708
 - License: GPL-2
-- Depends: R(>= 2.15.1), methods, grid, lattice, MASS
+- Depends: R(>= 3.0), methods, grid, lattice, MASS
 - Imports: stats, graphics
 - URL: <https://github.com/flr/FLCore>
+
+## Downloads
+- Package Source [FLCore_2.5.20130708.tar.gz](http://flr-project.org/Rdevel/src/contrib/FLCore_2.5.20130708.tar.gz)
+- Windows Binary [FLCore_2.5.20130708.zip](http://flr-project.org/Rdevel/bin/windows/contrib/3.0/FLCore_2.5.20130708.zip)
+
