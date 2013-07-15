@@ -8,7 +8,7 @@ FLCore contains the core classes and methods for FLR, a framework for fisheries 
 
 Author: FLR Team <flr-team@flr-project.org>
 
-Maintainer: Iago Mosqueira <iago.mosqueira-sanchez AT jrc.ec.europa.eu>
+Maintainer: Iago Mosqueira <iago.mosqueira-sanchezATjrc.ec.europa.eu>
 
 
 ## Installation
