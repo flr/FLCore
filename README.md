@@ -8,7 +8,7 @@ FLCore contains the core classes and methods for FLR, a framework for fisheries 
 
 Author: FLR Team <flr-team@flr-project.org>
 
-Maintainer: Iago Mosqueira <iago.mosqueira-sanchezATjrc.ec.europa.eu>
+Maintainer: Iago Mosqueira, EC JRC. Ernesto Jardim, EC JRC.
 
 
 ## Installation
@@ -32,3 +32,9 @@ or, to install the development version
 ## Details
 
 ## Downloads
+
+- Version: 2.5.20130708
+- License: GPL-2
+- Depends: R(>= 2.15.1), methods, grid, lattice, MASS
+- Imports: stats, graphics
+- URL: <https://github.com/flr/FLCore>
