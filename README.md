@@ -2,7 +2,7 @@
 
 **Core package of FLR, fisheries modelling in R.**
 
-Version: 2.5-20130711
+Version: 2.5-20130708
 
 FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R. Developed by a team of fisheries scientists in various countries. More information can be found at http://flr-project.org/.
 
@@ -31,7 +31,7 @@ or, to install the development version
 
 ## Details
 
-- Version: 2.5.20130711
+- Version: 2.5.20130708
 - License: GPL-2
 - Depends: R(>= 3.0), methods, grid, lattice, MASS
 - Imports: stats, graphics
