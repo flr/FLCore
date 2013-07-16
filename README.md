@@ -31,7 +31,7 @@ or, to install the development version
 
 ## Details
 
-- Version: 2.5.20130708
+- Version: 2.5.20130711
 - License: GPL-2
 - Depends: R(>= 3.0), methods, grid, lattice, MASS
 - Imports: stats, graphics
