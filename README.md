@@ -37,7 +37,6 @@ or, to install the development version
 - Depends: R(>= 3.0), methods, grid, lattice, MASS
 - Imports: stats, graphics
 - URL: <https://github.com/flr/FLCore>
-- Git hash: b5295b7
 
 ## Downloads
 - Packaged Source [FLCore_2.5.20130708.tar.gz](http://flr-project.org/Rdevel/src/contrib/FLCore_2.5.20130708.tar.gz)
