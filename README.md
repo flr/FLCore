@@ -38,6 +38,42 @@ or, to install the development version
 - Imports: stats, graphics
 - URL: <https://github.com/flr/FLCore>
 
+### Classes
+
+#### Arrays
+- FLArray
+- FLCohort
+- FLPar
+- FLQuant
+- FLQuantDistr
+- FLQuantJK
+- FLQuantPoint
+
+#### Structures
+- FLBiol
+- FLGrowth
+- FLIndex
+- FLModel
+- FLModelSim
+- FLStock
+- FLStockLen
+
+#### Lists
+- FLBiols
+- FLCohorts
+- FLComps
+- FLIndices
+- FLModelSims
+- FLPars
+- FLQuants
+- FLSR
+- FLSRs
+- FLStocks
+
+### Methods
+
+Too many to list here.
+
 ## Downloads
 - Packaged Source [FLCore_2.5.20130708.tar.gz](http://flr-project.org/Rdevel/src/contrib/FLCore_2.5.20130708.tar.gz)
 - Windows Binary [FLCore_2.5.20130708.zip](http://flr-project.org/Rdevel/bin/windows/contrib/3.0/FLCore_2.5.20130708.zip)
