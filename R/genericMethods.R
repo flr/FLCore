@@ -15,6 +15,7 @@ setGeneric("coef", useAsDefault = coef)
 setGeneric("densityplot", useAsDefault = densityplot)
 setGeneric("dotplot", useAsDefault = dotplot)
 setGeneric("histogram", useAsDefault = histogram)
+setGeneric("ifelse", useAsDefault = ifelse)
 setGeneric("lapply", useAsDefault = lapply)
 setGeneric("lm", useAsDefault = lm)
 setGeneric("lowess", useAsDefault = lowess)
@@ -655,7 +656,7 @@ setGeneric("jackSummary", function(object, ...)
 setGeneric("catchSel", function(object, ...){
 	standardGeneric("catchSel")})
 
-# %*%
+# %+%
 setGeneric("%+%", function(x, y)
   standardGeneric("%+%"))
 

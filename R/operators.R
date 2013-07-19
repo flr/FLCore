@@ -451,7 +451,7 @@ setMethod("%-%", signature(x="FLQuant", y="FLPar"),
 # }}}
 
 # FLPar, FLPar {{{
-# Multiply FLPar against FLPar by matching dimnames, expands 1 to n, creates missing
+# %*%
 setMethod("%*%", signature(x="FLPar", y="FLPar"),
 	function(x, y) {
 
@@ -459,12 +459,15 @@ setMethod("%*%", signature(x="FLPar", y="FLPar"),
     dnx <- dimnames(x)
     dny <- dimnames(y)
 
+		# apply operation directly if dimnames match
+		if(identical(dnx, dny))
+			return(x * y)
+
     # vector of final dim
     dnsx <- unlist(lapply(dnx, length))
     dnsy <- unlist(lapply(dny, length))
     dnd <- rbind(dnsx, dnsy)
     
-
     dr <- pmax(dnsx, dnsy)
 
     # select dimnames from larger FLPar
@@ -482,13 +485,122 @@ setMethod("%*%", signature(x="FLPar", y="FLPar"),
       stop("dimensions in 'x' not matching in length those in 'y' must be of length=1")
     
     # TODO expand & aperm FLPars
-    FLPar(
-          array(x@.Data, dim=dr, dimnames=dnmr)
-          * 
-          array(y@.Data, dim=dr, dimnames=dnmr)
-          )
+    FLPar(array(x@.Data, dim=dr, dimnames=dnmr) * array(y@.Data, dim=dr, dimnames=dnmr))
   }
-) # }}}
+) 
+# %+%
+setMethod("%+%", signature(x="FLPar", y="FLPar"),
+	function(x, y) {
+
+    # dims & dimnames
+    dnx <- dimnames(x)
+    dny <- dimnames(y)
+
+		# apply operation directly if dimnames match
+		if(identical(dnx, dny))
+			return(x * y)
+
+    # vector of final dim
+    dnsx <- unlist(lapply(dnx, length))
+    dnsy <- unlist(lapply(dny, length))
+    dnd <- rbind(dnsx, dnsy)
+    
+    dr <- pmax(dnsx, dnsy)
+
+    # select dimnames from larger FLPar
+    if(length(dnx) > length(dny)) {
+      dnr <- names(dnx)
+      dnmr <- dnx
+    }
+    else {
+      dnr <- names(dny)
+      dnmr <- dny
+    }
+
+    # TEST: non-matching dnames in x or y should be of length 1
+    if(any(apply(dnd, 2, function(x) all(x > 0) && max(x)/min(x) != max(x))))
+      stop("dimensions in 'x' not matching in length those in 'y' must be of length=1")
+    
+    # TODO expand & aperm FLPars
+    FLPar(array(x@.Data, dim=dr, dimnames=dnmr) + array(y@.Data, dim=dr, dimnames=dnmr))
+  }
+)
+# %-%
+setMethod("%-%", signature(x="FLPar", y="FLPar"),
+	function(x, y) {
+
+    # dims & dimnames
+    dnx <- dimnames(x)
+    dny <- dimnames(y)
+
+		# apply operation directly if dimnames match
+		if(identical(dnx, dny))
+			return(x * y)
+
+    # vector of final dim
+    dnsx <- unlist(lapply(dnx, length))
+    dnsy <- unlist(lapply(dny, length))
+    dnd <- rbind(dnsx, dnsy)
+    
+    dr <- pmax(dnsx, dnsy)
+
+    # select dimnames from larger FLPar
+    if(length(dnx) > length(dny)) {
+      dnr <- names(dnx)
+      dnmr <- dnx
+    }
+    else {
+      dnr <- names(dny)
+      dnmr <- dny
+    }
+
+    # TEST: non-matching dnames in x or y should be of length 1
+    if(any(apply(dnd, 2, function(x) all(x > 0) && max(x)/min(x) != max(x))))
+      stop("dimensions in 'x' not matching in length those in 'y' must be of length=1")
+    
+    # TODO expand & aperm FLPars
+    FLPar(array(x@.Data, dim=dr, dimnames=dnmr) - array(y@.Data, dim=dr, dimnames=dnmr))
+  }
+)
+# %/%
+setMethod("%/%", signature(e1="FLPar", e2="FLPar"),
+	function(e1, e2) {
+
+    # dims & dimnames
+    dne1 <- dimnames(e1)
+    dne2 <- dimnames(e2)
+
+		# apply operation directly if dimnames match
+		if(identical(dne1, dne2))
+			return(e1 * e2)
+
+    # vector of final dim
+    dnse1 <- unlist(lapply(dne1, length))
+    dnse2 <- unlist(lapply(dne2, length))
+    dnd <- rbind(dnse1, dnse2)
+    
+    dr <- pmae1(dnse1, dnse2)
+
+    # select dimnames from larger FLPar
+    if(length(dne1) > length(dne2)) {
+      dnr <- names(dne1)
+      dnmr <- dne1
+    }
+    else {
+      dnr <- names(dne2)
+      dnmr <- dne2
+    }
+
+    # TEST: non-matching dnames in e1 or e2 should be of length 1
+    if(any(apply(dnd, 2, function(x) all(x > 0) && max(x)/min(x) != max(x))))
+      stop("dimensions in 'e1' not matching in length those in 'e2' must be of length=1")
+    
+    # TODO expand & aperm FLPars
+    FLPar(array(e1@.Data, dim=dr, dimnames=dnmr) / array(e2@.Data, dim=dr, dimnames=dnmr))
+  }
+)
+
+# }}}
 
 # matchDimnames {{{
 matchDimnames <- function(dnp, dnq) {
