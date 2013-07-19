@@ -653,7 +653,7 @@ setMethod("jackSummary", signature(object="FLPar"),
 
 # rbind {{{
 setMethod('rbind', signature('FLPar'),
-  function(..., deparse.level=1) {
+  function(...) {
     args <- list(...)
 
     # dims
@@ -677,7 +677,7 @@ setMethod('rbind', signature('FLPar'),
 
 # cbind {{{
 setMethod('cbind', signature('FLPar'),
-  function(..., deparse.level=1) {
+  function(...) {
     
     args <- list(...)
     

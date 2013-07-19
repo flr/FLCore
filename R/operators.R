@@ -579,7 +579,7 @@ setMethod("%/%", signature(e1="FLPar", e2="FLPar"),
     dnse2 <- unlist(lapply(dne2, length))
     dnd <- rbind(dnse1, dnse2)
     
-    dr <- pmae1(dnse1, dnse2)
+    dr <- pmax(dnse1, dnse2)
 
     # select dimnames from larger FLPar
     if(length(dne1) > length(dne2)) {

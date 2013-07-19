@@ -6,13 +6,11 @@
 # $Id: zzz.R 1635 2012-06-12 09:20:08Z imosqueira $
 
 
-.onLoad <- function(lib,pkg) {
+.onAttach <- function(lib,pkg) {
   packageStartupMessage("FLCore 2.5.0 development version\n", appendLF = TRUE)
 #  cat("---------------------------------------------------------\n")
 #  cat("* Note that FLR packages are under constant development,\n") 
 #  cat("    please report bugs to flr-team@flr-project.org.\n")
-#  cat("* New documentation can be found in vignetes,\n") 
-#  cat("    run vignette(package=\"FLCore\") to get a list.\n")
 #  cat("* For more information go to http:\\\\flr-project.org or\n")
 #  cat("    subscribe the mailing list flr-list@flr-project.org.\n")
 #  cat("---------------------------------------------------------\n")
