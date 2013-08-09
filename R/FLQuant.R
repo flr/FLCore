@@ -1059,9 +1059,10 @@ function(x, row.names, cohort=FALSE, drop=FALSE) {
     
     # create cohort column as year - age
     if(cohort) {
-      res$cohort  <-  as.numeric(NA)
+      res$cohort  <-  "all"
       if(quant(x) == "age")
-        try(res$cohort <- res$year - res$age)
+				if(!any(is.na(dims(x)[c('min', 'max')])))
+  	    	res$cohort <- res$year - res$age
     }
 
     # drops columns with a single value, i.e. dims of length=1

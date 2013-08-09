@@ -1,6 +1,6 @@
 Package: FLCore
 Title: Core package of FLR, fisheries modelling in R.
-Version: 2.5.20130719
+Version: 2.5.20130809
 Date: 2013-07-19
 Author: FLR Team and various contributors. Initial design by Laurence T. Kell &
     Philippe Grosjean.

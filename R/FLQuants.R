@@ -176,7 +176,7 @@ setMethod("mcf", signature(object="list"), function(object){
 
 # as.data.frame	{{{
 setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="missing"),
-  function(x, row.names, drop=FALSE)
+  function(x, row.names, drop=FALSE, ...)
 	{
 		# names
 		if(is.null(names(x)))
@@ -190,7 +190,7 @@ setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="mi
 			flqnames <- names(x)
 
 		# data.frames
-		flqs.lst <- lapply(x, as.data.frame, row.names=row.names, drop=drop)
+		flqs.lst <- lapply(x, as.data.frame, row.names=row.names, drop=drop, ...)
 
   	# test classes of quant
   	flqs.class <- unlist(lapply(flqs.lst, function(x) class(x[,1])))
