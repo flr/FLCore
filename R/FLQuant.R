@@ -782,7 +782,7 @@ setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
       stop("dims of mean and sd must be equal")
     FLQuant(array(rnorm(prod(dim(mean)[-6])*n, rep(iter(mean, 1)[drop=TRUE], n),
       rep(iter(sd, 1)[drop=TRUE], n)), dim=c(dim(mean)[-6], n)),
-      dimnames=c(dimnames(mean)[-6], list(iter=seq(n))))
+      dimnames=c(dimnames(mean)[-6], list(iter=seq(n))), units=units(mean))
   }
 )
 
@@ -814,7 +814,8 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="FLQuant"),
     FLQuant(array(rlnorm(prod(dim(meanlog)[-6])*n,
       rep(iter(meanlog, 1)[drop=TRUE], n),
       rep(iter(sdlog, 1)[drop=TRUE],n)), dim=c(dim(meanlog)[-6], n)),
-      dimnames=c(dimnames(meanlog)[-6], list(iter=seq(n))), fill.iter=TRUE)
+      dimnames=c(dimnames(meanlog)[-6], list(iter=seq(n))), fill.iter=TRUE,
+			units=units(meanlog))
   }
 )
 
@@ -854,7 +855,7 @@ function(n=1, lambda) {
       stop("lambda can only have iter=1")
 FLQuant(array(rnorm(prod(dim(lambda)[-6])*n, rep(iter(lambda, 1)[drop=TRUE], n)),
       dim=c(dim(lambda)[-6], n)),
-dimnames=c(dimnames(lambda)[-6], list(iter=seq(n))), fill.iter=TRUE)
+dimnames=c(dimnames(lambda)[-6], list(iter=seq(n))), fill.iter=TRUE, units=units(lambda))
 }
 ) # }}}
 

@@ -29,6 +29,7 @@ BUG FIXES
 	  non-empty strings and contain, at least, min, max, minyear and maxyear
 	- coerce from data.frame to FLPar now handles correctly iters
 	- apply(FLArray) did not keep the object units
+	- rnorm, rlnorm and rpois did not keep tje object units
 	
 UTILITIES
 
