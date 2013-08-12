@@ -8,7 +8,7 @@
 # getPlural {{{
 getPlural <- function(object)
 {
-  switch(class(object),
+  switch(class(object)[1],
     'FLQuant'='FLQuants',
     'FLCohort'='FLCohorts',
     'FLCatch'='FLCatches',
