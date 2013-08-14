@@ -21,6 +21,10 @@ USER-VISIBLE CHANGES
 	- ifelse has now been definedx for test="FLQuant"
 	- as.data.frame for FLQuant(s) and FLComp now has an option cohort=FALSE to return a
 	  column named cohort, calculated as year-age. Ony for age-quanted objects
+	- getPlural is now an S4 method dispatching on singular classes and returning the name
+	  of the correspoding FLlst-based class
+	- as.data.frame(FLQuants) returns qname as factor with levels in the order of the
+	  input object
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim

@@ -390,7 +390,8 @@ setMethod("ssb", signature(object="FLStock"),
 		dim(res) <- c(1, dim(res))
 		dmns<-dimnames(object@stock)
 		dmns$iter<-dimnames(res)$iter
-		return(FLQuant(res, dimnames=dmns))
+		return(FLQuant(res, dimnames=dmns,
+			units=paste(units(object@stock.wt), units(object@stock.n), sep="*")))
 	} else if(units(harvest(object)) == 'hr')
   {
 		res <- colSums(object@stock.n * (1 - object@harvest * object@harvest.spwn) *

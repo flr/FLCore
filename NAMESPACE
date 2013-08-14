@@ -226,6 +226,7 @@ exportMethods(
 	"FLStocks",
   "gear",
   "gear<-",
+	"getPlural",
   "gr",
   "gr<-",
 	"halfwidth",

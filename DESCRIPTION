@@ -49,6 +49,7 @@ Collate:
     'io.ADMB.R'
     'FLCohort.R'
     'FLlst-methods.R'
+		'getPlural.R'
     'io.FLIndices.R'
     'FLGrowth.R'
     'SRmodels.R'

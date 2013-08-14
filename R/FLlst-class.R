@@ -5,24 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLlst-class.R 1778 2012-11-23 08:43:57Z imosqueira $
 
-# getPlural {{{
-getPlural <- function(object)
-{
-  switch(class(object)[1],
-    'FLQuant'='FLQuants',
-    'FLCohort'='FLCohorts',
-    'FLCatch'='FLCatches',
-    'FLMetier'='FLMetiers',
-    'FLStock'='FLStocks',
-    'FLIndex'='FLIndices',
-    'FLBiol'='FLBiols',
-    'FLFleet'='FLFleets',
-    'FLSR'='FLSRs',
-    'FLModelSim'='FLModelSims',
-    'list'
-    )
-} # }}}
-
 # FLlst() {{{
 setMethod("FLlst", signature(object="ANY"), function(object, ...){
 	lst1 <- list(...)

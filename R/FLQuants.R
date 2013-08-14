@@ -199,8 +199,9 @@ setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="mi
 
 		flqs.nlst <- lapply(flqs.lst, nrow)
 		flqs.df <- do.call("rbind", flqs.lst)
-		flqs.df$qname <- rep(flqnames, unlist(flqs.nlst))
+		flqs.df$qname <- factor(rep(flqnames, unlist(flqs.nlst)), levels=flqnames)
   	row.names(flqs.df) <- row.names
+		attr(flqs.df, 'units') <- unlist(lapply(flqs.lst, attr, 'units'))
 		flqs.df
 }) 
 

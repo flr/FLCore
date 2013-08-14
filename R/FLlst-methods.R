@@ -98,10 +98,6 @@ setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(
 })  # }}}
 
 # lapply  {{{
-if (!isGeneric("lapply")) {
-	setGeneric("lapply", useAsDefault = lapply)
-}
-
 setMethod("lapply", signature(X="FLlst"), function(X,FUN,...){
    lstargs <- list(...)
    lstargs$X <- X@.Data
