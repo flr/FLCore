@@ -25,6 +25,7 @@ USER-VISIBLE CHANGES
 	  of the correspoding FLlst-based class
 	- as.data.frame(FLQuants) returns qname as factor with levels in the order of the
 	  input object
+	- modified quantile(FLQuant) so dimnames in iter follow quantile(array), e.g. 50%
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim

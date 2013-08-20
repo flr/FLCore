@@ -729,13 +729,13 @@ setMethod('iterCVs', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
 # quantile   {{{
 setMethod("quantile", signature(x="FLQuant"),
-function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, dim=1:5, ...) {
-    res <- FLQuant(NA, dimnames=c(dimnames(x)[-6], list(iter=ac(probs))), units=units(x))
-for(i in probs)
-res[,,,,,ac(i)] <- apply(x, dim, quantile, i, na.rm=na.rm, ...)
-return(res)
-}
-)   # }}}
+	function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, ...) {
+		res <- FLQuant(NA, dimnames=c(dimnames(x)[-6],
+			list(iter=paste(probs*100, "%", sep=""))), units=units(x))
+	res[,,,,,] <- aperm(apply(x, 1:5, quantile, probs, na.rm=na.rm), c(2:6,1))
+	return(res)
+	}
+) # }}}
 
 # iters     {{{
 setGeneric("iters", function(object, ...) {
