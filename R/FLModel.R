@@ -204,8 +204,12 @@ setMethod('fmle',
     
     # input data
     alldata <- list()
-    for (i in datanm)
+		# slots
+    for (i in datanm[!datanm%in%names(covar(object))])
       alldata[[i]] <- slot(object, i)
+		if(length(covar(object)) > 0)
+			for (i in names(covar(object)))
+				alldata[[i]]  <- covar(object)[[i]]
 
     # add dimnames if used
     dimna <- dimnames(slot(object, datanm[1]))[names(slot(object, datanm[1]))%in%
@@ -222,7 +226,7 @@ setMethod('fmle',
       alldata <- c(alldata, dimdat)
     }
     
-    # iterations
+		# iterations
     if(seq.iter)
     {
       iter <- dims(object)$iter
@@ -233,7 +237,7 @@ setMethod('fmle',
         if(!all(fiter == 1))
         {
           fiter <- fiter[fiter > 1]
-          # all ietrs in fixed are equal?
+          # all iters in fixed are equal?
           if(any(fiter/fiter[1] != 1))
             stop("objects in fixed have different number of iters")
           # are iter in object 1 and fixiter > 1? use fixiter
@@ -455,8 +459,8 @@ setMethod('predict', signature(object='FLModel'),
         dimnames <- dimnames(args[[1]])
       else
         dimnames <- dimnames(slot(obj, fittedSlot))
-
-      # check inputs
+      
+			# check inputs
       if(it == 1)
       {
         res <- propagate(do.call(class(object@fitted), list(eval(call,
