@@ -409,7 +409,7 @@ SRModelName <- function(model){
       "a+ssb/ssb-1"                       = "mean",
       "FLQuant(a,dimnames=dimnames(rec))" = "mean",
       "a"                                 = "mean",
-      'abPars("bevholt",s=s,v=v,spr0=spr0)["a"]*ssb/(abPars("bevholt",s=s,v=v,spr0=spr0)["b"]+ssb)'   = "bevholtSV",
+			"FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"a\"]%*%ssb%/%(FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"b\"]%+%ssb)" = "bevholtSV",
       'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "rickerSV",
       NULL))} # }}}
 

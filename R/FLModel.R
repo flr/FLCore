@@ -315,8 +315,8 @@ setMethod('fmle',
       # TODO protect environment
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
         hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
-
-      # warning if convergence is not 0, and do not load results
+      
+			# warning if convergence is not 0, and do not load results
       if(out$convergence != 0) {
         warning("optimizer could not achieve convergence")
       } else {
@@ -378,7 +378,7 @@ setMethod('predict', signature(object='FLModel'),
     args <- list(...)
     if(length(args) > 0 && is.null(names(args)))
       stop('FLQuant or FLCohort inputs must be named to apply formula')
-    # call
+    # all
     call <- as.list(object@model)[[3]]
     fittedSlot <- as.list(object@model)[[2]]
     
@@ -463,6 +463,7 @@ setMethod('predict', signature(object='FLModel'),
 			# check inputs
       if(it == 1)
       {
+				# BUG with spr0 as covar ts
         res <- propagate(do.call(class(object@fitted), list(eval(call,
           envir=c(params, data, dimdat)))), iters, fill.iter=FALSE)
         dimnames(res)[1:5] <- dimnames[1:5]
