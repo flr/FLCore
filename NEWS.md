@@ -28,6 +28,7 @@
 - apply(FLArray) did not keep the object units
 - rnorm, rlnorm and rpois did not keep tje object units
 - code2name for FLSR did not reocngize properly bevholtSV
+- fmle() can now use method="Brent" for one parameter problems
 	
 ## UTILITIES
 

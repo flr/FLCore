@@ -166,7 +166,7 @@ setMethod('fmle',
     datanm <- datanm[datanm%in%names(formals(logl))]
 
     # limits
-    if(method == 'L-BFGS-B')
+    if(method %in% c('L-BFGS-B', 'Brent'))
     {
       if(missing(lower) && !is.null(lower(object)))
         # if is(lower, function)
@@ -315,7 +315,7 @@ setMethod('fmle',
       # TODO protect environment
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
         hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
-      
+			
 			# warning if convergence is not 0, and do not load results
       if(out$convergence != 0) {
         warning("optimizer could not achieve convergence")
@@ -323,7 +323,7 @@ setMethod('fmle',
 
         # output
         # place out$par in right iter dim
-        iter(object@params[names(out$par),], it) <- out$par
+        iter(object@params[names(start),], it) <- out$par
         # fixed
         if(length(fixed) > 0)
           iter(object@params, it)[fixnm,] <- unlist(lapply(fixed, iter, it))
