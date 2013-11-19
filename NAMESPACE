@@ -375,6 +375,7 @@ exportMethods(
   "survprob",
   "sv",
   "sweep",
+	"tail",
 	"transform",
   "trim",
 	"tsb",
