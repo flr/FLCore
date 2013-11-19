@@ -1128,6 +1128,31 @@ setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),
 	}
 ) # }}}
 
+# tail {{{
+setMethod("tail", signature(x="FLQuant"),
+	function(x, n=1, dim=2, ...) {
+
+		# dim of length 1
+		if(length(dim) > 1)
+			stop("tail(FLQuant) can allow apply to a single dim(ension)")
+
+		# character dim
+		if(is(dim, 'character'))
+			dim <- which(dim == names(x))
+
+
+		# named list of dimension vectors
+		idx <- lapply(as.list(dim(x)), seq)
+		names(idx) <- c('i','j','k','l','m','n')
+
+		# tail dimension set by dim
+		idx[[dim]] <- tail(idx[[dim]], n=n)
+		
+		# apply '['
+		return(do.call('[', c(list(x=x), idx)))
+	}
+) # }}}
+
 # NOT EXPORTED
 ## filldimnames       {{{
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {
@@ -1148,5 +1173,3 @@ names(xnames)[1] <- names(dnames)[i]
 }
 return(xnames)
 } # }}}
-
-

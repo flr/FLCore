@@ -46,6 +46,7 @@ setGeneric("rnorm", useAsDefault=rnorm)
 setGeneric("rlnorm", useAsDefault=rlnorm)
 setGeneric("rpois", useAsDefault=rpois)
 setGeneric("mvrnorm", useAsDefault=mvrnorm)
+setGeneric("tail", useAsDefault=tail)
 setGeneric("cbind", signature="...")
 setGeneric("rbind", signature="...")
 

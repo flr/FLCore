@@ -19,6 +19,7 @@
 - getPlural is now an S4 method dispatching on singular classes and returning the name of the correspoding FLlst-based class
 - as.data.frame(FLQuants) returns qname as factor with levels in the order of the input object
 - modified quantile(FLQuant) so dimnames in iter follow quantile(array), e.g. 50%
+- tail method for FLQuant, operates by default along the year dimension.
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
