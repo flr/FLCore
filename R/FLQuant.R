@@ -433,25 +433,27 @@ setMethod("dimnames<-", signature(x="FLQuant", value='list'),
 ) # }}}
 
 ## dims       {{{
-setMethod("dims", signature(obj="FLQuant"),
 # Return a list with different parameters
-function(obj, ...){
-    names <- names(dimnames(obj))
-quant   <-  as.numeric(dim(obj)[names == quant(obj)])
-min <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][1]))
-max <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][length(dimnames(obj)[[quant(obj)]])]))
-year<-  as.numeric(dim(obj)[names == "year"])
-minyear <-  suppressWarnings(as.numeric(dimnames(obj)$year[1]))
-maxyear <-  suppressWarnings(as.numeric(dimnames(obj)$year[dim(obj)[names == "year"]]))
-unit<-  dim(obj)[names == "unit"]
- season  <-  dim(obj)[names == "season"]
-area<-  dim(obj)[names == "area"]
-iter <- dim(obj)[names == "iter"]
-list <- list(quant=quant, min=min, max=max, year=year, minyear=minyear,
-maxyear=maxyear, unit=unit, season=season, area=area, iter=iter)
-names(list)[1] <- quant(obj)
-return(list)
-}
+setMethod("dims", signature(obj="FLQuant"),
+	function(obj, ...){
+    
+		names <- names(dimnames(obj))
+		quant   <-  as.numeric(dim(obj)[names == quant(obj)])
+		min <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][1]))
+		max <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][length(dimnames(obj)[[quant(obj)]])]))
+		year<-  as.numeric(dim(obj)[names == "year"])
+		minyear <-  suppressWarnings(as.numeric(dimnames(obj)$year[1]))
+		maxyear <-  suppressWarnings(as.numeric(dimnames(obj)$year[dim(obj)[names == "year"]]))
+		unit<-  dim(obj)[names == "unit"]
+		season  <-  dim(obj)[names == "season"]
+		area <-  dim(obj)[names == "area"]
+		iter <- dim(obj)[names == "iter"]
+		list <- list(quant=quant, min=min, max=max, year=year, minyear=minyear,
+		maxyear=maxyear, unit=unit, season=season, area=area, iter=iter)
+		names(list)[1] <- quant(obj)
+		
+		return(list)
+	}
 )   # }}}
 
 ## is.FLQuant       {{{

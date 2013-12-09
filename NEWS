@@ -30,6 +30,7 @@ USER-VISIBLE CHANGES
    of the input object
  - modified quantile(FLQuant) so dimnames in iter follow quantile(array),
    e.g. 50%
+ - tail method for FLQuant, operates by default along the year dimension.
 
 BUG FIXES
  - iterMeans(FLQuant) was not operating along the 6th dim

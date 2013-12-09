@@ -942,3 +942,30 @@ setMethod("z", "FLStock", function(object, ...) {
     return(m(object) + f)
   }
 }) # }}}
+
+# combine {{{
+setMethod('combine', signature(x='FLStock', y='FLStock'),
+  function(x, y) {
+
+    dx <- dims(x)
+	  dy <- dims(y)
+		idi <- names(dx)!="iter"
+
+    # COMPARE dims(x)[-'iter')]
+    if(!all.equal(dx[idi], dy[idi]))
+      stop("Object dimensions must match")
+
+    #
+    if(!all.equal(dimnames(m(x))[1:5], dimnames(m(y))[1:5]))
+      warning("dimnames of x and y differ")
+
+    itx <- dx[!idi]
+    ity <- dy[!idi]
+
+    res <- propagate(x[,,,,,1], sum(itx + ity))
+
+		res[,,,,,2:itx] <- x
+		res[,,,,,(itx+1):(itx+ity)] <- y
+    return(res)
+  }
+) # }}}
