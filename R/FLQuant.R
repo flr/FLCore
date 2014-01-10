@@ -1155,6 +1155,53 @@ setMethod("tail", signature(x="FLQuant"),
 	}
 ) # }}}
 
+# tS, tS<- {{{
+setMethod("tS", signature(object="FLQuant", step="numeric"),
+	function(object, step) {
+
+	# dims
+	do <- dim(object)[c(2,4)]
+
+	# find pout season and year
+	season <- step %% do[2]
+	year <- step %/% do[2] + 1
+	
+	# correct for those in season 4
+	idx <- (step %% do[2]) == 0 
+	year[idx] <- (step %/% do[2]) [idx]
+	season[idx] <- do[2]
+		
+	# Are n elements contiguous in years or seasons ?
+	if(length(unique(year)) > 1 & length(unique(season)) > 1)
+		stop("requested time steps do not generate a consistent object")
+
+	return(object[, unique(year), ,unique(season),,])
+	}
+)
+
+setMethod("tS<-", signature(object="FLQuant", step="numeric", value="vector"),
+	function(object, step, value) {
+
+	# dims
+	do <- dim(object)[c(2,4)]
+
+	# find pout season and year
+	season <- step %% do[2]
+	year <- step %/% do[2] + 1
+
+	# correct for those in season 4
+	idx <- (step %% do[2]) == 0 
+	year[idx] <- step %/% do[2]
+	season[idx] <- do[2]
+		
+	object[, unique(year), ,unique(season),,]  <- value
+
+	return(object)
+	}
+)
+
+# }}}
+
 # NOT EXPORTED
 ## filldimnames       {{{
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {

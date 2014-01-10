@@ -4,6 +4,8 @@
 - FLModelSim and FLModelSims new classes
 - [<- FLArray now accepts an input FLQuant and keeps the structure, still recyling as appropriate.
 - New FLStockLen class for length-based stock data and results.
+- New tS and tS<- method to extract and replace individual time steps in an object with
+  years and seasons
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim

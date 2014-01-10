@@ -776,3 +776,7 @@ setGeneric("vecage", function(object, ...) standardGeneric("vecage"))
 
 # wide.frame
 setGeneric("wide.frame", function(data, formula, ...) standardGeneric("wide.frame"))
+
+# tS
+setGeneric("tS", function(object, step, ...) standardGeneric("tS"))
+setGeneric("tS<-", function(object, step, ..., value) standardGeneric("tS<-"))

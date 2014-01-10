@@ -378,6 +378,8 @@ exportMethods(
 	"tail",
 	"transform",
   "trim",
+	"tS",
+	"tS<-",
 	"tsb",
 	"type",
 	"type<-",
