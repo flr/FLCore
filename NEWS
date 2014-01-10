@@ -5,6 +5,9 @@ NEW FEATURES
  - [<- FLArray now accepts an input FLQuant and keeps the structure, still
    recyling as appropriate.
  - New FLStockLen class for length-based stock data and results.
+ - New tS and tS<- method to extract and replace individual time steps in
+   an object with
+    years and seasons
 
 USER-VISIBLE CHANGES
  - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of
@@ -42,6 +45,7 @@ BUG FIXES
  - rnorm, rlnorm and rpois did not keep tje object units
  - code2name for FLSR did not reocngize properly bevholtSV
  - fmle() can now use method="Brent" for one parameter problems
+ - New ple4.biol with data up to 2008. No integer value
 
 UTILITIES
 
