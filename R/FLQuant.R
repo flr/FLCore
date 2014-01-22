@@ -1202,6 +1202,14 @@ setMethod("tS<-", signature(object="FLQuant", step="numeric", value="vector"),
 
 # }}}
 
+# tsp {{{
+setMethod("tsp", signature(x="FLQuant"),
+	function(x) {
+		dms <- dimnames(x)
+		return(c(as.numeric(dms$year[c(1, length(dms$year))]), length(dms$season)))
+	}
+) # }}}
+
 # NOT EXPORTED
 ## filldimnames       {{{
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {

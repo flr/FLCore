@@ -381,6 +381,7 @@ exportMethods(
 	"tS",
 	"tS<-",
 	"tsb",
+	"tsp",
 	"type",
 	"type<-",
 	"units",

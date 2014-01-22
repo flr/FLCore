@@ -6,6 +6,8 @@
 - New FLStockLen class for length-based stock data and results.
 - New tS and tS<- method to extract and replace individual time steps in an object with
   years and seasons
+- tsp method for FLQuant returns 'tsp' attribute: start, end and frequency (seasons)
+- Arith method for FLQuant is now unit-aware, see ?units
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim

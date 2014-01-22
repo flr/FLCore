@@ -307,6 +307,63 @@ setMethod('expand', signature(x='FLArray'),
   }
 ) # }}}
 
+# uom {{{
+uoms <- c('kg', 't',
+	'1', '10', '100', '1000', '10000', '100000', '1000000', '10000000', '100000000',
+	'10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8',
+	'1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8',
+	'm', 'f', 'hr', 'prop', 'NA')
+
+uomTable <- array('NA', dimnames=list(op=c('*', '/', '+', '-'), e1=uoms, e2=uoms), dim=c(4, length(uoms), length(uoms)))
+
+# *
+# kg * 1000 = t
+uomTable['*', 'kg', c('1000', '1e3', '10^3')] <- 't'
+uomTable['*', c('1000', '1e3', '10^3'), 'kg'] <- 't'
+
+# NA
+uomTable[, 'NA', ] <- uoms
+uomTable[, , 'NA'] <- uoms
+
+# prop
+uomTable[, 'prop', ] <- uoms
+uomTable[, , 'prop'] <- uoms
+
+# m, f, hr
+
+# /
+
+# +
+diag(uomTable['+',,]) <- uoms
+
+# -
+diag(uomTable['-',,]) <- uoms
+
+
+uom <- function(op, u1, u2) {
+
+	# undefined unit
+	if(any(!c(u1, u2) %in% FLCore:::uoms))
+		return(paste(u1, op, u2))
+
+	# ""
+	if("" %in% c(u1, u2))
+		return(paste(u1, op, u2))
+
+	# use uomTable
+	res <- uomTable[op, u1, u2]
+	
+	# incompatible units ('NA')
+	if(res == 'NA') {
+		warning('incompatible units of measurements in FLQuant objects: ',
+			paste(u1, op, u2))
+		return(paste(u1, op, u2))
+	}
+
+	return(res)
+}
+# }}}
+
 ## Arith    {{{
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
 	signature(e1 = "numeric", e2 = "FLArray"),
@@ -343,7 +400,16 @@ setMethod("Arith",
 		else
 			e <- array(callGeneric(drop(unclass(e1)), drop(unclass(e2))),
         dimnames=dimnames(e1), dim=dim(e1))
-    return(new(class(e1), e, units=paste(units(e1), units(e2))))
+		
+		# units
+		if(identical(units(e1), units(e2))) {
+			units <- units(e1)
+		} else {
+			op <- as.character(get('.Generic'))
+			units <- FLCore:::uom(op, units(e1), units(e2))
+		}
+
+    return(new(class(e1), e, units=units))
 	}
 )   # }}}
 
