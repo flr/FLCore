@@ -347,14 +347,14 @@ uomTable['+', 'm', 'f'] <- 'z'
 uomTable['-', 'z', 'f'] <- 'm'
 uomTable['-', 'z', 'm'] <- 'f'
 
-uomTable[, nums, 'f'] <- 'f'
-uomTable[, nums, 'm'] <- 'm'
-uomTable[, nums, 'z'] <- 'z'
-uomTable[, nums, 'hr'] <- 'hr'
-uomTable[, 'f', nums] <- 'f'
-uomTable[, 'm', nums] <- 'm'
-uomTable[, 'z', nums] <- 'z'
-uomTable[, 'hr', nums] <- 'hr'
+uomTable[, nums, 'f'] <- rep(uoms[nums], each=4)
+uomTable[, nums, 'm'] <- rep(uoms[nums], each=4)
+uomTable[, nums, 'z'] <- rep(uoms[nums], each=4)
+uomTable[, nums, 'hr'] <- rep(uoms[nums], each=4)
+uomTable[, 'f', nums] <- rep(uoms[nums], each=4)
+uomTable[, 'm', nums] <- rep(uoms[nums], each=4)
+uomTable[, 'z', nums] <- rep(uoms[nums], each=4)
+uomTable[, 'hr', nums] <- rep(uoms[nums], each=4)
 
 # /
 # kg * 1000 = t

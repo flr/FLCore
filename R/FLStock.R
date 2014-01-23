@@ -382,61 +382,60 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 ## ssb		{{{
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
+		
+		uns <- units(harvest(object))
+		
+		if(uns == 'f') {
+			return(quantSums(stock.n(object) * exp(-harvest(object) * harvest.spwn(object) -
+				m(object) * m.spwn(object)) * stock.wt(object) * mat(object)))
 
-	if(units(harvest(object)) == 'f')
-	{
-		res <- colSums(object@stock.n * exp(-object@harvest * object@harvest.spwn -
-      object@m * object@m.spwn) * object@stock.wt * object@mat, na.rm=FALSE)
-		dim(res) <- c(1, dim(res))
-		dmns<-dimnames(object@stock)
-		dmns$iter<-dimnames(res)$iter
-		return(FLQuant(res, dimnames=dmns,
-			units=paste(units(object@stock.wt), units(object@stock.n), sep="*")))
-	} else if(units(harvest(object)) == 'hr')
-  {
-		res <- colSums(object@stock.n * (1 - object@harvest * object@harvest.spwn) *
-      exp(-object@m * object@m.spwn) * object@harvest.spwn * object@mat * object@stock.wt)
-		dim(res) <- c(1, dim(res))
-		return(FLQuant(res, dimnames=dimnames(object@stock)))
-  } else
+		} else if(uns == 'hr') {
+			stock.n(object) * (1 - harvest(object) * harvest.spwn(object)) *
+				exp(-m(object) * m.spwn(object)) * harvest.spwn(object) * mat(object) *
+				stock.wt(object)
+  	} else {
 		stop("Correct units (f or hr) not specified in the harvest slot")
+		}
 	}
 )	# }}}
 
 ## tsb		{{{
 setMethod("tsb", signature(object="FLStock"),
 	function(object, ...) {
+		
+		uns <- units(harvest(object))
+		
+		if(uns == 'f') {
+			return(quantSums(stock.n(object) * exp(-harvest(object) * harvest.spwn(object) -
+				m(object) * m.spwn(object)) * stock.wt(object)))
 
-	if(units(harvest(object)) == 'f')
-	{
-		res <- colSums(object@stock.n * exp(-object@harvest * object@harvest.spwn -
-      object@m * object@m.spwn) * object@stock.wt, na.rm=FALSE)
-		dim(res) <- c(1, dim(res))
-		dmns<-dimnames(object@stock)
-		dmns$iter<-dimnames(res)$iter
-		return(FLQuant(res, dimnames=dmns))
-	} else if(units(harvest(object)) == 'hr')
-  {
-		res <- colSums(object@stock.n * (1 - object@harvest * object@harvest.spwn) *
-      exp(-object@m * object@m.spwn) * object@harvest.spwn * object@stock.wt)
-		dim(res) <- c(1, dim(res))
-		return(FLQuant(res, dimnames=dimnames(object@stock)))
-  } else
+		} else if(uns == 'hr') {
+			stock.n(object) * (1 - harvest(object) * harvest.spwn(object)) *
+				exp(-m(object) * m.spwn(object)) * harvest.spwn(object) * stock.wt(object)
+  	} else {
 		stop("Correct units (f or hr) not specified in the harvest slot")
+		}
 	}
 )	# }}}
 
 ## fbar		{{{
 setMethod("fbar", signature(object="FLStock"),
  function(object, ...) {
-  if (is.na(object@range["minfbar"])) object@range["minfbar"]<-object@range["min"]
-  if (is.na(object@range["maxfbar"])) object@range["maxfbar"]<-object@range["max"]
-  object@range["minfbar"]<-max(object@range["min"],min(object@range["max"],object@range["minfbar"]))
-  object@range["maxfbar"]<-max(object@range["min"],min(object@range["max"],object@range["maxfbar"]))
+	 
+	 rng <- range(object)
+  
+	 if (is.na(rng["minfbar"]))
+		 rng["minfbar"] <- rng["min"]
 
-  if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr')
+	 if (is.na(rng["maxfbar"]))
+		 rng["maxfbar"] <- rng["max"]
+
+	 rng["minfbar"] <- max(rng["min"], min(rng["max"], rng["minfbar"]))
+	 rng["maxfbar"] <- max(rng["min"], min(rng["max"], rng["maxfbar"]))
+
+	 if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr')
 	    {
-		quantMeans(object@harvest[as.character(object@range["minfbar"]:object@range["maxfbar"]),])
+		return(quantMeans(harvest(object)[as.character(rng["minfbar"]:rng["maxfbar"]),]))
 		  } else
 	stop("Correct units (f or hr) not specified in the harvest slot")
 	}
