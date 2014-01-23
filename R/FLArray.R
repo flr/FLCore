@@ -312,9 +312,21 @@ uoms <- c('kg', 't',
 	'1', '10', '100', '1000', '10000', '100000', '1000000', '10000000', '100000000',
 	'10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8',
 	'1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8',
-	'm', 'f', 'hr', 'prop', 'NA')
+	'm', 'f', 'z', 'hr', 'prop', 'NA')
+nums <- c(3:29)
 
 uomTable <- array('NA', dimnames=list(op=c('*', '/', '+', '-'), e1=uoms, e2=uoms), dim=c(4, length(uoms), length(uoms)))
+
+# Numbers
+uomTable[, c('1', '1e0', '10^0'), c('1', '1e0', '10^0')] <- c('1')
+uomTable[, c('10', '1e1', '10^1'), c('10', '1e1', '10^1')] <- c('10')
+uomTable[, c('100', '1e2', '10^2'), c('100', '1e2', '10^2')] <- c('100')
+uomTable[, c('1000', '1e3', '10^3'), c('1000', '1e3', '10^3')] <- c('1000')
+uomTable[, c('10000', '1e4', '10^4'), c('10000', '1e4', '10^4')] <- c('1e4')
+uomTable[, c('100000', '1e5', '10^5'), c('100000', '1e5', '10^5')] <- c('1e5')
+uomTable[, c('1000000', '1e6', '10^6'), c('1000000', '1e6', '10^6')] <- c('1e6')
+uomTable[, c('10000000', '1e7', '10^7'), c('10000000', '1e7', '10^7')] <- c('1e7')
+uomTable[, c('100000000', '1e8', '10^8'), c('100000000', '1e8', '10^8')] <- c('1e8')
 
 # *
 # kg * 1000 = t
@@ -322,22 +334,31 @@ uomTable['*', 'kg', c('1000', '1e3', '10^3')] <- 't'
 uomTable['*', c('1000', '1e3', '10^3'), 'kg'] <- 't'
 
 # NA
-uomTable[, 'NA', ] <- uoms
-uomTable[, , 'NA'] <- uoms
+uomTable[, 'NA', ] <- rep(uoms, each=4)
+uomTable[, , 'NA'] <- rep(uoms, each=4)
 
 # prop
-uomTable[, 'prop', ] <- uoms
-uomTable[, , 'prop'] <- uoms
+uomTable[, 'prop', ] <- rep(uoms, each=4)
+uomTable[, , 'prop'] <- rep(uoms, each=4)
 
 # m, f, hr
+uomTable['+', 'f', 'm'] <- 'z'
+uomTable['+', 'm', 'f'] <- 'z'
+uomTable['-', 'z', 'f'] <- 'm'
+uomTable['-', 'z', 'm'] <- 'f'
+
+uomTable[, nums, 'f'] <- 'f'
+uomTable[, nums, 'm'] <- 'm'
+uomTable[, nums, 'z'] <- 'z'
+uomTable[, nums, 'hr'] <- 'hr'
+uomTable[, 'f', nums] <- 'f'
+uomTable[, 'm', nums] <- 'm'
+uomTable[, 'z', nums] <- 'z'
+uomTable[, 'hr', nums] <- 'hr'
 
 # /
-
-# +
-diag(uomTable['+',,]) <- uoms
-
-# -
-diag(uomTable['-',,]) <- uoms
+# kg * 1000 = t
+uomTable['/', 't', c('1000', '1e3', '10^3')] <- 'kg'
 
 
 uom <- function(op, u1, u2) {
@@ -356,7 +377,8 @@ uom <- function(op, u1, u2) {
 	# incompatible units ('NA')
 	if(res == 'NA') {
 		warning('incompatible units of measurements in FLQuant objects: ',
-			paste(u1, op, u2))
+		paste(u1, op, u2))
+		
 		return(paste(u1, op, u2))
 	}
 
