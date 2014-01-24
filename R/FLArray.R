@@ -407,6 +407,7 @@ setMethod("Arith",
 	{
     if(!all(dim(e1)[-6] == dim(e2)[-6]))
       stop("non-conformable arrays")
+
 		if(dim(e1)[6] == 1 & dim(e2)[6] > 1) {
 			e <- e2
 			e[,,,,,] <- e1
