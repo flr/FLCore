@@ -362,4 +362,22 @@ setMethod("as.data.frame", signature(x="FLCohorts", row.names="missing",
 	flqs.df$cname <- rep(flqnames, unlist(flqs.nlst))
 	flqs.df
 
-})  # }}}
+})
+
+setMethod("as.data.frame", signature(x="FLComps", row.names="missing",
+	optional="missing"),
+	function(x) {
+
+		nms <- as.list(names(x))
+		names(nms) <- names(x)
+
+		res <- lapply(nms, function(y) cbind(as.data.frame(x[[y]]),
+			data.frame(cname=nms[[y]])))
+
+		names(res) <- NULL
+		res <- do.call(rbind, c(list(deparse.level=0), res))
+
+		return(res)
+
+	}
+) # }}}
