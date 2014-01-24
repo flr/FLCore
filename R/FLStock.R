@@ -386,8 +386,8 @@ setMethod("ssb", signature(object="FLStock"),
 		uns <- units(harvest(object))
 		
 		if(uns == 'f') {
-			return(quantSums(stock.n(object) * exp(-harvest(object) * harvest.spwn(object) -
-				m(object) * m.spwn(object)) * stock.wt(object) * mat(object)))
+			return(quantSums(stock.n(object) * exp(-(harvest(object) * harvest.spwn(object) +
+				m(object) * m.spwn(object))) * stock.wt(object) * mat(object)))
 
 		} else if(uns == 'hr') {
 			stock.n(object) * (1 - harvest(object) * harvest.spwn(object)) *
@@ -406,8 +406,8 @@ setMethod("tsb", signature(object="FLStock"),
 		uns <- units(harvest(object))
 		
 		if(uns == 'f') {
-			return(quantSums(stock.n(object) * exp(-harvest(object) * harvest.spwn(object) -
-				m(object) * m.spwn(object)) * stock.wt(object)))
+			return(quantSums(stock.n(object) * exp(-(harvest(object) * harvest.spwn(object) +
+				m(object) * m.spwn(object))) * stock.wt(object)))
 
 		} else if(uns == 'hr') {
 			stock.n(object) * (1 - harvest(object) * harvest.spwn(object)) *
