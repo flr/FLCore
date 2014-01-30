@@ -337,7 +337,30 @@ validFLStockLen <- function(object) {
 #' @name FLStockLen
 #' @template FLStockLen-aliases
 #' @docType class
-#' @template FLStock_slots
+#' @section Slots:
+#'     \describe{
+#'     \item{halfwidth}{The middle of the length bins (\{numeric}).}
+#'     \item{catch}{Total catch weight (\code{FLQuant}).}
+#'     \item{catch.n}{Catch numbers (\code{FLQuant}).}
+#'     \item{catch.wt}{Mean catch weights (\code{FLQuant}).}
+#'     \item{discards}{Total discards weight (\code{FLQuant}).}
+#'     \item{discards.n}{Discard numbers (\code{FLQuant}).}
+#'     \item{discards.wt}{Mean discard weights (\code{FLQuant}).}
+#'     \item{landings}{Total landings weight (\code{FLQuant}).}
+#'     \item{landings.n}{Landing numbers (\code{FLQuant}).}
+#'     \item{landings.wt}{Landing weights (\code{FLQuant}).}
+#'     \item{stock}{Total stock weight (\code{FLQuant}).}
+#'     \item{stock.n}{Stock numbers (\code{FLQuant}).}
+#'     \item{stock.wt}{Mean stock weights (\code{FLQuant}).}
+#'     \item{m}{Natural mortality (\code{FLQuant}).}
+#'     \item{mat}{Proportion mature (\code{FLQuant}).}
+#'     \item{harvest}{Harvest rate or fishing mortality. The units of the FLQuant should be set to 'harvest' or 'f' accordingly (\code{FLQuant}).} 
+#'     \item{harvest.spwn}{Proportion of harvest/fishing mortality before spawning (\code{FLQuant}).}
+#'     \item{m.spwn}{Proportion of natural mortality before spawning (\code{FLQuant}).}
+#'     \item{name}{Name of the stock (\code{character}).}
+#'     \item{desc}{Description of stock (\code{character}).}
+#'     \item{range}{Named numeric vector containing the quant and year ranges, the plusgroup and the quant range that the average fishing mortality is calculated over (\code{numeric}).}
+#' }
 #' @template Accessors
 #' @template Constructors
 #' @section Validity: \describe{
@@ -775,6 +798,106 @@ validFLSR <- function(object)
 	# params must have dims equal to quants
 	return(TRUE)
 }
+
+#' Class FLSR
+#' 
+#' Class for stock-recruitment models.
+#' 
+#' A series of commonly-used stock-recruitment models are already available,
+#' including the corresponding likelihood functions and calculation of initial
+#' values. See \code{\link{SRModels}} for more details and the exact
+#' formulation implemented for each of them.
+#' 
+#' @name FLSR
+#' @aliases FLSR-class FLSR FLSR-methods FLSR,ANY-method FLSR,missing-method
+#' @docType class
+#' @section Slots: \describe{
+#'     \item{name}{Name of the object (\code{character}).}
+#'     \item{desc}{Description of the object (\code{character}).}
+#'     \item{range}{Range (\code{numeric}).}
+#'     \item{rec}{Recruitment series (\code{FLQuant}).}
+#'     \item{ssb}{Index of reproductive potential, e.g. SSB or egg oor egg production (\code{FLQuant}).}
+#'     \item{fitted}{Estimated values for rec (\code{FLQuant}).}
+#'     \item{residuals}{Residuals obtained from the model fit (\code{FLArray}).}
+#'     \item{covar}{Covariates for SR model (\code{FLQuants}).}
+#'     \item{model}{Model formula (\code{formula}).}
+#'     \item{gr}{Function returning the gradient of the likelihood (\code{function}).}
+#'     \item{logl}{Log-likelihood function (\code{function}).}
+#'     \item{initial}{Function returning initial parameter values for the optimizer (\code{function}).}
+#'     \item{params}{Estimated parameter values (\code{FLPar}).}
+#'     \item{logLik}{Value of the log-likelihood (\code{logLik}).}
+#'     \item{vcov}{Variance-covariance matrix (\code{array}).}
+#'     \item{details}{Extra information on the model fit procedure (\code{list}).}
+#'     \item{logerror}{Is the error on a log scale (\code{logical}).}
+#'     \item{distribution}{(\code{factor}).}
+#'     \item{hessian}{Resulting Hessian matrix from the fit (\code{array}).}
+#' }
+#' @author The FLR Team
+#' @seealso \link{FLModel}, \link{FLComp}
+#' @keywords classes
+#' @examples
+#' 
+#'     # Create an empty FLSR object.
+#'     sr1 <- FLSR()
+#'     
+#'     # Create an  FLSR object using the existing SR models. 
+#'     sr2 <- FLSR(model = 'ricker')
+#'     sr2@@model
+#'     sr2@@initial
+#'     sr2@@logl
+#'     
+#'     sr3 <- FLSR(model = 'bevholt')
+#'     sr3@@model
+#'     sr3@@initial
+#'     sr3@@logl
+#'     
+#'     # Create an FLSR using a function.
+#'     mysr1 <- function(){
+#'         model <- rec ~ a*ssb^b
+#'         return(list(model = model))}
+#'     
+#'     sr4 <- FLSR(model = mysr1)
+#' 
+#'     # Create an FLSR using a function and check that it works.
+#'     mysr2 <- function(){
+#'         formula <- rec ~ a+ssb*b
+#'         
+#'         logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec, 
+#'             a + ssb*b, sqrt(sigma), TRUE))
+#'         
+#'        initial <- structure(function(rec, ssb) {
+#'             a     <- mean(rec)
+#'             b     <- 1
+#'             sigma <- sqrt(var(rec))
+#'             
+#'             return(list(a= a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
+#'         
+#'        return(list(model = formula, initial = initial, logl = logl))
+#'     }
+#'       
+#'     ssb <- FLQuant(runif(10, 10000, 100000))
+#'     rec <- 10000 + 2*ssb + rnorm(10,0,1)  
+#'     sr5 <- FLSR(model = mysr2, ssb = ssb, rec = rec)
+#'     
+#'     sr5.mle <- fmle(sr5)
+#'     sr5.nls <- nls(sr5)
+#'     
+#' # NS Herring stock-recruitment dataset
+#' data(nsher)
+#' 
+#' # already fitted with a Ricker SR model
+#' summary(nsher)
+#' 
+#' plot(nsher)
+#' 
+#' # change model
+#' model(nsher) <- bevholt()
+#' 
+#' # fit through MLE
+#' nsher <- fmle(nsher)
+#' 
+#' plot(nsher)
+#' 
 setClass('FLSR',
   representation(
 	  'FLModel',
