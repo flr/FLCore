@@ -559,6 +559,7 @@ setMethod("FLQuants", "FLQuants", function(object){
 # FLSR  {{{
 validFLSR <- function(object)
 {
+	# params must have dims equal to quants
 	return(TRUE)
 }
 setClass('FLSR',
