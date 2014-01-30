@@ -5,7 +5,22 @@
 \alias{FLBiol,missing-method}
 \alias{FLBiol-class}
 \alias{FLBiol-methods}
-\alias{catch.n,FLBiol-method}
+\alias{desc,FLBiol-method}
+\alias{desc<-,FLBiol,character-method}
+\alias{fec,FLBiol-method}
+\alias{fec<-,FLBiol,FLQuant-method}
+\alias{m,FLBiol-method}
+\alias{m<-,FLBiol,FLQuant-method}
+\alias{n,FLBiol-method}
+\alias{n<-,FLBiol,FLQuant-method}
+\alias{name,FLBiol-method}
+\alias{name<-,FLBiol,character-method}
+\alias{range,FLBiol-method}
+\alias{range<-,FLBiol,numeric-method}
+\alias{spwn,FLBiol-method}
+\alias{spwn<-,FLBiol,FLQuant-method}
+\alias{wt,FLBiol-method}
+\alias{wt<-,FLBiol,FLQuant-method}
 \title{Class FLBiol}
 \description{
 A class for modelling age / length or biomass structured
@@ -17,20 +32,48 @@ fish population. This includes information on abundances,
 natural mortlity and fecundity.
 }
 \section{Slots}{
-  \describe{ \item{n}{for the numbers in the population.
-  \code{FLQuant}.} \item{m}{ for the mortality rate of the
-  population. \code{FLQuant}.} \item{wt}{ for the weight of
-  the population. \code{FLQuant}.} \item{fec}{ for the
-  fecundity/maturity/per capita birth rate.
-  \code{FLQuant}.} \item{spwn}{ for the proportion of
-  mortality before spawning/birth. \code{FLQuant}.}
-  \item{name}{ name of the object. \code{character}.}
-  \item{desc}{ brief description of the object.
-  \code{character}.} \item{range}{ range of the dimensions.
-  \code{numeric}.} }
+  \describe{ \item{n}{Numbers in the population.
+  \code{FLQuant}.} \item{m}{Mortality rate of the
+  population. \code{FLQuant}.} \item{wt}{Mean weight of an
+  individual. \code{FLQuant}.}
+  \item{fec}{Fecundity/maturity/per capita birth rate.
+  \code{FLQuant}.} \item{spwn}{Proportion of mortality
+  before spawning/birth. \code{FLQuant}.} \item{name}{Name
+  of the object. \code{character}.} \item{desc}{Brief
+  description of the object. \code{character}.}
+  \item{range}{Named numeric vector describing the range of
+  the object. \code{numeric}.} }
+}
+
+\section{Accesors}{
+  All slots in the class have accessor and replacement
+  methods defined that allow retrieving and substituting
+  individual slots.
+
+  The values passed for replacement need to be of the class
+  of that slot. A numeric vector can also be used when
+  replacing FLQuant slots, and the vector will be used to
+  substitute the values in the slot, but not its other
+  attributes.
+}
+
+\section{Constructor}{
+  A construction method exists for this class that can take
+  named arguments for any of its slots. All slots are then
+  created to match the requirements of the class validity.
+  If an unnamed \code{FLQuant} object is provided, this is
+  used for sizing but not stored in any slot.
+}
+
+\section{Validity}{
+  \describe{ \item{Dimensions}{All FLQuant slots must have
+  iters equal to 1 or 'n'.} \item{Iters}{The dimname for
+  iter[1] should be '1'.} \item{Dimnames}{The name of the
+  quant dimension must be the same for all FLQuant slots.}
+  }
 }
 \examples{
-# An FLBiol example dataser
+# An FLBiol example dataset
 data(ple4.biol)
 
 summary(ple4.biol)
@@ -41,6 +84,7 @@ The FLR Team
 \seealso{
 \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce},
 \link[graphics]{plot}, \link{ssb}
+\link{catch.n,FLBiol-method}
 }
 \keyword{classes}
 

@@ -5,16 +5,56 @@
 \alias{FLStock,missing-method}
 \alias{FLStock-class}
 \alias{FLStock-methods}
+\alias{catch,FLStock-method}
+\alias{catch.n,FLStock-method}
+\alias{catch.n<-,FLStock,FLQuant-method}
+\alias{catch.wt,FLStock-method}
+\alias{catch.wt<-,FLStock,FLQuant-method}
+\alias{catch<-,FLStock,FLQuant-method}
+\alias{desc,FLStock-method}
+\alias{desc<-,FLStock,character-method}
+\alias{discards,FLStock-method}
+\alias{discards.n,FLStock-method}
+\alias{discards.n<-,FLStock,FLQuant-method}
+\alias{discards.wt,FLStock-method}
+\alias{discards.wt<-,FLStock,FLQuant-method}
+\alias{discards<-,FLStock,FLQuant-method}
+\alias{harvest,FLStock-method}
+\alias{harvest.spwn,FLStock-method}
+\alias{harvest.spwn<-,FLStock,FLQuant-method}
+\alias{harvest<-,FLStock,FLQuant-method}
+\alias{landings,FLStock-method}
+\alias{landings.n,FLStock-method}
+\alias{landings.n<-,FLStock,FLQuant-method}
+\alias{landings.wt,FLStock-method}
+\alias{landings.wt<-,FLStock,FLQuant-method}
+\alias{landings<-,FLStock,FLQuant-method}
+\alias{m,FLStock-method}
+\alias{m.spwn,FLStock-method}
+\alias{m.spwn<-,FLStock,FLQuant-method}
+\alias{m<-,FLStock,FLQuant-method}
+\alias{mat,FLStock-method}
+\alias{mat<-,FLStock,FLQuant-method}
+\alias{name,FLStock-method}
+\alias{name<-,FLStock,character-method}
+\alias{range,FLStock-method}
+\alias{range<-,FLStock,numeric-method}
+\alias{stock,FLStock-method}
+\alias{stock.n,FLStock-method}
+\alias{stock.n<-,FLStock,FLQuant-method}
+\alias{stock.wt,FLStock-method}
+\alias{stock.wt<-,FLStock,FLQuant-method}
+\alias{stock<-,FLStock,FLQuant-method}
 \title{Class FLStock}
 \description{
-Data representation for a stock object. The \code{FLStock}
-object contains a representation of a fish stock Typically
-this will include information on total catches, landings
-and discards. `In addition information on catch numbers,
-catch weights, maturity, natural mortality etc. may be
-provided. The \code{FLStock} object also contains the slots
-stock, stock.n and harvest to hold results resulting from
-an analytical assessment.
+A class for modelling a fish stock.
+}
+\details{
+The \code{FLStock} object contains a representation of a
+fish stock This includes information on removals (i.e.
+catches, landings and discards), maturity, natural
+mortality and the results of an analytical assessment (i.e.
+estimates of abundance and removal rates).
 }
 \section{Slots}{
   \describe{ \item{catch}{ (\code{FLQuant}) Total catch
@@ -53,6 +93,26 @@ an analytical assessment.
   \item{Totals}{The length of the quant dimension for the
   totals slots (catch, landings and discards) must be equal
   to 1.} }
+}
+
+\section{Accesors}{
+  All slots in the class have accessor and replacement
+  methods defined that allow retrieving and substituting
+  individual slots.
+
+  The values passed for replacement need to be of the class
+  of that slot. A numeric vector can also be used when
+  replacing FLQuant slots, and the vector will be used to
+  substitute the values in the slot, but not its other
+  attributes.
+}
+
+\section{Constructor}{
+  A construction method exists for this class that can take
+  named arguments for any of its slots. All slots are then
+  created to match the requirements of the class validity.
+  If an unnamed \code{FLQuant} object is provided, this is
+  used for sizing but not stored in any slot.
 }
 \examples{
 data(ple4)
