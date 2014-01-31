@@ -208,7 +208,6 @@ plotts <- function(x, ...)
 # pairwise comparison of age consistency  {{{
 pairwiseConsistency <- function(idx, show.scales=FALSE, log.scales=TRUE, ...)
 {
-  require(grid)   #Addition of text to panels requires the grid package
   #Convert to Cohorts
   flc <- FLCohort(idx@index)
   
@@ -277,7 +276,6 @@ pairwiseConsistency <- function(idx, show.scales=FALSE, log.scales=TRUE, ...)
 plotInternalConsistency <-  function(idx,log.scales=TRUE,
   cols=c("white", "yellow", "red"),use.rsq=TRUE,mark.significant=FALSE,...)
   {
-   require(grid)   #Addition of text to panels requires the grid package
 
   # Define colour function
   if(!length(cols)>0) stop("Colour definitions do not contain sufficient number of colours (at least one required)")

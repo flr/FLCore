@@ -23,8 +23,10 @@ setMethod('FLStock', signature(object='FLQuant'),
     landings=qobject, landings.n=object, landings.wt=object,
     discards=qobject, discards.n=object, discards.wt=object,
     stock=qobject, stock.n=object, stock.wt=object,
-    harvest=object, harvest.spwn=object, m=object, m.spwn=object, mat=object, 
-    range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
+    harvest=object, harvest.spwn=FLQuant(object, units='prop'),
+		m=FLQuant(object, units='m'), m.spwn=FLQuant(object, units='prop'), 
+		mat=FLQuant(object, units='prop'),
+		range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
 			minyear=dims$minyear, maxyear=dims$maxyear, minfbar=dims$min, maxfbar=dims$max)))
 
     # Load given slots

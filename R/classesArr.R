@@ -6,7 +6,27 @@
 # $Id:  $
 
 # FLArray {{{
-validFLArray  <-  function(object){
+
+#' Class FLArray
+#' 
+#' A basic 6D array class. No objects of this class are created in
+#' FLCore, as it is used only for method inheritance.
+#' 
+#' @name FLArray
+#' @aliases FLArray FLArray-class
+#' @docType class
+#' @section Slots: \describe{
+#'   \item{.Data:}{Internal S4 data representation, of class \code{array}.}
+#' @section Validity: \describe{
+#' \item{Dimensions:}{Array must have 6 dimensions}
+#' \item{Content:}{Array must be of class \code{numeric}} }
+#' @author The FLR Team
+#' @seealso \code{\linkS4class{FLQuant}}, \code{\linkS4class{FLCohort}}
+#' @keywords classes
+
+setClass("FLArray",	representation("array"),
+	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1))),
+	validity=function(object){
 	# Make sure there are at least 6 dimensions in the array
 	Dim  <-  dim(object)
 	if (length(Dim) != 6) 
@@ -18,37 +38,18 @@ validFLArray  <-  function(object){
 	# Everything is fine
 	return(TRUE)
 }
-
-setClass("FLArray",	representation("array"),
-	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1))),
-	validity=validFLArray
 ) # }}}
 
-# FLQuant     {{{
-validFLQuant  <-  function(object){
-	
-	# Make sure there are at least 6 dimensions in the array named
-	# *, "year", "unit", "season", "area" and "iter"
-	DimNames  <-  names(dimnames(object))
-  if (length(DimNames) != 6)
-    return("the array must have 6 dimensions")
-  if (!all(DimNames[2:6] == c("year", "unit", "season", "area", "iter")))
-    return("dimension names of the array are incorrect")
-	if (!is.numeric(object) && !is.na(object))
-		return("array is not numeric")
+# FLQuant {{{
 
-	# Everything is fine
-	return(TRUE)
-}
-
-# FLQuant class 2 {{{
+# FLQuant class
 #' FLQuant class for numerical data
 #' 
 #' The \code{FLQuant} class is a six-dimensional \code{\link[base]{array}}
 #' designed to store most quantitative data used in fisheries and population
 #' modelling.
 #' 
-#' The sixth dimensions are named. The name of the first dimension can be
+#' The six dimensions are named. The name of the first dimension can be
 #' altered by the user from its default, \code{quant}. This could typically be
 #' \code{age} or \code{length} for data related to natural populations. The
 #' only name not accepted is 'cohort', as data structured along cohort should
@@ -63,32 +64,40 @@ validFLQuant  <-  function(object){
 #' class \code{\link[base]{character}}, intended to contain the units of
 #' measurement relevant to the data.
 #' 
-#' 
 #' @name FLQuant
 #' @aliases FLQuant-class FLQuant FLQuant-methods FLQuant,missing-method
 #' FLQuant,vector-method FLQuant,array-method FLQuant,matrix-method
 #' FLQuant,FLQuant-method
+#' @family FLCoreClasses
 #' @docType class
-#' @section Slots: \describe{ \item{.Data}{A 6-D array for numeric data.
-#' \code{array}.} \item{units}{Units of measurement. \code{character}.} }
+#'
+#' @section Slots: \describe{
+#'   \item{.Data:}{A 6-D array for numeric data. \code{\link[base]{array}}.}
+#'  \item{units:}{Units of measurement. \code{\link[base]{character}}.} }
+#' @section Validity: \describe{
+#'  \item{Dimensions:}{Array must have 6 dimensions}
+#'  \item{Content:}{Array must be of class \code{numeric}}
+#'  \item{Dimnames:}{Dimensions 2 to 6 must be named "year", "unit", "season", "area" and "iter"}
+#' }
+#'
+#' @section Constructor:
+#'  The \code{FLQuant} method provides a flexible constructor for objects of the class.
+#'  Inputs can be of class:
+#'  \describe{
+#'    \item{\code{vector}:}{A numeric vector will be placed along the year dimension by default.}
+#'    \item{\code{matrix}:}{A matrix will be placed along dimensions 1 and 2, unless otherwise specified by 'dim'. The matrix dimnames will be used unless overriden by 'dimnames'.}
+#'    \item{\link[base]{array}:}{As above}
+#'    \item{\link[base]{missing}:}{If no input is given, an empty \code{FLQuant}  (NA) is returned, but dimensions and dimnames can still be specified.} }
+#' 
+#'  Additional arguments to the constructor: 
+#'  \describe{
+#'     \item{units:}{The units of measurement, a \code{\link[base]{character}} string.}
+#'     \item{dim:}{The dimensions of the object, a \code{\link[base]{numeric}} vector of length 6.}
+#'     \item{dimnames:}{A \code{\link[base]{list}} object providing the dimnames of the array. Only those different from the default ones need to be specified.}
+#'     \item{quant:}{The name of the first dimension, if different from 'quant', as a \code{\link[base]{character}} string.} }
+#'
 #' @author The FLR Team
-#' @seealso \link[base]{[}, \link[base]{[<-}, \link[base]{apply},
-#' \link[methods]{Arith}, \link[base]{as.data.frame}, \link{as.FLQuant},
-#' \link[lattice]{barchart}, \link{bubbles}, \link[lattice]{bwplot},
-#' \link{catch<-}, \link{catch.n<-}, \link{catch.wt<-}, \link[methods]{coerce},
-#' \link{cv}, \link{dimnames<-}, \link{dims}, \link{discards<-},
-#' \link{discards.n<-}, \link{discards.wt<-}, \link[lattice]{dotplot},
-#' \link{E}, \link{fec<-}, \link{FLCatch}, \link{FLCohort}, \link{FLMetier},
-#' \link{FLQuant}, \link{FLQuantPoint}, \link{FLSR}, \link{harvest<-},
-#' \link[lattice]{histogram}, \link{iter}, \link{iter<-}, \link{iters},
-#' \link{landings<-}, \link{landings.n<-}, \link{landings.wt<-}, \link{m<-},
-#' \link{n<-}, \link[base]{names}, \link[graphics]{plot}, \link{price<-},
-#' \link[base]{print}, \link{propagate}, \link{quant}, \link{quant<-},
-#' \link{quantile}, \link[stats]{rlnorm}, \link[stats]{rnorm},
-#' \link[methods]{show}, \link{spwn<-}, \link[lattice]{stripplot},
-#' \link[base]{summary}, \link{trim}, \link[base]{units}, \link[base]{units<-},
-#' \link[stats]{window}, \link{wt<-}, \link[lattice]{xyplot},
-#' \link[base]{array}
+#' @seealso \code{\linkS4class{FLQuant}}
 #' @keywords classes
 #' @examples
 #' 
@@ -118,23 +127,97 @@ validFLQuant  <-  function(object){
 #' units(flq)
 #' quant(flq)
 #' 
-#' xyplot(data ~ year, data=flq, type='b', main='FLQ Test Plot', groups=age,
-#'   ylab='diff', xlab='', pch=19, auto.key=TRUE)
+#' plot(flq)
 #' 
-# 2 }}}
 
 setClass("FLQuant",
 	representation("FLArray", units="character"),
 	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
 		dimnames=list(quant="all", year="1", unit="unique", season="all",
 		area="unique", iter="1")), units="NA"),
-	validity=validFLQuant
-)
+# VALIDITY
+	validity=function(object){
+	
+	DimNames  <-  names(dimnames(object))
+	# First dimension cannot be called cohort
+	if(DimNames[1] == "cohort")
+		return("first dimension cannot be named 'cohort'")
+	# Make sure there are at least 6 dimensions in the array named
+  if (length(DimNames) != 6)
+    return("the array must have 6 dimensions")
+	# *, "year", "unit", "season", "area" and "iter"
+  if (!all(DimNames[2:6] == c("year", "unit", "season", "area", "iter")))
+    return("dimension names of the array are incorrect")
+	# array is numeric
+	if (!is.numeric(object) && !is.na(object))
+		return("array is not numeric")
 
-remove(validFLQuant)    # }}}
+	# Everything is fine
+	return(TRUE)
+}) # }}}
 
 # FLQuantPoint    {{{
-validFLQuantPoint <- function(object) {
+
+#' Class FLQuantPoint
+#' 
+#' The \code{FLQuantPoint} class summarizes the contents of an \code{FLQuant}
+#' object with multiple iterations along its sixth dimension using a number of
+#' descriptive statistics.
+#' 
+#' An object of this class has a set structure along its sixth dimension
+#' (\emph{iter}), which will always be of length 5, and with dimnames
+#' \emph{mean}, \emph{median}, \emph{var}, \emph{uppq} and \emph{lowq}. They
+#' refer, respectively, to the sample mean, sample median, variance, and lower
+#' (0.25) and upper (0.75) quantiles.
+#' 
+#' Objects of this class wil be typically created from an \code{FLQuant}. The
+#' various statistics are calculated along the \emph{iter} dimension of the
+#' original \code{FLQuant} using \code{\link[base]{apply}}.
+#' 
+#' @name FLQuantPoint
+#' @aliases FLQuantPoint-class FLQuantPoint FLQuantPoint-methods
+#' FLQuantPoint,FLQuant-method
+#' @docType class
+#' @section Slots: \describe{
+#'  \item{.Data:}{The main array holding the computed statistics. \code{array}.}
+#'  \item{units:}{Units of measurement. \code{character}.}
+#' }
+#' @section Accesors: \describe{
+#'  \item{mean,mean<-:}{'mean' element on 6th dimension, arithmetic mean.}
+#'  \item{median,median<-:}{'median' element on 6th dimension, median.}
+#'  \item{var,var<-:}{'var' element on 6th dimension, variance.}
+#'  \item{lowq,lowq<-:}{'lowq' element on 6th dimension, lower quantile (0.25 by default).}
+#'  \item{uppq,uppq<-:}{'uppq' element on 6th dimension, upper quantile (0.75 by default).}
+#' }
+#' @section Constructor:
+#'  Inputs can be of class:
+#'  \describe{
+#'    \item{\code{FLQuant}:}{An FLQuant object with iters (i.e. dim[6] > 1)}
+#' }
+#' @section Validity: \describe{
+#'  \item{iter:}{iter dimension is of length 5.}
+#'  \item{Dimnames:}{iter dimnames are 'mean', 'median', 'var', 'uppq' and'lowq'}
+#' }
+#' @author The FLR Team
+#' @seealso \link{FLQuant}
+#' @keywords classes
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(2000), dim=c(10,20,1,1,1,200))
+#' flqp <- FLQuantPoint(flq)
+#' summary(flqp)
+#' mean(flqp)
+#' var(flqp)
+#' rnorm(200, flqp)
+#' 
+
+setClass("FLQuantPoint",
+    representation("FLQuant"),
+	prototype(new('FLQuant', array(as.numeric(NA), dim=c(1,1,1,1,1,5),
+		dimnames=list(quant="all", year="1", unit="unique", season="all",
+		area="unique", iter=c('mean', 'median', 'var', 'uppq', 'lowq'))), units="NA")),
+	# VALIDITY
+    validity=function(object) {
     
     # iter dimensions is of length 5 and with names:
     if(dim(object)[6] != 5)
@@ -146,17 +229,8 @@ validFLQuantPoint <- function(object) {
     
 	# Everything is fine
     return(TRUE)
-}
-setClass("FLQuantPoint",
-    representation("FLQuant"),
-	prototype(new('FLQuant', array(as.numeric(NA), dim=c(1,1,1,1,1,5),
-		dimnames=list(quant="all", year="1", unit="unique", season="all",
-		area="unique", iter=c('mean', 'median', 'var', 'uppq', 'lowq'))), units="NA")),
-    validity=validFLQuantPoint
-)
-
-setValidity("FLQuantPoint", validFLQuantPoint)
-remove(validFLQuantPoint)   # }}}
+	}
+) # }}}
 
 # FLQuantDistr    {{{
 validFLQuantDistr <- function(object) {

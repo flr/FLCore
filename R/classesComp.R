@@ -5,7 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id:  $
 
-
 # FLComp   {{{
 validFLComp <- function(object){
 
@@ -152,11 +151,11 @@ setClass("FLS",
 		stock	   = FLQuant(),
 		stock.n	 = FLQuant(),
 		stock.wt = FLQuant(),
-		m		 = FLQuant(),
-		mat		 = FLQuant(),
-		harvest	 = FLQuant(units="f"),
-		harvest.spwn = FLQuant(),
-		m.spwn	 = FLQuant()
+		m		 = FLQuant(units='m'),
+		mat		 = FLQuant(units='prop'),
+		harvest	 = FLQuant(units='f'),
+		harvest.spwn = FLQuant(units='prop'),
+		m.spwn	 = FLQuant(units='prop')
 	),
   validity=validFLS
 )

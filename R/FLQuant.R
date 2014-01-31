@@ -5,7 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLQuant.R 1778 2012-11-23 08:43:57Z imosqueira $
 
-
 # FLQuant(missing){{{
 # FLQuant  <- FLQuant()
 setMethod("FLQuant", signature(object="missing"),
