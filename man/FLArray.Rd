@@ -4,21 +4,18 @@
 \alias{FLArray-class}
 \title{Class FLArray}
 \description{
-A basic class, extended by \code{\linkS4class{FLQuant}} and
-\code{\linkS4class{FLCohort}}. No objects of this class are
+A basic 6D array class. No objects of this class are
 created in FLCore, as it is used only for method
 inheritance.
 }
 \section{Slots}{
-  \describe{ \item{.Data}{Internal S4 data representation,
-  of class \code{array}.} \item{units}{The data units in
-  some understandable metric, as a \code{character}
-  vector.} }
+  \describe{ \item{.Data:}{Internal S4 data representation,
+  of class \code{array}.} }
 }
 
 \section{Validity}{
-  \describe{ \item{Dimensions}{Array must have 6
-  dimensions} \item{Content}{Array must be of class
+  \describe{ \item{Dimensions:}{Array must have 6
+  dimensions} \item{Content:}{Array must be of class
   \code{numeric}} }
 }
 \author{

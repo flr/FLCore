@@ -60,7 +60,7 @@ assessment (i.e. estimates of abundance and removal rates).
 }
 \section{Slots}{
   \describe{ \item{halfwidth}{The middle of the length bins
-  (\{numeric}).} \item{catch}{Total catch weight
+  (\code{numeric}).} \item{catch}{Total catch weight
   (\code{FLQuant}).} \item{catch.n}{Catch numbers
   (\code{FLQuant}).} \item{catch.wt}{Mean catch weights
   (\code{FLQuant}).} \item{discards}{Total discards weight

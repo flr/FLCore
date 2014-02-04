@@ -17,9 +17,11 @@
 #' @docType class
 #' @section Slots: \describe{
 #'   \item{.Data:}{Internal S4 data representation, of class \code{array}.}
+#' }
 #' @section Validity: \describe{
 #' \item{Dimensions:}{Array must have 6 dimensions}
-#' \item{Content:}{Array must be of class \code{numeric}} }
+#' \item{Content:}{Array must be of class \code{numeric}}
+#' }
 #' @author The FLR Team
 #' @seealso \code{\linkS4class{FLQuant}}, \code{\linkS4class{FLCohort}}
 #' @keywords classes

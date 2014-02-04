@@ -289,40 +289,6 @@ remove(validFLStock)
 #invisible(createFLAccesors("FLStock", exclude=c('name', 'desc', 'range', 'harvest')))	# }}}
 
 # FLStockLen			{{{
-validFLStockLen <- function(object) {
-
-	# TODO
-	return(TRUE)
-	
-	names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
-	for(i in names){
-		# all dimnames but iter are the same
-		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
-			unlist(dimnames(slot(object, i))[2:5])))
-			return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
-		# no. iter are equal or one
-	}
-	for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
-	{
-		# quant is n
-		if(!identical(unlist(dimnames(object@catch.n)[1]),
-			unlist(dimnames(slot(object, i))[1])))
-			return(paste('All elements must share quant names: Error in FLStock', i))
-	}
-	for (i in c('catch', 'landings', 'discards'))
-	{
-		# quant is 1
-		if(dim(slot(object, i))[1] != 1)
-			return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
-	}
-	# check range
-	dim <- dim(object@catch.n)
-	dimnm <- dimnames(object@catch.n)
-	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-		as.numeric(dimnm$year[dim[2]]))))
-		return('Range does not match object dimensions')
-	
-	return(TRUE)}
 
 #' Class FLStockLen
 #' 
@@ -338,7 +304,7 @@ validFLStockLen <- function(object) {
 #' @docType class
 #' @section Slots:
 #'     \describe{
-#'     \item{halfwidth}{The middle of the length bins (\{numeric}).}
+#'     \item{halfwidth}{The middle of the length bins (\code{numeric}).}
 #'     \item{catch}{Total catch weight (\code{FLQuant}).}
 #'     \item{catch.n}{Catch numbers (\code{FLQuant}).}
 #'     \item{catch.wt}{Mean catch weights (\code{FLQuant}).}
@@ -401,9 +367,41 @@ setClass("FLStockLen",
 		harvest.spwn = FLQuant(dimnames=list(len=as.numeric(NA))),
 		m.spwn	 = FLQuant(dimnames=list(len=as.numeric(NA)))
 	),
-  validity=validFLStockLen
-)
-remove(validFLStockLen) # }}}
+  validity=function(object) {
+
+	# TODO
+	return(TRUE)
+	
+	names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
+	for(i in names){
+		# all dimnames but iter are the same
+		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
+			unlist(dimnames(slot(object, i))[2:5])))
+			return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
+		# no. iter are equal or one
+	}
+	for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
+	{
+		# quant is n
+		if(!identical(unlist(dimnames(object@catch.n)[1]),
+			unlist(dimnames(slot(object, i))[1])))
+			return(paste('All elements must share quant names: Error in FLStock', i))
+	}
+	for (i in c('catch', 'landings', 'discards'))
+	{
+		# quant is 1
+		if(dim(slot(object, i))[1] != 1)
+			return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
+	}
+	# check range
+	dim <- dim(object@catch.n)
+	dimnm <- dimnames(object@catch.n)
+	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
+		as.numeric(dimnm$year[dim[2]]))))
+		return('Range does not match object dimensions')
+	
+	return(TRUE)}
+) # }}}
 
 # FLBiol {{{
 validFLBiol <- function(object){
