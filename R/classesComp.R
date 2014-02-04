@@ -198,47 +198,26 @@ validFLStock <- function(object) {
 
 #' Class FLStock
 #' 
-#' Data representation for a stock object.
-
+#' A class for modelling a fish stock. 
+#'
 #' The \code{FLStock} object contains a representation of a fish stock
-#' Typically this will include information on total catches, landings and discards.
-#' `In addition information on catch numbers, catch weights, maturity, natural
-#' mortality etc. may be provided.
-#' The \code{FLStock} object also contains the slots stock, stock.n and harvest
-#' to hold results resulting from an analytical assessment.
+#' This includes information on removals (i.e. catches, landings and discards), 
+#' maturity, natural mortality and the results of an analytical assessment (i.e.
+#' estimates of abundance and removal rates).
 #' 
 #' @name FLStock
-#' @aliases FLStock-class FLStock FLStock-methods FLStock,missing-method
-#' FLStock,FLQuant-method
+#' @template FLStock-aliases
+#'
 #' @docType class
-#' @section Slots: \describe{
-#'     \item{catch}{ (\code{FLQuant}) Total catch weight.}
-#'     \item{catch.n}{ (\code{FLQuant}) Catch numbers.}
-#'     \item{catch.wt}{ (\code{FLQuant}) Mean catch weights.}
-#'     \item{discards}{ (\code{FLQuant}) Total discards weight.}
-#'     \item{discards.n}{ (\code{FLQuant}) Discard numbers.}
-#'     \item{discards.wt}{ (\code{FLQuant}) Mean discard weights.}
-#'     \item{landings}{ (\code{FLQuant}) Total landings weight.}
-#'     \item{landings.n}{ (\code{FLQuant}) Landing numbers.}
-#'     \item{landings.wt}{ (\code{FLQuant}) Landing weights.}
-#'     \item{stock}{ (\code{FLQuant}) Total stock weight.}
-#'     \item{stock.n}{(\code{FLQuant}) Stock numbers.}
-#'     \item{stock.wt}{(\code{FLQuant}) Mean stock weights.}
-#'     \item{m}{ (\code{FLQuant})  Natural mortality.}
-#'     \item{mat}{ (\code{FLQuant}) Proportion mature.}
-#'     \item{harvest}{ (\code{FLQuant}) Harvest rate or fishing mortality. The units of the FLQuant should be set to 'harvest' or 'f' accordingly.} 
-#'     \item{harvest.spwn}{ (\code{FLQuant}) Proportion of harvest/fishing mortality before spawning.}
-#'     \item{m.spwn}{ (\code{FLQuant}) Proportion of natural mortality before spawning.}
-#'     \item{name}{ (\code{character}) Name of the stock.}
-#'     \item{desc}{ (\code{character}) Description of stock.}
-#'     \item{range}{ (\code{numeric}) Named numeric vector containing the quant and year ranges, the plusgroup and the quant range that the average fishing mortality is calculated over.}
-#' }
+#' @template FLStock_slots
 #' @section Validity: \describe{
 #'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
 #'     \item{Iters}{The dimname for iter[1] should be '1'.}
 #'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
 #'     \item{Totals}{The length of the quant dimension for the totals slots (catch, landings and discards) must be equal to 1.}
 #' }
+#' @template Accessors
+#' @template Constructors
 #' @author The FLR Team
 #' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
 #' \link{catch}, \link{catch<-}, \link{catch.n}, \link{catch.n<-},
@@ -345,6 +324,55 @@ validFLStockLen <- function(object) {
 	
 	return(TRUE)}
 
+#' Class FLStockLen
+#' 
+#' A class for modelling a length structured fish stock.
+#'
+#' The \code{FLStockLen} object contains a length based representation of a fish stock
+#' This includes information on removals (i.e. catches, landings and discards), 
+#' maturity, natural mortality and the results of an analytical assessment (i.e.
+#' estimates of abundance and removal rates).
+#'
+#' @name FLStockLen
+#' @template FLStockLen-aliases
+#' @docType class
+#' @section Slots:
+#'     \describe{
+#'     \item{halfwidth}{The middle of the length bins (\{numeric}).}
+#'     \item{catch}{Total catch weight (\code{FLQuant}).}
+#'     \item{catch.n}{Catch numbers (\code{FLQuant}).}
+#'     \item{catch.wt}{Mean catch weights (\code{FLQuant}).}
+#'     \item{discards}{Total discards weight (\code{FLQuant}).}
+#'     \item{discards.n}{Discard numbers (\code{FLQuant}).}
+#'     \item{discards.wt}{Mean discard weights (\code{FLQuant}).}
+#'     \item{landings}{Total landings weight (\code{FLQuant}).}
+#'     \item{landings.n}{Landing numbers (\code{FLQuant}).}
+#'     \item{landings.wt}{Landing weights (\code{FLQuant}).}
+#'     \item{stock}{Total stock weight (\code{FLQuant}).}
+#'     \item{stock.n}{Stock numbers (\code{FLQuant}).}
+#'     \item{stock.wt}{Mean stock weights (\code{FLQuant}).}
+#'     \item{m}{Natural mortality (\code{FLQuant}).}
+#'     \item{mat}{Proportion mature (\code{FLQuant}).}
+#'     \item{harvest}{Harvest rate or fishing mortality. The units of the FLQuant should be set to 'harvest' or 'f' accordingly (\code{FLQuant}).} 
+#'     \item{harvest.spwn}{Proportion of harvest/fishing mortality before spawning (\code{FLQuant}).}
+#'     \item{m.spwn}{Proportion of natural mortality before spawning (\code{FLQuant}).}
+#'     \item{name}{Name of the stock (\code{character}).}
+#'     \item{desc}{Description of stock (\code{character}).}
+#'     \item{range}{Named numeric vector containing the quant and year ranges, the plusgroup and the quant range that the average fishing mortality is calculated over (\code{numeric}).}
+#' }
+#' @template Accessors
+#' @template Constructors
+#' @section Validity: \describe{
+#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+#'     \item{Iters}{The dimname for iter[1] should be '1'.}
+#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+#'     \item{Totals}{The length of the quant dimension for the totals slots (catch, landings and discards) must be equal to 1.}
+#' }
+#' @author The FLR Team
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
+#' \link{computeCatch}, \link{computeDiscards}, \link{computeLandings}, \link[graphics]{plot}, \link{ssb},
+#' \link{ssbpurec}, \link{trim}, \link{FLComp}
+#' @keywords classes
 setClass("FLStockLen",
 	representation(
 	"FLS",
@@ -424,6 +452,42 @@ validFLBiol <- function(object){
    return(TRUE)
    }
 
+#' Class FLBiol
+#' 
+#' A class for modelling age / length or biomass structured populations.   
+#' 
+#' The \code{FLBiol} class is a representation of a biological fish population. 
+#' This includes information on abundances, natural mortlity and fecundity.
+#' 
+#' @name FLBiol
+#' @template FLBiol-aliases
+#' @docType class
+#' @section Slots: \describe{
+#'     \item{n}{Numbers in the population. \code{FLQuant}.}
+#'     \item{m}{Mortality rate of the population. \code{FLQuant}.}
+#'     \item{wt}{Mean weight of an individual. \code{FLQuant}.}
+#'     \item{fec}{Fecundity/maturity/per capita birth rate. \code{FLQuant}.}
+#'     \item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
+#'     \item{name}{Name of the object. \code{character}.}
+#'     \item{desc}{Brief description of the object. \code{character}.}
+#'     \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
+#' @template Accessors
+#' @template Constructors
+#' @section Validity: \describe{
+#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+#'     \item{Iters}{The dimname for iter[1] should be '1'.}
+#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+#' }
+#' @author The FLR Team
+#' @seealso \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce}, \link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
+#' @keywords classes
+#' @examples
+#' 
+#' # An FLBiol example dataset
+#' data(ple4.biol)
+#' 
+#' summary(ple4.biol)
+#' 
 setClass("FLBiol",
 	representation(
 		"FLComp",
@@ -514,6 +578,45 @@ validFLIndex <- function(object) {
   return(TRUE)
   }
 
+#' Class FLIndex
+#' 
+#' A class that holds data and parameters related to abundance indices.
+#' 
+#' @name FLIndex
+#' @template FLIndex-aliases
+#' @docType class
+#' @section Slots: \describe{
+#'     \item{type}{Type of index (\code{character}).}
+#'     \item{distribution}{Statistical distribution of the index values (\code{character}).}
+#'     \item{index}{Index values (\code{FLQuant}).}
+#'     \item{index.var}{Variance of the index (\code{FLQuant}).}
+#'     \item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
+#'     \item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
+#'     \item{effort}{Effort used to create the index (\code{FLQuant}).}
+#'     \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
+#'     \item{index.q}{Catchability of the index (\code{FLQuant}).}
+#'     \item{name}{Name of the stock (\code{character}).}
+#'     \item{desc}{General description of the object (\code{character}).}
+#'     \item{range}{Range of the object (\code{numeric})}
+#' }
+#' @template Accessors
+#' @template Constructors
+#' @section Validity: \describe{
+#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+#'     \item{Iters}{The dimname for iter[1] should be '1'.}
+#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+#' }
+#' @author The FLR Team
+#' @seealso \link{computeCatch}, \link{dims},
+#' \link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
+#' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
+#' @keywords classes
+#' @examples
+#' 
+#' fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
+#' summary(fli)
+#' index(fli)
+#' 
 setClass("FLIndex",
     representation(
 		"FLComp",
@@ -624,6 +727,32 @@ vFLQs <- function(object){
 	return(TRUE)
 }
 
+#' Class FLQuants
+#' 
+#' \code{FLQuants} is a \code{list} of \code{FLQuant} objects.
+#' It is very similar to the standard \code{list} class.
+#' It implements a lock mechanism that, when turned on, does
+#' not allow the user to increase or decrease the object length.
+#' The elements of \code{FLQuants} must all be of class  \code{FLQuant}. 
+#' 
+#' @name FLQuants
+#' @aliases FLQuants-class FLQuants FLQuants-methods FLQuants,ANY-method
+#' FLQuants,missing-method FLQuants,list-method FLQuants,FLQuants-method
+#' @docType class
+#' @section Slots: \describe{
+#'     \item{.Data}{The data. \code{list}.}
+#'     \item{names}{Names of the list elements. \code{character}.}
+#'     \item{desc}{Description of the object. \code{character}.}
+#'     \item{lock}{Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. \code{logical}.}
+#' }
+#' @template FLlst-accessors
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame},
+#' \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame},
+#' \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
+#' \link{FLlst}, \link[base]{list}
+#' @keywords classes
 # class
 setClass("FLQuants", contains="FLlst",
 	validity=vFLQs
@@ -668,6 +797,106 @@ validFLSR <- function(object)
 	# params must have dims equal to quants
 	return(TRUE)
 }
+
+#' Class FLSR
+#' 
+#' Class for stock-recruitment models.
+#' 
+#' A series of commonly-used stock-recruitment models are already available,
+#' including the corresponding likelihood functions and calculation of initial
+#' values. See \code{\link{SRModels}} for more details and the exact
+#' formulation implemented for each of them.
+#' 
+#' @name FLSR
+#' @aliases FLSR-class FLSR FLSR-methods FLSR,ANY-method FLSR,missing-method
+#' @docType class
+#' @section Slots: \describe{
+#'     \item{name}{Name of the object (\code{character}).}
+#'     \item{desc}{Description of the object (\code{character}).}
+#'     \item{range}{Range (\code{numeric}).}
+#'     \item{rec}{Recruitment series (\code{FLQuant}).}
+#'     \item{ssb}{Index of reproductive potential, e.g. SSB or egg oor egg production (\code{FLQuant}).}
+#'     \item{fitted}{Estimated values for rec (\code{FLQuant}).}
+#'     \item{residuals}{Residuals obtained from the model fit (\code{FLArray}).}
+#'     \item{covar}{Covariates for SR model (\code{FLQuants}).}
+#'     \item{model}{Model formula (\code{formula}).}
+#'     \item{gr}{Function returning the gradient of the likelihood (\code{function}).}
+#'     \item{logl}{Log-likelihood function (\code{function}).}
+#'     \item{initial}{Function returning initial parameter values for the optimizer (\code{function}).}
+#'     \item{params}{Estimated parameter values (\code{FLPar}).}
+#'     \item{logLik}{Value of the log-likelihood (\code{logLik}).}
+#'     \item{vcov}{Variance-covariance matrix (\code{array}).}
+#'     \item{details}{Extra information on the model fit procedure (\code{list}).}
+#'     \item{logerror}{Is the error on a log scale (\code{logical}).}
+#'     \item{distribution}{(\code{factor}).}
+#'     \item{hessian}{Resulting Hessian matrix from the fit (\code{array}).}
+#' }
+#' @author The FLR Team
+#' @seealso \link{FLModel}, \link{FLComp}
+#' @keywords classes
+#' @examples
+#' 
+#'     # Create an empty FLSR object.
+#'     sr1 <- FLSR()
+#'     
+#'     # Create an  FLSR object using the existing SR models. 
+#'     sr2 <- FLSR(model = 'ricker')
+#'     sr2@@model
+#'     sr2@@initial
+#'     sr2@@logl
+#'     
+#'     sr3 <- FLSR(model = 'bevholt')
+#'     sr3@@model
+#'     sr3@@initial
+#'     sr3@@logl
+#'     
+#'     # Create an FLSR using a function.
+#'     mysr1 <- function(){
+#'         model <- rec ~ a*ssb^b
+#'         return(list(model = model))}
+#'     
+#'     sr4 <- FLSR(model = mysr1)
+#' 
+#'     # Create an FLSR using a function and check that it works.
+#'     mysr2 <- function(){
+#'         formula <- rec ~ a+ssb*b
+#'         
+#'         logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec, 
+#'             a + ssb*b, sqrt(sigma), TRUE))
+#'         
+#'        initial <- structure(function(rec, ssb) {
+#'             a     <- mean(rec)
+#'             b     <- 1
+#'             sigma <- sqrt(var(rec))
+#'             
+#'             return(list(a= a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
+#'         
+#'        return(list(model = formula, initial = initial, logl = logl))
+#'     }
+#'       
+#'     ssb <- FLQuant(runif(10, 10000, 100000))
+#'     rec <- 10000 + 2*ssb + rnorm(10,0,1)  
+#'     sr5 <- FLSR(model = mysr2, ssb = ssb, rec = rec)
+#'     
+#'     sr5.mle <- fmle(sr5)
+#'     sr5.nls <- nls(sr5)
+#'     
+#' # NS Herring stock-recruitment dataset
+#' data(nsher)
+#' 
+#' # already fitted with a Ricker SR model
+#' summary(nsher)
+#' 
+#' plot(nsher)
+#' 
+#' # change model
+#' model(nsher) <- bevholt()
+#' 
+#' # fit through MLE
+#' nsher <- fmle(nsher)
+#' 
+#' plot(nsher)
+#' 
 setClass('FLSR',
   representation(
 	  'FLModel',
