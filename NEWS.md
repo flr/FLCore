@@ -20,10 +20,11 @@
 - FLFleet, FLMetier and FLCatch classes (plus their plurals) and methods have been moved to the FLFleet package
 - ifelse has now been definedx for test="FLQuant"
 - as.data.frame for FLQuant(s) and FLComp now has an option cohort=FALSE to return a column named cohort, calculated as year-age. Ony for age-quanted objects
-- getPlural is now an S4 method dispatching on singular classes and returning the name of the correspoding FLlst-based class
+- getPlural is now an S4 method dispatching on singular classes and returning the name of the corresponding FLlst-based class
 - as.data.frame(FLQuants) returns qname as factor with levels in the order of the input object
 - modified quantile(FLQuant) so dimnames in iter follow quantile(array), e.g. 50%
 - tail method for FLQuant, operates by default along the year dimension.
+- deprecated sr function is now a method to return aligned stock/recruits FLQuants from an FLStock
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim

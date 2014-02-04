@@ -970,3 +970,27 @@ setMethod('combine', signature(x='FLStock', y='FLStock'),
     return(res)
   }
 ) # }}}
+
+# sr {{{
+setMethod("sr", signature(object="FLStock"),
+	function(object, rec.age = dims(stock.n(object))$min, ...) {
+
+	# check rec.age
+  	if(rec.age < dims(stock.n(object))$min)
+      stop("Supplied recruitment age less than minimum age class")
+
+		# extract rec as stock.n at rec.age
+    rec <- object@stock.n[as.character(rec.age),]
+		# ssb
+    ssb <- ssb(object)
+
+    # now alter stock and recruitment to factor in the recruitement age
+    if((dim(rec)[2]-1) <= rec.age)
+      stop("FLStock recruitment data set too short")
+
+    rec <- rec[,(1+rec.age):dim(rec)[2]]
+    units(rec) <- units(slot(object, "stock.n"))
+    ssb <- ssb[,1:(dim(ssb)[2] - rec.age)]
+
+		return(FLQuants(rec=rec, ssb=ssb))
+}) # }}}

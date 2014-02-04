@@ -781,3 +781,6 @@ setGeneric("wide.frame", function(data, formula, ...) standardGeneric("wide.fram
 # tS
 setGeneric("tS", function(object, step, ...) standardGeneric("tS"))
 setGeneric("tS<-", function(object, step, ..., value) standardGeneric("tS<-"))
+
+# sr
+setGeneric("sr", function(object, step, ...) standardGeneric("sr"))

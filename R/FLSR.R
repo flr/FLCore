@@ -45,20 +45,6 @@ setMethod('FLSR', signature(model='missing'),
 	function(...)
 		return(FLSR(formula(NULL), ...))) # }}}
 
-# sr()  {{{
-sr <- function(sr, ...)
-{
-	# if logl present, run fmle()
-	try <- try(fmle(sr), silent=TRUE, ...)
-
-	if(is(try, 'try-error'))
-		# else if model present run nls()
-		try <- try(nls(sr), silent=TRUE, ...)
-			if(is(try, 'try-error'))
-				stop('neither nls() nor fmle() could be run on this object')
-	return(try)
-}   #}}}
-
 ## as.FLSR   {{{
 setMethod("as.FLSR", signature(object="FLStock"),
   function(object, rec.age = dims(stock.n(object))$min, ...)
