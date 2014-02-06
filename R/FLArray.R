@@ -223,7 +223,7 @@ setMethod("show", signature(object="FLArray"),
     {
 		  v1 <- apply(object@.Data, 1:5, median, na.rm=TRUE)
   		v2 <- apply(object@.Data, 1:5, mad, na.rm=TRUE)	 
-      v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
+			v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
     }
     else
       v3 <- paste(format(apply(object@.Data, 1:5, median, na.rm=TRUE),digits=5))
@@ -308,12 +308,14 @@ setMethod('expand', signature(x='FLArray'),
 ) # }}}
 
 # uom {{{
+
 uoms <- c('kg', 't',
 	'1', '10', '100', '1000', '10000', '100000', '1000000', '10000000', '100000000',
 	'10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8',
 	'1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8',
 	'm', 'f', 'z', 'hr', 'prop', 'NA')
 nums <- c(3:29)
+snums <- c(3,4,5,6,25,26,27,28,29)
 
 uomTable <- array('NA', dimnames=list(op=c('*', '/', '+', '-'), e1=uoms, e2=uoms), dim=c(4, length(uoms), length(uoms)))
 
@@ -367,18 +369,73 @@ uomTable['+', 'm', 'f'] <- 'z'
 uomTable['-', 'z', 'f'] <- 'm'
 uomTable['-', 'z', 'm'] <- 'f'
 
-uomTable[, nums, 'f'] <- rep(uoms[nums], each=4)
-uomTable[, nums, 'm'] <- rep(uoms[nums], each=4)
-uomTable[, nums, 'z'] <- rep(uoms[nums], each=4)
-uomTable[, nums, 'hr'] <- rep(uoms[nums], each=4)
-uomTable[, 'f', nums] <- rep(uoms[nums], each=4)
-uomTable[, 'm', nums] <- rep(uoms[nums], each=4)
-uomTable[, 'z', nums] <- rep(uoms[nums], each=4)
-uomTable[, 'hr', nums] <- rep(uoms[nums], each=4)
+uomTable[c('*', '/'), nums, 'f'] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*', '/'), nums, 'm'] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*', '/'), nums, 'z'] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*', '/'), nums, 'hr'] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*', '/'), 'f', nums] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*', '/'), 'm', nums] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*', '/'), 'z', nums] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
 
 # /
 # kg * 1000 = t
 uomTable['/', 't', c('1000', '1e3', '10^3')] <- 'kg'
+
+# +, -
+uomTable[c('+','-'), 'kg', 'kg'] <- 'kg'
+uomTable[c('+','-'), 't', 't'] <- 't'
+uomTable[c('+','-'), 'm', 'm'] <- 'm'
+uomTable[c('+','-'), 'f', 'f'] <- 'f'
+uomTable[c('+','-'), 'z', 'z'] <- 'z'
+uomTable[c('+','-'), 'hr', 'hr'] <- 'hr'
+
+#' uom Units of Measurement
+#' 
+#' The 'units' attribute of FLQuant objects provides a mechanism for keeping track
+#' of the units of measurement of that particular piece of data. 
+#' 
+#' Arithmetic operators for 'FLQuant' objects are aware of a limited set of units
+#' of measurement and will output the right unit when two object are arithmetically
+#' combined. For example, the product of object with units of 'kg' and '1000' will
+#' output an object with 'units' of 't' (for metric tonnes).
+#'
+#' Operations involving combinations of units not defined will issue a warning, and
+#' the resulting 'units' attribute will simply keep a string indicating the input
+#' units of measurement and the operation carried out, as in '10 * 1000'.
+#'
+#' Note that no scaling or modification of the values in the object takes place.
+#'
+#' Conversion across units is carried out by the \code{uom()} function
+#'
+#' @param op The arithmetic operator to be used, one of '+', '-', '*' or '/'
+#' @param u1 The units of measurement string of the first object
+#' @param u1 The units of measurement string of the second object
+#' @return a string with the corresponding units of measurement, a string such as '10 *100' when not compatible
+#' 
+#' @section Recognized Units:
+#' The following units of measurement are recognized by the 'Arith' operators
+#' (+, -, * /).
+#' \describe{
+#'    \item{Weight}{'kg', 't'}
+#'    \item{Numbers}{1 - 100000000, 1e0 - 1e8, 10^0 - 10^8}
+#'    \item{Mortality}{'m', 'f', 'z', 'hr'}
+#'    \item{Other}{'prop', 'NA'}
+#' }
+#'
+#' @name uom
+#' @aliases uom
+#' @docType methods
+#' @author The FLR Team
+#' @seealso \code{\linkS4class{FLQuant}} \code{\link{units,FLArray-method}}
+#' @keywords function
+#' @examples
+#'
+#' # Conversion between weights
+#' FLQuant(1, units='kg') * FLQuant(1000, units='1')
+#'
+#' # Conversion between mortalities
+#' FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
 
 
 uom <- function(op, u1, u2) {

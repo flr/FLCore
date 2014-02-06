@@ -15,7 +15,7 @@ ricker <- function(){
 
   initial <- structure(function(rec, ssb) {
 		# The function to provide initial values
-    res  <-coefficients(lm(c(log(rec/ssb))~c(ssb)))
+    res  <-coefficients(lm(log(c(rec)/c(ssb))~c(ssb)))
     return(FLPar(a=max(exp(res[1])), b=-max(res[2])))},
     
   # lower and upper limits for optim()
@@ -68,7 +68,7 @@ segreg <- function(){
   model <- rec ~ FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))
 
   initial <- structure(function(rec, ssb){
-    return(FLPar(a=median(c(rec/ssb),na.rm=TRUE), b=median(c(ssb),na.rm=TRUE)))},
+    return(FLPar(a=median(c(rec)/c(ssb),na.rm=TRUE), b=median(c(ssb),na.rm=TRUE)))},
     lower=rep(  0, 0),
     upper=rep(Inf, 2))
 
@@ -357,6 +357,10 @@ setMethod('rSq', signature(obs='FLQuant',hat='FLQuant'),
 # loglAR1 {{{
 setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
   function(obs, hat, rho=0){
+
+		# HACK
+		units(hat) <- units(obs)
+
     # calculates likelihood for AR(1) process
     n   <- dim(obs)[2]
     rsdl<-(obs[,-1] - rho*obs[,-n] - hat[,-1] + rho*hat[,-n])

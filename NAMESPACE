@@ -75,6 +75,7 @@ export(
   "SRNameCode",
   "svModel",
   "svPars",
+	"uom",
   "writeADMB",
 	"writeFLStock"
 )
