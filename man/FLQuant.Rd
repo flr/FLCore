@@ -36,8 +36,8 @@ attribute, of class \code{\link[base]{character}}, intended
 to contain the units of measurement relevant to the data.
 }
 \section{Slots}{
-  \describe{ \item{.Data:}{A 6-D array for numeric data.
-  \code{\link[base]{array}}.} \item{units:}{Units of
+  \describe{ \item{.Data}{A 6-D array for numeric data.
+  \code{\link[base]{array}}.} \item{units}{Units of
   measurement. \code{\link[base]{character}}.} }
 }
 

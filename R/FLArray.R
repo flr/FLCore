@@ -410,7 +410,7 @@ uomTable[c('+','-'), 'hr', 'hr'] <- 'hr'
 #'
 #' @param op The arithmetic operator to be used, one of '+', '-', '*' or '/'
 #' @param u1 The units of measurement string of the first object
-#' @param u1 The units of measurement string of the second object
+#' @param u2 The units of measurement string of the second object
 #' @return a string with the corresponding units of measurement, a string such as '10 *100' when not compatible
 #' 
 #' @section Recognized Units:

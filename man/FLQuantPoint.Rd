@@ -24,9 +24,9 @@ the \emph{iter} dimension of the original \code{FLQuant}
 using \code{\link[base]{apply}}.
 }
 \section{Slots}{
-  \describe{ \item{.Data:}{The main array holding the
-  computed statistics. \code{array}.} \item{units:}{Units
-  of measurement. \code{character}.} }
+  \describe{ \item{.Data}{The main array holding the
+  computed statistics. \code{array}.} \item{units}{Units of
+  measurement. \code{character}.} }
 }
 
 \section{Accesors}{

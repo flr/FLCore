@@ -16,7 +16,7 @@
 #' @aliases FLArray FLArray-class
 #' @docType class
 #' @section Slots: \describe{
-#'   \item{.Data:}{Internal S4 data representation, of class \code{array}.}
+#'   \item{.Data}{Internal S4 data representation, of class \code{array}.}
 #' }
 #' @section Validity: \describe{
 #' \item{Dimensions:}{Array must have 6 dimensions}
@@ -74,8 +74,8 @@ setClass("FLArray",	representation("array"),
 #' @docType class
 #'
 #' @section Slots: \describe{
-#'   \item{.Data:}{A 6-D array for numeric data. \code{\link[base]{array}}.}
-#'  \item{units:}{Units of measurement. \code{\link[base]{character}}.} }
+#'   \item{.Data}{A 6-D array for numeric data. \code{\link[base]{array}}.}
+#'  \item{units}{Units of measurement. \code{\link[base]{character}}.} }
 #' @section Validity: \describe{
 #'  \item{Dimensions:}{Array must have 6 dimensions}
 #'  \item{Content:}{Array must be of class \code{numeric}}
@@ -181,8 +181,8 @@ setClass("FLQuant",
 #' FLQuantPoint,FLQuant-method
 #' @docType class
 #' @section Slots: \describe{
-#'  \item{.Data:}{The main array holding the computed statistics. \code{array}.}
-#'  \item{units:}{Units of measurement. \code{character}.}
+#'  \item{.Data}{The main array holding the computed statistics. \code{array}.}
+#'  \item{units}{Units of measurement. \code{character}.}
 #' }
 #' @section Accesors: \describe{
 #'  \item{mean,mean<-:}{'mean' element on 6th dimension, arithmetic mean.}

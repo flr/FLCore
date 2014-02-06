@@ -12,7 +12,7 @@ uom(op, u1, u2)
   \item{u1}{The units of measurement string of the first
   object}
 
-  \item{u1}{The units of measurement string of the second
+  \item{u2}{The units of measurement string of the second
   object}
 }
 \value{
