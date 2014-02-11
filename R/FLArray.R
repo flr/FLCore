@@ -437,13 +437,16 @@ uomTable[c('+','-'), 'hr', 'hr'] <- 'hr'
 #' # Conversion between mortalities
 #' FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
 
-
 uom <- function(op, u1, u2) {
 
-	u <- c(u1,u2)
+	u <- c(u1, u2)
+	
+	# max length of string, max(nchar(FLCore:::uoms))
+	if(any(nchar(u) > 10))
+		return(paste(u1, op, u2))
 
 	# ""
-	if(!is.na(match("", u)))
+	if(!all(nzchar(u)))
 		return(paste(u1, op, u2))
 
 	idx <- match(u, FLCore:::uoms)
@@ -462,7 +465,6 @@ uom <- function(op, u1, u2) {
 		
 		return(paste(u1, op, u2))
 	}
-
 	return(res)
 }
 # }}}
