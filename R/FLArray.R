@@ -440,16 +440,20 @@ uomTable[c('+','-'), 'hr', 'hr'] <- 'hr'
 
 uom <- function(op, u1, u2) {
 
-	# undefined unit
-	if(any(!c(u1, u2) %in% FLCore:::uoms))
-		return(paste(u1, op, u2))
+	u <- c(u1,u2)
 
 	# ""
-	if("" %in% c(u1, u2))
+	if(!is.na(match("", u)))
+		return(paste(u1, op, u2))
+
+	idx <- match(u, FLCore:::uoms)
+
+	# undefined unit
+	if(any(is.na(idx)))
 		return(paste(u1, op, u2))
 
 	# use uomTable
-	res <- uomTable[op, u1, u2]
+	res <- uomTable[op, idx[1], idx[2]]
 	
 	# incompatible units ('NA')
 	if(res == 'NA') {
@@ -700,4 +704,10 @@ setMethod("cv", signature(x="FLArray"),
 	}
 )   # }}}
 
-
+# subset {{{
+setMethod('subset', signature(x='FLArray'),
+	function(x, ...) {
+		x <- as.data.frame(x, cohort=TRUE)
+		subset(x, ...)
+	}
+) # }}}

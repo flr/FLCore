@@ -372,6 +372,7 @@ exportMethods(
 	"stock.wt",
 	"stock.wt<-",
 	"stripplot",
+	"subset",
 	"summary",
   "survprob",
   "sv",
