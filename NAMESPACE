@@ -68,6 +68,7 @@ export(
 	"rickerCa",
 	"rickerSV",
   "segreg",
+  "segregAR1",
   "shepherd",
   "shepherdSV",
 	"sop",

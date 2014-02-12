@@ -269,6 +269,21 @@ rickerAR1 <- function()
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+#segregAR1 {{{
+segregAR1 <- function(){
+    logl <- function(a, b, rho, rec, ssb){
+       loglAR1(log(rec), FLQuant(log(ifelse(c(ssb)<=b,a*c(ssb),a*b)),dimnames=dimnames(ssb)),rho=rho)}
+
+    model <- rec ~ FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))
+
+    initial <- structure(function(rec, ssb){
+      return(FLPar(a=median(c(rec/ssb),na.rm=TRUE), b=median(c(ssb),na.rm=TRUE),rho=0))},
+      lower=c(0, 0, -1),
+      upper=c(Inf, Inf, 1))
+
+return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # Ricker with covariate  {{{
 rickerCa <- function() {
   logl <- function(a, b, c, rec, ssb, covar)
