@@ -443,17 +443,17 @@ uom <- function(op, u1, u2) {
 	
 	# max length of string, max(nchar(FLCore:::uoms))
 	if(any(nchar(u) > 10))
-		return(paste(u1, op, u2))
+		return(sprintf("%s %s %s", u1, op, u2))
 
 	# ""
 	if(!all(nzchar(u)))
-		return(paste(u1, op, u2))
+		return(sprintf("%s %s %s", u1, op, u2))
 
 	idx <- match(u, FLCore:::uoms)
 
 	# undefined unit
 	if(any(is.na(idx)))
-		return(paste(u1, op, u2))
+		return(sprintf("%s %s %s", u1, op, u2))
 
 	# use uomTable
 	res <- FLCore:::uomTable[op, idx[1], idx[2]]
@@ -461,9 +461,9 @@ uom <- function(op, u1, u2) {
 	# incompatible units ('NA')
 	if(res == 'NA') {
 		warning('incompatible units of measurements in FLQuant objects: ',
-		paste(u1, op, u2))
+			sprintf("%s %s %s", u1, op, u2))
 		
-		return(paste(u1, op, u2))
+		return(sprintf("%s %s %s", u1, op, u2))
 	}
 	return(res)
 }
