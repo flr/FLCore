@@ -456,7 +456,7 @@ uom <- function(op, u1, u2) {
 		return(paste(u1, op, u2))
 
 	# use uomTable
-	res <- uomTable[op, idx[1], idx[2]]
+	res <- FLCore:::uomTable[op, idx[1], idx[2]]
 	
 	# incompatible units ('NA')
 	if(res == 'NA') {
