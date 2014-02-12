@@ -363,7 +363,11 @@ uomTable[, , 'NA'] <- rep(uoms, each=4)
 uomTable[, 'prop', ] <- rep(uoms, each=4)
 uomTable[, , 'prop'] <- rep(uoms, each=4)
 
-# m, f, hr
+# prop NA
+uomTable[, 'prop', 'NA'] <- 'prop'
+uomTable[, 'NA', 'prop'] <- 'prop'
+
+# z, m, f = 1/timestep
 uomTable['+', 'f', 'm'] <- 'z'
 uomTable['+', 'm', 'f'] <- 'z'
 uomTable['-', 'z', 'f'] <- 'm'
@@ -714,3 +718,22 @@ setMethod('subset', signature(x='FLArray'),
 		subset(x, ...)
 	}
 ) # }}}
+
+# log & exp {{{
+setMethod('log', signature(x='FLArray'),
+	function(x, ...) {
+		x@.Data <- log(x@.Data, ...)
+		units(x) <- 'NA'
+		return(x)
+	}
+)
+
+setMethod('exp', signature(x='FLArray'),
+	function(x) {
+		x@.Data <- exp(x@.Data)
+		units(x) <- 'NA'
+		return(x)
+	}
+) # }}}
+
+
