@@ -368,6 +368,7 @@ uomTable['+', 'f', 'm'] <- 'z'
 uomTable['+', 'm', 'f'] <- 'z'
 uomTable['-', 'z', 'f'] <- 'm'
 uomTable['-', 'z', 'm'] <- 'f'
+uomTable['/', c('z','f','m'), c('z','f','m')] <- 'prop'
 
 uomTable[c('*', '/'), nums, 'f'] <- rep(rep(uoms[snums], each=2), 3)
 uomTable[c('*', '/'), nums, 'm'] <- rep(rep(uoms[snums], each=2), 3)
