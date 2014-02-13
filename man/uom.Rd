@@ -1,0 +1,68 @@
+\docType{methods}
+\name{uom}
+\alias{uom}
+\title{uom Units of Measurement}
+\usage{
+uom(op, u1, u2)
+}
+\arguments{
+  \item{op}{The arithmetic operator to be used, one of '+',
+  '-', '*' or '/'}
+
+  \item{u1}{The units of measurement string of the first
+  object}
+
+  \item{u2}{The units of measurement string of the second
+  object}
+}
+\value{
+a string with the corresponding units of measurement, a
+string such as '10 *100' when not compatible
+}
+\description{
+The 'units' attribute of FLQuant objects provides a
+mechanism for keeping track of the units of measurement of
+that particular piece of data.
+}
+\details{
+Arithmetic operators for 'FLQuant' objects are aware of a
+limited set of units of measurement and will output the
+right unit when two object are arithmetically combined. For
+example, the product of object with units of 'kg' and
+'1000' will output an object with 'units' of 't' (for
+metric tonnes).
+
+Operations involving combinations of units not defined will
+issue a warning, and the resulting 'units' attribute will
+simply keep a string indicating the input units of
+measurement and the operation carried out, as in '10 *
+1000'.
+
+Note that no scaling or modification of the values in the
+object takes place.
+
+Conversion across units is carried out by the \code{uom()}
+function
+}
+\section{Recognized Units}{
+  The following units of measurement are recognized by the
+  'Arith' operators (+, -, * /). \describe{
+  \item{Weight}{'kg', 't'} \item{Numbers}{1 - 100000000,
+  1e0 - 1e8, 10^0 - 10^8} \item{Mortality}{'m', 'f', 'z',
+  'hr'} \item{Other}{'NA'} }
+}
+\examples{
+# Conversion between weights
+FLQuant(1, units='kg') * FLQuant(1000, units='1')
+
+# Conversion between mortalities
+FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
+}
+\author{
+The FLR Team
+}
+\seealso{
+\code{\linkS4class{FLQuant}}
+\code{\link{units,FLArray-method}}
+}
+\keyword{function}
