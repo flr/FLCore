@@ -49,7 +49,7 @@ function
   'Arith' operators (+, -, * /). \describe{
   \item{Weight}{'kg', 't'} \item{Numbers}{1 - 100000000,
   1e0 - 1e8, 10^0 - 10^8} \item{Mortality}{'m', 'f', 'z',
-  'hr'} \item{Other}{'prop', 'NA'} }
+  'hr'} \item{Other}{'NA'} }
 }
 \examples{
 # Conversion between weights
