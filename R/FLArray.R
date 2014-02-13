@@ -535,7 +535,7 @@ setMethod("Arith",
 			units <- units(e1)
 		} else {
 			op <- as.character(get('.Generic'))
-			units <- paste(units(e1), op, units(e2))
+			units <- FLCore:::uom(op, units(e1), units(e2))
 		}
     return(new(class(e1), e, units=units))
 	}
