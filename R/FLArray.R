@@ -752,5 +752,3 @@ setMethod('exp', signature(x='FLArray'),
 		return(x)
 	}
 ) # }}}
-
-
