@@ -1,8 +1,6 @@
 # io.FLIndex - 
 
 # Author: FLR Team
-# Last Change: 11 Feb 2009 11:24
-# $Id: io.FLIndices.R 1787 2012-12-07 15:37:35Z lauriekell $
 
 # Reference:
 # Notes:
@@ -10,7 +8,7 @@
 # TODO 26/11/2004 iagoazti: Review checkIndex, add write.FLIndices function
 
 ## writeIndicesVPA		{{{
-writeIndicesVPA <- function(FLIndices., file.) {	
+writeIndicesVPA <- function(FLIndices., file.) {
 
     # opens connection to the output file
 	temp <- file(file., "w")
@@ -278,9 +276,12 @@ readIndicesAdapt <- function(file.,na.strings="NA") {
     i<-skip.until.minus.1(i)+1	   	
     p.<-read.table(file.,skip=i,fill=T,nrows=(skip.until.minus.1(i)-i-3),colClasses="numeric",na.strings=na.strings)
 	  l. <- FLIndices()
-    for (i in 1:NIndex)
-        l.[[i]]<-FLIndex(iniFLQuant=FLQuant(NA,dimnames=list(age=range["min"]:range["max"],year=range["minyear"]:range["maxyear"])))
-    return(set.index(smry.,index.,p.,l.,range))
+    for (i in 1:NIndex) {
+        l.[[i]]<-FLIndex(FLQuant(NA,dimnames=list(age=range["min"]:range["max"],year=range["minyear"]:range["maxyear"])))
+		}
+    return(
+					 set.index(smry.,index.,p.,l.,range)
+					 )
 }
 
 ## readIndicesCSA
@@ -304,7 +305,8 @@ readIndicesCSA <- function(file.,na.strings="NA") {
     c. <- FLIndices(c.)
     c.@desc <- paste("read in from CSA file", file.)
 
-    return(c.)}
+    return(c.)
+} # }}}
 
 ## readIndicesICA		{{{
 readIndicesICA <- function(file, file2, sep="", na.strings=na.strings) {
@@ -437,7 +439,7 @@ readFLIndex <- function(file, type="VPA", index.names, descs,
 set.index <- function(smry.,index.,p.,l.,range) {
     yr.range  <- tapply(index.[,2],index.[,1],range)
 	for (i in 1:length(l.)) {
-    	    l.[[i]]@range[1:2]<-smry.[i,6:7]
+ #   	    l.[[i]]@range[1:2]<-smry.[i,6:7]
     	    l.[[i]]@range[4:5]<-yr.range[[i]]
 
     	    # TIMING (-1 = AVERAGE DURING YEAR, POSITIVE INTEGER = NUMBER OF MONTHS ELAPSED)
@@ -448,16 +450,18 @@ set.index <- function(smry.,index.,p.,l.,range) {
     	    names(l.[[i]]@range)[6:7]<-c("startf","endf")
 
     	    # PDF         (0= do not use,1=lognormal, 2=normal)
-    	    if (smry.[i,2]==2)
+    	    if (smry.[i,2]==2) {
     	        l.[[i]]@distribution<-"normal"
-    	    else 
+					} else {
     	        l.[[i]]@distribution<-"lognormal"
+					}
 
     	    # UNITS       (1 = numbers, 2 = biomass)
-    	    if (smry.[i,3]==2) 
+    	    if (smry.[i,3]==2) {
     	        l.[[i]]@type<-"biomass" 
-    	    else 
+					} else {
     	        l.[[i]]@type<-"numbers"
+					}
 
     	    # SELECTIVITY (1 = fixed, 2 = fractional catches, 
     	    # 3 = Powers and Restrepo partial catches,4=Butterworth and Geromont eq 4)
@@ -475,9 +479,9 @@ set.index <- function(smry.,index.,p.,l.,range) {
                 dim=c(1,yr.range[[i]][2]-yr.range[[i]][1]+1),
                 dimnames=list(age="all",year=(index.[index.[,1]==i,2]))))
 
-			l.[[i]]@catch.wt <- FLQuant(l.[[i]]@index)
-			l.[[i]]@catch.n  <- FLQuant(l.[[i]]@index)
-			l.[[i]]@sel.pattern      <- FLQuant(l.[[i]]@index)
+		#	l.[[i]]@catch.wt <- FLQuant(l.[[i]]@index)
+		#	l.[[i]]@catch.n  <- FLQuant(l.[[i]]@index)
+		#	l.[[i]]@sel.pattern      <- FLQuant(l.[[i]]@index)
 
             l.[[i]]@effort <- FLQuant(array(1,
                 dim=c(1,yr.range[[i]][2]-yr.range[[i]][1]+1),
@@ -488,16 +492,18 @@ set.index <- function(smry.,index.,p.,l.,range) {
                 dimnames=list(age="all",year=index.[index.[,1]==i,2])))
 
             if (any(p.[,1]==i)){
-				l.[[i]]@sel.pattern <-FLQuant(array(t(as.matrix(p.[p.[,1]==i,3:length(p.[1,])])),
-								  dim=c(length(p.[1,])-2,yr.range[[i]][2]-yr.range[[i]][1]+1),
-                                  dimnames=list(as.character(range["min"]:range["max"]),year=index.[index.[,1]==i,2])))
-				l.[[i]]@sel.pattern <-l.[[i]]@sel.pattern[as.character(smry.[i,6]:smry.[i,7]),,,,]
+						l.[[i]]@sel.pattern <-FLQuant(
+																					array(t(as.matrix(p.[p.[,1]==i, 
+							3:length(p.[1,])])),
+							dim=c(length(p.[1,])-2,yr.range[[i]][2]-yr.range[[i]][1]+1),
+              dimnames=list(age=as.character(range["min"]:range["max"]),year=index.[index.[,1]==i,2])))
+#l.[[i]]@sel.pattern <- l.[[i]]@sel.pattern[as.character(smry.[i,6]:smry.[i,7]),,,,]
 				}
 			}
     return(l.)
 }	# }}}
 
-# read.FLIndex
+# read.FLIndex {{{
 read.FLIndex <- function(...)
 {
   warning("read.FLIndex has been renamed as readFLIndex and will de deprecated", inmediate. = TRUE)
@@ -509,4 +515,4 @@ read.FLIndices <- function(...)
 {
   warning("read.FLIndices has been renamed as readFLIndices and will de deprecated", inmediate. = TRUE)
   readFLIndices(...)
-}
+} # }}}
