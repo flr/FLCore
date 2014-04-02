@@ -4,6 +4,7 @@
 \alias{FLIndex,FLQuant-method}
 \alias{FLIndex,missing-method}
 \alias{FLIndex-methods}
+\alias{FLQuant}
 \alias{catch.n,FLIndex-method}
 \alias{catch.n<-,FLIndex,FLQuant-method}
 \alias{catch.wt,FLIndex-method}
