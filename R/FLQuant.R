@@ -249,7 +249,7 @@ return(res)
 }
 )# }}}
 
-## as.FLQuant      {{{
+# as.FLQuant      {{{
 setGeneric("as.FLQuant", function(x, ...)
 standardGeneric("as.FLQuant"))# }}}
 
@@ -770,7 +770,21 @@ return(object)
 setMethod("propagate", signature(object="FLQuant"),
   function(object, iter, fill.iter=TRUE)
   {
-    FLQuant(object, iter=iter, fill.iter=fill.iter)
+		dob <- dim(object)
+		
+		# CHECK no iters in object
+		if(dob[6] > 1)
+			stop("propagate can only extend objects with no iters")
+
+		# fill.iter
+		if(fill.iter) {
+			return(new('FLQuant', array(rep(object, iter), dim=c(dob[-6], iter),
+			dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), units=units(object)))
+		# or NAs
+		} else {
+			return(new('FLQuant', array(c(object, rep(NA, prod(dob)*(iter-1))),
+				dim=c(dim(object)[-6], iter), dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), units=units(object)))
+		}
   }
 ) # }}}
 
