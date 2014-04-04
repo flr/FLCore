@@ -779,7 +779,8 @@ setMethod("propagate", signature(object="FLQuant"),
 		# fill.iter
 		if(fill.iter) {
 			return(new('FLQuant', array(rep(object, iter), dim=c(dob[-6], iter),
-			dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), units=units(object)))
+				dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))),
+				units=units(object)))
 		# or NAs
 		} else {
 			return(new('FLQuant', array(c(object, rep(NA, prod(dob)*(iter-1))),
