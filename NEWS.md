@@ -36,6 +36,7 @@
 - code2name for FLSR did not reocngize properly bevholtSV
 - fmle() can now use method="Brent" for one parameter problems
 - New ple4.biol with data up to 2008. No integer value
+- prototype object for FLComp VIRTUAl class has name as character(1)
 	
 ## UTILITIES
 
