@@ -69,9 +69,16 @@ validFLComp <- function(object){
 #' \link[base]{transform}, \link{trim}, \link{units,FLComp-method},
 #' \link{units<-,FLComp,list-method}, \link[stats]{window}
 #' @keywords classes
-setClass("FLComp", representation(name="character", desc="character",
-	range="numeric", "VIRTUAL"), prototype(name=character(0), desc=character(0),
-  range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))), 
+setClass("FLComp",
+	representation(
+		name="character",
+		desc="character",
+		range="numeric",
+		"VIRTUAL"), 
+	prototype(
+		name=character(1),
+		desc=character(0),
+  	range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))), 
   validity=validFLComp)
 
 invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
@@ -136,8 +143,6 @@ setClass("FLS",
 	"VIRTUAL"
 	),
 	prototype=prototype(
-		name	= character(0),
-		desc	= character(0),
 		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
 		catch	= FLQuant(),
 		catch.n	= FLQuant(),
@@ -261,8 +266,6 @@ setClass("FLStock",
 	"FLS"
 	),
 	prototype=prototype(
-		name	= character(0),
-		desc	= character(0),
 		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
 		catch	= FLQuant(),
 		catch.n	= FLQuant(),
@@ -345,8 +348,6 @@ setClass("FLStockLen",
 	halfwidth = "numeric"
 	),
 	prototype=prototype(
-		name	= character(0),
-		desc	= character(0),
 		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
 		halfwidth = as.numeric(NA),
 		catch	= FLQuant(dimnames=list(len=as.numeric(NA))),
@@ -489,15 +490,13 @@ validFLBiol <- function(object){
 setClass("FLBiol",
 	representation(
 		"FLComp",
-        n        ="FLQuant",
+    n        ="FLQuant",
 		m        ="FLQuant",
 		wt       ="FLQuant",
 		fec      ="FLQuant",
 		spwn     ="FLQuant"
       ),
 	prototype=prototype(
-		name     =character(0),
-		desc     =character(0),
 		range    =unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
     n        = FLQuant(),
 		m        = FLQuant(),
@@ -628,8 +627,6 @@ setClass("FLIndex",
 		sel.pattern  = "FLQuant",
 		index.q      = "FLQuant"),
     prototype=prototype(
-        name         = character(0),
-        desc         = character(0),
         type         = character(0),
         range        = unlist(list(min=0, max=0, plusgroup=NA,
 			minyear=1, maxyear=1, startf=NA, endf=NA)),
@@ -679,8 +676,7 @@ setClass('FLModel',
     details='list',
     residuals='FLArray',
     fitted='FLArray'),
-  prototype(name=character(0),
-    desc=character(0),
+  prototype(
     range=unlist(list(min=NA, max=NA, minyear=1, maxyear=1)),
     model=formula(NULL),
     distribution=factor(levels=c('beta', 'dbinom', 'cauchy', 'chisq', 'exp',
@@ -697,11 +693,11 @@ vFLl <- function(object){
 	# Make sure the list contains all items of the same class
 	cls <- unlist(lapply(object, class))
   if(any(cls != cls[1]))
-	  stop("Components must be of the same class!")	
+	  return("Components must be of the same class!")	
 
   # All elements in the list are validObjects themselves
   if(!all(unlist(lapply(object, validObject))))
-	  stop("Components must be valid objects themselves (validObject == TRUE)")	
+	  return("Components must be valid objects themselves (validObject == TRUE)")	
 
 	# Everything is fine
 	return(TRUE)
