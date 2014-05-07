@@ -449,38 +449,6 @@ sop <- function(stock, slot="catch") {
 		slot(stock, paste(slot, ".wt", sep=""))) / slot(stock, slot))
 }	# }}}
 
-## harvest		{{{
-setMethod("harvest", signature(object="FLStock", catch="missing"),
-	function(object, index="f") {
-		if (!missing(index) && units(slot(object, "harvest")) != index)
-			stop("The units of harvest in the object do not match the specified index")
-		return(slot(object, "harvest"))
-	}
-)
-
-## harvest<-
-setMethod("harvest<-", signature(object="FLStock", value="character"),
-	function(object, value) {
-		units(slot(object, "harvest")) <- value
-		return(object)
-	}
-)
-setMethod("harvest<-", signature(object="FLStock", value="FLQuant"),
-	function(object, value) {
-		slot(object, "harvest") <- value
-    if(validObject(object))
-      return(object)
-    else
-      stop("Object not valid")
-	}
-)
-setMethod("harvest<-", signature(object="FLStock", value="numeric"),
-	function(object, value) {
-		slot(object, "harvest")[] <- value
-		return(object)
-	}
-) # }}}
-
 ## catch<- FLQuants		{{{
 setMethod("catch<-", signature(object="FLStock", value="FLQuants"),
 	function(object, value) {
@@ -933,16 +901,6 @@ setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
 		discards.wt(object)<-recycleFLQuantOverYrs(discards.wt(object),value)
 
 		return(object)}) # }}}
-
-# z {{{
-setMethod("z", "FLStock", function(object, ...) {
-  f <- harvest(object)
-  if(units(f) != 'f') {
-    stop("Your exploitation rate is not defined as F, cannot be added to M")
-  } else { 
-    return(m(object) + f)
-  }
-}) # }}}
 
 # combine {{{
 setMethod('combine', signature(x='FLStock', y='FLStock'),

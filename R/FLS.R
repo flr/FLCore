@@ -66,3 +66,44 @@ setMethod("computeStock", signature(object="FLS"),
  	} 
 )	# }}}
 
+## harvest		{{{
+setMethod("harvest", signature(object="FLS", catch="missing"),
+	function(object, index="f") {
+		if (!missing(index) && units(slot(object, "harvest")) != index)
+			stop("The units of harvest in the object do not match the specified index")
+		return(slot(object, "harvest"))
+	}
+)
+
+## harvest<-
+setMethod("harvest<-", signature(object="FLS", value="character"),
+	function(object, value) {
+		units(slot(object, "harvest")) <- value
+		return(object)
+	}
+)
+setMethod("harvest<-", signature(object="FLS", value="FLQuant"),
+	function(object, value) {
+		slot(object, "harvest") <- value
+    if(validObject(object))
+      return(object)
+    else
+      stop("Object not valid")
+	}
+)
+setMethod("harvest<-", signature(object="FLS", value="numeric"),
+	function(object, value) {
+		slot(object, "harvest")[] <- value
+		return(object)
+	}
+) # }}}
+
+# z {{{
+setMethod("z", "FLS", function(object, ...) {
+  f <- harvest(object)
+  if(units(f) != 'f') {
+    stop("Your exploitation rate is not defined as F, cannot be added to M")
+  } else { 
+    return(m(object) + f)
+  }
+}) # }}}
