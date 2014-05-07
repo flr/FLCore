@@ -78,7 +78,7 @@ setMethod("FLStockLen", signature(object="missing"),
 
     return(FLStockLen(object, ...))})	# }}}
 
-# halfwidth
+# halfwidth {{{
 setMethod("halfwidth", signature(object="FLStockLen"),
 	function(object, ...) {
 		return(object@halfwidth)
@@ -101,8 +101,9 @@ setMethod("halfwidth<-", signature(object="FLStockLen", value="numeric"),
 		object@halfwidth <- value
 
 		return(object)
-	})
+	}) # }}}
 
+# breaks et al {{{
 # breaks
 setMethod("breaks", signature(object="FLStockLen"),
 	function(object, ...) {
@@ -128,4 +129,4 @@ setMethod("rightbound", signature(object="FLStockLen"),
 setMethod("mids", signature(object="FLStockLen"),
 	function(object, ...) {
 		return(as.numeric(dimnames(object@stock.n)[['len']]) + halfwidth(object))
-	})
+	}) # }}}
