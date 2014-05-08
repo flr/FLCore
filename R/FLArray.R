@@ -482,12 +482,12 @@ uom <- function(op, u1, u2) {
 	res <- FLCore:::uomTable[op, idx[1], idx[2]]
 	
 	# incompatible units ('NA')
-	if(res == 'NC') {
-		warning('incompatible units of measurements in FLQuant objects: ',
-			sprintf("%s %s %s", u1, op, u2))
+#	 if(res == 'NC') {
+#			warning('incompatible units of measurements in FLQuant objects: ',
+#			sprintf("%s %s %s", u1, op, u2))
 		
-		return(sprintf("%s %s %s", u1, op, u2))
-	}
+#		return(sprintf("%s %s %s", u1, op, u2))
+#	}
 	return(res)
 }
 # }}}
