@@ -107,3 +107,41 @@ setMethod("z", "FLS", function(object, ...) {
     return(m(object) + f)
   }
 }) # }}}
+
+# trim {{{
+setMethod("trim", signature(x="FLS"), function(x, ...){
+
+	args <- list(...)
+
+  rng<-range(x)
+  
+  c1 <- args[[quant(landings.n(x))]]
+	c2 <- args[["year"]]
+	c3 <- args[["unit"]]
+	c4 <- args[["season"]]
+	c5 <- args[["area"]]
+	c6 <- args[["iter"]]
+
+    # FLQuants with quant
+	names <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant"])
+
+    for (name in names) {
+        if(name %in% c('stock', 'catch', 'landings', 'discards'))
+            slot(x,name) <- trim(slot(x,name), year=c2, unit=c3, season=c4,
+                area=c5, iter=c6)
+        else
+            slot(x,name) <- trim(slot(x,name), ...)
+    }
+            
+  if (length(c1) > 0) {
+    x@range["min"] <- c1[1]
+    x@range["max"] <- c1[length(c1)]
+    if (rng["max"] != x@range["max"])
+        x@range["plusgroup"] <- NA
+  }
+  if (length(c2)>0 ) {
+    x@range["minyear"] <- c2[1]
+    x@range["maxyear"] <- c2[length(c2)]
+  }
+
+	return(x)}) # }}}
