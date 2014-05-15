@@ -54,9 +54,22 @@ setMethod("window", signature(x="FLComp"),
 ## propagate {{{
 setMethod("propagate", signature(object="FLComp"),
 	function(object, iter, fill.iter=TRUE) {
-    
-		object <- qapply(object, propagate, iter=iter, fill.iter=fill.iter)
-		
+
+		# GET object iters
+		mit <- unlist(qapply(object, function(x) dim(x)[6]))
+
+		# CHECK iter can only be 1 or dim(object)[6]
+		if(sum(mit) > length(mit) & !iter %in% mit)
+			stop("incompatible number of iters requested")
+
+		# GET slots to extend
+		idx <- mit[mit != iter]
+
+		for(s in names(idx)) {
+			slot(object, s) <- propagate(slot(object, s), iter, fill.iter=fill.iter)
+		}
+
+		# DO for FLPar
 		pnms <- getSlots(class(object))
 		pnames <- names(pnms)[pnms == "FLPar"]
 		for(i in pnames)

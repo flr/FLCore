@@ -25,6 +25,8 @@
 - modified quantile(FLQuant) so dimnames in iter follow quantile(array), e.g. 50%
 - tail method for FLQuant, operates by default along the year dimension.
 - deprecated sr function is now a method to return aligned stock/recruits FLQuants from an FLStock
+- propagate(FLComp) accepts extending an object to existing nu mber of iters for all other slots of length 1.
+- trim(FLS) u[pdates min/maxfbar if needed
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim

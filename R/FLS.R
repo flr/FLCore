@@ -5,7 +5,7 @@
 # Maintainer: Iago Mosqueira, JRC
 # Notes:
 
-## computeLandings	{{{
+# computeLandings	{{{
 setMethod("computeLandings", signature(object="FLS"),
 	function(object, na.rm=TRUE) {
         res        <- quantSums(landings.n(object) * landings.wt(object), na.rm=na.rm)
@@ -14,7 +14,7 @@ setMethod("computeLandings", signature(object="FLS"),
  	} 
 )	# }}}
 
-## computeDiscards	{{{
+# computeDiscards	{{{
 setMethod("computeDiscards", signature(object="FLS"),
 	function(object, na.rm=TRUE) {
         res <- quantSums(discards.n(object)*discards.wt(object), na.rm=na.rm)
@@ -23,7 +23,7 @@ setMethod("computeDiscards", signature(object="FLS"),
  	} 
 )	# }}}
 
-## computeCatch	{{{
+# computeCatch	{{{
 setMethod("computeCatch", signature(object="FLS"),
   function(object, slot="catch", na.rm=TRUE) {
     if(slot == "n"){
@@ -57,7 +57,7 @@ setMethod("computeCatch", signature(object="FLS"),
     }
 )	# }}}
 
-## computeStock	{{{
+# computeStock	{{{
 setMethod("computeStock", signature(object="FLS"),
 	function(object, na.rm=TRUE) {
         res <- quantSums(stock.n(object) * stock.wt(object), na.rm=na.rm)
@@ -66,7 +66,7 @@ setMethod("computeStock", signature(object="FLS"),
  	} 
 )	# }}}
 
-## harvest		{{{
+# harvest		{{{
 setMethod("harvest", signature(object="FLS", catch="missing"),
 	function(object, index="f") {
 		if (!missing(index) && units(slot(object, "harvest")) != index)
@@ -75,7 +75,7 @@ setMethod("harvest", signature(object="FLS", catch="missing"),
 	}
 )
 
-## harvest<-
+# harvest<-
 setMethod("harvest<-", signature(object="FLS", value="character"),
 	function(object, value) {
 		units(slot(object, "harvest")) <- value
@@ -122,7 +122,7 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
 	c5 <- args[["area"]]
 	c6 <- args[["iter"]]
 
-    # FLQuants with quant
+  # FLQuants with quant
 	names <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant"])
 
     for (name in names) {
@@ -135,7 +135,9 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
             
   if (length(c1) > 0) {
     x@range["min"] <- c1[1]
+		x@range["minfbar"] <- max(rng["minfbar"], c1[1])
     x@range["max"] <- c1[length(c1)]
+		x@range["maxfbar"] <- min(rng["maxfbar"], c1[length(c1)])
     if (rng["max"] != x@range["max"])
         x@range["plusgroup"] <- NA
   }
