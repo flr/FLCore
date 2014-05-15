@@ -472,14 +472,14 @@ uom <- function(op, u1, u2) {
 	if(!all(nzchar(u)))
 		return(sprintf("%s %s %s", u1, op, u2))
 	
-	idx <- match(u, FLCore:::uoms)
+	idx <- match(u, uoms)
 
 	# undefined unit
 	if(any(is.na(idx)))
 		return(sprintf("%s %s %s", u1, op, u2))
 
 	# use uomTable
-	res <- FLCore:::uomTable[op, idx[1], idx[2]]
+	res <- uomTable[op, idx[1], idx[2]]
 	
 	# incompatible units ('NA')
 #	 if(res == 'NC') {
@@ -535,7 +535,7 @@ setMethod("Arith",
 			units <- units(e1)
 		} else {
 			op <- as.character(get('.Generic'))
-			units <- FLCore:::uom(op, units(e1), units(e2))
+			units <- uom(op, units(e1), units(e2))
 		}
     return(new(class(e1), e, units=units))
 	}
@@ -688,7 +688,7 @@ setMethod("survprob", signature(object="FLArray"),
 	}
 ) # }}}
 
-## window           {{{
+# window           {{{
 setMethod("window", signature(x="FLArray"),
 	function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1)
   {
@@ -752,3 +752,10 @@ setMethod('exp', signature(x='FLArray'),
 		return(x)
 	}
 ) # }}}
+
+# median        {{{
+setMethod("median", signature(x="FLArray"),
+	function(x, na.rm=TRUE){
+		return(median(c(x), na.rm=na.rm))
+	}
+)   # }}}
