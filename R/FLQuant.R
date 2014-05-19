@@ -344,22 +344,26 @@ return(flq)
 setMethod("as.FLQuant", signature(x="data.frame"),
 function(x, ...)
   {
-    # get data.frame names and compare
-names(x) <- tolower(names(x))
-    validnames <-c("year","unit","season","area","iter","data")
+  
+		# get data.frame names and compare
+		names(x) <- tolower(names(x))
+  	validnames <-c("year","unit","season","area","iter","data")
 
-indices <- match(validnames, names(x))
-  indices <- indices[!is.na(indices)]
+		indices <- match(validnames, names(x))
+  	indices <- indices[!is.na(indices)]
 
-    # get quant
-    qname <- names(x)
-qname[indices] <- NA
-qname <- qname[!is.na(qname)]
+	  # get quant
+  	qname <- names(x)
+		qname[indices] <- NA
+		qname <- qname[!is.na(qname)]
 
-    if (length(qname) > 1)
-stop("too many columns in data.frame")
-    if(length(qname) == 0)
-      qname <- "quant"
+	  if (length(qname) > 1)
+			stop("too many columns in data.frame")
+	  if(length(qname) == 0)
+  	  qname <- "quant"
+
+		# sort years
+		x <- x[order(x$year),]
     
     # check and fill up missing dimensions
     n <- dim(x)[1]
@@ -368,11 +372,6 @@ stop("too many columns in data.frame")
       season=rep('all',n), area=rep('unique',n), iter=rep(1,n), stringsAsFactors=FALSE)
     names(em)[names(em)=="quant"] <- qname
     
-    # Not sure why the call to as.matrix was here, but is messes up names from numbers
-    #  sometimes, as 1 truns to " 1" is there is 10. Trying now without it. IM, 2/7/09
-    #
-    #x[,!names(x)%in%'data'] <- as.data.frame(as.matrix(x[,!names(x)%in%'data']),
-    #  stringsAsFactors=FALSE)
     x[,!names(x)%in%'data'] <- as.data.frame(x[,!names(x)%in%'data'],
       stringsAsFactors=FALSE)
     em[names(x)] <- x
