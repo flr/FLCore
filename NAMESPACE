@@ -188,6 +188,7 @@ exportMethods(
 	"discards.sel<-",
 	"discards.wt",
 	"discards.wt<-",
+  "distr",
   "distribution",
 	"dotplot",
 	"effort",

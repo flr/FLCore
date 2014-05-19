@@ -282,6 +282,12 @@ setGeneric('type', function(object, ...)
 setGeneric('type<-', function(object, ..., value)
 		standardGeneric('type<-'))
 
+# distr
+setGeneric('distr', function(object, ...)
+		standardGeneric('distr'))
+setGeneric('distr<-', function(object, ..., value)
+		standardGeneric('distr<-'))
+
 # distribution 
 setGeneric('distribution', function(object, ...)
 		standardGeneric('distribution'))
