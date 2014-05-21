@@ -362,8 +362,9 @@ function(x, ...)
 	  if(length(qname) == 0)
   	  qname <- "quant"
 
-		# sort years
-		x <- x[order(x$year),]
+		# sort years if present
+		if('year' %in% names(x))
+			x <- x[order(x$year),]
     
     # check and fill up missing dimensions
     n <- dim(x)[1]
