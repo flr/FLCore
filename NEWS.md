@@ -39,7 +39,7 @@
 - fmle() can now use method="Brent" for one parameter problems
 - New ple4.biol with data up to 2008. No integer value
 - prototype object for FLComp VIRTUAl class has name as character(1)
-- as.FLQuant(df) failed on ovjects with no 'year' column
+- as.FLQuant(df) failed on objects with no 'year' column
 	
 ## UTILITIES
 
