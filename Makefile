@@ -4,7 +4,7 @@ PKGSRC  := $(shell basename `pwd`)
 
 R_FILES := $(wildcard $(PKG)/R/*.R)
 
-all: news readme staticdocs check clean
+all: NEWS readme staticdocs build
 
 readme: DESCRIPTION
 	R --vanilla --silent -e "library(utils);" \
@@ -18,7 +18,8 @@ readme: DESCRIPTION
 
 staticdocs: $(R_FILES)
 	R --vanilla --silent -e "library(staticdocs);" \
-  -e "build_site('../FLCore/', site_path='gh-pages', launch=FALSE)"
+  -e "build_site('../FLCore/', site_path='gh-pages', launch=FALSE)"; \
+	rm Rplots.pdf
 
 NEWS: NEWS.md
 	sed -e 's/^-/  -/' -e 's/^## *//' -e 's/^#/\t\t/' <NEWS.md | fmt -80 >NEWS
@@ -38,5 +39,6 @@ check: build
 	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz --as-cran
 
 clean:
+	rm -r gh-pages;\
 	cd ..;\
-	$(RM) -r $(PKGNAME).Rcheck/
+	rm -r $(PKGNAME).Rcheck;\

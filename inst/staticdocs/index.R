@@ -9,5 +9,21 @@
 sd_section("Classes",
   "FLR classes",
   c("FLQuant",
-		"FLStock"))
-
+  	"FLQuantPoint",
+  	"FLQuantDistr",
+		"FLCohort",
+		"FLPar",
+		"FLStock",
+		"FLStockLen",
+		"FLBiol",
+		"FLIndex",
+		"FLModel",
+		"FLSR",
+		"FLQuants",
+		"FLCohorts",
+		"FLStocks",
+		"FLIndices",
+		"FLBiols",
+		"FLSRs",
+		"FLModelSims",
+		"FLPars"))
