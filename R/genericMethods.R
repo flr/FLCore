@@ -794,3 +794,20 @@ setGeneric("sr", function(object, step, ...) standardGeneric("sr"))
 
 # slots
 setGeneric("slots", function(object, name, ...) standardGeneric("slots"))
+
+# var<-
+setGeneric("var<-", function(x, ..., value) standardGeneric("var<-"))
+
+# mean<-
+setGeneric("mean<-", function(x, value) standardGeneric("mean<-"))
+
+# median<-
+setGeneric("median<-", function(x, value) standardGeneric("median<-"))
+
+# uppq
+setGeneric("uppq", function(x, ...) standardGeneric("uppq"))
+setGeneric("uppq<-", function(x, value) standardGeneric("uppq<-"))
+
+# lowq
+setGeneric("lowq", function(x, ...) standardGeneric("lowq"))
+setGeneric("lowq<-", function(x, value) standardGeneric("lowq<-"))

@@ -250,13 +250,18 @@ validFLQuantDistr <- function(object) {
 }
 setClass("FLQuantDistr",
     representation("FLQuant", var="FLArray", distr="character"),
-	prototype(new("FLQuant"), var=new("FLArray"), distr="lnorm"))
+	prototype(new("FLQuant"), var=new("FLArray"), distr="norm"))
 
 setValidity("FLQuantDistr", validFLQuantDistr)
 remove(validFLQuantDistr)   # }}}
 
 # FLCohort {{{
-validFLCohort <-  function(object) {
+setClass("FLCohort",
+	representation("FLArray", units="character"),
+	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
+		dimnames=list(age="1", cohort="1", unit="unique", season="all", area="unique",
+		iter="none")), units="NA"),
+  validity=function(object) {
   # names
   if(!all.equal(names(dimnames(object)), 
       c("age", "cohort", "unit", "season", "area", "iter")))
@@ -266,12 +271,6 @@ validFLCohort <-  function(object) {
   return(TRUE)
 }
 
-setClass("FLCohort",
-	representation("FLArray"),
-	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
-		dimnames=list(age="1", cohort="1", unit="unique", season="all", area="unique",
-		iter="none")), units="NA"),
-  validity=validFLCohort
 ) # }}}
 
 # FLPar {{{

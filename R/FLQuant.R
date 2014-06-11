@@ -623,14 +623,24 @@ setMethod('yearTotals', signature(x='FLQuant'),
 
 # sums         {{{
 setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  res <- colSums(x, na.rm=na.rm)
+
+	res <- colSums(x, na.rm=na.rm)
   dim(res) <- c(1, dim(res))
-  return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant(x),
-    units=units(x)))
+
+	# FIX all NAs
+	if(na.rm & any(res == 0)) {
+		z <- is.na(x)
+		y <- colSums(z) == dim(x)[1]
+		res[y] <- NA
+	}
+
+  return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]),
+		quant=quant(x), units=units(x)))
 })
 
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1,3:6), sum, na.rm=na.rm))
+	res <- apply(x, c(1,3:6), sum, na.rm=na.rm)
+
 })
 
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
@@ -771,6 +781,9 @@ setMethod("propagate", signature(object="FLQuant"),
   function(object, iter, fill.iter=TRUE)
   {
 		dob <- dim(object)
+
+		if(iter == dob[6])
+			return(object)
 		
 		# CHECK no iters in object
 		if(dob[6] > 1)

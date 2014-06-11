@@ -77,138 +77,82 @@ setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 # }}}
 
 ## accesors	{{{
-if (!isGeneric("mean"))
-	setGeneric("mean", function(x, ...) standardGeneric("mean"))
-setMethod("mean", signature(x="FLQuantPoint"),
-	function(x, ...)
-		return(FLQuant(x[,,,,,'mean']))
+setMethod("var", signature(x="FLQuantDistr"),
+	function(x)
+		return(x@var)
 )
-setGeneric("mean<-", function(x, value) standardGeneric("mean<-"))
-setMethod("mean<-", signature(x="FLQuantPoint"),
+
+setMethod("var<-", signature(x="FLQuantDistr", value="FLArray"),
 	function(x, value) {
-		x[,,,,,'mean'] <- value
+		x@var <- value
 		return(x)
 	}
 )
 
-if (!isGeneric("median"))
-	setGeneric("median", function(x, na.rm=FALSE) standardGeneric("median"))
-setMethod("median", signature(x="FLQuantPoint"),
-	function(x, na.rm=FALSE)
-		return(FLQuant(x[,,,,,'median']))
+setMethod("distr", signature(object="FLQuantDistr"),
+	function(object)
+		return(object@distr)
 )
-setGeneric("median<-", function(x, value) standardGeneric("median<-"))
-setMethod("median<-", signature(x="FLQuantPoint", value="ANY"),
-	function(x, value) {
-		x[,,,,,'median'] <- value
-		return(x)
+
+setMethod("distr<-", signature(object="FLQuantDistr", value="character"),
+	function(object, value) {
+		object@distr <- value
+		return(object)
 	}
 )
 
-if (!isGeneric("var"))
-	setGeneric("var", function(x, y=NULL, na.rm=FALSE, use) standardGeneric("var"))
-setMethod("var", signature(x="FLQuantPoint"),
-	function(x, y=NULL, na.rm=FALSE, use)
-		return(FLQuant(x[,,,,,'var']))
-)
+# }}}
 
-setGeneric("var<-", function(x, value) standardGeneric("var<-"))
-setMethod("var<-", signature(x="FLQuantPoint", value="ANY"),
-	function(x, value) {
-		x[,,,,,'var'] <- value
-		return(x)
+# Arith {{{
+
+# FLQuantDistr, FLArray
+setMethod("+",
+	signature(e1 = "FLQuantDistr", e2 = "FLArray"),
+	function(e1, e2) {
+		e1@.Data <- e1@.Data + e2
+		units(e1) <- uom('+', units(e1), units(e2))
+		return(e1)
 	}
 )
 
-setGeneric("uppq", function(x, ...) standardGeneric("uppq"))
-setMethod("uppq", signature(x="FLQuantPoint"),
-	function(x, ...)
-		return(FLQuant(x[,,,,,'uppq']))
-)
-
-setGeneric("uppq<-", function(x, value) standardGeneric("uppq<-"))
-setMethod("uppq<-", signature(x="FLQuantPoint", value="ANY"),
-	function(x, value) {
-		x[,,,,,'uppq'] <- value
-		return(x)
+setMethod("-",
+	signature(e1 = "FLQuantDistr", e2 = "FLArray"),
+	function(e1, e2) {
+		e1@.Data <- e1@.Data - e2
+		units(e1) <- uom('-', units(e1), units(e2))
+		return(e1)
 	}
 )
+setMethod("*",
+	signature(e1 = "FLQuantDistr", e2 = "FLArray"),
+	function(e1, e2) {
+		e1@.Data <- e1@.Data * e2@.Data
+		e1@var@.Data <- e2@.Data^2 * e1@var
+		units(e1) <- uom('*', units(e1), units(e2))
+		return(e1)
+	}
+)
+setMethod("/",
+	signature(e1 = "FLQuantDistr", e2 = "FLArray"),
+	function(e1, e2) {
+		e1@.Data <- e1@.Data / e2@.Data
+		e1@var@.Data <- 1/e2@.Data^2 * e1@var
+		units(e1) <- uom('/', units(e1), units(e2))
+		return(e1)
+	}
+) 
 
-setGeneric("lowq", function(x, ...) standardGeneric("lowq"))
-setMethod("lowq", signature(x="FLQuantPoint"),
-	function(x, ...)
-		return(FLQuant(x[,,,,,'lowq']))
+# FLQuantDistr, FLQuantDistr
+
+setMethod("+",
+	signature(e1 = "FLQuantDistr", e2 = "FLQuantDistr"),
+	function(e1, e2) {
+		e1@.Data <- e1@.Data + e2
+		units(e1) <- uom('+', units(e1), units(e2))
+		return(e1)
+	}
 )
 
-setGeneric("lowq<-", function(x, value) standardGeneric("lowq<-"))
-setMethod("lowq<-", signature(x="FLQuantPoint", value="ANY"),
-	function(x, value) {
-		x[,,,,,'lowq'] <- value
-		return(x)
-	}
-) # }}}
 
-## plot	{{{
-# TODO Fix, it is badly broken! 12.09.07 imosqueira
-setMethod("plot", signature(x="FLQuantPoint", y="missing"),
-	function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
-		type='bar', ...) {
 
-		# get dimensions to condition on (length !=1)
-		condnames <- names(dimnames(x)[c(1,3:5)][dim(x)[c(1,3:5)]!=1])
-		cond <- paste(condnames, collapse="+")
-		if(cond != "") cond <- paste("|", cond)
-		formula <- formula(paste("data~year", cond))
-		# set strip to show conditioning dimensions names
-		strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
-
-		pfun <- function(x, y, subscripts, groups, ...){
-			larrows(x[groups[subscripts]=='lowq'], y[groups[subscripts]=='lowq'],
-				x[groups[subscripts]=='uppq'], y[groups[subscripts]=='uppq'], angle=90,
-				length=0.05, ends='both')
-			lpoints(x[groups[subscripts]=='mean'], y[groups[subscripts]=='mean'], pch=16)
-			lpoints(x[groups[subscripts]=='median'], y[groups[subscripts]=='median'], pch=3)
-		}
-
-	# using do.call to avoid eval of some arguments
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(x)
-	lst$x <- formula
-	lst$xlab <- xlab
-	lst$ylab <- ylab
-	lst$strip <- strip
-	lst$groups <- lst$data$iter
-	lst$subscripts <- TRUE
-	lst$panel <- pfun
-	
-	do.call("xyplot", lst)
-	}
-)	# }}}
-
-## quantile   {{{
-setMethod("quantile", signature(x="FLQuantPoint"),
-	function(x, probs=0.25, na.rm=FALSE, dim=1:5, ...) {
-		if(probs==0.25)
-			return(lowq(x))
-		else if (probs==0.75)
-			return(uppq(x))
-		else
-			stop("Only the 0.25 and 0.75 quantiles are available on an FLQuantPoint object")
-	}
-)   # }}}
-
-## summary          {{{
-setMethod("summary", signature(object="FLQuantPoint"),
-	function(object, ...){
-		cat("An object of class \"FLQuantPoint\" with:\n")
-		cat("dim  : ", dim(object), "\n")
-		cat("quant: ", quant(object), "\n")
-		cat("units: ", units(object), "\n\n")
-		cat("1st Qu.: ", mean(lowq(object)), "\n")
-		cat("Mean   : ", mean(mean(object)), "\n")
-		cat("Median : ", mean(median(object)), "\n")
-		cat("Var    : ", mean(var(object)), "\n")
-		cat("3rd Qu.: ", mean(uppq(object)), "\n")
-	}
-)   # }}}
+# }}}
