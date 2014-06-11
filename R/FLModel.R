@@ -263,8 +263,8 @@ setMethod('fmle',
     {
       params(object) <- FLPar(iter=iter, params=dimnames(object@params)$params)
     }
-
-    fitted(object) <- propagate(fitted(object), iter)
+    
+		fitted(object) <- propagate(fitted(object), iter)
     residuals(object) <- propagate(residuals(object), iter)
 
     # vcov
