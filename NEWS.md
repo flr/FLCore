@@ -40,6 +40,7 @@
 - New ple4.biol with data up to 2008. No integer value
 - prototype object for FLComp VIRTUAl class has name as character(1)
 - as.FLQuant(df) failed on objects with no 'year' column
+- propagate(FLQuant) now accepts iter == dim[6]
 	
 ## UTILITIES
 
