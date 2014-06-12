@@ -768,6 +768,40 @@ setMethod("FLQuants", signature(object="ANY"), function(object, ...){
 	new("FLQuants", lst)
 })
 
+
+setMethod("FLQuants", signature(object="FLComp"),
+	function(object, ...) {
+
+		args <- list(...)
+
+		# SPLIT into list if a character vector 
+		if(length(args) == 1 & length(args[[1]]) > 1)
+			args <- as.list(args[[1]])
+
+		# CHECK args are char or function
+		chr <- unlist(lapply(args, function(x) is(x, 'character')))
+		fun <- unlist(lapply(args, function(x) is(x, 'function')))
+		
+		if(sum(chr + fun) != length(args))
+			stop("Arguments in ... must be of class 'character' or 'function'")
+
+		# CHECK function elements have names
+		if(any(names(args[fun]) == ""))
+			stop("Function calls must be named, e.g. catch=catch")
+
+		# GET names
+		nms <- names(args)
+		nms[chr] <- unlist(args[chr])
+
+		# DO.CALL list elements
+		res <- lapply(args, function(x) do.call(x, args=list(object)))
+
+		# ASSIGN names
+		names(res) <- nms
+
+		return(new("FLQuants", res))
+})
+
 setMethod("FLQuants", "missing", function(...){
 	if(missing(...)){
 		new("FLQuants")

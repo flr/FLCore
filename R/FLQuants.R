@@ -5,24 +5,6 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLQuants-methods.R 933 2011-05-03 12:32:03Z imosqueira $
 
-
-## FLQuants     {{{
-#
-#setClass("FLQuants", contains="list", representation(
-#	names="character"))
-# }}}
-
-## FLQuants()   {{{
-#
-#FLQuants <- function(...) {
-#	args <- list(...)
-#	if(length(args)==1 & is.list(args[[1]])) lst <- args[[1]]
-#	if(length(args)>1) lst <- args
-#	lst0 <- lapply(lst, is.FLQuant)
-#	if(!identical(length(lst0),sum(unlist(lst0)))) stop("All elements must be \"FLQuant\" objects.\n")
-#	new("FLQuants", lst)
-#} # }}}
-
 # summary {{{
 setMethod('summary', signature(object='FLQuants'),
   function(object)

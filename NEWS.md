@@ -28,6 +28,7 @@
 - propagate(FLComp) accepts extending an object to existing nu mber of iters for all other slots of length 1.
 - trim(FLS) u[pdates min/maxfbar if needed
 - transform(FLComp) now accepts a named FLQuants object as substitution argument (...)
+- FLQuants() now accepts an FLCOMP object and a list of names/functions to be used to extract individual FLQuant(s)
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
