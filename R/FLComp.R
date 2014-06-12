@@ -106,32 +106,37 @@ setMethod("iter<-", signature(object="FLComp", value="FLComp"),
 	}
 )   # }}}
 
-## transform	{{{
+## transform {{{
 setMethod("transform", signature(`_data`="FLComp"),
-	function(`_data`, ...)
+function(`_data`, ...)
   {
 
-		lst <- list(...)
+	env <- new.env(parent=parent.frame())
 
-		fqs <- unlist(lapply(lst, is, 'FLQuants'))
+	for (i in slotNames(`_data`)) {
+		assign(i, slot(`_data`, i), envir=env)
+	}
 
-		if(any(fqs)) {
-			lst <- c(lst[!fqs], unlist(lst[fqs], recursive=FALSE))
-		}
+	args <- eval(substitute(list(...)), env)
 
-    # An environment is created to avoid issues with
-		#  methods sharing names with slots - IM 26.08.07
-		env <- new.env(parent=parent.frame())
-		for (i in slotNames(`_data`))
-			assign(i, slot(`_data`, i), envir=env)
+	# IF ... is only FLQuants
+	if(is.null(names(args)) & is(args[[1]], 'FLQuants')) {
+		args <- unlist(args, recursive=FALSE)
+	}
 
-    args <- eval(substitute(lst), env)
-		for (i in 1:length(args)) {
-			slot(`_data`, names(args)[i]) <- args[[i]]
-		}
-		if(validObject(`_data`))
-			return(`_data`)
-		stop('Attempt to modify object incorrectly: check input dimensions')
+	# IF both FLQuants and promises
+	if(any(names(args) == "")) {
+		fqs <- unlist(lapply(args, is, 'FLQuants'))
+		args <- c(args[!fqs], unlist(args[fqs], recursive=FALSE))
+	}
+
+	for (i in 1:length(args)) {
+		slot(`_data`, names(args)[i]) <- args[[i]]
+	}
+
+	if(validObject(`_data`))
+		return(`_data`)
+	stop('Attempt to modify object incorrectly: check input dimensions')
 	}
 )	# }}}
 
