@@ -4,12 +4,12 @@ PKGSRC  := $(shell basename `pwd`)
 
 R_FILES := $(wildcard $(PKG)/R/*.R)
 
-all: NEWS readme staticdocs build
+all: news readme staticdocs build
 
 readme: DESCRIPTION
 	R --vanilla --silent -e "library(utils);" \
   -e "desc <- read.dcf('DESCRIPTION', fields = c('Version', 'Date'));" \
-  -e "str<-readLines('README.md');" \
+  -e "str <- readLines('README.md');" \
   -e "ln <- grep('Version:', str);" \
   -e "str[ln[1]] <- sub('Version: .*', paste('Version:', desc[,'Version']), str[ln]);" \
   -e "ln <- grep('Date:', str);" \
@@ -21,7 +21,7 @@ staticdocs: $(R_FILES)
   -e "build_site('../FLCore/', site_path='gh-pages', launch=FALSE)"; \
 	rm Rplots.pdf
 
-NEWS: NEWS.md
+news: NEWS.md
 	sed -e 's/^-/  -/' -e 's/^## *//' -e 's/^#/\t\t/' <NEWS.md | fmt -80 >NEWS
 
 roxygen: $(R_FILES)
