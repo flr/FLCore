@@ -27,6 +27,7 @@
 - deprecated sr function is now a method to return aligned stock/recruits FLQuants from an FLStock
 - propagate(FLComp) accepts extending an object to existing nu mber of iters for all other slots of length 1.
 - trim(FLS) u[pdates min/maxfbar if needed
+- transform(FLComp) now accepts a named FLQuants object as substitution argument (...)
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim

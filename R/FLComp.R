@@ -109,13 +109,23 @@ setMethod("iter<-", signature(object="FLComp", value="FLComp"),
 ## transform	{{{
 setMethod("transform", signature(`_data`="FLComp"),
 	function(`_data`, ...)
-  {	
+  {
+
+		lst <- list(...)
+
+		fqs <- unlist(lapply(lst, is, 'FLQuants'))
+
+		if(any(fqs)) {
+			lst <- c(lst[!fqs], unlist(lst[fqs], recursive=FALSE))
+		}
+
     # An environment is created to avoid issues with
 		#  methods sharing names with slots - IM 26.08.07
 		env <- new.env(parent=parent.frame())
 		for (i in slotNames(`_data`))
 			assign(i, slot(`_data`, i), envir=env)
-    args <- eval(substitute(list(...)), env)
+
+    args <- eval(substitute(lst), env)
 		for (i in 1:length(args)) {
 			slot(`_data`, names(args)[i]) <- args[[i]]
 		}
