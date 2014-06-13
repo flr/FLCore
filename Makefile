@@ -3,6 +3,7 @@ PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGSRC  := $(shell basename `pwd`)
 
 R_FILES := $(wildcard $(PKG)/R/*.R)
+HELP_FILES := $(wildcard $(PKG)/man/*.Rd)
 
 all: news readme staticdocs build
 
@@ -16,7 +17,7 @@ readme: DESCRIPTION
   -e "str[ln[1]] <- sub('Date: .*', paste('Date:', desc[,'Date']), str[ln[1]]);" \
   -e "writeLines(str, con = 'README.md')"
 
-staticdocs: $(R_FILES)
+staticdocs: $(HELP_FILES)
 	R --vanilla --silent -e "library(staticdocs);" \
   -e "build_site('../FLCore/', site_path='gh-pages', launch=FALSE)"; \
 	rm Rplots.pdf
@@ -25,6 +26,8 @@ news: NEWS.md
 	sed -e 's/^-/  -/' -e 's/^## *//' -e 's/^#/\t\t/' <NEWS.md | fmt -80 >NEWS
 
 roxygen: $(R_FILES)
+	R --vanilla --silent -e "library(devtools);" \
+		-e "document()"
 
 build:
 	cd ..;\

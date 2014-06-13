@@ -1,6 +1,6 @@
 # FLCore
-- Version: 2.5.20140611
-- Date: 2014-06-11
+- Version: 2.5.20140612
+- Date: 2014-06-12
 - Author: FLR Team and various contributors.
 - Maintainer: FLR Team <flrteam AT flr-project.org>
 
