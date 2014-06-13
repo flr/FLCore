@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>units. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>units attribute for FLQuant objects</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Objects of class <code><a href='FLIndex.html'>FLQuant</a></code> contain an <code>units</code> attribute of class 
+  <code>character</code>. This should be used to store the corresponding units of measurement.
+  This attribute can be directly accessed and modified using the <code>units</code> and 
+  <code>units<-</code> methods.</p>
+  
+      <p>For complex objects, <code>units</code> will return a named list containing the attributes of
+  all <code>FLQuant</code> slots. <code>units</code> of a complex object can be modified for all slots
+  or a subset of them, by passing a named list with the new values. See examples below.</p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>units(x)</p>
+  
+      <p>units<-(x,value)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(x=FLQuant) :</dt><dd>Describe method</dd>
+<dt> signature(x=FLComp) :</dt><dd>Describe method</dd>
+<dt> signature(x=FLPar) :</dt><dd>Describe method</dd>
+<dt> signature(x=FLCohort) :</dt><dd>Describe method</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(100), dim=c(5,20), units=&#39;kg&#39;)
+units(flq)
+</div>
+<div class='output'>[1] &quot;kg&quot;
+</div>
+<div class='input'>units(flq) &lt;- &#39;t&#39;
+summary(flq)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot; with:
+dim  :  5 20 1 1 1 1 
+quant:  quant 
+units:  t 
+
+Min    :  -2.705082 
+1st Qu.:  -0.5753547 
+Mean   :  -0.01264319 
+Median :  0.06657858 
+3rd Qu.:  0.805485 
+Max    :  2.670316 
+NAs    :  0 %
+</div>
+<div class='input'>
+# units for a complex object
+data(ple4)
+units(ple4)
+</div>
+<div class='output'>$catch
+[1] &quot;t&quot;
+
+$catch.n
+[1] &quot;10^3&quot;
+
+$catch.wt
+[1] &quot;kg&quot;
+
+$discards
+[1] &quot;t&quot;
+
+$discards.n
+[1] &quot;10^3&quot;
+
+$discards.wt
+[1] &quot;kg&quot;
+
+$landings
+[1] &quot;t&quot;
+
+$landings.n
+[1] &quot;10^3&quot;
+
+$landings.wt
+[1] &quot;kg&quot;
+
+$stock
+[1] &quot;t&quot;
+
+$stock.n
+[1] &quot;10^3&quot;
+
+$stock.wt
+[1] &quot;kg&quot;
+
+$m
+[1] &quot;m&quot;
+
+$mat
+[1] &quot;NA&quot;
+
+$harvest
+[1] &quot;f&quot;
+
+$harvest.spwn
+[1] &quot;NA&quot;
+
+$m.spwn
+[1] &quot;NA&quot;
+
+</div>
+<div class='input'>units(ple4) &lt;- list(harvest=&#39;hr&#39;)
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>units,FLArray-method</li><li>units,FLComp-method</li><li>units,FLPar-method</li><li>units,FLCohort-method</li><li>units&lt;-,FLArray,character-method</li><li>units&lt;-,FLComp,list-method</li><li>units&lt;-,FLPar,character-method</li><li>units&lt;-,FLCohort,character-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     FLQuant, FLPar, FLCohort
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

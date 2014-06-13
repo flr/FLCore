@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>mean.lifespan. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method for calculating mean lifespan, given the natural mortality</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>mean.lifespan(x, ...)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>x</dt>
+      <dd> An object of type <code>FLBiol</code>.</dd>
+      <dt>...</dt>
+      <dd> Extra arguments accepted by each implementation.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>For an <code>FLBiol</code> object with the natural mortality-at-age
+	present in the object.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>Using actuarial definitions for the expected life-span of a given species, for a given 
+survival rate-at-age (natural mortality), we can compute the expected life-span, <code class = 'eq'>logL(x)</code>, of a species, from a given reference age <code class = 'eq'>x</code>, using the following equation:</p>
+  
+      <p><pre class = 'eq'>logL(x) = SUM_1_inf exp(SUM_i=x_x+t m_i)</pre>.</p>
+  
+      <p>The method accepts objects of class <code>FLBiol</code> of any particular dimension. If the 
+object has a seasonal structure to the population dynamics, then we sum over all seasons 
+to get the yearly survival rate.</p>
+  
+    </div>
+
+    <div class="Value">
+      <h2>Value</h2>
+      
+      <p>An object of class <code>FLQuant</code> whose first and second dimension is of length one.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'></div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>mean.lifespan</li><li>mean.lifespan-methods</li><li>mean.lifespan,FLBiol-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <code>FLBiol</code>
+    
+    <h2>Author</h2>
+    FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

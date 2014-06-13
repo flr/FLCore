@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>computeCatch. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Methods to compute total catch, landings, discards and stock biomass</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Methods to compute total catch, landings, discards and stock biomass">
+      <h2>Methods to compute total catch, landings, discards and stock biomass</h2>
+      
+    </div>
+
+    <div class="Methods to compute total catch, landings, discards and stock biomass">
+      <h2>Methods to compute total catch, landings, discards and stock biomass</h2>
+      
+    </div>
+
+    <div class="Methods to compute total catch, landings, discards and stock biomass">
+      <h2>Methods to compute total catch, landings, discards and stock biomass</h2>
+      
+    </div>
+
+    <div class="Methods to compute total catch, landings, discards and stock biomass">
+      <h2>Methods to compute total catch, landings, discards and stock biomass</h2>
+      
+    </div>
+
+    <div class="Methods to compute total catch, landings, discards and stock biomass">
+      <h2>Methods to compute total catch, landings, discards and stock biomass</h2>
+      
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>These methods compute the total catch, landings, discards and stock biomass from the
+  quant-structured values in numbers and weight per individual. The calculation for
+  discards, landings and stock involves the product of the landings/discards/stock in
+  numbers (<code>landings.n</code>, <code>discards.n</code> or <code>stock.n</code>) by the individual
+  weight-at-quant (<code>landings.wt</code>, <code>discards.wt</code> or <code>stock.wt</code>), as in</p>
+  
+      <p><pre class = 'eq'>landings = landings.n * landings.wt</pre></p>
+  
+      <p>By selecting <code>slot="catch"</code>, <code>computeCatch</code> can calculate in the same way
+	the total catch from the catch-at-quant and weight in the catch. Those two values (in
+	slots <code>catch.n</code> and <code>catch.wt</code> can also be calculated by specifying 
+	<code>slot="n"</code> and <code>slot="wt"</code> respectively. Calling <code>computeCatch</code> with
+	option <code>slot="all"</code> will carry out the three calculations. In this case, the
+	returned object will be of class <code><a href='FLQuants.html'>FLQuants</a></code>, with elements names
+	<code>catch</code>, <code>catch.n</code> and <code>catch.wt</code>, which can then be passed directly
+	to the <code>catch<-</code> replacement method.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>computeCatch(object, ...)</p>
+  
+      <p>computeLandings(object, ...)</p>
+  
+      <p>computeDiscards(object, ...)</p>
+  
+      <p>computeStock(object, ...)</p>
+  
+    </div>
+
+    <div class="Method arguments">
+      <h2>Method arguments</h2>
+      
+      <p><dl>
+<dt><code>object</code> :</dt><dd>an object of a class for which this method has been defined.</dd>
+<dt><code>slot</code> :</dt><dd>a character vector to select the calculation to perform in
+	<code>computeCatch</code>. One of "n", "wt", "all" or "catch", the default value.
+	The later will compute the total catch (for slot <code>catch</code>) from <code>catch.n</code>
+	and <code>catch.wt</code></dd>
+<dt><code>na.rm</code> :</dt><dd>a logical indicating whether <code>NA</code>s should be deleted from the
+	sums. Defaults to <code>TRUE</code>.</dd>
+</dl></p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(object=FLStock) :</dt><dd>computation on an <code><a href='FLStock.html'>FLStock</a></code> object.</dd>
+<dt> signature(object=FLIndex) :</dt><dd>computation on an <code><a href='FLIndex.html'>FLIndex</a></code> object.</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+summary(computeLandings(ple4))
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot; with:
+dim  :  1 52 1 1 1 1 
+quant:  age 
+units:  10^3 * kg 
+
+Min    :  48874 
+1st Qu.:  81541.75 
+Mean   :  108403.7 
+Median :  110466 
+3rd Qu.:  132758.5 
+Max    :  169818 
+NAs    :  0 %
+</div>
+<div class='input'>landings(ple4) &lt;- computeLandings(ple4)
+catch(ple4) &lt;- computeCatch(ple4, slot=&quot;all&quot;)
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>computeCatch</li><li>computeCatch-methods</li><li>computeCatch,FLStock-method</li><li>computeCatch,FLIndex-method</li><li>computeLandings</li><li>computeLandings-methods</li><li>computeLandings,FLStock-method</li><li>computeDiscards</li><li>computeDiscards-methods</li><li>computeDiscards,FLStock-method</li><li>computeStock</li><li>computeStock-methods</li><li>computeStock,FLStock-method</li><li>computeStock,FLBiol-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='FLComp.html'>FLComp</a> 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

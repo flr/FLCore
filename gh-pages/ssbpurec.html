@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>ssbpurec. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method ssbpurec</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Calculates the Spawning Stock Biomass per unit recruit for an <code>FLStock</code> object.</p>
+  
+      <p>The method calculates SSB per recruit at zero fishing mortality.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>ssbpurec(object)</p>
+  
+    </div>
+
+    <div class="Method arguments">
+      <h2>Method arguments</h2>
+      
+      <p><dl>
+<dt><code>object</code> :</dt><dd>an object of class <code>FLStock</code>.</dd>
+<dt><code>start, end</code> :</dt><dd>The first and last year over which SSB per recruit is
+to be calculated. By default the first and last year of the <code>FLStock</code> object
+are used.</dd>
+<dt><code>type</code> :</dt><dd>The type of calculation to perform. Currently only non-parm
+(non parametric) is supported whereby the SSB per recruit is calculated using
+mean values over the specified time period.</dd>
+<dt><code>recs</code> :</dt><dd>The proportion of the year in which recruitment occurs.</dd>
+<dt><code>spwns</code> :</dt><dd>The proportion of the year in which spawning occurs.</dd>
+<dt><code>plusgroup</code> :</dt><dd>Is the last age a plusgroup TRUE/FALSE</dd>
+</dl></p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(object=FLStock) :</dt><dd>Returns the SBB-per-unit-recruit.</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+data(ple4)
+ssbpurec(ple4)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+age   1957 
+  all 6.801
+
+units:  NC 
+</div>
+<div class='input'>
+ssbpurec(ple4, start=1980, end=2000)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+age   1957  
+  all 5.7863
+
+units:  NC 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>ssbpurec</li><li>ssbpurec-methods</li><li>ssbpurec,FLStock-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     FLStock 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>sweep. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Sweep out FLQuant Summaries</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Return an <code>FLQuant</code> or <code>FLCohort</code>  obtained from an input object by 
+  sweeping out a summary statistic along the selected dimensions.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>sweep(x, MARGIN, STATS, FUN="-", check.margin=TRUE, ...)</p>
+  
+    </div>
+
+    <div class="Method arguments">
+      <h2>Method arguments</h2>
+      
+      <p><dl>
+<dt>x</dt><dd>an FLQuant or FLCohort object.</dd>
+<dt>MARGIN</dt><dd>a vector of indices giving the extents of <code>x</code>
+    which correspond to <code>STATS</code>.</dd>
+<dt>STATS</dt><dd>the summary statistic which is to be swept out.</dd>
+<dt>FUN</dt><dd>the function to be used to carry out the sweep.  In the
+    case of binary operators such as <code>"/"</code> etc., the function name
+    must backquoted or quoted. (<code>FUN</code> is found by a call to
+    <code><a href='http://www.inside-r.org/packages/cran/base/docs/match.fun'>match.fun</a></code>.)</dd>
+<dt>check.margin</dt><dd>logical.  If <code>TRUE</code> (the default), warn if the
+    length or dimensions of <code>STATS</code> do not match the specified
+    dimensions of <code>x</code>.  Set to <code>FALSE</code> for a small speed gain
+    when you <em>know</em> that dimensions match.</dd>
+<dt>...</dt><dd>optional arguments to <code>FUN</code>.</dd>
+</dl></p>
+  
+    </div>
+
+    <div class="Value">
+      <h2>Value</h2>
+      
+      <p>An FLQuant or FLCohort with the same shape as <code>x</code>, but with the summary
+  statistics swept out.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>   data(ple4)
+   mean.f &lt;- apply(harvest(ple4),2,mean)
+   scaled.f &lt;- sweep(harvest(ple4),2,mean.f,&quot;/&quot;)
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>sweep,FLArray-method</li><li>sweep,FLQuant-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+   <code><a href='http://www.inside-r.org/packages/cran/base/docs/sweep'>sweep</a></code>
+
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

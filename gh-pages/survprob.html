@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>survprob. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Calculating survival probabilties given mortality in the FLBiol object</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>survprob(object, ...)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>object</dt>
+      <dd> An object of type <code>FLBiol</code>.</dd>
+      <dt>...</dt>
+      <dd> Extra arguments accepted by each implementation.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>For an <code>FLBiol</code> object with the mortality-at-quant this method calculates the 
+  associated survival probability-at-quant. This can be later used by the <code>r()</code> 
+  method. The calculation can be carried out either by year or by cohort.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>Calculates the survival probability-at-quant given the mortality information in an 
+  <code>FLBiol</code>  object - survival probability from one year to the next is 
+  simply exp(-M) and the survival probaiblity to a given quant is merely the product
+  along the quant dimension of the individual survival probabilities.</p>
+  
+    </div>
+
+    <div class="Value">
+      <h2>Value</h2>
+      
+      <p>An object of class <code>FLQuant</code>.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'></div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>survprob</li><li>survprob-methods</li><li>survprob,FLBiol-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <code>FLBiol</code>
+    
+    <h2>Author</h2>
+    FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

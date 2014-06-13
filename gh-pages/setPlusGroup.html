@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>setPlusGroup. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method setPlusGroup</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Method setPlusGroup">
+      <h2>Method setPlusGroup</h2>
+      
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Calculates the appropriate values for the plusgroup of an object
+ and returns a new object with the plusgroup set to the given age.</p>
+  
+      <p><em>quant</em> of the given object must be 'age', and the selected age must not be
+ greater than the oldest age present in the object.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>sePlusGroup(x, plusgroup)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(x=FLQuant, plusgroup=numeric) :</dt><dd>Adds values for the indicated age and older.</dd>
+<dt> signature(x=FLStock, plusgroup=numeric) :</dt><dd>
+ The values for the plusgroup of the various slots in the <code>FLStock</code> object
+ are calculated in different ways.</p>
+  
+      <p>For slots catch.n, landings.n, discards.n and stock.n the plusgroup is
+ calculated as the sum of values for ages equal to the plusgroup and above.</p>
+  
+      <p>For slots catch.wt, landings.wt, discards.wt and stock.wt the plusgroup value
+ is calculated as the weighted average of the values for ages equal to the
+ plusgroup and above, weighted by the corresponding numbers at age.</p>
+  
+      <p>If stock numbers at age are not available then the revised stock weights are
+ calculated as a weighted average using the catch numbers at age and the slots
+ for harvest, m, mat, harvest.spwn and m.spwn are truncated at the plusgroup age.</p>
+  
+      <p>If stock numbers at age are available the plusgroup values for harvest, m, mat,
+ harvest.spwn and m.spwn are calculated as a weighted average using the stock
+ numbers at age.
+</dd>
+<dt> signature(x=FLBiol, plusgroup=numeric) :</dt><dd>Calculations are similar to FLStock above.</dd>
+<dt> signature(x=FLCatch, plusgroup=numeric) :</dt><dd>Abundances (<em>n</em> slot) are added, while weights (<em>wt</em>), natural mortality (<em>m</em>), and fecundity (<em>fec</em>) are
+averaged.</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+ple4.pg &lt;- setPlusGroup(ple4, 6)
+</div>
+<div class='output'>[1] &quot;maxfbar has been changed to accomodate new plusgroup&quot;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>setPlusGroup</li><li>setPlusGroup-methods</li><li>setPlusGroup,FLQuant,numeric-method</li><li>setPlusGroup,FLStock,numeric-method</li><li>setPlusGroup,FLBiol,numeric-method</li><li>setPlusGroup,FLCatch,numeric-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     FLStock, FLQuant, FLBiol, FLCatch 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

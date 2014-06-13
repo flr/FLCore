@@ -1,1 +1,4 @@
 .travis.yml
+NEWS.md
+gh-pages/
+man-roxygen/

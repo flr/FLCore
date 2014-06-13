@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>as.data.frame. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method as.data.frame</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Method as.data.frame">
+      <h2>Method as.data.frame</h2>
+      
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>This method converts an FLQuant or any other FLR object composed of FLQuants into
+	a <code><a href='http://www.inside-r.org/packages/cran/base/docs/data.frame'>data.frame</a></code>.</p>
+  
+      <p>For a single <a href='FLIndex.html'>FLQuant</a>, the <code>data.frame</code> returned has 7 columns:  <code>quant</code>,
+	<code>year</code>, <code>unit</code>, <code>season</code>, <code>area</code>, <code>iter</code> and <code>data</code>.
+	The last column contains the actual values stored in the original object, while the
+	first six contain the corresponding dimensions. The <code>year</code> and <code>data</code> columns
+	are of class <a href='http://www.inside-r.org/packages/cran/base/docs/numeric'>numeric</a>, while the other five are of class <a href='http://www.inside-r.org/packages/cran/base/docs/factor'>factor</a>.</p>
+  
+      <p>When converting an <code>FLCohort</code> object, the <code>year</code> column is 
+  substituted by <code>cohort</code>.</p>
+  
+      <p>The <code>data.frame</code> returned for complex objects, i.e. those the inherit from class
+	<code><a href='FLComp.html'>FLComp</a></code>, has an extra column, <code>slot</code>, that holds the name of the
+	slot in the original object.</p>
+  
+      <p>The data.frame obtained from an <code>FLQuants</code> object also has an extra 
+  column, named <code>qname</code>, that refers to the name of each <code>FLQuant</code> object in 
+  the list.
+  This column is named <code>cname</code> when an <code>FLCohorts</code> object is
+  converted.</p>
+  
+      <p>Objects of class <a href='FLQuants.html'>FLQuants</a> can also be converted into a wide-format table, where
+	data from the list elements are placed in separate colums, using
+	<a href='model.frame.html'>model.frame,FLlst-method</a>.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>as.data.frame(x, row.names, optional)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(x=FLQuant,row.names=ANY,optional=ANY) :</dt><dd>Converts an FLQuant into a
+	data.frame</dd>
+<dt> signature(x=FLComp,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
+	any class inheriting from FLComp into a data.frame</dd>
+<dt> signature(x=FLQuants,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
+	class FLQuants into a data.frame</dd>
+<dt> signature(x=FLCohorts,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
+	class FLCohorts into a data.frame</dd>
+<dt> signature(x=FLPar,row.names=ANY,optional=ANY) :</dt><dd>Converts objects of 
+	class FLPar into a data.frame</dd>
+<dt> signature(x=FLCohort,row.names=ANY,optional=ANY) :</dt><dd>Converts objects of 
+	class FLCohort into a data.frame</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+fdf &lt;- as.data.frame(catch.n(ple4))
+head(fdf)
+</div>
+<div class='output'>  age year   unit season   area iter  data
+1   1 1957 unique    all unique    1 32356
+2   2 1957 unique    all unique    1 49911
+3   3 1957 unique    all unique    1 69038
+4   4 1957 unique    all unique    1 45627
+5   5 1957 unique    all unique    1 32732
+6   6 1957 unique    all unique    1  8910
+</div>
+<div class='input'>summary(fdf)
+</div>
+<div class='output'>      age            year          unit     season        area     iter   
+ Min.   : 1.0   Min.   :1957   unique:520   all:520   unique:520   1:520  
+ 1st Qu.: 3.0   1st Qu.:1970                                              
+ Median : 5.5   Median :1982                                              
+ Mean   : 5.5   Mean   :1982                                              
+ 3rd Qu.: 8.0   3rd Qu.:1995                                              
+ Max.   :10.0   Max.   :2008                                              
+      data        
+ Min.   :    412  
+ 1st Qu.:   7028  
+ Median :  29044  
+ Mean   :  81703  
+ 3rd Qu.: 101952  
+ Max.   :1459325  
+</div>
+<div class='input'>
+sdf &lt;- as.data.frame(ple4)
+head(sdf)
+</div>
+<div class='output'>   slot age year   unit season   area iter      data
+1 catch all 1957 unique    all unique    1  78422.95
+2 catch all 1958 unique    all unique    1  88240.06
+3 catch all 1959 unique    all unique    1 109237.62
+4 catch all 1960 unique    all unique    1 117137.86
+5 catch all 1961 unique    all unique    1 118330.99
+6 catch all 1962 unique    all unique    1 125272.44
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>as.data.frame-FLCore</li><li>coerce,FLArray,data.frame-method</li><li>as.data.frame,FLArray,missing,missing-method</li><li>as.data.frame,FLQuant,missing,missing-method</li><li>as.data.frame,FLCohort,missing,missing-method</li><li>as.data.frame,FLComp,missing,missing-method</li><li>as.data.frame,FLQuants,missing,missing-method</li><li>as.data.frame,FLCohorts,missing,missing-method</li><li>as.data.frame,FLPar,ANY,ANY-method</li><li>as.data.frame,FLCohort,ANY,ANY-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='http://www.inside-r.org/packages/cran/base/docs/as.data.frame'>as.data.frame</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/model.frame'>model.frame</a>, <a href='model.frame.html'>model.frame,FLlst-method</a>
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

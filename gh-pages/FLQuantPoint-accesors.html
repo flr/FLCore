@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLQuantPoint-accesors. FLCore 2.5.20140612</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140612</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method lowq</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>These are the accesor and replacement methods for the various elements stored in an 
+  <code>FLQuantPoint</code> object along the sixth dimension.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>lowq(x) 
+ lowq<-(x,value) 
+ mean(x) 
+ mean<-(x,value) 
+ median(x,na.rm) 
+ median<-(x,value) 
+ uppq(x) 
+ uppq<-(x,value) 
+ var(x,y,na.rm,use) 
+ var<-(x,value)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt>signature(x=FLQuantPoint) :</dt><dd>Returns the given <em>iter</em></dd>
+<dt>signature(x=FLQuantPoint, value=FLQuant) :</dt><dd>Replaces the given <em>iter</em> with the 
+  <em>value</em> FLQuant</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(2000), dim=c(10,20,1,1,1,200))
+flqp &lt;- FLQuantPoint(flq)
+mean(flqp)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1          2          3          4          5          6         
+   1  -0.0288394 -0.0217406 -0.3151984 -0.2066503 -0.1164592 -0.3621242
+   2   0.0225716 -0.0592521  0.1417691 -0.5180758  0.3980531 -0.1997813
+   3  -0.2314823 -0.4798261 -0.2628154 -0.3093844  0.5401724  0.1686961
+   4   0.0704302  0.0827741 -0.3336131  0.3450264  0.0494688  0.2255477
+   5   0.0368208  0.6082082 -0.2423079 -0.5279721 -0.2796396 -0.3159601
+   6  -0.3885399 -0.3058346 -0.3201491 -0.3043770  0.3184584  0.0637206
+   7   0.2707527 -0.0151081 -0.0166767 -0.1741530 -0.2897679 -0.0491400
+   8   0.3126131  0.1150584 -0.1008093  0.5226761  0.6610936  0.2223270
+   9  -0.2014993 -0.4568854  0.3969029 -0.1687136 -0.1250739  0.0929387
+   10  0.6393476  0.0026025 -0.3703854 -0.1226679 -0.4148509  0.1349556
+     year
+quant 7          8          9          10         11         12        
+   1  -0.2847635  0.0093271 -0.1657390 -0.4301439  0.1023816 -0.1513477
+   2  -0.1746646  0.1238727  0.2638233 -0.1923995  0.1542775 -0.0752921
+   3  -0.0652450 -0.0378712  0.2411186 -0.8523828  0.3765695  0.2840706
+   4  -0.3005362 -0.1510760  0.0052341  0.0913447 -0.2279200 -0.5755175
+   5   0.5198670 -0.2845192 -0.0612916 -0.2649749  0.8043575 -0.0962270
+   6   0.2122188  0.1245398  0.4286290 -0.3773570 -0.2812981 -0.2005362
+   7  -0.2730486 -0.3452994 -0.1899721 -0.0546293  0.0215165 -0.2513151
+   8  -0.1794388 -0.2831482  0.0887119  0.2429728 -0.1704310  0.4044980
+   9  -0.0564700  0.2747941 -0.0242141 -0.0756176  0.0483194  0.0656810
+   10  0.9499945 -0.2967825  0.2495167 -0.2084533  0.0973094  0.5754489
+     year
+quant 13         14         15         16         17         18        
+   1   0.1280127 -0.4137500 -0.1862631 -0.1221318 -0.3876872 -0.1441515
+   2  -0.2079436 -0.1115293 -0.3800195 -0.2679175  0.2088283 -0.8221844
+   3   0.5129521 -0.2133272  0.0480562 -0.0863952  0.2871726  0.2928043
+   4   0.2535852  0.4240500 -0.0386555  0.3947030  0.3137872 -0.2915816
+   5   0.1416906  0.1360207 -0.6144205 -0.4645984 -0.5528347  0.1339495
+   6   0.1439486  0.1540151 -0.2037619  0.6549079  0.0591141 -0.0512228
+   7  -0.3660356  0.1346341  0.4303068  0.5257778  0.0744249  0.3659878
+   8  -0.4924567  0.0833225 -0.3301963  0.3036973 -0.2047410  0.3440921
+   9  -0.2161610 -0.0933661 -0.3529237  0.1505264 -0.1700583  0.1376457
+   10 -0.0276561  0.2430898 -0.2952322 -0.0546173 -0.0748938  0.2691030
+     year
+quant 19         20        
+   1  -0.2023703 -0.0048944
+   2  -0.2833384  0.0449281
+   3   0.4692411  0.2095139
+   4  -0.0310810  0.0323273
+   5  -0.2144328  0.2674719
+   6   0.0669627  0.2281430
+   7  -0.0083942 -0.3450807
+   8   0.1231670  0.0383252
+   9   0.2124712  0.2971493
+   10  0.4505543 -0.0241471
+
+units:  NA 
+</div>
+<div class='input'>mean(flqp) &lt;- FLQuant(rnorm(200, 10, 3), dim=c(10,20))
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLQuantPoint-accesors</li><li>lowq</li><li>lowq-methods</li><li>lowq,FLQuantPoint-method</li><li>lowq&lt;-</li><li>lowq&lt;--methods</li><li>lowq&lt;-,FLQuantPoint-method</li><li>mean,FLQuantPoint-method</li><li>mean&lt;-</li><li>mean&lt;--methods</li><li>mean&lt;-,FLQuantPoint-method</li><li>median,FLQuantPoint,missing-method</li><li>median,FLQuantPoint-method</li><li>median&lt;-</li><li>median&lt;--methods</li><li>median&lt;-,FLQuantPoint-method</li><li>uppq</li><li>uppq-methods</li><li>uppq,FLQuantPoint-method</li><li>uppq&lt;-</li><li>uppq&lt;--methods</li><li>uppq&lt;-,FLQuantPoint-method</li><li>var,FLQuantPoint-method</li><li>var,FLQuantPoint,missing,missing,missing-method</li><li>var&lt;-</li><li>var&lt;--methods</li><li>var&lt;-,FLQuantPoint-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='FLComp.html'>FLComp</a> 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
