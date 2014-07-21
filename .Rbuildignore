@@ -1,6 +1,0 @@
-.travis.yml
-NEWS.md
-gh-pages/
-man-roxygen/
-Makefile
-.git/

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLQuant. FLCore 2.5.20140714</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140714</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>FLQuant class for numerical data</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="FLQuant class for numerical data">
+      <h2>FLQuant class for numerical data</h2>
+      
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>The <code>FLQuant</code> class is a six-dimensional <code><a href='http://www.inside-r.org/packages/cran/base/docs/array'>array</a></code>
+designed to store most quantitative data used in fisheries and population
+modelling.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>The six dimensions are named. The name of the first dimension can be
+altered by the user from its default, <code>quant</code>. This could typically be
+<code>age</code> or <code>length</code> for data related to natural populations. The
+only name not accepted is 'cohort', as data structured along cohort should
+be stored using the <code><a href='FLCohort-class.html'>FLCohort</a></code> class instead. Other dimensions
+are always names as follows: <code>year</code>, for the calendar year of the
+datapoint; <code>unit</code>, for any kind of division of the population, e.g. by
+sex; <code>season</code>, for any temporal strata shorter than year; <code>area</code>,
+for any kind of spatial stratification; and <code>iter</code>, for replicates
+obtained through bootstrap, simulation or Bayesian analysis.</p>
+  
+      <p>In addition, <code>FLQuant</code> objects contain a <code>units</code> attribute, of
+class <code><a href='http://www.inside-r.org/packages/cran/base/docs/character'>character</a></code>, intended to contain the units of
+measurement relevant to the data.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+      
+      <p><dl>
+<dt>.Data</dt><dd>A 6-D array for numeric data. <code><a href='http://www.inside-r.org/packages/cran/base/docs/array'>array</a></code>.</dd>
+<dt>units</dt><dd>Units of measurement. <code><a href='http://www.inside-r.org/packages/cran/base/docs/character'>character</a></code>.</dd>
+</dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Validity">
+      <h2>Validity</h2>
+      
+      <p><dl>
+<dt>Dimensions:</dt><dd>Array must have 6 dimensions</dd>
+<dt>Content:</dt><dd>Array must be of class <code>numeric</code></dd>
+<dt>Dimnames:</dt><dd>Dimensions 2 to 6 must be named "year", "unit", "season", "area" and "iter"</dd>
+</dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+      
+      <p></p>
+  
+      <p>The <code>FLQuant</code> method provides a flexible constructor for objects of the class.
+ Inputs can be of class:
+ <dl>
+<dt><code>vector</code>:</dt><dd>A numeric vector will be placed along the year dimension by default.</dd>
+<dt><code>matrix</code>:</dt><dd>A matrix will be placed along dimensions 1 and 2, unless otherwise specified by 'dim'. The matrix dimnames will be used unless overriden by 'dimnames'.</dd>
+<dt><a href='http://www.inside-r.org/packages/cran/base/docs/array'>array</a>:</dt><dd>As above</dd>
+<dt><a href='http://www.inside-r.org/packages/cran/base/docs/missing'>missing</a>:</dt><dd>If no input is given, an empty <code>FLQuant</code>  (NA) is returned, but dimensions and dimnames can still be specified.</dd>
+</dl></p>
+  
+      <p>Additional arguments to the constructor:
+ <dl>
+<dt>units:</dt><dd>The units of measurement, a <code><a href='http://www.inside-r.org/packages/cran/base/docs/character'>character</a></code> string.</dd>
+<dt>dim:</dt><dd>The dimensions of the object, a <code><a href='http://www.inside-r.org/packages/cran/base/docs/numeric'>numeric</a></code> vector of length 6.</dd>
+<dt>dimnames:</dt><dd>A <code><a href='http://www.inside-r.org/packages/cran/base/docs/list'>list</a></code> object providing the dimnames of the array. Only those different from the default ones need to be specified.</dd>
+<dt>quant:</dt><dd>The name of the first dimension, if different from 'quant', as a <code><a href='http://www.inside-r.org/packages/cran/base/docs/character'>character</a></code> string.</dd>
+</dl></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'># creating a new FLQuant
+flq &lt;- FLQuant()
+flq &lt;- FLQuant(1:10, dim=c(2,5))
+summary(flq)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot; with:
+dim  :  2 5 1 1 1 1 
+quant:  quant 
+units:  NA 
+
+Min    :  1 
+1st Qu.:  3.25 
+Mean   :  5.5 
+Median :  5.5 
+3rd Qu.:  7.75 
+Max    :  10 
+NAs    :  0 %
+</div>
+<div class='input'>
+# Vectors are used column first...
+dim(FLQuant(1:10))
+</div>
+<div class='output'>[1]  1 10  1  1  1  1
+</div>
+<div class='input'># ...while matrices go row first.
+dim(FLQuant(matrix(1:10)))
+</div>
+<div class='output'>[1] 10  1  1  1  1  1
+</div>
+<div class='input'>
+FLQuant(matrix(rnorm(100), ncol=20))
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1          2          3          4          5          6         
+    1  0.8208838 -0.5188697 -1.1079546 -2.6163971  0.0303431 -0.9143059
+    2  0.1203779 -0.1912307  0.6222795 -0.2517372 -1.1140410 -0.8911380
+    3 -2.0222936  1.0092432  0.2565262  2.6627984 -0.4880721 -1.4515990
+    4  0.6095029 -0.6993473  0.4166183 -0.4042788 -0.8092003 -0.6366845
+    5  1.1720064  2.1469443  1.6162033 -1.1295747 -2.0964327  0.7072659
+     year
+quant 7          8          9          10         11         12        
+    1  0.5540406  1.0387044  1.6011020  1.0342160 -0.3329192  0.0776137
+    2 -0.9777150  2.8125190  1.2460354 -0.2079489  0.2780972  0.0022524
+    3  0.0385345 -1.5116584  0.9446221 -1.2227911  0.5262303 -0.5094752
+    4 -0.5921006 -1.3299622  0.4518779 -1.1295476 -0.4126002  1.8849026
+    5  1.8679999 -0.9296487  1.6047367  0.7568315 -0.9351686 -0.6385456
+     year
+quant 13         14         15         16         17         18        
+    1  0.3530656  1.8130992  0.2295731 -1.1831599 -0.1118030 -1.3097527
+    2 -0.3109507  0.0221360 -0.4394988 -0.1375537  0.1334528  1.6637359
+    3 -0.4744025 -0.5625675 -1.0824719  0.8379189  0.0483573 -0.3241657
+    4  0.3362529  0.7274374  0.2895680 -0.5409838 -0.6120002  0.2751576
+    5  1.4883898  0.1379986  0.0245189 -0.2692715  0.6134937 -0.3259562
+     year
+quant 19         20        
+    1 -0.5758936 -1.9176214
+    2  1.1024495  0.4680815
+    3  0.6616019  0.9229132
+    4 -1.0197145  1.7167497
+    5 -0.6223689  0.2710242
+
+units:  NA 
+</div>
+<div class='input'>
+FLQuant(array(rnorm(100), dim=c(5,2,1,1,1,10)))
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+iters:  10 
+
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1                2               
+    1 -0.029279(0.373) -0.186626(0.738)
+    2 -0.186962(0.683) -0.543568(0.881)
+    3 -0.178863(1.428) -0.119563(0.959)
+    4  0.385360(2.274) -1.074028(0.520)
+    5  0.745963(1.368)  0.109675(0.792)
+
+units:  NA 
+</div>
+<div class='input'>FLQuant(array(rnorm(100), dim=c(5,2)), iter=10)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+iters:  10 
+
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1            2           
+    1 -0.068866(0)  0.942221(0)
+    2  1.406455(0) -0.944706(0)
+    3  0.554196(0)  3.515500(0)
+    4  0.971894(0)  0.678249(0)
+    5 -0.399925(0) -0.035375(0)
+
+units:  NA 
+</div>
+<div class='input'>
+# working with FLQuant objects
+flq &lt;- FLQuant(rnorm(200), dimnames=list(age=1:5, year=2000:2008), units=&#39;diff&#39;)
+summary(flq)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot; with:
+dim  :  5 9 1 1 1 1 
+quant:  age 
+units:  diff 
+
+Min    :  -2.15851 
+1st Qu.:  -0.6538099 
+Mean   :  -0.0603692 
+Median :  0.04720128 
+3rd Qu.:  0.6379618 
+Max    :  2.015468 
+NAs    :  0 %
+</div>
+<div class='input'>
+flq[1,]
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+   year
+age 2000     2001     2002     2003     2004     2005     2006     2007    
+  1  0.21254 -0.65381 -0.79369 -0.45111 -1.05169 -1.19045 -0.24999  0.36122
+   year
+age 2008    
+  1 -0.38582
+
+units:  diff 
+</div>
+<div class='input'>flq[,1]
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+   year
+age 2000      
+  1  0.2125429
+  2 -0.0021204
+  3 -1.3552718
+  4  0.9584654
+  5 -0.0745817
+
+units:  diff 
+</div>
+<div class='input'>flq[1,1] &lt;- 0
+
+units(flq)
+</div>
+<div class='output'>[1] &quot;diff&quot;
+</div>
+<div class='input'>quant(flq)
+</div>
+<div class='output'>[1] &quot;age&quot;
+</div>
+<div class='input'>
+plot(flq)
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLQuant</li><li>FLQuant,FLQuant-method</li><li>FLQuant,array-method</li><li>FLQuant,matrix-method</li><li>FLQuant,missing-method</li><li>FLQuant,vector-method</li><li>FLQuant-class</li><li>FLQuant-methods</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code>FLQuant</code>
+
+    
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

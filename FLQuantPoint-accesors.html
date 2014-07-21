@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLQuantPoint-accesors. FLCore 2.5.20140714</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140714</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method lowq</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>These are the accesor and replacement methods for the various elements stored in an 
+  <code>FLQuantPoint</code> object along the sixth dimension.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>lowq(x) 
+ lowq<-(x,value) 
+ mean(x) 
+ mean<-(x,value) 
+ median(x,na.rm) 
+ median<-(x,value) 
+ uppq(x) 
+ uppq<-(x,value) 
+ var(x,y,na.rm,use) 
+ var<-(x,value)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt>signature(x=FLQuantPoint) :</dt><dd>Returns the given <em>iter</em></dd>
+<dt>signature(x=FLQuantPoint, value=FLQuant) :</dt><dd>Replaces the given <em>iter</em> with the 
+  <em>value</em> FLQuant</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(2000), dim=c(10,20,1,1,1,200))
+flqp &lt;- FLQuantPoint(flq)
+mean(flqp)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1           2           3           4           5           6          
+   1   7.5510e-01  4.8624e-02 -4.2401e-02 -1.0215e-01  7.0393e-02  5.4478e-01
+   2  -1.4927e-02 -5.4114e-01  3.2915e-01  6.6714e-02  1.3399e-01 -3.1118e-01
+   3   3.7070e-01 -1.5286e-01  1.7780e-01  7.4729e-02  6.1443e-03  2.4796e-01
+   4  -5.6755e-01 -5.7852e-01 -6.7231e-02  2.8987e-01 -1.6987e-01 -5.9401e-02
+   5   3.3777e-01 -6.8317e-02  2.6827e-01  1.1488e-01  1.0389e-02  2.9758e-01
+   6  -5.6869e-01 -1.3785e-01  8.0170e-02  2.0777e-01  7.5306e-02 -2.8448e-01
+   7   2.5381e-02  3.1216e-01 -3.2925e-02  3.8295e-01  3.5369e-01  2.1460e-01
+   8   6.9113e-02  6.8012e-01  3.4144e-01  9.3165e-05  2.7749e-01 -6.3013e-01
+   9  -3.7259e-01  5.4958e-01 -1.3807e-01  4.9875e-02  1.0809e-01 -7.0609e-02
+   10  5.7966e-02  3.2788e-01  4.9372e-01  4.6118e-01  3.5930e-01  4.0147e-01
+     year
+quant 7           8           9           10          11          12         
+   1   8.0593e-02 -1.1512e-01 -1.8891e-01  3.1444e-01 -3.7794e-01  8.7583e-02
+   2   1.2799e-01  4.1859e-02 -9.0713e-02  5.8327e-01 -5.0558e-01 -5.7568e-02
+   3  -2.2070e-01  3.5847e-02  7.5693e-02  2.8541e-01 -3.7788e-01 -2.1662e-01
+   4  -7.1163e-02 -7.0487e-02 -6.9671e-02 -2.1742e-01  1.4519e-01  5.0276e-01
+   5   1.2195e-01 -6.8018e-01 -1.3115e-01 -2.1509e-01  1.8906e-02 -1.3384e-01
+   6  -1.1685e-01  1.1971e-02 -8.0369e-01  7.3389e-01 -2.1521e-01  1.9693e-01
+   7   6.3639e-02 -7.2209e-01 -5.3240e-01 -1.5982e-01  1.1531e+00 -6.3562e-02
+   8  -2.7841e-01 -3.4916e-01 -4.5242e-01  2.1520e-01  2.0392e-01 -2.9136e-01
+   9  -3.1857e-01 -3.3336e-01  1.4541e-01 -2.8866e-01 -5.0929e-01 -4.5302e-02
+   10  9.3332e-02  1.5431e-01 -7.7872e-01  5.9713e-02  3.9425e-02  4.3189e-01
+     year
+quant 13          14          15          16          17          18         
+   1   3.3943e-01  7.2224e-01 -1.5288e-02 -8.0402e-02  3.3581e-02 -5.3280e-02
+   2  -2.8687e-01 -4.9186e-02 -3.8350e-01  2.1741e-01 -2.3959e-01 -9.3589e-02
+   3   2.1636e-01  2.4405e-01  4.4403e-02 -1.8701e-01  2.9031e-01 -8.1495e-02
+   4   3.9806e-01 -1.1418e-01  5.3519e-01  7.0299e-01 -5.8870e-02  4.7729e-01
+   5   8.9333e-02  2.6227e-02 -7.7327e-02 -5.3841e-01  4.9641e-01  1.8258e-01
+   6  -5.4860e-02 -2.7349e-02  1.1201e-01  3.4465e-01  2.3919e-01  2.9128e-01
+   7  -4.9554e-01  2.2940e-01  3.0979e-02  4.5863e-03 -1.0176e-01 -2.5437e-01
+   8   7.7658e-01  2.6662e-01  9.0206e-02 -1.3915e-01  4.1347e-01 -5.0147e-02
+   9   6.8092e-02  4.0185e-01  1.7953e-01  2.8112e-01  6.2048e-02 -1.4701e-02
+   10  1.4268e-01 -3.7474e-01  4.7047e-01  1.8202e-01 -5.4291e-01 -3.9911e-02
+     year
+quant 19          20         
+   1  -2.3935e-02 -3.8171e-01
+   2  -4.3611e-02  5.8126e-01
+   3   2.6585e-01 -3.0948e-02
+   4  -2.3947e-01  2.6964e-01
+   5  -6.2277e-02  3.3987e-01
+   6   2.0321e-01  1.5335e-01
+   7   2.0664e-02  9.7277e-02
+   8   8.0945e-02  5.6995e-01
+   9  -3.6454e-01 -1.6878e-01
+   10 -1.8778e-01  4.6535e-01
+
+units:  NA 
+</div>
+<div class='input'>mean(flqp) &lt;- FLQuant(rnorm(200, 10, 3), dim=c(10,20))
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLQuantPoint-accesors</li><li>lowq</li><li>lowq-methods</li><li>lowq,FLQuantPoint-method</li><li>lowq&lt;-</li><li>lowq&lt;--methods</li><li>lowq&lt;-,FLQuantPoint-method</li><li>mean,FLQuantPoint-method</li><li>mean&lt;-</li><li>mean&lt;--methods</li><li>mean&lt;-,FLQuantPoint-method</li><li>median,FLQuantPoint,missing-method</li><li>median,FLQuantPoint-method</li><li>median&lt;-</li><li>median&lt;--methods</li><li>median&lt;-,FLQuantPoint-method</li><li>uppq</li><li>uppq-methods</li><li>uppq,FLQuantPoint-method</li><li>uppq&lt;-</li><li>uppq&lt;--methods</li><li>uppq&lt;-,FLQuantPoint-method</li><li>var,FLQuantPoint-method</li><li>var,FLQuantPoint,missing,missing,missing-method</li><li>var&lt;-</li><li>var&lt;--methods</li><li>var&lt;-,FLQuantPoint-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='FLComp.html'>FLComp</a> 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
