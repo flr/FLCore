@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLModel. FLCore 2.5.20140714</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140714</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Class FLModel for statistical models</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>The FLModel class provides a virtual class that developers of various statistical
+  models can use to implement classes that allow those models to be tested, fitted
+  and presented.</p>
+  
+      <p>Slots in this class attempt to map all the usual outputs for a modelling
+  exercise, together with the standard inputs. Input data is stored in slots
+  created by each of those classes based on FLModel.See, for example
+  <code>FLSR</code> for a class used for stock-recruitment models.</p>
+  
+      <p>Various fitting algorithms, similar to those present in the basic R packages are 
+  currently available for FLModel, including <code><a href='fmle.html'>fmle</a></code>, <code><a href='nls.html'>nls-FLCore</a></code> 
+  and <code><a href='http://www.inside-r.org/packages/cran/stats/docs/glm'>glm</a></code>.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+      
+      <p><dl>
+<dt>name</dt><dd>Name of the object. <code>character</code>.</dd>
+<dt>desc</dt><dd>Description of the object. <code>character</code>.</dd>
+<dt>range</dt><dd>Range. <code>numeric</code>.</dd>
+<dt>fitted</dt><dd>Estimated values for rec. <code>FLQuant</code>.</dd>
+<dt>residuals</dt><dd>Residuals obtained from the model fit. <code>FLQuant</code>.</dd>
+<dt>model</dt><dd>Model formula. <code>formula</code>.</dd>
+<dt>gr</dt><dd>Function returning the gradient of the likelihood. <code>function</code>.</dd>
+<dt>logl</dt><dd>Log-likelihood function. <code>function</code>.</dd>
+<dt>initial</dt><dd>Function returning initial parameter values for the optimizer, as an object of class <code>FLPar</code>. <code>function</code>.</dd>
+<dt>params</dt><dd>Estimated parameter values. <code>FLPar</code>.</dd>
+<dt>logLik</dt><dd>Value of the log-likelihood. <code>logLik</code>.</dd>
+<dt>vcov</dt><dd>Variance-covariance matrix. <code>array</code>.</dd>
+<dt>hessian</dt><dd>Hessian matrix obtained from the parameter fitting. <code>array</code>.</dd>
+<dt>details</dt><dd>extra information on the model fit procedure. <code>list</code>.</dd>
+</dl></p>
+  
+    </div>
+
+    <div class="Extends">
+      <h2>Extends</h2>
+      
+      <p><dl>
+</dl></p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+      
+      <p><dl>
+<dt></dt><dd>Constructor method for objects of class <code>FLModel</code>. This method is to be called by the constructor methods of classes extending <code>FLModel</code>.</dd>
+<dt></dt><dd>An argument <code>class</code> instructs the constructor about the exact class of the returned object. Constructor methods for <code>FLModel</code>-based class should simply invoke this method with the appropriate class argument (See example below).</dd>
+<dt> signature(object=formula) :</dt><dd>First argument is a formula describing the model, to be placed in the <code>model</code> slot.</dd>
+<dt> signature(object=missing) :</dt><dd>Arguments, if given, are parsed and allocated by name to a iven slot. If none if provided, and empty <code>FLModel</code> object is returned.</dd>
+<dt> signature(object=function) :</dt><dd>A function returning a list with names equal to one or more of the slots in the class is called, and elements in that list are allocated by name. See <code><a href='SRModels.html'>SRModels</a></code> for uses of this mechanism</dd>
+<dt> signature(object=character) :</dt><dd>A function with his name is called, as above.</dd>
+</dl></p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt><a href='http://www.inside-r.org/packages/cran/stats/docs/AIC'>AIC</a>(stats) :</dt><dd>Describe method</dd>
+<dt></dt><dd><code> signature(object=FLModel,k=numeric) </code></dd>
+<dt><a href='http://www.inside-r.org/packages/cran/stats/docs/AIC'>AIC</a>(stats) :</dt><dd>Describe method</dd>
+<dt></dt><dd><code> signature(object=FLModel,k=missing) </code></dd>
+<dt><a href='http://www.inside-r.org/packages/cran/stats/docs/AIC'>BIC</a>(stats) :</dt><dd>Describe method</dd>
+<dt></dt><dd><code> signature(object=missing) </code></dd>
+<dt><a href='fmle.html'>fmle</a>(FLCore) :</dt><dd>Describe method</dd>
+<dt></dt><dd><code> signature(object=missing,start=missing) </code></dd>
+<dt><a href='http://www.inside-r.org/packages/cran/stats/docs/nls'>nls</a>(stats) :</dt><dd>Describe method</dd>
+<dt></dt><dd><code> signature(formula=FLModel,data=missing,start=missing,control=missing,algorithm=missing,trace=missing,subset=missing,weights=missing,na.action=missing,model=missing,lower=missing,upper=missing) </code></dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'># Normally, FLModel objects won&#39;t be created, as class lacks input slots
+summary(FLModel(length~width*alpha))
+</div>
+<div class='output'>An object of class &quot;FLModel&quot;
+
+Name:  
+Description:  
+Range:	 min	max	minyear	maxyear 
+	NA	NA	1	1	
+Quant: quant 
+
+residuals     : [ 1 1 1 1 1 1 ], units =  NA 
+fitted        : [ 1 1 1 1 1 1 ], units =  NA 
+
+Model: 	length ~ width * alpha
+&lt;environment: 0x62e0ac0&gt;
+Parameters: 
+    params
+iter length width alpha
+   1     NA    NA    NA
+
+Log-likelihood:  NA(NA) 
+Variance-covariance:         params
+params   length width alpha
+  length     NA    NA    NA
+  width      NA    NA    NA
+  alpha      NA    NA    NA
+</div>
+<div class='input'>
+# Objects of FLModel-based classes use their own constructor,
+# which internally calls FLModel
+fsr &lt;- FLModel(rec~ssb*a, class=&#39;FLSR&#39;)
+is(fsr)
+</div>
+<div class='output'>[1] &quot;FLSR&quot;    &quot;FLModel&quot; &quot;FLComp&quot; 
+</div>
+<div class='input'>summary(fsr)
+</div>
+<div class='output'>An object of class &quot;FLSR&quot;
+
+Name:  
+Description:  
+Range:	 min	max	minyear	maxyear 
+	NA	NA	1	1	
+Quant: quant 
+
+rec           : [ 1 1 1 1 1 1 ], units =  NA 
+ssb           : [ 1 1 1 1 1 1 ], units =  NA 
+residuals     : [ 1 1 1 1 1 1 ], units =  NA 
+fitted        : [ 1 1 1 1 1 1 ], units =  NA 
+
+Model: 	rec ~ ssb * a
+&lt;environment: 0x62e0ac0&gt;
+Parameters: 
+    params
+iter  a
+   1 NA
+
+Log-likelihood:  NA(NA) 
+Variance-covariance:       params
+params  a
+     a NA
+</div>
+<div class='input'>
+# An example constructor method for an FLModel-based class
+# create FLGrowth class with a single new slot, &#39;mass&#39;
+setClass(&#39;FLGrowth&#39;, representation(&quot;FLModel&quot;,
+  mass=&#39;FLArray&#39;))
+
+# define creator method, based on FLModel()
+setGeneric(&#39;FLGrowth&#39;, function(object, ...)
+		standardGeneric(&#39;FLGrowth&#39;))
+</div>
+<strong class='message'>Creating a new generic function for ‘FLGrowth’ in the global environment</strong>
+<div class='output'>[1] &quot;FLGrowth&quot;
+</div>
+<div class='input'>setMethod(&#39;FLGrowth&#39;, signature(object=&#39;ANY&#39;),
+  function(object, ...)
+    FLModel(object, class=&#39;FLGrowth&#39;, ...))
+</div>
+<div class='output'>[1] &quot;FLGrowth&quot;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLModel-class</li><li>FLModel</li><li>FLModel-methods</li><li>FLModel,formula-method</li><li>FLModel,missing-method</li><li>FLModel,character-method</li><li>FLModel,function-method</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='http://www.inside-r.org/packages/cran/stats/docs/AIC'>AIC</a>, BIC, <a href='fmle.html'>fmle</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/nls'>nls</a>, <a href='FLComp.html'>FLComp</a> 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

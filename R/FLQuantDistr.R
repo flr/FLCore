@@ -63,6 +63,18 @@ setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 # }}}
 
 ## accesors	{{{
+setMethod("e", signature(x="FLQuantDistr"),
+	function(x)
+		return(FLQuant(x@.Data, units=units(x)))
+)
+
+setMethod("e<-", signature(x="FLQuantDistr", value="FLQuant"),
+	function(x, value) {
+		x@.Data <- value
+		return(x)
+	}
+)
+
 setMethod("var", signature(x="FLQuantDistr"),
 	function(x)
 		return(x@var)

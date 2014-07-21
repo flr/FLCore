@@ -49,7 +49,7 @@ BUG FIXES
   up to 2008. No integer value - prototype object for FLComp VIRTUAl class
   has name as character(1) - as.FLQuant(df) failed on objects with no 'year'
   column - propagate(FLQuant) now accepts iter == dim[6] - Faulty comparison
-  in expand(FLArray) fixed #7 - Worng test in validity for FLModelSim
+  in expand(FLArray) fixed #7 - Wrong test in validity for FLModelSim
 
 UTILITIES
 

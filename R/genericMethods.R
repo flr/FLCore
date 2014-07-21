@@ -656,6 +656,10 @@ setGeneric("FLSR", function(model, ...)
 	setGeneric("FLQuant", function(object, ...)
 		standardGeneric("FLQuant"))
 
+# as.FLQuant
+	setGeneric("as.FLQuant", function(x, ...)
+		standardGeneric("as.FLQuant"))
+
 # jackknife
 setGeneric("jacknife", function(object, ...)
 	standardGeneric("jacknife"))
@@ -816,3 +820,11 @@ setGeneric("uppq<-", function(x, value) standardGeneric("uppq<-"))
 # lowq
 setGeneric("lowq", function(x, ...) standardGeneric("lowq"))
 setGeneric("lowq<-", function(x, value) standardGeneric("lowq<-"))
+
+# getPlural
+setGeneric("getPlural", function(object, ...) standardGeneric("getPlural"))
+
+# e, e<-
+setGeneric("e", function(x, ...) standardGeneric("e"))
+setGeneric("e<-", function(x, value) standardGeneric("e<-"))
+
