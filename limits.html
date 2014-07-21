@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>limits. FLCore 2.5.20140722</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140722</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Methods upper and lower</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Accesor and replacement methods for the <code>lower</code> and <code>upper</code> attributes of
+  objects of class <code>FLModel</code>. These are stored as part of the structure
+  inside the <code>initial</code> slot. This slot contains a function to be used to provide 
+  initial values to any of the fitting method (e.g. <code><a href='fmle.html'>fmle</a></code>).</p>
+  
+      <p>The values in <code>lower</code> and <code>upper</code> are only used if the method selected for
+  <code><a href='http://www.inside-r.org/packages/cran/stats/docs/optim'>optim</a></code> is able to make use of them, like for example "L-BFGS-B", 
+  which is the default for <code><a href='fmle.html'>fmle</a></code>.</p>
+  
+      <p>The exact location of this information could be changed (i.e. a separate slot might be
+  created), so code accessing it is encouraged to use these accesor methods.</p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>upper(object) 
+upper<-(object, value) 
+lower(object) 
+lower<-(object, value)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt>signature(object=FLModel) :</dt><dd>Describe method</dd>
+<dt>signature(object=FLModel, value=numeric) :</dt><dd>Describe method</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(nsher)
+lower(nsher)
+</div>
+<div class='output'>[1] 1e-10 1e-10
+</div>
+<div class='input'>upper(nsher)
+</div>
+<div class='output'>[1] Inf Inf
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>upper</li><li>upper,FLModel-method</li><li>upper&lt;-</li><li>upper&lt;-,FLModel,numeric-method</li><li>lower</li><li>lower,FLModel-method</li><li>lower&lt;-</li><li>lower&lt;-,FLModel,numeric-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     FLModel 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

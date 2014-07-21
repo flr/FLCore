@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>iter. FLCore 2.5.20140722</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140722</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Select or modify iterations of an FLR object</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>To extract or modify a subset of the iterations contained in an FLR object, the 
+  <code>iter</code> and <code>iter<-</code> methods can be used.</p>
+  
+      <p>In complex with various <code>FLQuant</code> slots, the <code>iter</code> method checks whether
+  individual slots contain more than one iteration, i.e. <code>dims(object)[6] > 1</code>. If
+  a particular slot contains a single iteration, that is returned, otherwise the chosen
+  one is selected. This is in contrast with the subset operator <code>[</code>, which does not
+  carry out this check.</p>
+  
+      <p>For objects of class <code><a href='FLModel-class.html'>FLModel</a></code>, iters are extracted for slots of classes
+  <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>iter(object) 
+ iter<-(object,value)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(object=FLQuant) :</dt><dd>Describe method</dd>
+<dt> signature(object=FLComp) :</dt><dd>Describe method</dd>
+<dt> signature(object=FLQuants) :</dt><dd>Describe method</dd>
+<dt> signature(object=FLPar) :</dt><dd>Describe method</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(800), dim=c(4,10,2), iter=10)
+iter(flq, 2)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = 1, season = all, area = unique
+
+     year
+quant 1         2         3         4         5         6         7        
+    1 -0.343510 -1.004510 -1.483125  1.891838  1.498918 -0.590116 -0.744957
+    2  0.774397  1.378212  0.532602 -0.024221 -0.737361  0.014913  1.012930
+    3 -1.113154  1.118991  0.937314 -2.130455  1.416971 -0.222488  1.361309
+    4  0.932073 -1.497282 -0.042742  0.902843 -0.100995 -0.413118  0.357959
+     year
+quant 8         9         10       
+    1  0.145441 -1.361296  0.678413
+    2  1.793052 -0.304227 -0.567563
+    3 -1.193569  1.469531  0.055904
+    4  1.347416  0.943121  1.830373
+
+, , unit = 2, season = all, area = unique
+
+     year
+quant 1         2         3         4         5         6         7        
+    1 -0.763470  0.523448  0.643858 -1.644464 -2.079593 -1.193141  0.987839
+    2  0.836033  0.962633  0.858419 -0.148803  0.220920 -0.759209  0.668597
+    3 -0.205233 -0.667415  1.728500  0.831036 -2.131842  0.882156 -0.470580
+    4 -0.283071 -0.387657  0.218827 -1.463292 -0.150365  1.615625  1.505640
+     year
+quant 8         9         10       
+    1  0.580462 -0.124951  0.409455
+    2 -0.583070 -0.835701  0.471888
+    3 -0.302823  0.359416  0.906476
+    4 -0.152732 -0.586481 -0.053875
+
+units:  NA 
+</div>
+<div class='input'>
+fls &lt;- FLStock(catch.n=flq, m=FLQuant(0.2, dim=c(4,10,2)))
+fls2 &lt;- iter(fls, 2)
+summary(fls2)
+</div>
+<div class='output'>An object of class &quot;FLStock&quot;
+
+Name:  
+Description:  
+Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+	1	4	4	1	10	1	4	
+Quant: quant 
+
+catch         : [ 1 10 2 1 1 1 ], units =  NA 
+catch.n       : [ 4 10 2 1 1 1 ], units =  NA 
+catch.wt      : [ 4 10 2 1 1 1 ], units =  NA 
+discards      : [ 1 10 2 1 1 1 ], units =  NA 
+discards.n    : [ 4 10 2 1 1 1 ], units =  NA 
+discards.wt   : [ 4 10 2 1 1 1 ], units =  NA 
+landings      : [ 1 10 2 1 1 1 ], units =  NA 
+landings.n    : [ 4 10 2 1 1 1 ], units =  NA 
+landings.wt   : [ 4 10 2 1 1 1 ], units =  NA 
+stock         : [ 1 10 2 1 1 1 ], units =  NA 
+stock.n       : [ 4 10 2 1 1 1 ], units =  NA 
+stock.wt      : [ 4 10 2 1 1 1 ], units =  NA 
+m             : [ 4 10 2 1 1 1 ], units =  NA 
+mat           : [ 4 10 2 1 1 1 ], units =  prop 
+harvest       : [ 4 10 2 1 1 1 ], units =  NA 
+harvest.spwn  : [ 4 10 2 1 1 1 ], units =  prop 
+m.spwn        : [ 4 10 2 1 1 1 ], units =  prop 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>iter</li><li>iter-methods</li><li>iter,FLQuant,ANY-method</li><li>iter,FLArray-method</li><li>iter,vector-method</li><li>iter,FLComp-method</li><li>iter,FLModel-method</li><li>iter,FLQuants-method</li><li>iter,FLPar-method</li><li>iter,logLik-method</li><li>iter&lt;-</li><li>iter&lt;--methods</li><li>iter&lt;-,FLQuant,FLQuant-method</li><li>iter&lt;-,FLCohort,FLCohort-method</li><li>iter&lt;-,FLComp,FLComp-method</li><li>iter&lt;-,FLPar,FLPar-method</li><li>iter&lt;-,FLPar,numeric-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     FLComp, FLQuant 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>rnorm. FLCore 2.5.20140722</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140722</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method rnorm</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Generates random numbers following a normal distribution. <em>mean</em> and 
+  <em>sd</em> can be specified as objects of class <code>FLQuant</code>, of the 
+  same dimensions, but any of the two could be given as a numeric. In this case the value 
+  will be reused accordingly.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>rnorm(n, mean, sd)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(n=numeric,mean=FLQuant,sd=FLQuant) :</dt><dd><code>n</code> is the number of iterations of the return object. <code>mean</code> and <code>sd</code> are FLQuant objects and must be of equal size.  When both <code>sd</code> and <code>mean</code> are specified the returned object is an FLQuant object with <code>n</code> iterations, filled with randomly generated numbers.  When only 1 of <code>mean</code> or <code>sd</code> is supplied the return object is a vector of length <code>n</code>.</dd>
+<dt> signature(n=numeric,mean=numeric,sd=FLQuant) :</dt><dd>same as above, but dimensions will
+  be given by sd, and mean will be reused accordingly.</dd>
+<dt> signature(n=numeric,mean=FLQuant,sd=numeric) :</dt><dd>same as above, but instead 
+  dimensions will be given by mean, and sd will be reused accordingly.</dd>
+<dt> signature(n=numeric,mean=FLQuantPoint,sd=missing) :</dt><dd>uses an FLQuantPoint to obtain
+  mean and sd from the mean and var iterations.</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>   data(ple4)
+   rnorm(10,mean=harvest(ple4)[,&quot;2001&quot;], sd=harvest(ple4)[,&quot;2001&quot;])
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+iters:  10 
+
+, , unit = unique, season = all, area = unique
+
+    year
+age  2001           
+  1  0.092176(0.104)
+  2  0.927184(0.214)
+  3  0.807992(1.393)
+  4  0.933388(0.536)
+  5  0.551008(0.887)
+  6  0.680875(0.260)
+  7  1.012315(0.947)
+  8  0.213027(0.404)
+  9  1.155050(0.431)
+  10 1.166398(0.791)
+
+units:  f 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>rnorm,numeric,FLQuant,FLQuant-method</li><li>rnorm,numeric,FLQuant,missing-method</li><li>rnorm,numeric,FLQuant,numeric-method</li><li>rnorm,numeric,numeric,FLQuant-method</li><li>rnorm,numeric,missing,FLQuant-method</li><li>rnorm,numeric,FLQuantPoint,missing-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <a href='http://www.inside-r.org/packages/cran/stats/docs/Normal'>rnorm</a>, FLQuant, FLQuantPoint 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

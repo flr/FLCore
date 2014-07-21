@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>fmle. FLCore 2.5.20140722</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140722</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method fmle</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>The <code>fmle</code> method fits the model specified in an <code>FLModel</code> object using MLE
+ by minimizing the negative of the log-likelihood function, in the <code>logl</code> slot,
+ through calls to the <code><a href='http://www.inside-r.org/packages/cran/stats/docs/optim'>optim</a></code> minimizaton routine.</p>
+  
+      <p>For a given model and log-likelihood function, the <code>fmle</code> method will use the 
+ <code>optim</code> function in R to calculate the parameter vector which maximises the log-
+ likelihood (and, hence,  the likelihood function) and is as such the optimum parameter 
+ value for the given problem  and data.</p>
+  
+      <p>Be advised that for non-informative of conflicting data the maximum likelihood estimate 
+ can  be dependent on the initial starting value and if we begin the optimiser with a 
+ poor initial estimate it may converge falsely. Always try multiple start points and be 
+ assured that you ave found the true MLE.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>fmle(object,start)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(object=ANY,start=missing) :</dt><dd>Generic method.</dd>
+<dt> signature(object=FLModel,start=ANY) :</dt><dd>Input object of class <code>FLModel</code> contains input data, logl function and function to provide initial values.</dd>
+<dt> signature(object=FLModel,start=FLPar) :</dt><dd>Input object of class <code>FLModel</code> contains input data and logl function, but fitting is started from parameter estimates in the <code>FLPar</code> object provided.</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'># use an example FLModel object
+data(nsher)
+
+summary(nsher)
+</div>
+<div class='output'>An object of class &quot;FLSR&quot;
+
+Name: Autumn spawning herring in IV, V  3/4/2005 14:46 
+Description: &#39;rec&#39; and &#39;ssb&#39; slots obtained from a &#39;FLStock&#39; object 
+Range:	  
+		
+Quant: age 
+
+rec           : [ 1 45 1 1 1 1 ], units =  10^3 
+ssb           : [ 1 45 1 1 1 1 ], units =  t*10^3 
+residuals     : [ 1 45 1 1 1 1 ], units =  NA 
+fitted        : [ 1 45 1 1 1 1 ], units =  10^3 
+
+Model: 	rec ~ a * ssb * exp(-b * ssb)
+&lt;environment: 0x871ea48&gt;
+Parameters: 
+    params
+iter     a        b
+   1 119.4 0.009027
+
+Log-likelihood:  16.352(0) 
+Variance-covariance:    
+               a            b
+  a 258.66388793 1.838394e-02
+  b   0.01838394 2.002586e-06
+</div>
+<div class='input'>
+# inspect the logl function
+logl(nsher)
+</div>
+<div class='output'>function (a, b, rec, ssb) 
+loglAR1(log(rec), log(a * ssb * exp(-b * ssb)))
+&lt;environment: 0x871ea48&gt;
+</div>
+<div class='input'>
+# and the function providing initial values to the optimizer
+initial(nsher)
+</div>
+<div class='output'>function (rec, ssb) 
+{
+    res &lt;- coefficients(lm(c(log(rec/ssb)) ~ c(ssb)))
+    return(FLPar(a = max(exp(res[1])), b = -max(res[2])))
+}
+&lt;environment: 0x871ea48&gt;
+attr(,&quot;lower&quot;)
+[1] 1e-10 1e-10
+attr(,&quot;upper&quot;)
+[1] Inf Inf
+</div>
+<div class='input'>
+# lower and upper limits for the parameters are set, and used if method
+# &#39;L-BFGS-B&#39; is used in the call to optim, as is default in fmle
+lower(nsher)
+</div>
+<div class='output'>[1] 1e-10 1e-10
+</div>
+<div class='input'>upper(nsher)
+</div>
+<div class='output'>[1] Inf Inf
+</div>
+<div class='input'>
+# fit it with fmle
+nsher &lt;- fmle(nsher)
+</div>
+<div class='output'>  Nelder-Mead direct search function minimizer
+function value for initial parameters = -15.862252
+  Scaled convergence tolerance is 2.36366e-07
+Stepsize computed as 11.939303
+BUILD              3 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000 -15.862252
+SHRINK             7 10000000000000000159028911097599180468360808563945281389781327557747838772170381060813469985856815104.000000 -15.862252
+HI-REDUCTION       9 267.632807 -15.862252
+HI-REDUCTION      11 236.438352 -15.862252
+HI-REDUCTION      13 205.241529 -15.862252
+HI-REDUCTION      15 174.041331 -15.862252
+HI-REDUCTION      17 142.839861 -15.862252
+HI-REDUCTION      19 111.657775 -15.862252
+HI-REDUCTION      21 80.601711 -15.862252
+HI-REDUCTION      23 50.133420 -15.862252
+HI-REDUCTION      25 21.954719 -15.862252
+HI-REDUCTION      27 0.340450 -15.862252
+HI-REDUCTION      29 -10.920787 -15.862252
+HI-REDUCTION      31 -14.696800 -15.862252
+HI-REDUCTION      33 -15.639120 -15.862252
+HI-REDUCTION      35 -15.676851 -15.862252
+HI-REDUCTION      37 -15.816477 -15.862252
+HI-REDUCTION      39 -15.825739 -15.862252
+LO-REDUCTION      41 -15.847989 -15.862252
+LO-REDUCTION      43 -15.852490 -15.862252
+LO-REDUCTION      45 -15.857566 -15.862252
+LO-REDUCTION      47 -15.860412 -15.862252
+LO-REDUCTION      49 -15.861062 -15.862252
+LO-REDUCTION      51 -15.861647 -15.862252
+LO-REDUCTION      53 -15.862025 -15.862252
+LO-REDUCTION      55 -15.862108 -15.862252
+LO-REDUCTION      57 -15.862175 -15.862252
+LO-REDUCTION      59 -15.862224 -15.862252
+LO-REDUCTION      61 -15.862235 -15.862252
+LO-REDUCTION      63 -15.862243 -15.862252
+LO-REDUCTION      65 -15.862249 -15.862252
+LO-REDUCTION      67 -15.862250 -15.862252
+LO-REDUCTION      69 -15.862251 -15.862252
+LO-REDUCTION      71 -15.862252 -15.862252
+LO-REDUCTION      73 -15.862252 -15.862252
+Exiting from Nelder Mead minimizer
+    75 function evaluations used
+</div>
+<div class='input'>
+# fixed values can be chosen for any parameter
+nsher_fixed_a &lt;- fmle(nsher, fixed=list(a=125))
+</div>
+<strong class='warning'>Warning message:
+one-dimensional optimization by Nelder-Mead is unreliable:
+use &quot;Brent&quot; or optimize() directly</strong>
+<div class='output'>  Nelder-Mead direct search function minimizer
+function value for initial parameters = -15.698138
+  Scaled convergence tolerance is 2.3392e-07
+Stepsize computed as 0.000945
+BUILD              2 -15.563627 -15.698138
+HI-REDUCTION       4 -15.698138 -15.796903
+HI-REDUCTION       6 -15.789097 -15.796903
+HI-REDUCTION       8 -15.796903 -15.803421
+HI-REDUCTION      10 -15.802767 -15.803421
+HI-REDUCTION      12 -15.803421 -15.803746
+HI-REDUCTION      14 -15.803746 -15.803746
+HI-REDUCTION      16 -15.803746 -15.803787
+HI-REDUCTION      18 -15.803777 -15.803787
+HI-REDUCTION      20 -15.803784 -15.803787
+HI-REDUCTION      22 -15.803786 -15.803787
+Exiting from Nelder Mead minimizer
+    24 function evaluations used
+</div>
+<div class='input'>
+# and results compared, for example using AIC
+AIC(nsher)
+</div>
+<div class='output'>[1] -27.7245
+</div>
+<div class='input'>AIC(nsher_fixed_a)
+</div>
+<div class='output'>[1] -29.60757
+</div>
+<div class='input'>
+## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # an initial run with one optimization method, e.g. &#39;SANN&#39;
+# nsher_one &lt;- fmle(nsher, method=&#39;SANN&#39;)
+# 
+# # can then be used as starting value for other runs
+# # This might fail if
+# nsher_two &lt;- fmle(nsher_one, start=params(nsher_one), method=&#39;L-BFGS-B&#39;)
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>fmle</li><li>fmle,ANY,missing-method</li><li>fmle,FLModel,ANY-method</li><li>fmle,FLModel,FLPar-method</li><li>fmle,FLModel-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='FLComp.html'>FLComp</a> 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

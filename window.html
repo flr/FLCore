@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>window. FLCore 2.5.20140722</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140722</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Extract time (year) windows of an FLR object</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>This method extracts a section of or extends an <code>FLQuant</code> or other FLR objects 
+  along the <code>year</code> dimension. If a frequency is specified, the new object contains 
+  data at only those year steps.</p>
+  
+      <p>Although objects of class <code><a href='FLIndex.html'>FLQuant</a></code> do have another temporal dimension,
+  <code>season</code>, currently window only works along the <code>year</code> dimension. To subset
+  along other dimensions, refer to <a href='Extract.html'>Extract-FLCore</a>.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>window(x)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt>signature(x=FLQuant) :</dt><dd>Subset along the <code>year</code> dimension</dd>
+<dt>signature(x=FLComp) :</dt><dd>The method is applied to each slot of class <code>FLQuant</code>.</dd>
+<dt>signature(x=FLlst) :</dt><dd>The window method is applied to each element in the list.</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(50), dimnames=list(age=1:5, year=1990:2000))
+window(flq, start=1995, end=1998)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+   year
+age 1995      1996      1997      1998     
+  1  0.134246  0.105163  1.352841 -0.497195
+  2  0.382919  0.062408 -0.680565  0.379859
+  3  1.854224 -0.495622 -0.843454  1.417667
+  4  0.667007  2.061389  1.251616  0.855815
+  5  1.321246 -0.347358 -0.807161  0.757175
+
+units:  NA 
+</div>
+<div class='input'>window(flq, start=1990, end=2010, frequency=2)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+   year
+age 1990      1992      1994      1996      1998      2000      2002     
+  1 -0.353315  1.961451 -0.256118  0.105163 -0.497195 -0.353315        NA
+  2  1.392141  1.436518 -0.974131  0.062408  0.379859  1.392141        NA
+  3  1.949405 -0.493955  1.268007 -0.495622  1.417667  1.949405        NA
+  4  1.941439 -1.066959  0.606457  2.061389  0.855815  1.941439        NA
+  5  0.534754  0.833864 -0.462268 -0.347358  0.757175  0.534754        NA
+   year
+age 2004      2006      2008      2010     
+  1        NA        NA        NA        NA
+  2        NA        NA        NA        NA
+  3        NA        NA        NA        NA
+  4        NA        NA        NA        NA
+  5        NA        NA        NA        NA
+
+units:  NA 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>window,FLQuant-method</li><li>window,FLComp-method</li><li>window,FLlst-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <a href='http://www.inside-r.org/packages/cran/stats/docs/window'>window</a>, <a href='Extract.html'>Extract-FLCore</a>
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

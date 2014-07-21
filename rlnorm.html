@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>rlnorm. FLCore 2.5.20140722</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140722</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method rlnorm</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Random generation for the log normal distribution whose logarithm has mean equal to <em>meanlog</em> and standard deviation equal to <em>sdlog</em>.  <em>meanlog</em> and <em>sdlog</em> can be given as FLQuant objects.  If both are given as FLQuant objects their dimensions must be the same.  If either of these arguments are FLQuant objects, rlnorm returns an FLQuant.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>rlnorm(n,meanlog,sdlog)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p><dl>
+<dt> signature(n=numeric,meanlog=FLQuant,sdlog=FLQuant) :</dt><dd>Generates random deviates for the log normal distribution. FLQuant arguments must have the same dimension. Returns an FLQuant object.</dd>
+<dt> signature(n=numeric,meanlog=FLQuant,sdlog=numeric) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd>
+<dt> signature(n=numeric,meanlog=numeric,sdlog=FLQuant) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd>
+<dt> signature(n=numeric,meanlog=FLQuantPoint,sdlog=missing) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>out &lt;- rlnorm(1000, meanlog=FLQuant(c(5,5,5,5,5)),sdlog=FLQuant(c(0,1,2,3,4)))
+apply(log(out),2,sd)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1      2      3      4      5     
+  all 0.0000 1.0136 1.9056 3.0506 4.1792
+
+units:  NA 
+</div>
+<div class='input'>apply(log(out),2,mean)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1      2      3      4      5     
+  all 5.0000 5.0500 5.0596 4.9997 4.8577
+
+units:  NA 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>rlnorm,numeric,FLQuant,FLQuant-method</li><li>rlnorm,numeric,FLQuant,missing-method</li><li>rlnorm,numeric,FLQuant,numeric-method</li><li>rlnorm,numeric,numeric,FLQuant-method</li><li>rlnorm,numeric,missing,FLQuant-method</li><li>rlnorm,numeric,FLQuantPoint,missing-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='http://www.inside-r.org/packages/cran/stats/docs/Lognormal'>rlnorm</a>, FLQuant, FLQuantPoint  
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
