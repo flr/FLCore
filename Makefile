@@ -1,33 +1,36 @@
 PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
+PKGDATE := $(shell sed -n "s/Date: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGSRC  := $(shell basename `pwd`)
 
-R_FILES := $(wildcard $(PKG)/R/*.R)
-HELP_FILES := $(wildcard $(PKG)/man/*.Rd)
+GITDATE=$(shell (git log -1 --date=short --pretty=format:"%ad"))
+GITVERS=$(shell (date -d `git log -1 --date=short --pretty=format:"%ad"` +%Y%m%d))
 
-all: news readme staticdocs build
+R_FILES := $(wildcard $(PKGSRC)/R/*.R)
+HELP_FILES := $(wildcard $(PKGSRC)/man/*.Rd)
 
-readme: DESCRIPTION
-	R --vanilla --silent -e "library(utils);" \
-  -e "desc <- read.dcf('DESCRIPTION', fields = c('Version', 'Date'));" \
-  -e "str <- readLines('README.md');" \
-  -e "ln <- grep('Version:', str);" \
-  -e "str[ln[1]] <- sub('Version: .*', paste('Version:', desc[,'Version']), str[ln]);" \
-  -e "ln <- grep('Date:', str);" \
-  -e "str[ln[1]] <- sub('Date: .*', paste('Date:', desc[,'Date']), str[ln[1]]);" \
-  -e "writeLines(str, con = 'README.md')"
+all: NEWS README.md roxygen gh-pages build
 
-staticdocs: $(HELP_FILES)
+README.md: DESCRIPTION
+	sed -i 's/Version: *\([^ ]*\)/Version: $(PKGVERS)/' README.md
+	sed -i 's/Date: *\([^ ]*\)/Date: $(PKGDATE)/' README.md
+
+gh-pages: $(HELP_FILES) README.md
 	R --vanilla --silent -e "library(staticdocs);" \
-  -e "build_site('../FLCore/', site_path='gh-pages', launch=FALSE)"; \
-	rm Rplots.pdf
+  -e "build_site('../$(PKGNAME)/', site_path='gh-pages', launch=FALSE)"; \
+	rm Rplots.pdf  
+	git subtree push --prefix gh-pages origin gh-pages
 
-news: NEWS.md
+NEWS: NEWS.md
 	sed -e 's/^-/  -/' -e 's/^## *//' -e 's/^#/\t\t/' <NEWS.md | fmt -80 >NEWS
 
 roxygen: $(R_FILES)
 	R --vanilla --silent -e "library(devtools);" \
-		-e "document()"
+		-e "document(roclets='rd')"
+
+update:
+	sed -i 's/Version: \([0-9]\.[0-9]*\.\)\([^ ]*\)/Version: \1$(GITVERS)/' DESCRIPTION
+	sed -i 's/Date: *\([^ ]*\)/Date: $(GITDATE)/' DESCRIPTION
 
 build:
 	cd ..;\
@@ -37,11 +40,10 @@ install: build
 	cd ..;\
 	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
 
-check: build
+check: NEWS README.md roxygen gh-pages build
 	cd ..;\
 	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz --as-cran
 
 clean:
-	rm -r gh-pages;\
 	cd ..;\
-	rm -r $(PKGNAME).Rcheck;\
+	rm -rf $(PKGNAME).Rcheck $(PKGNAME)_$(PKGVERS).tar.gz

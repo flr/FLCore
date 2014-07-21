@@ -3,7 +3,6 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id: $
 
 
 # FLQuant, FLQuant {{{
@@ -22,7 +21,7 @@ setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
 
     # TEST: No expansion n -> m allowed, must be originally 1
     if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
-      stop("dims to be expanded in cannot be of length > 1")
+      stop("dims to be expanded cannot be of length > 1")
 
     # new x
     dlx <- lapply(as.list(dx), seq)
@@ -96,7 +95,7 @@ setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
 
     # TEST: No expansion n -> m allowed, must be originally 1
     if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
-      stop("dims to be expanded in cannot be of length > 1")
+      stop("dims to be expanded cannot be of length > 1")
 
     # new x
     dlx <- lapply(as.list(dx), seq)
@@ -133,7 +132,7 @@ setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
 
     # TEST: No expansion n -> m allowed, must be originally 1
     if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
-      stop("dims to be expanded in cannot be of length > 1")
+      stop("dims to be expanded cannot be of length > 1")
 
     # new x
     dlx <- lapply(as.list(dx), seq)
@@ -155,6 +154,43 @@ setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
   }
 ) # }}}
 
+# %^% {{{
+# Power of two FLQuant objects by matching dimensions, expands 1 to n
+setMethod("%^%", signature(x="FLQuant", y="FLQuant"),
+	function(x, y) {
+
+    # get dims
+    dx <- dim(x)
+    dy <- dim(y)
+
+    # final dims
+    di <- pmax(dx, dy)
+    dli <- lapply(as.list(di), function(x) rep(1, x))
+
+    # TEST: No expansion n -> m allowed, must be originally 1
+    if(any(di != dx &  dx != 1) | any(di != dy &  dy != 1))
+      stop("dims to be expanded cannot be of length > 1")
+
+    # new x
+    dlx <- lapply(as.list(dx), seq)
+    dlx[di > dx] <- dli[di > dx]
+
+    rx <- do.call('[', c(list(x=x@.Data, drop=FALSE), dlx))
+
+    # new y
+    dly <- lapply(as.list(dy), seq)
+    dly[di > dy] <- dli[di > dy]
+
+    ry <- do.call('[', c(list(x=y@.Data, drop=FALSE), dly))
+
+    # dimnames
+    dni <- dimnames(x)
+    dni[di > dx] <- dimnames(y)[di > dx]
+
+    return(FLQuant(rx ^ ry, dimnames=dni, units=paste(units(x), units(y), sep="-")))
+  }
+) # }}}
+
 # }}}
 
 # FLPar, FLQuant {{{
@@ -169,7 +205,7 @@ setMethod("%*%", signature(x="FLPar", y="FLQuant"),
     dy <- dim(y)
     dny <- dimnames(y)
 
-        # TEST: non-matching dims in x should be of length 1
+    # TEST: non-matching dims in x should be of length 1
     idy <- !names(dnx) %in% names(dny)
     if(any(dx[idy] > 1))
       stop("dimensions in 'x' not matching those in 'y' must be of length=1")
@@ -190,7 +226,7 @@ setMethod("%*%", signature(x="FLPar", y="FLQuant"),
     rx <- array(x@.Data, dim=di)
 
     # expansion done in %*%(FLQuant, FLQuant)
-    return(FLQuant(rx) %*% y)
+    return(FLQuant(rx, quant=quant(y)) %*% y)
   }
 ) # }}}
 
@@ -226,7 +262,7 @@ setMethod("%/%", signature(e1="FLPar", e2="FLQuant"),
     re1 <- array(e1@.Data, dim=di)
 
     # expansion done in %/%(FLQuant, FLQuant)
-    return(FLQuant(re1) %/% e2)
+    return(FLQuant(re1, quant=quant(e2)) %/% e2)
   }
 ) # }}}
 
@@ -262,7 +298,7 @@ setMethod("%+%", signature(x="FLPar", y="FLQuant"),
     rx <- array(x@.Data, dim=di)
 
     # expansion done in %+%(FLQuant, FLQuant)
-    return(FLQuant(rx) %+% y)
+    return(FLQuant(rx, quant=quant(y)) %+% y)
   }
 ) # }}}
 
@@ -298,9 +334,10 @@ setMethod("%-%", signature(x="FLPar", y="FLQuant"),
     rx <- array(x@.Data, dim=di)
 
     # expansion done in %-%(FLQuant, FLQuant)
-    return(FLQuant(rx) %-% y)
+    return(FLQuant(rx, quant=quant(y)) %-% y)
   }
 ) # }}}
+
 # }}}
 
 # FLQuant, FLPar {{{
@@ -448,6 +485,42 @@ setMethod("%-%", signature(x="FLQuant", y="FLPar"),
   }
 ) # }}}
 
+# %^% {{{
+# Substract FLQuant and FLPar by matching dimnames, expands 1 to n
+setMethod("%^%", signature(x="FLQuant", y="FLPar"),
+	function(x, y) {
+
+    # dims & dimnames
+    dx <- dim(x)
+    dnx <- dimnames(x)
+    dy <- dim(y)
+    dny <- dimnames(y)
+
+    # TEST: non-matching dims in y should be of length 1
+    idx <- !names(dny) %in% names(dnx)
+    if(any(dy[idx] > 1))
+      stop("dimensions in 'y' not matching those in 'x' must be of length=1")
+
+    # aperm if FLPar dimnames sorted differently to FLQuant's
+    idy <- matchDimnames(dny, dnx)
+    if(any(idy != sort(idy))) {
+      y <- aperm(y, idy)
+      dy <- dy[idy]
+      dny <- dny[idy]
+    }
+
+    # tmp FLQuant dims
+    di <- rep(1, 6)
+    di[names(dnx) %in% names(dny)] <- dy[names(dny) %in% names(dnx)]
+
+    # y data in 6D array
+    ry <- array(y@.Data, dim=di)
+
+    # expansion done in %-%(FLQuant, FLQuant)
+    return(x %^% FLQuant(ry))
+  }
+) # }}}
+
 # }}}
 
 # FLPar, FLPar {{{
@@ -458,9 +531,11 @@ setMethod("%*%", signature(x="FLPar", y="FLPar"),
     # dims & dimnames
     dnx <- dimnames(x)
     dny <- dimnames(y)
+		ldx <- unlist(lapply(dnx, length))
+		ldy <- unlist(lapply(dny, length))
 
 		# apply operation directly if dimnames match
-		if(identical(dnx, dny))
+		if(identical(dnx[ldx > 1], dny[ldy > 1]))
 			return(x * y)
 
     # vector of final dim

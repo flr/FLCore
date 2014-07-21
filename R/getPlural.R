@@ -6,7 +6,6 @@
 # Soundtrack:
 # Notes:
 
-setGeneric('getPlural', function(object, ...) standardGeneric('getPlural'))
 
 # ANY -> list
 setMethod('getPlural', signature(object='ANY'),

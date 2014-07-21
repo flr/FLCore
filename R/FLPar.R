@@ -1,10 +1,8 @@
 # FLPar - common structure for parameter matrices of various types.
 # FLCore/R/FLPar.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id: FLPar.R 1778 2012-11-23 08:43:57Z imosqueira $
-
 
 # Constructors  {{{
 
@@ -13,8 +11,8 @@ setMethod('FLPar', signature(object="array"),
 	function(object, params=letters[1:dim(object)[1]],
     iter=seq(dim(object)[length(dim(object))]), units=rep('NA', dim(object)[1]),
     dimnames= c(list(params=params), lapply(as.list(dim(object)[-c(1,
-      length(dim(object)))]), seq), list(iter=iter)))
-	{
+      length(dim(object)))]), seq), list(iter=iter))) {
+
     # if no dimnames, 1st is params, last is iter
     if(!is.null(dimnames(object)))
     {
@@ -24,7 +22,8 @@ setMethod('FLPar', signature(object="array"),
       if(!any(names(dimnames) == "") & !'iter' %in% names(dimnames))
       {
         dimnames <- c(dimnames, list(iter=1))
-        object <- array(object, dimnames=dimnames, dim=c(unlist(lapply(dimnames, length))))
+        object <- array(object, dimnames=dimnames,
+					dim=c(unlist(lapply(dimnames, length))))
       }
       
       # dimnames with no names, last one is iter ...
@@ -37,10 +36,13 @@ setMethod('FLPar', signature(object="array"),
 
       # forcing iter to be last dim, all others as given
       iterpos <- match(c('iter'), names(dimnames))
-      object <- aperm(object, c(seq(1, length(dimnames))[!seq(1,length(dimnames)) %in%
-        iterpos], iterpos))
+      object <- aperm(object,
+				c(seq(1, length(dimnames))[!seq(1,length(dimnames)) %in% iterpos],
+				iterpos))
     }
-		
+		if(!is.numeric(object))
+			mode(object) <- 'double'
+
     res <- array(object, dim=dim(object), dimnames=dimnames)
 		return(new('FLPar', res, units=units))
 	}
@@ -61,27 +63,33 @@ setMethod('FLPar', signature(object="missing"),
     else
       res <- array(as.numeric(NA), dim=unlist(lapply(dimnames, length)),
         dimnames=dimnames)
+		# FLPar(array)
 		return(FLPar(res, units=units, dimnames=dimnames(res)))
 	}
 )
 
 # FLPar(vector)
 setMethod('FLPar', signature(object='vector'),
-	function(object, params= if(length(names(object))==length(object)) names(object) else
-    letters[seq(length(object)/length(iter))], iter=1,
-    dimnames=list(params=params, iter=seq(iter)), byrow=FALSE, units=rep('NA', length(params)))
+	function(object, params= if(length(names(object))==length(object))
+		names(object) else letters[seq(length(object)/length(iter))], iter=1,
+		dimnames=list(params=params, iter=seq(iter)), byrow=FALSE,
+		units=rep('NA', length(params)))
   {
     # if length(iter) == 1, then expand
     if(length(iter) == 1 && as.character(iter) != '1')
       iter <- seq(iter)
 
 		res <- array(object,dim=unlist(lapply(dimnames, length)))
-		return(FLPar(res, units=units, dimnames=dimnames))})
+		# FLPar(array)
+		return(FLPar(res, units=units, dimnames=dimnames))
+	}
+)
 
 # FLPar(FLPar)
 setMethod('FLPar', signature('FLPar'),
   function(object, dimnames=attr(object, 'dimnames'), params=dimnames$params,
-    iter=dimnames$iter, units=object@units, newDim="missing"){
+    iter=dimnames$iter, units=object@units, newDim="missing")
+	{
     
     # get iter as vector if single number given
     if(!missing(iter) && length(iter) == 1 && ac(iter) != '1')
@@ -89,7 +97,7 @@ setMethod('FLPar', signature('FLPar'),
 
     dimnames$params <- params
     dimnames$iter <- ac(iter)
-    res <- FLPar(NA, dimnames=dimnames, units=units)
+    res <- FLPar(as.numeric(NA), dimnames=dimnames, units=units)
     
     # select target dimnames and change names for '[<-'
     dimnames <- dimnames(object)
@@ -97,15 +105,19 @@ setMethod('FLPar', signature('FLPar'),
     
     res2=do.call('[<-', c(list(res), dimnames, list(value=object)))
     
-    if (missing(newDim)) return(res2)
+    if (missing(newDim))
+			return(res2)
     
     dimnames <- dimnames(res2)
-    ord=length(dimnames)
-    ord=c(1:(ord-1),ord+1:length(newDim),ord)
-    dimnames[names(newDim)]=newDim
-    res3                    =FLPar(rep(c(res2), length(unlist(newDim))),dimnames=dimnames[ord],units=units)
+    ord <- length(dimnames)
+    ord <- c(1:(ord-1),ord+1:length(newDim),ord)
+    dimnames[names(newDim)] <- newDim
+		res3  <- FLPar(rep(c(res2), length(unlist(newDim))),
+			dimnames=dimnames[ord],units=units)
  
-    return(res3)}) # }}}
+    return(res3)
+	}
+) # }}}
 
 # '['   {{{
 setMethod('[', signature(x='FLPar'),
@@ -143,7 +155,7 @@ setMethod('[', signature(x='FLPar'),
 )   # }}}
 
 # "[<-"     {{{
-setMethod("[<-", signature(x="FLPar"),
+setMethod("[<-", signature(x="FLPar", value="ANY"),
 	function(x, i, j, ..., value)
   {
     if(!missing(i) && is.array(i))
@@ -303,21 +315,22 @@ setMethod("as.data.frame", signature(x="FLPar"),
 # mean, median, var, quantile   {{{
 # TODO review for 3D param objects
 setMethod("mean", signature(x='FLPar'),
-	function(x, ...)
-  	return(FLPar(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      mean, ...)))
+	function(x, na.rm=TRUE)
+  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
+      mean, na.rm=na.rm))
 )
 
 setMethod("median", signature(x='FLPar'),
-	function(x, na.rm=FALSE)
-  	return(FLPar(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      median, na.rm=na.rm)))
+	function(x, na.rm=TRUE)
+  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
+      median, na.rm=na.rm))
 )
 
 setMethod("var", signature(x='FLPar'),
-	function(x, y=NULL, na.rm=FALSE, use='all.obs')
-  	return(FLPar(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      var, na.rm=na.rm, use='all.obs')))
+	function(x, y=NULL, na.rm=TRUE, use) {
+  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
+      var, na.rm=na.rm, use='all.obs'))
+	}
 )   # }}}
 
 # coerce  {{{

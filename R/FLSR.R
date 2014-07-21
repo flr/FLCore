@@ -45,7 +45,7 @@ setMethod('FLSR', signature(model='missing'),
 	function(...)
 		return(FLSR(formula(NULL), ...))) # }}}
 
-## as.FLSR   {{{
+# as.FLSR   {{{
 setMethod("as.FLSR", signature(object="FLStock"),
   function(object, rec.age = dims(stock.n(object))$min, ...)
 	{

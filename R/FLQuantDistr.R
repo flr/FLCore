@@ -11,32 +11,18 @@ setMethod("FLQuantDistr", signature(object="ANY", var="ANY"),
 
 		# object
 		object <- FLQuant(object)
-
 		# var
-		var <- new('FLArray', FLQuant(var)@.Data)
+		var <- FLQuant(var)
 
 		return(FLQuantDistr(object=object, var=var, ...))
 	}
 )
 
 setMethod("FLQuantDistr", signature(object="FLQuant", var="FLQuant"),
-  function(object, var, ...) {
-	var <- new('FLArray', var@.Data)
-	return(FLQuantDistr(object, var=var, ...))
+  function(object, var, units=object@units, distr='norm') {
+		return(new('FLQuantDistr', object, var=var, units=units, distr=distr))
 	}
-)
-
-setMethod("FLQuantDistr", signature(object="FLQuant", var="FLArray"),
-  function(object, var, units='NA', distr="norm") {
-		
-		# set units in .Data object
-		if(!missing(units))
-			units(object) <- units
-		
-		return(new("FLQuantDistr", object, var=var, distr=distr))
-	}
-)
-	# }}}
+) # }}}
 
 ## show     {{{
 # TODO show median(var) or [lowq-uppq]
@@ -99,9 +85,18 @@ setMethod("distr<-", signature(object="FLQuantDistr", value="character"),
 		object@distr <- value
 		return(object)
 	}
+) # }}}
+
+# sd, cv {{{
+setMethod("sd", signature(x="FLQuantDistr"),
+	function(x, na.rm=TRUE)
+		return(sqrt(var(x)))
 )
 
-# }}}
+setMethod("cv", signature(x="FLQuantDistr"),
+	function(x)
+		return(sd(x) / e(x))
+) # }}}
 
 # Arith {{{
 
@@ -143,16 +138,117 @@ setMethod("/",
 ) 
 
 # FLQuantDistr, FLQuantDistr
-
-setMethod("+",
+setMethod("*",
 	signature(e1 = "FLQuantDistr", e2 = "FLQuantDistr"),
 	function(e1, e2) {
-		e1@.Data <- e1@.Data + e2
-		units(e1) <- uom('+', units(e1), units(e2))
+
+		dis <- unique(c(distr(e1), distr(e2)))
+
+		# Both distr must be equal
+		if(length(dis) > 1)
+			stop ("Both objects must be of same 'distr': ", dis)
+
+		# Both objects must be either 'norm' or 'lnorm'
+		if(dis %in% c('norm', 'lnorm')) {
+			var(e1)[] <- e1@.Data^2 * var(e2) + e2@.Data^2 * var(e1)
+		} else {
+			stop("Operation only defined for distr='norm' or 'lnorm'")
+		}
+		e1@.Data <- e1@.Data * e2@.Data
+		units(e1) <- uom('*', units(e1), units(e2))
+		
 		return(e1)
 	}
 )
 
+setMethod("+",
+	signature(e1 = "FLQuantDistr", e2 = "FLQuantDistr"),
+	function(e1, e2) {
+
+		dis <- unique(c(distr(e1), distr(e2)))
+
+		# Both distr must be equal
+		if(length(dis) > 1)
+			stop ("Both objects must be of same 'distr': ", dis)
+
+		# Both objects must be either 'norm' or 'lnorm'
+		if(dis %in% c('norm', 'lnorm')) {
+			e1@var[] <- var(e1) + var(e2)
+		} else {
+			stop("Operation only defined for distr='norm' or 'lnorm'")
+		}
+		e1@.Data <- e1@.Data + e2@.Data
+		units(e1) <- uom('+', units(e1), units(e2))
+		
+		return(e1)
+	}
+)
+
+setMethod("-",
+	signature(e1 = "FLQuantDistr", e2 = "FLQuantDistr"),
+	function(e1, e2) {
+
+		dis <- unique(c(distr(e1), distr(e2)))
+
+		# Both distr must be equal
+		if(length(dis) > 1)
+			stop ("Both objects must be of same 'distr': ", dis)
+
+		# Both objects must be either 'norm' or 'lnorm'
+		if(dis %in% c('norm', 'lnorm')) {
+			var(e1)[] <- var(e1) + var(e2)
+		} else {
+			stop("Operation only defined for distr='norm' or 'lnorm'")
+		}
+		e1@.Data <- e1@.Data - e2@.Data
+		units(e1) <- uom('+', units(e1), units(e2))
+		
+		return(e1)
+	}
+) # }}}
+
+## "["             {{{
+setMethod("[", signature(x="FLQuantDistr"),
+    function(x, i, j, k, l, m, n, ..., drop=FALSE) {
+
+   		if(length(list(...)) > 0)
+        stop('FLQuantDistr objects only have 6 dimensions')
+
+	  	dx <- dim(x)
+		  if (missing(i))
+        i  <-  seq(1, dx[1])
+      if (missing(j))
+        j  <-  seq(1, dx[2])
+      if (missing(k))
+        k  <-  seq(1, dx[3])
+      if (missing(l))
+        l  <-  seq(1, dx[4])
+      if (missing(m))
+        m  <-  seq(1, dx[5])
+      if (missing(n))
+        n  <-  seq(1, dx[6])
+			
+			res <- x
+			res@.Data <- do.call('[', list(x=x@.Data, i=i, j=j, k=k, l=l,
+				m=m, n=n, drop=FALSE))
+			res@var <- do.call('[', list(x=x@var, i=i, j=j, k=k, l=l,
+				m=m, n=n, drop=FALSE))
+      
+      return(res)
+	}
+) 
+
+setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing"),
+  function(x, i)
+  {
+		res <- x
+		
+		res@.Data <- do.call('[', list(x=e(x), i=i))
+		res@var <- do.call('[', list(x=var(x), i=i))
+
+		return(res)
+  }
+)
 
 
 # }}}

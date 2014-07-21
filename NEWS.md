@@ -8,6 +8,8 @@
   years and seasons
 - tsp method for FLQuant returns 'tsp' attribute: start, end and frequency (seasons)
 - Arith method for FLQuant is now unit-aware, see ?units
+- wireframe method from lattice now available for FLQuant
+- [ method for FLQuantDistr
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
@@ -29,6 +31,7 @@
 - trim(FLS) u[pdates min/maxfbar if needed
 - transform(FLComp) now accepts a named FLQuants object as substitution argument (...)
 - FLQuants() now accepts an FLCOMP object and a list of names/functions to be used to extract individual FLQuant(s)
+- FLPar validity now checks that content is numeric. Default frist dimname is now 'params'
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
@@ -43,6 +46,8 @@
 - prototype object for FLComp VIRTUAl class has name as character(1)
 - as.FLQuant(df) failed on objects with no 'year' column
 - propagate(FLQuant) now accepts iter == dim[6]
+- Faulty comparison in expand(FLArray) fixed #7
+- Wrong test in validity for FLModelSim
 	
 ## UTILITIES
 

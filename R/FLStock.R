@@ -70,7 +70,7 @@ setMethod('FLStock', signature(object='missing'),
 is.FLStock <- function(x)
 	return(inherits(x, "FLStock"))	# }}}
 
-## plot  {{{
+# plot  {{{
 setMethod("plot", signature(x="FLStock", y="missing"),
 	function(x, auto.key=TRUE, ...)
   {
@@ -102,7 +102,7 @@ setMethod("plot", signature(x="FLStock", y="missing"),
     args <- list(...)
     options[names(args)] <- args
 
-    ## pfun
+    # pfun
     pfun <- function(x, y, groups, subscripts, iter=obj$iter, ...)
     {
       # catch/landings/discards
@@ -173,7 +173,7 @@ setMethod("plot", signature(x="FLStock", y="missing"),
 	}
 )	# }}}
 
-## setPlusGroup function	{{{
+# setPlusGroup function	{{{
 #  changes the level of the plus group of the stock object
 calc.pg <- function(s., i., k., r., pg., action, na.rm) {
 	q.<-slot(s.,i.)
@@ -237,7 +237,7 @@ expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...)
             "m.spwn",
             "harvest.spwn")
 
-    ## create extra ages and fill with plusgroup
+    # create extra ages and fill with plusgroup
     for (i in slts) {
        dmns$iter  <-dimnames(slot(res,i))$iter
        slot(res,i)<-FLQuant(slot(res,i),dimnames=dmns)
@@ -245,7 +245,7 @@ expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...)
        slot(res,i)[ac((oldMaxage+1):maxage)]<-sweep(slot(res,i)[ac((oldMaxage+1):maxage)],2:6,slot(res,i)[ac(oldMaxage)],"+")
        }
 
-    ## calc exp(-cum(Z)) i.e. the survivors
+    # calc exp(-cum(Z)) i.e. the survivors
     n            <-FLQuant(exp(-apply((slot(res,"m")+slot(res,"harvest"))[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)), quant='age')
     if (print(keepPlusGroup))
        n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
@@ -264,7 +264,7 @@ expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...)
     discards.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Pdiscard,"*")
     landings.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Planding,"*")
 
-    ## replace any slots passed in (...)
+    # replace any slots passed in (...)
     args <-names(list(...))
     slots<-getSlots("FLStock")
     for (i in args)
@@ -288,7 +288,7 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 	pg.truncate<-c("harvest","m","mat","harvest.spwn","m.spwn")
 	pg.sum	   <-c("catch.n", "landings.n", "discards.n")
 
-  ## problem since you can't calculate plus group if one of these has difffert niters
+  # problem since you can't calculate plus group if one of these has difffert niters
   if (dims(x)$iter>1){
      PGpairs<-list(c("landings.n","landings.wt"), c("catch.n","catch.wt"),c("discards.n","discards.wt"))
      for (i in 1:length(PGpairs)){
@@ -297,7 +297,7 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
            slot(x,PGpairs[[i]][niters==1])<-propagate(slot(x,PGpairs[[i]][niters==1]),iter=dims(x)$iter)
         }
 
-     ## stock.n exists and has niters
+     # stock.n exists and has niters
      if (sum(x@stock.n, na.rm=TRUE) > 1 && dims(x@stock.n)$iter>1){
         for (i in c(pg.truncate,"stock.wt"))
            if (dims(slot(x,i))$iter==1)
@@ -381,7 +381,7 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 	}
 )# }}}
 
-## ssb		{{{
+# ssb		{{{
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
 		
@@ -401,7 +401,7 @@ setMethod("ssb", signature(object="FLStock"),
 	}
 )	# }}}
 
-## tsb		{{{
+# tsb		{{{
 setMethod("tsb", signature(object="FLStock"),
 	function(object, ...) {
 		
@@ -420,7 +420,7 @@ setMethod("tsb", signature(object="FLStock"),
 	}
 )	# }}}
 
-## fbar		{{{
+# fbar		{{{
 setMethod("fbar", signature(object="FLStock"),
  function(object, ...) {
 	 
@@ -443,13 +443,13 @@ setMethod("fbar", signature(object="FLStock"),
 	}
 )	# }}}
 
-## sop	{{{
+# sop	{{{
 sop <- function(stock, slot="catch") {
 	return(quantSums(slot(stock, paste(slot, ".n", sep="")) *
 		slot(stock, paste(slot, ".wt", sep=""))) / slot(stock, slot))
 }	# }}}
 
-## catch<- FLQuants		{{{
+# catch<- FLQuants		{{{
 setMethod("catch<-", signature(object="FLStock", value="FLQuants"),
 	function(object, value) {
 		catch(object)    <- value[['catch']]
@@ -570,7 +570,7 @@ setMethod('[', signature(x='FLStock'),
     }
 )   # }}}
 
-## "[<-"            {{{
+# "[<-"            {{{
 setMethod("[<-", signature(x="FLStock", value="FLStock"),
 	function(x, i, j, k, l, m, n, ..., value) {
     if (missing(i))
@@ -851,7 +851,7 @@ setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
   function(object, ..., value) {
     
     recycleFLQuantOverYrs<-function(object,flq){
-      ### if averaged over years then expand years
+      # if averaged over years then expand years
       if (dim(flq)[2]==1 & dim(object)[2]>=1){
          object[]<-rep(c(flq),dim(object)[2])
          return(object)} else

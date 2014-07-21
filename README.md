@@ -1,14 +1,19 @@
 # FLCore
-- Version: 2.5.20140612
-- Date: 2014-06-12
+- Version: 2.5.20140714
+- Date: 2014-07-14
 - Author: FLR Team and various contributors.
-- Maintainer: FLR Team <flrteam AT flr-project.org>
-
+- Maintainer: Iago Mosqueira <iago.mosqueira AT jrc.ec.europa.eu>
 - Repository: <https://github.com/flr/FLCore/>
 - Bug reports: <https://github.com/flr/FLCore/issues>
 
 ## Overview
-FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R. Developed by a team of fisheries scientists in various countries. More information can be found at <http://flr-project.org/>, including a development mailing list.
+FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R.
+
+To install this package, start R and enter:
+
+	install.packages("FLCore", repos="http:///flr-project.org/R")
+
+or download from the [FLCore releases page](https://github.com/flr/FLCore/releases/latest)
 
 ## Documentation
 - [Help pages](http://flr-project.org/FLCore)
@@ -18,12 +23,13 @@ FLCore contains the core classes and methods for FLR, a framework for fisheries 
 [![Build Status](https://travis-ci.org/flr/FLCore.svg?branch=master)](https://travis-ci.org/flr/FLCore)
 
 ## Releases
+- [Latest release](https://github.com/flr/FLCore/releases/tag/v2.5.20130716)
+- [All release](https://github.com/flr/FLCore/releases/)
 
 ## License
-Copyright (c) 2014 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
+Copyright (c) 2004-2014 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
 
 ## Contact
-
 You are welcome to:
 
 - Submit suggestions and bug-reports at: <https://github.com/flr/FLCore/issues>

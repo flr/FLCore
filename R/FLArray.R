@@ -65,19 +65,20 @@ setMethod("[", signature(x="FLArray"),
 	}
 )
 
-setMethod("[", signature(x="FLArray", i="array"),
-  function(x, i, j=missing, ..., drop=missing)
+setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
+  function(x, i)
   {
     dimn <- dimnames(i)
     for(d in 1:6)
       dimn[[d]] <- dimn[[d]][apply(i@.Data, d, any, FALSE)==TRUE]
 
-    if(length(x@.Data[i]) != prod(unlist(lapply(dimn, length))))
+    if(length(x@.Data[i]) != prod(unlist(lapply(dimn, length)))) {
+      	warning("Selected elements do not form a coherent 6D array")
       return(x@.Data[i])
-    #      stop("Selected elements do not form a coherent 6D array")
-    else
+		} else {
       return(new(class(x), array(x@.Data[i], dimnames=dimn,
         dim=unlist(lapply(dimn, length)))))
+		}
   }
 )   # }}}
 
@@ -292,9 +293,10 @@ setMethod('expand', signature(x='FLArray'),
     
     # check new dimnames contain old ones
     for(i in names(select))
-      if(!dimnames[[i]] %in% select[[i]])
+      if(!all(dimnames[[i]] %in% select[[i]]))
         stop("New dimnames do not contain existing ones")
-    dimnames[names(select)] <- select
+    
+		dimnames[names(select)] <- select
 
     # output object
     res <- new(class(x), array(as.numeric(NA), dimnames=dimnames, dim= unlist(lapply(dimnames, length))), units=units(x))

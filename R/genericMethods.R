@@ -51,6 +51,7 @@ setGeneric("tail", useAsDefault=tail)
 setGeneric("tsp", useAsDefault=tsp)
 setGeneric("cbind", signature="...")
 setGeneric("rbind", signature="...")
+setGeneric("wireframe", useAsDefault=wireframe)
 
 
 # NEW methods
@@ -674,6 +675,10 @@ setGeneric("%+%", function(x, y)
 # %-%
 setGeneric("%-%", function(x, y)
   standardGeneric("%-%"))
+
+# %^%
+setGeneric("%^%", function(x, y)
+  standardGeneric("%^%"))
 
 # bubbles
 setGeneric("bubbles", function(x, data, ...)

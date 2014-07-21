@@ -16,7 +16,11 @@ validFLMS <- function(object){
 	v1 <- all.equal(dnms[[1]], dnms[[2]])
 
 	# check that the params and the model have the same params names
-	v2 <- dimnames(pars)$params %in% all.vars(frm)
+	dps <- dimnames(pars)$params
+	if(any(dps != ""))
+		v2 <- dimnames(pars)$params %in% all.vars(frm)
+	else
+		v2 <- TRUE
 
 	# check that the params and the vcov have the same params names
 	v3 <- dnms[[1]] %in% all.vars(frm)
@@ -62,8 +66,6 @@ setMethod("FLModelSim", signature(object="missing"),
   }
 )
 
-setGeneric("distr", function(object, ...) standardGeneric("distr"))
-setGeneric("distr<-", function(object, ..., value) standardGeneric("distr<-"))
 invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "distr")))  # }}}
 
 # mvrnorm {{{

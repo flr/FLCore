@@ -134,9 +134,9 @@ setClass("FLArray",	representation("array"),
 
 setClass("FLQuant",
 	representation("FLArray", units="character"),
-	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
+	prototype(new('FLArray', array(as.numeric(NA), dim=c(1,1,1,1,1,1),
 		dimnames=list(quant="all", year="1", unit="unique", season="all",
-		area="unique", iter="1")), units="NA"),
+		area="unique", iter="1"))), units="NA"),
 # VALIDITY
 	validity=function(object){
 	
@@ -235,7 +235,11 @@ setClass("FLQuantPoint",
 ) # }}}
 
 # FLQuantDistr    {{{
-validFLQuantDistr <- function(object) {
+setClass("FLQuantDistr",
+    representation("FLQuant", var="FLQuant", distr="character"),
+	prototype(new("FLQuant"), var=new("FLQuant"), distr="norm"),
+# VALIDITY
+	validity=function(object) {
 
 	# .Data & var have same dims
 	if(!all(dim(object@.Data) == dim(object@var)))
@@ -247,13 +251,7 @@ validFLQuantDistr <- function(object) {
 
 	# Everything is fine
     return(TRUE)
-}
-setClass("FLQuantDistr",
-    representation("FLQuant", var="FLArray", distr="character"),
-	prototype(new("FLQuant"), var=new("FLArray"), distr="norm"))
-
-setValidity("FLQuantDistr", validFLQuantDistr)
-remove(validFLQuantDistr)   # }}}
+}) # }}}
 
 # FLCohort {{{
 setClass("FLCohort",
@@ -274,18 +272,20 @@ setClass("FLCohort",
 ) # }}}
 
 # FLPar {{{
-validFLPar <- function(object) {
-
-	# Last dimension is called 'iter' ...
-  if(names(dimnames(object))[length(dim(object))] != "iter")
-    return("last dimension must be named 'iter'")
-  # ... and the first 'params'
-
-	return(TRUE)
-}
-
 setClass('FLPar', representation('array', units='character'),
 	prototype=prototype(array(as.numeric(NA), dim=c(1,1),
-	dimnames=list(param="", iter=1)), units='NA'), validity=validFLPar)
-remove(validFLPar)
-# }}}
+	dimnames=list(params=character(1), iter=1)), units='NA'),
+	validity=function(object) {
+		# object must be numeric
+		if(!is.numeric(object))
+			return('object must be numeric')
+		# Last dimension is called 'iter' ...
+	  if(names(dimnames(object))[length(dim(object))] != "iter")
+  	  return("last dimension must be named 'iter'")
+  	# ... and the first 'param'
+	  # if(names(dimnames(object))[1] != "param")
+  	#   return("last dimension must be named 'param'")
+
+		return(TRUE)
+	}
+) # }}}

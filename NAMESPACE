@@ -35,6 +35,7 @@ importFrom("lattice",
   "trellis.focus",
   "trellis.par.set",
   "trellis.unfocus",
+	"wireframe",
 	"xyplot"
 )
 export(
@@ -117,6 +118,7 @@ exportMethods(
   "%+%",
   "%/%",
   "%-%",
+  "%^%",
   "[",
 	"[<-",
   "ab",
@@ -163,8 +165,6 @@ exportMethods(
 	"computeLandings",
 	"computeLogLik",
 	"computeStock",
-  "convertFLPar",
-  "convertFLModel",
 	"covar",
 	"covar<-",
 	"crewshare",
@@ -193,6 +193,8 @@ exportMethods(
   "distribution",
   "distribution<-",
 	"dotplot",
+	"e",
+	"e<-",
 	"effort",
 	"effort<-",
 	"effshare",
@@ -425,5 +427,6 @@ exportMethods(
 	"rngage", 
 	"rngage<-", 
 	"vecyear",
-	"vecage"
+	"vecage",
+	"wireframe"
 )

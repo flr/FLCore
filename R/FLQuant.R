@@ -8,20 +8,22 @@
 # FLQuant(missing){{{
 # FLQuant  <- FLQuant()
 setMethod("FLQuant", signature(object="missing"),
-function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA", iter=1) {
+	function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA", 
+		iter=1) 
+	{
 
-# no dim or dimnames
-if (missing(dim) && missing(dimnames)) {
-dim <- c(1,1,1,1,1,iter)
-dimnames <- list(quant='all', year=1, unit='unique', season='all', area='unique',
-iter=1:dim[6])
-}
-
-# dim missing
-else if (missing(dim)) {
-dimnames <- filldimnames(dimnames, iter=iter)
-dim <- as.numeric(sapply(dimnames, length))
-}
+		# no dim or dimnames
+		if (missing(dim) && missing(dimnames))
+		{
+			dim <- c(1,1,1,1,1,iter)
+			dimnames <- list(quant='all', year=1, unit='unique', season='all',
+				area='unique', iter=1:dim[6])
+		} else if (missing(dim))
+		{
+			# dim missing
+			dimnames <- filldimnames(dimnames, iter=iter)
+			dim <- as.numeric(sapply(dimnames, length))
+		}
 
 # dimnames missing
 else if (missing(dimnames)) {
@@ -249,29 +251,32 @@ return(res)
 }
 )# }}}
 
-# as.FLQuant      {{{
-setGeneric("as.FLQuant", function(x, ...)
-standardGeneric("as.FLQuant"))# }}}
-
 # as.FLQuant(array){{{
 setMethod("as.FLQuant", signature(x="array"),
-function(x, ...) {
-return(FLQuant(x, ...))
-}
-)# }}}
+	function(x, ...) {
+		return(FLQuant(x, ...))
+	}
+)
+
+setAs("array", "FLQuant", function(from)
+	return(FLQuant(from)))
+# }}}
 
 # as.FLQuant(matrix){{{
 setMethod("as.FLQuant", signature(x="matrix"),
-function(x, ...) {
-return(FLQuant(x, ...))
-}
-)# }}}
+	function(x, ...) {
+		return(FLQuant(x, ...))
+	}
+)
+setAs("matrix", "FLQuant", function(from)
+	return(FLQuant(from)))
+# }}}
 
 # as.FLQuant(FLQuant){{{
 setMethod("as.FLQuant", signature(x="FLQuant"),
-function(x, ...) {
-return(FLQuant(x, ...))
-}
+	function(x, ...) {
+		return(FLQuant(x, ...))
+	}
 )# }}}
 
 # as.FLQuant(vector){{{
@@ -279,7 +284,10 @@ setMethod("as.FLQuant", signature(x="vector"),
 function(x, ...) {
 return(FLQuant(x, ...))
 }
-)# }}}
+)
+setAs("vector", "FLQuant", function(from)
+	return(FLQuant(from)))
+# }}}
 
 # coerce  {{{
 setAs("data.frame", "FLQuant",
@@ -600,7 +608,30 @@ ans <- do.call("xyplot", call.list)
 ans
 })
 
-# }}}
+# wireframe
+
+#' @title 3D plot for FLQuant objects
+#' @name wireframe
+#' @docType methods
+#' @rdname wireframe
+#' @aliases wireframe,FLQuant-method
+#' @description Method to plot 3D representations of FLQuant objects
+#'
+#' @param x a \code{formula} formula for lattice
+#' @param data a \code{FLQuant} object with the values
+#' @param ... Additional argument list to be passed to \code{wireframe}
+#' @return a \code{wireframe} plot
+#' @examples
+#' data(ple4)
+#' wireframe(data~age+year, data=harvest(ple4))
+setMethod("wireframe", c("formula","FLQuant"),
+	function(x, data, ...) {
+		args <- list(...)
+		args$x <- x
+		args$data <- as.data.frame(data)
+		do.call("wireframe", args)
+	}
+) # }}}
 
 # totals {{{
 setMethod('quantTotals', signature(x='FLQuant'),
@@ -639,28 +670,27 @@ setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	res <- apply(x, c(1,3:6), sum, na.rm=na.rm)
-
+	return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
 })
 
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:2,4:6), sum, na.rm=na.rm))
+	return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
 })
 
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:3,5:6), sum, na.rm=na.rm))
+	return(apply(x,c(1,2,3,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
 })
 
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:4,6), sum, na.rm=na.rm))
-})
-
-setMethod('iterSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-return(apply(x, c(1:5), sum, na.rm=na.rm))
-})
-
-setMethod('dimSums', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
-return(apply(x, dim, sum, na.rm=na.rm))
+	return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
 }) # }}}
 
 # means         {{{
@@ -689,11 +719,7 @@ setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
 setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), mean, na.rm=na.rm))
-})
-
-setMethod('dimMeans', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
-  return(apply(x, dim, mean, na.rm=na.rm))
-})  # }}}
+}) # }}}
 
 # medians {{{
 setMethod('iterMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
@@ -725,18 +751,12 @@ setMethod('areaVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
 setMethod('iterVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), var, na.rm=na.rm))
-})
-
-setMethod('dimVars', signature(x='FLQuant'), function(x, dim=c(1:2,6), na.rm=TRUE) {
-  return(apply(x, dim, var, na.rm=na.rm))
-})   # }}}
+}) # }}}
 
 # CVs {{{
 setMethod('iterCVs', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(sqrt(iterVars(x))/iterMeans(x))
-})
-
-# }}}
+}) # }}}
 
 # quantile   {{{
 setMethod("quantile", signature(x="FLQuant"),

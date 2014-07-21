@@ -7,7 +7,8 @@ NEW FEATURES
   tS<- method to extract and replace individual time steps in an object with
   years and seasons - tsp method for FLQuant returns 'tsp' attribute: start,
   end and frequency (seasons) - Arith method for FLQuant is now unit-aware,
-  see ?units
+  see ?units - wireframe method from lattice now available for FLQuant -
+  [ method for FLQuantDistr
 
 USER-VISIBLE CHANGES
   - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of
@@ -24,16 +25,17 @@ USER-VISIBLE CHANGES
   cohort=FALSE to return a column named cohort, calculated as year-age. Ony
   for age-quanted objects - getPlural is now an S4 method dispatching on
   singular classes and returning the name of the corresponding FLlst-based
-  class - as.data.frame(FLQuants) returns qname as factor with levels in
-  the order of the input object - modified quantile(FLQuant) so dimnames
-  in iter follow quantile(array), e.g. 50% - tail method for FLQuant,
-  operates by default along the year dimension.  - deprecated sr function is
-  now a method to return aligned stock/recruits FLQuants from an FLStock -
-  propagate(FLComp) accepts extending an object to existing nu mber of iters
-  for all other slots of length 1.  - trim(FLS) u[pdates min/maxfbar if needed
-  - transform(FLComp) now accepts a named FLQuants object as substitution
-  argument (...)  - FLQuants() now accepts an FLCOMP object and a list of
-  names/functions to be used to extract individual FLQuant(s)
+  class - as.data.frame(FLQuants) returns qname as factor with levels in the
+  order of the input object - modified quantile(FLQuant) so dimnames in iter
+  follow quantile(array), e.g. 50% - tail method for FLQuant, operates by
+  default along the year dimension.  - deprecated sr function is now a method
+  to return aligned stock/recruits FLQuants from an FLStock - propagate(FLComp)
+  accepts extending an object to existing nu mber of iters for all other slots
+  of length 1.	- trim(FLS) u[pdates min/maxfbar if needed - transform(FLComp)
+  now accepts a named FLQuants object as substitution argument (...)  -
+  FLQuants() now accepts an FLCOMP object and a list of names/functions to
+  be used to extract individual FLQuant(s) - FLPar validity now checks that
+  content is numeric. Default frist dimname is now 'params'
 
 BUG FIXES
   - iterMeans(FLQuant) was not operating along the 6th dim - coerce from
@@ -46,7 +48,8 @@ BUG FIXES
   use method="Brent" for one parameter problems - New ple4.biol with data
   up to 2008. No integer value - prototype object for FLComp VIRTUAl class
   has name as character(1) - as.FLQuant(df) failed on objects with no 'year'
-  column - propagate(FLQuant) now accepts iter == dim[6]
+  column - propagate(FLQuant) now accepts iter == dim[6] - Faulty comparison
+  in expand(FLArray) fixed #7 - Worng test in validity for FLModelSim
 
 UTILITIES
 
