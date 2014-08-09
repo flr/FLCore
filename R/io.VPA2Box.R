@@ -5,6 +5,48 @@
 # Maintainer: Iago Mosqueira, JRC & Laurie Kell, ICCAT
 # $Id:  $
 
+
+# create retro stocks
+getRetros<-function(stk,fileNm,n){
+  stks<-FLStocks()
+  
+  dir   <-getDir( fileNm)
+  fileNm<-getFile(fileNm)
+  fileNm<-substr( fileNm,1,gregexpr("\\.",fileNm)[[1]]-2)
+  
+  for (iRetro in 0:n){
+    ## Start reading file
+    filename<-paste(dir,.Platform$file.sep,fileNm,iRetro,".R",sep="")
+    
+    ## get Retro estimates
+    i<-0
+    pos1             <-posFile(i,filename)
+    pos2             <-posFile(pos1,filename,char="=")
+    harvest          <-getFLQ(filename,pos1, pos2)
+    
+    pos1             <-posFile(pos2,filename)
+    pos2             <-posFile(pos1,filename,char="=")
+    stock.n          <-getFLQ(filename,pos1, pos2-1)
+    
+    pos1             <-posFile(pos2,filename)
+    pos2             <-posFile(pos1,filename,char="=")
+    catch.n          <-getFLQ(filename,pos1, pos2)
+    
+    stks[[iRetro+1]]<-window(stk,end=dims(harvest)$maxyear)
+    
+    harvest(   stks[[iRetro+1]])<-harvest
+    stock.n(   stks[[iRetro+1]])<-stock.n
+    catch.n(   stks[[iRetro+1]])<-catch.n
+    landings.n(stks[[iRetro+1]])<-catch.n
+    discards.n(stks[[iRetro+1]])[]<-0
+    units(harvest(stks[[iRetro+1]]))<-"f"
+    
+    catch(   stks[[iRetro+1]])<-computeCatch(   stks[[iRetro+1]],'all')
+    landings(stks[[iRetro+1]])<-computeLandings(stks[[iRetro+1]])
+    discards(stks[[iRetro+1]])<-computeDiscards(stks[[iRetro+1]])}
+  
+  return(stks)}
+
 # readVPA2Box {{{
 readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
 
