@@ -58,6 +58,7 @@ export(
   "loglAR1",
   "readADMB",
 	"readVPAFile",
+  "readVPA2Box",
 	"readFLIndex",
 	"read.FLIndex",
 	"readFLIndices",
