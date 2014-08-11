@@ -48,10 +48,9 @@ getRetros<-function(stk,fileNm,n){
   return(stks)}
 
 # readVPA2Box {{{
-readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
+readVPA2Box <- function(file,m=NULL,minage=1,retros=TRUE,...) {
 
-  if(!missing(args))
-    args <- c(args, list(...))
+  args <- c(args, list(...))
 
   # control file 
   dir  <- getDir(file)
@@ -181,10 +180,10 @@ readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
   discards(stk) <- computeDiscards(stk)
 
   units(harvest(stk)) <- "f"
-
-  if (nRet > 1)
-    stk <- getRetros(stk,files[3],n=nRet)
-
+  
+   if (nRet>1 & retros)
+     stk <- getRetros(stk,files[3],n=nRet)
+  
   return(stk)
 } # }}}
 
