@@ -573,7 +573,7 @@ setMethod("%+%", signature(x="FLPar", y="FLPar"),
 
 		# apply operation directly if dimnames match
 		if(identical(dnx, dny))
-			return(x * y)
+			return(x + y)
 
     # vector of final dim
     dnsx <- unlist(lapply(dnx, length))
@@ -610,7 +610,7 @@ setMethod("%-%", signature(x="FLPar", y="FLPar"),
 
 		# apply operation directly if dimnames match
 		if(identical(dnx, dny))
-			return(x * y)
+			return(x - y)
 
     # vector of final dim
     dnsx <- unlist(lapply(dnx, length))
@@ -647,7 +647,7 @@ setMethod("%/%", signature(e1="FLPar", e2="FLPar"),
 
 		# apply operation directly if dimnames match
 		if(identical(dne1, dne2))
-			return(e1 * e2)
+			return(e1 / e2)
 
     # vector of final dim
     dnse1 <- unlist(lapply(dne1, length))
