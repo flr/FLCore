@@ -338,6 +338,41 @@ setMethod("%-%", signature(x="FLPar", y="FLQuant"),
   }
 ) # }}}
 
+# %^% {{{
+# Power of FLPar against FLQuant by matching dimnames, expands 1 to n
+setMethod("%^%", signature(x="FLPar", y="FLQuant"),
+	function(x, y) {
+
+    # dims & dimnames
+    dx <- dim(x)
+    dnx <- dimnames(x)
+    dy <- dim(y)
+    dny <- dimnames(y)
+
+    # TEST: non-matching dims in x should be of length 1
+    idy <- !names(dnx) %in% names(dny)
+    if(any(dx[idy] > 1))
+      stop("dimensions in 'x' not matching those in 'y' must be of length=1")
+
+    # aperm if FLPar dimnames sorted differently to FLQuant's
+    idx <- matchDimnames(dnx, dny)
+    if(any(idx != sort(idx))) {
+      x <- aperm(x, idx)
+      dx <- dx[idx]
+      dnx <- dnx[idx]
+    }
+
+    # tmp FLQuant dims
+    di <- rep(1, 6)
+    di[names(dny) %in% names(dnx)] <- dx[names(dnx) %in% names(dny)]
+
+    # x data in 6D array
+    rx <- array(x@.Data, dim=di)
+
+    # expansion done in %^%(FLQuant, FLQuant)
+    return(FLQuant(rx, quant=quant(y)) %^% y)
+  }
+) # }}}
 # }}}
 
 # FLQuant, FLPar {{{
@@ -657,6 +692,40 @@ setMethod("%/%", signature(e1="FLPar", e2="FLPar"),
     
 		# TODO expand & aperm FLPars
     FLPar(array(e1@.Data, dim=dr, dimnames=dn1) / array(e2@.Data, dim=dr, dimnames=dn1))
+  }
+) # }}}
+
+# %^% {{{
+setMethod("%^%", signature(x="FLPar", y="FLPar"),
+	function(x, y) {
+
+    # dimnames
+    dnx <- dimnames(x)
+    dny <- dimnames(y)
+		
+		ldx <- unlist(lapply(dnx, length))
+		ldy <- unlist(lapply(dny, length))
+
+		# apply operation directly if dimnames match
+		if(identical(ldx, ldy))
+			return(x ^ y)
+    
+		# vector of final dim
+    dnd <- rbind(ldx, ldy)
+    
+    # TEST: non-matching dnames in x or y should be of length 1
+    if(any(apply(dnd, 2, function(x) all(x > 0) && max(x)/min(x) != max(x))))
+      stop("dimensions in 'x' not matching in length those in 'y' must be of length=1")
+
+		# new dim
+    dr <- pmax(ldx, ldy)
+
+		# new dimnames
+		dni <- apply(dnd, 2, which.max)
+		dnx[dni == 2] <- dny[dni == 2]
+
+    # TODO expand & aperm FLPars
+    FLPar(array(x@.Data, dim=dr, dimnames=dnx) ^ array(y@.Data, dim=dr, dimnames=dnx))
   }
 ) # }}}
 # }}}

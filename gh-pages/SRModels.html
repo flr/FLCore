@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>SRModels. FLCore 2.5.20140722</title>
+<title>SRModels. FLCore 2.5.20140813</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -20,7 +20,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140722</a>
+      <a class="brand" href="#">FLCore 2.5.20140813</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -309,11 +309,11 @@ bevholt()
 <div class='output'>$logl
 function (a, b, rec, ssb) 
 loglAR1(log(rec), log(a * ssb/(b + ssb)))
-&lt;environment: 0x666d710&gt;
+&lt;environment: 0x7527158&gt;
 
 $model
 rec ~ a * ssb/(b + ssb)
-&lt;environment: 0x666d710&gt;
+&lt;environment: 0x7527158&gt;
 
 $initial
 function (rec, ssb) 
@@ -322,7 +322,7 @@ function (rec, ssb)
     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
     return(FLPar(a = a, b = a/b))
 }
-&lt;environment: 0x666d710&gt;
+&lt;environment: 0x7527158&gt;
 attr(,&quot;lower&quot;)
 [1] -Inf -Inf
 attr(,&quot;upper&quot;)
@@ -337,7 +337,7 @@ attr(,&quot;upper&quot;)
 </div>
 <div class='output'>function(a, b, rec, ssb)
       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-&lt;environment: 0x6f416e0&gt;
+&lt;environment: 0x7cab638&gt;
 </div>
 <div class='input'>
 # once an FLSR model is in the workspace ...
