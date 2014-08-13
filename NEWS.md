@@ -48,6 +48,7 @@
 - propagate(FLQuant) now accepts iter == dim[6]
 - Faulty comparison in expand(FLArray) fixed #7
 - Wrong test in validity for FLModelSim
+- Fixed bug in FLPar %% FLPar when objects were actually equal in dims, always returned product
 	
 ## UTILITIES
 
