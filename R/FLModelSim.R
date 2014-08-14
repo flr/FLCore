@@ -23,7 +23,7 @@ validFLMS <- function(object){
 		v2 <- TRUE
 
 	# check that the params and the vcov have the same params names
-	v3 <- dnms[[1]] %in% all.vars(frm)
+	if(is.null(dnms[[1]])) v3 <- TRUE else v3 <- dnms[[1]] %in% dimnames(pars)$params
 
 	if(sum(!c(v1, v2, v3))>0)
 		return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
