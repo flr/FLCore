@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>window. FLCore 2.5.20140813</title>
+<title>window. FLCore 2.5.20140814</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -20,7 +20,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140813</a>
+      <a class="brand" href="#">FLCore 2.5.20140814</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -47,7 +47,7 @@
   along the <code>year</code> dimension. If a frequency is specified, the new object contains 
   data at only those year steps.</p>
   
-      <p>Although objects of class <code><a href='FLIndex.html'>FLQuant</a></code> do have another temporal dimension,
+      <p>Although objects of class <code><a href='FLIndexBiomass.html'>FLQuant</a></code> do have another temporal dimension,
   <code>season</code>, currently window only works along the <code>year</code> dimension. To subset
   along other dimensions, refer to <a href='Extract.html'>Extract-FLCore</a>.</p>
   
@@ -79,12 +79,12 @@ window(flq, start=1995, end=1998)
 , , unit = unique, season = all, area = unique
 
    year
-age 1995       1996       1997       1998      
-  1  2.1762939  1.1528830 -0.1631158  2.5808019
-  2 -2.2074312  0.6026384 -0.0575322 -0.1458392
-  3  0.6334850  0.1032366  0.0084388  1.0808672
-  4 -0.0412205 -0.4448222 -0.8891202 -0.8557723
-  5 -1.2484333  0.7036707  0.8624273  0.4302551
+age 1995      1996      1997      1998     
+  1 -0.054946  0.028485  0.902435  1.151923
+  2  1.303817  1.124957  0.356347  0.920788
+  3  1.515180 -0.260241 -1.068643 -1.657883
+  4  0.590938 -0.289420 -0.788053 -0.463877
+  5 -0.103234 -1.291781  1.741214 -0.886663
 
 units:  NA 
 </div>
@@ -95,11 +95,11 @@ units:  NA
 
    year
 age 1990      1992      1994      1996      1998      2000      2002     
-  1  1.084157 -1.097138  1.028995  1.152883  2.580802  1.084157        NA
-  2  0.111890 -0.681768 -0.544173  0.602638 -0.145839  0.111890        NA
-  3 -1.311615  0.311817 -0.260954  0.103237  1.080867 -1.311615        NA
-  4  0.295067  0.690668  1.149381 -0.444822 -0.855772  0.295067        NA
-  5  0.045788  0.748795 -0.564741  0.703671  0.430255  0.045788        NA
+  1  0.057102 -1.754074  0.702264  0.028485  1.151923  0.057102        NA
+  2 -0.212952  0.469219 -0.390327  1.124957  0.920788 -0.212952        NA
+  3 -1.347223  0.118134 -2.792359 -0.260241 -1.657883 -1.347223        NA
+  4 -0.677904 -1.225670  0.379720 -0.289420 -0.463877 -0.677904        NA
+  5 -0.241976  0.116735  0.180691 -1.291781 -0.886663 -0.241976        NA
    year
 age 2004      2006      2008      2010     
   1        NA        NA        NA        NA

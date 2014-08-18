@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>FLIndex. FLCore 2.5.20140814</title>
+<title>FLIndexBiomass. FLCore 2.5.20140814</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="
 The FLR Team
@@ -37,20 +37,20 @@ The FLR Team
         
       </header>
       
-      <h1>Class FLIndex</h1>
+      <h1>Class FLIndexBiomass</h1>
 
 <div class="row">
   <div class="span8">
         
-    <div class="Class FLIndex">
-      <h2>Class FLIndex</h2>
+    <div class="Class FLIndexBiomass">
+      <h2>Class FLIndexBiomass</h2>
       
     </div>
 
     <div class="Description">
       <h2>Description</h2>
       
-      <p>A class that holds data and parameters related to abundance indices.</p>
+      <p>A class that holds data and parameters related to biomass abundance indices.</p>
   
     </div>
 
@@ -58,7 +58,6 @@ The FLR Team
       <h2>Slots</h2>
       
       <p><dl>
-<dt>type</dt><dd>Type of index (<code>character</code>).</dd>
 <dt>distribution</dt><dd>Statistical distribution of the index values (<code>character</code>).</dd>
 <dt>index</dt><dd>Index values (<code>FLQuant</code>).</dd>
 <dt>index.var</dt><dd>Variance of the index (<code>FLQuant</code>).</dd>
@@ -117,45 +116,16 @@ for sizing but not stored in any slot.</p>
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>fli &lt;- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name=&quot;myTestFLindex&quot;)
-summary(fli)
-</div>
-<div class='output'>An object of class &quot;FLIndex&quot;
+    <pre class="examples"><div class='input'>idx &lt;- FLIndexBiomass(index=FLQuant(1:10, quant=&#39;age&#39;))
 
-Name: myTestFLindex 
-Description:  
-Range:	 min	max	pgroup	minyear	maxyear	startf	endf 
-	NA	NA	NA	1	8	NA	NA	
-Type :   
-Distribution :   
-Quant: quant 
-
-index         : [ 1 8 1 1 1 1 ], units =  NA 
-index.var     : [ 1 8 1 1 1 1 ], units =  NA 
-catch.n       : [ 1 8 1 1 1 1 ], units =  NA 
-catch.wt      : [ 1 8 1 1 1 1 ], units =  NA 
-effort        : [ 1 8 1 1 1 1 ], units =  NA 
-sel.pattern   : [ 1 8 1 1 1 1 ], units =  NA 
-index.q       : [ 1 8 1 1 1 1 ], units =  NA 
-</div>
-<div class='input'>index(fli)
-</div>
-<div class='output'>An object of class &quot;FLQuant&quot;
-, , unit = unique, season = all, area = unique
-
-     year
-quant 1         2         3         4         5         6         7        
-  all -0.040739 -0.206531  0.858970  0.897701 -0.438476 -1.718405  0.204441
-     year
-quant 8        
-  all  0.307853
-
-units:  NA 
+data(ple4)
+ida &lt;- FLIndexBiomass(index=ssb(ple4),
+  catch.n=catch.n(ple4))
 </div></pre>
   </div>
   <div class="span4">
     <!-- <ul>
-      <li>FLIndex</li><li>FLIndex,FLQuant-method</li><li>FLIndex,missing-method</li><li>FLIndex-methods</li><li>FLQuant</li><li>catch.n,FLIndex-method</li><li>catch.n&lt;-,FLIndex,FLQuant-method</li><li>catch.wt,FLIndex-method</li><li>catch.wt&lt;-,FLIndex,FLQuant-method</li><li>desc,FLIndex-method</li><li>desc&lt;-,FLIndex,character-method</li><li>distribution,FLIndex-method</li><li>distribution&lt;-,FLIndex,character-method</li><li>effort,FLIndex-method</li><li>effort&lt;-,FLIndex,FLQuant-method</li><li>index,FLIndex-method</li><li>index.q,FLIndex-method</li><li>index.q&lt;-,FLIndex,FLQuant-method</li><li>index.var,FLIndex-method</li><li>index.var&lt;-,FLIndex,FLQuant-method</li><li>index&lt;-,FLIndex,FLQuant-method</li><li>missing</li><li>name,FLIndex-method</li><li>name&lt;-,FLIndex,character-method</li><li>range,FLIndex-method</li><li>range&lt;-,FLIndex,numeric-method</li><li>sel.pattern,FLIndex-method</li><li>sel.pattern&lt;-,FLIndex,FLQuant-method</li><li>type,FLIndex-method</li><li>type&lt;-,FLIndex,character-method</li>
+      <li>FLIndex</li><li>FLIndex,FLQuant-method</li><li>FLIndex,missing-method</li><li>FLIndex-methods</li><li>FLIndexBiomass</li><li>FLQuant</li><li>catch.n,FLIndex-method</li><li>catch.n&lt;-,FLIndex,FLQuant-method</li><li>catch.wt,FLIndex-method</li><li>catch.wt&lt;-,FLIndex,FLQuant-method</li><li>desc,FLIndex-method</li><li>desc&lt;-,FLIndex,character-method</li><li>distribution,FLIndex-method</li><li>distribution&lt;-,FLIndex,character-method</li><li>effort,FLIndex-method</li><li>effort&lt;-,FLIndex,FLQuant-method</li><li>index,FLIndex-method</li><li>index.q,FLIndex-method</li><li>index.q&lt;-,FLIndex,FLQuant-method</li><li>index.var,FLIndex-method</li><li>index.var&lt;-,FLIndex,FLQuant-method</li><li>index&lt;-,FLIndex,FLQuant-method</li><li>missing</li><li>name,FLIndex-method</li><li>name&lt;-,FLIndex,character-method</li><li>range,FLIndex-method</li><li>range&lt;-,FLIndex,numeric-method</li><li>sel.pattern,FLIndex-method</li><li>sel.pattern&lt;-,FLIndex,FLQuant-method</li><li>type,FLIndex-method</li><li>type&lt;-,FLIndex,character-method</li>
     </ul>
     <ul>
       <li>classes</li>
