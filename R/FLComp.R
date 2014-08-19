@@ -218,8 +218,9 @@ setMethod('[', signature(x='FLComp'),
 		dx <- dim(slot(x, qnames[1]))
     args <- list(drop=FALSE)
 
-		if (!missing(i))
+		if (!missing(i)) {
       args <- c(args, list(i=i))
+		}
 		if (!missing(j))
       args <- c(args, list(j=j))
 		if (!missing(k))
@@ -235,11 +236,14 @@ setMethod('[', signature(x='FLComp'),
       slot(x, q) <- do.call('[', c(list(x=slot(x,q)), args))
     
     # range
-    x@range['min'] <- dims(slot(x, qnames[1]))$min
-    x@range['max'] <- dims(slot(x, qnames[1]))$max
-    x@range['minyear'] <- dims(slot(x, qnames[1]))$minyear
-    x@range['maxyear'] <- dims(slot(x, qnames[1]))$maxyear
-
+		if (!missing(i)) {
+    	x@range['min'] <- dims(slot(x, qnames[1]))$min
+    	x@range['max'] <- dims(slot(x, qnames[1]))$max
+		}
+		if (!missing(j)) {
+	    x@range['minyear'] <- dims(slot(x, qnames[1]))$minyear
+  	  x@range['maxyear'] <- dims(slot(x, qnames[1]))$maxyear
+		}
     return(x)
     }
 )   # }}}
