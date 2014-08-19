@@ -17,24 +17,16 @@ setMethod(computeCatch, signature("FLI"), function(object){
 setMethod('[', signature(x='FLI'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE)
   {
-    qnames <- getSlotNamesClass(x, 'FLQuant')
+		qnames <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant"])
     dims <- unlist(lapply(qapply(x, dim)[qnames], function(x) max(x[1])))
     slot <- names(dims[dims == max(dims)][1])
 		dx <- dim(slot(x, slot))
     args <- list(drop=FALSE)
 
 		if (!missing(i))
-    {
       args <- c(args, list(i=i))
-      x@range['plusgroup'] <- min(i[length(i)], x@range['plusgroup'])
-    	x@range['min'] <- min(i)
-	    x@range['max'] <- max(i)
-    }
-		if (!missing(j)) {
+		if (!missing(j))
       args <- c(args, list(j=j))
-			x@range['minyear'] <- min(j)
-    	x@range['maxyear'] <- max(j)
-		}
 		if (!missing(k))
       args <- c(args, list(k=k))
 		if (!missing(l))
@@ -52,6 +44,17 @@ setMethod('[', signature(x='FLI'),
         slot(x, q) <- do.call('[', c(list(x=slot(x,q)), args))
     }
 
+		dmns <- dimnames(slot(x, slot))
+		if (!missing(i))
+    {
+    	x@range['min'] <- as.numeric(dmns[[1]][1])
+	    x@range['max'] <- as.numeric(rev(dmns[[1]])[1])
+      x@range['plusgroup'] <- min(x@range['min'], x@range['plusgroup'])
+    }
+		if (!missing(j)) {
+			x@range['minyear'] <- as.numeric(dmns[[2]][1])
+    	x@range['maxyear'] <- as.numeric(rev(dmns[[2]])[1])
+		}
     return(x)
     }
 )   # }}}
