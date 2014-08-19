@@ -27,9 +27,14 @@ setMethod('[', signature(x='FLI'),
     {
       args <- c(args, list(i=i))
       x@range['plusgroup'] <- min(i[length(i)], x@range['plusgroup'])
+    	x@range['min'] <- min(i)
+	    x@range['max'] <- max(i)
     }
-		if (!missing(j))
+		if (!missing(j)) {
       args <- c(args, list(j=j))
+			x@range['minyear'] <- min(j)
+    	x@range['maxyear'] <- max(j)
+		}
 		if (!missing(k))
       args <- c(args, list(k=k))
 		if (!missing(l))
@@ -46,12 +51,6 @@ setMethod('[', signature(x='FLI'),
       else
         slot(x, q) <- do.call('[', c(list(x=slot(x,q)), args))
     }
-
-    # range
-    x@range['min'] <- dims(slot(x, slot))$min
-    x@range['max'] <- dims(slot(x, slot))$max
-    x@range['minyear'] <- dims(slot(x, slot))$minyear
-    x@range['maxyear'] <- dims(slot(x, slot))$maxyear
 
     return(x)
     }
