@@ -9,7 +9,7 @@ GITVERS=$(shell (date -d `git log -1 --date=short --pretty=format:"%ad"` +%Y%m%d
 R_FILES := $(wildcard $(PKGSRC)/R/*.R)
 HELP_FILES := $(wildcard $(PKGSRC)/man/*.Rd)
 
-all: NEWS README.md roxygen gh-pages build
+all: NEWS README.md roxygen build
 
 README.md: DESCRIPTION
 	sed -i 's/Version: *\([^ ]*\)/Version: $(PKGVERS)/' README.md
@@ -41,7 +41,7 @@ install: build
 	cd ..;\
 	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
 
-check: NEWS README.md roxygen gh-pages build
+check: NEWS README.md roxygen build
 	cd ..;\
 	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz --as-cran
 

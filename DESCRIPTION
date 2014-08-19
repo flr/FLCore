@@ -29,6 +29,7 @@ Collate:
     'FLQuantPoint.R'
     'FLQuantDistr.R'
     'classesComp.R'
+    'classesLst.R'
     'FLlst-class.R'
     'FLComp.R'
 		'FLS.R'
