@@ -264,3 +264,80 @@ setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing
 
 
 # }}}
+
+# sums         {{{
+setMethod('yearSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+	return(apply(e(x),c(1,3,4,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
+})
+
+setMethod('unitSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+	return(apply(e(x),c(1,2,4,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
+})
+
+setMethod('seasonSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+	return(apply(e(x),c(1,2,3,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
+})
+
+setMethod('areaSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+	return(apply(e(x),c(1,2,3,4,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
+}) # }}}
+
+# means         {{{
+setMethod('yearMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1,3:6), mean, na.rm=na.rm))
+})
+
+setMethod('unitMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:2,4:6), mean, na.rm=na.rm))
+})
+
+setMethod('seasonMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:3,6), mean, na.rm=na.rm))
+})
+
+setMethod('areaMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:4,6), mean, na.rm=na.rm))
+})
+
+setMethod('iterMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:5), mean, na.rm=na.rm))
+}) # }}}
+
+# medians {{{
+setMethod('iterMedians', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:5), median, na.rm=na.rm))
+}) # }}}
+
+# vars         {{{
+setMethod('quantVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), 2:6, var, na.rm=na.rm))
+})
+
+setMethod('yearVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1,3:6), var, na.rm=na.rm))
+})
+
+setMethod('unitVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:2,4:6), var, na.rm=na.rm))
+})
+
+setMethod('seasonVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:3,5:6), var, na.rm=na.rm))
+})
+
+setMethod('areaVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:4,6), var, na.rm=na.rm))
+})
+
+setMethod('iterVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:5), var, na.rm=na.rm))
+}) # }}}
+
