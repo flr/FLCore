@@ -39,8 +39,8 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 		class(res) <- class(x)
 		return(res)
 
-		if(validObject(res))
-			return(res)
+		if(validObject(x))
+			return(x)
 		else
 			stop("Invalid object, classes do not match.")
 	}
@@ -64,8 +64,8 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 		
 		lst <- do.call("$<-",list(x=lst, name=name, value=value))
 		
-		if(validObject(res))
-			return(res)
+		if(validObject(x))
+			return(x)
 		else
 			stop("Invalid object, classes do not match.")
 })
