@@ -26,21 +26,23 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
     lst <- as(x, "list")
     names(lst) <- names(x)
 	
-		if(length(lst)==0)
-		{
-			cls <- is(value)[1]
-			lst[[i]] <- value
-			lst <- lapply(lst, as, cls)
-		} else {
-			cls1 <- is(lst[[1]])
-			cls2 <- is(value)
-			if(!identical(cls1,cls2))
-				stop("Object must be of class ",cls1,"\n")
-			lst[[i]] <- value
-		}
+#		if(length(lst)==0)
+#		{
+#			cls <- is(value)[1]
+#			lst[[i]] <- value
+#			lst <- lapply(lst, as, cls)
+#		} 
+		
+		lst[[i]] <- value
+
 		res <- FLlst(lst)
 		class(res) <- class(x)
 		return(res)
+
+		if(validObject(res))
+			return(res)
+		else
+			stop("Invalid object, classes do not match.")
 	}
 )
 	
@@ -53,21 +55,19 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 		lst <- as(x, "list")
     names(lst) <- names(x)
 
-		if(length(lst)==0)
-		{
-			cls <- is(value)[1]
-			lst <- do.call("$<-",list(x=lst, name=name, value=value))
-			lst <- lapply(lst, as, cls)
-		} else {
-			cls1 <- is(lst[[1]])
-			cls2 <- is(value)
-			if(!identical(cls1,cls2))
-				stop("Object must be of class ",cls1,"\n")
-			lst <- do.call("$<-",list(x=lst, name=name, value=value))
-		}
-		res <- FLlst(lst)
-		class(res) <- class(x)
-		return(res)
+#		if(length(lst)==0)
+#		{
+#			cls <- is(value)[1]
+#			lst <- do.call("$<-",list(x=lst, name=name, value=value))
+#			lst <- lapply(lst, as, cls)
+#		}
+		
+		lst <- do.call("$<-",list(x=lst, name=name, value=value))
+		
+		if(validObject(res))
+			return(res)
+		else
+			stop("Invalid object, classes do not match.")
 })
 
 setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
@@ -79,13 +79,13 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			|
 			(is.numeric(i) & !identical(sum(i %in% 1:length(x)), li))))
 				stop("The object is locked. You can not replace non-existent elements.") 
-		cls1 <- is(x[[1]])
-		cls2 <- is(value[[1]])
-
-		if(!identical(cls1,cls2))
-			stop("Object must be of class ", cls1, "\n")
+		
 		x@.Data[i] <- value
-		return(x)
+
+		if(validObject(x))
+			return(x)
+		else
+			stop("Invalid object, classes do not match.")
 	}
 )
 
