@@ -63,8 +63,11 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 		
 		lst <- do.call("$<-",list(x=lst, name=name, value=value))
 
-		if(validObject(lst))
-			return(lst)
+		res <- FLlst(lst)
+		class(res) <- class(x)
+
+		if(validObject(res))
+			return(res)
 		else
 			stop("Invalid object, classes do not match.")
 })
