@@ -221,12 +221,10 @@ setMethod("-",
 
 ## "["             {{{
 setMethod("[", signature(x="FLQuantDistr"),
-    function(x, i, j, k, l, m, n, ..., drop=FALSE) {
+    function(x, i, j, k, l, m, n) {
+	  	
+			dx <- dim(x)
 
-   		if(length(list(...)) > 0)
-        stop('FLQuantDistr objects only have 6 dimensions')
-
-	  	dx <- dim(x)
 		  if (missing(i))
         i  <-  seq(1, dx[1])
       if (missing(j))
