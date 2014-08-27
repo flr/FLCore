@@ -5,25 +5,68 @@
 # Maintainer: Iago Mosqueira, JRC & Laurie Kell, ICCAT
 # $Id:  $
 
+# create retro stocks
+getRetros<-function(stk,fileNm,n){
+  stks<-FLStocks()
+  
+  dir   <-getDir( fileNm)
+  fileNm<-getFile(fileNm)
+  fileNm<-substr( fileNm,1,gregexpr("\\.",fileNm)[[1]]-2)
+  
+  for (iRetro in 0:n){
+    ## Start reading file
+    filename<-paste(dir,.Platform$file.sep,fileNm,iRetro,".R",sep="")
+    
+    ## get Retro estimates
+    i<-0
+    pos1             <-posFile(i,filename)
+    pos2             <-posFile(pos1,filename,char="=")
+    harvest          <-getFLQ(filename,pos1, pos2)
+    
+    pos1             <-posFile(pos2,filename)
+    pos2             <-posFile(pos1,filename,char="=")
+    stock.n          <-getFLQ(filename,pos1, pos2-1)
+    
+    pos1             <-posFile(pos2,filename)
+    pos2             <-posFile(pos1,filename,char="=")
+    catch.n          <-getFLQ(filename,pos1, pos2)
+    
+    stks[[iRetro+1]]<-window(stk,end=dims(harvest)$maxyear)
+    
+    harvest(   stks[[iRetro+1]])<-harvest
+    stock.n(   stks[[iRetro+1]])<-stock.n
+    catch.n(   stks[[iRetro+1]])<-catch.n
+    landings.n(stks[[iRetro+1]])<-catch.n
+    discards.n(stks[[iRetro+1]])[]<-0
+    units(harvest(stks[[iRetro+1]]))<-"f"
+    
+    catch(   stks[[iRetro+1]])<-computeCatch(   stks[[iRetro+1]],'all')
+    landings(stks[[iRetro+1]])<-computeLandings(stks[[iRetro+1]])
+    discards(stks[[iRetro+1]])<-computeDiscards(stks[[iRetro+1]])}
+  
+  return(stks)}
+
 # readVPA2Box {{{
-readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
-
-  if(!missing(args))
-    args <- c(args, list(...))
-
+readVPA2Box <- function(file,m=NULL,minage=1,retros=TRUE,printFiles=FALSE,...) {
+  
+  wrn=options()$warn
+  options(warn=-1)
+  
+  args <- c(args, list(...))
+  
   # control file 
   dir  <- getDir(file)
-  files <- paste(dir, .Platform$file.sep, vpa2BoxFiles(file), sep="")
+  files <- paste(dir, .Platform$file.sep, vpa2BoxFiles(file,printFiles), sep="")
   
   nS  <- getNBootRetro(file)
   nits <- max(1, nS[2])
   nRet <- max(1, nS[1])
-
+  
   # "csv" file
   # data
   dat <- scan(files[5], what="", sep="\n", strip.white=TRUE )
   dat <- dat[nchar(dat)>0]
-
+  
   # gets line number for start of data  
   ln <-c(F=grep("F",dat)[1],
          N=grep("N",dat)[1],
@@ -37,21 +80,21 @@ readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
     N <- length(aa)
     aa <- unlist(strsplit(aa," +"))
     aa <- aa[nchar(aa)>0]
-
+    
     dms <- c(length(aa)/N,N)
-
+    
     aa <- array(as.numeric(aa),dim=dms)
     
     return(FLQuant(c(aa[-1,]), dimnames=list(age=minage+(0:(dms[1]-2)),
-      year=aa[1,])))
+                                             year=aa[1,])))
   }
-
-  stk <- FLStock(stock.n=aaIn(dat[(ln[2]+1):(ln[3]-1)]))
-
-  harvest <- aaIn(dat[(ln[1]+1):(ln[2]-1)])
-  landings.n <- aaIn(dat[(ln[3]+1):(ln[4]-1)])
-  stock.wt <- aaIn(dat[(ln[4]+1):(ln[5]-1)])
-
+  
+  stk <- FLStock(stock.n=aaIn(dat[(ln[2]+1):(ln[3]-1)],minage=minage))
+  
+  harvest    <- aaIn(dat[(ln[1]+1):(ln[2]-1)],minage=minage)
+  landings.n <- aaIn(dat[(ln[3]+1):(ln[4]-1)],minage=minage)
+  stock.wt   <- aaIn(dat[(ln[4]+1):(ln[5]-1)],minage=minage)
+  
   harvest(stk) <- harvest
   landings.n(stk) <- landings.n
   stock.wt(stk) <- stock.wt
@@ -63,43 +106,44 @@ readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
   i <-0
   i <- skip.hash(i,files[1])
   yrRng <- read.table(files[1], skip=i, nrows=1, sep="\n",
-    colClasses="character", strip.white=TRUE)[[1,1]]
+                      colClasses="character", strip.white=TRUE)[[1,1]]
   yrRng <- gsub("\t"," ",yrRng)
   yrRng <- as.integer(strsplit(yrRng," +")[[1]][1:2])
-
+  
   ## age range
   i <- skip.hash(i, files[1])
   ageRng <- read.table(files[1], skip=i, nrows=1, sep="\n",
-    colClasses="character", strip.white=TRUE)[[1,1]]
+                       colClasses="character", strip.white=TRUE)[[1,1]]
   ageRng <- gsub("\t"," ",ageRng)
   ageRng <- as.integer(strsplit(ageRng," \t+")[[1]][1:4])
-
+  
   ## number of indices
   i <- skip.hash(i, files[1])
   read.table(files[1], skip=i,nrows=1, sep="\n")
-
+  
   ## xxx.spwn
   i <- skip.hash(i, files[1])
   x.spwn <- read.table(files[1], skip=i, nrows=1, sep="\n", colClasses="character",
-    strip.white=TRUE)[[1,1]]
+                       strip.white=TRUE)[[1,1]]
   x.spwn <- gsub("\t"," ",x.spwn)
   x.spwn <- as.integer(strsplit(x.spwn," +")[[1]][1])
   x.spwn <- (x.spwn)/12
   m.spwn(stk) <- x.spwn
   harvest.spwn(stk) <- m.spwn(stk)
-
+  
   ## mat
   i <- skip.hash(i,files[1])
   mat <- read.table(files[1],skip=i,nrows=1,sep="\n",colClasses="character",strip.white=TRUE)[[1,1]]
+  
   mat <- gsub("\t"," ",mat)
-  mat <- as.integer(strsplit(mat," +")[[1]])
+  mat <- as.numeric(strsplit(mat," +")[[1]])
   
   mat(stk)[] <- mat[1:dim(mat(stk))[1]]
-
+  
   # Binary files
   dmns <- dimnames(stock.n(stk))
   dmns$iter <- 1:nits
-
+  
   if (file.exists(paste(dir,"MAA.OUT",sep="/")))
     m(stk) <- readBinary(paste(dir,"MAA.OUT",sep="/"), dmns)
   if (!is.null(m)) m(stk)[]=m
@@ -112,18 +156,18 @@ readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
     catch.n(stk) <- readBinary(paste(dir,"CAA.OUT",sep="/"), dmns)
   else
     catch.n(stk) <- stock.n(stk)*harvest(stk)/(harvest(stk)+
-      m(stk))*(1-exp(-((harvest(stk)+m(stk)))))
-
+                                                 m(stk))*(1-exp(-((harvest(stk)+m(stk)))))
+  
   catch.n(stk) <- landings.n(stk)
   discards.n(stk) <- 0
-
+  
   if (file.exists(paste(file,"WAA.OUT",sep="/"))) {
     stock.wt(   stk) <- readBinary(paste(file,"WAA.OUT",sep="/"),dimnames(stock.n(stk)))
     catch.wt(   stk) <- stock.wt(stk)
     landings.wt(stk) <- stock.wt(stk)
     discards.wt(stk) <- stock.wt(stk)
   }
-
+  
   
   # replace any slots
   slt <- names(getSlots("FLStock"))[getSlots("FLStock")=="FLQuant"]
@@ -131,18 +175,20 @@ readVPA2Box <- function(file, args=missing,m=NULL,minage=1,...) {
     if (args[[1]])
       if (all(c("numeric","vector") %in% is(args[[i]])))
         args[[i]] <- FLQuant(args[[i]],dimnames=dimnames(m(stk)))
-        slot(stk, i) <- args[[i]]
+    slot(stk, i) <- args[[i]]
   }
-
+  
   catch(stk)   <- computeCatch(stk,"all")
   landings(stk) <- computeLandings(stk)
   discards(stk) <- computeDiscards(stk)
-
+  
   units(harvest(stk)) <- "f"
-
-  if (nRet > 1)
-    stk <- getRetros(stk,files[3],n=nRet)
-
+  
+   if (nRet>1 & retros)
+     stk <- getRetros(stk,files[3],n=nRet)
+  
+  options(warn=wrn)
+  
   return(stk)
 } # }}}
 
@@ -156,14 +202,14 @@ getDir <- function(file) {
 } # }}}
 
 # vpa2boxfiles {{{
-vpa2BoxFiles <- function(file) {
+vpa2BoxFiles <- function(file,print=FALSE) {
   i <- skip.hash(0,file)
   j <- skip.until.hash(i,file)
 
   res <- gsub(" ","",gsub("'","",substr(scan(file,skip=i+1,nlines=j-i-1,
     quiet=TRUE,what=character(),sep="\n"),1,20)))
    
-  print(res)
+  if (print)  print(res)
   
   return(res)
 } # }}}
