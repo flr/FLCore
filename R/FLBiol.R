@@ -17,7 +17,7 @@ setMethod('FLBiol', signature(object='FLQuant'),
 
     dims <- dims(object)
 
-    res <- new("FLBiol", 
+    res <- new("FLBiol",
     n=object, m=object, wt=object, fec=object, spwn=object,
     range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
 			minyear=dims$minyear, maxyear=dims$maxyear)))
@@ -55,13 +55,13 @@ is.FLBiol <- function(x)
 ## mean.lifespan {{{
 setMethod("mean.lifespan", signature(x="FLBiol"),
 	function(x, ref.age = 'missing',...) {
-		
+
 		# checks
 		if(missing(ref.age))
-			ref.age <- dims(m(x))$min 
+			ref.age <- dims(m(x))$min
 
 		if(ref.age >= dims(m(x))$max)
-			stop("Error in mean.lifespan: reference age greater than last true age")			
+			stop("Error in mean.lifespan: reference age greater than last true age")
 		mm <- trim(m(x),age=ref.age:dims(m(x))$max)
 		mm <- yearMeans(mm)
 		mm <- seasonSums(mm)
@@ -76,16 +76,16 @@ setMethod("mean.lifespan", signature(x="FLBiol"),
 			xx[1:length(x)] <- x[]
 			xx[(length(x)+1):1000] <- x[length(x)]
 			lf <- 0
-			for(i in 1:1000) 
+			for(i in 1:1000)
 					lf <- lf + prod(exp(-xx[1:i]))
 			return(lf)
 		}
-		
+
 		mm <- apply(mm,2:6,m.lf)
 
-		# return the FLQuant age/year aggregated but with unit, area and iter 
+		# return the FLQuant age/year aggregated but with unit, area and iter
 		# specific values of the mean lifespan
-		
+
 		return(mm)
 	}
 )# }}}
@@ -127,13 +127,13 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 	function(x, y, ...)
   {
     data <- as.data.frame(FLQuants(ssb=ssb(x), recruitment=n(x)[1,]))
-    
+
      if(length(levels(data$iter)) > 1)
      pfun <- function(x, y, ...)
       {
         args <- list(...)
         # median
-        do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, median), lwd=2, lty=1, 
+        do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, median), lwd=2, lty=1,
           type='l'), args[!names(args) %in% c('lwd', 'lty', 'type')]))
         # lowq
         do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, quantile, 0.025), lwd=1,
@@ -150,7 +150,7 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
       args <- args[!names(args) %in% c('type', 'pch')]
       do.call(panel.xyplot, c(args, list(x=x[length(x)], y=y[length(y)], pch=19)))
     }
-    
+
     options <- list(aspect='xy', type='l', col='black', pch=19, cex=0.5, lwd=2,
       scales=list(relation='free'), ylab='', xlab='', panel=pfun)
     args <- list(...)
@@ -162,7 +162,7 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 		if(cond != "")
       cond <- paste("|qname*", cond)
     else
-      cond <- paste("|qname") 
+      cond <- paste("|qname")
 		formula <- formula(paste("data~year", cond))
     do.call(xyplot, c(options, list(x=formula, data=data)))
 
@@ -173,7 +173,7 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 setMethod("ssb", signature(object="FLBiol"),
 	function(object, ...)
   {
-		res <- quantSums(n(object) * wt(object) * fec(object) * exp(-spwn(object) * 
+		res <- quantSums(n(object) * wt(object) * fec(object) * exp(-spwn(object) *
       m(object)), na.rm=FALSE)
     units(res) <- paste(units(n(object)), units(wt(object)), sep=' * ')
     return(res)
@@ -184,7 +184,7 @@ setMethod("ssb", signature(object="FLBiol"),
 setMethod("tsb", signature(object="FLBiol"),
 	function(object, ...)
   {
-		res <- quantSums(n(object) * wt(object) * exp(-spwn(object) * 
+		res <- quantSums(n(object) * wt(object) * exp(-spwn(object) *
       m(object)), na.rm=FALSE)
     units(res) <- paste(units(n(object)), units(wt(object)), sep=' * ')
     return(res)
@@ -265,7 +265,7 @@ setMethod('harvest', signature(object='FLBiol', catch='missing'),
 
     return(hrvst)
     }
-    
+
     if (("plusgroup" %in% names(range(object)) && !is.na(range(object,"plusgroup"))))
      res<-pgF(object, res, a=fratio)
 
@@ -278,13 +278,13 @@ setMethod('harvest', signature(object='FLBiol', catch='missing'),
 # leslie {{{
 # this method applies the Leslie Matrix-type model to an FLBiol object
 # ::
-# this is just for the year and age version as tweeks will be needed for 
+# this is just for the year and age version as tweeks will be needed for
 # sexually dimorphic and seasonal models
 setMethod("leslie", signature(object="FLBiol"),
 	function(object, plusgroup = FALSE, ...) {
-		
+
 		# create arrays with no dimnames to speed things up
-		
+
 		xx <- object
 		dms.n <- c(dim(n(xx)))
 		n <- array(dim=dms.n)
@@ -300,19 +300,19 @@ setMethod("leslie", signature(object="FLBiol"),
 		amax <- dms.n[1]
 		ymax <- dms.n[2]
 
-		if(is.na(n[1,1,1,1,1,])) 
+		if(is.na(n[1,1,1,1,1,]))
 			stop("Error in leslie: initial population number is missing")
 
 		# first set the eqm levels of n based on R0 and the survival schedule
 
-		for(a in 2:amax) 
+		for(a in 2:amax)
 			n[a,1,1,1,1,] <- n[a-1,1,1,1,1,] * pm[a-1,1,1,1,1,]
 
 		if(plusgroup)
 			n[amax,1,1,1,1,] <- n[amax,1,1,1,1,]/(1-pm[amax,1,1,1,1,])
 
 		for(y in 2:ymax) {
-			
+
 			# standard Leslie matrix dynamics
 
 			n[-c(1),y,1,1,1,] <- n[-c(amax),y-1,1,1,1,] * pm[-c(amax),y-1,1,1,1,]
@@ -321,7 +321,7 @@ setMethod("leslie", signature(object="FLBiol"),
 				n[amax,y,1,1,1,] <- n[amax,y-1,1,1,1,] * pm[amax,y-1,1,1,1,]
 
 			# now recruits given by usual equations
-	
+
 			tmp <- FLQuant(n * fec * (1 - m.spwn * (1 - pm)))
 			n[1,y,1,1,1,] <- quantSums(tmp)@.Data[,y-1,,,,]
 		}
@@ -365,7 +365,7 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
 					# solve Euler-Lotka using optimise
 					elfn <- function(x)
 						return((sum(exp(-x[1] * age) * p * ff) - 1) ^ 2)
-				
+
 					res.r <- optimise(elfn, interval=c(-10,10))[[1]]
 					return(res.r)
 				}
@@ -376,35 +376,35 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
         nits <- max(dmf[6], dmm[6])
 
 				if(dmf[6] > 1 && dmm[6] == 1)
-        {		
+        {
 					tmp <- m
 					ps <- fec
 					ps[] <- tmp[]
 					rm(tmp)
 					nits <- dmf[6]
-				} 
+				}
 
 				if(dmf[6] == 1 && dmm[6] > 1)
-        {		
+        {
 					tmp <- fec
 					f <- m
 					f[] <- tmp[]
 					rm(tmp)
 					nits <- dmm[6]
-				} 
+				}
 
-				r.ret <- FLQuant(dim=c(1,dmf[2],1,1,1,nits), 
+				r.ret <- FLQuant(dim=c(1,dmf[2],1,1,1,nits),
           dimnames=dimnames(quantMeans(fec))[1:5])
 
 				# define required variables for the estimation
 				for(y in 1:dmf[2])
-        {  	
+        {
 					# loop over the iterations
 					for(i in 1:nits)
-          {	
+          {
 						ff <- as.vector(fec[,y,,,,i])
-						p <- as.vector(m[,y,,,,i])						
-						
+						p <- as.vector(m[,y,,,,i])
+
 						r.ret[,y,,,,i] <- r.func(ff, p, age)
 					}
 				}
@@ -415,19 +415,19 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
       {
 				m <- exp(-m)
 
-				# define function to construct leslie matrix and calculate r 
+				# define function to construct leslie matrix and calculate r
 
 				r.func <- function(ff, p) {
 
-					# construct the leslie matrix 
+					# construct the leslie matrix
 					lesm <- matrix(ncol=length(ff),nrow=length(ff))
-					
+
 					lesm[,] <- 0
 					lesm[1,] <- ff[]
 					na <- length(ff)
 					for(a in 1:(na-1))
 						lesm[a+1,a] <- p[a+1]
-					
+
 					# calculate log of real part of the lead eigenvalue of the leslie matrix
 					res.r <- log(max(Re(eigen(lesm)[['values']])))
 
@@ -440,39 +440,39 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
         nits <- max(dmf[6], dmm[6])
 
 				if(dmf[6] > 1 && dmm[6] == 1)
-        {		
+        {
 					tmp <- m
 					ps <- fec
 					ps[] <- tmp[]
 					rm(tmp)
 					nits <- dmf[6]
-				} 
+				}
 
 				if(dmf[6] == 1 && dmm[6] > 1)
-        {		
+        {
 					tmp <- fec
 					f <- m
 					f[] <- tmp[]
 					rm(tmp)
 					nits <- dmm[6]
-				} 
+				}
 
-				r.ret <- FLQuant(dim=c(1,dmf[2],1,1,1,nits), 
+				r.ret <- FLQuant(dim=c(1,dmf[2],1,1,1,nits),
           dimnames=dimnames(quantMeans(fec))[1:5])
 
 				for(y in 1:dmf[2])
-        {  	
+        {
 					# loop over the iterations
 					for(i in 1:nits)
-          {	
+          {
 						ff <- as.vector(fec[,y,,,,i])
-						p <- as.vector(m[,y,,,,i])						
+						p <- as.vector(m[,y,,,,i])
 						r.ret[,y,,,,i] <- r.func(ff,p)
 					}
-				} 
+				}
 			}
 		}
-	
+
 		# estimate by cohort
 
     else if(by == 'cohort') {
@@ -481,7 +481,7 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
 
 		return(r.ret)
 	}
-) 
+)
 
 setMethod("r", signature(m="FLBiol", fec="missing"),
 	function(m, by = 'year', method = 'el',...)
@@ -494,11 +494,11 @@ setMethod("r", signature(m="FLBiol", fec="missing"),
 # estimate survival probabilities by year or cohort
 setMethod("survprob", signature(object="FLBiol"),
 	function(object, by = 'year',...) {
-		
+
 		# estimate by year
 		if(by == 'year')
       return(survprob(m(object)))
-		
+
 		# estimate by cohort
     else if(by == 'cohort')
       return(survprob(FLCohort(m(object))))
@@ -523,8 +523,8 @@ s.<-	function(x, plusgroup, na.rm=FALSE)
 
 	#do the weighted stuff first
 	for (i in pg.wt.mean){
-	   if (dims(n(x))$iter!=dims(slot(x,i))$iter) 
-         slot(x,i)<-propagate(slot(x,i),dims(n(x))$iter) 
+	   if (dims(n(x))$iter!=dims(slot(x,i))$iter)
+         slot(x,i)<-propagate(slot(x,i),dims(n(x))$iter)
      slot(x,i)[as.character(x@range["plusgroup"])]<-quantSums(slot(x,i)[pg.range]*x@n[pg.range])/quantSums(x@n[pg.range])
      }
   x@n[as.character(x@range["plusgroup"])]<-quantSums(x@n[pg.range])
@@ -574,7 +574,7 @@ setMethod("fbar", signature(object="FLBiol"),
 
   return(res)
 
-  } 
+  }
 ) # }}}
 
 # catch.n {{{
