@@ -724,9 +724,7 @@ setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 # medians {{{
 setMethod('iterMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), median, na.rm=na.rm))
-})
-
-# }}}
+}) # }}}
 
 # vars         {{{
 setMethod('quantVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {

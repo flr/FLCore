@@ -10,6 +10,7 @@
 - Arith method for FLQuant is now unit-aware, see ?units
 - wireframe method from lattice now available for FLQuant
 - [ method for FLQuantDistr
+- FLIndexBiomass class for biomass-based indices of abundance.
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
@@ -32,6 +33,7 @@
 - transform(FLComp) now accepts a named FLQuants object as substitution argument (...)
 - FLQuants() now accepts an FLCOMP object and a list of names/functions to be used to extract individual FLQuant(s)
 - FLPar validity now checks that content is numeric. Default frist dimname is now 'params'
+- FLIndices class can take both FLIndex and FLIndexBiomass objects
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim

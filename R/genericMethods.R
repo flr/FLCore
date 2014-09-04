@@ -335,6 +335,10 @@ setGeneric('index.q<-', function(object, ..., value)
 setGeneric('FLIndex', function(object, ...)
 	standardGeneric('FLIndex'))
 
+# FLIndexBiomass
+setGeneric('FLIndexBiomass', function(object, ...)
+	standardGeneric('FLIndexBiomass'))
+
 # as.FLindex
 setGeneric("as.FLIndex", function(object, ...)
   standardGeneric("as.FLIndex"))

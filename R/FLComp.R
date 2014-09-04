@@ -74,7 +74,6 @@ setMethod("propagate", signature(object="FLComp"),
 		pnames <- names(pnms)[pnms == "FLPar"]
 		for(i in pnames)
 			slot(object, i) <- propagate(slot(object, i), iter)
-
 		return(object)
 	}
 ) # }}}

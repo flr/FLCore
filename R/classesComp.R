@@ -510,22 +510,79 @@ setValidity("FLBiol", validFLBiol)
 remove(validFLBiol)	# We do not need this function any more
 invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range'))) # }}}
 
-# FLIndex    {{{
-validFLIndex <- function(object) {
+# FLI    {{{
+
+
+#' Class FLI
+#' 
+#' A VIRTUAL class that holds data and parameters related to abundance indices.
+#' 
+#' @name FLI
+#' @docType class
+#' @section Slots: \describe{
+#'     \item{type}{Type of index (\code{character}).}
+#'     \item{distribution}{Statistical distribution of the index values (\code{character}).}
+#'     \item{index}{Index values (\code{FLQuant}).}
+#'     \item{index.var}{Variance of the index (\code{FLQuant}).}
+#'     \item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
+#'     \item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
+#'     \item{effort}{Effort used to create the index (\code{FLQuant}).}
+#'     \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
+#'     \item{index.q}{Catchability of the index (\code{FLQuant}).}
+#'     \item{name}{Name of the stock (\code{character}).}
+#'     \item{desc}{General description of the object (\code{character}).}
+#'     \item{range}{Range of the object (\code{numeric})}
+#' }
+#' @template Accessors
+#' @template Constructors
+#' @section Validity: \describe{
+#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+#'     \item{Iters}{The dimname for iter[1] should be '1'.}
+#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+#' }
+#' @author The FLR Team
+#' @seealso \link{computeCatch}, \link{dims},
+#' \link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
+#' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
+#' @keywords classes
+setClass("FLI",
+    representation(
+		"FLComp",
+    distribution = "character",
+    index        = "FLQuant",
+    index.var    = "FLQuant",
+    catch.n      = "FLQuant",
+		catch.wt     = "FLQuant",
+		effort       = "FLQuant",
+		sel.pattern  = "FLQuant",
+		index.q      = "FLQuant",
+		"VIRTUAL"),
+    prototype=prototype(
+        range        = unlist(list(min=0, max=0, plusgroup=NA,
+			minyear=1, maxyear=1, startf=NA, endf=NA)),
+        distribution = character(0),
+        index        = new("FLQuant"),
+        index.var    = new("FLQuant"),
+		catch.n      = new("FLQuant"),
+		catch.wt     = new("FLQuant"),
+		effort       = new("FLQuant"),
+		sel.pattern  = new("FLQuant"),
+		index.q      = new("FLQuant")),
+    validity = function(object) {
 
   dimnms <- qapply(object, function(x) dimnames(x))
 
   # iters are 1 or N
   if (length(unique(unlist(qapply(object,function(x) dims(x)$iter))))>2)
-     stop("Iters in FLIndex can only be of length 1 or n")
+     stop("Iters in FLI can only be of length 1 or n")
 
   # quant is 1 or N
   if (length(unique(unlist(qapply(object,function(x) dims(x)$max))))>2)
-     stop("quant dimension in FLIndex can only be 'all' or n")
+     stop("quant dimension in FLI can only be 'all' or n")
 
   # iter is 1 or N
   if (length(unique(unlist(qapply(object,function(x) dims(x)$iter))))>2)
-     stop("iter dimension in FLIndex can only be '1' or n")
+     stop("iter dimension in FLI can only be '1' or n")
 
   # dims[2:5] match
   for(i in names(dimnms)[-1])
@@ -544,13 +601,7 @@ validFLIndex <- function(object) {
   # min / max
   dims <- dims(object@catch.n)
   min <- object@range["min"]
-
-  if (!is.na(min) && (min < dims(object@catch.n)$min || min > dims(object@catch.n)$max))
-     stop(paste("min is outside quant range in FLQuant slot", i))
-
   max <- object@range["max"]
-  if(!is.na(max) && (max < dims(object@catch.n)$min || max > dims(object@catch.n)$max))
-    stop(paste("max is outside quant range in FLQuant slot", i))
 
   if (!is.na(min) && !is.na(max) && max < min)
     stop(paste("max quant is lower than min quant in FLQuant slot", i))
@@ -574,6 +625,9 @@ validFLIndex <- function(object) {
   # Everything is fine
   return(TRUE)
   }
+) #   }}}
+
+# FLIndex    {{{
 
 #' Class FLIndex
 #' 
@@ -616,33 +670,104 @@ validFLIndex <- function(object) {
 #' 
 setClass("FLIndex",
     representation(
-		"FLComp",
-        type         = "character",
-        distribution = "character",
-        index        = "FLQuant",
-        index.var    = "FLQuant",
-        catch.n      = "FLQuant",
-		catch.wt     = "FLQuant",
-		effort       = "FLQuant",
-		sel.pattern  = "FLQuant",
-		index.q      = "FLQuant"),
+		"FLI",
+		type         = "character"),
     prototype=prototype(
-        type         = character(0),
-        range        = unlist(list(min=0, max=0, plusgroup=NA,
-			minyear=1, maxyear=1, startf=NA, endf=NA)),
-        distribution = character(0),
-        index        = new("FLQuant"),
-        index.var    = new("FLQuant"),
-		catch.n      = new("FLQuant"),
-		catch.wt     = new("FLQuant"),
-		effort       = new("FLQuant"),
-		sel.pattern  = new("FLQuant"),
-		index.q      = new("FLQuant")),
-    validity=validFLIndex
-)
+    type         = character(0)),
+    validity=function(object) {
 
-setValidity("FLIndex", validFLIndex)
-remove(validFLIndex)    #   }}}
+  # min / max
+  dims <- dims(object@catch.n)
+  min <- object@range["min"]
+  max <- object@range["max"]
+
+  if (!is.na(min) && (min < dims(object@catch.n)$min || min > dims(object@catch.n)$max))
+     stop(paste("min is outside quant range in FLQuant slot", i))
+
+  if(!is.na(max) && (max < dims(object@catch.n)$min || max > dims(object@catch.n)$max))
+    stop(paste("max is outside quant range in FLQuant slot", i))
+
+  # Everything is fine
+  return(TRUE)
+  }
+) #   }}}
+
+# FLIndexBiomass    {{{
+
+#' Class FLIndexBiomass
+#' 
+#' A class that holds data and parameters related to biomass abundance indices.
+#' 
+#' @name FLIndexBiomass
+#' @template FLIndex-aliases
+#' @docType class
+#' @section Slots: \describe{
+#'     \item{distribution}{Statistical distribution of the index values (\code{character}).}
+#'     \item{index}{Index values (\code{FLQuant}).}
+#'     \item{index.var}{Variance of the index (\code{FLQuant}).}
+#'     \item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
+#'     \item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
+#'     \item{effort}{Effort used to create the index (\code{FLQuant}).}
+#'     \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
+#'     \item{index.q}{Catchability of the index (\code{FLQuant}).}
+#'     \item{name}{Name of the stock (\code{character}).}
+#'     \item{desc}{General description of the object (\code{character}).}
+#'     \item{range}{Range of the object (\code{numeric})}
+#' }
+#' @template Accessors
+#' @template Constructors
+#' @section Validity: \describe{
+#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+#'     \item{Iters}{The dimname for iter[1] should be '1'.}
+#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+#' }
+#' @author The FLR Team
+#' @seealso \link{computeCatch}, \link{dims},
+#' \link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
+#' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
+#' @keywords classes
+#' @examples
+#' 
+#' idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
+#' 
+#' data(ple4)
+#' ida <- FLIndexBiomass(index=ssb(ple4),
+#'   catch.n=catch.n(ple4))
+#'
+setClass("FLIndexBiomass",
+	representation(
+		"FLI"),
+  prototype=prototype(
+    index=FLQuant(dimnames=list(age='all'))
+	),
+  validity=function(object) {
+
+		dims <- dims(object)
+
+		# age='all'
+		if(dims$quant != 'age')
+			return("quant in FLIndexBiomass must be 'age'")
+
+		if(dimnames(object@index)['age'] != 'all')
+			return("quant dimnames in FLIndexBiomass must be 'all'")
+
+		# slots with no ages
+		dimq <- unlist(qapply(object, function(x) dim(x)[1]))
+
+		# slots with no ages
+		noq <- c('index', 'index.var', 'index.q')
+		if(any(!noq %in% names(dimq)[dimq == 1]))
+			return("slots index, index.var and index.q must have age='all'")
+
+		# others must have equal age
+		dimq <- dimq[names(dimq) %in% c('catch.n', 'catch.wt', 'sel.pattern')]
+		if(any(dimq =! dimq[1]))
+			return("Slots with age data must have the same dimensions")
+
+		# Everything is fine
+	  return(TRUE)
+  }
+) #   }}}
 
 # FLModel  {{{
 validFLModel <- function(object)
@@ -687,682 +812,3 @@ setClass('FLModel',
 )
 invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution')))  # }}}
 
-# FLlst class{{{
-vFLl <- function(object){
-
-	# Make sure the list contains all items of the same class
-	cls <- unlist(lapply(object, class))
-  if(any(cls != cls[1]))
-	  return("Components must be of the same class!")	
-
-  # All elements in the list are validObjects themselves
-  if(!all(unlist(lapply(object, validObject))))
-	  return("Components must be valid objects themselves (validObject == TRUE)")	
-
-	# Everything is fine
-	return(TRUE)
-}
-
-# class
-setClass("FLlst", contains="list",
-  representation(names="character", desc="character", lock="logical"),
-	prototype(lock=FALSE),
-	validity=vFLl
-) # }}}
-
-# FLQuants {{{
-# validity
-vFLQs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLQuant")) stop("Components must be FLQuant")	
-	}
-	# Everything is fine
-	return(TRUE)
-}
-
-#' Class FLQuants
-#' 
-#' \code{FLQuants} is a \code{list} of \code{FLQuant} objects.
-#' It is very similar to the standard \code{list} class.
-#' It implements a lock mechanism that, when turned on, does
-#' not allow the user to increase or decrease the object length.
-#' The elements of \code{FLQuants} must all be of class  \code{FLQuant}. 
-#' 
-#' @name FLQuants
-#' @aliases FLQuants-class FLQuants FLQuants-methods FLQuants,ANY-method
-#' FLQuants,missing-method FLQuants,list-method FLQuants,FLQuants-method
-#' @docType class
-#' @section Slots: \describe{
-#'     \item{.Data}{The data. \code{list}.}
-#'     \item{names}{Names of the list elements. \code{character}.}
-#'     \item{desc}{Description of the object. \code{character}.}
-#'     \item{lock}{Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. \code{logical}.}
-#' }
-#' @template FLlst-accessors
-#' @template FLlst-constructors
-#' @author The FLR Team
-#' @seealso \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame},
-#' \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame},
-#' \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
-#' \link{FLlst}, \link[base]{list}
-#' @keywords classes
-# class
-setClass("FLQuants", contains="FLlst",
-	validity=vFLQs
-)
-
-# constructor
-setGeneric("FLQuants", function(object, ...){
-	standardGeneric("FLQuants")
-	}
-)
-
-setMethod("FLQuants", signature(object="ANY"), function(object, ...){
-	lst1 <- list(...)
-	nlst <- length(lst1)
-	lst <- list()
-	length(lst) <- nlst + 1
-	lst[[1]] <- object
-	lst[-1] <- lst1
-	new("FLQuants", lst)
-})
-
-
-setMethod("FLQuants", signature(object="FLComp"),
-	function(object, ...) {
-
-		args <- list(...)
-
-		# SPLIT into list if a character vector 
-		if(length(args) == 1 & length(args[[1]]) > 1)
-			args <- as.list(args[[1]])
-
-		# CHECK args are char or function
-		chr <- unlist(lapply(args, function(x) is(x, 'character')))
-		fun <- unlist(lapply(args, function(x) is(x, 'function')))
-		
-		if(sum(chr + fun) != length(args))
-			stop("Arguments in ... must be of class 'character' or 'function'")
-
-		# CHECK function elements have names
-		if(any(names(args[fun]) == ""))
-			stop("Function calls must be named, e.g. catch=catch")
-
-		# GET names
-		nms <- names(args)
-		nms[chr] <- unlist(args[chr])
-
-		# DO.CALL list elements
-		res <- lapply(args, function(x) do.call(x, args=list(object)))
-
-		# ASSIGN names
-		names(res) <- nms
-
-		return(new("FLQuants", res))
-})
-
-setMethod("FLQuants", "missing", function(...){
-	if(missing(...)){
-		new("FLQuants")
-	} else { 
-		lst <- list(...)
-		new("FLQuants", lst)
-	}
-})
-
-setMethod("FLQuants", "list", function(object){
-	new("FLQuants", object)
-})
-
-setMethod("FLQuants", "FLQuants", function(object){
-	return(object)
-}) # }}}
-
-# FLSR  {{{
-validFLSR <- function(object)
-{
-	# params must have dims equal to quants
-	return(TRUE)
-}
-
-#' Class FLSR
-#' 
-#' Class for stock-recruitment models.
-#' 
-#' A series of commonly-used stock-recruitment models are already available,
-#' including the corresponding likelihood functions and calculation of initial
-#' values. See \code{\link{SRModels}} for more details and the exact
-#' formulation implemented for each of them.
-#' 
-#' @name FLSR
-#' @aliases FLSR-class FLSR FLSR-methods FLSR,ANY-method FLSR,missing-method
-#' @docType class
-#' @section Slots: \describe{
-#'     \item{name}{Name of the object (\code{character}).}
-#'     \item{desc}{Description of the object (\code{character}).}
-#'     \item{range}{Range (\code{numeric}).}
-#'     \item{rec}{Recruitment series (\code{FLQuant}).}
-#'     \item{ssb}{Index of reproductive potential, e.g. SSB or egg oor egg production (\code{FLQuant}).}
-#'     \item{fitted}{Estimated values for rec (\code{FLQuant}).}
-#'     \item{residuals}{Residuals obtained from the model fit (\code{FLArray}).}
-#'     \item{covar}{Covariates for SR model (\code{FLQuants}).}
-#'     \item{model}{Model formula (\code{formula}).}
-#'     \item{gr}{Function returning the gradient of the likelihood (\code{function}).}
-#'     \item{logl}{Log-likelihood function (\code{function}).}
-#'     \item{initial}{Function returning initial parameter values for the optimizer (\code{function}).}
-#'     \item{params}{Estimated parameter values (\code{FLPar}).}
-#'     \item{logLik}{Value of the log-likelihood (\code{logLik}).}
-#'     \item{vcov}{Variance-covariance matrix (\code{array}).}
-#'     \item{details}{Extra information on the model fit procedure (\code{list}).}
-#'     \item{logerror}{Is the error on a log scale (\code{logical}).}
-#'     \item{distribution}{(\code{factor}).}
-#'     \item{hessian}{Resulting Hessian matrix from the fit (\code{array}).}
-#' }
-#' @author The FLR Team
-#' @seealso \link{FLModel}, \link{FLComp}
-#' @keywords classes
-#' @examples
-#' 
-#'     # Create an empty FLSR object.
-#'     sr1 <- FLSR()
-#'     
-#'     # Create an  FLSR object using the existing SR models. 
-#'     sr2 <- FLSR(model = 'ricker')
-#'     sr2@@model
-#'     sr2@@initial
-#'     sr2@@logl
-#'     
-#'     sr3 <- FLSR(model = 'bevholt')
-#'     sr3@@model
-#'     sr3@@initial
-#'     sr3@@logl
-#'     
-#'     # Create an FLSR using a function.
-#'     mysr1 <- function(){
-#'         model <- rec ~ a*ssb^b
-#'         return(list(model = model))}
-#'     
-#'     sr4 <- FLSR(model = mysr1)
-#' 
-#'     # Create an FLSR using a function and check that it works.
-#'     mysr2 <- function(){
-#'         formula <- rec ~ a+ssb*b
-#'         
-#'         logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec, 
-#'             a + ssb*b, sqrt(sigma), TRUE))
-#'         
-#'        initial <- structure(function(rec, ssb) {
-#'             a     <- mean(rec)
-#'             b     <- 1
-#'             sigma <- sqrt(var(rec))
-#'             
-#'             return(list(a= a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
-#'         
-#'        return(list(model = formula, initial = initial, logl = logl))
-#'     }
-#'       
-#'     ssb <- FLQuant(runif(10, 10000, 100000))
-#'     rec <- 10000 + 2*ssb + rnorm(10,0,1)  
-#'     sr5 <- FLSR(model = mysr2, ssb = ssb, rec = rec)
-#'     
-#'     sr5.mle <- fmle(sr5)
-#'     sr5.nls <- nls(sr5)
-#'     
-#' # NS Herring stock-recruitment dataset
-#' data(nsher)
-#' 
-#' # already fitted with a Ricker SR model
-#' summary(nsher)
-#' 
-#' plot(nsher)
-#' 
-#' # change model
-#' model(nsher) <- bevholt()
-#' 
-#' # fit through MLE
-#' nsher <- fmle(nsher)
-#' 
-#' plot(nsher)
-#' 
-setClass('FLSR',
-  representation(
-	  'FLModel',
-  	rec='FLQuant',
-	  ssb='FLQuant',
-  	covar='FLQuants',
-    logerror='logical'),
-  prototype(residuals=FLQuant(), fitted=FLQuant(), logerror=TRUE, covar=new('FLQuants')),
-	validity=validFLSR)
-remove(validFLSR)
-
-invisible(createFLAccesors("FLSR", include=c('rec', 'ssb', 'covar'))) # }}}
-
-# FLCohorts {{{
-
-# validity
-vFLQs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLCohort")) stop("Components must be FLCohort")	
-	}
-	# Everything is fine
-	return(TRUE)
-}
-
-# class
-setClass("FLCohorts", contains="FLlst",
-	validity=vFLQs
-)
-
-# constructor
-setGeneric("FLCohorts", function(object, ...){
-	standardGeneric("FLCohorts")
-	}
-)
-
-setMethod("FLCohorts", signature(object="ANY"), function(object, ...){
-	lst1 <- list(...)
-	nlst <- length(lst1)
-	lst <- list()
-	length(lst) <- nlst + 1
-	lst[[1]] <- object
-	lst[-1] <- lst1
-	new("FLCohorts", lst)
-})
-
-setMethod("FLCohorts", "missing", function(...){
-	if(missing(...)){
-		new("FLCohorts")
-	} else { 
-		lst <- list(...)
-		new("FLCohorts", lst)
-	}
-})
-
-setMethod("FLCohorts", "list", function(object){
-	new("FLCohorts", object)
-})
-
-setMethod("FLCohorts", "FLCohorts", function(object){
-	return(object)
-}) # }}}
-
-# FLComps {{{
-vFLCs <- function(object) {
-
-  # all elements inherit from class FLComp
-  if(!all(unlist(lapply(object, is, 'FLComp'))))
-    return("All elements must be of a class that inherits from FLComp")
-
-  return(TRUE)
-}
-
-setClass("FLComps", contains=c("FLlst"), validity=vFLCs)
-# }}}
-
-# FLStocks {{{
-vFLSs <- function(object){
-	
-  # All items are FLStock
-  if(!all(unlist(lapply(object, is, 'FLStock'))))
-      return("Components must be FLStock")	
-	
-	return(TRUE)
-}
-
-# class
-setClass("FLStocks", contains="FLComps",
-	validity=vFLSs
-)
-
-# constructor
-setMethod("FLStocks", signature(object="FLStock"), function(object, ...) {
-    lst <- c(object, list(...))
-    FLStocks(lst)
-})
-
-setMethod("FLStocks", signature(object="missing"),
-  function(...) {
-    # empty
-  	if(missing(...)){
-	  	new("FLStocks")
-    # or not
-  	} else {
-      args <- list(...)
-      object <- args[!names(args)%in%c('names', 'desc', 'lock')]
-      args <- args[!names(args)%in%names(object)]
-      do.call('FLStocks',  c(list(object=object), args))
-	  }
-  }
-)
-
-setMethod("FLStocks", signature(object="list"),
-  function(object, ...) {
-    
-    args <- list(...)
-    
-    # names in args, ... 
-    if("names" %in% names(args)) {
-      names <- args[['names']]
-    } else {
-    # ... or in object,
-      if(!is.null(names(object))) {
-        names <- names(object)
-    # ... or in elements, ...
-      } else {
-        names <- unlist(lapply(object, name))
-        # ... or 1:n
-        idx <- names == "NA" | names == ""
-        if(any(idx))
-          names[idx] <- as.character(length(names))[idx]
-      }
-    }
-
-    # desc & lock
-    args <- c(list(Class="FLStocks", .Data=object, names=names),
-      args[!names(args)%in%'names'])
-
-    return(
-      do.call('new', args)
-      )
-
-}) # }}}
-
-# FLIndices {{{
-vFLSs <- function(object){
-	
-  # All items are FLIndex
-  if(!all(unlist(lapply(object, is, 'FLIndex'))))
-      return("Components must be FLIndex")	
-	
-	return(TRUE)
-}
-
-# class
-setClass("FLIndices", contains="FLComps",
-	validity=vFLSs
-)
-
-# constructor
-setMethod("FLIndices", signature(object="FLIndex"), function(object, ...) {
-    lst <- c(object, list(...))
-    FLIndices(lst)
-})
-
-setMethod("FLIndices", signature(object="missing"),
-  function(...) {
-    # empty
-  	if(missing(...)){
-	  	new("FLIndices")
-    # or not
-  	} else {
-      args <- list(...)
-      object <- args[!names(args)%in%c('names', 'desc', 'lock')]
-      args <- args[!names(args)%in%names(object)]
-      do.call('FLIndices',  c(list(object=object), args))
-	  }
-  }
-)
-
-setMethod("FLIndices", signature(object="list"),
-  function(object, ...) {
-    
-    args <- list(...)
-    
-    # names in args, ... 
-    if("names" %in% names(args)) {
-      names <- args[['names']]
-    } else {
-    # ... or in object,
-      if(!is.null(names(object))) {
-        names <- names(object)
-    # ... or in elements, ...
-      } else {
-        names <- unlist(lapply(object, name))
-        # ... or 1:n
-        idx <- names == "NA" | names == ""
-        if(any(idx))
-          names[idx] <- as.character(length(names))[idx]
-      }
-    }
-
-    # desc & lock
-    args <- c(list(Class="FLIndices", .Data=object, names=names),
-      args[!names(args)%in%'names'])
-
-    return(
-      do.call('new', args)
-      )
-
-}) # }}}
-
-# FLBiols {{{
-vFLSs <- function(object){
-	
-  # All items are FLBiol
-  if(!all(unlist(lapply(object, is, 'FLBiol'))))
-      return("Components must be FLBiol")	
-	
-	return(TRUE)
-}
-
-# class
-setClass("FLBiols", contains="FLComps",
-	validity=vFLSs
-)
-
-# constructor
-setMethod("FLBiols", signature(object="FLBiol"), function(object, ...) {
-    lst <- c(object, list(...))
-    FLBiols(lst)
-})
-
-setMethod("FLBiols", signature(object="missing"),
-  function(...) {
-    # empty
-  	if(missing(...)){
-	  	new("FLBiols")
-    # or not
-  	} else {
-      args <- list(...)
-      object <- args[!names(args)%in%c('names', 'desc', 'lock')]
-      args <- args[!names(args)%in%names(object)]
-      do.call('FLBiols',  c(list(object=object), args))
-	  }
-  }
-)
-
-setMethod("FLBiols", signature(object="list"),
-  function(object, ...) {
-    
-    args <- list(...)
-    
-    # names in args, ... 
-    if("names" %in% names(args)) {
-      names <- args[['names']]
-    } else {
-    # ... or in object,
-      if(!is.null(names(object))) {
-        names <- names(object)
-    # ... or in elements, ...
-      } else {
-        names <- unlist(lapply(object, name))
-        # ... or 1:n
-        idx <- names == "NA" | names == ""
-        if(any(idx))
-          names[idx] <- as.character(length(names))[idx]
-      }
-    }
-
-    # desc & lock
-    args <- c(list(Class="FLBiols", .Data=object, names=names),
-      args[!names(args)%in%'names'])
-
-    return(
-      do.call('new', args)
-      )
-
-}) # }}}
-
-# FLSRs {{{
-vFLSRs <- setClass("FLSRs", contains="FLComps",
-	validity=function(object) {
-    # All items are FLSR
-    if(!all(unlist(lapply(object, is, 'FLSR'))))
-      return("Components must be FLSR")	
-	
-	  return(TRUE)
-  }
-)
-
-# constructor
-setMethod("FLSRs", signature(object="FLSR"), function(object, ...) {
-    lst <- c(object, list(...))
-    FLSRs(lst)
-})
-
-setMethod("FLSRs", signature(object="missing"),
-  function(...) {
-    # empty
-  	if(missing(...)){
-	  	new("FLSRs")
-    # or not
-  	} else {
-      args <- list(...)
-      object <- args[!names(args)%in%c('names', 'desc', 'lock')]
-      args <- args[!names(args)%in%names(object)]
-      do.call('FLSRs',  c(list(object=object), args))
-	  }
-  }
-)
-
-setMethod("FLSRs", signature(object="list"),
-  function(object, ...) {
-    
-    args <- list(...)
-    
-    # names in args, ... 
-    if("names" %in% names(args)) {
-      names <- args[['names']]
-    } else {
-    # ... or in object,
-      if(!is.null(names(object))) {
-        names <- names(object)
-    # ... or in elements, ...
-      } else {
-        names <- unlist(lapply(object, name))
-        # ... or 1:n
-        idx <- names == "NA" | names == ""
-        if(any(idx))
-          names[idx] <- as.character(length(names))[idx]
-      }
-    }
-
-    # desc & lock
-    args <- c(list(Class="FLSRs", .Data=object, names=names),
-      args[!names(args)%in%'names'])
-
-    return(
-      do.call('new', args)
-      )
-
-}) # }}}
-
-# FLPars {{{
-# validity
-vFLPs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLPar")) stop("Components must be FLPar")	
-	}
-	# Everything is fine
-	return(TRUE)
-}
-
-# class
-setClass("FLPars", contains="FLlst",
-	validity=vFLPs
-)
-
-# constructor
-setGeneric("FLPars", function(object, ...){
-	standardGeneric("FLPars")
-	}
-)
-
-setMethod("FLPars", signature(object="ANY"), function(object, ...){
-	lst1 <- list(...)
-	nlst <- length(lst1)
-	lst <- list()
-	length(lst) <- nlst + 1
-	lst[[1]] <- object
-	lst[-1] <- lst1
-	new("FLPars", lst)
-})
-
-setMethod("FLPars", "missing", function(...){
-	if(missing(...)){
-		new("FLPars")
-	} else { 
-		lst <- list(...)
-		new("FLPars", lst)
-	}
-})
-
-setMethod("FLPars", "list", function(object){
-	new("FLPars", object)
-})
-
-setMethod("FLPars", "FLPars", function(object){
-	return(object)
-}) # }}}
-
-# FLModelSims {{{
-# validity
-vFLMs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLModelSim")) stop("Components must be FLModelSim")	
-	}
-	# Everything is fine
-	return(TRUE)
-}
-
-# class
-setClass("FLModelSims", contains="FLlst",
-	validity=vFLMs
-)
-
-# constructor
-setGeneric("FLModelSims", function(object, ...){
-	standardGeneric("FLModelSims")
-	}
-)
-
-setMethod("FLModelSims", signature(object="ANY"), function(object, ...){
-	lst1 <- list(...)
-	nlst <- length(lst1)
-	lst <- list()
-	length(lst) <- nlst + 1
-	lst[[1]] <- object
-	lst[-1] <- lst1
-	new("FLModelSims", lst)
-})
-
-setMethod("FLModelSims", "missing", function(...){
-	if(missing(...)){
-		new("FLModelSims")
-	} else { 
-		lst <- list(...)
-		new("FLModelSims", lst)
-	}
-})
-
-setMethod("FLModelSims", "list", function(object){
-	new("FLModelSims", object)
-})
-
-setMethod("FLModelSims", "FLModelSims", function(object){
-	return(object)
-}) # }}}

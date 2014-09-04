@@ -4,6 +4,188 @@
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Dorleta García, AZTI
 
+# FLSR  {{{
+validFLSR <- function(object)
+{
+	# params must have dims equal to quants
+	return(TRUE)
+}
+
+#' Class FLSR
+#' 
+#' Class for stock-recruitment models.
+#' 
+#' A series of commonly-used stock-recruitment models are already available,
+#' including the corresponding likelihood functions and calculation of initial
+#' values. See \code{\link{SRModels}} for more details and the exact
+#' formulation implemented for each of them.
+#' 
+#' @name FLSR
+#' @aliases FLSR-class FLSR FLSR-methods FLSR,ANY-method FLSR,missing-method
+#' @docType class
+#' @section Slots: \describe{
+#'     \item{name}{Name of the object (\code{character}).}
+#'     \item{desc}{Description of the object (\code{character}).}
+#'     \item{range}{Range (\code{numeric}).}
+#'     \item{rec}{Recruitment series (\code{FLQuant}).}
+#'     \item{ssb}{Index of reproductive potential, e.g. SSB or egg oor egg production (\code{FLQuant}).}
+#'     \item{fitted}{Estimated values for rec (\code{FLQuant}).}
+#'     \item{residuals}{Residuals obtained from the model fit (\code{FLArray}).}
+#'     \item{covar}{Covariates for SR model (\code{FLQuants}).}
+#'     \item{model}{Model formula (\code{formula}).}
+#'     \item{gr}{Function returning the gradient of the likelihood (\code{function}).}
+#'     \item{logl}{Log-likelihood function (\code{function}).}
+#'     \item{initial}{Function returning initial parameter values for the optimizer (\code{function}).}
+#'     \item{params}{Estimated parameter values (\code{FLPar}).}
+#'     \item{logLik}{Value of the log-likelihood (\code{logLik}).}
+#'     \item{vcov}{Variance-covariance matrix (\code{array}).}
+#'     \item{details}{Extra information on the model fit procedure (\code{list}).}
+#'     \item{logerror}{Is the error on a log scale (\code{logical}).}
+#'     \item{distribution}{(\code{factor}).}
+#'     \item{hessian}{Resulting Hessian matrix from the fit (\code{array}).}
+#' }
+#' @author The FLR Team
+#' @seealso \link{FLModel}, \link{FLComp}
+#' @keywords classes
+#' @examples
+#' 
+#'     # Create an empty FLSR object.
+#'     sr1 <- FLSR()
+#'     
+#'     # Create an  FLSR object using the existing SR models. 
+#'     sr2 <- FLSR(model = 'ricker')
+#'     sr2@@model
+#'     sr2@@initial
+#'     sr2@@logl
+#'     
+#'     sr3 <- FLSR(model = 'bevholt')
+#'     sr3@@model
+#'     sr3@@initial
+#'     sr3@@logl
+#'     
+#'     # Create an FLSR using a function.
+#'     mysr1 <- function(){
+#'         model <- rec ~ a*ssb^b
+#'         return(list(model = model))}
+#'     
+#'     sr4 <- FLSR(model = mysr1)
+#' 
+#'     # Create an FLSR using a function and check that it works.
+#'     mysr2 <- function(){
+#'         formula <- rec ~ a+ssb*b
+#'         
+#'         logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec, 
+#'             a + ssb*b, sqrt(sigma), TRUE))
+#'         
+#'        initial <- structure(function(rec, ssb) {
+#'             a     <- mean(rec)
+#'             b     <- 1
+#'             sigma <- sqrt(var(rec))
+#'             
+#'             return(list(a= a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
+#'         
+#'        return(list(model = formula, initial = initial, logl = logl))
+#'     }
+#'       
+#'     ssb <- FLQuant(runif(10, 10000, 100000))
+#'     rec <- 10000 + 2*ssb + rnorm(10,0,1)  
+#'     sr5 <- FLSR(model = mysr2, ssb = ssb, rec = rec)
+#'     
+#'     sr5.mle <- fmle(sr5)
+#'     sr5.nls <- nls(sr5)
+#'     
+#' # NS Herring stock-recruitment dataset
+#' data(nsher)
+#' 
+#' # already fitted with a Ricker SR model
+#' summary(nsher)
+#' 
+#' plot(nsher)
+#' 
+#' # change model
+#' model(nsher) <- bevholt()
+#' 
+#' # fit through MLE
+#' nsher <- fmle(nsher)
+#' 
+#' plot(nsher)
+#' 
+setClass('FLSR',
+  representation(
+	  'FLModel',
+  	rec='FLQuant',
+	  ssb='FLQuant',
+  	covar='FLQuants',
+    logerror='logical'),
+  prototype(residuals=FLQuant(), fitted=FLQuant(), logerror=TRUE, covar=new('FLQuants')),
+	validity=validFLSR)
+remove(validFLSR)
+
+invisible(createFLAccesors("FLSR", include=c('rec', 'ssb', 'covar'))) # }}}
+
+# FLSRs {{{
+vFLSRs <- setClass("FLSRs", contains="FLComps",
+	validity=function(object) {
+    # All items are FLSR
+    if(!all(unlist(lapply(object, is, 'FLSR'))))
+      return("Components must be FLSR")	
+	
+	  return(TRUE)
+  }
+)
+
+# constructor
+setMethod("FLSRs", signature(object="FLSR"), function(object, ...) {
+    lst <- c(object, list(...))
+    FLSRs(lst)
+})
+
+setMethod("FLSRs", signature(object="missing"),
+  function(...) {
+    # empty
+  	if(missing(...)){
+	  	new("FLSRs")
+    # or not
+  	} else {
+      args <- list(...)
+      object <- args[!names(args)%in%c('names', 'desc', 'lock')]
+      args <- args[!names(args)%in%names(object)]
+      do.call('FLSRs',  c(list(object=object), args))
+	  }
+  }
+)
+
+setMethod("FLSRs", signature(object="list"),
+  function(object, ...) {
+    
+    args <- list(...)
+    
+    # names in args, ... 
+    if("names" %in% names(args)) {
+      names <- args[['names']]
+    } else {
+    # ... or in object,
+      if(!is.null(names(object))) {
+        names <- names(object)
+    # ... or in elements, ...
+      } else {
+        names <- unlist(lapply(object, name))
+        # ... or 1:n
+        idx <- names == "NA" | names == ""
+        if(any(idx))
+          names[idx] <- as.character(length(names))[idx]
+      }
+    }
+
+    # desc & lock
+    args <- c(list(Class="FLSRs", .Data=object, names=names),
+      args[!names(args)%in%'names'])
+
+    return(
+      do.call('new', args)
+      )
+
+}) # }}}
 
 # FLSR()	{{{
 setMethod('FLSR', signature(model='ANY'),

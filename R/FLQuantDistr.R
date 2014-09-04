@@ -221,12 +221,10 @@ setMethod("-",
 
 ## "["             {{{
 setMethod("[", signature(x="FLQuantDistr"),
-    function(x, i, j, k, l, m, n, ..., drop=FALSE) {
+    function(x, i, j, k, l, m, n) {
+	  	
+			dx <- dim(x)
 
-   		if(length(list(...)) > 0)
-        stop('FLQuantDistr objects only have 6 dimensions')
-
-	  	dx <- dim(x)
 		  if (missing(i))
         i  <-  seq(1, dx[1])
       if (missing(j))
@@ -264,3 +262,112 @@ setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing
 
 
 # }}}
+
+# sums         {{{
+setMethod('yearSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+	return(apply(e(x),c(1,3,4,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
+})
+
+setMethod('unitSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+	return(apply(e(x),c(1,2,4,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
+})
+
+setMethod('seasonSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+	return(apply(e(x),c(1,2,3,5,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
+})
+
+setMethod('areaSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+	return(apply(e(x),c(1,2,3,4,6), function(x, NA.RM=na.rm){ 
+		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+	}))
+}) # }}}
+
+# means         {{{
+setMethod('yearMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1,3:6), mean, na.rm=na.rm))
+})
+
+setMethod('unitMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:2,4:6), mean, na.rm=na.rm))
+})
+
+setMethod('seasonMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:3,6), mean, na.rm=na.rm))
+})
+
+setMethod('areaMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:4,6), mean, na.rm=na.rm))
+})
+
+setMethod('iterMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:5), mean, na.rm=na.rm))
+}) # }}}
+
+# medians {{{
+setMethod('iterMedians', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:5), median, na.rm=na.rm))
+}) # }}}
+
+# vars         {{{
+setMethod('quantVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), 2:6, var, na.rm=na.rm))
+})
+
+setMethod('yearVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1,3:6), var, na.rm=na.rm))
+})
+
+setMethod('unitVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:2,4:6), var, na.rm=na.rm))
+})
+
+setMethod('seasonVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:3,5:6), var, na.rm=na.rm))
+})
+
+setMethod('areaVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:4,6), var, na.rm=na.rm))
+})
+
+setMethod('iterVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
+  return(apply(e(x), c(1:5), var, na.rm=na.rm))
+}) # }}}
+
+# propagate {{{
+setMethod("propagate", signature(object="FLQuantDistr"),
+  function(object, iter, fill.iter=TRUE)
+  {
+		dob <- dim(object)
+
+		if(iter == dob[6])
+			return(object)
+		
+		# CHECK no iters in object
+		if(dob[6] > 1)
+			stop("propagate can only extend objects with no iters")
+
+		# fill.iter
+		if(fill.iter) {
+			return(FLQuantDistr( 
+				array(rep(object@.Data, iter), dim=c(dob[-6], iter), dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))),
+				array(rep(object@var, iter), dim=c(dob[-6], iter), dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))),				
+				units=units(object)))
+		# or NAs
+		} else {
+			return(FLQuantDistr( 
+				array(c(object, rep(NA, prod(dob)*(iter-1))), dim=c(dim(object)[-6], iter), dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), 
+				array(c(object, rep(NA, prod(dob)*(iter-1))), dim=c(dim(object)[-6], iter), dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), 
+				units=units(object)))
+		}
+  }
+) # }}}
+
+
+
+

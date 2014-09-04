@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLI. FLCore 2.5.20140814</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Class FLI</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Class FLI">
+      <h2>Class FLI</h2>
+      
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>A VIRTUAL class that holds data and parameters related to abundance indices.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+      
+      <p><dl>
+<dt>type</dt><dd>Type of index (<code>character</code>).</dd>
+<dt>distribution</dt><dd>Statistical distribution of the index values (<code>character</code>).</dd>
+<dt>index</dt><dd>Index values (<code>FLQuant</code>).</dd>
+<dt>index.var</dt><dd>Variance of the index (<code>FLQuant</code>).</dd>
+<dt>catch.n</dt><dd>Catch numbers used to create the index (<code>FLQuant</code>).</dd>
+<dt>catch.wt</dt><dd>Catch weight of the index (<code>FLQuant</code>).</dd>
+<dt>effort</dt><dd>Effort used to create the index (<code>FLQuant</code>).</dd>
+<dt>sel.pattern</dt><dd>Selection pattern for the index (<code>FLQuant</code>).</dd>
+<dt>index.q</dt><dd>Catchability of the index (<code>FLQuant</code>).</dd>
+<dt>name</dt><dd>Name of the stock (<code>character</code>).</dd>
+<dt>desc</dt><dd>General description of the object (<code>character</code>).</dd>
+<dt>range</dt><dd>Range of the object (<code>numeric</code>)</dd>
+</dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Accesors">
+      <h2>Accesors</h2>
+      
+      <p></p>
+  
+      <p>All slots in the class have accessor and replacement methods defined that
+allow retrieving and substituting individual slots.</p>
+  
+      <p>The values passed for replacement need to be of the class of that slot.
+A numeric vector can also be used when replacing FLQuant slots, and the
+vector will be used to substitute the values in the slot, but not its other
+attributes.</p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+      
+      <p></p>
+  
+      <p>A construction method exists for this class that can take named arguments for
+any of its slots. All slots are then created to match the requirements of the
+class validity. If an unnamed <code>FLQuant</code> object is provided, this is used
+for sizing but not stored in any slot.</p>
+  
+    </div>
+
+    <div class="Validity">
+      <h2>Validity</h2>
+      
+      <p><dl>
+<dt>Dimensions</dt><dd>All FLQuant slots must have iters equal to 1 or 'n'.</dd>
+<dt>Iters</dt><dd>The dimname for iter[1] should be '1'.</dd>
+<dt>Dimnames</dt><dd>The name of the quant dimension must be the same for all FLQuant slots.</dd>
+</dl></p>
+  
+      <p></p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLI</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<a href='computeCatch.html'>computeCatch</a>, <a href='dims.html'>dims</a>,
+<a href='iter.html'>iter</a>, <a href='http://www.inside-r.org/packages/cran/graphics/docs/plot'>plot</a>, <a href='propagate.html'>propagate</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/summary'>summary</a>,
+<a href='http://www.inside-r.org/packages/cran/base/docs/transform'>transform</a>, <a href='trim.html'>trim</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/window'>window</a>, <a href='FLComp.html'>FLComp</a>
+
+    
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
