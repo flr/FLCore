@@ -12,14 +12,14 @@ validFLSR <- function(object)
 }
 
 #' Class FLSR
-#' 
+#'
 #' Class for stock-recruitment models.
-#' 
+#'
 #' A series of commonly-used stock-recruitment models are already available,
 #' including the corresponding likelihood functions and calculation of initial
 #' values. See \code{\link{SRModels}} for more details and the exact
 #' formulation implemented for each of them.
-#' 
+#'
 #' @name FLSR
 #' @aliases FLSR-class FLSR FLSR-methods FLSR,ANY-method FLSR,missing-method
 #' @docType class
@@ -48,68 +48,68 @@ validFLSR <- function(object)
 #' @seealso \link{FLModel}, \link{FLComp}
 #' @keywords classes
 #' @examples
-#' 
+#'
 #'     # Create an empty FLSR object.
 #'     sr1 <- FLSR()
-#'     
-#'     # Create an  FLSR object using the existing SR models. 
+#'
+#'     # Create an  FLSR object using the existing SR models.
 #'     sr2 <- FLSR(model = 'ricker')
 #'     sr2@@model
 #'     sr2@@initial
 #'     sr2@@logl
-#'     
+#'
 #'     sr3 <- FLSR(model = 'bevholt')
 #'     sr3@@model
 #'     sr3@@initial
 #'     sr3@@logl
-#'     
+#'
 #'     # Create an FLSR using a function.
 #'     mysr1 <- function(){
 #'         model <- rec ~ a*ssb^b
 #'         return(list(model = model))}
-#'     
+#'
 #'     sr4 <- FLSR(model = mysr1)
-#' 
+#'
 #'     # Create an FLSR using a function and check that it works.
 #'     mysr2 <- function(){
 #'         formula <- rec ~ a+ssb*b
-#'         
-#'         logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec, 
+#'
+#'         logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec,
 #'             a + ssb*b, sqrt(sigma), TRUE))
-#'         
+#'
 #'        initial <- structure(function(rec, ssb) {
 #'             a     <- mean(rec)
 #'             b     <- 1
 #'             sigma <- sqrt(var(rec))
-#'             
+#'
 #'             return(list(a= a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
-#'         
+#'
 #'        return(list(model = formula, initial = initial, logl = logl))
 #'     }
-#'       
+#'
 #'     ssb <- FLQuant(runif(10, 10000, 100000))
-#'     rec <- 10000 + 2*ssb + rnorm(10,0,1)  
+#'     rec <- 10000 + 2*ssb + rnorm(10,0,1)
 #'     sr5 <- FLSR(model = mysr2, ssb = ssb, rec = rec)
-#'     
+#'
 #'     sr5.mle <- fmle(sr5)
 #'     sr5.nls <- nls(sr5)
-#'     
+#'
 #' # NS Herring stock-recruitment dataset
 #' data(nsher)
-#' 
+#'
 #' # already fitted with a Ricker SR model
 #' summary(nsher)
-#' 
+#'
 #' plot(nsher)
-#' 
+#'
 #' # change model
 #' model(nsher) <- bevholt()
-#' 
+#'
 #' # fit through MLE
 #' nsher <- fmle(nsher)
-#' 
+#'
 #' plot(nsher)
-#' 
+#'
 setClass('FLSR',
   representation(
 	  'FLModel',
@@ -128,8 +128,8 @@ vFLSRs <- setClass("FLSRs", contains="FLComps",
 	validity=function(object) {
     # All items are FLSR
     if(!all(unlist(lapply(object, is, 'FLSR'))))
-      return("Components must be FLSR")	
-	
+      return("Components must be FLSR")
+
 	  return(TRUE)
   }
 )
@@ -157,10 +157,10 @@ setMethod("FLSRs", signature(object="missing"),
 
 setMethod("FLSRs", signature(object="list"),
   function(object, ...) {
-    
+
     args <- list(...)
-    
-    # names in args, ... 
+
+    # names in args, ...
     if("names" %in% names(args)) {
       names <- args[['names']]
     } else {
@@ -216,7 +216,7 @@ setMethod('FLSR', signature(model='ANY'),
     }
     else
       res <- FLModel(model, ..., class='FLSR')
-    
+
     # check if years in 'rec' and 'ssb' dimnames match with 'rec' age
       if(isTRUE(try(dims(rec(res))$minyear - dims(ssb(res))$minyear != dims(rec(res))$min)))
         warning("year dimnames for 'rec' and 'ssb' do not match with recruitment age")
@@ -326,7 +326,7 @@ setMethod("plot", signature(x="FLSR", y="missing"),
     trellis.par.set(list(layout.heights = list(bottom.padding = -0.3,
       axis.xlab.padding = 0.3, xlab = -0.3), layout.widths = list(left.padding = -0.3,
       right.padding = -0.3, ylab.axis.padding = -0.3)))
-		
+
 		# panel functions
 		srpanel <- function(x, y, ...) {
 			panel.xyplot(x, y, col='black', cex=cex)
@@ -373,7 +373,7 @@ setMethod("plot", signature(x="FLSR", y="missing"),
 		print(xyplot(formula(paste("resid1~resid", cond)), ylab='Residuals at t+1',
       xlab='Residuals at t', data=cbind(resid, resid1=c(resid$resid[-1], NA)),
 		  panel=respanel, main='AR(1) Residuals', scales=scales), split=c(1,2,2,3), more=TRUE)
-		
+
     # 4. Residuals plotted against SSB
 		print(xyplot(formula(paste("resid~ssb", cond)), ylab='Residuals', xlab='SSB',
       data=cbind(resid, ssb=c(x@ssb)),
@@ -412,10 +412,10 @@ setMethod('lowess', signature(x='FLSR', y='missing', f='ANY', delta='ANY', iter=
         dim=dim(iter(rec(x),i)))
       out <- lowess(iter(rec(x),i)@.Data[!idx]~iter(ssb(x),i)@.Data[!idx],
         f=f, delta=delta, iter=iter)
-      iter(rec, i)[!idx][order(ssb(x)[!idx])] <- out$y
-      iter(ssb, i)[!idx][order(ssb(x)[!idx])] <- out$x
+      suppressWarnings(iter(rec, i)[!idx][order(ssb(x)[!idx])] <- out$y)
+      suppressWarnings(iter(ssb, i)[!idx][order(ssb(x)[!idx])] <- out$x)
      }
-   
+
     return(FLQuants(rec=rec, ssb=ssb))
   }
 ) # }}}
