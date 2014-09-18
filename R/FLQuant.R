@@ -8,8 +8,8 @@
 # FLQuant(missing){{{
 # FLQuant  <- FLQuant()
 setMethod("FLQuant", signature(object="missing"),
-	function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA", 
-		iter=1) 
+	function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA",
+		iter=1)
 	{
 
 		# no dim or dimnames
@@ -197,7 +197,7 @@ setMethod("FLQuant", signature(object="FLQuant"),
     # generate dimnames
     dnames <- dimnames(object)
     dnames[names(dimnames)]   <- lapply(dimnames, as.character)
-      
+
     # dim
     if(!missing(dim))
     {
@@ -217,29 +217,29 @@ setMethod("FLQuant", signature(object="FLQuant"),
 
     # create empty FLQuant
     res <- FLQuant(dimnames=dnames, quant=quant, units=units)
-    
+
     odnames <- dimnames(object)
     if(!missing(iter))
       odnames$iter <- seq(1, length(odnames$iter))
     if(fill.iter==TRUE)
-      res[odnames[[1]][odnames[[1]]%in%dnames[[1]]],   
+      res[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
           odnames[[2]][odnames[[2]]%in%dnames[[2]]],
           odnames[[3]][odnames[[3]]%in%dnames[[3]]],
           odnames[[4]][odnames[[4]]%in%dnames[[4]]],
-          odnames[[5]][odnames[[5]]%in%dnames[[5]]],]  <- 
-      object[odnames[[1]][odnames[[1]]%in%dnames[[1]]],   
+          odnames[[5]][odnames[[5]]%in%dnames[[5]]],]  <-
+      object[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
              odnames[[2]][odnames[[2]]%in%dnames[[2]]],
              odnames[[3]][odnames[[3]]%in%dnames[[3]]],
              odnames[[4]][odnames[[4]]%in%dnames[[4]]],
              odnames[[5]][odnames[[5]]%in%dnames[[5]]],]
     else
-      res[odnames[[1]][odnames[[1]]%in%dnames[[1]]],   
+      res[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
           odnames[[2]][odnames[[2]]%in%dnames[[2]]],
           odnames[[3]][odnames[[3]]%in%dnames[[3]]],
           odnames[[4]][odnames[[4]]%in%dnames[[4]]],
           odnames[[5]][odnames[[5]]%in%dnames[[5]]],
-          odnames[[6]][odnames[[6]]%in%dnames[[6]]]]  <- 
-      object[odnames[[1]][odnames[[1]]%in%dnames[[1]]],   
+          odnames[[6]][odnames[[6]]%in%dnames[[6]]]]  <-
+      object[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
              odnames[[2]][odnames[[2]]%in%dnames[[2]]],
              odnames[[3]][odnames[[3]]%in%dnames[[3]]],
              odnames[[4]][odnames[[4]]%in%dnames[[4]]],
@@ -309,14 +309,14 @@ qname <- qname[!is.na(qname)]
 stop("too many columns in data.frame")
     if(length(qname) == 0)
       qname <- "quant"
-    
+
     # check and fill up missing dimensions
     n <- dim(from)[1]
     # TODO conversion to/from factor messes up dimnames order
     em <- data.frame(quant=rep('all', n), year=rep(1,n), unit=rep('unique',n),
       season=rep('all',n), area=rep('unique',n), iter=rep(1,n), stringsAsFactors=FALSE)
     names(em)[names(em)=="quant"] <- qname
-    from[,!names(from)%in%'data'] <- 
+    from[,!names(from)%in%'data'] <-
     as.data.frame(as.matrix(from[,!names(from)%in%'data']),
       stringsAsFactors=FALSE)
     em[names(from)] <- from
@@ -327,10 +327,10 @@ stop("too many columns in data.frame")
 
     # fix dimnames names
     names(dimnames(flq)) <- c(qname, 'year', 'unit', 'season', 'area', 'iter')
-    
+
     # create FLQuant
     flq <- FLQuant(flq)
-    
+
     # units
     if(!is.null(attr(from, 'units')))
       units(flq) <- attr(from, 'units')
@@ -352,7 +352,7 @@ return(flq)
 setMethod("as.FLQuant", signature(x="data.frame"),
 function(x, ...)
   {
-  
+
 		# get data.frame names and compare
 		names(x) <- tolower(names(x))
   	validnames <-c("year","unit","season","area","iter","data")
@@ -373,14 +373,14 @@ function(x, ...)
 		# sort years if present
 		if('year' %in% names(x))
 			x <- x[order(x$year),]
-    
+
     # check and fill up missing dimensions
     n <- dim(x)[1]
     # TODO conversion to/x factor messes up dimnames order
     em <- data.frame(quant=rep('all', n), year=rep(1,n), unit=rep('unique',n),
       season=rep('all',n), area=rep('unique',n), iter=rep(1,n), stringsAsFactors=FALSE)
     names(em)[names(em)=="quant"] <- qname
-    
+
     x[,!names(x)%in%'data'] <- as.data.frame(x[,!names(x)%in%'data'],
       stringsAsFactors=FALSE)
     em[names(x)] <- x
@@ -395,10 +395,10 @@ function(x, ...)
 
     # fix dimnames names
     names(dimnames(flq)) <- c(qname, 'year', 'unit', 'season', 'area', 'iter')
-    
+
     # create FLQuant
     flq <- FLQuant(flq, ...)
-    
+
     # units
     if(!is.null(attr(x, 'units')))
       units(flq) <- attr(x, 'units')
@@ -434,7 +434,7 @@ setMethod("dimnames<-", signature(x="FLQuant", value='list'),
       }
     }
     attributes(x)$dimnames <- xnames
-    
+
     return(x)
   }
 ) # }}}
@@ -443,7 +443,7 @@ setMethod("dimnames<-", signature(x="FLQuant", value='list'),
 # Return a list with different parameters
 setMethod("dims", signature(obj="FLQuant"),
 	function(obj, ...){
-    
+
 		names <- names(dimnames(obj))
 		quant   <-  as.numeric(dim(obj)[names == quant(obj)])
 		min <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][1]))
@@ -458,7 +458,7 @@ setMethod("dims", signature(obj="FLQuant"),
 		list <- list(quant=quant, min=min, max=max, year=year, minyear=minyear,
 		maxyear=maxyear, unit=unit, season=season, area=area, iter=iter)
 		names(list)[1] <- quant(obj)
-		
+
 		return(list)
 	}
 )   # }}}
@@ -670,25 +670,25 @@ setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){ 
+	return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){ 
+	return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	return(apply(x,c(1,2,3,5,6), function(x, NA.RM=na.rm){ 
+	return(apply(x,c(1,2,3,5,6), function(x, NA.RM=na.rm){
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){ 
+	return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 }) # }}}
@@ -802,7 +802,7 @@ setMethod("propagate", signature(object="FLQuant"),
 
 		if(iter == dob[6])
 			return(object)
-		
+
 		# CHECK no iters in object
 		if(dob[6] > 1)
 			stop("propagate can only extend objects with no iters")
@@ -908,7 +908,7 @@ dimnames=c(dimnames(lambda)[-6], list(iter=seq(n))), fill.iter=TRUE, units=units
 
 # mvrnorm {{{
 setMethod("mvrnorm",
-  signature(n="numeric", mu="FLQuant", Sigma="matrix"), 
+  signature(n="numeric", mu="FLQuant", Sigma="matrix"),
   function(n=1, mu, Sigma) {
 
     dmu <- dim(mu)
@@ -916,7 +916,7 @@ setMethod("mvrnorm",
     # input checks
     if(any(dmu[3:6] > 1))
       stop("mvrnorm can only work on 'quant' by 'year' FLQuant objects")
-    if (!isSymmetric(Sigma, tol = sqrt(.Machine$double.eps), 
+    if (!isSymmetric(Sigma, tol = sqrt(.Machine$double.eps),
       check.attributes = FALSE)) {
       stop("Sigma must be a symmetric matrix")
     }
@@ -942,14 +942,14 @@ setMethod("mvrnorm",
 )
 
 setMethod("mvrnorm",
-  signature(n="numeric", mu="FLQuant", Sigma="missing"), 
+  signature(n="numeric", mu="FLQuant", Sigma="missing"),
   function(n=1, mu) {
 
     #
     Sigma <- cov(t(mu[, drop=TRUE]))
 
     return(mvrnorm(n, mu, Sigma))
-    
+
   }
 )# }}}
 
@@ -1008,19 +1008,19 @@ stop('setPlusGroup onoy makes sense for age-based FLQuant objects')
 # plusgroup not < than minage
   if ((plusgroup) < dims(x)$min)
   stop("plusgroup < min age")
-  
-  # expand                       
+
+  # expand
   if ((plusgroup) > dims(x)$max) {
     dmns <-dimnames(x)
     dmns$age <-dims(x)$min:plusgroup
     oldMaxage<-dims(x)$max
-    
+
     # create extra ages and fill with plusgroup
     res  <-FLQuant(x, dimnames=dmns)
     res[ac((oldMaxage+1):plusgroup)] <- 0;
     res[ac((oldMaxage+1):plusgroup)] <- sweep(res[ac((oldMaxage+1):plusgroup)],
       2:6, res[ac(oldMaxage)],"+")
-    
+
     if (by != "mean")
       res[ac((oldMaxage + 1):plusgroup)] <- res[ac((oldMaxage + 1):plusgroup)]/
         (plusgroup-oldMaxage + 1)
@@ -1064,7 +1064,7 @@ setMethod('jacknife', signature(object='FLQuant'),
 
     # propagate
     res <- propagate(object, prod(dmo) + 1)
-  
+
     # create array with 1 at each location by iter
     idx <- array(c(TRUE, rep(NA, prod(dmo[-6]))), dim=c(dmo[-6], prod(dmo)))
     res[,,,,,-1][idx] <- NA
@@ -1076,12 +1076,12 @@ setMethod('jacknife', signature(object='FLQuant'),
 # jackSummary {{{
 setMethod("jackSummary", signature(object="FLQuant"),
   function(object, ...) {
-   
+
    n <- dims(object)$iter - 1
-   
+
    mn <- iter(object,  1)
    u <- iter(object, -1)
-   mnU <- apply(u, 1:5, mean)   
+   mnU <- apply(u, 1:5, mean)
 
    SS <- apply(sweep(u, 1:5, mnU,"-")^2, 1:5, sum)
 
@@ -1095,16 +1095,17 @@ setMethod("jackSummary", signature(object="FLQuant"),
 # as.data.frame(FLQuant) {{{
 setMethod("as.data.frame", signature(x="FLQuant", row.names="missing",
   optional="missing"),
-function(x, cohort=FALSE, drop=FALSE) {
-    as.data.frame(x, row.names=NULL, cohort=cohort, drop=drop)
-  }
+    function(x, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE) {
+        as.data.frame(x, row.names=NULL, cohort=cohort, timestep=timestep,
+            date=date, drop=drop)
+    }
 )
 setMethod("as.data.frame", signature(x="FLQuant", row.names="ANY",
   optional="missing"),
-function(x, row.names, cohort=FALSE, drop=FALSE) {
+function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE) {
 
     res <- callNextMethod(x)
-    
+
     # create cohort column as year - age
     if(cohort) {
       res$cohort  <-  "all"
@@ -1112,6 +1113,19 @@ function(x, row.names, cohort=FALSE, drop=FALSE) {
 				if(!any(is.na(dims(x)[c('min', 'max')])))
   	    	res$cohort <- res$year - res$age
     }
+
+    # create timestep column
+    if(timestep) {
+        res$timestep <- (as.numeric(res$year) - min(res$year)) * dim(x)[4] +
+            as.numeric(res$season)
+    }
+
+    # create date column
+    if(date) {
+		lens <- (ISOdate(2014, 12, 31) - ISOdate(2014, 1, 1)) / dim(x)[4]
+		res$date <- ISOdate(res$year, 1, 1) + lens * (as.numeric(res$season) - 1)
+    }
+
 
     # drops columns with a single value, i.e. dims of length=1
     if(drop) {
@@ -1164,13 +1178,13 @@ setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),
 		#
 		uts <- units(test)
 		dmns <- dimnames(test)
-		
+
 		test <- as(test, 'logical')
 		yes <- c(yes)
 		no <- c(no)
-		
+
 		res <- callNextMethod()
-		
+
 		return(FLQuant(res, dimnames=dmns, units=uts))
 	}
 ) # }}}
@@ -1194,7 +1208,7 @@ setMethod("tail", signature(x="FLQuant"),
 
 		# tail dimension set by dim
 		idx[[dim]] <- tail(idx[[dim]], n=n)
-		
+
 		# apply '['
 		return(do.call('[', c(list(x=x), idx)))
 	}
@@ -1210,12 +1224,12 @@ setMethod("tS", signature(object="FLQuant", step="numeric"),
 	# find pout season and year
 	season <- step %% do[2]
 	year <- step %/% do[2] + 1
-	
+
 	# correct for those in season 4
-	idx <- (step %% do[2]) == 0 
+	idx <- (step %% do[2]) == 0
 	year[idx] <- (step %/% do[2]) [idx]
 	season[idx] <- do[2]
-		
+
 	# Are n elements contiguous in years or seasons ?
 	if(length(unique(year)) > 1 & length(unique(season)) > 1)
 		stop("requested time steps do not generate a consistent object")
@@ -1235,10 +1249,10 @@ setMethod("tS<-", signature(object="FLQuant", step="numeric", value="vector"),
 	year <- step %/% do[2] + 1
 
 	# correct for those in season 4
-	idx <- (step %% do[2]) == 0 
+	idx <- (step %% do[2]) == 0
 	year[idx] <- step %/% do[2]
 	season[idx] <- do[2]
-		
+
 	object[, unique(year), ,unique(season),,]  <- value
 
 	return(object)
