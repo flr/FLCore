@@ -12,11 +12,11 @@ vFLl <- function(object){
 	# Make sure the list contains all items of the same class
 	# cls <- unlist(lapply(object, class))
   # if(any(cls != cls[1]))
-	  # return("Components must be of the same class!")	
+	  # return("Components must be of the same class!")
 
   # All elements in the list are validObjects themselves
   if(!all(unlist(lapply(object, validObject))))
-	  return("Components must be valid objects themselves (validObject == TRUE)")	
+	  return("Components must be valid objects themselves (validObject == TRUE)")
 
 	# Everything is fine
 	return(TRUE)
@@ -34,20 +34,20 @@ setClass("FLlst", contains="list",
 vFLQs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLQuant")) stop("Components must be FLQuant")	
+		if(!is(object[[i]], "FLQuant")) stop("Components must be FLQuant")
 	}
 	# Everything is fine
 	return(TRUE)
 }
 
 #' Class FLQuants
-#' 
+#'
 #' \code{FLQuants} is a \code{list} of \code{FLQuant} objects.
 #' It is very similar to the standard \code{list} class.
 #' It implements a lock mechanism that, when turned on, does
 #' not allow the user to increase or decrease the object length.
-#' The elements of \code{FLQuants} must all be of class  \code{FLQuant}. 
-#' 
+#' The elements of \code{FLQuants} must all be of class  \code{FLQuant}.
+#'
 #' @name FLQuants
 #' @aliases FLQuants-class FLQuants FLQuants-methods FLQuants,ANY-method
 #' FLQuants,missing-method FLQuants,list-method FLQuants,FLQuants-method
@@ -93,14 +93,14 @@ setMethod("FLQuants", signature(object="FLComp"),
 
 		args <- list(...)
 
-		# SPLIT into list if a character vector 
+		# SPLIT into list if a character vector
 		if(length(args) == 1 & length(args[[1]]) > 1)
 			args <- as.list(args[[1]])
 
 		# CHECK args are char or function
 		chr <- unlist(lapply(args, function(x) is(x, 'character')))
 		fun <- unlist(lapply(args, function(x) is(x, 'function')))
-		
+
 		if(sum(chr + fun) != length(args))
 			stop("Arguments in ... must be of class 'character' or 'function'")
 
@@ -124,7 +124,7 @@ setMethod("FLQuants", signature(object="FLComp"),
 setMethod("FLQuants", "missing", function(...){
 	if(missing(...)){
 		new("FLQuants")
-	} else { 
+	} else {
 		lst <- list(...)
 		new("FLQuants", lst)
 	}
@@ -144,7 +144,7 @@ setMethod("FLQuants", "FLQuants", function(object){
 vFLQs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLCohort")) stop("Components must be FLCohort")	
+		if(!is(object[[i]], "FLCohort")) stop("Components must be FLCohort")
 	}
 	# Everything is fine
 	return(TRUE)
@@ -174,7 +174,7 @@ setMethod("FLCohorts", signature(object="ANY"), function(object, ...){
 setMethod("FLCohorts", "missing", function(...){
 	if(missing(...)){
 		new("FLCohorts")
-	} else { 
+	} else {
 		lst <- list(...)
 		new("FLCohorts", lst)
 	}
@@ -203,11 +203,11 @@ setClass("FLComps", contains=c("FLlst"), validity=vFLCs)
 
 # FLStocks {{{
 vFLSs <- function(object){
-	
+
   # All items are FLStock
   if(!all(unlist(lapply(object, is, 'FLStock'))))
-      return("Components must be FLStock")	
-	
+      return("Components must be FLStock")
+
 	return(TRUE)
 }
 
@@ -239,10 +239,10 @@ setMethod("FLStocks", signature(object="missing"),
 
 setMethod("FLStocks", signature(object="list"),
   function(object, ...) {
-    
+
     args <- list(...)
-    
-    # names in args, ... 
+
+    # names in args, ...
     if("names" %in% names(args)) {
       names <- args[['names']]
     } else {
@@ -273,11 +273,11 @@ setMethod("FLStocks", signature(object="list"),
 # class
 setClass("FLIndices", contains="FLComps",
 	validity = function(object) {
-	
+
   # All items are FLIndex
   if(!all(unlist(lapply(object, inherits, 'FLI'))))
-      return("Components must be FLIndex")	
-	
+      return("Components must be FLIndex")
+
 	return(TRUE)
 	}
 )
@@ -305,10 +305,10 @@ setMethod("FLIndices", signature(object="missing"),
 
 setMethod("FLIndices", signature(object="list"),
   function(object, ...) {
-    
+
     args <- list(...)
-    
-    # names in args, ... 
+
+    # names in args, ...
     if("names" %in% names(args)) {
       names <- args[['names']]
     } else {
@@ -321,7 +321,7 @@ setMethod("FLIndices", signature(object="list"),
         # ... or 1:n
         idx <- names == "NA" | names == ""
         if(any(idx))
-          names[idx] <- as.character(length(names))[idx]
+          names[idx] <- as.character(seq(length(names)))[idx]
       }
     }
 
@@ -337,11 +337,11 @@ setMethod("FLIndices", signature(object="list"),
 
 # FLBiols {{{
 vFLSs <- function(object){
-	
+
   # All items are FLBiol
   if(!all(unlist(lapply(object, is, 'FLBiol'))))
-      return("Components must be FLBiol")	
-	
+      return("Components must be FLBiol")
+
 	return(TRUE)
 }
 
@@ -373,10 +373,10 @@ setMethod("FLBiols", signature(object="missing"),
 
 setMethod("FLBiols", signature(object="list"),
   function(object, ...) {
-    
+
     args <- list(...)
-    
-    # names in args, ... 
+
+    # names in args, ...
     if("names" %in% names(args)) {
       names <- args[['names']]
     } else {
@@ -408,7 +408,7 @@ setMethod("FLBiols", signature(object="list"),
 vFLPs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLPar")) stop("Components must be FLPar")	
+		if(!is(object[[i]], "FLPar")) stop("Components must be FLPar")
 	}
 	# Everything is fine
 	return(TRUE)
@@ -438,7 +438,7 @@ setMethod("FLPars", signature(object="ANY"), function(object, ...){
 setMethod("FLPars", "missing", function(...){
 	if(missing(...)){
 		new("FLPars")
-	} else { 
+	} else {
 		lst <- list(...)
 		new("FLPars", lst)
 	}
@@ -457,7 +457,7 @@ setMethod("FLPars", "FLPars", function(object){
 vFLMs <- function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLModelSim")) stop("Components must be FLModelSim")	
+		if(!is(object[[i]], "FLModelSim")) stop("Components must be FLModelSim")
 	}
 	# Everything is fine
 	return(TRUE)
@@ -487,7 +487,7 @@ setMethod("FLModelSims", signature(object="ANY"), function(object, ...){
 setMethod("FLModelSims", "missing", function(...){
 	if(missing(...)){
 		new("FLModelSims")
-	} else { 
+	} else {
 		lst <- list(...)
 		new("FLModelSims", lst)
 	}
