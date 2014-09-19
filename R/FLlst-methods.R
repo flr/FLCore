@@ -21,18 +21,18 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			(is.character(i) & is.na(match(i, names(x))))
 			|
 			(is.numeric(i) & length(x)<i)))
-				stop("The object is locked. You can not replace non-existent elements.") 
-		
+				stop("The object is locked. You can not replace non-existent elements.")
+
     lst <- as(x, "list")
     names(lst) <- names(x)
-	
+
 #		if(length(lst)==0)
 #		{
 #			cls <- is(value)[1]
 #			lst[[i]] <- value
 #			lst <- lapply(lst, as, cls)
-#		} 
-		
+#		}
+
 		lst[[i]] <- value
 
 		res <- FLlst(lst)
@@ -44,13 +44,13 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			stop("Invalid object, classes do not match.")
 	}
 )
-	
+
 setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 	function(x, name, value)
 	{
 		if(isTRUE(x@lock) & is.na(match(name, names(x))))
-			stop("The object is locked. You can not replace non-existent elements.") 
-		
+			stop("The object is locked. You can not replace non-existent elements.")
+
 		lst <- as(x, "list")
     names(lst) <- names(x)
 
@@ -60,7 +60,7 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 #			lst <- do.call("$<-",list(x=lst, name=name, value=value))
 #			lst <- lapply(lst, as, cls)
 #		}
-		
+
 		lst <- do.call("$<-",list(x=lst, name=name, value=value))
 
 		res <- FLlst(lst)
@@ -80,8 +80,8 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			(is.character(i) & !identical(sum(i %in% names(x)), li))
 			|
 			(is.numeric(i) & !identical(sum(i %in% 1:length(x)), li))))
-				stop("The object is locked. You can not replace non-existent elements.") 
-		
+				stop("The object is locked. You can not replace non-existent elements.")
+
 		x@.Data[i] <- value
 
 		if(validObject(x))
@@ -102,14 +102,14 @@ setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(
 # lapply  {{{
 setMethod("lapply", signature(X="FLlst"),
 	function(X, FUN, ...){
-		
+
 		lstargs <- list(...)
    	lstargs$X <- X@.Data
    	names(lstargs$X) <- names(X)
 
    	lstargs$FUN <- FUN
    	lst <- do.call("lapply", lstargs)
-   
+
 		# getclass
    	cls <- getPlural(lst[[1]])
    	if(cls != 'list')
@@ -181,7 +181,7 @@ setMethod("plot", signature(x="FLIndices",y="missing"),
       # Convert to log scales if necessary
       if(log.scales)
         surv.x@index <- log10(surv.x@index);surv.y@index <- log10(surv.y@index)
-			
+
       # Match up survey data to compare
 			comb.surv <- merge(as.data.frame(surv.x@index),as.data.frame(surv.y@index),
         by=c("age","year","unit","season","area","iter"),all=FALSE)
@@ -202,7 +202,7 @@ setMethod("plot", signature(x="FLIndices",y="missing"),
         {
           # Plot data points
           panel.xyplot(x,y,...)
-					
+
           # Fit linear model and plot, along with confidence limits
 					# but only if there are sufficient data points
 					g <- lm(y~x)
@@ -262,39 +262,43 @@ setMethod('summary', signature(object='FLlst'),
   }
 ) # }}}
 
-# plot(FLStocks)  {{{
+# plot(FLStocks) {{{
 setMethod('plot', signature(x='FLStocks', y='missing'),
-  function(x, key=FALSE, ...)
-  {
-  # TODO set defaults names and args for main and key
-  # data.frame with selected slots per stock
-  dfs <- lapply(x, function(y) data.frame(as.data.frame(FLQuants(catch=catch(y),
-    ssb=ssb(y), rec=rec(y), harvest=if(units(harvest(y)) == 'f'){fbar(y)} else {
-    quantSums(harvest(y))}))))
+	function(x, key=FALSE, ...)
+	{
+		foo <- function(x) {
+	  	if(units(harvest(x)) == 'f')
+				har <- fbar(x)
+			else
+				har <- quantSums(harvest(x))
+
+	  	return(as.data.frame(FLQuants(catch=catch(x), ssb=ssb(x),
+				rec=rec(x),harvest=har)))
+		}
+
+	dfs <- lapply(x, foo)
 
   # element names
   names <- names(x)
-  if(is.null(names))
-    names <- as.character(seq(length(dfs)))
+	names[names == ""]  <- seq(length(dfs))[names == ""]
 
-  # stock index
-  dfs[[1]] <- cbind(dfs[[1]], stock=1)
+	for(i in seq(length(dfs)))
+		dfs[[i]] <- cbind(dfs[[i]], stock=names[i])
 
-  # rbind if more than one stock
-  if(length(dfs) > 1)
-    for(i in seq(2, length(dfs)))
-      dfs[[1]] <- rbind(dfs[[1]], cbind(dfs[[i]], stock=i))
-  dfs <- dfs[[1]]
+	dfs <- Reduce(rbind, dfs)
 
   # default options
-  options <- list(scales=list(relation='free'), ylab="", xlab="", col=rainbow(length(x)), 
-    lwd=2, cex=0.6)
+  options <- list(scales=list(y=list(relation='free')), ylab="",
+		xlab="", par.settings=list(superpose.line=list(col=rainbow(length(x)), lwd=2),
+		superpose.symbol=list(col=rainbow(length(x)), pch=19, cex=0.6),
+		strip.background=list(col="gray85")), cex=0.6)
+
   args <- list(...)
   options[names(args)] <- args
 
   # key
   if(key == TRUE)
-    options$key <- list(text=list(lab=names(x)), lines=list(col=options$col))
+    options$auto.key <- list(points=FALSE, lines=TRUE, space="right")
   else if (!missing(key) && is(key, 'list'))
     options$key <- key
 
@@ -302,7 +306,7 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
     do.call(xyplot, c(options, list(x=data~year|qname, data=dfs, groups=expression(stock),
       panel=function(x, y, groups, subscripts, ...)
       {
-        panel.xyplot(x, y, type='l', groups=groups, subscripts=subscripts, ...)
+        panel.xyplot(x, y, type=c('g','l'), groups=groups, subscripts=subscripts, ...)
         idx <- x==max(x)
         panel.xyplot(x[idx], y[idx], type='p', groups=groups,
           subscripts=subscripts[idx], ...)
@@ -314,7 +318,7 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
       {
         # median
         do.call(panel.xyplot, c(list(unique(x), tapply(y, list(x), median, na.rm=TRUE),
-          col=options$col[group.number]), type='l', lwd=2))
+          col=options$col[group.number]), type=c('g','l'), lwd=2))
         # lowq
         do.call(panel.xyplot, c(list(unique(x), tapply(y, list(x), quantile, 0.05,
           na.rm=TRUE), col=options$col[group.number]), type='l', lty=2, lwd=1, alpha=0.5))
@@ -349,7 +353,7 @@ setMethod("names", signature(x="FLlst"),
 setMethod("as.data.frame", signature(x="FLCohorts", row.names="missing",
 	optional="missing"),
 		function(x) {
-	# names 
+	# names
 	if(!is.null(names(x))){
 		flqnames <- names(x)
 	} else {

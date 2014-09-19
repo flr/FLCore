@@ -218,7 +218,8 @@ setClass("FLStocks", contains="FLComps",
 
 # constructor
 setMethod("FLStocks", signature(object="FLStock"), function(object, ...) {
-    lst <- c(object, list(...))
+    args <- list(...)
+    lst <- c(list(object), args)
     FLStocks(lst)
 })
 
