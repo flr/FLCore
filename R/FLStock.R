@@ -18,16 +18,17 @@ setMethod('FLStock', signature(object='FLQuant'),
 
     dims <- dims(object)
 
-    res <- new("FLStock", 
+    res <- new("FLStock",
     catch=qobject, catch.n=object, catch.wt=object,
     landings=qobject, landings.n=object, landings.wt=object,
     discards=qobject, discards.n=object, discards.wt=object,
     stock=qobject, stock.n=object, stock.wt=object,
     harvest=object, harvest.spwn=FLQuant(object, units='prop'),
-		m=FLQuant(object, units='m'), m.spwn=FLQuant(object, units='prop'), 
+		m=FLQuant(object, units='m'), m.spwn=FLQuant(object, units='prop'),
 		mat=FLQuant(object, units='prop'),
 		range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
-			minyear=dims$minyear, maxyear=dims$maxyear, minfbar=dims$min, maxfbar=dims$max)))
+		minyear=dims$minyear, maxyear=dims$maxyear, minfbar=dims$min,
+    maxfbar=dims$max)))
 
     # Load given slots
   	for(i in names(args))
@@ -64,7 +65,15 @@ setMethod('FLStock', signature(object='missing'),
       else
         object <- args[[slots[1]]]}
 
-    return(FLStock(object, ...))})	# }}}
+    return(FLStock(object, ...))})
+
+setMethod('FLStock', signature(object='FLQuants'),
+  function(object, ...)
+  {
+    return(do.call('FLStock', object))
+  }
+)
+# }}}
 
 # is.FLStock	{{{
 is.FLStock <- function(x)
@@ -118,12 +127,12 @@ setMethod("plot", signature(x="FLStock", y="missing"),
           # 95% quantile
           #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
           panel.xyplot(unique(x[idx]),
-            tapply(y[idx], x[idx], quantile, 0.95, na.rm=TRUE), type= 'l', lwd=1, lty=2, 
+            tapply(y[idx], x[idx], quantile, 0.95, na.rm=TRUE), type= 'l', lwd=1, lty=2,
             col='grey50')
           # 5% quantile
           #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
           panel.xyplot(unique(x[idx]),
-            tapply(y[idx], x[idx], quantile, 0.05, na.rm=TRUE), type= 'l', lwd=1, lty=2, 
+            tapply(y[idx], x[idx], quantile, 0.05, na.rm=TRUE), type= 'l', lwd=1, lty=2,
             col='grey50')
           # landings bars
           idx <- groups == 'landings'
@@ -325,7 +334,7 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 	}
 	else
 	  return(stock)
-	  
+
 	# check fbar range is still valid with new plusgroup
   if (!missing(plusgroup)){
     if(plusgroup <= x@range["maxfbar"]){
@@ -337,7 +346,7 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
       print("minfbar has been changed to accomodate new plusgroup")
     }
   }
-  
+
 	#Are stock numbers present?
 	stock.n.exist <- sum(x@stock.n, na.rm=TRUE) > 1
 	if(stock.n.exist) {
@@ -384,9 +393,9 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 # ssb		{{{
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
-		
+
 		uns <- units(harvest(object))
-		
+
 		if(uns == 'f') {
 			return(quantSums(stock.n(object) * exp(-(harvest(object) * harvest.spwn(object) +
 				m(object) * m.spwn(object))) * stock.wt(object) * mat(object)))
@@ -404,9 +413,9 @@ setMethod("ssb", signature(object="FLStock"),
 # tsb		{{{
 setMethod("tsb", signature(object="FLStock"),
 	function(object, ...) {
-		
+
 		uns <- units(harvest(object))
-		
+
 		if(uns == 'f') {
 			return(quantSums(stock.n(object) * exp(-(harvest(object) * harvest.spwn(object) +
 				m(object) * m.spwn(object))) * stock.wt(object)))
@@ -423,9 +432,9 @@ setMethod("tsb", signature(object="FLStock"),
 # fbar		{{{
 setMethod("fbar", signature(object="FLStock"),
  function(object, ...) {
-	 
+
 	 rng <- range(object)
-  
+
 	 if (is.na(rng["minfbar"]))
 		 rng["minfbar"] <- rng["min"]
 
@@ -464,19 +473,19 @@ setMethod("ssbpurec",signature(object="FLStock"),
 	function(object, start = "missing", end = "missing", type = "non-param", recs = "missing", spwns = "missing", plusgroup = TRUE, ...) {
 
 		# checks and chose the range over which we calculate the SSB per unit recruit
-		if((missing(start) && !missing(end)) | (!missing(start) && missing(end))) 
+		if((missing(start) && !missing(end)) | (!missing(start) && missing(end)))
 			stop("Error in ssbpurec: start and end must be supplied together if at all")
 
-		if(missing(start) && missing(end)) 
+		if(missing(start) && missing(end))
 			x  <- window(object,dims(object@m)[['minyear']],dims(object@m)[['minyear']])
 
 		if(!missing(start) && !missing(end))
 			x  <- window(object,start,end)
 
-		if(missing(recs)) 
+		if(missing(recs))
 			recs  <- 1
-		if(missing(spwns)) 
-			spwns  <- 1 				
+		if(missing(spwns))
+			spwns  <- 1
 
 		ymin  <- dims(x@m)[['minyear']]
 		ymax  <- dims(x@m)[['maxyear']]
@@ -484,42 +493,42 @@ setMethod("ssbpurec",signature(object="FLStock"),
 		amin  <- dims(x@m)[['min']]
 		amax  <- dims(x@m)[['max']]
 		pg  <- dim(x@m)[1]
-		
+
 		# if amin = 0 and recs < spwns !!!! cannot happen
 
 		if(amin == 0 && recs < spwns)
 			stop("Error: minimum age is zero and the recruitment occurs before spawning - not possible")
-		
+
 		if(type == 'non-param') {
 			m  <- yearMeans(slot(x, "m"))
-			mat  <- yearMeans(slot(x, "mat")) 
+			mat  <- yearMeans(slot(x, "mat"))
 			wt  <- yearMeans(slot(x, "stock.wt"))
 			n  <- FLQuant(m)
-			
+
 			# seasonal or non-seasonal options
-			
+
 			if(ns == 1) {
-				
-				# standard calculation : recruitment = 1, natural mort. sets the 
+
+				# standard calculation : recruitment = 1, natural mort. sets the
 				# age-structure, with or without a plusgroup
 
 				n[1,1,,1,]  <- 1
-				for(a in 2:pg) 
+				for(a in 2:pg)
 					n[a,1,,1,]  <- n[a-1,1,,1,] * exp(-m[a-1,1,,1,])
 				if(plusgroup)
 					n[pg,1,,1,]  <- n[pg,1,,1,] / (1-exp(-m[pg,1,,1,]))
-				
+
 				rho  <- quantSums(n * mat * wt)
 
 				# always set dimnames$year to be the minyear in the stock object
 
 				dimnames(rho)$year  <- dims(object@m)[['minyear']]
-				
+
 			} else {
 
 				# to come...
 			}
-			
+
 		}
 
 		return(rho)
@@ -548,7 +557,7 @@ setMethod('[', signature(x='FLStock'),
       args <- c(args, list(m=m))
 		if (!missing(n))
       args <- c(args, list(n=n))
- 
+
 	  quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", "landings.n",
 		  "landings.wt", "stock.n", "stock.wt", "m", "mat", "harvest", "harvest.spwn",
     	"m.spwn")
@@ -559,7 +568,7 @@ setMethod('[', signature(x='FLStock'),
     args[['i']] <- 1
     for(q in quants)
       slot(x, q) <- do.call('[', c(list(x=slot(x,q)), args))
-        
+
     # range
     x@range['min'] <- dims(slot(x, 'stock.n'))$min
     x@range['max'] <- dims(slot(x, 'stock.n'))$max
@@ -591,7 +600,7 @@ setMethod("[<-", signature(x="FLStock", value="FLStock"),
       "m.spwn")
     for(q in quants)
       slot(x, q)[i,j,k,l,m,n] <- slot(value, q)
-	    
+
     quants <- list("catch", "landings", "discards", "stock")
     for(q in quants)
       slot(x, q)[1,j,k,l,m,n] <- slot(value,q)
@@ -660,7 +669,7 @@ mergeFLStock<-function(x, y)
        warning("adding m slots, this might not be want you want")
        m(res)<-(m(x)+m(y))/2
        }
-       
+
     if (!is.null(args) && any(names(args) == "m.spwn"))
        m.spwn(res)<-args$m.spwn
     else
@@ -668,7 +677,7 @@ mergeFLStock<-function(x, y)
        warning("adding m.spwn slots, this might not be want you want")
        m.spwn(res)      <-(harvest.spwn(x)+harvest.spwn(y))/2
        }
-       
+
     if (!is.null(args) && any(names(args) == "harvest.spwn"))
        harvest.spwn(res)<-args$harvest.spwn
     else
@@ -710,7 +719,7 @@ setMethod('expand', signature(x='FLStock'),
 
       # slots where age cannot be changed
       nquant <- c('catch', 'landings', 'discards', 'stock')
-    
+
       # full FLQuant(s)
       squant <- c('catch.n', 'catch.wt', 'discards.n', 'discards.wt',
         'landings.n', 'landings.wt', 'stock.n', 'stock.wt', 'm', 'mat',
@@ -718,7 +727,7 @@ setMethod('expand', signature(x='FLStock'),
 
       # apply straight to all but nquant
       x <- qapply(x, expand, exclude=nquant, ...)
-    
+
       # apply to nquant, but ignore first dim
       args <- args[!names(args)%in%quant]
       x <- do.call(qapply, c(list(X=x, FUN=expand, exclude=squant), args))
@@ -739,7 +748,7 @@ setMethod('expand', signature(x='FLStock'),
     else
     {
       x <- qapply(x, expand, ...)
-      
+
       if('year' %in% names(args))
       {
         years <- dimnames(slot(x, 'stock.n'))[[2]]
@@ -802,11 +811,11 @@ setMethod("r", signature(m="FLStock", fec="missing"),
 # estimate survival probabilities by year or cohort
 setMethod("survprob", signature(object="FLStock"),
 	function(object, by = 'year',...) {
-		
+
 		# estimate by year
 		if(by == 'year')
       return(survprob(m(object)))
-		
+
 		# estimate by cohort
     else if(by == 'cohort')
       return(survprob(FLCohort(m(object))))
@@ -825,7 +834,7 @@ setMethod('sp', signature(stock='FLQuant', catch='FLQuant', harvest='missing'),
     deltaB <- stock[,rng1] - stock[,rng2]
 
     res <- deltaB + catch[,rng1]
-  
+
     if (rel)
       return(res/stock[,rng1])
      else
@@ -849,7 +858,7 @@ setMethod("catchSel", signature(object="FLStock"),
 # wt<- {{{
 setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
   function(object, ..., value) {
-    
+
     recycleFLQuantOverYrs<-function(object,flq){
       # if averaged over years then expand years
       if (dim(flq)[2]==1 & dim(object)[2]>=1){
