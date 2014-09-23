@@ -44,7 +44,7 @@ setMethod('FLModel', signature(model='formula'),
 
     # size other FLArray slots
     slots <- getSlotNamesClass(res, 'FLArray')
-    
+
     if(any(slots %in% names(args)))
     {
       # use output element if given
@@ -57,15 +57,15 @@ setMethod('FLModel', signature(model='formula'),
       {
         first <- names(args)[names(args) %in% slots][1]
       }
-      
+
       # create 'empty' FLArray
       empty <- args[[first]]
       empty[] <- as.numeric(NA)
-      
+
       # modify as in 'empty'
       for(s in slots[!slots %in% names(args)])
         slot(res, s) <- empty
-    
+
       # range
       dempty <- dims(empty)
       rnames <- dempty[grep('min', names(dempty))]
@@ -108,7 +108,7 @@ setReplaceMethod('logLik', signature(object='FLModel', value='numeric'),
     return(object)
   }
 )  # }}}
-  
+
 # coef - same as params  {{{
 setMethod('coef', signature(object='FLModel'),
   function(object, ...)
@@ -140,11 +140,11 @@ setMethod('fmle',
     args <- list(...)
     call <- sys.call(1)
     logl <- object@logl
-    
+
     # get parameter names by matching elements in param slot
     parnm <- names(formals(logl))[names(formals(logl))%in%
 			dimnames(object@params)$param]
-    
+
     # get fixed parameter names
     fixnm <- names(fixed)
     # fixed must match params
@@ -193,7 +193,7 @@ setMethod('fmle',
     }
     else
       gr <- NULL
-    
+
     # create logl function
     loglfoo <- function(par) {
       pars <- as.list(par)
@@ -201,7 +201,7 @@ setMethod('fmle',
       pars[fixnm] <- lapply(fixed, iter, it)
       return(-1*(do.call(logl, args=c(pars, data))))
     }
-    
+
     # input data
     alldata <- list()
 		# slots
@@ -225,7 +225,7 @@ setMethod('fmle',
         })
       alldata <- c(alldata, dimdat)
     }
-    
+
 		# iterations
     if(seq.iter)
     {
@@ -263,7 +263,7 @@ setMethod('fmle',
     {
       params(object) <- FLPar(iter=iter, params=dimnames(object@params)$params)
     }
-    
+
 		fitted(object) <- propagate(fitted(object), iter)
     residuals(object) <- propagate(residuals(object), iter)
 
@@ -281,11 +281,11 @@ setMethod('fmle',
         data <- lapply(alldata, iter, it)
       else
         data <- alldata
-      
+
       # do preconversion of data objects
-      if (preconvert) 
+      if (preconvert)
 				data <- lapply(data, c)
-      
+
       # start values
       if(missing(start)) {
         # add call to @initial
@@ -308,14 +308,14 @@ setMethod('fmle',
 
       # add small number to start if 0
       start <- lapply(start, function(x) if(x == 0) x/100000 else x)
-      
+
       if(is.null(start))
         stop("No starting values provided and no initial function available")
-    
+
       # TODO protect environment
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
         hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
-			
+
 			# warning if convergence is not 0, and do not load results
       if(out$convergence != 0) {
         warning("optimizer could not achieve convergence")
@@ -328,8 +328,8 @@ setMethod('fmle',
         if(length(fixed) > 0)
           iter(object@params, it)[fixnm,] <- unlist(lapply(fixed, iter, it))
         # TODO make details list of lists if iter > 1?
-        object@details <- list(call=call, value=out$value, count=out$counts, 
-          convergence=out$convergence, message=out$message)  
+        object@details <- list(call=call, value=out$value, count=out$counts,
+          convergence=out$convergence, message=out$message)
         # vcov & hessian
         coef <- out$par
         object@vcov[,,it] <-
@@ -349,7 +349,7 @@ setMethod('fmle',
           } else
             0
         object@hessian[,,it] <- -out$hessian
-      
+
         # logLik
         object@logLik[it] <- -out$value
         attr(object@logLik, 'nobs') <- length(data[[1]])
@@ -364,7 +364,7 @@ setMethod('fmle',
     dimnames(fitted(object))[1:5] <- dimnames(do.call(as.character(
       as.list(object@model)[2]), list(object)))[1:5]
     dimnames(residuals(object)) <- dimnames(fitted(object))
-    
+
     # return object
     return(object)
   }
@@ -381,12 +381,12 @@ setMethod('predict', signature(object='FLModel'),
     # all
     call <- as.list(object@model)[[3]]
     fittedSlot <- as.list(object@model)[[2]]
-    
+
     # check vars in call match input in args
     if(length(args) > 0 & !any(names(args)%in%all.vars(call)))
       warning(paste("Input names do not match those in model formula: '",
         paste(names(args)[!names(args)%in%all.vars(call)], collapse=','), "'", sep=""))
-    
+
     # create list of input data
     #   get FLQuant/FLCohort slots' names
     datanm <- getSlotNamesClass(object, 'FLArray')
@@ -403,7 +403,7 @@ setMethod('predict', signature(object='FLModel'),
         out[] <- as.numeric(x)
         return(out)
       })
-    
+
     # iterations
     #   from object
     iter <- max(unlist(qapply(object, function(x) dims(x)$iter)))
@@ -447,7 +447,7 @@ setMethod('predict', signature(object='FLModel'),
         if(length(covarnm))
           data <- c(data, covar(obj)[covarnm])
       }
-  
+
       # add newdata
       data[names(args)] <- lapply(args, iter, it)
 
@@ -459,7 +459,7 @@ setMethod('predict', signature(object='FLModel'),
         dimnames <- dimnames(args[[1]])
       else
         dimnames <- dimnames(slot(obj, fittedSlot))
-      
+
 			# check inputs
       if(it == 1)
       {
@@ -476,7 +476,7 @@ setMethod('predict', signature(object='FLModel'),
     }
     return(res)
   }
-) 
+)
 
 setMethod('predict', signature(object='formula'),
   function(object, ...)
@@ -492,10 +492,10 @@ setMethod('predict', signature(object='formula'),
     flpar <- unlist(lapply(args, is, 'FLPar'))
     # Turn them into list for envir
     envir <- c(envir, as.list(unlist(lapply(args[flpar], as, 'list'))))
-    
+
     # Add not FLPar elements
     envir <- c(envir, args[!flpar & !lst])
-    
+
     # are all elements in envir named?
     if(any(names(envir)==""))
       stop("all input arguments must be named")
@@ -542,7 +542,7 @@ if (!isGeneric("nls"))
   setGeneric('nls', useAsDefault = nls)
 
 setMethod('nls',
-  signature(formula='FLModel', data='missing',  start='ANY',  
+  signature(formula='FLModel', data='missing',  start='ANY',
     control='ANY',  algorithm='ANY',  trace='ANY',  subset='ANY',
     weights='ANY',  na.action='ANY',  model='ANY',  lower='ANY',
     upper='ANY'),
@@ -609,9 +609,9 @@ setMethod('nls',
     formula@logLik <- logLik(out)
     formula@fitted <- predict(formula)
     formula@residuals <- log(formula@fitted/eval(as.list(formula@model)[[2]], data))
-    
+
     # force dimnames[1:5] in 'fitted' and 'residuals' to match
-    
+
     dimnames(fitted(formula))[1:5] <- dimnames(do.call(slot, list(formula,
     as.character(as.list(formula@model)[2]))))[1:5]
     dimnames(residuals(formula)) <- dimnames(fitted(formula))
@@ -621,7 +621,7 @@ setMethod('nls',
 )   # }}}
 
 # summary  {{{
-setMethod('summary', signature(object='FLModel'), 
+setMethod('summary', signature(object='FLModel'),
   function(object, ...)
   {
     callNextMethod()
@@ -637,7 +637,7 @@ setMethod('summary', signature(object='FLModel'),
     } else {
       cat("Parameters median(mad): \n")
       v1 <- apply(object@params@.Data, 1, median, na.rm=TRUE)
-      v2 <- apply(object@params@.Data, 1, mad, na.rm=TRUE)	 
+      v2 <- apply(object@params@.Data, 1, mad, na.rm=TRUE)
       v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
       names(v3) <- names(v1)
       print(v3, quote=FALSE)
@@ -653,7 +653,7 @@ setMethod('summary', signature(object='FLModel'),
       if(length(dim(object@vcov)) == 3 && dim(object@vcov)[3] > 1)
       {
         v1 <- apply(object@vcov, 1:2, median, na.rm=TRUE)
-        v2 <- apply(object@vcov, 1:2, mad, na.rm=TRUE)	 
+        v2 <- apply(object@vcov, 1:2, mad, na.rm=TRUE)
         v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
       }
       else
@@ -722,7 +722,7 @@ setReplaceMethod('model', signature(object='FLModel', value='list'),
     # fill up model def slots
     for(i in names(value))
       slot(object, i) <- value[[i]]
-    
+
     # rebuild params
     params(object) <- getFLPar(object)
 
@@ -732,7 +732,7 @@ setReplaceMethod('model', signature(object='FLModel', value='list'),
     vcov(object) <- array(NA)
     hessian(object) <- array(NA)
     logLik(object)[] <- as.numeric(NA)
-    
+
     return(object)
   }
 )
@@ -776,7 +776,7 @@ setMethod('lm', signature(formula='FLModel', data = "missing", subset = "missing
     # params
     params(formula) <- FLPar(res$coefficients,
       params=c('a', paste('b', seq(length(res$coefficients)-1), sep='')))
-    
+
     # residuals
     residuals(formula) <- FLQuant(res$residuals, dimnames=dimnames(fitted(formula)))
 
@@ -810,7 +810,7 @@ getFLPar <- function(object, formula=object@model)
   # get those in formula
   datanm <- datanm[datanm%in%all.vars(formula)]
   parnm <- all.vars(formula)[!all.vars(formula) %in% datanm]
-  
+
   # covar
   if('covar' %in% slotNames(object))
   {
@@ -830,21 +830,11 @@ getFLPar <- function(object, formula=object@model)
     lkhnm <- lkhnm[!lkhnm %in% datanm]
     parnm <- c(lkhnm, sort(parnm)[!sort(parnm) %in% sort(lkhnm)])
   }
-    
+
   # params
   params <- FLPar(params=parnm)
   return(params)
 } # }}}
-
-# coerce(FLPar, list) {{{
-# for re-using parameter values as 'start' in fmle()
-setAs('FLPar', 'list',
-  function(from)
-  {
-    lst <- lapply(apply(par, 2, as.list), function(x) as.vector(unlist(x)))
-    return(lst)
-  }
-) # }}}
 
 # lower & upper {{{
 setMethod("lower", signature(object="FLModel"),
@@ -878,7 +868,7 @@ setReplaceMethod("upper", signature(object="FLModel", value="numeric"),
 # iter {{{
 setMethod("iter", signature(obj="FLModel"),
 	  function(obj, it) {
-  
+
     # FLArray
     obj <- qapply(obj, FUN=iter, it)
     # params
@@ -958,14 +948,14 @@ setMethod("params", signature(object="FLModel"),
         which <- parnames[!parnames %in% fixnames]
       if(length(which) > 2)
           stop("surface only works over 2 parameters")
-      
+
       # data
       args <- list()
       data <- names(formals(foo))
       data <- data[data %in% slotNames(fitted)]
       for(i in data)
         args[i] <- list(slot(fitted, i))
-        
+
       # use initial if model has not been estimated
       if(all(is.na(params)))
       {
@@ -986,7 +976,7 @@ setMethod("params", signature(object="FLModel"),
           profiled[[i]] <- sort(steps)
         }
       # (2) and for list of ranges
-      } else if (is.list(range)) 
+      } else if (is.list(range))
       {
         # if missing(which), which is names in range
         if(missing(which))
@@ -1019,7 +1009,7 @@ setMethod("params", signature(object="FLModel"),
           grid[i, 'logLik'] <- do.call('fmle', c(list(object=fitted, fixed=fixed,
             control=control), dots))@logLik
         }
-     
+
       surface <- tapply(grid$logLik, grid[,which], sum)
 
       # print
@@ -1040,7 +1030,7 @@ setMethod("params", signature(object="FLModel"),
 
       # CIs
       cis <- max(surface) - qchisq(ci, 2)
-      
+
       # plot
       if(plot)
       {
@@ -1125,7 +1115,7 @@ setMethod('computeLogLik', signature(object='FLModel'),
   # get params
   for (i in dimnames(params(object))$params)
     args[[i]] <- c(params(object)[i,])
- 
+
   # logLik
   res <- logLik(object)
   res[] <- c(do.call(logl(object), args))

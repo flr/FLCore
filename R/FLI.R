@@ -6,7 +6,7 @@
 # Soundtrack:
 # Notes:
 
-## computeCatch (added by EJ)   {{{
+## computeCatch  {{{
 setMethod(computeCatch, signature("FLI"), function(object){
 	catch <- object@catch.n*object@catch.wt
 	catch <- quantSums(catch)
@@ -35,7 +35,7 @@ setMethod('[', signature(x='FLI'),
       args <- c(args, list(m=m))
 		if (!missing(n))
       args <- c(args, list(n=n))
-    
+
     for(q in qnames)
     {
       if(dims[[q]][1] == 1)
@@ -94,7 +94,7 @@ setMethod("trim", signature("FLI"), function(x, ...){
 		else
 			slot(x, name) <- trim(slot(x,name), ...)
 	  }
-            
+
   	if (length(c1) > 0) {
     	x@range["min"] <- c1[1]
 	    x@range["max"] <- c1[length(c1)]
@@ -108,18 +108,6 @@ setMethod("trim", signature("FLI"), function(x, ...){
 
 	return(x)
 }) # }}}
-
-# coerce  {{{
-setAs("data.frame", "FLI",
-  function(from)
-  {
-  lst <- list()
-  qnames <- as.character(unique(from$slot))
-  for (i in qnames)
-    lst[[i]] <- as.FLQuant(from[from$slot==i,-1])
-  do.call('FLI', lst)
-  }
-) # }}}
 
 ## effort		{{{
 setMethod("effort", signature(object="FLI", metier="missing"),

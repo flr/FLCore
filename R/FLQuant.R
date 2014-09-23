@@ -1,7 +1,7 @@
 # FLQuant.R - FLQuant class and methods
 # FLCore/R/FLQuant.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLQuant.R 1778 2012-11-23 08:43:57Z imosqueira $
 
@@ -9,49 +9,47 @@
 # FLQuant  <- FLQuant()
 setMethod("FLQuant", signature(object="missing"),
 	function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA",
-		iter=1)
-	{
+		iter=1) {
 
 		# no dim or dimnames
-		if (missing(dim) && missing(dimnames))
-		{
+		if (missing(dim) && missing(dimnames)) {
 			dim <- c(1,1,1,1,1,iter)
 			dimnames <- list(quant='all', year=1, unit='unique', season='all',
 				area='unique', iter=1:dim[6])
-		} else if (missing(dim))
-		{
+		} else if (missing(dim)) {
 			# dim missing
 			dimnames <- filldimnames(dimnames, iter=iter)
 			dim <- as.numeric(sapply(dimnames, length))
+		} else if (missing(dimnames)) {
+		# dimnames missing
+		dim <- c(dim, rep(1,6))[1:6]
+				# but iter
+				if(!missing(iter))
+				dim[6] <- iter
+				dimnames <- list(
+						quant=if(dim[1]==1){"all"}else{1:dim[1]},
+						year=1:dim[2],
+						unit=if(dim[3]==1){"unique"}else{1:dim[3]},
+						season=if(dim[4]==1){"all"}else{1:dim[4]},
+						area=if(dim[5]==1){"unique"}else{1:dim[5]},
+						iter=1:dim[6])
+		} else {
+				# both missing
+				dim <- c(dim, rep(1,6))[1:6]
+				# but iter
+				if(!missing(iter))
+						dim[6] <- iter
+				dimnames <- filldimnames(dimnames, dim=dim, iter=iter)
 		}
 
-# dimnames missing
-else if (missing(dimnames)) {
-dim <- c(dim, rep(1,6))[1:6]
-if(!missing(iter))
-dim[6] <- iter
-dimnames <- list(
-quant=if(dim[1]==1){"all"}else{1:dim[1]},
-year=1:dim[2],
-unit=if(dim[3]==1){"unique"}else{1:dim[3]},
-season=if(dim[4]==1){"all"}else{1:dim[4]},
-area=if(dim[5]==1){"unique"}else{1:dim[5]},
-iter=1:dim[6])
-}
-# both
-else {
-dim <- c(dim, rep(1,6))[1:6]
-if(!missing(iter))
-dim[6] <- iter
-dimnames <- filldimnames(dimnames, dim=dim, iter=iter)
-}
-flq <- new("FLQuant", array(as.numeric(NA), dim=dim, dimnames=dimnames), units=units)
+	flq <- new("FLQuant", array(as.numeric(NA), dim=dim, dimnames=dimnames),
+		units=units)
 
-if (!is.null(quant))
-quant(flq) <- quant
+		if (!is.null(quant))
+				quant(flq) <- quant
 
-return(flq)
-}
+		return(flq)
+		}
 )# }}}
 
 # FLQuant(vector){{{
@@ -108,7 +106,6 @@ return(flq)
 )# }}}
 
 # FLQuant(array){{{
-# FLQuant <- FLQuant(array)
 setMethod("FLQuant", signature(object="array"),
 function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA",
     iter=1, fill.iter=TRUE) {
@@ -288,65 +285,6 @@ return(FLQuant(x, ...))
 setAs("vector", "FLQuant", function(from)
 	return(FLQuant(from)))
 # }}}
-
-# coerce  {{{
-setAs("data.frame", "FLQuant",
-  function(from)
-  {
-    # get data.frame names and compare
-names(from) <- tolower(names(from))
-    validnames <-c("year","unit","season","area","iter","data")
-
-indices <- match(validnames, names(from))
-  indices <- indices[!is.na(indices)]
-
-    # get quant
-    qname <- names(from)
-qname[indices] <- NA
-qname <- qname[!is.na(qname)]
-
-    if (length(qname) > 1)
-stop("too many columns in data.frame")
-    if(length(qname) == 0)
-      qname <- "quant"
-
-    # check and fill up missing dimensions
-    n <- dim(from)[1]
-    # TODO conversion to/from factor messes up dimnames order
-    em <- data.frame(quant=rep('all', n), year=rep(1,n), unit=rep('unique',n),
-      season=rep('all',n), area=rep('unique',n), iter=rep(1,n), stringsAsFactors=FALSE)
-    names(em)[names(em)=="quant"] <- qname
-    from[,!names(from)%in%'data'] <-
-    as.data.frame(as.matrix(from[,!names(from)%in%'data']),
-      stringsAsFactors=FALSE)
-    em[names(from)] <- from
-
-    # create array
-    flq <- tapply(em[,"data"], list(em[,qname], em[,"year"], em[,"unit"], em[,"season"],
-      em[,"area"], em[,"iter"]), sum)
-
-    # fix dimnames names
-    names(dimnames(flq)) <- c(qname, 'year', 'unit', 'season', 'area', 'iter')
-
-    # create FLQuant
-    flq <- FLQuant(flq)
-
-    # units
-    if(!is.null(attr(from, 'units')))
-      units(flq) <- attr(from, 'units')
-
-    # fill up missing years
-    if(length(dimnames(flq)[['year']]) != length(as.character(seq(dims(flq)$minyear,
-      dims(flq)$maxyear))))
-    {
-      res <- FLQuant(dimnames=c(dimnames(flq)[1], list(year=seq(dims(flq)$minyear,
-        dims(flq)$maxyear)), dimnames(flq)[3:6]))
-      res[,dimnames(flq)[['year']],] <- flq
-      flq <- res
-    }
-return(flq)
-  }
-) # }}}
 
 # as.FLQuant(data.frame){{{
 setMethod("as.FLQuant", signature(x="data.frame"),
