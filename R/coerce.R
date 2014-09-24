@@ -30,8 +30,6 @@ setAs('FLArray', 'data.frame',
 	}
 )
 
-
-
 setAs('FLPar', 'data.frame',
   function(from)
   {
@@ -257,3 +255,37 @@ setAs("FLPar", "list",
         return(lst)
     }
 ) # }}}
+
+# TO FLQuants  {{{
+setAs('FLComp', 'FLQuants',
+	function(from)
+  {
+		qas <- getSlotNamesClass(from, 'FLArray')
+
+    res <- vector(mode='list', length=length(qas))
+    names(res) <- qas
+
+    for (i in qas)
+      res[[i]] <- slot(from, i)
+
+    return(FLQuants(res))
+  }
+)
+
+
+setAs('data.frame', 'FLQuants',
+	function(from)
+  {
+    qns <- as.character(unique(from$qname))
+
+    res <- vector(mode='list', length=length(qns))
+    names(res) <- qns
+
+    for(i in qns)
+      res[[i]] <- as.FLQuant(subset(from, qname == i, -qname))
+
+    return(FLQuants(res))
+  }
+)
+
+# }}}

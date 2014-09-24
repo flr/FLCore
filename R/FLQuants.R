@@ -66,7 +66,7 @@ setMethod("histogram", signature("formula", "FLQuants"), function(x, data, ...)
 ## iter {{{
 setMethod("iter", signature(obj="FLQuants"),
 	  function(obj, iter) {
-	  	
+
 		# simply use lapply and iter from FLQuant methods
 
 		flqs <- FLQuants(lapply(obj,function(x,iter){x <- iter(x,iter)},iter))
@@ -107,7 +107,7 @@ setMethod('show', signature('FLQuants'),
 
 # mcf: make compatible flquants     {{{
 setMethod("mcf", signature(object="list"), function(object){
-	# names 
+	# names
 	if(!is.null(names(object))){
 		flqnames <- names(object)
 	} else {
@@ -126,7 +126,7 @@ setMethod("mcf", signature(object="list"), function(object){
 		quant.vec <- unique(c(dn[[1]],dn1[[1]]))
 		if(NA %in% (suppressWarnings(as.numeric(quant.vec))))
 			dn[[1]] <- sort(quant.vec)
-		else 
+		else
 			dn[[1]] <- as.character(sort(as.numeric(quant.vec)))
 
 		dn[[2]] <- as.character(sort(as.numeric(unique(c(dn[[2]],dn1[[2]])))))
@@ -135,7 +135,7 @@ setMethod("mcf", signature(object="list"), function(object){
 		dn[[5]] <- unique(c(dn[[5]],dn1[[5]]))
 		dn[[6]] <- unique(c(dn[[6]],dn1[[6]]))
 	}
-	dflq <- unlist(lapply(dn, length))	
+	dflq <- unlist(lapply(dn, length))
 	# new flquant
 	flq <- FLQuant(dim=dflq, dimnames=dn)
 	# preparing the list
@@ -143,17 +143,17 @@ setMethod("mcf", signature(object="list"), function(object){
 	length(lst) <- nflq
 	lst <- object
 
-	# filling up the quants	
+	# filling up the quants
 	for(j in 1:length(lst)){
 		dn2 <- dimnames(lst[[j]])
 		flq0 <- flq
 		flq0[dn2[[1]], dn2[[2]], dn2[[3]], dn2[[4]], dn2[[5]], dn2[[6]]] <- lst[[j]]
 		lst[[j]] <- flq0
 	}
-	names(lst) <- flqnames	
-	
+	names(lst) <- flqnames
+
 	# output
-	FLQuants(lst)	
+	FLQuants(lst)
 })  # }}}
 
 # as.data.frame	{{{
@@ -185,7 +185,7 @@ setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="mi
   	row.names(flqs.df) <- row.names
 		attr(flqs.df, 'units') <- unlist(lapply(flqs.lst, attr, 'units'))
 		flqs.df
-}) 
+})
 
 setMethod("as.data.frame", signature(x="FLQuants", row.names="missing",
   optional="missing"),
@@ -214,9 +214,9 @@ setMethod("bkey", signature("list"), function(object, ...){
 	data <- object$data
 	adata <- abs(data)
 	cex <- object$cex
-	bub.col <- object$bub.col	
+	bub.col <- object$bub.col
 	bub.scale <- object$bub.scale
-	
+
 	# vectors with cex, col, pch and text
 	v <- ceiling(max(adata, na.rm=T))
 	ktext <- format(round(seq(-v,v,l=9),2))
@@ -224,7 +224,7 @@ setMethod("bkey", signature("list"), function(object, ...){
 	kcex <- abs(seq(-v,v,l=9))+bub.scale*0.1
 	kcol <- rep(bub.col,c(4,5))
 	kpch <- rep(c(1,19),c(4,5))
-	
+
 	# the key
 	akey <- simpleKey(text=ktext[9:1], points=T, lines=F, columns=1, space="right")
 	akey$points$col=kcol[9:1]
@@ -232,13 +232,13 @@ setMethod("bkey", signature("list"), function(object, ...){
 	akey$points$cex=kcex
 	akey$text$cex=0.8
 
-	# merging with other arguments	
+	# merging with other arguments
 	lst0 <- dots[names(dots) %in% names(akey)]
 	lst1 <- dots[!(names(dots) %in% names(akey))]
 	akey[match(names(lst0),names(akey),nomatch=0)] <- lst0
 	akey <- c(akey,lst1)
 
-	# output	
+	# output
 	akey
 })  # }}}
 
@@ -264,7 +264,7 @@ setMethod("bubbles", signature(x="formula", data ="FLQuants"), function(x, data,
 	# for NA
 	coln[coln==""] <- NA
 	pchn[coln==""] <- NA
-	
+
 	# rescale cex to make it prety (I hope)
 	cex0 <- abs(dots$data$data)
 	cex <- bub.scale*cex0/max(cex0, na.rm=TRUE)
@@ -277,7 +277,7 @@ setMethod("bubbles", signature(x="formula", data ="FLQuants"), function(x, data,
 	# legend
 
 	akey <- bkey(list(data=dots$data$data, cex=cex, bub.col=bub.col, bub.scale=bub.scale), border=F, title="Scale", cex.title=0.8, padding.text=4)
-	
+
 	# call list
 	dots$cex <- cex
 	dots$pch <- pchn
@@ -291,18 +291,6 @@ setMethod("bubbles", signature(x="formula", data ="FLQuants"), function(x, data,
 	ans
 
 })  # }}}
-
-# as(FLComp, FLQuants)  {{{
-setAs('FLComp', 'FLQuants',
-	function(from)
-  {
-    res <- FLQuants()
-		datanm <- names(getSlots(class(from))[getSlots(class(from))=='FLQuant'])
-    for (i in datanm)
-      res[[i]] <- slot(from, i)
-    return(res)
-  }
-) # }}}
 
 # combine {{{
 setMethod('combine', signature(x='FLQuants', y='missing'),
