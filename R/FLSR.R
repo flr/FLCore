@@ -5,11 +5,7 @@
 # Maintainer: Dorleta García, AZTI
 
 # FLSR  {{{
-validFLSR <- function(object)
-{
-	# params must have dims equal to quants
-	return(TRUE)
-}
+
 
 #' Class FLSR
 #'
@@ -117,9 +113,17 @@ setClass('FLSR',
 	  ssb='FLQuant',
   	covar='FLQuants',
     logerror='logical'),
-  prototype(residuals=FLQuant(), fitted=FLQuant(), logerror=TRUE, covar=new('FLQuants')),
-	validity=validFLSR)
-remove(validFLSR)
+  prototype(
+    residuals=FLQuant(),
+    fitted=FLQuant(),
+    logerror=TRUE,
+    covar=new('FLQuants')),
+	validity=function(object)
+  {
+	  # params must have dims equal to quants
+  	return(TRUE)
+  }
+)
 
 invisible(createFLAccesors("FLSR", include=c('rec', 'ssb', 'covar'))) # }}}
 
