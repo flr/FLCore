@@ -5,8 +5,7 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLComp.R 1790 2012-12-10 10:57:27Z imosqueira $
 
-
-## summary		{{{
+# summary		{{{
 setMethod("summary", signature(object="FLComp"),
 	function(object, ...){
 
@@ -40,7 +39,7 @@ setMethod("summary", signature(object="FLComp"),
 	}
 )	# }}}
 
-## window    {{{
+# window    {{{
 setMethod("window", signature(x="FLComp"),
 	  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1) {
       x <- qapply(x, window, start=start, end=end, extend=extend, frequency=frequency)
@@ -51,7 +50,7 @@ setMethod("window", signature(x="FLComp"),
 	}
 )	# }}}
 
-## propagate {{{
+# propagate {{{
 setMethod("propagate", signature(object="FLComp"),
 	function(object, iter, fill.iter=TRUE) {
 
@@ -78,7 +77,7 @@ setMethod("propagate", signature(object="FLComp"),
 	}
 ) # }}}
 
-## iter {{{
+# iter {{{
 setMethod("iter", signature(obj="FLComp"),
 	  function(obj, iter) {
 
@@ -96,7 +95,7 @@ setMethod("iter", signature(obj="FLComp"),
 	  }
 ) # }}}
 
-## iter<-  {{{
+# iter<-  {{{
 setMethod("iter<-", signature(object="FLComp", value="FLComp"),
 	function(object, iter, value)
 	{
@@ -105,7 +104,7 @@ setMethod("iter<-", signature(object="FLComp", value="FLComp"),
 	}
 )   # }}}
 
-## transform {{{
+# transform {{{
 setMethod("transform", signature(`_data`="FLComp"),
 function(`_data`, ...)
   {
@@ -139,7 +138,7 @@ function(`_data`, ...)
 	}
 )	# }}}
 
-## qapply		{{{
+# qapply		{{{
 setMethod('qapply', signature(X='FLComp', FUN='function'),
 	function(X, FUN, ..., exclude=missing) {
 
@@ -164,7 +163,7 @@ setMethod('qapply', signature(X='FLComp', FUN='function'),
 	}
 )   # }}}
 
-## trim     {{{
+# trim     {{{
 setMethod("trim", signature("FLComp"),
 	function(x, ...)
 	{
@@ -193,13 +192,13 @@ setMethod("trim", signature("FLComp"),
 	}
 ) # }}}
 
-## units	    {{{
+# units	    {{{
 setMethod("units", signature(x="FLComp"), function(x)
 	qapply(x, units)
 )
 #}}}
 
-## units<-      {{{
+# units<-      {{{
 setMethod("units<-", signature(x="FLComp", value="list"),
     function(x, value) {
         for(i in seq(along=value))
@@ -209,7 +208,7 @@ setMethod("units<-", signature(x="FLComp", value="list"),
 	}
 ) # }}}
 
-## '['       {{{
+# '['       {{{
 setMethod('[', signature(x='FLComp'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE) {
 
@@ -247,7 +246,7 @@ setMethod('[', signature(x='FLComp'),
     }
 )   # }}}
 
-## "[<-"            {{{
+# "[<-"            {{{
 setMethod("[<-", signature(x="FLComp"),
 	function(x, i, j, k, l, m, n, ..., value="missing")
   {
@@ -276,7 +275,7 @@ setMethod("[<-", signature(x="FLComp"),
 	}
 )   # }}}
 
-## as.data.frame        {{{
+# as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLComp", row.names="missing", optional="missing"),
 	function(x, row.names, optional, drop=FALSE, cohort=FALSE)
 	{
@@ -309,7 +308,7 @@ setMethod("as.data.frame", signature(x="FLComp", row.names="missing", optional="
 	}
 )   # }}}
 
-## mcf	{{{
+# mcf	{{{
 setMethod('mcf', signature(object='FLComp'),
 	function(object, second) {
 
@@ -338,7 +337,7 @@ setMethod('mcf', signature(object='FLComp'),
 	}
 )	# }}}
 
-## dims {{{
+# dims {{{
 setMethod("dims", signature(obj="FLComp"),
     # Returns a list with different parameters
     function(obj, ...)
@@ -377,7 +376,7 @@ setMethod("dims", signature(obj="FLComp"),
     }
 )    # }}}
 
-## lattice plots	{{{
+# lattice plots	{{{
 # xyplot
 setMethod("xyplot", signature("formula", "FLComp"),
 	function(x, data, ...){

@@ -387,3 +387,26 @@ setMethod("as.data.frame", signature(x="FLComps", row.names="missing",
 
 	}
 ) # }}}
+
+# collapse {{{
+setGeneric("collapse", function(x, ...) standardGeneric("collapse"))
+setMethod("collapse", signature(x='FLlst'),
+  function(x) {
+
+    # iters per object
+	  its <- unlist(lapply(x, function(x) dims(x)$iter))
+    # propagate first iter
+  	res <- propagate(x[[1]][,,,,,1], sum(its))
+	  res[,,,,,seq(1, its[1])] <- x[[1]]
+
+  	if(length(its) > 1) {
+	  	for(i in seq(2, length(its))) {
+			  pre <- sum(its[1:i-1])
+  			idx <- seq(pre + 1, pre + its[i])
+	  		res[,,,,,idx]  <- x[[i]]
+		  }
+	  }
+
+	  return(res)
+  }
+) # }}}

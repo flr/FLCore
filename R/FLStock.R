@@ -15,7 +15,6 @@ setMethod('FLStock', signature(object='FLQuant'),
     object[] <- NA
     units(object) <- 'NA'
     qobject <- quantSums(object)
-
     dims <- dims(object)
 
     res <- new("FLStock",
@@ -63,9 +62,12 @@ setMethod('FLStock', signature(object='missing'),
       if(length(qslots) > 0)
         object <- args[[qslots[1]]]
       else
-        object <- args[[slots[1]]]}
+        object <- args[[slots[1]]]
+    }
 
-    return(FLStock(object, ...))})
+    return(FLStock(object, ...))
+  }
+)
 
 setMethod('FLStock', signature(object='FLQuants'),
   function(object, ...)

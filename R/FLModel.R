@@ -648,22 +648,26 @@ setMethod('summary', signature(object='FLModel'),
       "(", format(mad(slot(object, 'logLik')), digits=5), ")", sep=""),
       "\n")
     cat("Variance-covariance: ")
-    if(all(dim(object@vcov) > 0))
+    if(all(dim(object@vcov) > 0) & length(dim(object@vcov)) > 1)
     {
-      if(length(dim(object@vcov)) == 3 && dim(object@vcov)[3] > 1)
-      {
+      if(length(dim(object@vcov)) == 3 && dim(object@vcov)[3] > 1) {
         v1 <- apply(object@vcov, 1:2, median, na.rm=TRUE)
         v2 <- apply(object@vcov, 1:2, mad, na.rm=TRUE)
         v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
       }
-      else
+      else {
         v3 <- apply(object@vcov, 1:2, median, na.rm=TRUE)
-      m <- array(v3, dim=dim(object@vcov)[1:2], dimnames=dimnames(object@vcov)[1:2])
+      }
+      m <- array(v3, dim=dim(object@vcov)[1:2],
+        dimnames=dimnames(object@vcov)[1:2])
     }
-    else
-      m <- matrix(NA, ncol=nrow(slot(object, 'params')), nrow=nrow(slot(object, 'params')), dimnames=rep(dimnames(params(object))['params'],2))
-    print(m, quote=FALSE)
+    else {
+      m <- matrix(NA, ncol=nrow(slot(object, 'params')),
+        nrow=nrow(slot(object, 'params')),
+        dimnames=rep(dimnames(params(object))['params'],2))
+    }
 
+    print(m, quote=FALSE)
   }
 )  # }}}
 
