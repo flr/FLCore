@@ -51,7 +51,8 @@
 - Faulty comparison in expand(FLArray) fixed #7
 - Wrong test in validity for FLModelSim
 - Fixed bug in FLPar %% FLPar when objects were actually equal in dims, always returned product
-	
+- quantile(FLQuant) returned oject with wrong dimensions
+
 ## UTILITIES
 
 ## DOCUMENTATION

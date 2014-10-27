@@ -23,7 +23,7 @@ setMethod("FLQuantPoint", signature(object="missing"),
       if(any(!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')))
        stop(paste("Invalid names for FLQuantPoint elements:",
           names(args)[!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')]))
-  
+
       # check dimnames
       dmns <- c(dimnames(args[[1]])[1:5],
         list(iter=c('mean', 'median', 'var', 'uppq', 'lowq')))
@@ -39,17 +39,17 @@ setMethod("FLQuantPoint", signature(object="missing"),
 setMethod("FLQuantPoint", signature(object="FLQuant"),
   function(object, ..., units='NA') {
 
-        # new object
-        res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
-            iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))), units=units))
-        
-# load values
+    # new object
+    res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
+      iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))), units=units))
+
+    # load values
         res[,,,,,'mean'] <- apply(object, 1:5, mean, na.rm=TRUE)
         res[,,,,,'median'] <- apply(object, 1:5, median, na.rm=TRUE)
         res[,,,,,'var'] <- apply(object, 1:5, var, NULL, na.rm=TRUE)
 		# quantile free or 0.05 & 0.95
         res[,,,,,'lowq'] <- quantile(object, 0.25, na.rm=TRUE)
-        res[,,,,,'uppq'] <-quantile(object, 0.75, na.rm=TRUE) 
+        res[,,,,,'uppq'] <-quantile(object, 0.75, na.rm=TRUE)
 
         return(res)
     }
@@ -186,7 +186,7 @@ setMethod("plot", signature(x="FLQuantPoint", y="missing"),
 	lst$groups <- lst$data$iter
 	lst$subscripts <- TRUE
 	lst$panel <- pfun
-	
+
 	do.call("xyplot", lst)
 	}
 )	# }}}
