@@ -289,7 +289,7 @@ setGeneric('distr', function(object, ...)
 setGeneric('distr<-', function(object, ..., value)
 		standardGeneric('distr<-'))
 
-# distribution 
+# distribution
 setGeneric('distribution', function(object, ...)
 		standardGeneric('distribution'))
 setGeneric('distribution<-', function(object, ..., value)
@@ -471,7 +471,7 @@ setGeneric("iter", function(obj, ...)
 setGeneric("iter<-", function(object, value)
   standardGeneric("iter<-"))
 
-# trim  
+# trim
 setGeneric("trim", function(x, ...)
 	standardGeneric("trim"))
 
@@ -631,7 +631,7 @@ setGeneric('mass', function(object, ...)
 # FLlst
 setGeneric("FLlst", function(object, ...)
 	standardGeneric("FLlst"))
- 
+
 # FLStocks
 setGeneric("FLStocks", function(object, ...)
 	standardGeneric("FLStocks"))
@@ -787,7 +787,6 @@ setGeneric("rightbound", function(object, ...) standardGeneric("rightbound"))
 setGeneric("mids", function(object, ...) standardGeneric("mids"))
 
 # vecs and rngs
-
 setGeneric("rngyear", function(object, ...) standardGeneric("rngyear"))
 setGeneric("rngyear<-", function(object,value) standardGeneric("rngyear<-"))
 setGeneric("rngage", function(object, ...) standardGeneric("rngage"))

@@ -699,7 +699,8 @@ setMethod("quantile", signature(x="FLQuant"),
 	function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, ...) {
 		res <- FLQuant(NA, dimnames=c(dimnames(x)[-6],
 			list(iter=paste(probs*100, "%", sep=""))), units=units(x))
-	res[,,,,,] <- apply(x@.Data, 1:5, quantile, probs, na.rm=na.rm)
+	res[,,,,,] <- aperm(apply(x@.Data, 1:5, quantile, c(0, probs), na.rm=na.rm),
+    c(2:6,1))[,,,,,-1,drop=FALSE]
 	return(res)
 	}
 ) # }}}
