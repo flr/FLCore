@@ -226,15 +226,15 @@ setAs('FLStock', 'FLBiol',
 setAs('data.frame', 'FLPar',
   function(from) {
 
-		# iter names from df
-		if("iter" %in% names(from))
+    # iter names from df
+		if("iter" %in% colnames(from))
 			iters <- from$iter
 		# or from rownames, if present
 		else
     	iters <- rownames(from, do.NULL=TRUE, prefix="")
 
     # param named columns
-		pnames <- names(from)[!names(from) %in% c("data", "iter")]
+		pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
 
 		pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
 		pnames <- lapply(pnames, as.character)
