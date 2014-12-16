@@ -121,36 +121,27 @@ setMethod('FLPar', signature('FLPar'),
 
 # '['   {{{
 setMethod('[', signature(x='FLPar'),
-    function(x, i='missing', j='missing', ..., drop=FALSE)
+    function(x, i='missing', j='missing',  k='missing', l='missing',
+						 m='missing', n='missing', drop=FALSE)
     {
 		  dx <- dim(x)
-  		if (missing(i))
-        i  <-  seq(1, dx[1])
-      if (missing(j))
-        j  <-  seq(1, dx[2])
-      
-      if(length(dx) == 2)
-        if(!drop)
-          return(new(class(x), as.array(x@.Data[i, j, drop=FALSE])))
-        else
-          return(x@.Data[i, j, drop=FALSE])
-      else
-      {
-        # if ... is missing, list(...) fails
-		  	args <- try(list(...), silent=TRUE)
-        # so create a list using dx
-        if(class(args) == 'try-error')
-          k <- lapply(as.list(dx[-c(1,2)]), function(x) seq(1:x))
-        else
-        # and use only the section required when list(...) exists
-          k <- c(args, lapply(as.list(dx[-seq(1:(2+length(args)))]),
-            function(x) seq(1:x)))
-        if(!drop)
-          return(new(class(x), as.array(do.call('[',
-            c(list(x@.Data, i, j), k, list(drop=FALSE))))))
-        else
-          return(do.call('[', c(list(x@.Data, i, j), k, list(drop=TRUE))))
-      }
+			ldx <- length(dx)
+			
+			dm <- vector('list', length=ldx)
+			names(dm) <- letters[seq(9, 8 + ldx)]
+
+			# PARSE dims
+			for(ds in seq(1, ldx)) {
+				# MISSING arg
+				if(do.call(missing, list(x=names(dm)[ds])))
+					dm[[ds]] <- seq(1, dx[ds])
+				else
+					dm[[ds]] <- get(names(dm)[ds])
+				}
+
+			return(new(class(x), do.call('[', c(list(x=x@.Data), dm, list(drop=drop))),
+				units=units(x)))
+			
     }
 )   # }}}
 
@@ -386,7 +377,7 @@ setAs('FLPar', 'FLQuant',
     # reshape data for FLQuant dimnames
     idx <- match(names(res), names)
     idx <- idx[!is.na(idx)]
-    aperm(data, idx)
+    data <- aperm(data, idx)
 
 
     # get dim and dimnames for FLQuant

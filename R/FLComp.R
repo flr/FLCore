@@ -552,3 +552,19 @@ setMethod("vecage", "FLComp", function(object){
 	rng <- object@range[c("min","max")]
 	rng[1]:rng[2]
 }) # }}}
+
+# ibind {{{
+ibind <- function(...) {
+
+  args <- list(...)
+
+  its <- length(args)
+
+  res <- propagate(args[[1]], its)
+
+  if(its > 1) {
+    for(i in seq(2, its))
+      res[,,,,,i] <- args[[i]]
+  }
+  return(res)
+} # }}}
