@@ -343,11 +343,18 @@ setMethod("dims", signature(obj="FLComp"),
     function(obj, ...)
 	{
     qnames <- getSlotNamesClass(obj, 'FLArray')
+
     range <- as.list(range(obj))
     dimsl <- qapply(obj, dim)
     dnames <- qapply(obj, dimnames)
     dimsl <- dimsl[!names(dnames) %in% 'fbar']
     dims <- matrix(unlist(dimsl), ncol=6, byrow=TRUE)
+
+    iter <- max(dims[,6])
+    pnames <- getSlotNamesClass(obj, 'FLPar')
+		if(length(pnames) > 0)
+			for(p in pnames)
+				iter <- max(iter, length(dimnames(slot(obj, p))$iter))
 
     # Hack for FLBRP
     # TODO Fix for FLstock
@@ -369,7 +376,7 @@ setMethod("dims", signature(obj="FLComp"),
       unit = max(dims[,3]),
       season = max(dims[,4]),
       area = max(dims[,5]),
-      iter = max(dims[,6]))
+      iter = iter)
     res <- lapply(res, function(x) if(is.null(x)) return(as.numeric(NA)) else return(x))
     names(res)[2] <- res$quant
     return(res)
