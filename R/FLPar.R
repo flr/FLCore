@@ -121,25 +121,21 @@ setMethod('FLPar', signature('FLPar'),
 
 # '['   {{{
 setMethod('[', signature(x='FLPar'),
-    function(x, i='missing', j='missing',  k='missing', l='missing',
-						 m='missing', n='missing', drop=FALSE)
+    function(x, i, j, k, l, m, n, drop=FALSE)
     {
-		  dx <- dim(x)
-			ldx <- length(dx)
+			dx <- lapply(as.list(dim(x)), seq_len)
+    	names(dx) <- letters[seq(9, length=length(dx))]
+		  
+			ldx <- length(dim(x))
 			
-			dm <- vector('list', length=ldx)
-			names(dm) <- letters[seq(9, 8 + ldx)]
-
 			# PARSE dims
-			for(ds in seq(1, ldx)) {
+			for(ds in names(dx)) {
 				# MISSING arg
-				if(do.call(missing, list(x=names(dm)[ds])))
-					dm[[ds]] <- seq(1, dx[ds])
-				else
-					dm[[ds]] <- get(names(dm)[ds])
+				if(!do.call(missing, list(x=ds)))
+					dx[[ds]] <- get(ds)
 				}
 
-			return(new(class(x), do.call('[', c(list(x=x@.Data), dm, list(drop=drop))),
+			return(new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=drop))),
 				units=units(x)))
 			
     }
@@ -147,36 +143,25 @@ setMethod('[', signature(x='FLPar'),
 
 # "[<-"     {{{
 setMethod("[<-", signature(x="FLPar", value="ANY"),
-	function(x, i, j, ..., value)
+	function(x, i, j, k, l, m, n, value)
   {
+		# SUBSET on i if array
     if(!missing(i) && is.array(i))
     {
 			x@.Data[i] <- value
 			return(x)
 		}
     
-    dx <- dimnames(x)
+		dx <- lapply(as.list(dim(x)), seq_len)
     names(dx) <- letters[seq(9, length=length(dx))]
-
-    # set up for dims 1 and 2
-    if(!missing(i))
-      dx$i <- i
-		if (!missing(j))
-      dx$j <- j
-
-    # extra args, if given
-    args <- try(list(...))
-    if(is.list(args))
-    {
-      if (length(args) > 0)
-      {
-        names(args) <- letters[seq(11, length=length(args))]
-        dx[names(args)] <- args
-      }
-    }
-    x <- new(class(x), do.call('[<-', c(list(x=x@.Data), dx, list(value=value))))
-
-    return(x)
+		
+		for(ds in names(dx)) {
+			# MISSING arg
+			if(!do.call(missing, list(x=ds)))
+				dx[[ds]] <- get(ds)
+		}
+    
+		return(new(class(x), do.call('[<-', c(list(x=x@.Data), dx, list(value=value)))))
 	}
 )   # }}}
 
