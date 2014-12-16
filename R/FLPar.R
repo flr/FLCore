@@ -143,7 +143,7 @@ setMethod('[', signature(x='FLPar'),
 
 # "[<-"     {{{
 setMethod("[<-", signature(x="FLPar", value="ANY"),
-	function(x, i, j, k, l, m, n, value)
+	function(x, i, j, k, l, m, n, ..., value)
   {
 		# SUBSET on i if array
     if(!missing(i) && is.array(i))
@@ -151,7 +151,6 @@ setMethod("[<-", signature(x="FLPar", value="ANY"),
 			x@.Data[i] <- value
 			return(x)
 		}
-    
 		dx <- lapply(as.list(dim(x)), seq_len)
     names(dx) <- letters[seq(9, length=length(dx))]
 		
