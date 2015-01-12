@@ -121,7 +121,7 @@ setMethod('FLPar', signature('FLPar'),
 
 # '['   {{{
 setMethod('[', signature(x='FLPar'),
-    function(x, i, j, k, l, m, n, drop=FALSE)
+    function(x, i, j, k, l, m, n, ..., drop=FALSE)
     {
 			dx <- lapply(as.list(dim(x)), seq_len)
     	names(dx) <- letters[seq(9, length=length(dx))]
