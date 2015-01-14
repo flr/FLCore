@@ -264,7 +264,7 @@ setMethod('summary', signature(object='FLlst'),
 
 # plot(FLStocks) {{{
 setMethod('plot', signature(x='FLStocks', y='missing'),
-	function(x, key=list(lines=TRUE, points=FALSE), ...)
+	function(x, key=FALSE, ...)
 	{
 		foo <- function(x) {
 	  	if(units(harvest(x)) == 'f')
