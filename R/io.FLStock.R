@@ -19,7 +19,6 @@ readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a"
                   PA = readPAFile(file),
                   CSA = readCSAFile(file),
                   stop("type must be either 'VPA', 'Adapt', 'PA' or 'CSA'!"))
-                  
     Mat <- res@stock.wt
     Mat[, , , , ] <- NA
     Dim <- dim(Mat)

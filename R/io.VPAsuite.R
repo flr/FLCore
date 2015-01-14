@@ -72,7 +72,7 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
     
     range1 <- scan(files.[1], skip = 2, nlines = 1, sep = sep, quiet=quiet)
     range2 <- scan(files.[1], skip = 3, nlines = 1, sep = sep, quiet=quiet)
-    range  <- c(range1[1:2],range2[1:2])
+    range  <- c(range1[1:2], range2[1:2])
     
     ages <- range[3:4]
     yrs <- range[1:2]
@@ -86,7 +86,9 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
         if (file.exists(i)) {
             a.   <-  readVPAFile(i, sep=sep, quiet=quiet)
 
-            switch(as.character(scan(i, skip = 1, nlines = 1, sep = sep, comment.char='#', quiet=TRUE)[2]),
+            switch(
+									 as.character(scan(i, skip = 1, nlines = 1, sep = sep, comment.char='#', quiet=TRUE)[2])
+									 ,
             "1" = FLStock.@landings    <-a.,
             "2" = FLStock.@landings.n  <-a.,
             "3" = FLStock.@landings.wt <-a.,
@@ -105,9 +107,23 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
             "28"= FLStock.@stock.n     <-a. )
         }
     }
+		
+		# FIX for years diff in input files
+		yrng <- qapply(FLStock., function(x) unlist(dims(x)[c('minyear', 'maxyear')]))
+		ymin <- unlist(lapply(yrng, function(x) x[1]))
+		ymax <- unlist(lapply(yrng, function(x) x[2]))
+
+		if(any(ymin != ymin[1]))
+			ymin <- min(ymin)
+		if(any(ymax != ymax[1]))
+			ymax <- max(ymax)
+
+		if(length(ymin) == 1 | length(ymax) == 1)
+			FLStock. <- window(FLStock., start=ymin[1], end=ymax[1])
+
 
     FLStock.@range <- c(min = ages[1], max = ages[2],
-        plusgroup = ages[2], minyear = yrs[1], maxyear = yrs[2])
+        plusgroup = ages[2], minyear = ymin[1], maxyear = ymax[2])
     FLStock.@desc <- paste("Imported from a VPA file (",
         file, "). ", date(), sep="")
     FLStock.@name <- scan(file, nlines = 1, what = character(0),
