@@ -13,10 +13,10 @@ Description: FLCore contains the core classes and methods for FLR, a framework
 Depends:
     methods,
     R(>= 3.0),
-    grid,
     lattice,
     MASS
 Imports:
+    grid,
     stats,
     graphics
 License: GPL (>= 2)
