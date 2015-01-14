@@ -201,6 +201,35 @@ getDir <- function(file) {
   return(res)
 } # }}}
 
+getFile<-function(file) substr(file,max(gregexpr(.Platform$file.sep,file)[[1]])+1,nchar(file))
+getExt <-function(file) substr(file,max(gregexpr("\\.",             file)[[1]])+1,nchar(file))
+
+posFile<-function(i,filename,char="-"){
+  while (TRUE){
+    firstChar<-substr(scan(filename, skip = i, nlines = 1, what = ("character"), quiet = TRUE)[1], 1, 1)
+    
+    if (!is.na(firstChar))
+      if (firstChar == char) break
+    
+    i<-i+1}
+  
+  return(i)}
+
+getFLQ<-function(filename,pos1, pos2)
+{
+  nyrs <-pos2-pos1-1
+  t.   <-scan(filename, skip = pos1+1, nlines=nyrs, quiet = TRUE)
+  nages<-length(t.)/nyrs
+  t.   <-array(t.,c(nages,nyrs))
+  
+  yrs <-array(t.,c(nages,nyrs))[1,]
+  ages<-scan(filename, skip = pos1-1, nlines=1, quiet = TRUE)
+  
+  flq<-FLQuant(t.[-1,],dimnames=list(age=ages,year=yrs))
+  
+  return(flq)}
+
+
 # vpa2boxfiles {{{
 vpa2BoxFiles <- function(file,print=FALSE) {
   i <- skip.hash(0,file)
