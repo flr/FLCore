@@ -134,7 +134,11 @@ setMethod('[', signature(x='FLPar'),
 				if(!do.call(missing, list(x=ds)))
 					dx[[ds]] <- get(ds)
 				}
-
+			
+			if(drop) {
+				return(do.call('[', c(list(x=x@.Data), dx, list(drop=drop))))
+			}
+			
 			return(new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=drop))),
 				units=units(x)))
 			
