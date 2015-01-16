@@ -136,10 +136,10 @@ setMethod('[', signature(x='FLPar'),
 				}
 			
 			if(drop) {
-				return(do.call('[', c(list(x=x@.Data), dx, list(drop=drop))))
+				return(do.call('[', c(list(x=x@.Data), dx, list(drop=TRUE))))
 			}
 			
-			return(new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=drop))),
+			return(new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=FALSE))),
 				units=units(x)))
 			
     }
