@@ -103,8 +103,8 @@ setMethod("plot", signature(x="FLStock", y="missing"),
         quantSums(harvest(x)), c(1,2,6), sum))), panel='harvest'))
 
     # and rec
-    obj <- rbind(obj, data.frame(as.data.frame(FLQuants(rec=apply(rec(x),
-      c(1,2,6), sum))), panel='recruits'))
+    obj <- rbind(obj[,-1], data.frame(as.data.frame(FLQuants(rec=apply(rec(x),
+      c(1,2,6), sum))), panel='recruits')[,-1])
 
     # default options
     options <- list(scales=list(relation='free'), ylab="", xlab="",
