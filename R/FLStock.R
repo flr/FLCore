@@ -257,10 +257,10 @@ expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...)
        }
 
     # calc exp(-cum(Z)) i.e. the survivors
-    n            <-FLQuant(exp(-apply((slot(res,"m")+slot(res,"harvest"))[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)), quant='age')
-    if (print(keepPlusGroup))
-       n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
-    n            <-sweep(n,2:6,apply(n,2:6,sum),"/")
+    n <- FLQuant(exp(-apply((slot(res,"m")+slot(res,"harvest"))[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)), quant='age')
+    if (keepPlusGroup)
+    	n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
+    n <-sweep(n,2:6,apply(n,2:6,sum),"/")
 
     stock.n(res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],1:6,n,"*")
 
