@@ -143,7 +143,13 @@ setMethod('[', signature(x='FLPar'),
 				units=units(x)))
 			
     }
-)   # }}}
+)
+
+setMethod('[', signature(x='FLPar', i='array'),
+  function(x, i, ..., drop=FALSE) {
+    return(x@.Data[i])
+  }
+) # }}}
 
 # "[<-"     {{{
 setMethod("[<-", signature(x="FLPar", value="ANY"),

@@ -38,6 +38,9 @@ importFrom("lattice",
 	"wireframe",
 	"xyplot"
 )
+importFrom("grid",
+	"viewport",
+	"unit")
 export(
   "plot",
   "abModel",

@@ -4,6 +4,10 @@
 # see the wiki:
 # https://github.com/craigcitro/r-travis/wiki
 
+os:
+  - linux
+  - osx
+
 language: c
 
 before_install:
