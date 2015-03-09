@@ -57,5 +57,9 @@ setMethod('getPlural', signature(object='FLMetier'),
 	function(object) {
 		return('FLMetiers')})
 
+# FLFleet -> FLFleets
+setMethod('getPlural', signature(object='FLFleet'),
+	function(object) {
+		return('FLFleets')})
 		
 		
