@@ -102,7 +102,8 @@ setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(
 # lapply  {{{
 setMethod("lapply", signature(X="FLlst"),
 	function(X, FUN, ...){
-	lstargs <- list(...)
+
+		lstargs <- list(...)
    	lstargs$X <- X@.Data
    	names(lstargs$X) <- names(X)
 
