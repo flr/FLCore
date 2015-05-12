@@ -5,7 +5,7 @@
 \alias{AIC,FLModel,missing-method}
 \title{Akaike information criterion (AIC) method}
 \description{
-	A method to calculate the Akaike information criterion (AIC) of an \link{FLModel} object
+	A method  to calculate the Akaike information criterion (AIC) of an \link{FLModel} object
 	from the value of the obtained log-likelihood stored in its \code{logLik} slot.
 }
 \section{Generic function}{
