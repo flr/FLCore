@@ -52,8 +52,8 @@ is.FLBiol <- function(x)
 	return(inherits(x, "FLBiol"))
 # }}}
 
-## mean.lifespan {{{
-setMethod("mean.lifespan", signature(x="FLBiol"),
+## meanLifespan {{{
+setMethod("meanLifespan", signature(x="FLBiol"),
 	function(x, ref.age = 'missing',...) {
 
 		# checks
@@ -61,7 +61,7 @@ setMethod("mean.lifespan", signature(x="FLBiol"),
 			ref.age <- dims(m(x))$min
 
 		if(ref.age >= dims(m(x))$max)
-			stop("Error in mean.lifespan: reference age greater than last true age")
+			stop("Error in meanLifespan: reference age greater than last true age")
 		mm <- trim(m(x),age=ref.age:dims(m(x))$max)
 		mm <- yearMeans(mm)
 		mm <- seasonSums(mm)

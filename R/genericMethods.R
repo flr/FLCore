@@ -1,4 +1,4 @@
-# genericMethods - «Short one line description»
+# genericMethods - S4 generics
 # genericMethods
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
@@ -207,9 +207,9 @@ setGeneric('fec<-', function(object, ..., value) standardGeneric('fec<-'))
 setGeneric('FLBiol', function(object, ...)
   standardGeneric('FLBiol'))
 
-# mean.lifespan
-setGeneric("mean.lifespan", function(x, ...)
-	standardGeneric("mean.lifespan"))
+# meanLifespan
+setGeneric("meanLifespan", function(x, ...)
+	standardGeneric("meanLifespan"))
 
 # as.FLBiol
 setGeneric("as.FLBiol", function(object, ...)
