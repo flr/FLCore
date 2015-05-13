@@ -1,4 +1,4 @@
-# FLModelDeriv - «Short one line description»
+# FLModelDeriv - 
 # FLModelDeriv
 
 # Copyright 2010 FLR Team <flr-team@flr-project.org>

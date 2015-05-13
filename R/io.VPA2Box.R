@@ -1,4 +1,4 @@
-# io.VPA2Box - «Short one line description»
+# io.VPA2Box - I/O code for VPA2Box
 # io.VPA2Box
 
 # Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later

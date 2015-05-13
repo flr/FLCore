@@ -1,4 +1,4 @@
-# FLQuantPoint - «Short one line description»
+# FLQuantPoint - FLQuant class summarizing iters
 # FLCore/R/FLQuantPoint.R
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
