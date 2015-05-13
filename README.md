@@ -27,7 +27,7 @@ or download from the [FLCore releases page](https://github.com/flr/FLCore/releas
 - [All release](https://github.com/flr/FLCore/releases/)
 
 ## License
-Copyright (c) 2004-2014 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
+Copyright (c) 2004-2015 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
 
 ## Contact
 You are welcome to:
