@@ -1,8 +1,9 @@
 #' Class FLIndex
 #' 
-#' A class that holds data and parameters related to abundance indices.
+#' A class for modelling abundance indices.
 #' 
-#' 
+#' The \code{FLIndex} object holds data and parameters related to abundance indices.
+#'
 #' @name FLIndex
 #' @aliases FLIndex FLIndex,FLQuant-method FLIndex,missing-method
 #' FLIndex-methods FLQuant catch.n,FLIndex-method
@@ -37,7 +38,13 @@
 #' @keywords classes
 #' @examples
 #' 
-#' fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
-#' summary(fli)
-#' index(fli)
-#' 
+#' # Create a FLIndex object.
+#'   fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
+#'   summary(fli)
+#'   index(fli)
+#'
+#'   # Using an existing FLQuant object.
+#'     data(ple4)
+#'     fli2 <- FLIndex(stock.n(ple4))
+#'     index(fli2)<-FLQuant(rnorm(length(index(fli2))),dimnames=dimnames(index(fli2)))
+#'
