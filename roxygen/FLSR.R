@@ -1,6 +1,6 @@
 #' Class FLSR
 #' 
-#' Class for stock-recruitment models.
+#' A class for stock-recruitment models.
 #' 
 #' A series of commonly-used stock-recruitment models are already available,
 #' including the corresponding likelihood functions and calculation of initial
