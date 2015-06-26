@@ -43,8 +43,10 @@
 #'   summary(fli)
 #'   index(fli)
 #'
-#'   # Using an existing FLQuant object.
-#'     data(ple4)
-#'     fli2 <- FLIndex(stock.n(ple4))
-#'     index(fli2)<-FLQuant(rnorm(length(index(fli2))),dimnames=dimnames(index(fli2)))
+#' # Creat a FLIndex object using an existing FLQuant object.
+#'   data(ple4)
+#'   # Create a perfect index of abundance from abundance at age
+#'     fli2 <- FLIndex(index=stock.n(ple4))
+#'   # Add some noise around the signal
+#'     index(fli2) <- index(fli2)*exp(rnorm(1, index(fli2)-index(fli2), 0.1))
 #'
