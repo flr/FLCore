@@ -1,7 +1,7 @@
 #' Class FLCohorts
 #' 
 #' \code{FLCohorts} is a class that extends \code{list} through \code{FLlst}
-#' but implements a set of features that give a little bit more structure to
+#' but implements a set of features that give a little more structure to
 #' list objects. The elements of \code{FLCohorts} must all be of class
 #' \code{FLCohort}. It implements a lock mechanism that, when turned on, does
 #' not allow the user to increase or decrease the object length.
