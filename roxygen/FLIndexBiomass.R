@@ -1,8 +1,9 @@
 #' Class FLIndexBiomass
 #' 
-#' A class that holds data and parameters related to biomass abundance indices.
-#' 
-#' 
+#' A class for modelling biomass indices.
+#'
+#' The \code{FLIndexBiomass} object holds data and parameters related to biomass indices.
+#'
 #' @name FLIndexBiomass
 #' @aliases FLIndex FLIndex,FLQuant-method FLIndex,missing-method
 #' FLIndex-methods FLIndexBiomass FLQuant catch.n,FLIndex-method
@@ -39,6 +40,6 @@
 #' idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
 #' 
 #' data(ple4)
-#' ida <- FLIndexBiomass(index=ssb(ple4),
-#'   catch.n=catch.n(ple4))
+#' ida <- FLIndexBiomass(index=(catch(ple4)/fbar(ple4))*exp(rnorm(1,catch(ple4)*0,0.3)),
+#'   catch.n=catch.n(ple4), catch.wt=catch.wt(ple4))
 #' 
