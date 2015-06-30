@@ -2,8 +2,10 @@
 #' 
 #' A class for modelling age / length or biomass structured populations.
 #' 
-#' The \code{FLBiol} class is a representation of a biological fish population.
-#' This includes information on abundances, natural mortlity and fecundity.
+#' The \code{FLBiol} class is a representation of a biological fish population
+#' (in contrast to \code{\link{FLStock}}, which represents a fish stock; the
+#' two may not fully coincide). This includes information on abundances,
+#' natural mortlity and fecundity.
 #' 
 #' @name FLBiol
 #' @aliases FLBiol FLBiol,FLQuant-method FLBiol,missing-method FLBiol-class
@@ -29,7 +31,14 @@
 #' @examples
 #' 
 #' # An FLBiol example dataset
-#' data(ple4.biol)
-#' 
-#' summary(ple4.biol)
-#' 
+#'   data(ple4.biol)
+#'   summary(ple4.biol)
+#'
+#' # Create an FLBiol object from an existing FLStock object
+#'   data(ple4)
+#'   flb1 <- as.FLBiol(ple4)
+#'   plot(flb1)
+#'
+#'   # Just extract same dimensions without contents
+#'     flb2 <- FLBiol(stock.n(ple4))
+#'
