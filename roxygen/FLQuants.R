@@ -29,4 +29,4 @@
 #'   fqs <- FLQuants(ssb=ssb(ple4), catch=catch(ple4), rec=rec(ple4), f=fbar(ple4))
 #'   summary(fqs)
 #'   xyplot(data~year|qname, fqs, type='b', scales=list(relation='free'))
-
+#'
