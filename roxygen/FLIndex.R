@@ -6,7 +6,7 @@
 #'
 #' @name FLIndex
 #' @aliases FLIndex FLIndex,FLQuant-method FLIndex,missing-method
-#' FLIndex-methods FLQuant catch.n,FLIndex-method
+#' FLIndex-methods catch.n,FLIndex-method
 #' catch.n<-,FLIndex,FLQuant-method catch.wt,FLIndex-method
 #' catch.wt<-,FLIndex,FLQuant-method desc,FLIndex-method
 #' desc<-,FLIndex,character-method distribution,FLIndex-method
