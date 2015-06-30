@@ -60,3 +60,4 @@
 #'  yearSums(flq)
 #'  iterMeans(flq)
 #'  dim(quantSums(flq))
+#'
