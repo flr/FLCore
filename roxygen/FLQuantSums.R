@@ -1,10 +1,10 @@
-#' Methods FLQuantSums
-#'
-#' Methods to compute sums, means and variances of FLQuant objects
+#' Methods to compute sums, means and vars of FLQuant objects
 #' 
 #' This set of methods computes three different summaries (sum, mean and
 #' variance) of an \code{FLQuant} object along each of the six dimensions
-#' (quant, year, unit, season, area, or iter).
+#' (quant, year, unit, season, area, or iter). Three methods (\code{dimSums},
+#' \code{dimMeans} and \code{dimVars}) operate by default over the second to
+#' fifth dimensions (\code{unit}, \code{season} and \code{area}).
 #' 
 #' These methods simply encapsulate a call to \code{\link[base]{apply}} with
 #' the corresponding dimension and function.
