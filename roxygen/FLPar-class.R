@@ -1,14 +1,15 @@
 #' Class FLPar
 #' 
-#' The \code{FLPar} class is a class for storing the parameters of a model. It
-#' is based on the array class which can store Monte Carlo samples and the
-#' names of the relevant parameter vectors.
+#' A class for storing parameters of a model.
+#'
+#' The \code{FLPar} class is based on the array class which can store
+#' Monte Carlo samples and the names of the relevant parameter vectors.
 #' 
-#' Methods for this class include subsetting and replacement as they exist for
-#' the \code{FLQuant} class. There are methods for extracting statistics of the
-#' sample (mean, median etc.) and for plotting the parameter samples.
-#' 
-#' 
+#' Methods for this class include subsetting and replacement as for the
+#' \code{\linkS4class{FLQuant}} class. There are methods for extracting
+#' statistics of the sample (mean, median etc.) and for plotting the parameter
+#' samples.
+#'
 #' @name FLPar
 #' @aliases FLPar-class FLPar FLPar-methods FLPar,array-method
 #' FLPar,missing-method FLPar,vector-method FLPar,FLPar-method
@@ -26,4 +27,7 @@
 #' @examples
 #' 
 #' FLPar(rnorm(4), params=c('a','b','c','sigma2'))
-#' 
+#'
+#' FLPar(rnorm(20), dimnames=list(params=c('a','b'), year=1990:1999, iter=1),
+#'   units='NA')
+#'
