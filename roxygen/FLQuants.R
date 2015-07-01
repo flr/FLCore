@@ -5,8 +5,7 @@
 #' that, when turned on, does not allow the user to increase or decrease the
 #' object length. The elements of \code{FLQuants} must all be of class
 #' \code{FLQuant}.
-#' 
-#' 
+#'
 #' @name FLQuants
 #' @aliases FLQuants FLQuants,ANY-method FLQuants,FLQuants-method
 #' FLQuants,list-method FLQuants,missing-method FLQuants-class FLQuants-methods

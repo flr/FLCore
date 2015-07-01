@@ -1,8 +1,7 @@
 #' Class FLBiols
 #' 
 #' A list of \code{FLBiol} objects.
-#' 
-#' 
+#'
 #' @name FLBiols
 #' @aliases FLBiols FLBiols-class FLBiols FLBiols-methods FLBiols,ANY-method
 #' FLBiols,missing-method FLBiols,list-method

@@ -7,7 +7,6 @@
 #' matrix where cohorts are found in columns. It is very usefull for all
 #' analysis that want to make use of cohorts instead of years.
 #' 
-#' 
 #' @name FLCohort
 #' @aliases FLCohort-class FLCohort FLCohort-methods FLCohort,FLQuant-method
 #' FLCohort,FLCohort-method FLCohort,array-method FLCohort,missing-method

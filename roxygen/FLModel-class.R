@@ -13,7 +13,6 @@
 #' are currently available for FLModel, including \code{\link{fmle}},
 #' \code{\link{nls-FLCore}} and \code{\link[stats]{glm}}.
 #' 
-#' 
 #' @name FLModel
 #' @aliases FLModel-class FLModel FLModel-methods FLModel,formula-method
 #' FLModel,missing-method FLModel,character-method FLModel,function-method

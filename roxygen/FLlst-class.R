@@ -6,7 +6,6 @@
 #' a lock mechanism that, when turned on, does not allow the user to increase
 #' or decrease the object length.
 #' 
-#' 
 #' @name FLlst
 #' @aliases FLlst-class FLlst FLlst-methods FLlst,ANY-method
 #' FLlst,missing-method FLlst,list-method

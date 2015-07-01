@@ -16,8 +16,7 @@
 #' dimension, regardless of the actual name used in the object.
 #' 
 #' The output object will have length=1 on the selected dimension.
-#' 
-#' 
+#'
 #' @name FLQuantSums
 #' @aliases quantSums quantSums-methods quantSums,FLQuant-method quantMeans
 #' quantMeans-methods quantMeans,FLQuant-method quantVars quantVars-methods
