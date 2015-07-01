@@ -26,7 +26,7 @@
 #' @keywords classes
 #' @examples
 #' 
-#' flq <- FLQuant(rnorm(2000), dim=c(10,20,1,1,1,200))
+#' flq <- FLQuant(rnorm(40000), dim=c(10,20,1,1,1,200))
 #' flqp <- FLQuantPoint(flq)
 #' summary(flqp)
 #' mean(flqp)
