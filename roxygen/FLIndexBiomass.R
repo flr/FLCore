@@ -36,10 +36,12 @@
 #' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
 #' @keywords classes
 #' @examples
+#'
+#' # Create and FLIndexBiomass object from scratch...
+#'   idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
 #' 
-#' idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
-#' 
-#' data(ple4)
-#' ida <- FLIndexBiomass(index=(catch(ple4)/fbar(ple4))*exp(rnorm(1,catch(ple4)*0,0.3)),
-#'   catch.n=catch.n(ple4), catch.wt=catch.wt(ple4))
+#' # ...from an existing FLStock object
+#'   data(ple4)
+#'   ida <- FLIndexBiomass(index=(catch(ple4)/fbar(ple4))*exp(rnorm(1,catch(ple4)*0,0.3)),
+#'     catch.n=catch.n(ple4), catch.wt=catch.wt(ple4))
 #' 
