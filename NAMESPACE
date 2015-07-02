@@ -53,7 +53,6 @@ export(
   "cor2cov",
 	"createFLAccesors",
   "cushing",
-	"is.FLBiol",
 	"is.FLQuant",
 	"is.FLStock",
   "geomean",
@@ -115,7 +114,8 @@ exportClasses(
 	"FLS",
 	"FLStock",
 	"FLStockLen",
-	"FLStocks"
+	"FLStocks",
+	"predictModel"
 )
 exportMethods(
   "+",

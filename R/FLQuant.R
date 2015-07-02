@@ -377,7 +377,7 @@ setMethod("dimnames<-", signature(x="FLQuant", value='list'),
   }
 ) # }}}
 
-## dims       {{{
+# dims       {{{
 # Return a list with different parameters
 setMethod("dims", signature(obj="FLQuant"),
 	function(obj, ...){
@@ -401,12 +401,12 @@ setMethod("dims", signature(obj="FLQuant"),
 	}
 )   # }}}
 
-## is.FLQuant       {{{
+# is.FLQuant       {{{
 is.FLQuant  <-  function(x)
 return(is(x, "FLQuant"))
 # }}}
 
-## print {{{
+# print {{{
 if (!isGeneric("print"))
 setGeneric("print", useAsDefault=print)
 
@@ -416,7 +416,7 @@ show(x)
 }
 )   # }}}
 
-## plot     {{{
+# plot     {{{
 setMethod("plot", signature(x="FLQuant", y="missing"),
 function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
 type='p', ...)
@@ -445,7 +445,7 @@ strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
 }
 )   # }}}
 
-## lattice plots{{{
+# lattice plots{{{
 # xyplot
 setMethod("xyplot", signature("formula", "FLQuant"),
 function(x, data, ...){
@@ -1102,7 +1102,7 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
   }
 ) # }}}
 
-## show     {{{
+# show     {{{
 setMethod("show", signature(object="FLQuant"),
 	function(object){
 		callNextMethod()
@@ -1209,7 +1209,7 @@ setMethod("tsp", signature(x="FLQuant"),
 ) # }}}
 
 # NOT EXPORTED
-## filldimnames       {{{
+# filldimnames       {{{
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {
 # check only one name for quant in input
 if(length(names(dnames)[!names(dnames)%in%c("year","unit","season","area","iter")]) > 1)

@@ -37,7 +37,7 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 	}
 ) # }}}
 
-## "["             {{{
+# "["             {{{
 setMethod("[", signature(x="FLArray"),
     function(x, i, j, k, l, m, n, ..., drop=FALSE)
     {
@@ -82,7 +82,7 @@ setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
   }
 )   # }}}
 
-## "[<-"            {{{
+# "[<-"            {{{
 setMethod("[<-", signature(x="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -115,7 +115,7 @@ setMethod("[<-", signature(x="FLArray"),
 	}
 )   # }}}
 
-## "[<-"            {{{
+# "[<-"            {{{
 setMethod("[<-", signature(x="FLArray", value="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -165,7 +165,7 @@ setMethod("[<-", signature(x="FLArray", value="FLArray"),
 	}
 )   # }}}
 
-## names         {{{
+# names         {{{
 setMethod("names", signature(x="FLArray"),
 	function(x)
     names(dimnames(x))
@@ -182,7 +182,7 @@ setMethod("iter", signature(obj="FLArray"),
 	}
 )   # }}}
 
-## summary          {{{
+# summary          {{{
 setMethod("summary", signature(object="FLArray"),
 	function(object, ...)
 	{
@@ -214,7 +214,7 @@ setMethod("summary", signature(object="FLArray"),
 	}
 )   # }}}
 
-## show     {{{
+# show     {{{
 setMethod("show", signature(object="FLArray"),
 	function(object){
 		cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
@@ -276,7 +276,7 @@ setMethod('expand', signature(x='FLArray'),
     qnames <- names(dimnames(x))
     
     # check input names match dimnames
-    if(!all(nargs%in%qnames))
+    if(!all(nargs %in% qnames))
       stop(paste("Wrong dimension name provided: ", nargs[!nargs%in%qnames]))
 
     # Create list with given standard elements in right position ...
@@ -494,8 +494,8 @@ uom <- function(op, u1, u2) {
 }
 # }}}
 
-## Arith    {{{
-setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
+# Arith    {{{
+setMethod("Arith", #  "+", "-", "*", "^", "%%", "%/%", "/"
 	signature(e1 = "numeric", e2 = "FLArray"),
 	function(e1, e2)
 	{
@@ -543,7 +543,7 @@ setMethod("Arith",
 	}
 )   # }}}
 
-## as.data.frame        {{{
+# as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
   optional="missing"),
 	function(x) {
@@ -605,7 +605,7 @@ setMethod('sweep', signature(x='FLArray'),
 setMethod('sigma', signature(object='FLArray'),
   function(object, hat=rep(0, length(object)))
   {
-    ## calculates sigma squared for use in concentrated likelihood
+    # calculates sigma squared for use in concentrated likelihood
     if(all(is.na(hat)))
       return(Inf)
 

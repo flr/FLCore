@@ -1,10 +1,248 @@
 # FLBiol - class for representing a natural population
 # FLCore/R/FLBiol.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Laurie Kell, CEFAS
-# $Id: FLBiol.R 1779 2012-11-23 09:39:31Z imosqueira $
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, JRC
 
+# class FLBiol {{{
+setClass("FLBiol",
+	representation(
+		"FLComp",
+    n        ="FLQuant",
+		m        ="FLQuant",
+		wt       ="FLQuant",
+		mat      ="predictModel",
+		fec      ="predictModel",
+		rec      ="predictModel",
+		spwn     ="FLQuant"
+  ),
+	prototype=prototype(
+		range    = unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
+    n        = FLQuant(),
+		m        = FLQuant(),
+		wt       = FLQuant(),
+		mat      = new('predictModel', FLQuants(mat=FLQuant()), model=~mat),
+		fec      = new('predictModel', FLQuants(fec=FLQuant()), model=~fec),
+		rec      = new('predictModel', FLQuants(cov=FLQuant()), model=~a * ssb * exp(-b * ssb)),
+		spwn     = FLQuant()
+		)
+) # }}}
+
+invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range')))	# }}}
+
+# evalPredictModel {{{
+evalPredictModel <- function(object, slot='fec') {
+
+	# EXTRACT slot
+	slot <- slot(object, slot)
+
+	lis <- list()
+
+	# EXTRACT expression to evaluate
+	args <- all.names(slot@model, functions=FALSE)
+
+	# (1) EXTRACT from FLQuants
+
+	# MATCH names
+	idx <- names(slot) %in% args
+	
+	# EXTRACT
+	if(any(idx)) {
+		lis <- slot@.Data[idx]
+		names(lis) <- names(slot)[idx]
+		
+		# DROP extracted args
+		args <- args[!args %in% names(lis)]
+	}
+
+	# (2) FLPar
+	pars <- as(slot@params, 'list')
+	idx <- names(pars) %in% args
+	if(any(idx)) {
+		lis <- c(lis, as(slot@params, 'list')[idx])
+		
+		# DROP extracted args
+		args <- args[!args %in% names(lis)]
+	}
+
+	# (3) CALL methods on object (inc. accessors)
+	if(length(args) > 0)
+		for(i in args)
+			lis[[i]] <- do.call(i, list(object))
+
+	# RETURN
+	return(eval(slot@model[[2]], lis))
+} # }}}
+
+# fec {{{
+setMethod('fec', signature('FLBiol'),
+	function(object, slot=NULL, compute=TRUE) {
+		if(compute)
+			return(evalPredictModel(object, slot='fec'))
+		else
+			return(new('FLQuants', object@fec@.Data, names=object@fec@names,
+				lock=object@fec@lock))
+	}
+) # }}}
+
+# fec<- {{{
+
+# fec<- predictModel
+setReplaceMethod('fec', signature(object='FLBiol', value='predictModel'),
+	function(object, value) {
+		object@fec <- value
+		return(object)
+	}
+)
+
+# fec<- FLQuant: change to fec@.Data['fec']
+setReplaceMethod('fec', signature(object='FLBiol', value='FLQuant'),
+	function(object, value) {
+		object@fec@.Data <- FLQuants(fec=value)
+		return(object)
+	}
+)
+
+# fec<- FLQuants: assign to @.Data
+setReplaceMethod('fec', signature(object='FLBiol', value='FLQuants'),
+	function(object, value) {
+		object@fec@.Data <- value
+		return(object)
+	}
+)
+
+# fec<- formula:
+setReplaceMethod('fec', signature(object='FLBiol', value='formula'),
+	function(object, ..., value) {
+		object@fec@model <- value
+		return(object)
+	}
+)
+
+# fec<- params:
+setReplaceMethod('fec', signature(object='FLBiol', value='FLPar'),
+	function(object, value) {
+		object@fec@params <- value
+		return(object)
+	}
+) 
+
+# fec<- list:
+setReplaceMethod('fec', signature(object='FLBiol', value='list'),
+	function(object, value) {
+		
+		# FLQuants
+		idx <- unlist(lapply(value, is, 'FLQuants'))
+		if(sum(idx) > 1)
+			stop("More than one element in the list is of class 'FLQuants'")
+		
+		object@fec@.Data <- value[idx][[1]]
+		object@fec@names <- names(value[idx][[1]])
+
+		# params & modes
+		idx <- !idx
+
+		if(sum(idx) > 0)
+		for(i in names(value[idx]))
+			slot(object@fec, i) <- value[[i]]
+
+		return(object)
+	}
+) # }}}
+
+# mat {{{
+setMethod('mat', signature('FLBiol'),
+	function(object, slot=NULL, compute=TRUE) {
+		if(compute)
+			return(evalPredictModel(object, slot='mat'))
+		else
+			return(new('FLQuants', object@mat@.Data, names=object@mat@names,
+				lock=object@mat@lock))
+	}
+) # }}}
+
+# mat<- {{{
+
+# mat<- predictModel
+setReplaceMethod('mat', signature(object='FLBiol', value='predictModel'),
+	function(object, value) {
+		object@mat <- value
+		return(object)
+	}
+)
+
+# mat<- FLQuant: change to mat@.Data['mat']
+setReplaceMethod('mat', signature(object='FLBiol', value='FLQuant'),
+	function(object, value) {
+		object@mat@.Data <- FLQuants(mat=value)
+		return(object)
+	}
+)
+
+# mat<- FLQuants: assign to @.Data
+setReplaceMethod('mat', signature(object='FLBiol', value='FLQuants'),
+	function(object, value) {
+		object@mat@.Data <- value
+		return(object)
+	}
+)
+
+# mat<- formula:
+setReplaceMethod('mat', signature(object='FLBiol', value='formula'),
+	function(object, ..., value) {
+		object@mat@model <- value
+		return(object)
+	}
+)
+
+# mat<- params:
+setReplaceMethod('mat', signature(object='FLBiol', value='FLPar'),
+	function(object, value) {
+		object@mat@params <- value
+		return(object)
+	}
+) 
+
+# mat<- list:
+setReplaceMethod('mat', signature(object='FLBiol', value='list'),
+	function(object, value) {
+		
+		# FLQuants
+		idx <- unlist(lapply(value, is, 'FLQuants'))
+		if(sum(idx) > 1)
+			stop("More than one element in the list is of class 'FLQuants'")
+		
+		object@mat@.Data <- value[idx][[1]]
+		object@mat@names <- names(value[idx][[1]])
+
+		# params & modes
+		idx <- !idx
+
+		if(sum(idx) > 0)
+		for(i in names(value[idx]))
+			slot(object@mat, i) <- value[[i]]
+
+		return(object)
+	}
+) # }}}
+
+# tep {{{
+setGeneric('tep', function(object, ...) standardGeneric('tep'))
+
+setMethod('tep', signature(object='FLBiol'), function(object, formula=~n*wt*fec*mat) {
+
+	args <- all.names(formula, functions=FALSE)
+
+	lis <- vector('list', length=length(args))
+	
+	for(i in args)
+			lis[[i]] <- do.call(i, list(object))
+	
+	eval(formula[[2]], lis)
+	}
+) # }}}
+
+# ---
 
 # FLBiol()   {{{
 setMethod('FLBiol', signature(object='FLQuant'),
@@ -18,9 +256,9 @@ setMethod('FLBiol', signature(object='FLQuant'),
     dims <- dims(object)
 
     res <- new("FLBiol",
-    n=object, m=object, wt=object, fec=object, spwn=object,
-    range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
-			minyear=dims$minyear, maxyear=dims$maxyear)))
+	    n=object, m=object, wt=object, spwn=object,
+  	  range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
+				minyear=dims$minyear, maxyear=dims$maxyear)))
 
     # Load given slots
   	for(i in names(args))
@@ -45,12 +283,6 @@ setMethod('FLBiol', signature(object='missing'),
     return(FLBiol(object, ...))
   }
 ) # }}}
-
-## is.FLBiol {{{
-# Test if an object is of FLBiol class
-is.FLBiol <- function(x)
-	return(inherits(x, "FLBiol"))
-# }}}
 
 ## mean.lifespan {{{
 setMethod("mean.lifespan", signature(x="FLBiol"),
@@ -89,38 +321,6 @@ setMethod("mean.lifespan", signature(x="FLBiol"),
 		return(mm)
 	}
 )# }}}
-
-## as.FLBiol {{{
-setMethod("as.FLBiol", signature(object="FLBiol"),
-
-  function(object, unit  =1:dim(object@n)[3],
-                   season=1:dim(object@n)[4],
-                   area  =1:dim(object@n)[5]) {
-
-    slotnames <- names(getSlots("FLBiol")[getSlots("FLBiol")=="FLQuant"])
-    for(slotname in slotnames){
-      s.d <- dim(slot(object, slotname))
-      slot(object, slotname) <- slot(object, slotname)[,,pmin(unit,s.d[3]),
-                                                         pmin(season,s.d[4]),
-                                                         pmin(area,s.d[5])]
-    }
-    return(object)
-  }
-)
-
-setMethod("as.FLBiol", signature(object="FLStock"), function(object,...){
-	flb <- new("FLBiol")
-	flb@name <- object@name
-	flb@desc <- object@desc
-	flb@range <- object@range
-	flb@n <- object@stock.n
-	flb@m <- object@m
-	flb@wt <- object@stock.wt
-	flb@fec <- object@mat
-	flb@spwn <- object@m.spwn
-    return(flb)
-  }
-) # }}}
 
 # plot {{{
 setMethod("plot", signature(x="FLBiol", y="missing"),
