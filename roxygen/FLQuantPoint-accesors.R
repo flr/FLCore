@@ -4,7 +4,6 @@
 #' stored in an \code{\linkS4class{FLQuantPoint}} object along the sixth
 #' dimension.
 #' 
-#' 
 #' @name FLQuantPoint-accesors
 #' @aliases FLQuantPoint-accesors lowq lowq-methods lowq,FLQuantPoint-method
 #' lowq<- lowq<--methods lowq<-,FLQuantPoint-method mean,FLQuantPoint-method
@@ -26,5 +25,6 @@
 #' flq <- FLQuant(rnorm(40000), dim=c(10,20,1,1,1,200))
 #' flqp <- FLQuantPoint(flq)
 #' mean(flqp)
-#' mean(flqp) <- FLQuant(rnorm(200, 10, 3), dim=c(10,20))
+#' # Replace the mean by something else
+#'   mean(flqp) <- FLQuant(rnorm(200, 10, 3), dim=c(10,20))
 #' 
