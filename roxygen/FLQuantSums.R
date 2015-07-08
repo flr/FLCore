@@ -1,6 +1,6 @@
 #' Methods FLQuantSums
 #'
-#' Methods to compute sums, means and variances of FLQuant objects
+#' Methods to compute sums, means and variances of /code{FLQuant} objects
 #' 
 #' This set of methods computes three different summaries (sum, mean and
 #' variance) of an \code{FLQuant} object along each of the six dimensions
