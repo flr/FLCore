@@ -1,4 +1,4 @@
-# FLQuantDistr - «Short one line description»
+# FLQuantDistr - 
 # FLCore/R/FLQuantDistr.R
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later

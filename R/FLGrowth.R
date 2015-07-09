@@ -1,4 +1,4 @@
-# FLGrowth - «Short one line description»
+# FLGrowth - Example extension of FLModel for growth
 # R/FLGrowth
 
 # Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later

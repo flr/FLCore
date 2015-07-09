@@ -303,7 +303,7 @@ exportMethods(
 	"mat<-",
 	"mean",
 	"mean<-",
-	"mean.lifespan",
+	"meanLifespan",
 	"mcf",
 	"median",
 	"median<-",

@@ -1,4 +1,4 @@
-# FLQuantPoint - «Short one line description»
+# FLQuantPoint - FLQuant class summarizing iters
 # FLCore/R/FLQuantPoint.R
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
@@ -62,7 +62,7 @@ setMethod("show", signature(object="FLQuantPoint"),
 		cat("An object of class \"FLQuantPoint\":\n")
 		cat("-- median:\n")
 		if(any(complete.cases(object)))
-			print(unclass(apply(mean(object)@.Data, 1:5, median, na.rm=TRUE)), digits=3)
+			print(unclass(median(object)@.Data), digits=3)
 		else
 			print(unclass(array(NA, dimnames=dimnames(object@.Data)[1:5],
 				dim=dim(object@.Data)[1:5])))

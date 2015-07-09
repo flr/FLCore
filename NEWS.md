@@ -34,6 +34,7 @@
 - FLQuants() now accepts an FLCOMP object and a list of names/functions to be used to extract individual FLQuant(s)
 - FLPar validity now checks that content is numeric. Default frist dimname is now 'params'
 - FLIndices class can take both FLIndex and FLIndexBiomass objects
+- mean.lifespan renamed as meanLifespan to avoid S3 conflict
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
