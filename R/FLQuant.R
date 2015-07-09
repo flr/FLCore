@@ -377,7 +377,7 @@ setMethod("dimnames<-", signature(x="FLQuant", value='list'),
   }
 ) # }}}
 
-## dims       {{{
+# dims       {{{
 # Return a list with different parameters
 setMethod("dims", signature(obj="FLQuant"),
 	function(obj, ...){
@@ -401,22 +401,19 @@ setMethod("dims", signature(obj="FLQuant"),
 	}
 )   # }}}
 
-## is.FLQuant       {{{
+# is.FLQuant       {{{
 is.FLQuant  <-  function(x)
 return(is(x, "FLQuant"))
 # }}}
 
-## print {{{
-if (!isGeneric("print"))
-setGeneric("print", useAsDefault=print)
-
+# print {{{
 setMethod("print", signature(x="FLQuant"),
-function(x){
-show(x)
-}
-)   # }}}
+	function(x){
+		show(x)
+	}
+) # }}}
 
-## plot     {{{
+# plot     {{{
 setMethod("plot", signature(x="FLQuant", y="missing"),
 function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
 type='p', ...)
@@ -1102,7 +1099,7 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
   }
 ) # }}}
 
-## show     {{{
+# show     {{{
 setMethod("show", signature(object="FLQuant"),
 	function(object){
 		callNextMethod()
