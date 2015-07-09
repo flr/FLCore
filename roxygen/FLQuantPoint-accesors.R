@@ -25,6 +25,7 @@
 #' flq <- FLQuant(rnorm(40000), dim=c(10,20,1,1,1,200))
 #' flqp <- FLQuantPoint(flq)
 #' mean(flqp)
+#'
 #' # Replace the mean by something else
 #'   mean(flqp) <- FLQuant(rnorm(200, 10, 3), dim=c(10,20))
 #' 

@@ -2,7 +2,8 @@
 #' 
 #' A class for modelling abundance indices.
 #' 
-#' The \code{FLIndex} object holds data and parameters related to abundance indices.
+#' The \code{FLIndex} object holds data and parameters related to abundance
+#' indices.
 #'
 #' @name FLIndex
 #' @aliases FLIndex FLIndex,FLQuant-method FLIndex,missing-method
@@ -38,12 +39,12 @@
 #' @keywords classes
 #' @examples
 #' 
-#' # Create a FLIndex object.
+#' # Create an FLIndex object.
 #'   fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
 #'   summary(fli)
 #'   index(fli)
 #'
-#' # Creat a FLIndex object using an existing FLQuant object.
+#' # Creat an FLIndex object using an existing FLQuant object.
 #'   data(ple4)
 #'   # Create a perfect index of abundance from abundance at age
 #'     fli2 <- FLIndex(index=stock.n(ple4))

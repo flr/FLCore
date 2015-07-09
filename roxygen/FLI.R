@@ -2,7 +2,6 @@
 #' 
 #' A VIRTUAL class that holds data and parameters related to abundance indices.
 #' 
-#' 
 #' @name FLI
 #' @docType class
 #' @section Slots: \describe{ \item{type}{Type of index (\code{character}).}

@@ -37,7 +37,7 @@
 #'   sr1 <- FLSR()
 #'   slotNames(sr1)
 #' 
-#'   # Create an  FLSR object using the existing SR models.
+#'   # Create an FLSR object using the existing SR models.
 #'     sr2 <- FLSR(model = 'ricker')
 #'     sr2@model
 #'     sr2@initial

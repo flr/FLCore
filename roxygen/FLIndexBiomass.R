@@ -2,7 +2,8 @@
 #' 
 #' A class for modelling biomass indices.
 #'
-#' The \code{FLIndexBiomass} object holds data and parameters related to biomass indices.
+#' The \code{FLIndexBiomass} object holds data and parameters related to
+#' biomass indices.
 #'
 #' @name FLIndexBiomass
 #' @aliases FLIndex FLIndex,FLQuant-method FLIndex,missing-method
@@ -37,11 +38,12 @@
 #' @keywords classes
 #' @examples
 #'
-#' # Create and FLIndexBiomass object from scratch...
+#' # Create an FLIndexBiomass object from scratch...
 #'   idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
 #' 
 #' # ...from an existing FLStock object
 #'   data(ple4)
-#'   ida <- FLIndexBiomass(index=(catch(ple4)/fbar(ple4))*exp(rnorm(1,catch(ple4)*0,0.3)),
-#'     catch.n=catch.n(ple4), catch.wt=catch.wt(ple4))
+#'   ida <- FLIndexBiomass(index=(catch(ple4)/fbar(ple4))*
+#'     exp(rnorm(1,catch(ple4)*0,0.3)), catch.n=catch.n(ple4),
+#'     catch.wt=catch.wt(ple4))
 #' 
