@@ -37,7 +37,7 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 	}
 ) # }}}
 
-## "["             {{{
+# "["             {{{
 setMethod("[", signature(x="FLArray"),
     function(x, i, j, k, l, m, n, ..., drop=FALSE)
     {
@@ -214,7 +214,7 @@ setMethod("summary", signature(object="FLArray"),
 	}
 )   # }}}
 
-## show     {{{
+# show     {{{
 setMethod("show", signature(object="FLArray"),
 	function(object){
 		cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
@@ -230,8 +230,6 @@ setMethod("show", signature(object="FLArray"),
       v3 <- paste(format(apply(object@.Data, 1:5, median, na.rm=TRUE),digits=5))
 		
     print(array(v3, dim=dim(object)[1:5], dimnames=dimnames(object)[1:5]), quote=FALSE)
-
-		# cat("units: ", object@units, "\n")
 	}
 )   # }}}
 
@@ -494,8 +492,8 @@ uom <- function(op, u1, u2) {
 }
 # }}}
 
-## Arith    {{{
-setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
+# Arith    {{{
+setMethod("Arith", #  "+", "-", "*", "^", "%%", "%/%", "/"
 	signature(e1 = "numeric", e2 = "FLArray"),
 	function(e1, e2)
 	{
@@ -543,7 +541,7 @@ setMethod("Arith",
 	}
 )   # }}}
 
-## as.data.frame        {{{
+# as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
   optional="missing"),
 	function(x) {
@@ -605,7 +603,7 @@ setMethod('sweep', signature(x='FLArray'),
 setMethod('sigma', signature(object='FLArray'),
   function(object, hat=rep(0, length(object)))
   {
-    ## calculates sigma squared for use in concentrated likelihood
+    # calculates sigma squared for use in concentrated likelihood
     if(all(is.na(hat)))
       return(Inf)
 

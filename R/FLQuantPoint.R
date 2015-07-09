@@ -5,9 +5,9 @@
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLQuantPoint.R 1779 2012-11-23 09:39:31Z imosqueira $
 
-## FLQuantPoint()	{{{
+# FLQuantPoint()	{{{
 
-## FLQuantPoint(FLQuant())
+# FLQuantPoint(FLQuant())
 setMethod("FLQuantPoint", signature(object="missing"),
   function(..., units='NA') {
 
@@ -55,7 +55,7 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
     }
 )	# }}}
 
-## show     {{{
+# show     {{{
 # TODO show median(var) or [lowq-uppq]
 setMethod("show", signature(object="FLQuantPoint"),
 	function(object){
@@ -70,7 +70,7 @@ setMethod("show", signature(object="FLQuantPoint"),
 	}
 )   # }}}
 
-## random generators	{{{
+# random generators	{{{
 # rnorm(FLQuantPoint, missing)
 setMethod("rnorm", signature(n='numeric', mean="FLQuantPoint", sd="missing"),
 	function(n=1, mean)
@@ -94,7 +94,7 @@ setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 # pearson
 # }}}
 
-## accesors	{{{
+# accesors	{{{
 setMethod("mean", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(FLQuant(x[,,,,,'mean']))
@@ -153,7 +153,7 @@ setMethod("lowq<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 ) # }}}
 
-## plot	{{{
+# plot	{{{
 # TODO Fix, it is badly broken! 12.09.07 imosqueira
 setMethod("plot", signature(x="FLQuantPoint", y="missing"),
 	function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
@@ -191,7 +191,7 @@ setMethod("plot", signature(x="FLQuantPoint", y="missing"),
 	}
 )	# }}}
 
-## quantile   {{{
+# quantile   {{{
 setMethod("quantile", signature(x="FLQuantPoint"),
 	function(x, probs=0.25, na.rm=FALSE, dim=1:5, ...) {
 		if(probs==0.25)
@@ -203,7 +203,7 @@ setMethod("quantile", signature(x="FLQuantPoint"),
 	}
 )   # }}}
 
-## summary          {{{
+# summary          {{{
 setMethod("summary", signature(object="FLQuantPoint"),
 	function(object, ...){
 		cat("An object of class \"FLQuantPoint\" with:\n")
