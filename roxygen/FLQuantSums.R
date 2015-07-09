@@ -1,4 +1,4 @@
-#' Methods FLQuantSums
+#' Methods quantSums
 #'
 #' Methods to compute sums, means and variances of /code{FLQuant} objects
 #' 
