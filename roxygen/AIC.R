@@ -1,10 +1,9 @@
-#' Akaike Information Criterion (AIC) method
+#' Method AIC
 #' 
-#' A method to calculate the Akaike information criterion (AIC) of an
+#' A method to calculate the Akaike's information criterion (AIC) of an
 #' \link{FLModel} object from the value of the obtained log-likelihood stored
 #' in its \code{logLik} slot.
-#' 
-#' 
+#'
 #' @name AIC
 #' @aliases AIC,FLModel,numeric-method AIC,FLModel,missing-method
 #' @docType methods
