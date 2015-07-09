@@ -1,12 +1,11 @@
-#' Bubbles plot
+#' Method Bubbles plot
 #' 
-#' This method plots three dimensional data like matrices by age and year or
+#' This method plots three dimensional data such as matrices by age and year or
 #' age-class, very common in fisheries. The bubbles are proportional to the
-#' values on the matrix. Note that \code{bubbles} accept an argument
+#' values in the matrix. Note that \code{bubbles} accepts an argument
 #' \code{bub.scale} to control the relative size of the bubbles. Positive and
 #' negative values have separate colours.
-#' 
-#' 
+#'
 #' @name bubbles
 #' @aliases bubbles bubbles-methods bubbles,formula,FLQuant-method
 #' bubbles,formula,FLQuants-method bubbles,formula,FLCohort-method
@@ -29,6 +28,7 @@
 #' flqs <- FLQuants(qt01=qt01, qt02=qt02)
 #' bubbles(age~year|qname, data=flqs, bub.scale=1)
 #' 
-#' qt03 <- FLQuant(rnorm(100),dimnames=list(age=as.character(1:10),year=as.character(1:10)))
-#' bubbles(age~year, data=qt03, bub.scale=7, col=c("black","red"))
+#' qt03 <- FLQuant(rnorm(100),dimnames=list(age=as.character(1:10),
+#'   year=as.character(1:10)))
+#' bubbles(age~year, data=qt03, bub.scale=7, col=c("black","red"), pch=16)
 #' 

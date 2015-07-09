@@ -3,8 +3,7 @@
 #' These methods convert or coerce an object of a given class into another
 #' class. They follow the S3 syntax for coercion methods and are being slowly
 #' substituted by \code{as()} (see \code{\link[methods]{coerce}}.
-#' 
-#' 
+#'
 #' @name asOld
 #' @aliases as.FLBiol as.FLBiol-methods as.FLBiol,FLBiol-method
 #' as.FLBiol,FLStock-method as.FLIndex as.FLIndex-methods as.FLStock as.FLSR
