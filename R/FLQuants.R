@@ -2,7 +2,7 @@
 # FLCore/R/FLQuants.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Maintainer: Iago Mosqueira, EC JRC G03
 # $Id: FLQuants-methods.R 933 2011-05-03 12:32:03Z imosqueira $
 
 # summary {{{

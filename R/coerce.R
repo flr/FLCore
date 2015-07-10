@@ -2,7 +2,7 @@
 # FLCore/R/coerce.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Maintainer: Iago Mosqueira, EC JRC G03
 # $Id: coerce.R 1789 2012-12-10 10:34:22Z imosqueira $
 
 # TO data.frame {{{

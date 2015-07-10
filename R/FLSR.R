@@ -2,7 +2,7 @@
 # FLCore/R/FLSR.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Dorleta García, AZTI
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # FLSR  {{{
 

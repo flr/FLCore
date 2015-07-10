@@ -2,9 +2,7 @@
 # predictModel.R
 
 # Copyright 2015 Iago Mosqueira. Distributed under the GPL 2.
-# Maintainer: Iago Mosqueira, JRC
-# Soundtrack:
-# Notes:
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # class predictModel: model + data + params {{{
 setClass('predictModel',

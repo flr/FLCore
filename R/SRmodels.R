@@ -2,7 +2,7 @@
 # FLCore/R/SRmodels
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Laurie Kell, Cefas
+# Maintainer: Iago Mosqueira, EC JRC G03
 # $Id: SRmodels.R 1778 2012-11-23 08:43:57Z imosqueira $
 
 # Reference:

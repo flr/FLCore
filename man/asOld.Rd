@@ -1,9 +1,5 @@
 \name{asOld}
 \docType{methods}
-\alias{as.FLBiol}
-\alias{as.FLBiol-methods}
-\alias{as.FLBiol,FLBiol-method}
-\alias{as.FLBiol,FLStock-method}
 \alias{as.FLIndex}
 \alias{as.FLIndex-methods}
 \alias{as.FLStock}
@@ -26,17 +22,13 @@
 }
 \section{Generic function}{
   \describe{
-    \item{as.FLBiol(object)}{Convert to an \code{\linkS4class{FLBiol}}}
     \item{as.FLIndex(object)}{Convert to an \code{\linkS4class{FLIndex}}}
     \item{as.FLSR(object)}{Convert to an \code{\linkS4class{FLSR}}}
     \item{as.FLQuant(x)}{Convert to an \code{\linkS4class{FLQuant}}}
   }
 }
 \section{Methods}{\describe{
-\item{ signature(object=FLBiol) :}{Describe method}
 \item{ signature(object=FLStock) :}{Describe method}
-\item{ signature(object=FLStock) :}{Describe method}
-\item{ signature(object=FLBiol) :}{Describe method}
 \item{ signature(x=array) :}{Describe method}
 \item{ signature(x=matrix) :}{Describe method}
 \item{ signature(x=FLQuant) :}{Describe method}
@@ -48,6 +40,5 @@
 \examples{
 data(ple4)
 is(ple4)
-is(as.FLBiol(ple4))
 }
 \keyword{methods}

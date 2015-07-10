@@ -2,7 +2,7 @@
 # FLCore/R/FLModelSim.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: FLR Team
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # FLModelSim {{{
 # validity

@@ -2,8 +2,7 @@
 # FLCore/R/FLComp.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# $Id: FLComp.R 1790 2012-12-10 10:57:27Z imosqueira $
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # summary		{{{
 setMethod("summary", signature(object="FLComp"),

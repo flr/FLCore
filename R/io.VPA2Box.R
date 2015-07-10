@@ -1,9 +1,8 @@
-# io.VPA2Box - «Short one line description»
+# io.VPA2Box - Inout and ouput for VPA2Box format
 # io.VPA2Box
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC & Laurie Kell, ICCAT
-# $Id:  $
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # create retro stocks
 getRetros<-function(stk,fileNm,n){

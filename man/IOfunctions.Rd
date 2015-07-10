@@ -52,7 +52,7 @@
   the individual data files to be read in. This is the file that should be passed 
   to \code{readFLStock}. A single file can be read by \code{readVPA} into an 
   \code{FLQuant}. 
-  Further information on the VPA file format can be obtained from \url{http://my.web.site}.
+  Further information on the VPA file format can be found in the XSA manual.
   
   The 'Adapt file format' comprises a single file for input containing both the biological
   parameters, catches and catch per unit effort data. 

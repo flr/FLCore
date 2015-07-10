@@ -2,9 +2,7 @@
 # classesLst.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# Soundtrack:
-# Notes:
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # FLlst class{{{
 setClass("FLlst", contains="list",
@@ -323,74 +321,6 @@ setMethod("FLIndices", signature(object="list"),
 
     # desc & lock
     args <- c(list(Class="FLIndices", .Data=object, names=names),
-      args[!names(args)%in%'names'])
-
-    return(
-      do.call('new', args)
-      )
-
-}) # }}}
-
-# FLBiols {{{
-vFLSs <- function(object){
-
-  # All items are FLBiol
-  if(!all(unlist(lapply(object, is, 'FLBiol'))))
-      return("Components must be FLBiol")
-
-	return(TRUE)
-}
-
-# class
-setClass("FLBiols", contains="FLComps",
-	validity=vFLSs
-)
-
-# constructor
-setMethod("FLBiols", signature(object="FLBiol"), function(object, ...) {
-    lst <- c(object, list(...))
-    FLBiols(lst)
-})
-
-setMethod("FLBiols", signature(object="missing"),
-  function(...) {
-    # empty
-  	if(missing(...)){
-	  	new("FLBiols")
-    # or not
-  	} else {
-      args <- list(...)
-      object <- args[!names(args)%in%c('names', 'desc', 'lock')]
-      args <- args[!names(args)%in%names(object)]
-      do.call('FLBiols',  c(list(object=object), args))
-	  }
-  }
-)
-
-setMethod("FLBiols", signature(object="list"),
-  function(object, ...) {
-
-    args <- list(...)
-
-    # names in args, ...
-    if("names" %in% names(args)) {
-      names <- args[['names']]
-    } else {
-    # ... or in object,
-      if(!is.null(names(object))) {
-        names <- names(object)
-    # ... or in elements, ...
-      } else {
-        names <- unlist(lapply(object, name))
-        # ... or 1:n
-        idx <- names == "NA" | names == ""
-        if(any(idx))
-          names[idx] <- as.character(length(names))[idx]
-      }
-    }
-
-    # desc & lock
-    args <- c(list(Class="FLBiols", .Data=object, names=names),
       args[!names(args)%in%'names'])
 
     return(

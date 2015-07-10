@@ -2,7 +2,7 @@
 # FLCore/R/io.ADMB.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Maintainer: Iago Mosqueira, EC JRC G03
 # $Id:  $
 
 readADMB<-function(file){
