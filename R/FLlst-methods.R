@@ -1,9 +1,8 @@
-# FLlst-methods.R - FLlst-methods class and methods
+# FLlst-methods.R - FLlst classes' methods
 # FLCore/R/FLlst-methods.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Ernesto Jardim, IPIMAR
-# $Id: FLlst-methods.R 1778 2012-11-23 08:43:57Z imosqueira $
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, JRC
 
 # coerce NULL {{{
 setAs("NULL", "FLStock", function(from) FLStock())
@@ -101,8 +100,13 @@ setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(
 
 # lapply  {{{
 setMethod("lapply", signature(X="FLlst"),
-	function(X, FUN, ...){
-	lstargs <- list(...)
+	function(X, FUN, ...) {
+
+		if(length(X) == 0)
+			return(new(class(X)))
+		
+		lstargs <- list(...)
+
    	lstargs$X <- X@.Data
    	names(lstargs$X) <- names(X)
 

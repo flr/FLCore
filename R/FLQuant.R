@@ -1,7 +1,7 @@
 # FLQuant.R - FLQuant class and methods
 # FLCore/R/FLQuant.R
 
-# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLQuant.R 1778 2012-11-23 08:43:57Z imosqueira $
 

@@ -1,6 +1,6 @@
 # io.FLStock.R - read and write assessment input files into an FLStock
 
-# Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
 # $Id: io.FLStock.R 1022 2011-06-10 11:07:33Z imosqueira $
 

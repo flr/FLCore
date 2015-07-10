@@ -1,7 +1,7 @@
-# genericMethods - «Short one line description»
+# genericMethods - Generic methods, new and based on R functions
 # genericMethods
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 
 # Existing methods/functions
 
@@ -831,3 +831,5 @@ setGeneric("getPlural", function(object, ...) standardGeneric("getPlural"))
 setGeneric("e", function(x, ...) standardGeneric("e"))
 setGeneric("e<-", function(x, value) standardGeneric("e<-"))
 
+# predictModel
+setGeneric("predictModel", function(object, ...) standardGeneric("predictModel"))

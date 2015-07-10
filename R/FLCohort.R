@@ -1,7 +1,7 @@
 # FLCohort - 
 # FLCore/R/FLCohort.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Ernesto Jardim, IPIMAR 
 # $Id: FLCohort.R 1778 2012-11-23 08:43:57Z imosqueira $
 
@@ -49,7 +49,7 @@ setMethod("FLCohort", signature("FLQuant"),
   	flc[flc.ind] <- flq
 	  flc <- aperm(flc, c(2,1,3,4,5,6))
 
-  	# et voilá
+  	# et voila
 	  new("FLCohort", flc, units=units(object))
   }
 ) # }}}
@@ -212,7 +212,7 @@ setAs("FLCohort", "FLQuant", function(from){
 		flq[i,,,,,] <- from[i, start:end,,,,]
 	}
 	
-	# et voilá
+	# et voila
 	new("FLQuant", flq, units=units(from))
 
 })  # }}}
@@ -244,7 +244,7 @@ setMethod("flc2flq", signature("FLCohort"), function(object, ...){
 		flq[i,,,,,] <- object[i, start:end,,,,]
 	}
 	
-	# et voilá
+	# et voila
 	new("FLQuant", flq, units=units(object))
 
 })  # }}}

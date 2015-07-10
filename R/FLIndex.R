@@ -1,7 +1,7 @@
 # FLIndex.R - FLIndex class and methods
 # FLCore/R/FLIndex.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Richard Hillary, Imperial College London
 # $Id: FLIndex.R 1778 2012-11-23 08:43:57Z imosqueira $
 

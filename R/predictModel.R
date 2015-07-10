@@ -11,6 +11,38 @@ setClass('predictModel',
 	contains='FLQuants',
 	representation(params='FLPar', model='formula')) # }}}
 
+# predictModel() {{{
+setMethod('predictModel', signature(object='FLQuants'),
+	function(object, model=~a, params=FLPar(a=as.numeric(NA))) {
+
+	# CREATE object
+	res <- new("predictModel", object, model=model, params=params)
+	
+	return(res)
+	}
+)
+
+setMethod('predictModel', signature(object='missing'),
+	function(object, ...) {
+
+	args <- list(...)
+
+	# PARSE for named FLQuant(s)
+	if(length(args) > 0) {
+		cls <- unlist(lapply(args, is, 'FLQuant'))
+		fqs <- do.call('FLQuants', args[cls])
+		args <- c(list(object=fqs), args[!cls])
+	} else {
+		args <- list(object=FLQuants())
+	}
+
+	# CREATE object
+	res <- do.call('predictModel', args)
+	
+	return(res)
+	}
+) # }}}
+
 # model, model<- {{{
 setMethod('model', signature(object='predictModel'),
 	function(object) {
@@ -61,4 +93,16 @@ setMethod('[', signature(x="predictModel", i="ANY", j="missing"),
 	}
 )
 # }}}
+
+# show {{{
+setMethod('show', signature(object='predictModel'),
+	function(object) {
+		
+		callNextMethod()
+		cat("model: ", "\n")
+		show(object@model)
+		cat("\nparams: ", "\n")
+		show(object@params)
+	}
+) # }}}
 

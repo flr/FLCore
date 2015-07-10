@@ -1,7 +1,7 @@
-# FLComp - «Short one line description»
+# FLComp - Basic VIRTUAL class for all FLQuant-based classes
 # FLCore/R/FLComp.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
 # $Id: FLComp.R 1790 2012-12-10 10:57:27Z imosqueira $
 

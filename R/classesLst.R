@@ -1,45 +1,29 @@
 # classesLst.R - DESC
 # classesLst.R
 
-# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
 # Soundtrack:
 # Notes:
 
 # FLlst class{{{
-vFLl <- function(object){
-
-	# Make sure the list contains all items of the same class
-	# cls <- unlist(lapply(object, class))
-  # if(any(cls != cls[1]))
-	  # return("Components must be of the same class!")
-
-  # All elements in the list are validObjects themselves
-  if(!all(unlist(lapply(object, validObject))))
-	  return("Components must be valid objects themselves (validObject == TRUE)")
-
-	# Everything is fine
-	return(TRUE)
-}
-
-# class
 setClass("FLlst", contains="list",
   representation(names="character", desc="character", lock="logical"),
 	prototype(lock=FALSE),
-	validity=vFLl
+	validity=function(object) {
+		
+  	# All elements in the list are validObjects themselves
+		if(length(object) > 0)
+	  	if(!all(unlist(lapply(object, validObject))))
+			  return("Components must be valid objects themselves (validObject == TRUE)")
+
+		# Everything is fine
+		return(TRUE)
+}
+
 ) # }}}
 
 # FLQuants {{{
-# validity
-vFLQs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLQuant")) stop("Components must be FLQuant")
-	}
-	# Everything is fine
-	return(TRUE)
-}
-
 #' Class FLQuants
 #'
 #' \code{FLQuants} is a \code{list} of \code{FLQuant} objects.
@@ -68,7 +52,18 @@ vFLQs <- function(object){
 #' @keywords classes
 # class
 setClass("FLQuants", contains="FLlst",
-	validity=vFLQs
+	validity=function(object){
+	
+	# Make sure the list contains all items of the same class
+	cls <- unlist(lapply(object, is, 'FLQuant'))
+
+	if(!all(cls))
+		return("Components must all be FLQuant")
+	
+	# Everything is fine
+	return(TRUE)
+}
+
 )
 
 # constructor

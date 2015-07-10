@@ -242,7 +242,37 @@ setMethod('tep', signature(object='FLBiol'), function(object, formula=~n*wt*fec*
 	}
 ) # }}}
 
-# ---
+# summary {{{
+setMethod("summary", signature(object="FLBiol"),
+	function(object) {
+
+		# CAT name, desc, range and FLQuant slots
+		callNextMethod()
+
+		# predictModel slots
+		pnames <- getSlotNamesClass(object, 'predictModel')
+		for (i in pnames) {
+			# name
+			cat(substr(paste0(i, "          "), start=1, stop=14),
+			# model
+			as.character(slot(object, i)@model), "\n")
+			# FLQuants
+			if(length(names(slot(object, i))) > 0) {
+				for(j in names(slot(object, i))) {
+					cat(substr(paste0("  ", i, "          "), start=1, stop=12),
+						" : [", dim(slot(object,i)[[j]]),"], units = ",
+						slot(object,i)[[j]]@units, "\n")
+				}
+			}
+			# params
+			par <- slot(object, i)@params
+			cat(substr(paste0("  (", ifelse(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == "",
+				"NA", paste(dimnames(par)[[1]], collapse=", ")),
+				")           "), start=1, stop=12), " : [", dim(slot(object,i)@params),
+				"], units = ", slot(object,i)@params@units, "\n")
+		}
+	}
+) # }}}
 
 # FLBiol()   {{{
 setMethod('FLBiol', signature(object='FLQuant'),
@@ -284,7 +314,9 @@ setMethod('FLBiol', signature(object='missing'),
   }
 ) # }}}
 
-## mean.lifespan {{{
+# ---
+
+# mean.lifespan {{{
 setMethod("mean.lifespan", signature(x="FLBiol"),
 	function(x, ref.age = 'missing',...) {
 
@@ -369,7 +401,7 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 	}
 ) # }}}
 
-## ssb  {{{
+# ssb  {{{
 setMethod("ssb", signature(object="FLBiol"),
 	function(object, ...)
   {
@@ -380,7 +412,7 @@ setMethod("ssb", signature(object="FLBiol"),
   }
 )	# }}}
 
-## tsb  {{{
+# tsb  {{{
 setMethod("tsb", signature(object="FLBiol"),
 	function(object, ...)
   {
@@ -391,13 +423,13 @@ setMethod("tsb", signature(object="FLBiol"),
   }
 )	# }}}
 
-## computeStock  {{{
+# computeStock  {{{
 setMethod("computeStock", signature(object="FLBiol"),
 	function(object, ...)
 		return(quantSums(n(object) * wt(object) , ...))
 )	# }}}
 
-## ssn  {{{
+# ssn  {{{
 setMethod("ssn", signature(object="FLBiol"),
 	function(object, ...)
 		return(quantSums(n(object) * fec(object) * exp(-spwn(object) * m(object)), ...))
@@ -736,18 +768,6 @@ s.<-	function(x, plusgroup, na.rm=FALSE)
 	return(x)
 	}
 )# }}}
-
-# rec(FLBiol)  {{{
-setMethod('rec', signature(object='FLBiol'),
-#  function(object, rec.age=ac(dims(object)$min))
-  function(object, rec.age=dims(object)$min)
-  {
-    if(dims(object)$quant == 'age')
-      n(object)[ac(rec.age),]
-    else
-      stop("rec(FLBiol) only defined for age-based objects")
-  }
-) # }}}
 
 # fbar {{{
 setMethod("fbar", signature(object="FLBiol"),
