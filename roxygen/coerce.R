@@ -8,10 +8,9 @@
 #' Coercion combinations work by transferring or transforming relevant slots
 #' from the original object and placing them in a new object of the target
 #' class. The descriptions below document how slots for each pair of classes
-#' are transfered or transformed. In all cases the \code{name} and \code{desc}
-#' slots are simply copied accross.
-#' 
-#' 
+#' are transferred or transformed. Where relevant, the \code{name} and
+#' \code{desc} slots are simply copied across.
+#'
 #' @name coerce
 #' @aliases coerce,FLlst,list-method coerce,NULL,FLStock-method
 #' coerce,NULL,FLIndex-method coerce,NULL,FLBiol-method
@@ -32,3 +31,5 @@
 #' 
 #' data(ple4)
 #' flb <- as(ple4, 'FLBiol')
+#' flc <- as(catch.n(ple4),'FLCohort')
+#'
