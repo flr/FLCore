@@ -26,8 +26,7 @@
 #' Objects of class \code{\linkS4class{FLQuants}} can also be converted into a
 #' wide-format table, where data from the list elements are placed in separate
 #' colums, using \code{\link{model.frame,FLlst-method}}.
-#' 
-#' 
+#'
 #' @name as.data.frame
 #' @aliases as.data.frame-FLCore coerce,FLArray,data.frame-method
 #' as.data.frame,FLArray,missing,missing-method
