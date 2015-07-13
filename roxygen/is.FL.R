@@ -1,3 +1,5 @@
+#' Methods is.FL
+#'
 #' Methods to determine the class of a given object
 #' 
 #' These methods return \code{TRUE} if the given object is of the corresponding
@@ -5,8 +7,7 @@
 #' 
 #' These methods should be substituted by calls to \code{\link[methods]{is}}
 #' and will very likely be deprecated in future releases.
-#' 
-#' 
+#'
 #' @name is.FL
 #' @aliases is.FLBiol is.FLQuant is.FLStock is.FLQuants is.FLQuants-methods
 #' is.FLQuants,ANY-method is.FLBiols is.FLBiols-methods is.FLBiols,ANY-method
@@ -26,7 +27,7 @@
 #' @examples
 #' 
 #' # This call ...
-#' is.FLQuant(FLQuant())
+#'   is.FLQuant(FLQuant())
 #' # ... should be substituted by
-#' is(FLQuant(), 'FLQuant')
+#'   is(FLQuant(), 'FLQuant')
 #' 

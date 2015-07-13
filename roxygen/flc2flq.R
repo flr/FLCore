@@ -3,7 +3,7 @@
 #' Coerce FLCohort into FLQuant.
 #' 
 #' Coerces \code{FLCohort} objects into \code{FLQuant} objects. Using
-#' \code{as(flcobject,"FLQuant")} achieves the same results, and it will be
+#' \code{as(flcobject,"FLQuant")} achieves the same result; this method will be
 #' deprecated in the near future.
 #'
 #' @name flc2flq
