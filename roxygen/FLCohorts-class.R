@@ -5,8 +5,7 @@
 #' list objects. The elements of \code{FLCohorts} must all be of class
 #' \code{FLCohort}. It implements a lock mechanism that, when turned on, does
 #' not allow the user to increase or decrease the object length.
-#' 
-#' 
+#'
 #' @name FLCohorts
 #' @aliases FLCohorts-class FLCohorts FLCohorts-methods FLCohorts,ANY-method
 #' FLCohorts,missing-method FLCohorts,list-method FLCohorts,FLCohorts-method
@@ -22,3 +21,4 @@
 #' \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
 #' \link{FLlst}, \link[base]{list}
 #' @keywords classes
+#'

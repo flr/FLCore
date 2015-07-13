@@ -11,3 +11,4 @@
 #' @author The FLR Team
 #' @seealso \code{\linkS4class{FLQuant}}, \code{\linkS4class{FLCohort}}
 #' @keywords classes
+#'

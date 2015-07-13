@@ -21,3 +21,4 @@
 #' \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
 #' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
 #' @keywords classes
+#'

@@ -13,3 +13,4 @@
 #' @author The FLR Team
 #' @seealso \link{FLlst}, \link[base]{list}, \link[base]{vector}
 #' @keywords classes
+#'

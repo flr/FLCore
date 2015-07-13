@@ -33,14 +33,14 @@
 #' @examples
 #' 
 #' # creating a new FLQuant
-#' flq <- FLQuant()
-#' flq <- FLQuant(1:10, dim=c(2,5))
-#' summary(flq)
+#'   flq <- FLQuant()
+#'   flq <- FLQuant(1:10, dim=c(2,5))
+#'   summary(flq)
 #' 
 #' # Vectors are used column first...
-#' dim(FLQuant(1:10))
+#'   dim(FLQuant(1:10))
 #' # ...while matrices go row first.
-#' dim(FLQuant(matrix(1:10)))
+#'   dim(FLQuant(matrix(1:10)))
 #' 
 #' FLQuant(matrix(rnorm(100), ncol=20))
 #' 
@@ -48,8 +48,8 @@
 #' FLQuant(array(rnorm(10), dim=c(5,2)), iter=10)
 #' 
 #' # working with FLQuant objects
-#' flq <- FLQuant(rnorm(45), dimnames=list(age=1:5, year=2000:2008), units='diff')
-#' summary(flq)
+#'   flq <- FLQuant(rnorm(45), dimnames=list(age=1:5, year=2000:2008), units='diff')
+#'   summary(flq)
 #' 
 #' flq[1,]
 #' flq[,1]

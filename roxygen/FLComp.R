@@ -17,3 +17,4 @@
 #' \link[base]{transform}, \link{trim}, \link{units,FLComp-method},
 #' \link{units<-,FLComp,list-method}, \link[stats]{window}
 #' @keywords classes
+#'
