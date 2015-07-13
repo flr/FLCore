@@ -1,9 +1,9 @@
-#' Method for calculating Leslie matrix dynamics of an FLBiol object
-#' 
-#' For an \code{FLBiol} object with the natural mortality-at-age, fecundity and
-#' spwn data present in the object.
-#' 
-#' Usual Leslie matrix type dynamics for a \code{FLBiol} object.
+#' Method leslie
+#'
+#' Leslie matrix calculations for an \code{FLBiol} object
+#'
+#' This is a method for calculating Leslie matrix dynamics of an \code{FLBiol}
+#' object with natural mortality-at-age, fecundity and spwn data.
 #' 
 #' @aliases leslie leslie-methods leslie,FLBiol-method
 #' @param object An object of type \code{\linkS4class{FLBiol}}.
