@@ -441,7 +441,7 @@ strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
 }
 )   # }}}
 
-## lattice plots{{{
+# lattice plots{{{
 # xyplot
 setMethod("xyplot", signature("formula", "FLQuant"),
 function(x, data, ...){
