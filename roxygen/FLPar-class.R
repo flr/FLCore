@@ -31,3 +31,6 @@
 #' FLPar(rnorm(20), dimnames=list(params=c('a','b'), year=1990:1999, iter=1),
 #'   units='NA')
 #'
+#' # with iters
+#'   FLPar(rnorm(80), params=c('a', 'b'), iter=1:40)
+#'

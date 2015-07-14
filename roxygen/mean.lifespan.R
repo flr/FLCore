@@ -1,12 +1,14 @@
+#' Method mean.lifespan
+#'
 #' Method for calculating mean lifespan, given the natural mortality
 #' 
-#' For an \code{FLBiol} object with the natural mortality-at-age present in the
-#' object.
+#' Used for an \code{FLBiol} object with natural mortality-at-age available
+#' in the object.
 #' 
-#' Using actuarial definitions for the expected life-span of a given species,
-#' for a given survival rate-at-age (natural mortality), we can compute the
-#' expected life-span, \eqn{\ell_x}{logL(x)}, of a species, from a given
-#' reference age \eqn{x}, using the following equation:
+#' Using actuarial definitions for the expected life-span of a given species
+#' and survival rate-at-age (natural mortality), we can compute the expected
+#' life-span, \eqn{\ell_x}{logL(x)}, of a species, from a given reference age
+#' \eqn{x}, using the following equation:
 #' 
 #' \deqn{\ell_x = \sum\limits_{t=1}^{\infty}
 #' \exp\left(-\sum\limits_{i=x}^{x+t}M_i\right)}{logL(x) = SUM_1_inf
@@ -24,9 +26,10 @@
 #' @author FLR Team
 #' @seealso \code{\linkS4class{FLBiol}}
 #' @keywords methods
+#'
 #' @examples
 #' \dontrun{
-#' data(ple4biol)
-#' lfs.ple4 <- mean.lifespan(ple4,ref.age=1)
+#' data(ple4.biol)
+#' lfs.ple4 <- mean.lifespan(ple4.biol,ref.age=1)
 #' }
 #' 

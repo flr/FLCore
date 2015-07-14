@@ -3,8 +3,8 @@
 #' Coefficient of Variation of FLR objects that may include multiple iterations
 #' 
 #' The Coefficient of Variation of an \code{FLQuant} object that may include
-#' multiple iterations along the sixth (\code{iter}) dimension can be calculated using
-#' \code{cv()}. An object of class \code{numeric} with length=1 will be
+#' multiple iterations along the sixth (\code{iter}) dimension can be calculated
+#' using \code{cv()}. An object of class \code{numeric} with length=1 will be
 #' returned.
 #'
 #' \code{cv(x)} is calculated as \eqn{\frac{sd(x)}{\hat{x}}}{sd(x)/mean(x)}.
