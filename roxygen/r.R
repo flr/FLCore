@@ -1,27 +1,28 @@
+#' Methods r
+#'
 #' Intrinsic rate of increase from an FLBiol object
 #' 
-#' For an \code{FLBiol} object with the mortality-at-age, fecundity and spwn
-#' data present in the object slots, this method calculates the intrinsic rate
-#' of increase r for the given population.
+#' For an \code{FLBiol} object with the natural mortality-at-age, fecundity and
+#' spwn data present in the relevant slots, this method calculates the intrinsic
+#' rate of increase \code{r} for the given population.
 #' 
 #' It does this using two methods:
-#' 
 #' (1) Solving the Euler-Lotka equation.
-#' 
 #' (2) Calculating the logarithm of the real part of the largest/lead
 #' eigenvalue of the Leslie transition matrix.
 #' 
 #' These two methods are not identical but do give similar answers for the same
-#' data and parameters
+#' data and parameters.
 #' 
-#' To chose the method used to estimate r (Euler-Lotka or Leslie matrix) we
-#' supply either 'el' or 'leslie' as the 'method' argument (see below). To
-#' calculate r along years or cohorts by supply either 'year' or 'cohort' as
-#' the 'by' argument (see below).
+#' To chose the method used to estimate \code{r} (Euler-Lotka or Leslie matrix)
+#' either 'el' or 'leslie' is supplied as the 'method' argument (see below). To
+#' calculate \code{r} along years or cohorts, either 'year' or 'cohort' is
+#' supplied as the 'by' argument (see below).
 #' 
 #' The method can handle Monte Carlo samples (i.e. with iterations) in either
-#' the fec, m or both slots required to calculate r and the conversion is done
-#' internally so that we obtain an \code{FLQuant} of the correct dimensions.
+#' the fec or m (or both) slots required to calculate \code{r}, and the
+#' conversion is done internally so that an \code{FLQuant} of the correct
+#' dimensions is obtained.
 #' 
 #' @aliases r r-methods r,FLBiol-method
 #' @param object An object of type \code{\linkS4class{FLBiol}}.
@@ -31,36 +32,30 @@
 #' @seealso \code{\linkS4class{FLBiol}}
 #' @keywords methods
 #' @examples
-#' \dontrun{
-#' 
-#' # call in the NS herring stock and biol objects
-#' 
-#' data(nsher.biol)
-#' data(nsher)
-#' 
-#' # calculate the gradient at the origin from the spawning stock numbers to the recruits
-#' 
-#' tmp <- nsher.biol
-#' n(tmp) <- stock.n(nsher)
-#' m(tmp) <- harvest(nsher)+m(nsher.biol)
-#' 
-#' # use nls to calculate gradient of (recruits/spawning stock numbers)
-#' # assuming log-normal errors
-#' 
-#' dfx <- data.frame(rec=as.vector(n(tmp)[1,]),ssn=as.vector(ssn(tmp)))
-#' res <- nls(log(rec)~log(a)+log(ssn),dfx,start=list(a=mean(n(tmp)[1,]/ssn(tmp))))
-#' 
-#' # use this value of recruits per spawner times maturity as the birth function for 
-#' # the Leslie transition matrix/Euler-Lotka equation
-#' 
-#' alpha <- coef(res)[[1]]
-#' fec(tmp)[] <- fec(tmp)[] * alpha
-#' 
-#' # calculate r assuming only natural mortality and by year
-#' # using both Euler-Lotka (el) and Lesie matrix (leslie) method
-#' 
-#' m(tmp) <- m(nsh.biol)
-#' r.nsh.el <- r(tmp,by='year',method='el')
-#' r.nsh.lm <- r(tmp,by='year',method='leslie')
-#' }
-#' 
+#'
+#' # Call the North Sea plaice stock and biol objects
+#'   data(ple4)
+#'   data(ple4.biol)
+#'
+#' # Calculate the gradient at the origin of recruits vs. spawning stock numbers
+#'   tmp <- ple4.biol
+#'   n(tmp) <- stock.n(ple4)
+#'   m(tmp) <- harvest(ple4)+m(ple4.biol)
+#'
+#'   # Use nls to calculate gradient of (recruits/spawning stock numbers)
+#'   # assuming log-normal errors
+#'     dfx <- data.frame(rec=as.vector(n(tmp)[1,]),ssn=as.vector(ssn(tmp)))
+#'     res <- nls(log(rec)~log(a)+log(ssn),dfx,start=list(a=mean(n(tmp)[1,]/
+#'       ssn(tmp))))
+#'
+#' # Use this value of recruits per spawner times maturity as the birth function
+#' # for the Leslie transition matrix/Euler-Lotka equation
+#'   alpha <- coef(res)[[1]]
+#'   fec(tmp)[] <- fec(tmp)[] * alpha
+#'
+#' # calculate r assuming only natural mortality and by year using both the
+#' # Euler-Lotka (el) and Leslie matrix (leslie) method
+#'   m(tmp) <- m(ple4.biol)
+#'   r.ple.el <- r(tmp,by='year',method='el')
+#'   r.ple.lm <- r(tmp,by='year',method='leslie')
+#'
