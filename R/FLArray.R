@@ -82,7 +82,7 @@ setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
   }
 )   # }}}
 
-## "[<-"            {{{
+# "[<-"            {{{
 setMethod("[<-", signature(x="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -115,7 +115,7 @@ setMethod("[<-", signature(x="FLArray"),
 	}
 )   # }}}
 
-## "[<-"            {{{
+# "[<-"            {{{
 setMethod("[<-", signature(x="FLArray", value="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -165,7 +165,7 @@ setMethod("[<-", signature(x="FLArray", value="FLArray"),
 	}
 )   # }}}
 
-## names         {{{
+# names         {{{
 setMethod("names", signature(x="FLArray"),
 	function(x)
     names(dimnames(x))
@@ -182,7 +182,7 @@ setMethod("iter", signature(obj="FLArray"),
 	}
 )   # }}}
 
-## summary          {{{
+# summary          {{{
 setMethod("summary", signature(object="FLArray"),
 	function(object, ...)
 	{
@@ -268,39 +268,38 @@ setMethod('expand', signature(x='FLArray'),
   function(x, ...) {
 
     args <- list(...)
-    nargs <- names(args)
     
     # dimension names
+    nargs <- names(args)
     qnames <- names(dimnames(x))
     
     # check input names match dimnames
     if(!all(nargs%in%qnames))
       stop(paste("Wrong dimension name provided: ", nargs[!nargs%in%qnames]))
 
-    # Create list with given standard elements in right position ...
-    select <- args[match(qnames, nargs)]
-    
-    # get rid of unspecified dimensions
-    select <- select[!unlist(lapply(select, is.null))]
-    
     # turn into characters
-    select <- lapply(select, as.character)
+    select <- lapply(args, as.character)
     
     # match specified dimensions and dimnames
     dimnames <- dimnames(x)
     
-    # check new dimnames contain old ones
-    for(i in names(select))
-      if(!all(dimnames[[i]] %in% select[[i]]))
-        stop("New dimnames do not contain existing ones")
-    
+		# new dimnames
 		dimnames[names(select)] <- select
 
     # output object
-    res <- new(class(x), array(as.numeric(NA), dimnames=dimnames, dim= unlist(lapply(dimnames, length))), units=units(x))
+    res <- new(class(x), array(as.numeric(NA), dimnames=dimnames,
+			dim=unlist(lapply(dimnames, length))), units=units(x))
     
     # list for assignment of x data
-    dimnames <- dimnames(x)
+    dimnames <- dimnames(res)
+
+		# extended or new?
+		for(i in nargs) {
+			if(any(dimnames(x)[[i]] %in% dimnames(res)[[i]])) {
+				dimnames[[i]] <- dimnames(x)[[i]]
+			}
+		}
+
     names(dimnames) <- c('i', 'j', 'k', 'l', 'm', 'n')
 
     do.call('[<-', c(list(x=res, value=x), dimnames))

@@ -18,6 +18,6 @@
 \seealso{\link[stats]{median}, \link[base]{apply}}
 \examples{
 flp <- FLPar(rnorm(80), params=c('a', 'b'), iter=1:40)
-median(flp)
+iterMedians(flp)
 }
 \keyword{methods}

@@ -46,20 +46,3 @@ setMethod('getPlural', signature(object='FLSR'),
 setMethod('getPlural', signature(object='FLModelSim'),
 	function(object) {
 		return('FLModelSims')})
-		
-# FLCatch -> FLCatches
-setMethod('getPlural', signature(object='FLCatch'),
-	function(object) {
-		return('FLCatches')})
-
-# FLMetier -> FLMetiers
-setMethod('getPlural', signature(object='FLMetier'),
-	function(object) {
-		return('FLMetiers')})
-
-# FLFleet -> FLFleets
-setMethod('getPlural', signature(object='FLFleet'),
-	function(object) {
-		return('FLFleets')})
-		
-		

@@ -405,41 +405,51 @@ is.FLQuant  <-  function(x)
 return(is(x, "FLQuant"))
 # }}}
 
+# show     {{{
+setMethod("show", signature(object="FLQuant"),
+	function(object){
+		callNextMethod()
+		cat("units: ", object@units, "\n")
+	}
+)   # }}}
+
 # print {{{
 setMethod("print", signature(x="FLQuant"),
 	function(x){
 		show(x)
+		invisible(x)
 	}
 ) # }}}
 
 # plot     {{{
 setMethod("plot", signature(x="FLQuant", y="missing"),
-function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
-type='p', ...)
-    {
-# get dimensions to condition on (length !=1)
-condnames <- names(dimnames(x)[c(1,3:5)][dim(x)[c(1,3:5)]!=1])
-cond <- paste(condnames, collapse="+")
-if(cond != "") cond <- paste("|", cond)
-formula <- formula(paste("data~year", cond))
-# set strip to show conditioning dimensions names
-strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
+	function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""), type='p', ...) {
 
-    # using do.call to avoid eval of some arguments
-    lst <- substitute(list(...))
-    lst <- as.list(lst)[-1]
-        lst$data <- x
-    lst$x <- formula
-    lst$xlab <- xlab
-    lst$ylab <- ylab
-    lst$strip <- strip
-    lst$type <- type
-    if(dim(x)[6] == 1)
-      do.call("xyplot", lst)
-      else
-        do.call("bwplot", lst)
-}
-)   # }}}
+		# get dimensions to condition on (length !=1)
+	condnames <- names(dimnames(x)[c(1,3:5)][dim(x)[c(1,3:5)]!=1])
+	cond <- paste(condnames, collapse="+")
+
+	if(cond != "") cond <- paste("|", cond)
+		formula <- formula(paste("data~year", cond))
+
+	# set strip to show conditioning dimensions names
+	strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
+
+  # using do.call to avoid eval of some arguments
+  lst <- substitute(list(...))
+  lst <- as.list(lst)[-1]
+  lst$data <- x
+  lst$x <- formula
+  lst$xlab <- xlab
+  lst$ylab <- ylab
+  lst$strip <- strip
+  lst$type <- type
+  if(dim(x)[6] == 1)
+	  do.call("xyplot", lst)
+  else
+  	do.call("bwplot", lst)
+	}
+) # }}}
 
 # lattice plots{{{
 # xyplot
@@ -1097,14 +1107,6 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
     return(res)
   }
 ) # }}}
-
-# show     {{{
-setMethod("show", signature(object="FLQuant"),
-	function(object){
-		callNextMethod()
-		cat("units: ", object@units, "\n")
-	}
-)   # }}}
 
 # ifelse {{{
 setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),

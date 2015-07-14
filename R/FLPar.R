@@ -297,26 +297,28 @@ setMethod("as.data.frame", signature(x="FLPar"),
   }
 )   # }}}
 
-# mean, median, var, quantile   {{{
-# TODO review for 3D param objects
-setMethod("mean", signature(x='FLPar'),
-	function(x, na.rm=TRUE)
-  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      mean, na.rm=na.rm))
-)
-
-setMethod("median", signature(x='FLPar'),
-	function(x, na.rm=TRUE)
-  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      median, na.rm=na.rm))
-)
-
-setMethod("var", signature(x='FLPar'),
-	function(x, y=NULL, na.rm=TRUE, use) {
-  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      var, na.rm=na.rm, use='all.obs'))
+# iterMedians, Means & Vars {{{
+setMethod("iterMeans", "FLPar",
+	function(x, na.rm=TRUE) {
+		dim <- seq(length=length(dim(x)))
+		apply(x, dim[-length(dim)], mean, na.rm=na.rm)
 	}
-)   # }}}
+)
+
+setMethod("iterMedians", "FLPar",
+	function(x, na.rm=TRUE) {
+		dim <- seq(length=length(dim(x)))
+		apply(x, dim[-length(dim)], median, na.rm=na.rm)
+	}
+)
+
+setMethod("iterVars", "FLPar",
+	function(x, na.rm=TRUE) {
+		dim <- seq(length=length(dim(x)))
+		apply(x, dim[-length(dim)], var, na.rm=na.rm)
+	}
+)
+# }}}
 
 # coerce  {{{
 setAs('FLPar', 'numeric',
@@ -470,6 +472,14 @@ setMethod("show", signature(object="FLPar"),
 		cat("units: ", object@units, "\n")
 	}
 )   # }}}
+
+# print {{{
+setMethod("print", signature(x="FLPar"),
+	function(x){
+		show(x)
+		invisible(x)
+	}
+) # }}}
 
 # Arith    {{{
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
@@ -852,9 +862,3 @@ setMethod("model.frame", signature(formula="FLPar"),
   }
 ) # }}}
 
-# itermMedians {{{
-setMethod("iterMedians", "FLPar",
-	function(x) {
-		apply(x, -match("iter", names(dimnames(x))), median)
-	}
-) # }}}
