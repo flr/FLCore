@@ -1,9 +1,8 @@
 #' Method quant
 #' 
-#' Function to get or set the name of first dimension (quant) in an object of
-#' class \code{FLQuant} or \code{FLCohort}.
-#' 
-#' 
+#' Function to get or set the name of the first dimension (quant) in an object
+#' of class \code{FLQuant} or \code{FLCohort}.
+#'
 #' @name quant
 #' @aliases quant quant-methods quant,FLArray-method quant<- quant<--methods
 #' quant<-,FLArray,missing-method quant<-,FLArray-method
@@ -16,13 +15,10 @@
 #' @examples
 #' 
 #' # quant is 'quant' by default
-#' quant(FLQuant())
-#' 
+#'   quant(FLQuant())
+#'
 #' flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age')
-#' 
 #' quant(flq)
-#' 
 #' quant(flq) <- 'length'
-#' 
 #' summary(flq)
 #' 

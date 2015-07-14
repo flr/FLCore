@@ -4,7 +4,6 @@
 #' variables in a wide format, to be used by a \code{formula} in any model
 #' method.
 #' 
-#' 
 #' @name model.frame
 #' @aliases model.frame,FLlst-method model.frame,FLComp-method
 #' @docType methods
@@ -19,3 +18,4 @@
 #' flqs <- FLQuants(stock=stock.n(ple4), catch=catch.n(ple4))
 #' fmf <- model.frame(flqs)
 #' head(fmf)
+#'

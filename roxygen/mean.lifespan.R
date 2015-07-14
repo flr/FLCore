@@ -26,10 +26,8 @@
 #' @author FLR Team
 #' @seealso \code{\linkS4class{FLBiol}}
 #' @keywords methods
-#'
 #' @examples
-#' \dontrun{
+#'
 #' data(ple4.biol)
 #' lfs.ple4 <- mean.lifespan(ple4.biol,ref.age=1)
-#' }
-#' 
+#'
