@@ -29,8 +29,9 @@
 #' \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
 #' \item{index.q}{Catchability of the index (\code{FLQuant}).} \item{name}{Name
 #' of the stock (\code{character}).} \item{desc}{General description of the
-#' object (\code{character}).} \item{range}{Range of the object
-#' (\code{numeric})} }
+#' object (\code{character}).} \item{range}{Named numeric vector containing the
+#' quant and year ranges, the plusgroup, and the period of the year, expressed
+#' as proportions of a year, that corresponds to the index (\code{numeric}).} }
 #' @author The FLR Team
 #' @seealso \link{computeCatch}, \link{dims}, \link{iter},
 #' \link[graphics]{plot}, \link{propagate}, \link[base]{summary},

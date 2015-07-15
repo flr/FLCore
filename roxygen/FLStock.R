@@ -48,7 +48,7 @@
 #' natural mortality before spawning (\code{FLQuant}).} \item{name}{Name of the
 #' stock (\code{character}).} \item{desc}{Description of stock
 #' (\code{character}).} \item{range}{Named numeric vector containing the quant
-#' and year ranges, the plusgroup and the quant range that the average fishing
+#' and year ranges, the plusgroup, and the quant range that the average fishing
 #' mortality is calculated over (\code{numeric}).} }
 #' @author The FLR Team
 #' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},

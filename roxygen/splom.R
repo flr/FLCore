@@ -14,6 +14,9 @@
 #' @keywords methods
 #' @examples
 #' 
-#' data(nsher)
-#' splom(params(nsher))
-#' 
+#' flp <- FLPar(t(mvrnorm(500, mu=c(0, 120, 0.01, 20),
+#'   Sigma=matrix(.7, nrow=4, ncol=4) + diag(4) * 0.3)),
+#'   dimnames=list(params=c('a','b','c','d'), iter=1:500))
+#'
+#' splom(flp)
+#'
