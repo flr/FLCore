@@ -1,3 +1,5 @@
+#' Methods SRModels
+#'
 #' Stock-Recruitment models
 #' 
 #' A range of stock-recruitment (SR) models commonly used in fisheries science

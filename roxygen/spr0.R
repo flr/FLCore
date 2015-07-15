@@ -3,8 +3,7 @@
 #' Calculates spawners per recruit at F=0.
 #' 
 #' This method currently does not work if any of the input objects have
-#' multiple units, seasons or areas (if dim(object)[3:5] > 1).
-#' 
+#' multiple units, seasons or areas (i.e. if dim(object)[3:5] > 1).
 #' 
 #' @name spr0
 #' @aliases spr0 spr0-methods spr0,FLQuant,FLQuant,FLQuant-method
@@ -17,6 +16,5 @@
 #' @examples
 #' 
 #' data(ple4)
-#' # example FLStock dataset
 #' spr0(ple4)
 #' 

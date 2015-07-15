@@ -4,8 +4,7 @@
 #' 
 #' See the help page in \code{\link[lattice]{lattice}} for a full description
 #' of each plot and all possible arguments.
-#' 
-#' 
+#'
 #' @name splom
 #' @aliases splom,FLPar,missing-method
 #' @docType methods

@@ -68,22 +68,29 @@
 #' data(ple4)
 #' summary(ple4)
 #'
-#' landings(ple4)  # get the landings slot
-#' landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)  # assign values to the landings slot
+#' # get the landings slot and assign values to it
+#'   landings(ple4)
+#'   landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)
 #' 
-#' discards(ple4) <- computeDiscards(ple4)  # perform same calculation as preceding apply function
-#' 
-#' harvest(ple4) <- 'f'  # set the units of the harvest slot of an FLStock object
-#' 
-#' catch(ple4) <- computeCatch(ple4)
-#' catch(ple4) <- computeCatch(ple4, slot="all")
-#' 
-#' ple4[,1]  # subset the FLStock
-#' trim(ple4, age=2:6, year=1980:1990)  # trim the FLStock
-#' 
-#' ssb(ple4)  # calculate SSB
-#' ssbpurec(ple4)  # calculate SSB per recruit at zero fishing mortality
-#' 
-#' biol <- as(ple4, "FLBiol")  # coerce an FLStock to an FLBiol
-#' flsr <- as.FLSR(ple4)  # initialise an FLSR object from an FLStock
+#' # perform similar calculation as the preceding apply function
+#'   discards(ple4) <- computeDiscards(ple4)
+#'   catch(ple4) <- computeCatch(ple4)
+#'   catch(ple4) <- computeCatch(ple4, slot="all")
+#'
+#' # set the units of the harvest slot of an FLStock object
+#'   harvest(ple4) <- 'f'
+#'
+#' # subset and trim the FLStock
+#'   ple4[,1]
+#'   trim(ple4, age=2:6, year=1980:1990)
+#'
+#' # Calculate SSB, and SSB per recruit at zero fishing mortality
+#'   ssb(ple4)
+#'   ssbpurec(ple4)
+#'
+#' # Coerce an FLStock to an FLBiol
+#'   biol <- as(ple4, "FLBiol")
+#'
+#' # Initialise an FLSR object from an FLStock
+#'   flsr <- as.FLSR(ple4)
 #' 

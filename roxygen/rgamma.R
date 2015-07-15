@@ -1,11 +1,10 @@
 #' Method rgamma
 #' 
 #' Random generation for the Gamma distribution with parameters 'shape' and
-#' 'scale'.  'shape' can be of class \code{\link{FLQuantPoint}} in which case
+#' 'scale'. 'shape' can be of class \code{\link{FLQuantPoint}} in which case
 #' 'shape' and 'scale' are set as \eqn{\hat{x}^2 / \sigma^2}{mean^2 / var} and
-#' \eqn{\sigma^2 / \hat{x}}{var / mean^2}.
-#' 
-#' 
+#' \eqn{\sigma^2 / \hat{x}}{var / mean^2} respectively.
+#'
 #' @name rgamma
 #' @aliases rgamma,numeric,FLQuantPoint,missing,missing-method
 #' @docType methods
