@@ -23,7 +23,8 @@
 #' \item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
 #' \item{name}{Name of the object. \code{character}.} \item{desc}{Brief
 #' description of the object. \code{character}.} \item{range}{Named numeric
-#' vector describing the range of the object. \code{numeric}.} }
+#' vector containing the quant and year ranges, and the plusgroup
+#' (\code{numeric}).} }
 #' @author The FLR Team
 #' @seealso \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce},
 #' \link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
