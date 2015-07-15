@@ -3,7 +3,6 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id: FLQuantPoint.R 1779 2012-11-23 09:39:31Z imosqueira $
 
 ## FLQuantDistr()	{{{
 setMethod("FLQuantDistr", signature(object="ANY", var="ANY"),
@@ -37,30 +36,6 @@ setMethod("show", signature(object="FLQuantDistr"),
 		cat("distr: ", object@distr, "\n")
 	}
 )   # }}}
-
-## random generators	{{{
-# rnorm(FLQuantPoint, missing)
-setMethod("rnorm", signature(n='numeric', mean="FLQuantPoint", sd="missing"),
-	function(n=1, mean)
-	rnorm(n, mean(mean), sqrt(var(mean)))
-)
-# rlnorm
-setMethod("rlnorm", signature(n='numeric', meanlog="FLQuantPoint", sdlog="missing"),
-	function(n=1, meanlog)
-	rlnorm(n, mean(meanlog), sqrt(var(meanlog)))
-)
-# gamma
-if (!isGeneric("rgamma"))
-	setGeneric("rgamma", useAsDefault=rgamma)
-
-setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
-	scale="missing"),
-	function(n=1, shape)
-	FLQuant(rgamma(n, shape=mean(shape)^2/var(shape), scale=var(shape)/mean(shape)),
-		dim=c(dim(shape)[-6], n))
-)
-# pearson
-# }}}
 
 ## accesors	{{{
 setMethod("e", signature(x="FLQuantDistr"),
