@@ -82,14 +82,13 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLQuantPoint", sdlog="missin
 	rlnorm(n, mean(meanlog), sqrt(var(meanlog)))
 )
 # gamma
-if (!isGeneric("rgamma"))
-	setGeneric("rgamma", useAsDefault=rgamma)
-
 setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 	scale="missing"),
-	function(n=1, shape)
-	FLQuant(rgamma(n, shape=mean(shape)^2/var(shape), scale=var(shape)/mean(shape)),
-		dim=c(dim(shape)[-6], n))
+	function(n=1, shape) {
+		return(FLQuant(rgamma(prod(dim(shape)[-6])*n, shape=mean(shape)^2/var(shape),
+			scale=var(shape)/mean(shape)), dimnames=c(dimnames(shape)[-6],
+			list(iter=seq(n)))))
+	}
 )
 # pearson
 # }}}
