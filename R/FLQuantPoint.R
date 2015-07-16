@@ -81,10 +81,7 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLQuantPoint", sdlog="missin
 	function(n=1, meanlog)
 	rlnorm(n, mean(meanlog), sqrt(var(meanlog)))
 )
-# gamma
-if (!isGeneric("rgamma"))
-	setGeneric("rgamma", useAsDefault=rgamma)
-
+# rgamma
 setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 	scale="missing"),
 	function(n=1, shape)
