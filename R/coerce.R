@@ -216,8 +216,8 @@ setAs('FLStock', 'FLBiol',
 	function(from)
 	{
 		FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m,
-			name=from@name, desc=from@desc, fec=from@mat,
-			spwn=from@m.spwn, range=from@range[c('min', 'max', 'plusgroup')])
+			name=from@name, desc=from@desc, fec=from@mat, spwn=from@m.spwn,
+			range=from@range[c('min', 'max', 'plusgroup', 'minyear', 'maxyear')])
 	}
 )
 # }}}
