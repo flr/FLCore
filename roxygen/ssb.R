@@ -21,10 +21,9 @@
 #' as either 'f' for an instantaneous fishing mortality or else as 'hr' for a
 #' harvest rate.
 #'
-#' For an \code{FLBiol} the spawning biomass at the beginning of the year is
-#' calculated as
+#' For an \code{FLBiol} the spawning biomass is calculated as
 #'
-#'  	\eqn{SSB = sum(N * wt * mat)}
+#'  	\eqn{SSB = sum(N * wt * mat * exp(-M*propM))}
 #'
 #' @name ssb
 #' @aliases ssb ssb-methods ssb,FLStock-method ssb,FLBiol-method
@@ -35,10 +34,42 @@
 #' @keywords methods
 #' @examples
 #' 
-#' data(ple4)
+#' # For an FLStock
+#'   data(ple4)
+#' # Change spwn slots to make the calculation more interesting
+#'   harvest.spwn(ple4)<-0.5
+#'   m.spwn(ple4)<-0.5
 #'
 #' # check the units of the harvest slot
 #'   units(harvest(ple4))
 #'
-#' ssb(ple4)
+#' # ssb with F
+#'   ssb(ple4)
+#'
+#'   # Recalculate ssb with F and check
+#'     ssbF <- quantSums(stock.n(ple4) * stock.wt(ple4) * mat(ple4) *
+#'       exp(-harvest(ple4) * harvest.spwn(ple4) - m(ple4) * m.spwn(ple4)))
+#'     ssb(ple4)-ssbF
+#'
+#' # ssb with hr
+#'   harvest(ple4) <- hr
+#'   ssb(ple4)
+#'
+#'   # Recalculate ssb with hr and check
+#'     hr <- catch.n(ple4) / stock.n(ple4)
+#'     units(hr) <- 'hr'
+#'     ssbHR <- quantSums(stock.n(ple4) * stock.wt(ple4) * mat(ple4) *
+#'       (1 - hr * harvest.spwn(ple4)) * exp(-m(ple4) * m.spwn(ple4)))
+#'     ssb(ple4)-ssbHR
+#'
+#' # For an FLBiol
+#'   data(ple4.biol)
+#' # Change spwn slot to make the calculation more interesting
+#'   spwn(ple4.biol)<-0.5
+#'
+#' # Calculate ssb and check
+#'  ssb(ple4.biol)
+#'  ssbp <- quantSums(n(ple4.biol) * fec(ple4.biol) * wt(ple4.biol) *
+#'    exp(-m(ple4.biol)*spwn(ple4.biol)))
+#'  ssb(ple4.biol)-ssbp
 #'
