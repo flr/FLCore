@@ -1,9 +1,10 @@
+#' Method sweep
+#'
 #' Sweep out FLQuant Summaries
 #' 
 #' Return an \code{FLQuant} or \code{FLCohort} obtained from an input object by
 #' sweeping out a summary statistic along the selected dimensions.
-#' 
-#' 
+#'
 #' @name sweep
 #' @aliases sweep,FLArray-method sweep,FLQuant-method
 #' @docType methods
@@ -16,7 +17,7 @@
 #' @keywords methods
 #' @examples
 #' 
-#'    data(ple4)
-#'    mean.f <- apply(harvest(ple4),2,mean)
-#'    scaled.f <- sweep(harvest(ple4),2,mean.f,"/")
+#' data(ple4)
+#' mean.f <- apply(harvest(ple4),2,mean)
+#' scaled.f <- sweep(harvest(ple4),2,mean.f,"/")
 #' 
