@@ -25,4 +25,8 @@ expand(flq, age=1:10, season=1:4, unit=c('unique', 'new'))
 # wrong dimname
 expand(flq, llap=1:10)
 
+# expanding
+expand(flq, year=10:16)
+
 # }}}
+

@@ -268,10 +268,11 @@ setMethod('expand', signature(x='FLArray'),
   function(x, ...) {
 
     args <- list(...)
+		dnx <- dimnames(x)
     
     # dimension names
     nargs <- names(args)
-    qnames <- names(dimnames(x))
+    qnames <- names(dnx)
     
     # check input names match dimnames
     if(!all(nargs%in%qnames))
@@ -281,7 +282,7 @@ setMethod('expand', signature(x='FLArray'),
     select <- lapply(args, as.character)
     
     # match specified dimensions and dimnames
-    dimnames <- dimnames(x)
+    dimnames <- dnx
     
 		# new dimnames
 		dimnames[names(select)] <- select
@@ -295,11 +296,20 @@ setMethod('expand', signature(x='FLArray'),
 
 		# extended or new?
 		for(i in nargs) {
-			if(any(dimnames(x)[[i]] %in% dimnames(res)[[i]])) {
-				dimnames[[i]] <- dimnames(x)[[i]]
+			
+			# are all old dimnames in the new ones?
+			idx <- all(dnx[[i]] %in% dimnames[[i]])
+			# if so, recover them
+			if(idx) {
+				dimnames[[i]] <- dnx[[i]]
+			} else {
+				if(length(dnx[[i]]) > 1) {
+					stop("trying to expand to new dims where existing have length > 1", i)
+				}
 			}
 		}
-
+		
+		# list names to match '[<-' signature
     names(dimnames) <- c('i', 'j', 'k', 'l', 'm', 'n')
 
     do.call('[<-', c(list(x=res, value=x), dimnames))
