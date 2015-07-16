@@ -1,6 +1,8 @@
-#' units attribute for FLQuant objects
+#' Method units
+#'
+#' \code{units} attribute for FLQuant objects
 #' 
-#' Objects of class \code{\link{FLQuant}} contain an \code{units} attribute of
+#' Objects of class \code{\link{FLQuant}} contain a \code{units} attribute of
 #' class \code{character}. This should be used to store the corresponding units
 #' of measurement.  This attribute can be directly accessed and modified using
 #' the \code{units} and \code{units<-} methods.
@@ -9,8 +11,7 @@
 #' attributes of all \code{FLQuant} slots. \code{units} of a complex object can
 #' be modified for all slots or a subset of them, by passing a named list with
 #' the new values. See examples below.
-#' 
-#' 
+#'
 #' @name units
 #' @aliases units,FLArray-method units,FLComp-method units,FLPar-method
 #' units,FLCohort-method units<-,FLArray,character-method
@@ -31,7 +32,7 @@
 #' summary(flq)
 #' 
 #' # units for a complex object
-#' data(ple4)
-#' units(ple4)
-#' units(ple4) <- list(harvest='hr')
+#'   data(ple4)
+#'   units(ple4)
+#'   units(ple4) <- list(harvest='hr')
 #' 

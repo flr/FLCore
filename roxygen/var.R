@@ -1,3 +1,5 @@
+#' Method var
+#'
 #' Variance of an FLPar
 #' 
 #' \code{var} computes the variance of an \code{\link{FLPar}} object along the
@@ -8,8 +10,7 @@
 #' \code{FALSE} and \code{'all.obs'} respectively. See the
 #' \code{\link[stats]{var}} help page for more information on possible argument
 #' values.
-#' 
-#' 
+#'
 #' @name var
 #' @aliases var,FLPar,missing,missing,missing-method var,FLPar-method
 #' @docType methods
@@ -21,3 +22,4 @@
 #' 
 #' flp <- FLPar(rnorm(200), params=c('a', 'b'))
 #' var(flp)
+#'

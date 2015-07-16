@@ -1,23 +1,24 @@
-#' uom Units of Measurement
+#' Method uom
+#'
+#' Units of Measurement
 #' 
-#' The 'units' attribute of FLQuant objects provides a mechanism for keeping
-#' track of the units of measurement of that particular piece of data.
+#' The \code{units} attribute of \code{FLQuant} objects provides a mechanism for
+#' keeping track of the units of measurement of that particular piece of data.
+#' This method in the form \code{uom()} carries out a conversion across units.
 #' 
-#' Arithmetic operators for 'FLQuant' objects are aware of a limited set of
-#' units of measurement and will output the right unit when two object are
-#' arithmetically combined. For example, the product of object with units of
-#' 'kg' and '1000' will output an object with 'units' of 't' (for metric
-#' tonnes).
+#' Arithmetic operators for \code{FLQuant} objects operate with a limited set of
+#' units of measurement, and will output the right unit when two appropriate
+#' objects are arithmetically combined. For example, the product of objects with
+#' units of 'kg' and '1000' will output an object with units of 't' (for
+#' metric tonnes).
 #' 
-#' Operations involving combinations of units not defined will issue a warning,
-#' and the resulting 'units' attribute will simply keep a string indicating the
-#' input units of measurement and the operation carried out, as in '10 * 1000'.
+#' Operations involving combinations of units not defined will result in the
+#' \code{units} attribute simply storing a string indicating the input units of
+#' measurement and the operation carried out, as in '10 * 1000'.
 #' 
 #' Note that no scaling or modification of the values in the object takes
 #' place.
-#' 
-#' Conversion across units is carried out by the \code{uom()} function
-#' 
+#'
 #' @name uom
 #' @docType methods
 #' @param op The arithmetic operator to be used, one of '+', '-', '*' or '/'
@@ -37,8 +38,14 @@
 #' @examples
 #' 
 #' # Conversion between weights
-#' FLQuant(1, units='kg') * FLQuant(1000, units='1')
-#' 
+#'   flq1 <- FLQuant(1, units='kg')
+#'   flq2 <- FLQuant(5, units='1000')
+#'   flq1 * flq2
+#'   uom('*', units(flq1), units(flq2))
+#'
 #' # Conversion between mortalities
-#' FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
+#'   flq1 <- FLQuant(0.2, units='m')
+#'   flq2 <- FLQuant(0.34, units='f')
+#'   flq1 + flq2
+#'   uom('+', units(flq1), units(flq2))
 #' 
