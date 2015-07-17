@@ -23,7 +23,7 @@ gh-pages: $(HELP_FILES) README.md
 	# git push origin `git subtree split --prefix gh-pages master`:gh-pages --force
 
 NEWS: NEWS.md
-	sed -e 's/^-/  -/' -e 's/^## *//' -e 's/^#/\t\t/' <NEWS.md | fmt -80 -s > NEWS
+	sed -e 's/^-/-/' -e 's/^## *//' -e 's/^#//' <NEWS.md | fmt -80 -s > NEWS
 
 roxygen: $(R_FILES)
 	R --vanilla --silent -e "library(devtools);" \
