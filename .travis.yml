@@ -11,3 +11,5 @@ os:
 language: R
   
 sudo: required
+
+mactex: basictex-20150613.pkg
