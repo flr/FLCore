@@ -35,6 +35,8 @@
 - FLPar validity now checks that content is numeric. Default frist dimname is now 'params'
 - FLIndices class can take both FLIndex and FLIndexBiomass objects
 - mean.lifespan renamed as meanLifespan to avoid S3 conflict
+- uom() returns kg for 1 * kg
+- expand() now stops if new dimnames do not contain old ones and these were of length greater than 1
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim

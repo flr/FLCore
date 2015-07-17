@@ -40,15 +40,6 @@ bevholt <- function()
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
     return(FLPar(a = a, b = a/b))},
 
-#rec=ssb*a/(b+ssb)
-#ssb/rec=b/a+ssb/a
-
-#    x <-c(ssb)
-#    y <-c(ssb)/c(rec)
-#    res <- lm(y~x, na.action = na.omit)
-
-#    return(FLPar(a = 1/coef(res)[2], b = coef(res)[1]*coef(res)[2]))},
-
   ## bounds
   lower=rep(-Inf, 2),
 	upper=rep( Inf, 2))
