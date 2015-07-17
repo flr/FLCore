@@ -8,9 +8,6 @@ os:
   - linux
   - osx
 
-language: r
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+language: R
+  
+sudo: required
