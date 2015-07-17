@@ -41,11 +41,9 @@
 #'   flq1 <- FLQuant(1, units='kg')
 #'   flq2 <- FLQuant(5, units='1000')
 #'   flq1 * flq2
-#'   uom('*', units(flq1), units(flq2))
 #'
 #' # Conversion between mortalities
 #'   flq1 <- FLQuant(0.2, units='m')
 #'   flq2 <- FLQuant(0.34, units='f')
 #'   flq1 + flq2
-#'   uom('+', units(flq1), units(flq2))
-#' 
+#'

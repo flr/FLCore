@@ -6,32 +6,40 @@
 #' 
 #' These functions are used for reading and writing stock and CPUE data used to
 #' conduct stock assessment. A number of data input formats are currently
-#' supported. These include the 'Lowestoft VPA Suite file format' which
+#' supported. These include the 'Lowestoft VPA Suite file format', which
 #' comprises a number of flat ascii data files for catch numbers at age, catch
-#' weights at age, maturity, etc. and the 'ICCAT Adapt Format'
+#' weights at age, maturity, etc., and the 'ICCAT Adapt Format'
 #' 
 #' For the 'Lowestoft VPA Suite file format' each input file contains header
 #' information specifying the dimensions of the data matrix which may be comma,
-#' space or tab delimited.  Any comments in the file must be prefixed with a
-#' '\#'. An index file gives the names of the individual data files to be read
-#' in. This is the file that should be passed to \code{readFLStock}. A single
-#' file can be read by \code{readVPA} into an \code{FLQuant}.
+#' space or tab delimited. The header also contains a code specifying what type
+#' of data resides in the file, and this information is used by
+#' \code{readFLStock} to allocate the data to the appropriate \code{FLQuant}
+#' slot in the \code{FLStock} object. The code allocations are as follows:
+#' 1=landings, 2=landings.n, 3=landings.wt, 4=stock.wt, 5=m, 6=mat,
+#' 7=harvest.spwn, 8=m.spwn, 21=discards, 22=discards.n, 23=discards.wt,
+#' 24=catch, 25=catch.n, 26=catch.wt, 27=harvest, and 28=stock.n. Any comments
+#' in the file must be prefixed with a '\#'. An index file gives the names of
+#' the individual data files to be read in. This is the file that should be
+#' passed to \code{readFLStock}. A single file can be read by \code{readVPAFile}
+#' into an \code{FLQuant}.
 #' 
 #' The 'Adapt file format' comprises a single file for input containing both
 #' the biological parameters, catches and catch per unit effort data.
 #' 
 #' If information on discards numbers at age and discards weights at age are
-#' available and these files are specified in the index file then they will be
-#' read into the \code{FLStock} object otherwise the discards slots in the
+#' available, and these files are specified in the index file, then they will be
+#' read into the \code{FLStock} object, otherwise the discards slots in the
 #' \code{FLStock} object will remain empty.
 #' 
-#' For reading CPUE data into an FLindex the file containing the CPUE data
-#' should be passed to the \code{readFLIndex} function if only one CPUE series
-#' is given or else to \code{readFLIndices} if multiple series are given.
+#' For reading CPUE data into an \code{FLindex}, the file containing the CPUE
+#' data should be passed to the \code{readFLIndex} function if only one CPUE
+#' series is given, or else to \code{readFLIndices} if multiple series are
+#' given.
 #' 
 #' Confusingly, the file giving the names of the individual \code{FLStock}
 #' input files is often called the index file. It is different to the file
-#' containing the CPUE data used for 'tuning' an assessment which is also
+#' containing the CPUE data used for 'tuning' an assessment, which is also
 #' sometimes called the index file.
 #' 
 #' \code{writeFLStock} creates a set of files in 'Lowestoft File format'. This
@@ -76,20 +84,23 @@
 #' \dontrun{
 #' path  <- getwd()
 #' 
-#' ## reads a set of 'Lowestoft File Format' for a stock and creates an FLStock object
-#' ple4        <-readFLStock(paste(path, "pleindex.txt", sep=""))
+#' # Reads a set of 'Lowestoft File Format' for a stock and creates an FLStock
+#' # object
+#'   ple4 <-readFLStock(paste(path, "pleindex.txt", sep=""))
 #' 
-#' ## reads a single file in 'Lowestoft File Format' and creates an FLQuant
-#' ple4.catch.n<-readVPAFile(paste(path, "plecanum.txt", sep=""))
+#' # Reads a single file in 'Lowestoft File Format' and creates an FLQuant
+#'   ple4.catch.n <- readVPAFile(paste(path, "plecanum.txt", sep=""))
 #' 
-#' ## reads a set of tuning data in 'Lowestoft File Format' and creates an FLIndices object
-#' ple4.indices<-readFLIndices(paste(path, "plecpue.txt", sep=""))
+#' # Reads a set of tuning data in 'Lowestoft File Format' and creates an
+#' # FLIndices object
+#'   ple4.indices<-readFLIndices(paste(path, "plecpue.txt", sep=""))
 #' 
-#' ## reads a single index from a tuning file in 'Lowestoft File Format' and creates an FLIndex object
-#' ple4.index  <-readFLIndex(paste(path, "plecpue1.txt", sep=""))
+#' # Reads a single index from a tuning file in 'Lowestoft File Format' and
+#' # creates an FLIndex object
+#'   ple4.index  <-readFLIndex(paste(path, "plecpue1.txt", sep=""))
 #' 
-#' ## writes an FLStock to 'Lowestoft File Format' in the current working directory
-#' writeFLStock(ple4,output.file=file.path(getwd(),"Ple4"))
+#' # Writes an FLStock to 'Lowestoft File Format' in the current working
+#' # directory
+#'   writeFLStock(ple4,output.file=file.path(getwd(),"Ple4"))
 #' }
-#' 
-#' 
+#'
