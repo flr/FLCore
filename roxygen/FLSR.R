@@ -1,6 +1,6 @@
 #' Class FLSR
 #' 
-#' Class for stock-recruitment models.
+#' A class for stock-recruitment models.
 #' 
 #' A series of commonly-used stock-recruitment models are already available,
 #' including the corresponding likelihood functions and calculation of initial
@@ -12,18 +12,19 @@
 #' @docType class
 #' @section Slots: \describe{ \item{name}{Name of the object
 #' (\code{character}).} \item{desc}{Description of the object
-#' (\code{character}).} \item{range}{Range (\code{numeric}).}
-#' \item{rec}{Recruitment series (\code{FLQuant}).} \item{ssb}{Index of
-#' reproductive potential, e.g. SSB or egg oor egg production
-#' (\code{FLQuant}).} \item{fitted}{Estimated values for rec (\code{FLQuant}).}
-#' \item{residuals}{Residuals obtained from the model fit (\code{FLArray}).}
-#' \item{covar}{Covariates for SR model (\code{FLQuants}).} \item{model}{Model
-#' formula (\code{formula}).} \item{gr}{Function returning the gradient of the
-#' likelihood (\code{function}).} \item{logl}{Log-likelihood function
-#' (\code{function}).} \item{initial}{Function returning initial parameter
-#' values for the optimizer (\code{function}).} \item{params}{Estimated
-#' parameter values (\code{FLPar}).} \item{logLik}{Value of the log-likelihood
-#' (\code{logLik}).} \item{vcov}{Variance-covariance matrix (\code{array}).}
+#' (\code{character}).} \item{range}{Named numeric vector containing the quant
+#' and year ranges (\code{numeric}).} \item{rec}{Recruitment series
+#' (\code{FLQuant}).} \item{ssb}{Index of reproductive potential, e.g. SSB or
+#' egg oor egg production (\code{FLQuant}).} \item{fitted}{Estimated values for
+#' rec (\code{FLQuant}).} \item{residuals}{Residuals obtained from the model
+#' fit (\code{FLArray}).} \item{covar}{Covariates for SR model
+#' (\code{FLQuants}).} \item{model}{Model formula (\code{formula}).}
+#' \item{gr}{Function returning the gradient of the likelihood
+#' (\code{function}).} \item{logl}{Log-likelihood function (\code{function}).}
+#' \item{initial}{Function returning initial parameter values for the optimizer
+#' (\code{function}).} \item{params}{Estimated parameter values (\code{FLPar}).}
+#' \item{logLik}{Value of the log-likelihood (\code{logLik}).}
+#' \item{vcov}{Variance-covariance matrix (\code{array}).}
 #' \item{details}{Extra information on the model fit procedure (\code{list}).}
 #' \item{logerror}{Is the error on a log scale (\code{logical}).}
 #' \item{distribution}{(\code{factor}).} \item{hessian}{Resulting Hessian
@@ -34,9 +35,10 @@
 #' @examples
 #' 
 #' # Create an empty FLSR object.
-#'     sr1 <- FLSR()
+#'   sr1 <- FLSR()
+#'   slotNames(sr1)
 #' 
-#'     # Create an  FLSR object using the existing SR models.
+#'   # Create an FLSR object using the existing SR models.
 #'     sr2 <- FLSR(model = 'ricker')
 #'     sr2@model
 #'     sr2@initial
@@ -47,26 +49,26 @@
 #'     sr3@initial
 #'     sr3@logl
 #' 
-#'     # Create an FLSR using a function.
+#'   # Create an FLSR using a function.
 #'     mysr1 <- function(){
 #'         model <- rec ~ a*ssb^b
 #'         return(list(model = model))}
 #' 
 #'     sr4 <- FLSR(model = mysr1)
 #' 
-#'     # Create an FLSR using a function and check that it works.
+#'   # Create an FLSR using a function and check that it works.
 #'     mysr2 <- function(){
 #'         formula <- rec ~ a+ssb*b
 #' 
 #'         logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec,
-#'             a + ssb*b, sqrt(sigma), TRUE))
+#'             a + ssb*b, sigma, TRUE))
 #' 
 #'        initial <- structure(function(rec, ssb) {
-#'             a     <- mean(rec)
+#'             a     <- min(rec)
 #'             b     <- 1
-#'             sigma <- sqrt(var(rec))
+#'             sigma <- sqrt(var(rec-a-ssb*b))
 #' 
-#'             return(list(a= a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
+#'             return(list(a = a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
 #' 
 #'        return(list(model = formula, initial = initial, logl = logl))
 #'     }
@@ -79,18 +81,16 @@
 #'     sr5.nls <- nls(sr5)
 #' 
 #' # NS Herring stock-recruitment dataset
-#' data(nsher)
+#'   data(nsher)
 #' 
-#' # already fitted with a Ricker SR model
-#' summary(nsher)
+#'   # already fitted with a Ricker SR model
+#'     summary(nsher)
+#'     plot(nsher)
 #' 
-#' plot(nsher)
+#'   # change model
+#'     model(nsher) <- bevholt()
 #' 
-#' # change model
-#' model(nsher) <- bevholt()
-#' 
-#' # fit through MLE
-#' nsher <- fmle(nsher)
-#' 
-#' plot(nsher)
+#'   # fit through MLE
+#'     nsher <- fmle(nsher)
+#'     plot(nsher)
 #' 

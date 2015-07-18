@@ -1,8 +1,9 @@
+#' Method wireframe
+#'
 #' 3D plot for FLQuant objects
 #' 
 #' Method to plot 3D representations of FLQuant objects
-#' 
-#' 
+#'
 #' @name wireframe
 #' @aliases wireframe wireframe,FLQuant-method
 #' @docType methods

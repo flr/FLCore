@@ -60,3 +60,4 @@
 #' \link[graphics]{plot}, \link{ssb}, \link{ssbpurec}, \link{trim},
 #' \link{FLComp}
 #' @keywords classes
+#'

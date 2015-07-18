@@ -5,8 +5,7 @@
 #' 
 #' \emph{quant} of the given object must be 'age', and the selected age must
 #' not be greater than the oldest age present in the object.
-#' 
-#' 
+#'
 #' @name setPlusGroup
 #' @aliases setPlusGroup setPlusGroup-methods
 #' setPlusGroup,FLQuant,numeric-method setPlusGroup,FLStock,numeric-method

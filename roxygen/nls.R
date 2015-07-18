@@ -1,12 +1,12 @@
 #' Method nls
 #' 
-#' For a given forumla (describing a model) and data this method applies the
-#' simple non- linear least squares algorithm - this calculates the parameters
-#' that minimisethe sum of squares difference between the observed (data) and
+#' For a given forumla (describing a model) and data, this method applies the
+#' simple non-linear least squares algorithm, which calculates the parameters
+#' that minimise the sum of squares difference between the observed (data) and
 #' predicted (model) values.
 #' 
-#' The algorithm can be sensitive to the initial values of the problem so do
-#' try different start points and check they converge to the same estimates.
+#' The algorithm can be sensitive to initial values, so the user should try
+#' different start points and check they converge to the same estimates.
 #' 
 #' 
 #' @name nls
@@ -22,13 +22,12 @@
 #' @examples
 #' 
 #' # An example FLSR (FLModel) object
-#' data(nsher)
+#'   data(nsher)
 #' 
-#' #set bevholt model
-#' model(nsher) <- bevholt
+#'   # set bevholt model
+#'     model(nsher) <- bevholt
 #' 
-#' # fit through nls
-#' nsher <- nls(nsher)
-#' 
-#' summary(nsher)
+#'   # fit through nls
+#'     nsher <- nls(nsher)
+#'     summary(nsher)
 #' 

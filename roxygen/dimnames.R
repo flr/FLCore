@@ -1,3 +1,5 @@
+#' Method dimnames
+#'
 #' Modify dimnames of an FLQuant
 #' 
 #' The \code{dimnames<-} method for objects of class \code{\link{FLQuant}}
@@ -7,8 +9,7 @@
 #' 
 #' It is posible to modify the name of the first dimension (by default
 #' \code{quant}) using this method.
-#' 
-#' 
+#'
 #' @name dimnames<-
 #' @aliases dimnames<-,ANY,missing-method dimnames<-,FLQuant,list-method
 #' dimnames<-,FLStock,list-method
@@ -22,7 +23,8 @@
 #' 
 #' flq <- FLQuant(rnorm(80), dim=c(4,10,2))
 #' dimnames(flq) <- list(unit=c('male', 'female'))
+#'
 #' # This modifies both dimnames and dimnames name
-#' dimnames(flq) <- list(age=0:3)
-#' dimnames(flq)
+#'   dimnames(flq) <- list(age=0:3)
+#'   dimnames(flq)
 #' 

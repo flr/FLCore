@@ -1,12 +1,11 @@
 #' Class FLIndices
 #' 
 #' \code{FLIndices} is a class that extends \code{list} through \code{FLlst}
-#' but implements a set of features that give a little bit more structure to
+#' but implements a set of features that give a little more structure to
 #' list objects. The elements of \code{FLIndices} must all be of class
 #' \code{FLIndex}. It implements a lock mechanism that, when turned on, does
 #' not allow the user to increase or decrease the object length.
-#' 
-#' 
+#'
 #' @name FLIndices
 #' @aliases FLIndices-class FLIndices FLIndices-methods FLIndices,ANY-method
 #' FLIndices,missing-method FLIndices,list-method

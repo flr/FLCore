@@ -1,11 +1,13 @@
 #' Class FLIndex
 #' 
-#' A class that holds data and parameters related to abundance indices.
+#' A class for modelling abundance indices.
 #' 
-#' 
+#' The \code{FLIndex} object holds data and parameters related to abundance
+#' indices.
+#'
 #' @name FLIndex
 #' @aliases FLIndex FLIndex,FLQuant-method FLIndex,missing-method
-#' FLIndex-methods FLQuant catch.n,FLIndex-method
+#' FLIndex-methods catch.n,FLIndex-method
 #' catch.n<-,FLIndex,FLQuant-method catch.wt,FLIndex-method
 #' catch.wt<-,FLIndex,FLQuant-method desc,FLIndex-method
 #' desc<-,FLIndex,character-method distribution,FLIndex-method
@@ -28,8 +30,9 @@
 #' \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
 #' \item{index.q}{Catchability of the index (\code{FLQuant}).} \item{name}{Name
 #' of the stock (\code{character}).} \item{desc}{General description of the
-#' object (\code{character}).} \item{range}{Range of the object
-#' (\code{numeric})} }
+#' object (\code{character}).} \item{range}{Named numeric vector containing the
+#' quant and year ranges, the plusgroup, and the period of the year, expressed
+#' as proportions of a year, that corresponds to the index (\code{numeric}).} }
 #' @author The FLR Team
 #' @seealso \link{computeCatch}, \link{dims}, \link{iter},
 #' \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
@@ -37,7 +40,15 @@
 #' @keywords classes
 #' @examples
 #' 
-#' fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
-#' summary(fli)
-#' index(fli)
-#' 
+#' # Create an FLIndex object.
+#'   fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
+#'   summary(fli)
+#'   index(fli)
+#'
+#' # Creat an FLIndex object using an existing FLQuant object.
+#'   data(ple4)
+#'   # Create a perfect index of abundance from abundance at age
+#'     fli2 <- FLIndex(index=stock.n(ple4))
+#'   # Add some noise around the signal
+#'     index(fli2) <- index(fli2)*exp(rnorm(1, index(fli2)-index(fli2), 0.1))
+#'

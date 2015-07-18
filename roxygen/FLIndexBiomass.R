@@ -1,8 +1,10 @@
 #' Class FLIndexBiomass
 #' 
-#' A class that holds data and parameters related to biomass abundance indices.
-#' 
-#' 
+#' A class for modelling biomass indices.
+#'
+#' The \code{FLIndexBiomass} object holds data and parameters related to
+#' biomass indices.
+#'
 #' @name FLIndexBiomass
 #' @aliases FLIndex FLIndex,FLQuant-method FLIndex,missing-method
 #' FLIndex-methods FLIndexBiomass FLQuant catch.n,FLIndex-method
@@ -27,18 +29,22 @@
 #' \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
 #' \item{index.q}{Catchability of the index (\code{FLQuant}).} \item{name}{Name
 #' of the stock (\code{character}).} \item{desc}{General description of the
-#' object (\code{character}).} \item{range}{Range of the object
-#' (\code{numeric})} }
+#' object (\code{character}).} \item{range}{Named numeric vector containing the
+#' quant and year ranges, the plusgroup, and the period of the year, expressed
+#' as proportions of a year, that corresponds to the index (\code{numeric}).} }
 #' @author The FLR Team
 #' @seealso \link{computeCatch}, \link{dims}, \link{iter},
 #' \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
 #' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
 #' @keywords classes
 #' @examples
+#'
+#' # Create an FLIndexBiomass object from scratch...
+#'   idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
 #' 
-#' idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
-#' 
-#' data(ple4)
-#' ida <- FLIndexBiomass(index=ssb(ple4),
-#'   catch.n=catch.n(ple4))
+#' # ...from an existing FLStock object
+#'   data(ple4)
+#'   ida <- FLIndexBiomass(index=(catch(ple4)/fbar(ple4))*
+#'     exp(rnorm(1,catch(ple4)*0,0.3)), catch.n=catch.n(ple4),
+#'     catch.wt=catch.wt(ple4))
 #' 

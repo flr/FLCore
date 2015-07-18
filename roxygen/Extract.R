@@ -1,10 +1,12 @@
-#' Extract or Replace Parts of an FLR Object
+#' Method Extract
+#'
+#' Extract or replace parts of an FLR Object
 #' 
 #' Operators acting on FLQuant, FLCohort, FLPar, FLComp, and derived classes to
 #' extract or replace sections of an object.
 #' 
-#' Please note the difference between referencing sections of an object by
-#' position, using values of class \code{numeric}, or by dimnames, of class
+#' Please note the differences between referencing sections of an object by
+#' position using values of class \code{numeric}, or by using dimnames of class
 #' \code{character}. See examples below.
 #' 
 #' All classes that are derived from \code{FLComp} (for example, \code{FLStock}
@@ -13,8 +15,7 @@
 #' 
 #' Classes that are derived from \code{FLlst} (for example, \code{FLStocks} and
 #' \code{FLBiols}) can be subset in a similar way to ordinary list objects.
-#' 
-#' 
+#'
 #' @name Extract
 #' @aliases Extract-FLCore [,FLArray,ANY,ANY-method [,FLArray,array,ANY-method
 #' [,FLComp,ANY,ANY-method [,FLlst,ANY,missing-method [,FLPar,ANY,ANY-method
@@ -32,10 +33,19 @@
 #' @keywords methods
 #' @examples
 #' 
-#' flq <- FLQuant(rnorm(50), dimnames=list(age=1:5, year=1990:2000, season=1:4))
-#' flq[1,]
-#' flq[,1:5]
-#' flq[,'1990']
-#' flq[1:2,,,c(1,3)]
-#' 
-#' 
+#' flq <- FLQuant(rnorm(200), dimnames=list(age=0:4, year=1991:2000,
+#'   season=1:4))
+#'
+#' # Extracting by position...
+#'   flq[1,]
+#'   flq[,1:5]
+#'   flq[1:2,,,c(1,3)]
+#'
+#' # ...by dimnames
+#'   flq['0',]
+#'   flq[,'1991']
+#'   flq[,as.character(1991:1995),,'1']
+#'
+#' # Replacing part of the object
+#'   flq['0',,,1]<-0
+#'

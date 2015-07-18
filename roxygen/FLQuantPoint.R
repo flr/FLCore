@@ -10,7 +10,7 @@
 #' refer, respectively, to the sample mean, sample median, variance, and lower
 #' (0.25) and upper (0.75) quantiles.
 #' 
-#' Objects of this class wil be typically created from an \code{FLQuant}. The
+#' Objects of this class will be typically created from an \code{FLQuant}. The
 #' various statistics are calculated along the \emph{iter} dimension of the
 #' original \code{FLQuant} using \code{\link[base]{apply}}.
 #' 
@@ -26,10 +26,19 @@
 #' @keywords classes
 #' @examples
 #' 
-#' flq <- FLQuant(rnorm(2000), dim=c(10,20,1,1,1,200))
-#' flqp <- FLQuantPoint(flq)
-#' summary(flqp)
-#' mean(flqp)
-#' var(flqp)
-#' rnorm(200, flqp)
+#' # Create an FLQuant object with 200 iters
+#'   flq <- FLQuant(rnorm(40000), dim=c(10,20,1,1,1,200))
+#'
+#' # Create a corresponding FLQuantPoint
+#'   flqp <- FLQuantPoint(flq)
+#'   summary(flqp)
+#'
+#'   # Output the "mean" and "var" iters
+#'     mean(flqp)
+#'     var(flqp)
+#'
+#' # The following assumes the distribution behind the object is normal, and
+#' # creates an FLQuant with 200 iters using the "mean" and "var" iters as its
+#' # mean and variance
+#'   rnorm(200, flqp)
 #' 

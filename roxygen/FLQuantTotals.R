@@ -1,6 +1,7 @@
-#' Method quantTotals
+#' Methods quantTotals
 #' 
-#' 
+#' Methods to compute totals over selected dimensions of \code{FLQuant} objects
+#'
 #' These methods return an object of same dimensions as the input but with the
 #' sums along the first (\code{yearTotals}) or second dimension
 #' (\code{quantTotals}). Although the names might appear contradictory, it must
@@ -20,12 +21,12 @@
 #' @keywords methods
 #' @examples
 #' 
-#'  flq <- FLQuant(rlnorm(100), dim=c(10,10))
-#'  quantTotals(flq)
-#'  # See how the values obtained by yearSums are being replicated
-#'  yearSums(flq)
-#'  # Get the proportions by quant
-#'  flq / quantTotals(flq)
-#'  # or year
-#'  flq / yearTotals(flq)
+#' flq <- FLQuant(rlnorm(100), dim=c(10,10))
+#' quantTotals(flq)
+#' # See how the values obtained by yearSums are being replicated
+#'   yearSums(flq)
+#' # Get the proportions by quant
+#'   flq / quantTotals(flq)
+#' # or year
+#'   flq / yearTotals(flq)
 #'  

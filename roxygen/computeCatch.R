@@ -1,8 +1,10 @@
+#' Method computeCatch
+#'
 #' Methods to compute total catch, landings, discards and stock biomass
 #' 
 #' These methods compute the total catch, landings, discards and stock biomass
 #' from the quant-structured values in numbers and weight per individual. The
-#' calculation for discards, landings and stock involves the product of the
+#' calculation for landings, discards and stock involves the product of the
 #' landings/discards/stock in numbers (\code{landings.n}, \code{discards.n} or
 #' \code{stock.n}) by the individual weight-at-quant (\code{landings.wt},
 #' \code{discards.wt} or \code{stock.wt}), as in
@@ -11,14 +13,13 @@
 #' 
 #' By selecting \code{slot="catch"}, \code{computeCatch} can calculate in the
 #' same way the total catch from the catch-at-quant and weight in the catch.
-#' Those two values (in slots \code{catch.n} and \code{catch.wt} can also be
-#' calculated by specifying \code{slot="n"} and \code{slot="wt"} respectively.
-#' Calling \code{computeCatch} with option \code{slot="all"} will carry out the
-#' three calculations. In this case, the returned object will be of class
-#' \code{\link{FLQuants}}, with elements names \code{catch}, \code{catch.n} and
-#' \code{catch.wt}, which can then be passed directly to the
-#' \code{\link{catch<-}} replacement method.
-#' 
+#' Those two values (in slots \code{catch.n} and \code{catch.wt}) can also be
+#' calculated (from landings and discards) by specifying \code{slot="n"} and
+#' \code{slot="wt"} respectively. Calling \code{computeCatch} with option
+#' \code{slot="all"} will carry out the three calculations. In this case, the
+#' returned object will be of class \code{\link{FLQuants}}, with element names
+#' \code{catch}, \code{catch.n} and \code{catch.wt}, which can then be passed
+#' directly to the \code{\link{catch<-}} replacement method.
 #' 
 #' @name computeCatch
 #' @aliases computeCatch computeCatch-methods computeCatch,FLStock-method
@@ -41,6 +42,9 @@
 #' 
 #' data(ple4)
 #' summary(computeLandings(ple4))
+#' summary(computeCatch(ple4, slot="all"))
+#' stock(ple4) <- computeStock(ple4)
 #' landings(ple4) <- computeLandings(ple4)
+#' catch.n(ple4) <- computeCatch(ple4, slot="n")
 #' catch(ple4) <- computeCatch(ple4, slot="all")
-#' 
+#'

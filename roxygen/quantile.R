@@ -10,8 +10,7 @@
 #' an accessor for two elements of the sixth dimension, \code{lowq} and
 #' \code{uppq}. You could use the \code{\link{lowq}} and \code{\link{uppq}}
 #' methods instead.
-#' 
-#' 
+#'
 #' @name quantile
 #' @aliases quantile,FLQuant-method quantile,FLQuantPoint-method
 #' @docType methods
@@ -22,19 +21,24 @@
 #' @keywords methods
 #' @examples
 #' 
-#' # Normally distributed FLQuant, with log-normal random mean and fixed sd of 20
-#' flq <- rnorm(100, FLQuant(rlnorm(20), dim=c(2,10)), 20)
+#' # Normally distributed FLQuant with lognormal random mean and fixed sd of 20
+#'   flq <- rnorm(100, FLQuant(rlnorm(20), dim=c(2,10)), 20)
 #' 
-#' # obtains all standard quantiles (0, 0.25, 0.5, 0.75 and 1)
-#' quantile(flq)
-#' # select one of them
-#' quantile(flq)[,,,,,1]
-#' # calculates the 0.05 quantile only
-#' quantile(flq, 0.05)
+#' # Obtain all standard quantiles (0, 0.25, 0.5, 0.75 and 1)...
+#'   quantile(flq)
+#'   dimnames(quantile(flq))$iter
+#' # ...and select one of them
+#'   quantile(flq)[,,,,,1]
+#'
+#' # Calculate the 0.05 quantile only
+#'   quantile(flq, 0.05)
 #' 
-#' # creates an FLQuantPoint from previous FLQuant
-#' flp <- FLQuantPoint(flq)
-#' # return each of the two quantiles (025 and 0.75)
-#' quantile(flp, 0.25)
-#' quantile(flp, 0.75)
+#' # Create an FLQuantPoint from a previous FLQuant...
+#'   flp <- FLQuantPoint(flq)
+#' # ...and return each of the two quantiles (025 and 0.75)...
+#'   quantile(flp, 0.25)
+#'   quantile(flp, 0.75)
+#' # ...or alternatively use lowq and uppq
+#'   lowq(flp)
+#'   uppq(flp)
 #' 

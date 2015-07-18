@@ -1,17 +1,18 @@
-#' Lattice plots
+#' Method lattice
+#'
+#' Implementation of Trellis graphics in FLR
 #' 
-#' Implementation of Trellis graphics in FLR. Plot methods in the
-#' \code{\link[lattice]{lattice}} package are available for object of class
-#' \code{FLQuant}, \code{FLQuants} or those derive from \code{FLComp}.
+#' Plot methods in the \code{\link[lattice]{lattice}} package are available for
+#' an object of classes \code{FLQuant}, \code{FLQuants} or those derived from
+#' \code{FLComp}.
 #' 
 #' See the help page in \code{\link[lattice]{lattice}} for a full description
-#' of each plot method and of all possible arguments.
+#' of each plot method and all possible arguments.
 #' 
 #' Plot methods from lattice are called by passing a \link[base]{data.frame}
 #' obtained by converting the FLR objects using as.data.frame. For details on
 #' this transformation, see \link{as.data.frame-FLCore}.
-#' 
-#' 
+#'
 #' @name lattice
 #' @aliases lattice-FLCore barchart,formula,FLQuant-method
 #' barchart,formula,FLComp-method bwplot,formula,FLQuant-method
@@ -46,17 +47,17 @@
 #' 
 #' data(ple4)
 #' # xyplot on FLQuant
-#' xyplot(data~year|age, catch.n(ple4)[, 1:20])
+#'   xyplot(data~year|age, catch.n(ple4)[, 1:20])
+#'   xyplot(data~year|as.factor(age), catch.n(ple4)[, 1:20], type='b', pch=19,
+#'     cex=0.5)
 #' 
-#' xyplot(data~year|as.factor(age), catch.n(ple4)[, 1:20], type='b', pch=19, cex=0.5)
-#' 
-#' # bwplot on FLQuant with iter
-#' flq <- rnorm(100, catch.n(ple4)[, 1:20], catch.n(ple4)[,1:20])
-#' bwplot(data~year|as.factor(age), flq)
-#' 
-#' # now with same style modifications
-#' bwplot(data~year|as.factor(age), flq, scales=list(relation='free',
-#'   x=list(at=seq(1, 20, by=5), labels=dimnames(catch.n(ple4)[,1:20])$year[seq(1, 20,
-#'   by=5)])), cex=0.5, strip = strip.custom(strip.names = TRUE, strip.levels = TRUE,
-#'   var.name='age'))
+#' # bwplot on FLQuant with iter...
+#'   flq <- rnorm(100, catch.n(ple4)[, 1:20], catch.n(ple4)[,1:20])
+#'   bwplot(data~year|as.factor(age), flq)
+#' # ...now with same style modifications
+#'   bwplot(data~year|as.factor(age), flq, scales=list(relation='free',
+#'     x=list(at=seq(1, 20, by=5),
+#'     labels=dimnames(catch.n(ple4)[,1:20])$year[seq(1, 20, by=5)])),
+#'     cex=0.5, strip=strip.custom(strip.names=TRUE, strip.levels=TRUE,
+#'     var.name='age'))
 #' 

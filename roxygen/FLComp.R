@@ -3,8 +3,7 @@
 #' A virtual class that forms the basis for most FLR classes composed of slots
 #' of class \code{\linkS4class{FLQuant}}. No objects of this class can be
 #' constructed.
-#' 
-#' 
+#'
 #' @name FLComp
 #' @aliases FLComp FLComp-class
 #' @docType class
@@ -18,3 +17,4 @@
 #' \link[base]{transform}, \link{trim}, \link{units,FLComp-method},
 #' \link{units<-,FLComp,list-method}, \link[stats]{window}
 #' @keywords classes
+#'

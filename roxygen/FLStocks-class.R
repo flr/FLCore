@@ -5,8 +5,7 @@
 #' objects. The elements of \code{FLStocks} must all be of class
 #' \code{FLStock}. It implements a lock mechanism that, when turned on, does
 #' not allow the user to increase or decrease the object length.
-#' 
-#' 
+#'
 #' @name FLStocks
 #' @aliases FLStocks-class FLStocks FLStocks-methods FLStocks,ANY-method
 #' FLStocks,missing-method FLStocks,list-method

@@ -1,4 +1,4 @@
-#' Methods upper and lower
+#' Methods limits
 #' 
 #' Accesor and replacement methods for the \code{lower} and \code{upper}
 #' attributes of objects of class \code{\linkS4class{FLModel}}. These are
@@ -13,8 +13,7 @@
 #' The exact location of this information could be changed (i.e. a separate
 #' slot might be created), so code accessing it is encouraged to use these
 #' accesor methods.
-#' 
-#' 
+#'
 #' @name limits
 #' @aliases upper upper,FLModel-method upper<- upper<-,FLModel,numeric-method
 #' lower lower,FLModel-method lower<- lower<-,FLModel,numeric-method

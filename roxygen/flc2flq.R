@@ -1,10 +1,11 @@
+#' Method flc2flq
+#'
 #' Coerce FLCohort into FLQuant.
 #' 
-#' Coerces \code{FLCohort} objects into \code{FLQuant} objects. It's also
-#' implemented with \code{seAs}, to be used like \code{as(flcobject,
-#' "FLQuant")} and it will be deprecated in the near future.
-#' 
-#' 
+#' Coerces \code{FLCohort} objects into \code{FLQuant} objects. Using
+#' \code{as(flcobject,"FLQuant")} achieves the same result; this method will be
+#' deprecated in the near future.
+#'
 #' @name flc2flq
 #' @aliases flc2flq flc2flq-methods flc2flq,FLCohort-method
 #' @docType methods

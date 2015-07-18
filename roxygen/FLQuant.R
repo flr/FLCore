@@ -9,7 +9,7 @@
 #' \code{age} or \code{length} for data related to natural populations. The
 #' only name not accepted is 'cohort', as data structured along cohort should
 #' be stored using the \code{\link{FLCohort}} class instead. Other dimensions
-#' are always names as follows: \code{year}, for the calendar year of the
+#' are always named as follows: \code{year}, for the calendar year of the
 #' datapoint; \code{unit}, for any kind of division of the population, e.g. by
 #' sex; \code{season}, for any temporal strata shorter than year; \code{area},
 #' for any kind of spatial stratification; and \code{iter}, for replicates
@@ -33,23 +33,23 @@
 #' @examples
 #' 
 #' # creating a new FLQuant
-#' flq <- FLQuant()
-#' flq <- FLQuant(1:10, dim=c(2,5))
-#' summary(flq)
+#'   flq <- FLQuant()
+#'   flq <- FLQuant(1:10, dim=c(2,5))
+#'   summary(flq)
 #' 
 #' # Vectors are used column first...
-#' dim(FLQuant(1:10))
+#'   dim(FLQuant(1:10))
 #' # ...while matrices go row first.
-#' dim(FLQuant(matrix(1:10)))
+#'   dim(FLQuant(matrix(1:10)))
 #' 
 #' FLQuant(matrix(rnorm(100), ncol=20))
 #' 
 #' FLQuant(array(rnorm(100), dim=c(5,2,1,1,1,10)))
-#' FLQuant(array(rnorm(100), dim=c(5,2)), iter=10)
+#' FLQuant(array(rnorm(10), dim=c(5,2)), iter=10)
 #' 
 #' # working with FLQuant objects
-#' flq <- FLQuant(rnorm(200), dimnames=list(age=1:5, year=2000:2008), units='diff')
-#' summary(flq)
+#'   flq <- FLQuant(rnorm(45), dimnames=list(age=1:5, year=2000:2008), units='diff')
+#'   summary(flq)
 #' 
 #' flq[1,]
 #' flq[,1]

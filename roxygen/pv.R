@@ -1,9 +1,10 @@
+#' Method pv
+#'
 #' Population variability
 #' 
 #' The \code{pv} method computes the population variability (\emph{pv}) of an
 #' \code{FLQuant} object.
-#' 
-#' 
+#'
 #' @name pv
 #' @aliases pv pv-methods pv,FLQuant-method
 #' @docType methods

@@ -1,11 +1,13 @@
+#' Method mergeFL
+#'
 #' Merging FLStock objects
 #' 
-#' Two FLStock object can be \emph{merged} using this method or a plus sign.
-#' Catch slots are added, and weight slots are averaged, weighted by the
-#' relative catches. No meaningful calculation is currently done for harvest,
-#' harvest.spwn, m, and m.spwn.
-#' 
-#' 
+#' Two FLStock objects with the same dimensions can be merged using this method
+#'  or a plus sign. Catch slots are added, and weight slots are averaged,
+#' weighted by the relative catch numbers. No meaningful calculation is
+#' currently done for harvest, harvest.spwn, m and m.spwn; currently, NAs are
+#' inserted into the harvest slot, and unweighted averages used for the others.
+#'
 #' @name mergeFL
 #' @aliases mergeFLStock +,FLStock,FLStock-method
 #' @docType methods
@@ -14,3 +16,4 @@
 #' @author The FLR Team
 #' @seealso \link{FLStock}
 #' @keywords methods
+#'

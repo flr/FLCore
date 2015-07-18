@@ -1,18 +1,19 @@
-#' Class FLModel for statistical models
-#' 
-#' The FLModel class provides a virtual class that developers of various
+#' Class FLModel
+#'
+#' A virtual class for statistical models
+#'
+#' The \code{FLModel} class provides a virtual class that developers of various
 #' statistical models can use to implement classes that allow those models to
 #' be tested, fitted and presented.
 #' 
 #' Slots in this class attempt to map all the usual outputs for a modelling
-#' exercise, together with the standard inputs. Input data is stored in slots
-#' created by each of those classes based on FLModel.See, for example
+#' exercise, together with the standard inputs. Input data are stored in slots
+#' created by a specified class that is based on \code{FLModel}. See for example
 #' \code{\linkS4class{FLSR}} for a class used for stock-recruitment models.
 #' 
-#' Various fitting algorithms, similar to those present in the basic R packages
-#' are currently available for FLModel, including \code{\link{fmle}},
+#' Various fitting algorithms, similar to those present in the basic R packages,
+#' are currently available for \code{FLModel}, including \code{\link{fmle}},
 #' \code{\link{nls-FLCore}} and \code{\link[stats]{glm}}.
-#' 
 #' 
 #' @name FLModel
 #' @aliases FLModel-class FLModel FLModel-methods FLModel,formula-method
@@ -38,24 +39,26 @@
 #' @keywords classes
 #' @examples
 #' 
-#' # Normally, FLModel objects won't be created, as class lacks input slots
-#' summary(FLModel(length~width*alpha))
+#' # Normally, FLModel objects won't be created if "class" is not set
+#'   summary(FLModel(length~width*alpha))
 #' 
 #' # Objects of FLModel-based classes use their own constructor,
 #' # which internally calls FLModel
-#' fsr <- FLModel(rec~ssb*a, class='FLSR')
-#' is(fsr)
-#' summary(fsr)
+#'   fsr <- FLModel(rec~ssb*a, class='FLSR')
+#'   is(fsr)
+#'   summary(fsr)
 #' 
 #' # An example constructor method for an FLModel-based class
-#' # create FLGrowth class with a single new slot, 'mass'
-#' setClass('FLGrowth', representation("FLModel",
-#'   mass='FLArray'))
-#' 
-#' # define creator method, based on FLModel()
-#' setGeneric('FLGrowth', function(object, ...)
-#' 		standardGeneric('FLGrowth'))
-#' setMethod('FLGrowth', signature(object='ANY'),
-#'   function(object, ...)
-#'     FLModel(object, class='FLGrowth', ...))
-#' 
+#'   # Create class FLGrowth with a single new slot, 'mass'
+#'     setClass('FLGrowth', representation('FLModel', mass='FLArray'))
+#'
+#'   # Define a creator method based on FLModel
+#'     setMethod('FLGrowth', signature(object='ANY'),
+#'       function(object, ...) return(FLModel(object, ..., class='FLGrowth')))
+#'     setMethod('FLGrowth', signature(object='missing'),
+#'       function(...) return(FLModel(formula(NULL), ..., class='FLGrowth')))
+#'
+#'   # Define an accessor method
+#'     setMethod('mass', signature(object='FLGrowth'),
+#'       function(object) return(object@mass))
+#'

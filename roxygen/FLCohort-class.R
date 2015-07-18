@@ -1,10 +1,11 @@
 #' Class FLCohort
-#' 
+#'
+#' A class for modelling cohorts.
+#'
 #' This class represents cohorts in columns. It simply shifts the typical
 #' matrix representation where cohorts are found on the diagonals, into a
 #' matrix where cohorts are found in columns. It is very usefull for all
 #' analysis that want to make use of cohorts instead of years.
-#' 
 #' 
 #' @name FLCohort
 #' @aliases FLCohort-class FLCohort FLCohort-methods FLCohort,FLQuant-method

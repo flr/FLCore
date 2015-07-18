@@ -2,10 +2,9 @@
 #' 
 #' LOWESS smoother based on locally-weighted polynomial regression for objects
 #' of class \code{\linkS4class{FLSR}}. The model fitted is of the form
-#' rec(x)~ssb(x). Returns an object of class \code{FLQuants} with elements
-#' named \code{ssb} and \code{rec}.
-#' 
-#' 
+#' \code{rec(x)~ssb(x)}, and returns an object of class \code{FLQuants} with
+#' elements named \code{ssb} and \code{rec}.
+#'
 #' @name lowess
 #' @aliases lowess,FLSR,missing-method
 #' @docType methods
@@ -17,8 +16,10 @@
 #' @examples
 #' 
 #' # use the North Sea herring SR dataset
-#' data(nsher)
+#'   data(nsher)
 #' 
 #' # fitting a rec ~ ssb lowess
-#' nshlos <- lowess(nsher)
-#' 
+#'   nshlos <- lowess(nsher)
+#'   plot(rec(nsher)~ssb(nsher))
+#'   points(nshlos$rec~nshlos$ssb,pch=19)
+#'

@@ -1,11 +1,10 @@
 #' Class FLlst
 #' 
 #' \code{FLlst} is a class that extends \code{list} but implements a set of
-#' features that give a little bit more structure to list objects. First the
+#' features that give a little more structure to list objects. First the
 #' elements of \code{FLlst} must all be of the same class. Second it implements
 #' a lock mechanism that, when turned on, does not allow the user to increase
 #' or decrease the object length.
-#' 
 #' 
 #' @name FLlst
 #' @aliases FLlst-class FLlst FLlst-methods FLlst,ANY-method

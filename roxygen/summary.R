@@ -2,8 +2,7 @@
 #' 
 #' Outputs a general summary of the structure and content of the object. The
 #' particular output obtined depends on the class of the argument object.
-#' 
-#' 
+#'
 #' @name summary
 #' @aliases summary,FLQuant-method summary,FLQuantPoint-method
 #' summary,FLComp-method summary,FLQuants-method summary,FLPar-method

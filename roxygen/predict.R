@@ -4,9 +4,8 @@
 #' and model formula in an \code{\linkS4class{FLModel}} object. If no extra
 #' input is given, \emph{predict} will use the input values contained in the
 #' relevant slots. If any extra named argument is provided, this is used
-#' instead and the correspodning predicted values are returned.
-#' 
-#' 
+#' instead, and the corresponding predicted values are returned.
+#'
 #' @name predict
 #' @aliases predict,FLModel-method
 #' @docType methods
@@ -17,15 +16,14 @@
 #' @examples
 #' 
 #' # nsher FLSR dataset
-#' data(nsher)
+#'   data(nsher)
 #' 
-#' # predict with no extra arguments returns the values
-#' # predicted during model fitting
-#' predict(nsher)
+#' # Predict with no extra arguments returns the final values predicted during
+#' # model fitting...
+#'   predict(nsher)
+#' # ...which can also be extracted from the 'fitted' slot
+#'   fitted(nsher)
 #' 
-#' # which can also be extracted from the 'fitted' slot
-#' fitted(nsher)
-#' 
-#' # a different ssb vector can be provided
-#' predict(nsher, ssb=FLQuant(seq(10, 150, by=5)))
+#' # A different ssb vector can be provided
+#'   predict(nsher, ssb=FLQuant(seq(10, 150, by=5)))
 #' 

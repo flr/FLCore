@@ -1,12 +1,13 @@
+#' Method transform
+#'
 #' Transform elements of a complex FLR object
 #' 
 #' Modification of individual elements of a complex FLR object can be carried
 #' out using \code{transform}. A series of named arguments, corresponding to
-#' the slots to modify can be provided to the method. Existing slots can be
-#' referred simply by its name on the right handside on the argument
+#' the slots to modify, can be provided to the method. Existing slots can be
+#' referred to simply by their names on the right-hand side of the argument
 #' expressions (see example below).
-#' 
-#' 
+#'
 #' @name transform
 #' @aliases transform,FLComp-method
 #' @docType methods

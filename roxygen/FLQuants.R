@@ -5,8 +5,7 @@
 #' that, when turned on, does not allow the user to increase or decrease the
 #' object length. The elements of \code{FLQuants} must all be of class
 #' \code{FLQuant}.
-#' 
-#' 
+#'
 #' @name FLQuants
 #' @aliases FLQuants FLQuants,ANY-method FLQuants,FLQuants-method
 #' FLQuants,list-method FLQuants,missing-method FLQuants-class FLQuants-methods
@@ -22,3 +21,12 @@
 #' \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
 #' \link{FLlst}, \link[base]{list}
 #' @keywords classes
+#' @examples
+#'
+#' # Compute various FLStock indicators
+#'   data(ple4)
+#'   fqs <- FLQuants(ssb=ssb(ple4), catch=catch(ple4), rec=rec(ple4),
+#'     f=fbar(ple4))
+#'   summary(fqs)
+#'   xyplot(data~year|qname, fqs, type='b', scales=list(relation='free'))
+#'
