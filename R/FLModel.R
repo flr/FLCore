@@ -521,7 +521,27 @@ setMethod('predict', signature(object='character'),
   }
 ) # }}}
 
-# AIC & BIC   {{{
+# AIC {{{
+#' Method AIC
+#' 
+#' Akaike's information criterion (AIC) method
+#'
+#' A method to calculate the Akaike's information criterion (AIC) of an
+#' \link{FLModel} object from the value of the obtained log-likelihood stored
+#' in its \code{logLik} slot.
+#'
+#' @name AIC
+#' @aliases AIC,FLModel,numeric-method AIC,FLModel,missing-method
+#' @docType methods
+#' @section Generic function: AIC(object, k)
+#' @author The FLR Team
+#' @seealso \link[stats]{AIC}, \link[stats]{logLik}, \link{FLModel}
+#' @keywords methods
+#' @examples
+#' 
+#' data(nsher)
+#' AIC(nsher)
+#' 
 setMethod('AIC', signature(object='FLModel', k='numeric'),
   function(object, k=2)
     return(AIC(object@logLik, k))
@@ -530,8 +550,30 @@ setMethod('AIC', signature(object='FLModel', k='numeric'),
 setMethod('AIC', signature(object='FLModel', k='missing'),
   function(object)
     return(AIC(object@logLik))
-)
+)  # }}}
 
+# BIC   {{{
+#' Method BIC
+#'
+#' Bayesian information criterion (BIC) method
+#' 
+#' A method to calculate the Bayesian information criterion (BIC), also known
+#' as Schwarz's Bayesian criterion of an \link{FLModel} object from the value
+#' of the obtained log-likelihood stored in its \code{logLik} slot.
+#'
+#' @name BIC
+#' @aliases BIC,FLModel-method
+#' @docType methods
+#' @section Generic function: BIC(object)
+#' @author The FLR Team
+#' @seealso \link[stats]{BIC}, \link[stats]{AIC}, \link{FLModel},
+#' \link[stats]{logLik}
+#' @keywords methods
+#' @examples
+#' 
+#' data(nsher)
+#' BIC(nsher)
+#' 
 setMethod('BIC', signature(object='FLModel'),
   function(object)
     return(BIC(object@logLik))
