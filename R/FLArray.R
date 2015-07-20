@@ -497,11 +497,10 @@ uom <- function(op, u1, u2) {
 ## Arith    {{{
 #' Method Arith
 #'
-#' Arithmetic methods for FLQuant objects
+#' Arithmetic methods for FLR objects
 #'
 #' The \code{Arith} group of methods, comprising addition, substraction,
-#' product, division, exponentiation, modulus and integer division (\code{+},
-#' \code{-},\code{*}, \code{/}, \code{^}, \code{%%} and \code{%/%}).
+#' product, division, exponentiation, modulus and integer division ().
 #' These methods work exactly as in an object of class \code{array}, but always
 #' return an \code{FLQuant} object, thus no dimension is dropped.
 #'
@@ -511,8 +510,7 @@ uom <- function(op, u1, u2) {
 #'
 #' @name Arith
 #' @rdname Arith
-#' @aliases Arith,FLArray,FLArray-method Arith,numeric,FLArray-method
-#' Arith,FLArray,numeric-method
+#' @aliases Arith,numeric,FLArray-method
 #' @docType methods
 #' @section Generic function: Arith(e1,e2)
 #' @author The FLR Team
@@ -537,6 +535,8 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
 		return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
 	}
 )
+#' @rdname Arith
+#' @aliases Arith,FLArray,numeric-method
 setMethod("Arith",
 	signature(e1 = "FLArray", e2 = "numeric"),
 	function(e1, e2)
@@ -544,6 +544,8 @@ setMethod("Arith",
 		return(new(class(e1), callGeneric(e1@.Data, e2), units=units(e1)))
 	}
 )
+#' @rdname Arith
+#' @aliases Arith,FLArray,FLArray-method
 setMethod("Arith",
 	signature(e1 = "FLArray", e2 = "FLArray"),
 	function(e1, e2)

@@ -472,14 +472,14 @@ setMethod("show", signature(object="FLPar"),
 )   # }}}
 
 # Arith    {{{
-#' @drname Arith
-#' @aliases Arith,FLPar,FLPar-method Arith,FLPar,FLArray-method Arith,FLArray,FLPar-method
+#' @rdname Arith
+#' @aliases Arith,FLPar,FLPar-method
 #' @examples
 #' 
 #' # FLQuant and FLPar
 #' flq * FLPar(a=3)
 #'
-#' # Operatrions match dimension names
+#' # Operations are made to match dimension names
 #' flp <- FLPar(1/(1:5), dimnames=list(params='a', year=1:5, iter=1), units='NA')
 #' flq * flp
 #'
@@ -490,7 +490,8 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
     return(new('FLPar', callGeneric(e1@.Data, e2@.Data)))
   }
 )
-
+#' @rdname Arith
+#' @aliases Arith,FLArray,FLPar-method
 setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
   function(e1, e2) {
     # objects dims
@@ -525,7 +526,8 @@ setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
     }
   }
 )
-
+#' @rdname Arith
+#' @aliases Arith,FLPar,FLArray-method
 setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
   function(e1, e2) {
     # objects dims
