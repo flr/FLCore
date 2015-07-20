@@ -505,7 +505,12 @@ uom <- function(op, u1, u2) {
 #' These methods work exactly as in an object of class \code{array}, but always
 #' return an \code{FLQuant} object, thus no dimension is dropped.
 #'
+#' Operations between an \code{FLQuant} and an \code{FLPar} object will always
+#' return an FLQuant, with the \code{FLPar} dimensions being place on top of
+#' the correspoding ones at the \code{FLQuant} object. See examples below.
+#'
 #' @name Arith
+#' @rdname Arith
 #' @aliases Arith,FLArray,FLArray-method Arith,numeric,FLArray-method
 #' Arith,FLArray,numeric-method
 #' @docType methods
@@ -515,11 +520,15 @@ uom <- function(op, u1, u2) {
 #' @keywords methods
 #' @examples
 #' 
-#' flq <- FLQuant(rnorm(10), dim=c(2,5))
+#' flq <- FLQuant(c(9,5), dim=c(2,5))
 #' fl2 <- FLQuant(2, dim=c(2,5))
 #' flq * fl2
 #' flq / fl2
-#' flq / 2
+#'
+#' # FLQuant against numeric vector
+#' flq * 2.5
+#' # Recycling rule applies
+#' flq * c(1, 2)
 #'
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
 	signature(e1 = "numeric", e2 = "FLArray"),

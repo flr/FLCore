@@ -472,6 +472,17 @@ setMethod("show", signature(object="FLPar"),
 )   # }}}
 
 # Arith    {{{
+#' @drname Arith
+#' @aliases Arith,FLPar,FLPar-method Arith,FLPar,FLArray-method Arith,FLArray,FLPar-method
+#' @examples
+#' 
+#' # FLQuant and FLPar
+#' flq * FLPar(a=3)
+#'
+#' # Operatrions match dimension names
+#' flp <- FLPar(1/(1:5), dimnames=list(params='a', year=1:5, iter=1), units='NA')
+#' flq * flp
+#'
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
   signature(e1 = "FLPar", e2 = "FLPar"),
   function(e1, e2)
