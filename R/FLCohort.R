@@ -2,12 +2,7 @@
 # FLCore/R/FLCohort.R
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Ernesto Jardim, IPIMAR 
-# $Id: FLCohort.R 1778 2012-11-23 08:43:57Z imosqueira $
-
-# Reference:
-# Notes:
-
+# Maintainer: Iago Mosqueira, JRC. <iago.mosqueira@jrc.ec.europa.eu>
 
 # FLCohort(FLQuant)  {{{
 setMethod("FLCohort", signature("FLQuant"),

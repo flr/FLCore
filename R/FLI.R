@@ -14,6 +14,8 @@ setMethod(computeCatch, signature("FLI"), function(object){
 })  # }}}
 
 # '['       {{{
+#' @rdname Extract
+#' @aliases [,FLI,ANY,ANY,ANY-method
 setMethod('[', signature(x='FLI'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE)
   {

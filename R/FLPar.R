@@ -119,7 +119,17 @@ setMethod('FLPar', signature('FLPar'),
 	}
 ) # }}}
 
-# '['   {{{
+# [   {{{
+#' @rdname Extract
+#' @aliases [,FLPar,ANY,ANY,ANY-method
+#' @examples
+#'
+#' # FLPar
+#' flp <- FLPar(rlnorm(90), dimnames=list(params=letters[1:3], iter=30), units='NA')
+#' # Select first parameter
+#' flp[1,]
+#' flp['a',]
+#'
 setMethod('[', signature(x='FLPar'),
     function(x, i, j, k, l, m, n, ..., drop=FALSE)
     {

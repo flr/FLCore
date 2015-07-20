@@ -537,7 +537,18 @@ setMethod("ssbpurec",signature(object="FLStock"),
 	}
 )# }}}
 
-# '['       {{{
+#  [       {{{
+#' @rdname Extract
+#' @aliases [,FLStock,ANY,ANY,ANY-method
+#' @examples
+#' # FLStock
+#' data(ple4)
+#' # Method for FLStock distinguishes first dimension 'age'
+#' ple <- ple4[1:4,]
+#' summary(ple4)
+#' # Be AWARE that aggregated slots (catch, landings, ...) are NOT recomputed
+#' all.equal(catch(ple), quantSums(catch.n(ple) * catch.wt(ple)))
+# 
 setMethod('[', signature(x='FLStock'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE)
   {

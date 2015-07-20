@@ -12,8 +12,7 @@ setAs("NULL", "FLBiol", function(from) FLBiol())
 setAs("NULL", "FLQuant", function(from) FLQuant())
 # }}}
 
-# replacement {{{
-
+# [<-, [[<- {{{
 setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
 	{
@@ -89,15 +88,27 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 		else
 			stop("Invalid object, classes do not match.")
 	}
-)
+) # }}}
 
-setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(x,i,j,drop){
-	lst <- as(x, "list")
-  # names dropped!
-  names(lst) <- names(x)
-	lst <- lst[i]
-	new(is(x), lst)
-})  # }}}
+#  [ {{{
+#' @rdname Extract
+#' @aliases [,FLlst,ANY,missing,ANY-method
+#' @examples
+#'
+#' # FLStocks (& any FLlst)
+#' fll <- FLStocks(PLE4=ple4, OLD=ple4[,1:20])
+#' summary(fll)
+#' summary(fll[1])
+#'
+setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
+	function(x, i, j, drop){
+		lst <- as(x, "list")
+	  # names dropped!
+	  names(lst) <- names(x)
+		lst <- lst[i]
+		new(is(x), lst)
+	}
+)  # }}}
 
 # lapply  {{{
 setMethod("lapply", signature(X="FLlst"),
@@ -341,14 +352,14 @@ setMethod("range", "FLlst",
   }
 ) # }}}
 
-## names         {{{
+# names         {{{
 setMethod("names", signature(x="FLlst"),
 	function(x)
     attr(x, 'names')
 )
 # }}}
 
-## as.data.frame	{{{
+# as.data.frame	{{{
 setMethod("as.data.frame", signature(x="FLCohorts", row.names="missing",
 	optional="missing"),
 		function(x) {

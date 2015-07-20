@@ -209,6 +209,14 @@ setMethod("units<-", signature(x="FLComp", value="list"),
 ) # }}}
 
 # '['       {{{
+#' @rdname Extract
+#' @aliases [,FLComp,ANY,ANY,ANY-method
+#' @examples
+#'
+#' data(ple4)
+#' # Subset first five years
+#' summary(ple4[,1:5])
+#'
 setMethod('[', signature(x='FLComp'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE) {
 
@@ -247,6 +255,8 @@ setMethod('[', signature(x='FLComp'),
 )   # }}}
 
 # "[<-"            {{{
+#' @rdname Extract
+#' @aliases [<-,FLComp,ANY,ANY,ANY-method
 setMethod("[<-", signature(x="FLComp"),
 	function(x, i, j, k, l, m, n, ..., value="missing")
   {

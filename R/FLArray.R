@@ -2,7 +2,6 @@
 
 # Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id: FLArray.R 1779 2012-11-23 09:39:31Z imosqueira $
 
 # units {{{
 setMethod("units", signature(x="FLArray"),
@@ -37,7 +36,53 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 	}
 ) # }}}
 
-## "["             {{{
+#  [             {{{
+#' Extract
+#'
+#' Extract or replace parts of an FLR Object
+#' 
+#' Operators acting on FLQuant, FLCohort, FLPar, FLComp, and derived classes to
+#' extract or replace sections of an object.
+#' 
+#' Please note the differences between referencing sections of an object by
+#' position using values of class \code{numeric}, or by using dimnames of class
+#' \code{character}. See examples below.
+#' 
+#' All classes that are derived from \code{FLComp} (for example, \code{FLStock}
+#' and \code{FLBiol}) can be subset along the six dimensions of their
+#' \code{FLQuant} slots.
+#' 
+#' Classes that are derived from \code{FLlst} (for example, \code{FLStocks} and
+#' \code{FLBiols}) can be subset in a similar way to ordinary list objects.
+#'
+#' @name Extract
+#' @rdname Extract
+#' @aliases [,FLArray,ANY,ANY,ANY-method
+#' @docType methods
+#' @section Generic function: \describe{ \item{}{[x,i,j,drop]}
+#' \item{}{[<-(x,i,j,value)} \item{}{[[<-(x,i,j,value)}
+#' \item{}{\$<-(x,name,value)} }
+#' @author The FLR Team
+#' @seealso \link[base]{Extract}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(200), dimnames=list(age=0:4, year=1991:2000,
+#'   season=1:4))
+#'
+#' # Extracting by position...
+#'   flq[1,]
+#'   flq[,1:5]
+#'   flq[1:2,,,c(1,3)]
+#'
+#' # ...by dimnames
+#'   flq['0',]
+#'   flq[,'1991']
+#'   flq[,as.character(1991:1995),,'1']
+#'
+#' # Replacing part of the object
+#'   flq['0',,,1]<-0
+#'
 setMethod("[", signature(x="FLArray"),
     function(x, i, j, k, l, m, n, ..., drop=FALSE)
     {
@@ -65,6 +110,8 @@ setMethod("[", signature(x="FLArray"),
 	}
 )
 
+#' @rdname Extract
+#' @aliases [,FLArray,array,missing,missing-method
 setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
   function(x, i)
   {
@@ -82,7 +129,9 @@ setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
   }
 )   # }}}
 
-## "[<-"            {{{
+# "[<-"            {{{
+#' @rdname Extract
+#' @aliases `[<-,FLArray,ANY,ANY,ANY-method`
 setMethod("[<-", signature(x="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -113,9 +162,10 @@ setMethod("[<-", signature(x="FLArray"),
 
    	return(x)
 	}
-)   # }}}
+)
 
-## "[<-"            {{{
+#' @rdname Extract
+#' @aliases `[<-,FLArray,ANY,ANY,FLArray-method`
 setMethod("[<-", signature(x="FLArray", value="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -165,7 +215,7 @@ setMethod("[<-", signature(x="FLArray", value="FLArray"),
 	}
 )   # }}}
 
-## names         {{{
+# names         {{{
 setMethod("names", signature(x="FLArray"),
 	function(x)
     names(dimnames(x))
@@ -182,7 +232,7 @@ setMethod("iter", signature(obj="FLArray"),
 	}
 )   # }}}
 
-## summary          {{{
+# summary          {{{
 setMethod("summary", signature(object="FLArray"),
 	function(object, ...)
 	{
@@ -214,7 +264,7 @@ setMethod("summary", signature(object="FLArray"),
 	}
 )   # }}}
 
-## show     {{{
+# show     {{{
 setMethod("show", signature(object="FLArray"),
 	function(object){
 		cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
@@ -494,7 +544,7 @@ uom <- function(op, u1, u2) {
 }
 # }}}
 
-## Arith    {{{
+# Arith    {{{
 #' Method Arith
 #'
 #' Arithmetic methods for FLR objects
@@ -580,7 +630,7 @@ setMethod("Arith",
 	}
 )   # }}}
 
-## as.data.frame        {{{
+# as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
   optional="missing"),
 	function(x) {
