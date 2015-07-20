@@ -5,6 +5,8 @@
 # Maintainer: Iago Mosqueira, JRC. <iago.mosqueira@jrc.ec.europa.eu>
 
 # FLCohort(FLQuant)  {{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,FLQuant-method
 setMethod("FLCohort", signature("FLQuant"),
   function(object, ...) {
   	# reduce with trim
@@ -50,6 +52,8 @@ setMethod("FLCohort", signature("FLQuant"),
 ) # }}}
 
 # FLCohort(FLCohort)  {{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,FLCohort-method
 setMethod('FLCohort', signature(object='FLCohort'),
   function(object, units=units(object))
   {
@@ -61,6 +65,8 @@ setMethod('FLCohort', signature(object='FLCohort'),
 ) # }}}
 
 # FLCohort(array)		{{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,array-method
 setMethod("FLCohort", signature(object="array"),
 	function(object, dim=rep(1,6), dimnames="missing", units="NA",
     iter=1, fill.iter=TRUE) {
@@ -120,6 +126,8 @@ setMethod("FLCohort", signature(object="array"),
 )	# }}}
 
 # FLCohort(vector) {{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,vector-method
 setMethod("FLCohort", signature(object="vector"),
 	function(object, dim=c(length(object), rep(1,5)), dimnames="missing",
 			units="NA", iter=1) 
@@ -135,6 +143,8 @@ setMethod("FLCohort", signature(object="vector"),
 )	# }}}
 
 # FLCohort(missing)		{{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,missing-method
 setMethod("FLCohort", signature(object="missing"),
 	function(object, dim=rep(1,6), dimnames="missing", units="NA", iter=1) {
 		

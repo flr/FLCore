@@ -490,6 +490,8 @@ setGeneric('catch.sel', function(object, ...)
 		standardGeneric('catch.sel'))
 
 # FLCohort
+#' @rdname FLCohort-class
+#' @aliases FLCohort
 setGeneric("FLCohort", function(object, ...)
 	standardGeneric("FLCohort"))
 
