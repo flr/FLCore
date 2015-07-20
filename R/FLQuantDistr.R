@@ -251,7 +251,7 @@ setMethod("[", signature(x="FLQuantDistr"),
 ) 
 
 #' @rdname Extract
-#' @aliases [<-,FLQuantDistr,array,missing,missing-method
+#' @aliases [<-,FLQuantDistr,array,missing,missig-method
 setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing"),
   function(x, i)
   {

@@ -526,7 +526,7 @@ setMethod('predict', signature(object='character'),
 #' 
 #' Akaike's information criterion (AIC) method
 #'
-#' A method to calculate Akaike's ‘An Information Criterion’ (AIC) of an
+#' A method to calculate Akaike's 'An Information Criterion' (AIC) of an
 #' \link{FLModel} object from the value of the obtained log-likelihood stored
 #' in its \code{logLik} slot.
 #'

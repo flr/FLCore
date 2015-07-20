@@ -13,6 +13,8 @@ setAs("NULL", "FLQuant", function(from) FLQuant())
 # }}}
 
 # [<-, [[<- {{{
+#' @rdname Extract
+#' @aliases [[,FLlst,ANY,missing,ANY-method
 setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
 	{
@@ -25,14 +27,7 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
     lst <- as(x, "list")
     names(lst) <- names(x)
 
-#		if(length(lst)==0)
-#		{
-#			cls <- is(value)[1]
-#			lst[[i]] <- value
-#			lst <- lapply(lst, as, cls)
-#		}
-
-		lst[[i]] <- value
+	lst[[i]] <- value
 
 		res <- FLlst(lst)
 		class(res) <- class(x)
@@ -44,6 +39,8 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	}
 )
 
+#' @rdname Extract
+#' @aliases $<-,FLlst,ANY-method
 setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 	function(x, name, value)
 	{
@@ -52,13 +49,6 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 
 		lst <- as(x, "list")
     names(lst) <- names(x)
-
-#		if(length(lst)==0)
-#		{
-#			cls <- is(value)[1]
-#			lst <- do.call("$<-",list(x=lst, name=name, value=value))
-#			lst <- lapply(lst, as, cls)
-#		}
 
 		lst <- do.call("$<-",list(x=lst, name=name, value=value))
 
@@ -71,6 +61,8 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 			stop("Invalid object, classes do not match.")
 })
 
+#' @rdname Extract
+#' @aliases [<-,FLlst,ANY,missing,ANY-method
 setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
 	{
@@ -98,7 +90,10 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 #' # FLStocks (& any FLlst)
 #' fll <- FLStocks(PLE4=ple4, OLD=ple4[,1:20])
 #' summary(fll)
+#' # Subset FLStocks
 #' summary(fll[1])
+#' # Extract single element
+#' summary(fll[[1]])
 #'
 setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
 	function(x, i, j, drop){
