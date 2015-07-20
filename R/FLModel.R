@@ -526,11 +526,12 @@ setMethod('predict', signature(object='character'),
 #' 
 #' Akaike's information criterion (AIC) method
 #'
-#' A method to calculate the Akaike's information criterion (AIC) of an
+#' A method to calculate Akaike's ‘An Information Criterion’ (AIC) of an
 #' \link{FLModel} object from the value of the obtained log-likelihood stored
 #' in its \code{logLik} slot.
 #'
 #' @name AIC
+#' @rdname AIC
 #' @aliases AIC,FLModel,numeric-method AIC,FLModel,missing-method
 #' @docType methods
 #' @section Generic function: AIC(object, k)
@@ -543,13 +544,13 @@ setMethod('predict', signature(object='character'),
 #' AIC(nsher)
 #' 
 setMethod('AIC', signature(object='FLModel', k='numeric'),
-  function(object, k=2)
+  function(object, k)
     return(AIC(object@logLik, k))
 )
 # AIC with RSS: 2k + n * ln(RSS/n)
 setMethod('AIC', signature(object='FLModel', k='missing'),
   function(object)
-    return(AIC(object@logLik))
+    return(AIC(object, k=2))
 )  # }}}
 
 # BIC   {{{
