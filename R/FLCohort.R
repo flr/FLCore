@@ -362,7 +362,7 @@ setMethod("propagate", signature(object="FLCohort"),
   }
 ) # }}}
 
-## fillFLCdimnames       {{{
+# fillFLCdimnames       {{{
 fillFLCdimnames <- function(dnames, dim=rep(1,6), iter=1) {
 	# generate standard names for given dimensions
   if(!missing(iter))
@@ -374,7 +374,7 @@ fillFLCdimnames <- function(dnames, dim=rep(1,6), iter=1) {
 	return(xnames)
 } # }}}
 
-## dimnames<-       {{{
+# dimnames<-       {{{
 setMethod("dimnames<-", signature(x="FLCohort", value='list'),
 	function(x, value) {
 		if(any(!names(value) %in% c("age", "cohort", "unit", "season", "area", "iter")))

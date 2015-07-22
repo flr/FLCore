@@ -11,7 +11,7 @@
 #'
 #' For an \code{FLStock} with harvest units 'f', SSB is calculated as
 #'
-#'    \eqn(SSB = sum(N*exp(-F*propF-M*propM) * wt * mat)}
+#'    \eqn{SSB = sum(N*exp(-F*propF-M*propM) * wt * mat)}
 #'
 #' For an \code{FLStock} with harvest units 'hr', SSB is calculated as
 #'

@@ -1,29 +1,39 @@
 #' FLCore datasets
-#' 
-#' \itemize{ \itemple4 A dataset of North Sea (ICES Area IV) plaice. Catch,
-#' yield, landings, discards, natural mortality, weight-at-age and maturity,
-#' together with the VPA estimated abundances and fishing mortalities,
-#' contained in an FLStock object.  \itemple4sex A dataset of North Sea (ICES
-#' Area IV) plaice disaggregated by sex. Catch, yield, landings, discards,
-#' natural mortality, weight-at-age and maturity, together with the VPA
-#' estimated abundances and fishing mortalities, contained in an FLStock
-#' object.  \itemple4.index A dataset of North Sea (ICES Area IV) plaice survey
-#' catch per unit effort. Index and index variance, contained in an FLIndex
-#' object.  \itemple4.indices A dataset of two North Sea (ICES Area IV) plaice
-#' survey catch per unit effort series. Index and index variance, contained in
-#' an FLIndices object.  \itemple.biol A dataset of North Sea plaice population.
-#' Numbers, natural mortality, mass and fecundity-at-age, contained in an
-#' FLBiol object.  \itemnsher A dataset of class \code{FLStock} for autumn
-#' spawning North Sea herring.  \itemnsher.sr A stock and recruitment dataset
-#' of North Sea autumn spawning herring, fitted using the 'Ricker' model.
-#' \itemnsher.biol A dataset of class \code{FLBiol} for North Sea herring. }
+#'
+#' Example datasets for the classes defined in FLCore.
+#'
+#' \itemize{
+#'    \item{\code{ple4}, \code{\link{FLStock}}}{A dataset for North Sea (ICES Area IV)
+#'      plaice. Catch, landings, discards, natural mortality, weight-at-age and maturity,
+#'      together with the VPA estimated abundances and fishing mortalities.}
+#' \item{\code{ple4sex}, \code{\link{FLStock}}}{A dataset of North Sea (ICES
+#'      Area IV) plaice disaggregated by sex. Catch, yield, landings, discards,
+#'      natural mortality, weight-at-age and maturity, together with the VPA
+#'      estimated abundances and fishing mortalities.}
+#' \item{ple4.index, \code{\link{FLIndex}}}{A dataset of North Sea (ICES Area IV) plaice
+#'      survey catch per unit effort, index and index variance.}
+#' \item{ple4.indices, \code{\link{FLIndices}}}{A dataset of three North Sea (ICES Area IV)
+#'      plaice survey catch per unit effort series. Index and index variance.}
+#' \item{ple4.biol, \code{\link{FLBiol}}}{A dataset of the North Sea plaice population.
+#'      Numbers, natural mortality, mass and fecundity-at-age.}
+#' \item{nsher , \code{\link{FLSR}}}{Stock and recruit data and fitted relationship for
+#'      autumn spawning North Sea herring.}
+#' }
 #'
 #' Datasets can be loaded by issuing the \code{data} command, like in
 #' \code{data(ple4)}.
 #'
+#' @name datasets
 #' @aliases ple4 ple4sex ple4.biol ple4.index ple4.indices nsher
 #' @seealso \linkS4class{FLStock}, \linkS4class{FLSR}, \linkS4class{FLIndex},
 #' \linkS4class{FLStock}, \linkS4class{FLIndex}, \linkS4class{FLBiol}
 #' @references ICES.
 #' @keywords datasets
+#' @examples
+#'
+#' data(ple4)
+#' summary(ple4)
+#'
+#' data(nsher)
+#' is(nsher)
 #'

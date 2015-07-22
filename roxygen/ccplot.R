@@ -15,5 +15,5 @@
 #' @examples
 #' 
 #' data(ple4)
-#' ccplot(data~age, data=FLCohort(ple4@catch.n), type="l")
+#' ccplot(data~age, data=FLCohort(catch.n(ple4)), type="l")
 #' 

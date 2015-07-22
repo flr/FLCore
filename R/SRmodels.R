@@ -5,10 +5,225 @@
 # Maintainer: Laurie Kell, Cefas
 # $Id: SRmodels.R 1778 2012-11-23 08:43:57Z imosqueira $
 
-# Reference:
-# Notes:
+#' Methods SRModels
+#'
+#' Stock-Recruitment models
+#' 
+#' A range of stock-recruitment (SR) models commonly used in fisheries science
+#' are provided in FLCore, as presented below.
+#' 
+#' Each model is implemented as a function returning a list with the following
+#' elements:
+#' \itemize{
+#'   \item{model}{Formula for the model, using the slot names \emph{rec} and
+#' \emph{ssb} to refer to the usual inputs}
+#'   \item{logl}{Function to calculate the loglikelihood of the given model when
+#' estimated through MLE (See \code{\link{fmle}})}
+#'   \item{initial}{Function to compute initial values for all parameters to the
+#'   minimization algorithms called by \code{\link{fmle}} or \code{\link[stats]{nls}}.
+#'   If required, this function also has two attributes, \code{\link{lower}} and
+#'   \code{\link{upper}}, that give lower and upper limits for the parameter
+#'   values, respectively. This is used by some of the methods defined in
+#'   \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}}.
+#' }
+#'
+#' The \emph{model<-} method for \code{\linkS4class{FLModel}} can then be called
+#' with \emph{value} being a list as described above, the name of the function
+#' returning such a list, or the function itself. See the examples below.
+#' 
+#' @section Stock-recruitment relationships:
+#'
+#' Several functions to fit commonly-used SR models are available. They all
+#' provide a function returning the log-likehood, based on the  \code{\link{loglAR1}}
+#' function.
+#'
+#' \subsection{Ricker, \code{ricker()}}{
+#' \itemize{
+#'   \item{model}{\deqn{R = a S e^{-b*S}}{R = a*S*exp(-b*S)}}
+#'   \item{params}{\emph{a}, related to productivity (recruits per
+#' stock unit at small stock size) and \emph{b} to density dependence. (\emph{a, b} > 0)}}
+#' }
+#'
+#' \subsection{Beverton & Holt, \code{bevholt()}}{
+#' \itemize{
+#'   \item{model}{\deqn{R = \frac{a S}{b + S}}{R = a*S / (b + S)}}
+#'   \item{params}{\emph{a} is the maximum recruitment (asymptotically) and \emph{b} is the stock level needed to produce the half of maximum recruitment \eqn{\frac{a}{2}}{a/2}}}
+#' }
+#'
+#' \subsection{Segmented regression, \code{segreg()}}{
+#' \itemize{
+#'   \item{model}{\deqn{R = \mathbf{ifelse}(S \leq b, a S, a b)}{ R = ifelse(S <= b, a*S, a*b)}}
+#'   \item{params}{\emph{a} is the slope of the recruitment for stock levels below
+#'   \emph{b}, and \eqn{a b}{a*b} is the mean recruitment for stock levels above \emph{b}.
+#'   (\emph{a, b} > 0).}}
+#' }
+#'
+#' \subsection{Geometric mean, \code{geomean()}}{
+#' \itemize{
+#'   \item{model}{\deqn{(R_1 R_2 \ldots R_n)^{1/n} = e^{\mathbf{mean}(\log(R_1),\ldots , }
+#'   {R = (R_1*R_2*...*R_n)^(1/n) = exp(mean(log(R_1) + ... + log(R_n)))}
+#'   \deqn{ \log(R_n)))}}{R = (R_1*R_2*...*R_n)^(1/n) = exp(mean(log(R_1) + ... + log(R_n)))}}
+#'   \item{params}{\emph{a}, historical geometric mean recruitment}}
+#' }
+#'
+#' \subsection{Shepherd, \code{model(shepherd)}}{
+#' \itemize{
+#'   \item{model}{\deqn{R = \frac{a S}{1+(\frac{S}{b})^c}}{ R = a * S/(1 + (S/b)^c)}}
+#'   \item{params}{\emph{a}, density-independent survival (similar to \emph{a} in the
+#'   Ricker stock-recruit model). \emph{b}, the stock size above which density-dependent
+#'   processes predominate over density-independent ones (also referred to as the threshold
+#'   stock size). \emph{c} the degree of compensation.}}
+#' }
+#'
+#' \subsection{Cushing, \code{model(cushing)}}{
+#' This model has been used less often, and is limited by the fact that it is unbounded
+#' for \emph{b}>=1 as \emph{S} increases.
+#' \itemize{
+#'   \item{model}{\deqn{R = a S e^{b}}{R = a*S*exp(b)}}
+#'   \item{params}{\emph{a}, . \emph{b}, . \emph{S}, . (\emph{a, b} > 0)}}
+#' }
+#'
+#' @section Models parameterised for steepness and virgin biomass:
+#'
+#' Certain stock-recruit models can be parameterised in terms of steepness () and virgin 
+#'  biomass (). The implementation of these models in FLCore is based on the parameter
+#'  transformation presented below and use of the likelihood function of their corresponding
+#'  standard formulation.
+#'
+#' \subsection{Ricker parameterized for steepness and virgin biomass, \code{rickerSV()}}{
+#' \itemize{
+#'   \item{model}{
+#'      \deqn{a = e^{\frac{b \cdot vbiomass}{spr0}}}{a = exp(b*vbiomass)/spr0}
+#'      \deqn{b = \frac{\log(5 \cdot steepness)}{0.8 \cdot vbiomass}}
+#'        {b = log(5*steepness)/(0.8*vbiomass)}}
+#'   \item{params}{\emph{s}, steepness. \emph{v}, virgin biomass. \emph{spr0},
+#'   spawners per recruit at F=0 (\emph{s, v, spr0} > 0)}}
+#' }
+#'
+#' \subsection{Beverton & Holt, parameterized for steepness and virgin biomass,
+#'    \code{bevholtSV()}}{
+#' \itemize{
+#'   \item{model}{
+#'     \deqn{a = \frac{4 \cdot v \cdot s}{(spr0 \cdot (5 \cdot s - 1.0}}
+#'       {a = 4*v*s/(spr0*(5*s-1.0))}
+#'     \deqn{b = \frac{v (1.0-s)}{5 \cdot s-1.0}}{b = v*(1.0-s)/(5*s-1.0)}
+#'   \item{params}{\emph{s}, steepness. \emph{v}, virgin biomass. \emph{spr0},
+#'   spawners per recruit at F=0 (\emph{s, v, spr0} > 0)}}}
+#' }
+#'
+#' \subsection{Shepherd parameterized for steepness and virgin biomass
+#'   \code{model(shepherdSV)}}{
+#' \itemize{
+#'   \item{model}{
+#'     \deqn{a = \frac{1.0+(\frac{v}{b})^c}{spr0}}{a = (1.0 + (v/b)^c)/spr0}
+#'     \deqn{b = v (\frac{0.2-s}{s (0.2)^c - 0.2})^(\frac{-1.0}{c})}
+#'       {b = v*((0.2-s)/(s*0.2^c - 0.2))^(-1.0/c)}}
+#'   \item{params}{\emph{s}, steepness. \emph{v}, virgin biomass. \emph{spr0},
+#'   spawners per recruit at F=0 (\emph{s, v, spr0} > 0). \emph{c} the degree of
+#'   compensation.}}
+#' }
+#'
+#' @section Models fitted using autoregressive residuals of first order:
+#'
+#' Beverton & Holt, Ricker and segmented regression stock-recruitment models with
+#' autoregressive normal log residuals of first order. In the model fit, the
+#' corresponding stock-recruit model is combined with an autoregressive normal
+#' log-likelihood of first order for the residuals. If \eqn{R_t}{R_t} is the observed
+#' recruitment and \eqn{\hat{R}_t}{Rest_t} is the predicted recruitment, an
+#' autoregressive model of first order is fitted to the log-residuals,
+#' \eqn{x_t = \log(\frac{R_t}{\hat{R}_t})}{x_t = log(R_t/Rest_t)}.
+#' \deqn{x_t=\rho x_{t-1} + e}{x_t = rho*x_t-1 + e} where \eqn{e}{e} follows a normal
+#' distribution with mean 0: \eqn{e \sim N(0, \sigma^2_{AR})}{e ~ N(0, sigma_ar^2)}.
+#'
+#' \subsection{Ricker with first order autoregression, \code{model(rickerAR1)}}{
+#' \itemize{
+#'   \item{params}{\emph{a}, related to productivity (recruits per
+#' stock unit at small stock size). \emph{b}, related to density dependence.
+#' \emph{rho}, auto-regression coefficient. (\emph{a, b} > 0, \emph{rho} >= 0)}}
+#' }
+#'
+#' \subsection{Beverton & Holt  with first order autoregression, \code{model(bevholtAR1)}}{
+#' \itemize{
+#'   \item{params}{\emph{a} is the maximum recruitment (asymptotically) and \emph{b} is the stock level needed to produce the half of maximum recruitment \eqn{\frac{a}{2}}{a/2}.
+#'   \emph{rho}, auto-regression coefficient. (\emph{a, b} > 0, \emph{rho} >= 0)}}
+#' }
+#'
+#' \subsection{Segmented regression  with first order autoregression, \code{model(segregAR1)}}{
+#' \itemize{
+#'   \item{params}{\emph{a} is the slope of the recruitment for stock levels below
+#'   \emph{b}, and \eqn{a b}{a*b} is the mean recruitment for stock levels above \emph{b}.
+#'   \emph{rho}, auto-regression coefficient. (\emph{a, b} > 0, \emph{rho} >= 0)}}
+#' }
+#'
+#' @section Stock recruitment models with covariates:
+#'
+#' \subsection{Ricker model with one covariate, \code{rickerCa()}.}{
+#'
+#' The covariate (\code{covar}) can be used, for example, to account for an enviromental
+#' factor that influences the recruitment dynamics. \emph{cover} should an object of
+#' class \code{\link{FLQuant}} inside the \code{\link{FLQuants}} \code{covar} slot of the
+#' \code{\link{FLSR}} class.
+#' 
+#' \itemize{
+#'   \item{model}{\deqn{R = a (1- c X) S e^{-b S}}{R = a*(1-c*X)*S*e^{-b*S}}}
+#'   \item{params}{
+#'     \emph{a}, related to productivity (recruits per stock unit at small stock size).
+#'     \emph{b}, related to density dependence.
+#'     \emph{c}, covariate shape parameter. (\emph{a, b} > 0)}}
+#' }
+#' @name SRModels
+#' @rdname SRModels
+#' @aliases SRModels srmodels
+#' @param rho Autoregression
+#' @param sigma2 Autoregression
+#' @param obs Observed values
+#' @param hat estimated values
+#' @param steepness Steepness.
+#' @param vbiomass Virgin biomass.
+#' @param spr0 Spawners per recruit at F=0, see \code{\link{spr0}}.
+#' @param model character vector with model name, either 'bevholt' or 'ricker'.
+#' @author The FLR Team
+#' @seealso \linkS4class{FLSR}, \linkS4class{FLModel}
+#' @references Beverton, R.J.H. and Holt, S.J. (1957) On the dynamics of
+#' exploited fish populations. MAFF Fish. Invest., Ser: II 19, 533.
+#' 
+#' Needle, C.L. Recruitment models: diagnosis and prognosis.  Reviews in Fish
+#' Biology and Fisheries 11: 95-111, 2002.
+#' 
+#' Ricker, W.E. (1954) Stock and recruitment. J. Fish. Res. Bd Can. 11,
+#' 559-623.
+#' 
+#' Shepherd, J.G. (1982) A versatile new stock-recruitment relationship for
+#' fisheries and the construction of sustainable yield curves.  J. Cons. Int.
+#' Explor. Mer 40, 67-75.
+#'
+#' @keywords models
+#' @examples
+#' 
+#' # inspect the output of one of the model functions
+#'   bevholt()
+#'   names(bevholt())
+#'   bevholt()$logl
+#' 
+#' # once an FLSR model is in the workspace ...
+#'   data(nsher)
+#' 
+#' # the three model-definition slots can be modified
+#' # at once by calling 'model<-' with
+#' # (1) a list
+#'   model(nsher) <- bevholt()
+#' 
+#' # (2) the name of the function returning this list
+#'   model(nsher) <- 'bevholt'
+#'
+#' # or (3) the function itself that returns this list
+#'   model(nsher) <- bevholt
+#'
+NULL
 
 # ricker {{{
+#' @rdname SRModels
+#' @aliases ricker
 ricker <- function(){
   logl <- function(a, b, rec, ssb)
       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))
@@ -28,6 +243,8 @@ ricker <- function(){
   # }}}
 
 # bevholt {{{
+#' @rdname SRModels
+#' @aliases bevholt
 bevholt <- function()
   {
   ## log likelihood, assuming normal log.
@@ -40,15 +257,6 @@ bevholt <- function()
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
     return(FLPar(a = a, b = a/b))},
 
-#rec=ssb*a/(b+ssb)
-#ssb/rec=b/a+ssb/a
-
-#    x <-c(ssb)
-#    y <-c(ssb)/c(rec)
-#    res <- lm(y~x, na.action = na.omit)
-
-#    return(FLPar(a = 1/coef(res)[2], b = coef(res)[1]*coef(res)[2]))},
-
   ## bounds
   lower=rep(-Inf, 2),
 	upper=rep( Inf, 2))
@@ -60,6 +268,8 @@ bevholt <- function()
 } # }}}
 
 # segreg  {{{
+#' @rdname SRModels
+#' @aliases segreg
 segreg <- function(){
 	logl <- function(a, b, rec, ssb){
 
@@ -76,6 +286,8 @@ segreg <- function(){
 } # }}}
 
 # geomean {{{
+#' @rdname SRModels
+#' @aliases geomean
 geomean<-function() 
     {
     logl <- function(a, rec)
@@ -92,6 +304,8 @@ geomean<-function()
     } # }}}
 
 # shepherd  {{{
+#' @rdname SRModels
+#' @aliases shepherd
 shepherd <- function()
 {
   logl <- function(a,b,c,rec,ssb)
@@ -120,6 +334,8 @@ shepherd <- function()
 } # }}}
 
 # cushing {{{
+#' @rdname SRModels
+#' @aliases cushing
 cushing<-function()
 {
   logl <- function(a, b, rec, ssb)
@@ -142,6 +358,8 @@ cushing<-function()
 }  # }}}
 
 # rickerSV  {{{
+#' @rdname SRModels
+#' @aliases rickerSV
 rickerSV <- function()
 {
   logl <- function(s, v, spr0, rec, ssb)
@@ -167,6 +385,8 @@ rickerSV <- function()
 } # }}}
 
 # bevholtSV {{{
+#' @rdname SRModels
+#' @aliases bevholtSV
 bevholtSV <- function()
   {
   logl <- function(s, v, spr0, rec, ssb)
@@ -194,6 +414,8 @@ bevholtSV <- function()
 } # }}}
 
 # shepherdSV {{{
+#' @rdname SRModels
+#' @aliases shepherdSV
 shepherdSV <- function()
   {
   logl <- function(s, v, spr0, c, rec, ssb)
@@ -222,6 +444,8 @@ shepherdSV <- function()
 } # }}}
 
 # bevholtAR1 {{{
+#' @rdname SRModels
+#' @aliases bevholtAR1
 bevholtAR1 <- function()
   {
   ## log likelihood, assuming normal log.
@@ -246,6 +470,8 @@ bevholtAR1 <- function()
 } # }}}
 
 # rickerAR1 {{{
+#' @rdname SRModels
+#' @aliases bevholtAR1
 rickerAR1 <- function()
   {
   ## log likelihood, assuming normal log.
@@ -270,6 +496,8 @@ rickerAR1 <- function()
 } # }}}
 
 #segregAR1 {{{
+#' @rdname SRModels
+#' @aliases segregAR1
 segregAR1 <- function(){
     logl <- function(a, b, rho, rec, ssb){
        loglAR1(log(rec), FLQuant(log(ifelse(c(ssb)<=b,a*c(ssb),a*b)),dimnames=dimnames(ssb)),rho=rho)}
@@ -285,6 +513,8 @@ return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # Ricker with covariate  {{{
+#' @rdname SRModels
+#' @aliases rickerCa
 rickerCa <- function() {
   logl <- function(a, b, c, rec, ssb, covar)
     loglAR1(log(rec), log(a * (1 - c * covar) * ssb * exp(-b * ssb)))
@@ -335,11 +565,8 @@ setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
 setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
   function(ssb)
   {
-    # rec
-    sr <- as.FLSR(ssb)
-
     # spr0
-    spr0(ssb=ssb(ssb), rec=rec(sr), fbar=fbar(ssb))
+    spr0(ssb=ssb(ssb), rec=rec(ssb), fbar=fbar(ssb))
   }
 )
 
@@ -370,6 +597,18 @@ setMethod('rSq', signature(obs='FLQuant',hat='FLQuant'),
 ) # }}}
 
 # loglAR1 {{{
+#' FLSR log-likelihood function
+#'
+#' DESC
+#'
+#' TEXT
+#' @name loglAR1
+#' @rdname loglAR1
+#' @aliases loglAR1 loglAR1,FLQuant,FLQuant-method
+#' @references
+#' Seber, G.A.F., Wild, C.J. 2005. Autocorrelated Errors. In Seber, G.A.F., Wild, C.J.
+#'   Nonlinear regression, pages 271-323. doi: 10.1002/0471725315.ch6.
+#'
 setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
   function(obs, hat, rho=0){
 
@@ -400,6 +639,8 @@ setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
     return(res)}) 
 
 
+#' @rdname loglAR1
+#' @aliases loglAR1,numeric,numeric-method
 setMethod("loglAR1", signature(obs = "numeric", hat = "numeric"),
   function(obs, hat, rho = 0) 
   {

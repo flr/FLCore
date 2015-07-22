@@ -53,6 +53,7 @@
 #'     setClass('FLGrowth', representation('FLModel', mass='FLArray'))
 #'
 #'   # Define a creator method based on FLModel
+#' 		 setGeneric("FLGrowth", function(object, ...) standardGeneric("FLGrowth"))
 #'     setMethod('FLGrowth', signature(object='ANY'),
 #'       function(object, ...) return(FLModel(object, ..., class='FLGrowth')))
 #'     setMethod('FLGrowth', signature(object='missing'),
@@ -60,5 +61,5 @@
 #'
 #'   # Define an accessor method
 #'     setMethod('mass', signature(object='FLGrowth'),
-#'       function(object) return(object@mass))
+#'       function(object) return(slot(object, 'mass')))
 #'
