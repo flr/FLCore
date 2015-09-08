@@ -309,6 +309,31 @@ setMethod("median", signature(x='FLPar'),
       median, na.rm=na.rm))
 )
 
+#' Method var
+#'
+#' Variance of an FLPar
+#' 
+#' \code{var} computes the variance of an \code{\link{FLPar}} object along the
+#' last dimension (\code{iter}) returning a value for each \code{param}
+#' 
+#' By default, arguments \code{na.rm} and \code{use} have values of
+#' \code{FALSE} and \code{'all.obs'} respectively. See the
+#' \code{\link[stats]{var}} help page for more information on possible argument
+#' values.
+#'
+#' @name var
+#' @aliases var,FLPar,missing,missing,missing-method var,FLPar-method
+#' @docType methods
+#' @section Generic function: var(x, y, na.rm, use)
+#' @author The FLR Team
+#' @seealso \code{\link[stats]{var}}, \code{\linkS4class{FLPar}}
+#' @keywords methods
+#' @examples
+#' 
+#' flp <- FLPar(rnorm(200), params=c('a', 'b'))
+#' var(flp)
+#'
+
 setMethod("var", signature(x='FLPar'),
 	function(x, y=NULL, na.rm=TRUE, use) {
   	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
