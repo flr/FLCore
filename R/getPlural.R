@@ -16,7 +16,6 @@
 #' @keywords methods
 #'
 
-
 # ANY -> list
 setMethod('getPlural', signature(object='ANY'),
 	function(object) {

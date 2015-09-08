@@ -9,7 +9,7 @@
 \S4method{BIC}{FLModel}(object)
 }
 \arguments{
-\item{object}{a fitted FLModel object for which there exists a ‘logLik’ method to
+\item{object}{a fitted FLModel object for which there exists a 'logLik' method to
 extract the corresponding log-likelihood.}
 }
 \description{
