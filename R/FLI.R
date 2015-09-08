@@ -73,7 +73,13 @@ setMethod("dims", signature(obj="FLI"),
     }
 )    # }}}
 
-## trim     {{{
+# trim     {{{
+
+#' @rdname trim
+#' @aliases trim,FLI-method
+#' @aliases trim,FLIndex-method
+#' @aliases trim,FLIndexBiomass-method
+
 setMethod("trim", signature("FLI"), function(x, ...){
 
 	args <- list(...)

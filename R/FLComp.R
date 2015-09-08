@@ -167,6 +167,11 @@ setMethod('qapply', signature(X='FLComp', FUN='function'),
 )   # }}}
 
 # trim     {{{
+
+#' @rdname trim
+#' @aliases trim,FLComp-method
+#' @aliases trim,FLStock-method
+
 setMethod("trim", signature("FLComp"),
 	function(x, ...)
 	{
