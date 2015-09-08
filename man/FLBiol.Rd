@@ -28,58 +28,41 @@
 A class for modelling age / length or biomass structured populations.
 }
 \details{
-The \code{FLBiol} class is a representation of a biological fish population.
-This includes information on abundances, natural mortlity and fecundity.
+The \code{FLBiol} class is a representation of a biological fish population
+(in contrast to \code{\link{FLStock}}, which represents a fish stock; the
+two may not fully coincide). This includes information on abundances,
+natural mortlity and fecundity.
 }
 \section{Slots}{
- \describe{
-    \item{n}{Numbers in the population. \code{FLQuant}.}
-    \item{m}{Mortality rate of the population. \code{FLQuant}.}
-    \item{wt}{Mean weight of an individual. \code{FLQuant}.}
-    \item{fec}{Fecundity/maturity/per capita birth rate. \code{FLQuant}.}
-    \item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
-    \item{name}{Name of the object. \code{character}.}
-    \item{desc}{Brief description of the object. \code{character}.}
-    \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
-}
-
-\section{Accesors}{
-
-All slots in the class have accessor and replacement methods defined that
-allow retrieving and substituting individual slots.
-
-The values passed for replacement need to be of the class of that slot.
-A numeric vector can also be used when replacing FLQuant slots, and the
-vector will be used to substitute the values in the slot, but not its other
-attributes.
-}
-
-\section{Constructor}{
-
-A construction method exists for this class that can take named arguments for
-any of its slots. All slots are then created to match the requirements of the
-class validity. If an unnamed \code{FLQuant} object is provided, this is used
-for sizing but not stored in any slot.
-}
-
-\section{Validity}{
- \describe{
-    \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-    \item{Iters}{The dimname for iter[1] should be '1'.}
-    \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
-}
+ \describe{ \item{n}{Numbers in the population.
+\code{FLQuant}.} \item{m}{Mortality rate of the population. \code{FLQuant}.}
+\item{wt}{Mean weight of an individual. \code{FLQuant}.}
+\item{fec}{Fecundity/maturity/per capita birth rate. \code{FLQuant}.}
+\item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
+\item{name}{Name of the object. \code{character}.} \item{desc}{Brief
+description of the object. \code{character}.} \item{range}{Named numeric
+vector containing the quant and year ranges, and the plusgroup
+(\code{numeric}).} }
 }
 \examples{
 # An FLBiol example dataset
-data(ple4.biol)
+  data(ple4.biol)
+  summary(ple4.biol)
 
-summary(ple4.biol)
+# Create an FLBiol object from an existing FLStock object
+  data(ple4)
+  flb1 <- as.FLBiol(ple4)
+  plot(flb1)
+
+  # Just extract same dimensions without contents
+    flb2 <- FLBiol(stock.n(ple4))
 }
 \author{
 The FLR Team
 }
 \seealso{
-\link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce}, \link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
+\link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce},
+\link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
 }
 \keyword{classes}
 

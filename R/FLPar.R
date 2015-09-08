@@ -295,18 +295,6 @@ setMethod("units<-", signature(x="FLPar", value="character"),
 	}
 ) # }}}
 
-# as.data.frame     {{{
-setMethod("as.data.frame", signature(x="FLPar"),
-	function(x, row.names='col', optional=FALSE, drop=FALSE) {
-	  res <- as(x, 'data.frame')
-    if(drop) {
-      idx <- names(x)[dim(x) > 1]
-      res <- res[, c(idx, 'data')]
-    }
-    return(res)
-  }
-)   # }}}
-
 # mean, median, var, quantile   {{{
 # TODO review for 3D param objects
 setMethod("mean", signature(x='FLPar'),
@@ -643,6 +631,8 @@ setMethod('sweep', signature(x='FLPar'),
 ) # }}}
 
 # apply {{{
+#' @rdname apply
+#' @aliases apply,FLPar,numeric,function-method
 setMethod('apply', signature(X='FLPar'),
   function(X, MARGIN, FUN, ...)
   {

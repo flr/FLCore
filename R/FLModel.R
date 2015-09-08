@@ -535,6 +535,8 @@ setMethod('predict', signature(object='character'),
 #' @aliases AIC,FLModel,numeric-method AIC,FLModel,missing-method
 #' @docType methods
 #' @section Generic function: AIC(object, k)
+#' @param object an FLModel object
+#' @param k the penalty per parameter to be used; the default 'k = 2' is the classical AIC.
 #' @author The FLR Team
 #' @seealso \link[stats]{AIC}, \link[stats]{logLik}, \link{FLModel}
 #' @keywords methods
@@ -554,6 +556,7 @@ setMethod('AIC', signature(object='FLModel', k='missing'),
 )  # }}}
 
 # BIC   {{{
+
 #' Method BIC
 #'
 #' Bayesian information criterion (BIC) method
@@ -566,6 +569,8 @@ setMethod('AIC', signature(object='FLModel', k='missing'),
 #' @aliases BIC,FLModel-method
 #' @docType methods
 #' @section Generic function: BIC(object)
+#' @param object a fitted FLModel object for which there exists a 'logLik' method to
+#' extract the corresponding log-likelihood.
 #' @author The FLR Team
 #' @seealso \link[stats]{BIC}, \link[stats]{AIC}, \link{FLModel},
 #' \link[stats]{logLik}
@@ -575,6 +580,7 @@ setMethod('AIC', signature(object='FLModel', k='missing'),
 #' data(nsher)
 #' BIC(nsher)
 #' 
+
 setMethod('BIC', signature(object='FLModel'),
   function(object)
     return(BIC(object@logLik))

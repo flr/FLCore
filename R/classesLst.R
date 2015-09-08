@@ -140,8 +140,33 @@ setMethod("FLQuants", "FLQuants", function(object){
 
 # FLCohorts {{{
 
-# validity
-vFLQs <- function(object){
+#' Class FLCohorts
+#' 
+#' \code{FLCohorts} is a class that extends \code{list} through \code{FLlst}
+#' but implements a set of features that give a little more structure to
+#' list objects. The elements of \code{FLCohorts} must all be of class
+#' \code{FLCohort}. It implements a lock mechanism that, when turned on, does
+#' not allow the user to increase or decrease the object length.
+#'
+#' @name FLCohorts
+#' @aliases FLCohorts-class FLCohorts FLCohorts-methods FLCohorts,ANY-method
+#' FLCohorts,missing-method FLCohorts,list-method FLCohorts,FLCohorts-method
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{The data. \code{list}}
+#' \item{names}{Names of the list elements. \code{character}}
+#' \item{desc}{Description of the object. \code{character}} \item{lock}{Lock
+#' mechanism, if turned on the length of the list can not be modified by adding
+#' or removing elements. \code{logical}} }
+#' @author The FLR Team
+#' @seealso \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame},
+#' \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame},
+#' \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
+#' \link{FLlst}, \link[base]{list}
+#' @keywords classes
+#'
+
+setClass("FLCohorts", contains="FLlst",
+	validity=function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
 		if(!is(object[[i]], "FLCohort")) stop("Components must be FLCohort")
@@ -149,10 +174,6 @@ vFLQs <- function(object){
 	# Everything is fine
 	return(TRUE)
 }
-
-# class
-setClass("FLCohorts", contains="FLlst",
-	validity=vFLQs
 )
 
 # constructor
@@ -271,7 +292,31 @@ setMethod("FLStocks", signature(object="list"),
 }) # }}}
 
 # FLIndices {{{
-# class
+#' Class FLIndices
+#' 
+#' \code{FLIndices} is a class that extends \code{list} through \code{FLlst}
+#' but implements a set of features that give a little more structure to
+#' list objects. The elements of \code{FLIndices} must all be of class
+#' \code{FLIndex}. It implements a lock mechanism that, when turned on, does
+#' not allow the user to increase or decrease the object length.
+#'
+#' @name FLIndices
+#' @aliases FLIndices-class FLIndices FLIndices-methods FLIndices,ANY-method
+#' FLIndices,missing-method FLIndices,list-method
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{The data. \code{list}.}
+#' \item{names}{Names of the list elements. \code{character}.}
+#' \item{desc}{Description of the object. \code{character}.} \item{lock}{Lock
+#' mechanism, if turned on the length of the list can not be modified by adding
+#' or removing elements. \code{logical}.} }
+#' @author The FLR Team
+#' @seealso \linkS4class{FLlst}, \link[base]{list}
+#' @keywords classes
+#' @examples
+#' 
+#' data(ple4.index)
+#' flis <- FLIndices(INDa=ple4.index, INDb=window(ple4.index, end=2000))
+#'
 setClass("FLIndices", contains="FLComps",
 	validity = function(object) {
 
@@ -337,18 +382,33 @@ setMethod("FLIndices", signature(object="list"),
 }) # }}}
 
 # FLBiols {{{
-vFLSs <- function(object){
+# class
+
+#' Class FLBiols
+#' 
+#' A list of \code{FLBiol} objects.
+#'
+#' @name FLBiols
+#' @aliases FLBiols FLBiols-class FLBiols FLBiols-methods FLBiols,ANY-method
+#' FLBiols,missing-method FLBiols,list-method
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{Internal S4 data representation, of
+#' class \code{list}.} \item{desc}{As textual description of the object
+#' contents} \item{lock}{Can the object be extended/trimmed? \code{TRUE} or
+#' \code{FALSE}.} \item{names}{A character vector for the element names} }
+#' @author The FLR Team
+#' @seealso \link{FLlst}, \link[base]{list}, \link[base]{vector}
+#' @keywords classes
+#'
+setClass("FLBiols", contains="FLComps",
+	validity=function(object){
 
   # All items are FLBiol
   if(!all(unlist(lapply(object, is, 'FLBiol'))))
       return("Components must be FLBiol")
 
 	return(TRUE)
-}
-
-# class
-setClass("FLBiols", contains="FLComps",
-	validity=vFLSs
+	}
 )
 
 # constructor

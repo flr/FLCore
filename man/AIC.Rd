@@ -9,6 +9,11 @@
 \usage{
 \S4method{AIC}{FLModel,numeric}(object, k)
 }
+\arguments{
+\item{object}{an FLModel object}
+
+\item{k}{the penalty per parameter to be used; the default 'k = 2’ is the classical AIC.}
+}
 \description{
 Akaike's information criterion (AIC) method
 }

@@ -23,6 +23,9 @@
 
 \S4method{Arith}{FLPar,FLArray}(e1, e2)
 }
+\arguments{
+\item{e1,e2}{Objects}
+}
 \description{
 Arithmetic methods for FLR objects
 }

@@ -74,7 +74,8 @@ formulation implemented for each of them.
             b     <- 1
             sigma <- sqrt(var(rec))
 
-            return(list(a= a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
+            return(list(a= a, b = b, sigma = sigma))},
+								lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
 
        return(list(model = formula, initial = initial, logl = logl))
     }

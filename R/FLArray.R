@@ -62,6 +62,13 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 #' @section Generic function: \describe{ \item{}{[x,i,j,drop]}
 #' \item{}{[<-(x,i,j,value)} \item{}{[[<-(x,i,j,value)}
 #' \item{}{\$<-(x,name,value)} }
+#' @param x object from which to extract or replace element(s)
+#' @param i,j,k,l,m,n,... indices specifying elements to extract or replace.
+#' @param drop If 'TRUE' the result is coerced to the lowest possible dimension, and so
+#' might chmnage class (e.g. drop='TRUE' on an \code{FLQuant} might return an \code{array}.
+#' @param value An object of a similar or simpler class than 'x'.
+#' @param name
+#' See \link[base]{Extract} for further details.
 #' @author The FLR Team
 #' @seealso \link[base]{Extract}
 #' @keywords methods
@@ -563,6 +570,7 @@ uom <- function(op, u1, u2) {
 #' @aliases Arith,numeric,FLArray-method
 #' @docType methods
 #' @section Generic function: Arith(e1,e2)
+#' @param e1,e2 Objects
 #' @author The FLR Team
 #' @seealso \code{\link[base]{Arithmetic}}, \code{\link[methods]{Arith}}
 #' @keywords methods
@@ -629,22 +637,6 @@ setMethod("Arith",
     return(new(class(e1), e, units=units))
 	}
 )   # }}}
-
-# as.data.frame        {{{
-setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
-  optional="missing"),
-	function(x) {
-    as(x, 'data.frame')
-  }
-)
-setMethod("as.data.frame", signature(x="FLArray", row.names="ANY",
-  optional="missing"),
-	function(x, row.names=NULL) {
-    df <- as(x, 'data.frame')
-    row.names(df) <- row.names
-    return(df)
-  }
-) # }}}
 
 # scale {{{
 setMethod("scale", signature(x="FLArray", center="ANY", scale="ANY"),
@@ -725,6 +717,32 @@ setMethod("qmin", signature(x="FLArray"),
 # }}}
 
 # apply {{{
+#' Method apply
+#' 
+#' Functions can be applied to margins of an \code{FLQuant} or \code{FLPar} array
+#' using this method. In contrast with the standard R method, dimensions are not collapsed
+#' in the output object.
+#' 
+#' \code{FUN} in the case of an \code{FLQuant} must be a function whose results is least one
+#' dimension less when applied over an array (e.g. sum, mean, ...).
+#' 
+#' For further details see \link[base]{apply}.
+#'
+#' @name apply
+#' @aliases apply,ANY,missing,missing-method apply,FLQuant,numeric,function-method
+#' apply,FLArray,numeric,function-method
+#' @docType methods
+#' @section Generic function: apply(X,MARGIN,FUN)
+#' @author The FLR Team
+#' @seealso \link[base]{apply}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(1000), dim=c(10,20,1,1,1,5))
+#' apply(flq, 1, sum)
+#' apply(flq, 2:6, sum)
+#' 
+
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 	function(X, MARGIN, FUN, ...)
   {

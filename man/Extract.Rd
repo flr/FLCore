@@ -56,6 +56,18 @@
 
 \S4method{[}{FLlst,ANY,missing,ANY}(x, i, j, drop)
 }
+\arguments{
+\item{x}{object from which to extract or replace element(s)}
+
+\item{i,j,k,l,m,n,...}{indices specifying elements to extract or replace.}
+
+\item{drop}{If 'TRUE' the result is coerced to the lowest possible dimension, and so
+might chmnage class (e.g. drop='TRUE' on an \code{FLQuant} might return an \code{array}.}
+
+\item{value}{An object of a similar or simpler class than 'x'.}
+
+\item{name}{See \link[base]{Extract} for further details.}
+}
 \description{
 Extract or replace parts of an FLR Object
 }
