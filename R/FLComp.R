@@ -41,7 +41,7 @@ setMethod("summary", signature(object="FLComp"),
 
 # window    {{{
 
-#' @drname window
+#' @rdname window
 #' @aliases window,FLComp-method
 setMethod("window", signature(x="FLComp"),
 	  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1) {
@@ -202,7 +202,7 @@ setMethod("trim", signature("FLComp"),
 
 # units	    {{{
 
-#' @drname units
+#' @rdname units
 #' @aliases units,FLComp-method
 setMethod("units", signature(x="FLComp"), function(x)
 	qapply(x, units)
@@ -210,7 +210,7 @@ setMethod("units", signature(x="FLComp"), function(x)
 #}}}
 
 # units<-      {{{
-#' @drname units
+#' @rdname units
 #' @aliases units<-,FLComp,list-method
 setMethod("units<-", signature(x="FLComp", value="list"),
     function(x, value) {
