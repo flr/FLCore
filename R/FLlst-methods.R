@@ -127,6 +127,8 @@ setMethod("lapply", signature(X="FLlst"),
 )  # }}}
 
 # window  {{{
+#' @drname window
+#' @aliases window,FLlst-method
 setMethod("window", "FLlst", function(x,...){
 	args <- list(...)
 	args$FUN <- "window"

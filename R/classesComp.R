@@ -903,4 +903,5 @@ setClass('FLModel',
 		return(TRUE)
 		}
 )
-invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution')))  # }}}
+invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution'))) 
+# }}}
