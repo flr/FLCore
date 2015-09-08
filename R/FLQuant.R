@@ -982,9 +982,9 @@ return(res)
 )# }}}
 
 # sweep {{{
-if (!isGeneric("sweep"))
-setGeneric("sweep", function (x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)
-standardGeneric("sweep"))
+
+#' @rdname sweep
+#' @aliases sweep,FLQuant-method
 
 setMethod('sweep', signature(x='FLQuant'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)

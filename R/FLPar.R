@@ -653,6 +653,10 @@ setMethod('sv', signature(x='FLPar', model='formula'),
   })# }}}
 
 # sweep {{{
+
+#' @rdname sweep
+#' @aliases sweep,FLPar-method
+
 setMethod('sweep', signature(x='FLPar'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
   {
