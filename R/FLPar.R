@@ -282,12 +282,18 @@ setMethod("splom", signature("FLPar", "missing"),
 )   # }}}
 
 # units        {{{
+
+#' @drname units
+#' @aliases units,FLPar-method
 setMethod("units", signature(x="FLPar"),
 	function(x)
 		return(x@units)
 ) # }}}
 
 # units<-      {{{
+
+#' @drname units
+#' @aliases units<-,FLPar,character-method
 setMethod("units<-", signature(x="FLPar", value="character"),
 	function(x, value) {
 		x@units <- value

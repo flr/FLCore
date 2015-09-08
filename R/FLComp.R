@@ -196,12 +196,17 @@ setMethod("trim", signature("FLComp"),
 ) # }}}
 
 # units	    {{{
+
+#' @drname units
+#' @aliases units,FLComp-method
 setMethod("units", signature(x="FLComp"), function(x)
 	qapply(x, units)
 )
 #}}}
 
 # units<-      {{{
+#' @drname units
+#' @aliases units<-,FLComp,list-method
 setMethod("units<-", signature(x="FLComp", value="list"),
     function(x, value) {
         for(i in seq(along=value))
