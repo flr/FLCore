@@ -74,18 +74,50 @@ setMethod("show", signature(object="FLQuantPoint"),
 	}
 )   # }}}
 
-## random generators	{{{
-# rnorm(FLQuantPoint, missing)
+# random generators	{{{
+
+# rnorm
+#' @rdname rnorm
+#' @aliases rnorm,numeric,FLQuantPoint,missing-method
+
 setMethod("rnorm", signature(n='numeric', mean="FLQuantPoint", sd="missing"),
 	function(n=1, mean)
 	rnorm(n, mean(mean), sqrt(var(mean)))
 )
+
 # rlnorm
+#' @rdname rlnorm
+#' @aliases rlnorm,numeric,FLQuantPoint,missing-method
 setMethod("rlnorm", signature(n='numeric', meanlog="FLQuantPoint", sdlog="missing"),
 	function(n=1, meanlog)
 	rlnorm(n, mean(meanlog), sqrt(var(meanlog)))
 )
 # rgamma
+
+#' Method rgamma
+#' 
+#' Random generation for the Gamma distribution with parameters 'shape' and
+#' 'scale'. 'shape' can be of class \code{\link{FLQuantPoint}} in which case
+#' 'shape' and 'scale' are set as \eqn{\hat{x}^2 / \sigma^2}{mean^2 / var} and
+#' \eqn{\sigma^2 / \hat{x}}{var / mean} respectively.
+#'
+#' @name rgamma
+#' @aliases rgamma,numeric,FLQuantPoint,missing,missing-method
+#' @docType methods
+#' @section Generic function: rgamma(n,shape,rate,scale)
+#' @author The FLR Team
+#' @seealso \link[stats]{rgamma}, \linkS4class{FLQuantPoint}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(1000,mean=10,sd=2),dim=c(1,10,1,1,1,100))
+#' flqp <- FLQuantPoint(flq)
+#' rgamma(10,shape=flqp)
+#'
+#' data(ple4)
+#' rgamma(10,FLQuantPoint(rnorm(200, catch(ple4), 20000)))
+#'
+
 setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 	scale="missing"),
 	function(n=1, shape)

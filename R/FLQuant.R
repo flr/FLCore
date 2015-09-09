@@ -764,6 +764,31 @@ setMethod("propagate", signature(object="FLQuant"),
 ) # }}}
 
 # rnorm{{{
+
+#' Method rnorm
+#' 
+#' Generates random numbers following a normal distribution. \emph{mean} and
+#' \emph{sd} can be specified as objects of class \code{\linkS4class{FLQuant}},
+#' of the same dimensions, but any of the two could be given as a numeric, in
+#' which case the value will be reused accordingly. If either is of class
+#' \code{FLQuant} then the resultant object will be of class \code{FLQuant}.
+#'
+#' @name rnorm
+#' @aliases rnorm,numeric,FLQuant,FLQuant-method
+#' rnorm,numeric,FLQuant,missing-method rnorm,numeric,FLQuant,numeric-method
+#' rnorm,numeric,numeric,FLQuant-method rnorm,numeric,missing,FLQuant-method
+#' @docType methods
+#' @section Generic function: rnorm(n, mean, sd)
+#' @author The FLR Team
+#' @seealso \link[stats]{rnorm}, \linkS4class{FLQuant},
+#' \linkS4class{FLQuantPoint}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' rnorm(10,mean=harvest(ple4)[,"2001"], sd=harvest(ple4)[,"2001"])
+#'
+
 setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
   function(n=1, mean, sd) {
     if(dim(mean)[6] > 1 | dim(sd)[6] > 1)
@@ -795,6 +820,33 @@ rnorm(n, 0, sd)
 # }}}
 
 # rlnorm {{{
+
+#' Method rlnorm
+#' 
+#' Random generation for the lognormal distribution whose logarithm has mean
+#' equal to \emph{meanlog} and standard deviation equal to \emph{sdlog}.
+#' \emph{meanlog} and \emph{sdlog} can be given as \code{FLQuant} objects. If
+#' both are given as \code{FLQuant} objects their dimensions must be the same.
+#' If either of these arguments are \code{FLQuant} objects, \code{rlnorm}
+#' returns an \code{FLQuant}.
+#'
+#' @name rlnorm
+#' @aliases rlnorm,numeric,FLQuant,FLQuant-method
+#' rlnorm,numeric,FLQuant,missing-method rlnorm,numeric,FLQuant,numeric-method
+#' rlnorm,numeric,numeric,FLQuant-method rlnorm,numeric,missing,FLQuant-method
+#' @docType methods
+#' @section Generic function: rlnorm(n,meanlog,sdlog)
+#' @author The FLR Team
+#' @seealso \link[stats]{rlnorm}, \linkS4class{FLQuant},
+#' \linkS4class{FLQuantPoint}
+#' @keywords methods
+#' @examples
+#' 
+#' out <- rlnorm(1000, meanlog=FLQuant(rep(5,5)), sdlog=FLQuant(0:4))
+#' apply(log(out),2,sd)
+#' apply(log(out),2,mean)
+#'
+
 setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="FLQuant"),
   function(n=1, meanlog, sdlog) {
     if(dim(meanlog)[6] > 1 | dim(sdlog)[6] > 1)
@@ -839,6 +891,26 @@ setMethod("rlnorm", signature(n='FLQuant', meanlog="ANY", sdlog="ANY"),
 # }}}
 
 # rpois{{{
+
+#' Method rpois
+#' 
+#' Generates random numbers following a Poisson distribution. \emph{lambda},
+#' the (non-negative) mean, can be specified as an object of class
+#' \code{\linkS4class{FLQuant}}.
+#'
+#' @name rpois
+#' @aliases rpois,numeric,FLQuant-method rpois,numeric,FLQuant-method
+#' @docType methods
+#' @section Generic function: rpois(n, lambda)
+#' @author The FLR Team
+#' @seealso \link{rpois}, \link{FLQuant}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' rpois(50,lambda=harvest(ple4))
+#'
+
 setMethod("rpois", signature(n='numeric', lambda="FLQuant"),
 function(n=1, lambda) {
     if(dim(lambda)[6] > 1)

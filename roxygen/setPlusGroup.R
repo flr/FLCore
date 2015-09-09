@@ -9,7 +9,7 @@
 #' @name setPlusGroup
 #' @aliases setPlusGroup setPlusGroup-methods
 #' setPlusGroup,FLQuant,numeric-method setPlusGroup,FLStock,numeric-method
-#' setPlusGroup,FLBiol,numeric-method setPlusGroup,FLCatch,numeric-method
+#' setPlusGroup,FLBiol,numeric-method
 #' @docType methods
 #' @section Generic function: sePlusGroup(x, plusgroup)
 #' @author The FLR Team
