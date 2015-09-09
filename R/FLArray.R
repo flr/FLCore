@@ -277,6 +277,34 @@ setMethod("iter", signature(obj="FLArray"),
 )   # }}}
 
 # summary          {{{
+
+#' Method summary
+#' 
+#' Outputs a general summary of the structure and content of the object. The
+#' particular output obtined depends on the class of the argument object.
+#'
+#' @name summary
+#' @aliases summary,FLArray-method
+#' @aliases summary,FLQuant-method summary,FLQuantPoint-method
+#' summary,FLComp-method summary,FLQuants-method summary,FLPar-method
+#' summary,FLModel-method summary,FLArray-method summary,FLlst-method
+#' @docType methods
+#' @section Generic function: summary(object)
+#' @author The FLR Team
+#' @seealso \link[base]{summary}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
+#' summary(flq)
+#'
+#' data(ple4)
+#' summary(ple4)
+#' 
+#' data(nsher)
+#' summary(nsher)
+#'
+
 setMethod("summary", signature(object="FLArray"),
 	function(object, ...)
 	{
