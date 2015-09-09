@@ -471,8 +471,29 @@ setMethod("catch<-", signature(object="FLStock", value="FLQuants"),
 ) # }}}
 
 # ssbpurec  {{{
+
+#' Method ssbpurec
+#' 
+#' Calculates the spawning stock biomass per unit recruit at zero fishing
+#' mortality for an \code{FLStock} object.
+#' 
+#' @name ssbpurec
+#' @aliases ssbpurec ssbpurec-methods ssbpurec,FLStock-method
+#' @docType methods
+#' @section Generic function: ssbpurec(object)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLStock}
+#' @keywords methods
+#' @examples
+#'
+#' data(ple4)
+#' ssbpurec(ple4)
+#' ssbpurec(ple4, start=1980, end=2000)
+#'
+
 setMethod("ssbpurec",signature(object="FLStock"),
-	function(object, start = "missing", end = "missing", type = "non-param", recs = "missing", spwns = "missing", plusgroup = TRUE, ...) {
+	function(object, start = "missing", end = "missing", type = "non-param",
+		recs = "missing", spwns = "missing", plusgroup = TRUE, ...) {
 
 		# checks and chose the range over which we calculate the SSB per unit recruit
 		if((missing(start) && !missing(end)) | (!missing(start) && missing(end)))
