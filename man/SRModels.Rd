@@ -109,10 +109,8 @@ to produce the half of maximum recruitment \eqn{\frac{a}{2}}{a/2}.
 (\emph{a, b} > 0).
 
 \item geomean: Constant recruitment model fit, equal to the
-historical geometric mean recruitment.  \deqn{(R_1 R_2 \ldots R_n)^{1/n} =
-e^{\mathbf{mean}(\log(R_1),\ldots , }{R = (R_1*R_2*...*R_n)^(1/n) =
-exp(mean(log(R_1) + ... + log(R_n)))}\deqn{ \log(R_n)))}}{R =
-(R_1*R_2*...*R_n)^(1/n) = exp(mean(log(R_1) + ... + log(R_n)))}
+historical geometric mean recruitment.
+\deqn{exp(mean(log(R_1) + ... + log(R_n)))}{exp(mean(log(R_1) + ... + log(R_n)))}
 
 \item shepherd: Shepherd stock-recruitment model fit: \deqn{R =
 \frac{a S}{1+(\frac{S}{b})^c}}{ R = a * S/(1 + (S/b)^c)} \emph{a} represents
