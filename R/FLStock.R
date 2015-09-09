@@ -445,23 +445,23 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 #'   units(harvest(ple4))
 #'
 #' # ssb with F
-#'   ssb(ple4)
+#' ssb(ple4)
 #'
-#'   # Recalculate ssb with F and check
-#'     ssbF <- quantSums(stock.n(ple4) * stock.wt(ple4) * mat(ple4) *
-#'       exp(-harvest(ple4) * harvest.spwn(ple4) - m(ple4) * m.spwn(ple4)))
-#'     ssb(ple4)-ssbF
+#' # Recalculate ssb with F and check
+#' ssbF <- quantSums(stock.n(ple4) * stock.wt(ple4) * mat(ple4) *
+#'   exp(-harvest(ple4) * harvest.spwn(ple4) - m(ple4) * m.spwn(ple4)))
+#' ssb(ple4)-ssbF
 #'
+#'
+#' # Recalculate ssb with hr and check
+#' hr <- catch.n(ple4) / stock.n(ple4)
+#' units(hr) <- 'hr'
 #' # ssb with hr
-#'   harvest(ple4) <- hr
-#'   ssb(ple4)
-#'
-#'   # Recalculate ssb with hr and check
-#'     hr <- catch.n(ple4) / stock.n(ple4)
-#'     units(hr) <- 'hr'
-#'     ssbHR <- quantSums(stock.n(ple4) * stock.wt(ple4) * mat(ple4) *
-#'       (1 - hr * harvest.spwn(ple4)) * exp(-m(ple4) * m.spwn(ple4)))
-#'     ssb(ple4)-ssbHR
+#' harvest(ple4) <- hr
+#' ssb(ple4)
+#' ssbHR <- quantSums(stock.n(ple4) * stock.wt(ple4) * mat(ple4) *
+#'   (1 - hr * harvest.spwn(ple4)) * exp(-m(ple4) * m.spwn(ple4)))
+#' ssb(ple4)-ssbHR
 #'
 
 setMethod("ssb", signature(object="FLStock"),

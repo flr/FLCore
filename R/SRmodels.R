@@ -536,7 +536,7 @@ setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
   }
 )
 
-#' @drname
+#' @rdname spr0
 #' @aliases spr0,FLStock,missing,missing-method
 
 setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
@@ -547,7 +547,7 @@ setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
   }
 )
 
-#' @drname
+#' @rdname spr0
 #' @aliases spr0,FLSR,missing,FLQuant-method
 
 setMethod('spr0', signature(ssb='FLSR', rec='missing', fbar='FLQuant'),
