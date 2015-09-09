@@ -550,7 +550,8 @@ setMethod("r", signature(m="FLBiol", fec="missing"),
 #' Individual survival probability (i.e. from one year to the next) is simply
 #' exp(-M) and the survival probaiblity for a given quant is the cumulative
 #' product along the quant dimension of the individual survival probabilities.
-#' 
+#'
+#' @name survprob
 #' @aliases survprob survprob-methods survprob,FLBiol-method
 #' @param object An object of type \code{\linkS4class{FLBiol}}.
 #' @param \dots Extra arguments accepted by each implementation.
