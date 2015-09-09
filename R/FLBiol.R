@@ -170,6 +170,22 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 ) # }}}
 
 ## ssb  {{{
+
+#' @rdname ssb
+#' @aliases ssb,FLBiol-method
+#' @examples
+#'
+#' # For an FLBiol
+#'   data(ple4.biol)
+#' # Change spwn slot to make the calculation more interesting
+#'   spwn(ple4.biol)<-0.5
+#'
+#' # Calculate ssb and check
+#'  ssb(ple4.biol)
+#'  ssbp <- quantSums(n(ple4.biol) * fec(ple4.biol) * wt(ple4.biol) *
+#'    exp(-m(ple4.biol)*spwn(ple4.biol)))
+#'  ssb(ple4.biol)-ssbp
+#'
 setMethod("ssb", signature(object="FLBiol"),
 	function(object, ...)
   {
