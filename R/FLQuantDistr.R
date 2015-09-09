@@ -25,6 +25,10 @@ setMethod("FLQuantDistr", signature(object="FLQuant", var="FLQuant"),
 ) # }}}
 
 ## show     {{{
+
+#' @rdname show
+#' @aliases show,FLQuantDistr-method
+
 # TODO show median(var) or [lowq-uppq]
 setMethod("show", signature(object="FLQuantDistr"),
 	function(object){

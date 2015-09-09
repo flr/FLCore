@@ -56,6 +56,10 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
 )	# }}}
 
 ## show     {{{
+
+#' @rdname show
+#' @aliases show,FLQuantPoint-method
+
 # TODO show median(var) or [lowq-uppq]
 setMethod("show", signature(object="FLQuantPoint"),
 	function(object){

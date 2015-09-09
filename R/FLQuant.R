@@ -1107,6 +1107,10 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
 ) # }}}
 
 # show     {{{
+
+#' @rdname show
+#' @aliases show,FLQuant-method
+
 setMethod("show", signature(object="FLQuant"),
 	function(object){
 		callNextMethod()

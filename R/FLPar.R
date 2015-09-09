@@ -248,9 +248,6 @@ setMethod("plot", signature(x="FLPar", y="missing"),
 )
 
 # densityplot
-if (!isGeneric("densityplot")) {
-	setGeneric("densityplot", useAsDefault = densityplot)
-}
 setMethod("densityplot", signature("formula", "FLPar"), function(x, data, ...){
 	lst <- substitute(list(...))
 	lst <- as.list(lst)[-1]
@@ -271,9 +268,29 @@ setMethod("histogram", signature("formula", "FLPar"), function(x, data, ...){
 })
 
 # splom
-if (!isGeneric("splom")) {
-	setGeneric("splom", useAsDefault = splom)
-}
+
+#' Method splom
+#' 
+#' Draws a conditional scatter plot matrix.
+#' 
+#' See the help page in \code{\link[lattice]{lattice}} for a full description
+#' of each plot and all possible arguments.
+#'
+#' @name splom
+#' @aliases splom,FLPar,missing-method
+#' @docType methods
+#' @section Generic function: splom(x,data)
+#' @author The FLR Team
+#' @seealso \link[lattice]{splom}
+#' @keywords methods
+#' @examples
+#' 
+#' flp <- FLPar(t(mvrnorm(500, mu=c(0, 120, 0.01, 20),
+#'   Sigma=matrix(.7, nrow=4, ncol=4) + diag(4) * 0.3)),
+#'   dimnames=list(params=c('a','b','c','d'), iter=1:500))
+#'
+#' splom(flp)
+#'
 
 setMethod("splom", signature("FLPar", "missing"),
 	function(x, data, ...){
@@ -478,6 +495,10 @@ setMethod("names<-", signature(x="FLPar", value="character"),
 # }}}
 
 # show     {{{
+
+#' @rdname show
+#' @aliases show,FLPar-method
+
 setMethod("show", signature(object="FLPar"),
 	function(object) {
     ndim <- length(dim(object))
