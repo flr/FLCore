@@ -485,7 +485,31 @@ rickerCa <- function() {
 # methods
 
 # spr0  {{{
-## calcs spawner per recruit at F=0.0   
+
+#' Method spr0
+#' 
+#' Calculates spawners per recruit at F=0.
+#' 
+#' This method regresses SSB/R against Fbar, and estimates the intercept as
+#' \code{spr0}. The method currently does not work if any of the input objects
+#' have multiple units, seasons or areas (i.e. if dim(object)[3:5] > 1).
+#' 
+#' @name spr0
+#' @aliases spr0 spr0-methods spr0,FLQuant,FLQuant,FLQuant-method
+#' spr0,FLStock,missing,missing-method spr0,FLSR,missing,FLQuant-method
+#' @docType methods
+#' @section Generic function: quant(ssb, rec, fbar)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLStock}, \linkS4class{FLSR}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' spr0(ple4)
+#'
+#' # equivalent to
+#' spr0(ssb(ple4), rec(ple4), fbar(ple4))
+#'
 setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
    function(ssb, rec, fbar)
   {
@@ -512,6 +536,9 @@ setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
   }
 )
 
+#' @drname
+#' @aliases spr0,FLStock,missing,missing-method
+
 setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
   function(ssb)
   {
@@ -519,6 +546,9 @@ setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
     spr0(ssb=ssb(ssb), rec=rec(ssb), fbar=fbar(ssb))
   }
 )
+
+#' @drname
+#' @aliases spr0,FLSR,missing,FLQuant-method
 
 setMethod('spr0', signature(ssb='FLSR', rec='missing', fbar='FLQuant'),
   function(ssb, fbar)
