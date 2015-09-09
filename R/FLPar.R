@@ -12,10 +12,9 @@ setMethod('FLPar', signature(object="array"),
     iter=seq(dim(object)[length(dim(object))]), units=rep('NA', dim(object)[1]),
     dimnames= c(list(params=params), lapply(as.list(dim(object)[-c(1,
       length(dim(object)))]), seq), list(iter=iter))) {
-
-    # if no dimnames, 1st is params, last is iter
-    if(!is.null(dimnames(object)))
-    {
+    
+		# if no dimnames, 1st is params, last is iter
+		if(!is.null(dimnames(object)) & missing(dimnames)) {
       dimnames <- dimnames(object)
       
       # if iter missing, add it
