@@ -688,7 +688,7 @@ setMethod('rbind', signature('FLPar'),
 
 # cbind {{{
 setMethod('cbind', signature('FLPar'),
-  function(...) {
+  function(..., deparse.level=1) {
     
     args <- list(...)
     

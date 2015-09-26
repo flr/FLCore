@@ -794,52 +794,6 @@ setMethod('lm', signature(formula='FLModel', data = "missing", subset = "missing
   }
 ) # }}}
 
-# getFLPar {{{
-getFLPar <- function(object, formula=object@model)
-{
-  # get FLQuant slots' names
-  datanm <- getSlotNamesClass(object, 'FLArray')
-  flqs <- getSlotNamesClass(object, 'FLQuants')
-  if(length(flqs) > 0)
-  {
-    datanm <- c(datanm, flqs)
-    for(i in seq(length(flqs)))
-      datanm <- c(datanm, names(slot(object, flqs[i])))
-  }
-  datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
-  datanm <- datanm[!datanm %in% c('residuals', 'fitted')]
-  if(length(datanm) > 0)
-    datanm <- c(datanm, names(dimnames(slot(object, datanm[1]))))
-
-  # get those in formula
-  datanm <- datanm[datanm%in%all.vars(formula)]
-  parnm <- all.vars(formula)[!all.vars(formula) %in% datanm]
-
-  # covar
-  if('covar' %in% slotNames(object))
-  {
-    covarnm <- names(object@covar)
-    covarnm <- covarnm[covarnm%in%parnm]
-    if(length(covarnm))
-    {
-      datanm <- c(datanm, covarnm)
-      parnm <- parnm[!parnm %in% covarnm]
-    }
-  }
-
-  # check likelihood
-  if(!is.null(body(object@logl)))
-  {
-    lkhnm <- names(formals(object@logl))
-    lkhnm <- lkhnm[!lkhnm %in% datanm]
-    parnm <- c(lkhnm, sort(parnm)[!sort(parnm) %in% sort(lkhnm)])
-  }
-
-  # params
-  params <- FLPar(params=parnm)
-  return(params)
-} # }}}
-
 # lower & upper {{{
 setMethod("lower", signature(object="FLModel"),
   function(object)
@@ -1128,3 +1082,51 @@ setMethod('computeLogLik', signature(object='FLModel'),
   return(res)
   }
 ) # }}}
+
+# INTERNAL
+
+# getFLPar {{{
+getFLPar <- function(object, formula=object@model)
+{
+  # get FLQuant slots' names
+  datanm <- getSlotNamesClass(object, 'FLArray')
+  flqs <- getSlotNamesClass(object, 'FLQuants')
+  if(length(flqs) > 0)
+  {
+    datanm <- c(datanm, flqs)
+    for(i in seq(length(flqs)))
+      datanm <- c(datanm, names(slot(object, flqs[i])))
+  }
+  datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
+  datanm <- datanm[!datanm %in% c('residuals', 'fitted')]
+  if(length(datanm) > 0)
+    datanm <- c(datanm, names(dimnames(slot(object, datanm[1]))))
+
+  # get those in formula
+  datanm <- datanm[datanm%in%all.vars(formula)]
+  parnm <- all.vars(formula)[!all.vars(formula) %in% datanm]
+
+  # covar
+  if('covar' %in% slotNames(object))
+  {
+    covarnm <- names(object@covar)
+    covarnm <- covarnm[covarnm%in%parnm]
+    if(length(covarnm))
+    {
+      datanm <- c(datanm, covarnm)
+      parnm <- parnm[!parnm %in% covarnm]
+    }
+  }
+
+  # check likelihood
+  if(!is.null(body(object@logl)))
+  {
+    lkhnm <- names(formals(object@logl))
+    lkhnm <- lkhnm[!lkhnm %in% datanm]
+    parnm <- c(lkhnm, sort(parnm)[!sort(parnm) %in% sort(lkhnm)])
+  }
+
+  # params
+  params <- FLPar(params=parnm)
+  return(params)
+} # }}}
