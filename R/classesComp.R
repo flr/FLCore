@@ -410,7 +410,7 @@ validFLBiol <- function(object){
    ## All FLQuant objects must have same dimensions
    Dim <- dim(object@n)[-6]
 
-   s.  <-list("n","wt","fec","spwn","m")
+   s.  <-list("n","wt","fec","spwn","m","mat")
 
    for (i. in s.)	{
 	   t. <- slot(object,i.)
@@ -490,7 +490,8 @@ validFLBiol <- function(object){
 setClass("FLBiol",
 	representation(
 		"FLComp",
-    n        ="FLQuant",
+        n        ="FLQuant",
+        mat      ="FLQuant",
 		m        ="FLQuant",
 		wt       ="FLQuant",
 		fec      ="FLQuant",
@@ -498,7 +499,8 @@ setClass("FLBiol",
       ),
 	prototype=prototype(
 		range    =unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
-    n        = FLQuant(),
+        n        = FLQuant(),
+        mat      = FLQuant(),
 		m        = FLQuant(),
 		wt       = FLQuant(),
 		fec      = FLQuant(),

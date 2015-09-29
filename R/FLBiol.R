@@ -18,7 +18,7 @@ setMethod('FLBiol', signature(object='FLQuant'),
     dims <- dims(object)
 
     res <- new("FLBiol",
-    n=object, m=object, wt=object, fec=object, spwn=object,
+    n=object, mat=object, m=object, wt=object, fec=object, spwn=object,
     range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
 			minyear=dims$minyear, maxyear=dims$maxyear)))
 
@@ -116,7 +116,8 @@ setMethod("as.FLBiol", signature(object="FLStock"), function(object,...){
 	flb@n <- object@stock.n
 	flb@m <- object@m
 	flb@wt <- object@stock.wt
-	flb@fec <- object@mat
+    flb@fec <- NA
+	flb@mat <- object@mat
 	flb@spwn <- object@m.spwn
     return(flb)
   }

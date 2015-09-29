@@ -105,7 +105,7 @@ setAs('FLBiol', 'FLStock',
 	function(from)
 	{
 		FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
-			name=from@name, desc=from@desc, mat=from@fec,
+			name=from@name, desc=from@desc, mat=from@mat,
 			m.spwn=from@spwn,harvest.spwn=from@spwn, range=from@range)
 	}
 )
@@ -216,7 +216,7 @@ setAs('FLStock', 'FLBiol',
 	function(from)
 	{
 		FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m,
-			name=from@name, desc=from@desc, fec=from@mat, spwn=from@m.spwn,
+			name=from@name, desc=from@desc, mat=from@mat, spwn=from@m.spwn,
 			range=from@range[c('min', 'max', 'plusgroup', 'minyear', 'maxyear')])
 	}
 )
