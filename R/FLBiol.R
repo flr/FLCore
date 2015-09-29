@@ -116,7 +116,6 @@ setMethod("as.FLBiol", signature(object="FLStock"), function(object,...){
 	flb@n <- object@stock.n
 	flb@m <- object@m
 	flb@wt <- object@stock.wt
-    flb@fec <- NA
 	flb@mat <- object@mat
 	flb@spwn <- object@m.spwn
     return(flb)
