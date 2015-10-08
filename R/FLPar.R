@@ -12,9 +12,10 @@ setMethod('FLPar', signature(object="array"),
     iter=seq(dim(object)[length(dim(object))]), units=rep('NA', dim(object)[1]),
     dimnames= c(list(params=params), lapply(as.list(dim(object)[-c(1,
       length(dim(object)))]), seq), list(iter=iter))) {
-    
-		# if no dimnames, 1st is params, last is iter
-    if(!is.null(dimnames(object)) & missing(dimnames)) {
+
+    # if no dimnames, 1st is params, last is iter
+    if(!is.null(dimnames(object)))
+    {
       dimnames <- dimnames(object)
       
       # if iter missing, add it
@@ -56,8 +57,8 @@ setMethod('FLPar', signature(object="missing"),
     if(length(args) > 0)
     {
       len <- length(args[[1]])
-      res <- array(unlist(args), dim=c(length(args), iter), 
-        dimnames=list(params=names(args), iter=seq(iter)))
+      res <- t(array(unlist(args), dim=c(len, length(args)), 
+        dimnames=list(iter=seq(len), params=names(args))))
     }
     else
       res <- array(as.numeric(NA), dim=unlist(lapply(dimnames, length)),
@@ -260,17 +261,13 @@ setMethod("histogram", signature("formula", "FLPar"), function(x, data, ...){
 })
 
 # splom
+if (!isGeneric("splom")) {
+	setGeneric("splom", useAsDefault = splom)
+}
+
 setMethod("splom", signature("FLPar", "missing"),
 	function(x, data, ...){
-
-		# CHECK dim, STOP if > 2
-		if (length(dim(x)) > 2)
-			stop("splom can only handle 2D FLPar objects")
-
-		res <- model.frame(x)
-		res <- res[, names(res) %in% dimnames(x)$params]
-
-		splom(res)
+		splom(as.data.frame(x))
 	}
 )   # }}}
 

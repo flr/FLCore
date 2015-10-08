@@ -226,22 +226,32 @@ setAs('FLStock', 'FLBiol',
 setAs('data.frame', 'FLPar',
   function(from) {
 
-    # iter names from df
-		if("iter" %in% colnames(from))
-			iters <- from$iter
-		# or from rownames, if present
-		else
-    	iters <- rownames(from, do.NULL=TRUE, prefix="")
+		# long ...
+		if(!"data" %in% colnames(from)) {
 
-    # param named columns
-		pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
+			do.call('FLPar', c(from))
 
-		pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
-		pnames <- lapply(pnames, as.character)
+		# ... or wide
+		} else {
+	    # iter names from df
+			if("iter" %in% colnames(from))
+				iters <- from$iter
+			# or from rownames, if present
+			else
+    		iters <- rownames(from, do.NULL=TRUE, prefix="")
 
-	  dmns <- c(pnames, list(iter=unique(iters)))
+	    # param named columns
+			pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
 
-		return(FLPar(from$data, dimnames=dmns, units="NA"))
+			pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
+			pnames <- lapply(pnames, as.character)
+
+		  dmns <- c(pnames, list(iter=unique(iters)))
+
+			from <- t(from)
+
+			return(FLPar(from$data, dimnames=dmns, units="NA"))
+		}
   }
 )
 
