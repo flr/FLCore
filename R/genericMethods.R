@@ -3,6 +3,8 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 
+globalVariables(c("qname"))
+
 # Existing methods/functions
 
 setGeneric("AIC", useAsDefault = stats::AIC)
