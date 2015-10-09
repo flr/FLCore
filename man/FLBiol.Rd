@@ -36,15 +36,14 @@ This includes information on abundances, natural mortlity and fecundity.
     \item{n}{Numbers in the population. \code{FLQuant}.}
     \item{m}{Mortality rate of the population. \code{FLQuant}.}
     \item{wt}{Mean weight of an individual. \code{FLQuant}.}
-    \item{mat}{Proportion mature. \code{FLQuant}.}
-    \item{fec}{Fecundity/per capita birth rate. \code{FLQuant}.}
+    \item{fec}{Fecundity/maturity/per capita birth rate. \code{FLQuant}.}
     \item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
     \item{name}{Name of the object. \code{character}.}
     \item{desc}{Brief description of the object. \code{character}.}
     \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
 }
 
-\section{Accessors}{
+\section{Accesors}{
 
 All slots in the class have accessor and replacement methods defined that
 allow retrieving and substituting individual slots.

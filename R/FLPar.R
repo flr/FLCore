@@ -862,3 +862,10 @@ setMethod("model.frame", signature(formula="FLPar"),
   }
 ) # }}}
 
+# $ {{{
+setMethod('$', signature(x='FLPar'),
+	function(x, name) {
+		return(x[name,])
+	}
+) # }}}
+

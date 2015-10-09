@@ -89,8 +89,8 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
 		} else {
 			units <- uom('/', units(e1), units(e2))
 		}
-
-    return(FLQuant(re1 * re2, dimnames=dni, units=units))
+    
+		return(FLQuant(re1 / re2, dimnames=dni, units=units))
   }
 ) # }}}
 
