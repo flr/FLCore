@@ -1071,11 +1071,10 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE) {
 		res$date <- ISOdate(res$year, 1, 1) + lens * (as.numeric(res$season) - 1)
     }
 
-
     # drops columns with a single value, i.e. dims of length=1
     if(drop) {
-      idx <- names(x)[dim(x) > 1]
-      res <- res[, c(idx, 'data')]
+      idx <- names(x)[dim(x) == 1]
+      res <- res[, !colnames(res) %in% idx]
     }
 
     return(res)
