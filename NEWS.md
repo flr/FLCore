@@ -11,6 +11,7 @@
 - wireframe method from lattice now available for FLQuant
 - [ method for FLQuantDistr
 - FLIndexBiomass class for biomass-based indices of abundance.
+- New catch.sel method for FLStock, computed as proportion across ages of harvest
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
