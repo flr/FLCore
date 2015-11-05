@@ -254,7 +254,48 @@ setAs("FLPar", "list",
         names(lst) <- dimnames(from)[[1]]
         return(lst)
     }
-) # }}}
+) 
+
+setAs("predictModel", "list",
+  function(from) {
+
+  res <- list()
+  
+  mod <- slot(from, 'model')
+  fqs <- slot(from, '.Data')
+  flp <- slot(from,'params')
+
+  # EXTRACT expression to evaluate
+  args <- all.names(mod, functions=FALSE)
+
+  # (1) EXTRACT from FLQuants
+
+  # MATCH names
+  idx <- names(fqs) %in% args
+  
+  # EXTRACT
+  if(any(idx)) {
+    res <- fqs[idx]
+    names(res) <- names(fqs)[idx]
+    
+    # DROP extracted args
+    args <- args[!args %in% names(res)]
+  }
+
+  # (2) FLPar
+  pars <- as(flp, 'list')
+  idx <- names(pars) %in% args
+  if(any(idx)) {
+    res <- c(res, pars[idx])
+    
+    # DROP extracted args
+    args <- args[!args %in% names(res)]
+  }
+
+  # RETURN
+  return(res)
+  }) 
+# }}}
 
 # TO FLQuants  {{{
 setAs('FLComp', 'FLQuants',
