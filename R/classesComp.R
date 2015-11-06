@@ -8,39 +8,39 @@
 # FLComp   {{{
 validFLComp <- function(object){
 
-	# range must be named ...
-	nms <- names(range(object))
-	# with non/empty strings
-	if(any(nchar(nms) == 0))
-		return("names in range cannot be empty")
+  # range must be named ...
+  nms <- names(range(object))
+  # with non/empty strings
+  if(any(nchar(nms) == 0))
+    return("names in range cannot be empty")
 
-	# Any FLArray?
-	slots <- getSlots(class(object))
+  # Any FLArray?
+  slots <- getSlots(class(object))
 
-	if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
+  if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
 
-		# FLQuant slots must have either 1 or n iter
-  	dims <- unlist(qapply(object, function(x) dims(x)$iter))
-	  test <- dims != max(dims) & dims != 1
-		if (any(test))
-			stop(paste("All slots must have iters equal to 1 or 'n': error in",
-				paste(names(test[!test]), collapse=', ')))
+    # FLQuant slots must have either 1 or n iter
+    dims <- unlist(qapply(object, function(x) dims(x)$iter))
+    test <- dims != max(dims) & dims != 1
+    if (any(test))
+      stop(paste("All slots must have iters equal to 1 or 'n': error in",
+        paste(names(test[!test]), collapse=', ')))
 
-	  # and dimname for iter[1] should be '1'
-  	dimnms <- qapply(object, function(x) dimnames(x)$iter)
-		test <- unlist(dimnms[dims == 1])
-		if(!all(test==test))
-			stop(paste("Incorrect names on the iter dimension in ",
-				paste(names(test[!test]), collapse=', ')))
+    # and dimname for iter[1] should be '1'
+    dimnms <- qapply(object, function(x) dimnames(x)$iter)
+    test <- unlist(dimnms[dims == 1])
+    if(!all(test==test))
+      stop(paste("Incorrect names on the iter dimension in ",
+        paste(names(test[!test]), collapse=', ')))
 
-	  # all 'quant' should be equal
-  	quants <- unlist(qapply(object, quant))
-	  if(any(quants != quants[1]))
-  	  stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
+    # all 'quant' should be equal
+   # quants <- unlist(qapply(object, quant))
+   # if(any(quants != quants[1]))
+   #   stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
 
-	}
+  }
 
-	return(TRUE)
+  return(TRUE)
 }
 
 #' Class FLComp
@@ -70,136 +70,136 @@ validFLComp <- function(object){
 #' \link{units<-,FLComp,list-method}, \link[stats]{window}
 #' @keywords classes
 setClass("FLComp",
-	representation(
-		name="character",
-		desc="character",
-		range="numeric",
-		"VIRTUAL"),
-	prototype(
-		name=character(1),
-		desc=character(0),
-  	range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))),
+  representation(
+    name="character",
+    desc="character",
+    range="numeric",
+    "VIRTUAL"),
+  prototype(
+    name=character(1),
+    desc=character(0),
+    range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))),
   validity=validFLComp)
 
 invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #  }}}
 
-# FLS			{{{
+# FLS      {{{
 validFLS <- function(object) {
 
-	# TODO
-	return(TRUE)
+  # TODO
+  return(TRUE)
 
-	names <- names(getSlots('FLS')[getSlots('FLS')=="FLQuant"])
-	for(i in names){
-		# all dimnames 2:5 are the same
-		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
-			unlist(dimnames(slot(object, i))[2:5])))
-			return(paste('All elements must share dimensions 2 to 5: Error in object@', i))
-		# no. iter are equal or one
-	}
-	for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
-	{
-		# quant is n
-		if(!identical(unlist(dimnames(object@catch.n)[1]),
-			unlist(dimnames(slot(object, i))[1])))
-			return(paste('All elements must share quant names: Error in object', i))
-	}
-	for (i in c('catch', 'landings', 'discards'))
-	{
-		# quant is 1
-		if(dim(slot(object, i))[1] != 1)
-			return(paste('Wrong dimensions for slot ', i, 'in object'))
-	}
-	# check range
-	dim <- dim(object@catch.n)
-	dimnm <- dimnames(object@catch.n)
-	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-		as.numeric(dimnm$year[dim[2]]))))
-		return('Range does not match object dimensions')
+  names <- names(getSlots('FLS')[getSlots('FLS')=="FLQuant"])
+  for(i in names){
+    # all dimnames 2:5 are the same
+    if(!identical(unlist(dimnames(object@catch.n)[2:5]),
+      unlist(dimnames(slot(object, i))[2:5])))
+      return(paste('All elements must share dimensions 2 to 5: Error in object@', i))
+    # no. iter are equal or one
+  }
+  for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
+  {
+    # quant is n
+    if(!identical(unlist(dimnames(object@catch.n)[1]),
+      unlist(dimnames(slot(object, i))[1])))
+      return(paste('All elements must share quant names: Error in object', i))
+  }
+  for (i in c('catch', 'landings', 'discards'))
+  {
+    # quant is 1
+    if(dim(slot(object, i))[1] != 1)
+      return(paste('Wrong dimensions for slot ', i, 'in object'))
+  }
+  # check range
+  dim <- dim(object@catch.n)
+  dimnm <- dimnames(object@catch.n)
+  if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
+    as.numeric(dimnm$year[dim[2]]))))
+    return('Range does not match object dimensions')
 
-	return(TRUE)}
+  return(TRUE)}
 
 setClass("FLS",
-	representation(
-	"FLComp",
-	catch	    	="FLQuant",
-	catch.n	    ="FLQuant",
-	catch.wt		="FLQuant",
-	discards		="FLQuant",
-	discards.n  ="FLQuant",
-	discards.wt ="FLQuant",
-	landings		="FLQuant",
-	landings.n  ="FLQuant",
-	landings.wt ="FLQuant",
-	stock	    	="FLQuant",
-	stock.n	    ="FLQuant",
-	stock.wt		="FLQuant",
-	m						="FLQuant",
-	mat		    	="FLQuant",
-	harvest	    ="FLQuant",
-	harvest.spwn="FLQuant",
-	m.spwn	    ="FLQuant",
-	"VIRTUAL"
-	),
-	prototype=prototype(
-		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
-		catch	= FLQuant(),
-		catch.n	= FLQuant(),
-		catch.wt= FLQuant(),
-		discards= FLQuant(),
-		discards.n = FLQuant(),
-		discards.wt= FLQuant(),
-		landings   = FLQuant(),
-		landings.n = FLQuant(),
-		landings.wt= FLQuant(),
-		stock	   = FLQuant(),
-		stock.n	 = FLQuant(),
-		stock.wt = FLQuant(),
-		m		 = FLQuant(units='m'),
-		mat		 = FLQuant(units='prop'),
-		harvest	 = FLQuant(units='f'),
-		harvest.spwn = FLQuant(units='prop'),
-		m.spwn	 = FLQuant(units='prop')
-	),
+  representation(
+  "FLComp",
+  catch        ="FLQuant",
+  catch.n      ="FLQuant",
+  catch.wt    ="FLQuant",
+  discards    ="FLQuant",
+  discards.n  ="FLQuant",
+  discards.wt ="FLQuant",
+  landings    ="FLQuant",
+  landings.n  ="FLQuant",
+  landings.wt ="FLQuant",
+  stock        ="FLQuant",
+  stock.n      ="FLQuant",
+  stock.wt    ="FLQuant",
+  m            ="FLQuant",
+  mat          ="FLQuant",
+  harvest      ="FLQuant",
+  harvest.spwn="FLQuant",
+  m.spwn      ="FLQuant",
+  "VIRTUAL"
+  ),
+  prototype=prototype(
+    range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
+    catch  = FLQuant(),
+    catch.n  = FLQuant(),
+    catch.wt= FLQuant(),
+    discards= FLQuant(),
+    discards.n = FLQuant(),
+    discards.wt= FLQuant(),
+    landings   = FLQuant(),
+    landings.n = FLQuant(),
+    landings.wt= FLQuant(),
+    stock     = FLQuant(),
+    stock.n   = FLQuant(),
+    stock.wt = FLQuant(),
+    m     = FLQuant(units='m'),
+    mat     = FLQuant(units='prop'),
+    harvest   = FLQuant(units='f'),
+    harvest.spwn = FLQuant(units='prop'),
+    m.spwn   = FLQuant(units='prop')
+  ),
   validity=validFLS
 )
 remove(validFLS)
 
-invisible(createFLAccesors("FLS", exclude=c('name', 'desc', 'range', 'harvest')))	# }}}
+invisible(createFLAccesors("FLS", exclude=c('name', 'desc', 'range', 'harvest')))  # }}}
 
-# FLStock			{{{
+# FLStock      {{{
 validFLStock <- function(object) {
 
-	names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
-	for(i in names){
-		# all dimnames but iter are the same
-		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
-			unlist(dimnames(slot(object, i))[2:5])))
-			return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
-		# no. iter are equal or one
-	}
-	for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
-	{
-		# quant is n
-		if(!identical(unlist(dimnames(object@catch.n)[1]),
-			unlist(dimnames(slot(object, i))[1])))
-			return(paste('All elements must share quant names: Error in FLStock', i))
-	}
-	for (i in c('catch', 'landings', 'discards'))
-	{
-		# quant is 1
-		if(dim(slot(object, i))[1] != 1)
-			return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
-	}
-	# check range
-	dim <- dim(object@catch.n)
-	dimnm <- dimnames(object@catch.n)
-	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-		as.numeric(dimnm$year[dim[2]]))))
-		return('Range does not match object dimensions')
+  names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
+  for(i in names){
+    # all dimnames but iter are the same
+    if(!identical(unlist(dimnames(object@catch.n)[2:5]),
+      unlist(dimnames(slot(object, i))[2:5])))
+      return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
+    # no. iter are equal or one
+  }
+  for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
+  {
+    # quant is n
+    if(!identical(unlist(dimnames(object@catch.n)[1]),
+      unlist(dimnames(slot(object, i))[1])))
+      return(paste('All elements must share quant names: Error in FLStock', i))
+  }
+  for (i in c('catch', 'landings', 'discards'))
+  {
+    # quant is 1
+    if(dim(slot(object, i))[1] != 1)
+      return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
+  }
+  # check range
+  dim <- dim(object@catch.n)
+  dimnm <- dimnames(object@catch.n)
+  if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
+    as.numeric(dimnm$year[dim[2]]))))
+    return('Range does not match object dimensions')
 
-	return(TRUE)}
+  return(TRUE)}
 
 #' Class FLStock
 #'
@@ -262,36 +262,36 @@ validFLStock <- function(object) {
 #'
 #'
 setClass("FLStock",
-	representation(
-	"FLS"
-	),
-	prototype=prototype(
-		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
-		catch	= FLQuant(),
-		catch.n	= FLQuant(),
-		catch.wt= FLQuant(),
-		discards= FLQuant(),
-		discards.n = FLQuant(),
-		discards.wt= FLQuant(),
-		landings   = FLQuant(),
-		landings.n = FLQuant(),
-		landings.wt= FLQuant(),
-		stock	   = FLQuant(),
-		stock.n	 = FLQuant(),
-		stock.wt = FLQuant(),
-		m		 = FLQuant(),
-		mat		 = FLQuant(),
-		harvest	 = FLQuant(units="f"),
-		harvest.spwn = FLQuant(),
-		m.spwn	 = FLQuant()
-	),
+  representation(
+  "FLS"
+  ),
+  prototype=prototype(
+    range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
+    catch  = FLQuant(),
+    catch.n  = FLQuant(),
+    catch.wt= FLQuant(),
+    discards= FLQuant(),
+    discards.n = FLQuant(),
+    discards.wt= FLQuant(),
+    landings   = FLQuant(),
+    landings.n = FLQuant(),
+    landings.wt= FLQuant(),
+    stock     = FLQuant(),
+    stock.n   = FLQuant(),
+    stock.wt = FLQuant(),
+    m     = FLQuant(),
+    mat     = FLQuant(),
+    harvest   = FLQuant(units="f"),
+    harvest.spwn = FLQuant(),
+    m.spwn   = FLQuant()
+  ),
   validity=validFLStock
 )
 remove(validFLStock)
 
-#invisible(createFLAccesors("FLStock", exclude=c('name', 'desc', 'range', 'harvest')))	# }}}
+#invisible(createFLAccesors("FLStock", exclude=c('name', 'desc', 'range', 'harvest')))  # }}}
 
-# FLStockLen			{{{
+# FLStockLen      {{{
 
 #' Class FLStockLen
 #'
@@ -343,65 +343,65 @@ remove(validFLStock)
 #' \link{ssbpurec}, \link{trim}, \link{FLComp}
 #' @keywords classes
 setClass("FLStockLen",
-	representation(
-	"FLS",
-	halfwidth = "numeric"
-	),
-	prototype=prototype(
-		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
-		halfwidth = as.numeric(NA),
-		catch	= FLQuant(dimnames=list(len=as.numeric(NA))),
-		catch.n	= FLQuant(dimnames=list(len=as.numeric(NA))),
-		catch.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
-		discards= FLQuant(dimnames=list(len=as.numeric(NA))),
-		discards.n = FLQuant(dimnames=list(len=as.numeric(NA))),
-		discards.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
-		landings   = FLQuant(dimnames=list(len=as.numeric(NA))),
-		landings.n = FLQuant(dimnames=list(len=as.numeric(NA))),
-		landings.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
-		stock	   = FLQuant(dimnames=list(len=as.numeric(NA))),
-		stock.n	 = FLQuant(dimnames=list(len=as.numeric(NA))),
-		stock.wt = FLQuant(dimnames=list(len=as.numeric(NA))),
-		m		 = FLQuant(dimnames=list(len=as.numeric(NA))),
-		mat		 = FLQuant(dimnames=list(len=as.numeric(NA))),
-		harvest	 = FLQuant(dimnames=list(len=as.numeric(NA))),
-		harvest.spwn = FLQuant(dimnames=list(len=as.numeric(NA))),
-		m.spwn	 = FLQuant(dimnames=list(len=as.numeric(NA)))
-	),
+  representation(
+  "FLS",
+  halfwidth = "numeric"
+  ),
+  prototype=prototype(
+    range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
+    halfwidth = as.numeric(NA),
+    catch  = FLQuant(dimnames=list(len=as.numeric(NA))),
+    catch.n  = FLQuant(dimnames=list(len=as.numeric(NA))),
+    catch.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
+    discards= FLQuant(dimnames=list(len=as.numeric(NA))),
+    discards.n = FLQuant(dimnames=list(len=as.numeric(NA))),
+    discards.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
+    landings   = FLQuant(dimnames=list(len=as.numeric(NA))),
+    landings.n = FLQuant(dimnames=list(len=as.numeric(NA))),
+    landings.wt= FLQuant(dimnames=list(len=as.numeric(NA))),
+    stock     = FLQuant(dimnames=list(len=as.numeric(NA))),
+    stock.n   = FLQuant(dimnames=list(len=as.numeric(NA))),
+    stock.wt = FLQuant(dimnames=list(len=as.numeric(NA))),
+    m     = FLQuant(dimnames=list(len=as.numeric(NA))),
+    mat     = FLQuant(dimnames=list(len=as.numeric(NA))),
+    harvest   = FLQuant(dimnames=list(len=as.numeric(NA))),
+    harvest.spwn = FLQuant(dimnames=list(len=as.numeric(NA))),
+    m.spwn   = FLQuant(dimnames=list(len=as.numeric(NA)))
+  ),
   validity=function(object) {
 
-	# TODO
-	return(TRUE)
+  # TODO
+  return(TRUE)
 
-	names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
-	for(i in names){
-		# all dimnames but iter are the same
-		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
-			unlist(dimnames(slot(object, i))[2:5])))
-			return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
-		# no. iter are equal or one
-	}
-	for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
-	{
-		# quant is n
-		if(!identical(unlist(dimnames(object@catch.n)[1]),
-			unlist(dimnames(slot(object, i))[1])))
-			return(paste('All elements must share quant names: Error in FLStock', i))
-	}
-	for (i in c('catch', 'landings', 'discards'))
-	{
-		# quant is 1
-		if(dim(slot(object, i))[1] != 1)
-			return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
-	}
-	# check range
-	dim <- dim(object@catch.n)
-	dimnm <- dimnames(object@catch.n)
-	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-		as.numeric(dimnm$year[dim[2]]))))
-		return('Range does not match object dimensions')
+  names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
+  for(i in names){
+    # all dimnames but iter are the same
+    if(!identical(unlist(dimnames(object@catch.n)[2:5]),
+      unlist(dimnames(slot(object, i))[2:5])))
+      return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
+    # no. iter are equal or one
+  }
+  for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
+  {
+    # quant is n
+    if(!identical(unlist(dimnames(object@catch.n)[1]),
+      unlist(dimnames(slot(object, i))[1])))
+      return(paste('All elements must share quant names: Error in FLStock', i))
+  }
+  for (i in c('catch', 'landings', 'discards'))
+  {
+    # quant is 1
+    if(dim(slot(object, i))[1] != 1)
+      return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
+  }
+  # check range
+  dim <- dim(object@catch.n)
+  dimnm <- dimnames(object@catch.n)
+  if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
+    as.numeric(dimnm$year[dim[2]]))))
+    return('Range does not match object dimensions')
 
-	return(TRUE)}
+  return(TRUE)}
 ) # }}}
 
 # FLBiol {{{
@@ -412,40 +412,40 @@ validFLBiol <- function(object){
 
    s.  <-list("n","wt","fec","spwn","m","mat")
 
-   for (i. in s.)	{
-	   t. <- slot(object,i.)
-	   if (is.FLQuant(t.) & !all(dim(t.)[-6] == Dim))
-	      return(paste("FLQuant dimensions wrong for ", i.))
-	   }
+   for (i. in s.)  {
+     t. <- slot(object,i.)
+     if (is.FLQuant(t.) & !all(dim(t.)[-6] == Dim))
+        return(paste("FLQuant dimensions wrong for ", i.))
+     }
 
    # Verify that bounds are correct and correspond to first slot
-	.t  <-getSlots(class(object))
-	.t  <-.t[.t=="FLQuant"]
+  .t  <-getSlots(class(object))
+  .t  <-.t[.t=="FLQuant"]
 
    if (length(.t)> 0) {
 
       Par <- dims(.s<-slot(object,names(.t[1])))
 
-	   min <- object@range["min"]
+     min <- object@range["min"]
       if (!is.na(min) && (min < Par$min || min > Par$max))
-   		return("min quant is outside range in FLQuant slots")
-	   max <- object@range["max"]
-	   if (!is.na(max) && (max < Par$min || max > Par$max))
-	   	return("max quant is outside range in FLQuant slots")
-	   if (!is.na(min) && !is.na(max) && max < min)
-		   return("max quant is lower than min")
-	   plusgroup <- object@range["plusgroup"]
-	   if (!is.na(plusgroup) && (plusgroup < Par$min || plusgroup > Par$max))
-		   return("plusgroup is outside [min, max] quant range in FLQuant slots")
-	   minyear <- object@range["minyear"]
-	   if (!is.na(minyear) && (minyear < Par$minyear || minyear > Par$maxyear))
-		   return("minyear is outside years range in FLQuant slots")
-	   maxyear <- object@range["maxyear"]
-	   if (!is.na(maxyear) && (maxyear < Par$minyear || maxyear > Par$maxyear))
-		   return("maxyear is outside years range in FLQuant slots")
-	   if (!is.na(minyear) && !is.na(maxyear) && maxyear < minyear)
-		   return("maxyear is lower than minyear")
-	   }
+       return("min quant is outside range in FLQuant slots")
+     max <- object@range["max"]
+     if (!is.na(max) && (max < Par$min || max > Par$max))
+       return("max quant is outside range in FLQuant slots")
+     if (!is.na(min) && !is.na(max) && max < min)
+       return("max quant is lower than min")
+     plusgroup <- object@range["plusgroup"]
+     if (!is.na(plusgroup) && (plusgroup < Par$min || plusgroup > Par$max))
+       return("plusgroup is outside [min, max] quant range in FLQuant slots")
+     minyear <- object@range["minyear"]
+     if (!is.na(minyear) && (minyear < Par$minyear || minyear > Par$maxyear))
+       return("minyear is outside years range in FLQuant slots")
+     maxyear <- object@range["maxyear"]
+     if (!is.na(maxyear) && (maxyear < Par$minyear || maxyear > Par$maxyear))
+       return("maxyear is outside years range in FLQuant slots")
+     if (!is.na(minyear) && !is.na(maxyear) && maxyear < minyear)
+       return("maxyear is lower than minyear")
+     }
 
    # Everything is fine
    return(TRUE)
@@ -488,28 +488,28 @@ validFLBiol <- function(object){
 #' summary(ple4.biol)
 #'
 setClass("FLBiol",
-	representation(
-		"FLComp",
+  representation(
+    "FLComp",
         n        ="FLQuant",
         mat      ="FLQuant",
-		m        ="FLQuant",
-		wt       ="FLQuant",
-		fec      ="FLQuant",
-		spwn     ="FLQuant"
+    m        ="FLQuant",
+    wt       ="FLQuant",
+    fec      ="FLQuant",
+    spwn     ="FLQuant"
       ),
-	prototype=prototype(
-		range    =unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
+  prototype=prototype(
+    range    =unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
         n        = FLQuant(),
         mat      = FLQuant(),
-		m        = FLQuant(),
-		wt       = FLQuant(),
-		fec      = FLQuant(),
-		spwn     = FLQuant()),
-	validity=validFLBiol
+    m        = FLQuant(),
+    wt       = FLQuant(),
+    fec      = FLQuant(),
+    spwn     = FLQuant()),
+  validity=validFLBiol
 )
 
 setValidity("FLBiol", validFLBiol)
-remove(validFLBiol)	# We do not need this function any more
+remove(validFLBiol)  # We do not need this function any more
 invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range'))) # }}}
 
 # FLI    {{{
@@ -549,27 +549,27 @@ invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range'))) # }}}
 #' @keywords classes
 setClass("FLI",
     representation(
-		"FLComp",
+    "FLComp",
     distribution = "character",
     index        = "FLQuant",
     index.var    = "FLQuant",
     catch.n      = "FLQuant",
-		catch.wt     = "FLQuant",
-		effort       = "FLQuant",
-		sel.pattern  = "FLQuant",
-		index.q      = "FLQuant",
-		"VIRTUAL"),
+    catch.wt     = "FLQuant",
+    effort       = "FLQuant",
+    sel.pattern  = "FLQuant",
+    index.q      = "FLQuant",
+    "VIRTUAL"),
     prototype=prototype(
         range        = unlist(list(min=0, max=0, plusgroup=NA,
-			minyear=1, maxyear=1, startf=NA, endf=NA)),
+      minyear=1, maxyear=1, startf=NA, endf=NA)),
         distribution = character(0),
         index        = new("FLQuant"),
         index.var    = new("FLQuant"),
-		catch.n      = new("FLQuant"),
-		catch.wt     = new("FLQuant"),
-		effort       = new("FLQuant"),
-		sel.pattern  = new("FLQuant"),
-		index.q      = new("FLQuant")),
+    catch.n      = new("FLQuant"),
+    catch.wt     = new("FLQuant"),
+    effort       = new("FLQuant"),
+    sel.pattern  = new("FLQuant"),
+    index.q      = new("FLQuant")),
     validity = function(object) {
 
   dimnms <- qapply(object, function(x) dimnames(x))
@@ -672,8 +672,8 @@ setClass("FLI",
 #'
 setClass("FLIndex",
     representation(
-		"FLI",
-		type         = "character"),
+    "FLI",
+    type         = "character"),
     prototype=prototype(
     type         = character(0)),
     validity=function(object) {
@@ -737,37 +737,37 @@ setClass("FLIndex",
 #'   catch.n=catch.n(ple4))
 #'
 setClass("FLIndexBiomass",
-	representation(
-		"FLI"),
+  representation(
+    "FLI"),
   prototype=prototype(
     index=FLQuant(dimnames=list(age='all'))
-	),
+  ),
   validity=function(object) {
 
-		dims <- dims(object)
+    dims <- dims(object)
 
-		# age='all'
-		if(dims$quant != 'age')
-			return("quant in FLIndexBiomass must be 'age'")
+    # age='all'
+    if(dims$quant != 'age')
+      return("quant in FLIndexBiomass must be 'age'")
 
-		if(dimnames(object@index)['age'] != 'all')
-			return("quant dimnames in FLIndexBiomass must be 'all'")
+    if(dimnames(object@index)['age'] != 'all')
+      return("quant dimnames in FLIndexBiomass must be 'all'")
 
-		# slots with no ages
-		dimq <- unlist(qapply(object, function(x) dim(x)[1]))
+    # slots with no ages
+    dimq <- unlist(qapply(object, function(x) dim(x)[1]))
 
-		# slots with no ages
-		noq <- c('index', 'index.var', 'index.q')
-		if(any(!noq %in% names(dimq)[dimq == 1]))
-			return("slots index, index.var and index.q must have age='all'")
+    # slots with no ages
+    noq <- c('index', 'index.var', 'index.q')
+    if(any(!noq %in% names(dimq)[dimq == 1]))
+      return("slots index, index.var and index.q must have age='all'")
 
-		# others must have equal age
-		dimq <- dimq[names(dimq) %in% c('catch.n', 'catch.wt', 'sel.pattern')]
-		if(any(dimq =! dimq[1]))
-			return("Slots with age data must have the same dimensions")
+    # others must have equal age
+    dimq <- dimq[names(dimq) %in% c('catch.n', 'catch.wt', 'sel.pattern')]
+    if(any(dimq =! dimq[1]))
+      return("Slots with age data must have the same dimensions")
 
-		# Everything is fine
-	  return(TRUE)
+    # Everything is fine
+    return(TRUE)
   }
 ) #   }}}
 
