@@ -14,6 +14,8 @@ object with
 - wireframe method from lattice now available for FLQuant
 - [ method for FLQuantDistr
 - FLIndexBiomass class for biomass-based indices of abundance.
+- New catch.sel method for FLStock, computed as proportion across ages
+of harvest
 
 USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of
@@ -77,6 +79,7 @@ always returned product
 - quantile(FLQuant) returned oject with wrong dimensions
 - FLPar(missing) now creates objects with right number of iters, works when
 used with call()
+- lapply(FLst) works on zero length object, does nothing
 
 UTILITIES
 

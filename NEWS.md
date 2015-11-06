@@ -57,6 +57,7 @@
 - Fixed bug in FLPar %% FLPar when objects were actually equal in dims, always returned product
 - quantile(FLQuant) returned oject with wrong dimensions
 - FLPar(missing) now creates objects with right number of iters, works when used with call()
+- lapply(FLst) works on zero length object, does nothing
 
 ## UTILITIES
 
