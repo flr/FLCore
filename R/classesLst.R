@@ -9,11 +9,6 @@
 # FLlst class{{{
 vFLl <- function(object){
 
-	# Make sure the list contains all items of the same class
-	# cls <- unlist(lapply(object, class))
-  # if(any(cls != cls[1]))
-	  # return("Components must be of the same class!")
-
   # All elements in the list are validObjects themselves
   if(!all(unlist(lapply(object, validObject))))
 	  return("Components must be valid objects themselves (validObject == TRUE)")
@@ -33,9 +28,8 @@ setClass("FLlst", contains="list",
 # validity
 vFLQs <- function(object){
 	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLQuant")) stop("Components must be FLQuant")
-	}
+    if(!all(unlist(lapply(object, is, 'FLQuant'))))
+		return("Components must be FLQuant")
 	# Everything is fine
 	return(TRUE)
 }

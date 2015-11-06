@@ -101,7 +101,11 @@ setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(
 
 # lapply  {{{
 setMethod("lapply", signature(X="FLlst"),
-	function(X, FUN, ...){
+  function(X, FUN, ...) {
+
+    if(length(X) == 0)
+      return(X)
+
 	lstargs <- list(...)
    	lstargs$X <- X@.Data
    	names(lstargs$X) <- names(X)
@@ -109,14 +113,14 @@ setMethod("lapply", signature(X="FLlst"),
    	lstargs$FUN <- FUN
    	lst <- do.call("lapply", lstargs)
 
-		# getclass
+	# getclass
    	cls <- getPlural(lst[[1]])
-   	if(cls != 'list')
-   	{
-    	lst <- new(cls, lst, lock=FALSE, names=attr(X, 'names'), desc=attr(X, 'desc'))
+   	if(cls != 'list') {
+      lst <- new(cls, lst, lock=FALSE, names=attr(X, 'names'), desc=attr(X, 'desc'))
    	}
-	 	names(lst) <- names(X)
-  return(lst)
+    names(lst) <- names(X)
+    
+    return(lst)
 	}
 )  # }}}
 
