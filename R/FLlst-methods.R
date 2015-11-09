@@ -12,65 +12,61 @@ setAs("NULL", "FLBiol", function(from) FLBiol())
 setAs("NULL", "FLQuant", function(from) FLQuant())
 # }}}
 
-# replacement {{{
+# [[<-, [<- {{{
 
 setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
-	function(x, i, j, value)
-	{
-		if(isTRUE(x@lock) & (
-			(is.character(i) & is.na(match(i, names(x))))
-			|
-			(is.numeric(i) & length(x)<i)))
-				stop("The object is locked. You can not replace non-existent elements.")
+  function(x, i, j, value) {
+
+    if(isTRUE(x@lock) & (
+      (is.character(i) & is.na(match(i, names(x)))) |
+      (is.numeric(i) & length(x)<i)))
+	    stop("The object is locked. You can not replace non-existent elements.")
 
     lst <- as(x, "list")
+
     names(lst) <- names(x)
 
-#		if(length(lst)==0)
-#		{
-#			cls <- is(value)[1]
-#			lst[[i]] <- value
-#			lst <- lapply(lst, as, cls)
-#		}
+	lst[[i]] <- value
 
-		lst[[i]] <- value
+	res <- FLlst(lst)
+    
+    res@names <- x@names
+    res@desc <- x@desc
+    res@lock <- x@lock
 
-		res <- FLlst(lst)
-		class(res) <- class(x)
+	class(res) <- class(x)
 
-		if(validObject(res))
-			return(res)
-		else
-			stop("Invalid object, classes do not match.")
+	if(validObject(res))
+	  return(res)
+	else
+	  stop("Invalid object, classes do not match.")
 	}
 )
 
 setReplaceMethod("$", signature(x="FLlst", value="ANY"),
-	function(x, name, value)
-	{
-		if(isTRUE(x@lock) & is.na(match(name, names(x))))
-			stop("The object is locked. You can not replace non-existent elements.")
+  function(x, name, value) {
 
-		lst <- as(x, "list")
+    if(isTRUE(x@lock) & is.na(match(name, names(x))))
+      stop("The object is locked. You can not replace non-existent elements.")
+
+	lst <- as(x, "list")
     names(lst) <- names(x)
 
-#		if(length(lst)==0)
-#		{
-#			cls <- is(value)[1]
-#			lst <- do.call("$<-",list(x=lst, name=name, value=value))
-#			lst <- lapply(lst, as, cls)
-#		}
+	lst <- do.call("$<-",list(x=lst, name=name, value=value))
 
-		lst <- do.call("$<-",list(x=lst, name=name, value=value))
+	res <- new(class(x), lst)
+	class(res) <- class(x)
+    
+    res@names <- x@names
+    res@desc <- x@desc
+    res@lock <- x@lock
 
-		res <- FLlst(lst)
-		class(res) <- class(x)
-
-		if(validObject(res))
-			return(res)
-		else
-			stop("Invalid object, classes do not match.")
-})
+    if(validObject(res))
+	  return(res)
+	else
+	  stop("Invalid object, classes do not match.")
+  }
+)
 
 setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
@@ -91,13 +87,24 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	}
 )
 
-setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(x,i,j,drop){
-	lst <- as(x, "list")
-  # names dropped!
-  names(lst) <- names(x)
+setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
+  function(x,i,j,drop) {
+
+    lst <- as(x, "list")
+
+    # names dropped!
+    names(lst) <- names(x)
+
 	lst <- lst[i]
-	new(is(x), lst)
-})  # }}}
+
+	res <- new(is(x), lst)
+
+    res@desc <- x@desc
+    res@lock <- x@lock
+
+    return(res)
+  }
+)  # }}}
 
 # lapply  {{{
 setMethod("lapply", signature(X="FLlst"),

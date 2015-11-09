@@ -58,6 +58,7 @@
 - quantile(FLQuant) returned oject with wrong dimensions
 - FLPar(missing) now creates objects with right number of iters, works when used with call()
 - lapply(FLst) works on zero length object, does nothing
+- square operators for FLlst return the right names, desc and lock
 
 ## UTILITIES
 
