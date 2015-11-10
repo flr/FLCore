@@ -9,17 +9,17 @@ Description: Core classes and methods for FLR, a framework for fisheries modelli
   and management strategy simulation in R. Developed by a team of fisheries
   scientists in various countries. More information can be found at
   http://flr-project.org/.
-Depends:
+Depends: 
     methods,
     R(>= 3.0),
     lattice,
     MASS
-Imports:
+Imports: 
     grid,
     stats,
     graphics
 License: GPL (>= 2)
-Collate:
+Collate: 
     'genericMethods.R'
     'FLAccesors.R'
     'classesArr.R'
@@ -64,3 +64,4 @@ Collate:
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues
+Suggests: testthat
