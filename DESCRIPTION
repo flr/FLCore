@@ -61,6 +61,7 @@ Collate:
     'zzz.R'
     'io.Adapt.R'
     'io.VPA2Box.R'
+    'predictModel.R'
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues
