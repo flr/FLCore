@@ -7,7 +7,10 @@
 # Notes:
 
 # FLlst class{{{
-vFLl <- function(object){
+setClass("FLlst", contains="list",
+  representation(names="character", desc="character", lock="logical"),
+	prototype(lock=FALSE),
+	validity=function(object){
 
   # All elements in the list are validObjects themselves
   if(!all(unlist(lapply(object, validObject))))
@@ -17,11 +20,6 @@ vFLl <- function(object){
 	return(TRUE)
 }
 
-# class
-setClass("FLlst", contains="list",
-  representation(names="character", desc="character", lock="logical"),
-	prototype(lock=FALSE),
-	validity=vFLl
 ) # }}}
 
 # FLQuants {{{
