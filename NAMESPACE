@@ -127,7 +127,8 @@ exportClasses(
   "FLS",
   "FLStock",
   "FLStockLen",
-  "FLStocks"
+  "FLStocks",
+  "predictModel"
 )
 exportMethods(
   "$",
@@ -343,6 +344,7 @@ exportMethods(
   "parscale",
   "plot",
   "predict",
+  "predictModel",
   "price",
   "price<-",
   "print",

@@ -833,3 +833,5 @@ setGeneric("getPlural", function(object, ...) standardGeneric("getPlural"))
 setGeneric("e", function(x, ...) standardGeneric("e"))
 setGeneric("e<-", function(x, value) standardGeneric("e<-"))
 
+# predictModel
+setGeneric("predictModel", function(object, ...) standardGeneric("predictModel"))
