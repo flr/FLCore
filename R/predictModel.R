@@ -69,9 +69,9 @@ setReplaceMethod('params', signature(object='predictModel', value='FLPar'),
 
 # predict(predictModel) {{{
 setMethod('predict', signature(object='predictModel'),
-	function(object) {
-		return(eval(object@model[[2]], c(object, as(object@params, 'list'))))
-	}
+  function(object) {
+    return(eval(object@model[[2]], c(object, as(object@params, 'list'))))
+  }
 ) # }}}
 
 # predict(FLComp, character) {{{
@@ -80,21 +80,29 @@ setMethod('predict', signature(object='FLComp'),
 
     slot <- slot(object, slot)
     
-    args <- all.names(slot@model, functions=FALSE)
+    args <- all.vars(slot@model)
+    nams <- all.names(slot@model)
+
 
     res <- c(slot, as(slot@params, 'list'))
 
     # MISSING args?
     args <- args[!args %in% names(res)]
 
-    if(length(arghs) > 0) {
-    
+    if(length(args) > 0) {
+
+     # IF $ is in the formula, assume name 2 positions after is a 'quant' name
+      if("$" %in% nams) {
+        idx <- grep("\\$", nams) + 2
+        args <- args[!args %in% nams[idx]]
+      }
+
       # CALL methods on object (inc. accessors)
       for(i in args) {
           res[[i]] <- do.call(i, list(object))
       }
     }
-	return(eval(slot@model[[2]], res))
+    return(eval(slot@model[[2]], res))
   }
 ) # }}}
 
