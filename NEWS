@@ -16,6 +16,7 @@ object with
 - FLIndexBiomass class for biomass-based indices of abundance.
 - New catch.sel method for FLStock, computed as proportion across ages
 of harvest
+- predictMosdel class for use in FLBiol
 
 USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of
@@ -81,6 +82,7 @@ always returned product
 used with call()
 - lapply(FLst) works on zero length object, does nothing
 - square operators for FLlst return the right names, desc and lock
+- Attributes of FLPar maintained by [ and [<-
 
 UTILITIES
 

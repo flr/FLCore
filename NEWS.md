@@ -12,6 +12,7 @@
 - [ method for FLQuantDistr
 - FLIndexBiomass class for biomass-based indices of abundance.
 - New catch.sel method for FLStock, computed as proportion across ages of harvest
+- predictMosdel class for use in FLBiol
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
@@ -59,6 +60,7 @@
 - FLPar(missing) now creates objects with right number of iters, works when used with call()
 - lapply(FLst) works on zero length object, does nothing
 - square operators for FLlst return the right names, desc and lock
+- Attributes of FLPar maintained by [ and [<-
 
 ## UTILITIES
 
