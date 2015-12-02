@@ -7,33 +7,33 @@
 
 # TO data.frame {{{
 setAs('FLArray', 'data.frame',
-	function(from)
-	{
-		# to avoid warnings when NA have to be added
-		options(warn=-1)
+  function(from)
+  {
+    # to avoid warnings when NA have to be added
+    options(warn=-1)
     dnames <- dimnames(from)
         if(!any(is.na(suppressWarnings(as.numeric(dnames[[1]])))))
             quant <- as.numeric(dimnames(from)[[1]])
         else
-			      quant <- factor(dnames[[1]], levels=dnames[[1]])
-		df <- data.frame(expand.grid(quant=quant,
-			year=as.numeric(dnames[[2]]),
-			unit=factor(dnames[[3]], levels=dnames[[3]]),
-			season=factor(dnames[[4]], levels=dnames[[4]]),
-			area=factor(dnames[[5]], levels=dnames[[5]]),
-			iter=factor(dnames[[6]], levels=dnames[[6]])),
-			data=as.vector(from))
-		names(df)[1:2] <- names(dnames)[1:2]
-		attributes(df)$units <- units(from)
-		options(warn=0)
-		return(df)
-	}
+            quant <- factor(dnames[[1]], levels=dnames[[1]])
+    df <- data.frame(expand.grid(quant=quant,
+      year=as.numeric(dnames[[2]]),
+      unit=factor(dnames[[3]], levels=dnames[[3]]),
+      season=factor(dnames[[4]], levels=dnames[[4]]),
+      area=factor(dnames[[5]], levels=dnames[[5]]),
+      iter=factor(dnames[[6]], levels=dnames[[6]])),
+      data=as.vector(from))
+    names(df)[1:2] <- names(dnames)[1:2]
+    attributes(df)$units <- units(from)
+    options(warn=0)
+    return(df)
+  }
 )
 
 setAs('FLPar', 'data.frame',
   function(from)
   {
-	  return(data.frame(expand.grid(dimnames(from)), data=as.vector(from@.Data)))
+    return(data.frame(expand.grid(dimnames(from)), data=as.vector(from@.Data)))
   }
 )
 
@@ -102,17 +102,17 @@ return(flq)
 
 # TO FLStock {{{
 setAs('FLBiol', 'FLStock',
-	function(from)
-	{
-		FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
-			name=from@name, desc=from@desc, mat=from@mat,
-			m.spwn=from@spwn,harvest.spwn=from@spwn, range=from@range)
-	}
+  function(from)
+  {
+    FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
+      name=from@name, desc=from@desc, mat=from@mat,
+      m.spwn=from@spwn,harvest.spwn=from@spwn, range=from@range)
+  }
 )
 
 setAs('data.frame', 'FLStock',
-	function(from)
-	{
+  function(from)
+  {
         slots <- as.character(unique(from$slot))
         lst <- vector(length=length(slots), mode='list')
         names(lst) <- slots
@@ -157,11 +157,11 @@ setAs("data.frame", "FLI",
 # TO FLIndex {{{
 setAs('FLBiol', 'FLIndex',
   function(from)
-	{
+  {
     dmns<-dimnames(from@n)
     dmns$age<-"all"
 
-		res<-FLIndex(index      =from@n,
+    res<-FLIndex(index      =from@n,
                  index.var  =FLQuant(NA, dimnames=dimnames(from@n)),
                  catch.n    =from@n,
                  catch.wt   =from@wt,
@@ -170,7 +170,7 @@ setAs('FLBiol', 'FLIndex',
                  index.q    =FLQuant(1,  dimnames=dimnames(from@n)),
                  range      =from@range,
                  type="number",
-			           name=from@name, desc=paste("Coerced from FLBiol:",from@desc))
+                 name=from@name, desc=paste("Coerced from FLBiol:",from@desc))
 
     units(res@index)   <-units(from@n)
     units(res@catch.n) <-units(from@n)
@@ -179,16 +179,16 @@ setAs('FLBiol', 'FLIndex',
     res@range<-c(res@range,startf=0.0,endf=0.01)
 
   return(res)
-	}
+  }
 )
 
 setAs('FLStock', 'FLIndex',
-	function(from)
-	{
+  function(from)
+  {
     dmns<-dimnames(from@catch.n)
     dmns$age<-"all"
 
-		res<-FLIndex(index       =from@stock.n,
+    res<-FLIndex(index       =from@stock.n,
                  catch.n     =from@catch.n,
                  catch.wt    =from@catch.wt,
                  effort      =FLQuant(1,dimnames=dmns),
@@ -196,7 +196,7 @@ setAs('FLStock', 'FLIndex',
                  index.var   =FLQuant(NA, dimnames=dimnames(from@stock.n)),
                  range       =c(from@range, startf=0, endf=1),
                  type        ="number",
-			           name        =from@name,
+                 name        =from@name,
                  desc        =paste("Coerced from FLStock:",from@desc))
 
     if(units(harvest(from)) == 'f')
@@ -207,51 +207,49 @@ setAs('FLStock', 'FLIndex',
     units(res@catch.wt)<-units(from@catch.wt)
 
   return(res)
-	}
+  }
 )
 # }}}
 
 # TO FLBiol  {{{
 setAs('FLStock', 'FLBiol',
-	function(from)
-	{
-		FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m,
-			name=from@name, desc=from@desc, mat=from@mat, spwn=from@m.spwn,
-			range=from@range[c('min', 'max', 'plusgroup', 'minyear', 'maxyear')])
-	}
+  function(from)
+  {
+    FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m,
+      name=from@name, desc=from@desc, mat=from@mat, spwn=from@m.spwn,
+      range=from@range[c('min', 'max', 'plusgroup', 'minyear', 'maxyear')])
+  }
 )
 # }}}
 
-# TO FLPar	{{{
+# TO FLPar  {{{
 setAs('data.frame', 'FLPar',
   function(from) {
+    
+    # long ...
+    if(!"data" %in% colnames(from)) {
 
-		# long ...
-		if(!"data" %in% colnames(from)) {
+      do.call('FLPar', c(from))
 
-			do.call('FLPar', c(from))
+    # ... or wide
+    } else {
+      # iter names from df
+      if("iter" %in% colnames(from))
+        iters <- from$iter
+      # or from rownames, if present
+      else
+        iters <- rownames(from, do.NULL=TRUE, prefix="")
 
-		# ... or wide
-		} else {
-	    # iter names from df
-			if("iter" %in% colnames(from))
-				iters <- from$iter
-			# or from rownames, if present
-			else
-    		iters <- rownames(from, do.NULL=TRUE, prefix="")
+      # param named columns
+      pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
 
-	    # param named columns
-			pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
+      pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
+      pnames <- lapply(pnames, as.character)
 
-			pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
-			pnames <- lapply(pnames, as.character)
+      dmns <- c(pnames, list(iter=unique(iters)))
 
-		  dmns <- c(pnames, list(iter=unique(iters)))
-
-			from <- t(from)
-
-			return(FLPar(from$data, dimnames=dmns, units="NA"))
-		}
+      return(FLPar(from$data, dimnames=dmns, units="NA"))
+    }
   }
 )
 
@@ -268,9 +266,9 @@ setAs("FLPar", "list",
 
 # TO FLQuants  {{{
 setAs('FLComp', 'FLQuants',
-	function(from)
+  function(from)
   {
-		qas <- getSlotNamesClass(from, 'FLArray')
+    qas <- getSlotNamesClass(from, 'FLArray')
 
     res <- vector(mode='list', length=length(qas))
     names(res) <- qas
@@ -284,7 +282,7 @@ setAs('FLComp', 'FLQuants',
 
 
 setAs('data.frame', 'FLQuants',
-	function(from)
+  function(from)
   {
     qns <- as.character(unique(from$qname))
 

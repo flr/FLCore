@@ -27,9 +27,10 @@ of measurement and will output the right unit when two object are arithmetically
 combined. For example, the product of object with units of 'kg' and '1000' will
 output an object with 'units' of 't' (for metric tonnes).
 
-Operations involving combinations of units not defined will issue a warning, and
-the resulting 'units' attribute will simply keep a string indicating the input
-units of measurement and the operation carried out, as in '10 * 1000'.
+Operations involving combinations of units not defined will not issue any
+warning, and the resulting 'units' attribute will simply keep a string
+indicating the input units of measurement and the operation carried out,
+as in '10 * 1000'.
 
 Note that no scaling or modification of the values in the object takes place.
 

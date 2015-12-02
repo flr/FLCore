@@ -61,6 +61,7 @@
 - lapply(FLst) works on zero length object, does nothing
 - square operators for FLlst return the right names, desc and lock
 - Attributes of FLPar maintained by [ and [<-
+- as(data.frame, 'FLPar') transposed objects without need
 
 ## UTILITIES
 

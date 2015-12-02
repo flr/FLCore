@@ -4,6 +4,6 @@ os:
   - linux
   - osx
 
-language: R
+language: r
   
 sudo: required

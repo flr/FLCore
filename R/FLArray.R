@@ -6,35 +6,35 @@
 
 # units {{{
 setMethod("units", signature(x="FLArray"),
-	function(x)
-		return(x@units)
+  function(x)
+    return(x@units)
 ) # }}}
 
 # units<- {{{
 setMethod("units<-", signature(x="FLArray", value="character"),
-	function(x, value) {
-		x@units <- value
-		return(x)
-	}
+  function(x, value) {
+    x@units <- value
+    return(x)
+  }
 ) # }}}
 
 # quant        {{{
 setMethod("quant", signature(object="FLArray"),
-	function(object)
+  function(object)
   {
-		return(names(dimnames(object))[1])
-	}
+    return(names(dimnames(object))[1])
+  }
 ) # }}}
 
 # quant<-      {{{
 setMethod("quant<-", signature(object="FLArray", value='character'),
-	function(object, value)
+  function(object, value)
   {
     if(length(value) > 1)
       stop('quant must be a single character string')
-		names(attributes(object)$dimnames) <- c(value, names(dimnames(object))[-1])
-		return(object)
-	}
+    names(attributes(object)$dimnames) <- c(value, names(dimnames(object))[-1])
+    return(object)
+  }
 ) # }}}
 
 # "["             {{{
@@ -43,8 +43,8 @@ setMethod("[", signature(x="FLArray"),
     {
       if(length(list(...)) > 0)
         stop(paste(class(x), 'objects only have 6 dimensions'))
-	  	dx <- dim(x)
-		  if (missing(i))
+      dx <- dim(x)
+      if (missing(i))
         i  <-  seq(1, dx[1])
       if (missing(j))
         j  <-  seq(1, dx[2])
@@ -62,7 +62,7 @@ setMethod("[", signature(x="FLArray"),
       else
         x@.Data <- x@.Data[i, j, k, l, m, n, drop=FALSE]
       return(x)
-	}
+  }
 )
 
 setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
@@ -73,12 +73,12 @@ setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
       dimn[[d]] <- dimn[[d]][apply(i@.Data, d, any, FALSE)==TRUE]
 
     if(length(x@.Data[i]) != prod(unlist(lapply(dimn, length)))) {
-      	warning("Selected elements do not form a coherent 6D array")
+        warning("Selected elements do not form a coherent 6D array")
       return(x@.Data[i])
-		} else {
+    } else {
       return(new(class(x), array(x@.Data[i], dimnames=dimn,
         dim=unlist(lapply(dimn, length)))))
-		}
+    }
   }
 )   # }}}
 
@@ -91,11 +91,11 @@ setMethod("[<-", signature(x="FLArray"),
 
     if(!missing(i) && is.array(i))
     {
-	  x@.Data[i] <- value
+    x@.Data[i] <- value
       return(x)
     }
     dx <- dim(x)
-  	if (missing(i))
+    if (missing(i))
       i  <-  seq(1, dx[1])
     if (missing(j))
       j  <-  seq(1, dx[2])
@@ -109,30 +109,30 @@ setMethod("[<-", signature(x="FLArray"),
       n  <-  seq(1, dx[6])
 
     #
-		x@.Data[i,j,k,l,m,n] <- value
+    x@.Data[i,j,k,l,m,n] <- value
 
-   	return(x)
-	}
+     return(x)
+  }
 )   # }}}
 
 # "[<-"            {{{
 setMethod("[<-", signature(x="FLArray", value="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
-		# check dims !> 6
+    # check dims !> 6
     if(length(list(...)) > 0)
       stop(paste(class(x), 'objects only have 6 dimensions'))
 
-		# array (logical) used to index
+    # array (logical) used to index
     if(!missing(i) && is.array(i))
     {
-	  x@.Data[i] <- value
+    x@.Data[i] <- value
       return(x)
     }
-		
-		# default dims = all
+    
+    # default dims = all
     dx <- dim(x)
-  	if (missing(i))
+    if (missing(i))
       i  <-  seq(1, dx[1])
     if (missing(j))
       j  <-  seq(1, dx[2])
@@ -146,91 +146,91 @@ setMethod("[<-", signature(x="FLArray", value="FLArray"),
       n  <-  seq(1, dx[6])
 
     # aperm array, not common dims last
-		same <- which(dim(value) == dim(x))
-		diff <- which(dim(value) != dim(x))
-		dper <- c(same, diff)
-		y <- aperm(x, dper)
-		
-		# 
-		iper <- list(i, j, k, l, m, n)[dper]
-		names(iper) <- c('i','j','k','l','m','n')
-		
-		# call [<-
-		y <- do.call('[<-', c(list(x=y), iper, list(value=aperm(unname(value), dper))))
+    same <- which(dim(value) == dim(x))
+    diff <- which(dim(value) != dim(x))
+    dper <- c(same, diff)
+    y <- aperm(x, dper)
+    
+    # 
+    iper <- list(i, j, k, l, m, n)[dper]
+    names(iper) <- c('i','j','k','l','m','n')
+    
+    # call [<-
+    y <- do.call('[<-', c(list(x=y), iper, list(value=aperm(unname(value), dper))))
 
-		# re-aperm
-		y <- aperm(y, order(dper))
+    # re-aperm
+    y <- aperm(y, order(dper))
 
-   	return(new(class(x), y, units=units(x)))
-	}
+     return(new(class(x), y, units=units(x)))
+  }
 )   # }}}
 
 # names         {{{
 setMethod("names", signature(x="FLArray"),
-	function(x)
+  function(x)
     names(dimnames(x))
 )
 # }}}
 
 # iter     {{{
 setMethod("iter", signature(obj="FLArray"),
-	function(obj, iter) {
+  function(obj, iter) {
     if(dims(obj)$iter == 1)
       return(obj)
     else
       return(obj[,,,,,iter])
-	}
+  }
 )   # }}}
 
 # summary          {{{
 setMethod("summary", signature(object="FLArray"),
-	function(object, ...)
-	{
-		cat("An object of class \"", as.character(class(object)), "\" with:\n", sep="")
-		cat("dim  : ", dim(object), "\n")
-		cat("quant: ", quant(object), "\n")
-		cat("units: ", units(object), "\n\n")
-		if(all(is.na(object)))
-		{
-			cat("Min    :  NA\n")
-			cat("1st Qu.:  NA\n")
-			cat("Mean   :  NA\n")
-			cat("Median :  NA\n")
-			cat("3rd Qu.:  NA\n")
-			cat("Max    :  NA\n")
-		}
-		else
-		{
-			cat("Min    : ", min(object, na.rm=TRUE), "\n")
-			cat("1st Qu.: ", quantile(as.vector(object), 0.25, na.rm=TRUE), "\n")
-			cat("Mean   : ", mean(as.vector(object), na.rm=TRUE), "\n")
-			cat("Median : ", median(as.vector(object), na.rm=TRUE), "\n")
-			cat("3rd Qu.: ", quantile(as.vector(object), 0.75, na.rm=TRUE), "\n")
-			cat("Max    : ", max(object, na.rm=TRUE), "\n")
-		}
-		cat("NAs    : ", format(length(as.vector(object)
-			[!complete.cases(as.vector(object))])/length(as.vector(object))*100,
-			digits=2), "%\n")
-	}
+  function(object, ...)
+  {
+    cat("An object of class \"", as.character(class(object)), "\" with:\n", sep="")
+    cat("dim  : ", dim(object), "\n")
+    cat("quant: ", quant(object), "\n")
+    cat("units: ", units(object), "\n\n")
+    if(all(is.na(object)))
+    {
+      cat("Min    :  NA\n")
+      cat("1st Qu.:  NA\n")
+      cat("Mean   :  NA\n")
+      cat("Median :  NA\n")
+      cat("3rd Qu.:  NA\n")
+      cat("Max    :  NA\n")
+    }
+    else
+    {
+      cat("Min    : ", min(object, na.rm=TRUE), "\n")
+      cat("1st Qu.: ", quantile(as.vector(object), 0.25, na.rm=TRUE), "\n")
+      cat("Mean   : ", mean(as.vector(object), na.rm=TRUE), "\n")
+      cat("Median : ", median(as.vector(object), na.rm=TRUE), "\n")
+      cat("3rd Qu.: ", quantile(as.vector(object), 0.75, na.rm=TRUE), "\n")
+      cat("Max    : ", max(object, na.rm=TRUE), "\n")
+    }
+    cat("NAs    : ", format(length(as.vector(object)
+      [!complete.cases(as.vector(object))])/length(as.vector(object))*100,
+      digits=2), "%\n")
+  }
 )   # }}}
 
 # show     {{{
 setMethod("show", signature(object="FLArray"),
-	function(object){
-		cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
-		if(dim(object)[6] != 1)
-			cat("iters: ", dim(object)[6],"\n\n")
+  function(object){
+    cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
+    if(dim(object)[6] != 1)
+      cat("iters: ", dim(object)[6],"\n\n")
     if(dim(object)[6] > 1)
     {
-		  v1 <- apply(object@.Data, 1:5, median, na.rm=TRUE)
-  		v2 <- apply(object@.Data, 1:5, mad, na.rm=TRUE)	 
-			v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
+      v1 <- apply(object@.Data, 1:5, median, na.rm=TRUE)
+      v2 <- apply(object@.Data, 1:5, mad, na.rm=TRUE)   
+      v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
     }
     else
       v3 <- paste(format(apply(object@.Data, 1:5, median, na.rm=TRUE),digits=5))
-		
+    
     print(array(v3, dim=dim(object)[1:5], dimnames=dimnames(object)[1:5]), quote=FALSE)
-	}
+  }
 )   # }}}
 
 # trim {{{
@@ -268,7 +268,7 @@ setMethod('expand', signature(x='FLArray'),
   function(x, ...) {
 
     args <- list(...)
-		dnx <- dimnames(x)
+    dnx <- dimnames(x)
     
     # dimension names
     nargs <- names(args)
@@ -284,32 +284,32 @@ setMethod('expand', signature(x='FLArray'),
     # match specified dimensions and dimnames
     dimnames <- dnx
     
-		# new dimnames
-		dimnames[names(select)] <- select
+    # new dimnames
+    dimnames[names(select)] <- select
 
     # output object
     res <- new(class(x), array(as.numeric(NA), dimnames=dimnames,
-			dim=unlist(lapply(dimnames, length))), units=units(x))
+      dim=unlist(lapply(dimnames, length))), units=units(x))
     
     # list for assignment of x data
     dimnames <- dimnames(res)
 
-		# extended or new?
-		for(i in nargs) {
-			
-			# are all old dimnames in the new ones?
-			idx <- all(dnx[[i]] %in% dimnames[[i]])
-			# if so, recover them
-			if(idx) {
-				dimnames[[i]] <- dnx[[i]]
-			} else {
-				if(length(dnx[[i]]) > 1) {
-					stop("trying to expand to new dims where existing have length > 1", i)
-				}
-			}
-		}
-		
-		# list names to match '[<-' signature
+    # extended or new?
+    for(i in nargs) {
+      
+      # are all old dimnames in the new ones?
+      idx <- all(dnx[[i]] %in% dimnames[[i]])
+      # if so, recover them
+      if(idx) {
+        dimnames[[i]] <- dnx[[i]]
+      } else {
+        if(length(dnx[[i]]) > 1) {
+          stop("trying to expand to new dims where existing have length > 1", i)
+        }
+      }
+    }
+    
+    # list names to match '[<-' signature
     names(dimnames) <- c('i', 'j', 'k', 'l', 'm', 'n')
 
     do.call('[<-', c(list(x=res, value=x), dimnames))
@@ -319,10 +319,10 @@ setMethod('expand', signature(x='FLArray'),
 # uom {{{
 
 uoms <- c(
-	'1','10','100','1000','10000','100000','1000000','10000000','100000000', '1000000000',
-	'10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8', '10^9',
-	'1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8', '1e9',
-	'kg', 't', 'm', 'f', 'z', 'hr', 'NA')
+  '1','10','100','1000','10000','100000','1000000','10000000','100000000', '1000000000',
+  '10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8', '10^9',
+  '1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8', '1e9',
+  'kg', 't', 'm', 'f', 'z', 'hr', 'NA')
 nums <- c(1:30)
 nnums <- seq(max(nums) + 1, length(uoms))
 snums <- c(1,2,3,4,25,26,27,28,29,30)
@@ -343,29 +343,29 @@ uomTable['*', nums, c('1', '1e0', '10^0')] <- rep(uoms[snums], 9)
 # N * N = NN TODO Turn into loop
 # 10
 uomTable['*', c(2, 12, 22), nums[-c(1, 11, 21, 10, 20, 30)]] <- 
-	rep(uoms[snums][-c(1,2)], each=3)
+  rep(uoms[snums][-c(1,2)], each=3)
 uomTable['*', nums[-c(1, 11, 21, 10, 20, 30)], c(2, 12, 22)] <-
-	rep(uoms[snums][-c(1,2)], 9)
+  rep(uoms[snums][-c(1,2)], 9)
 # 100
 uomTable['*', c(3, 13, 23), nums[-c(1, 11, 21, 2, 12, 22, 9, 19, 29, 10, 20, 30)]] <- 
-	rep(uoms[snums][-c(1,2,3,4)], each=3)
+  rep(uoms[snums][-c(1,2,3,4)], each=3)
 uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 9, 19, 29, 10, 20, 30)], c(3, 13, 23)] <- 
-	rep(uoms[snums][-c(1,2,3,4)], 9)
+  rep(uoms[snums][-c(1,2,3,4)], 9)
 # 1000
 uomTable['*', c(4, 14, 24), nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 8, 18, 28, 9, 19, 29, 10, 20, 30)]] <- 
-	rep(uoms[snums][-c(1,2,3,4,5,6)], each=3)
+  rep(uoms[snums][-c(1,2,3,4,5,6)], each=3)
 uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 8, 18, 28, 9, 19, 29, 10, 20, 30)], c(4, 14, 24)] <- 
-	rep(uoms[snums][-c(1,2,3,4,5,6)], 9)
+  rep(uoms[snums][-c(1,2,3,4,5,6)], 9)
 # 1e4
 uomTable['*', c(5, 15, 25), nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 7, 17, 27, 8, 18, 28, 9, 19, 29, 10, 20, 30)]] <- 
-	rep(uoms[snums][-c(1,2,3,4,5,6,7,8)], each=3)
+  rep(uoms[snums][-c(1,2,3,4,5,6,7,8)], each=3)
 uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 8, 18, 28, 9, 19, 29, 10, 20, 30)], c(4, 14, 24)] <- 
-	rep(uoms[snums][-c(1,2,3,4,5,6)], 9)
+  rep(uoms[snums][-c(1,2,3,4,5,6)], 9)
 # 1e5
 uomTable['*', c(6, 16, 26), nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 6, 16, 26, 7, 17, 27, 8, 18, 28, 9, 19, 29, 10, 20, 30)]] <-
-	rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], each=3)
+  rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], each=3)
 uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 6, 16, 26, 7, 17, 27, 8, 18, 28, 9, 19, 29, 10, 20, 30)], c(6, 16, 26)] <-
-	rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], 9)
+  rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], 9)
 
 # U / U = NA
 diag(uomTable['/',uoms,uoms]) <- 'NA'
@@ -436,9 +436,10 @@ uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
 #' combined. For example, the product of object with units of 'kg' and '1000' will
 #' output an object with 'units' of 't' (for metric tonnes).
 #'
-#' Operations involving combinations of units not defined will issue a warning, and
-#' the resulting 'units' attribute will simply keep a string indicating the input
-#' units of measurement and the operation carried out, as in '10 * 1000'.
+#' Operations involving combinations of units not defined will not issue any
+#' warning, and the resulting 'units' attribute will simply keep a string
+#' indicating the input units of measurement and the operation carried out,
+#' as in '10 * 1000'.
 #'
 #' Note that no scaling or modification of the values in the object takes place.
 #'
@@ -475,95 +476,95 @@ uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
 
 uom <- function(op, u1, u2) {
 
-	u <- c(u1, u2)
-	
-	# max length of string, max(nchar(FLCore:::uoms))
-	if(any(nchar(u) > 10))
-		return(sprintf("%s %s %s", u1, op, u2))
+  u <- c(u1, u2)
+  
+  # max length of string, max(nchar(FLCore:::uoms))
+  if(any(nchar(u) > 10))
+    return(sprintf("%s %s %s", u1, op, u2))
 
-	# ""
-	if(!all(nzchar(u)))
-		return(sprintf("%s %s %s", u1, op, u2))
-	
-	idx <- match(u, uoms)
+  # ""
+  if(!all(nzchar(u)))
+    return(sprintf("%s %s %s", u1, op, u2))
+  
+  idx <- match(u, uoms)
 
-	# undefined unit
-	if(any(is.na(idx)))
-		return(sprintf("%s %s %s", u1, op, u2))
+  # undefined unit
+  if(any(is.na(idx)))
+    return(sprintf("%s %s %s", u1, op, u2))
 
-	# use uomTable
-	res <- uomTable[op, idx[1], idx[2]]
-	
-	# incompatible units ('NA')
-#	 if(res == 'NC') {
-#			warning('incompatible units of measurements in FLQuant objects: ',
-#			sprintf("%s %s %s", u1, op, u2))
-		
-#		return(sprintf("%s %s %s", u1, op, u2))
-#	}
-	return(res)
+  # use uomTable
+  res <- uomTable[op, idx[1], idx[2]]
+  
+  # incompatible units ('NA')
+#   if(res == 'NC') {
+#      warning('incompatible units of measurements in FLQuant objects: ',
+#      sprintf("%s %s %s", u1, op, u2))
+    
+#    return(sprintf("%s %s %s", u1, op, u2))
+#  }
+  return(res)
 }
 # }}}
 
 # Arith    {{{
 setMethod("Arith", #  "+", "-", "*", "^", "%%", "%/%", "/"
-	signature(e1 = "numeric", e2 = "FLArray"),
-	function(e1, e2)
-	{
-		return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
-	}
+  signature(e1 = "numeric", e2 = "FLArray"),
+  function(e1, e2)
+  {
+    return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
+  }
 )
 setMethod("Arith",
-	signature(e1 = "FLArray", e2 = "numeric"),
-	function(e1, e2)
-	{
-		return(new(class(e1), callGeneric(e1@.Data, e2), units=units(e1)))
-	}
+  signature(e1 = "FLArray", e2 = "numeric"),
+  function(e1, e2)
+  {
+    return(new(class(e1), callGeneric(e1@.Data, e2), units=units(e1)))
+  }
 )
 setMethod("Arith",
-	signature(e1 = "FLArray", e2 = "FLArray"),
-	function(e1, e2)
-	{
+  signature(e1 = "FLArray", e2 = "FLArray"),
+  function(e1, e2)
+  {
     if(!all(dim(e1)[-6] == dim(e2)[-6]))
       stop("non-conformable arrays")
 
-		if(dim(e1)[6] == 1 & dim(e2)[6] > 1) {
-			e <- e2
-			e[,,,,,] <- e1
-			e <- array(callGeneric(unclass(e), unclass(e2)),
+    if(dim(e1)[6] == 1 & dim(e2)[6] > 1) {
+      e <- e2
+      e[,,,,,] <- e1
+      e <- array(callGeneric(unclass(e), unclass(e2)),
         dimnames=dimnames(e2), dim=dim(e2))
-		}
-		else if(dim(e2)[6] == 1 & dim(e1)[6] > 1) {
-			e <- e1
-			e[,,,,,] <- e2
-			e <- array(callGeneric(unclass(e1), unclass(e)),
+    }
+    else if(dim(e2)[6] == 1 & dim(e1)[6] > 1) {
+      e <- e1
+      e[,,,,,] <- e2
+      e <- array(callGeneric(unclass(e1), unclass(e)),
         dimnames=dimnames(e1), dim=dim(e1))
-		}
-		else
-			e <- array(callGeneric(drop(unclass(e1)), drop(unclass(e2))),
+    }
+    else
+      e <- array(callGeneric(drop(unclass(e1)), drop(unclass(e2))),
         dimnames=dimnames(e1), dim=dim(e1))
-		
-		# units
-		if(identical(units(e1), units(e2))) {
-			units <- units(e1)
-		} else {
-			op <- as.character(get('.Generic'))
-			units <- uom(op, units(e1), units(e2))
-		}
+    
+    # units
+    if(identical(units(e1), units(e2))) {
+      units <- units(e1)
+    } else {
+      op <- as.character(get('.Generic'))
+      units <- uom(op, units(e1), units(e2))
+    }
     return(new(class(e1), e, units=units))
-	}
+  }
 )   # }}}
 
 # as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLArray", row.names="missing",
   optional="missing"),
-	function(x) {
+  function(x) {
     as(x, 'data.frame')
   }
 )
 setMethod("as.data.frame", signature(x="FLArray", row.names="ANY",
   optional="missing"),
-	function(x, row.names=NULL) {
+  function(x, row.names=NULL) {
     df <- as(x, 'data.frame')
     row.names(df) <- row.names
     return(df)
@@ -650,68 +651,68 @@ setMethod("qmin", signature(x="FLArray"),
 
 # apply {{{
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
-	function(X, MARGIN, FUN, ...)
+  function(X, MARGIN, FUN, ...)
   {
-	data <- apply(X@.Data, MARGIN, FUN, ...)
-	if(length(dim(data))<=length(MARGIN)){
-		# set dim
-		dim <- c(1,1,1,1,1,1)
-		# if apply generated a new dimension
-		if (is.null(dim(data)))
-			dim[MARGIN] <- length(data)
-		else
-			dim[MARGIN] <- dim(data)
-		# new object
-		flq <- array(NA, dim=dim)
-		# inject data
-		flq[1:dim[1],1:dim[2],1:dim[3],1:dim[4],1:dim[5],1:dim[6]] <- data
-		# set dimnames
-		MRG <- dim(X) == dim(flq)
+  data <- apply(X@.Data, MARGIN, FUN, ...)
+  if(length(dim(data))<=length(MARGIN)){
+    # set dim
+    dim <- c(1,1,1,1,1,1)
+    # if apply generated a new dimension
+    if (is.null(dim(data)))
+      dim[MARGIN] <- length(data)
+    else
+      dim[MARGIN] <- dim(data)
+    # new object
+    flq <- array(NA, dim=dim)
+    # inject data
+    flq[1:dim[1],1:dim[2],1:dim[3],1:dim[4],1:dim[5],1:dim[6]] <- data
+    # set dimnames
+    MRG <- dim(X) == dim(flq)
     if(all(MRG))
       dimnames(flq) <- dimnames(X)
     else
     {
-		  dimnames(flq)[MRG] <- dimnames(X)[MRG]
-  		dimnames(flq)[!MRG] <- dimnames(new(class(X)))[!MRG]
-	  	names(dimnames(flq)) <- names(dimnames(X))
+      dimnames(flq)[MRG] <- dimnames(X)[MRG]
+      dimnames(flq)[!MRG] <- dimnames(new(class(X)))[!MRG]
+      names(dimnames(flq)) <- names(dimnames(X))
     } 
-		# new FLobject
-		flq <- new(class(X), flq, units=units(X))
-		# set quant
-		if(is(flq, 'FLQuant')) quant(flq) <- quant(X)
-		return(flq)
-	} else {
-		return(data)
-	}
+    # new FLobject
+    flq <- new(class(X), flq, units=units(X))
+    # set quant
+    if(is(flq, 'FLQuant')) quant(flq) <- quant(X)
+    return(flq)
+  } else {
+    return(data)
+  }
 })   # }}}
 
 # survprob {{{
 # estimate survival probabilities by year or cohort
 setMethod("survprob", signature(object="FLArray"),
-	function(object, ...) {
-		
-		ps <- mm <- object
+  function(object, ...) {
+    
+    ps <- mm <- object
 
-		# estimate by year
-			ps[1,,,,,] <- 1	
-			for(a in 2:dim(ps)[1])
-				ps[a,,,,,] <- ps[a-1,,,,,]*exp(-mm[a-1,,,,,])
+    # estimate by year
+      ps[1,,,,,] <- 1  
+      for(a in 2:dim(ps)[1])
+        ps[a,,,,,] <- ps[a-1,,,,,]*exp(-mm[a-1,,,,,])
 
-		return(ps)
-	}
+    return(ps)
+  }
 ) # }}}
 
 # window           {{{
 setMethod("window", signature(x="FLArray"),
-	function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1)
+  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1)
   {
-		# get original min and max
-		min <- dims(x)$minyear
-		max <- dims(x)$maxyear
+    # get original min and max
+    min <- dims(x)$minyear
+    max <- dims(x)$maxyear
 
     # if extend=FALSE and end/start ask for it, error
-		if(!extend && (start < min | end > max))
-			stop("FLQuant to be extended but extend=FALSE")
+    if(!extend && (start < min | end > max))
+      stop("FLQuant to be extended but extend=FALSE")
 
     # if extend is a number, added to end
     if(is.numeric(extend))
@@ -719,56 +720,56 @@ setMethod("window", signature(x="FLArray"),
           end <- dims(x)$maxyear + extend
         else
           stop("'extend' is numeric and 'end' provided, don't know what to do")
-		
+    
     # construct new FLQuant
-		years <- seq(start, end, by=frequency)
+    years <- seq(start, end, by=frequency)
     dnames <- dimnames(x)
     dnames[[2]] <- years
     flq <- do.call(class(x), list(NA, units=units(x), dimnames=dnames))
 
-		# add data for matching years
-		flq[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]  <-
-			x[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]
+    # add data for matching years
+    flq[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]  <-
+      x[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]
 
-		return(flq)
-	}
+    return(flq)
+  }
 )   # }}}
 
 # cv        {{{
 setMethod("cv", signature(x="FLArray"),
-	function(x, na.rm=TRUE){
+  function(x, na.rm=TRUE){
     return(sd(c(x), na.rm=na.rm) / mean((x), na.rm=na.rm))
-	}
+  }
 )   # }}}
 
 # subset {{{
 setMethod('subset', signature(x='FLArray'),
-	function(x, ...) {
-		x <- as.data.frame(x, cohort=TRUE)
-		subset(x, ...)
-	}
+  function(x, ...) {
+    x <- as.data.frame(x, cohort=TRUE)
+    subset(x, ...)
+  }
 ) # }}}
 
 # log & exp {{{
 setMethod('log', signature(x='FLArray'),
-	function(x, ...) {
-		x@.Data <- log(x@.Data, ...)
-		units(x) <- 'NA'
-		return(x)
-	}
+  function(x, ...) {
+    x@.Data <- log(x@.Data, ...)
+    units(x) <- 'NA'
+    return(x)
+  }
 )
 
 setMethod('exp', signature(x='FLArray'),
-	function(x) {
-		x@.Data <- exp(x@.Data)
-		units(x) <- 'NA'
-		return(x)
-	}
+  function(x) {
+    x@.Data <- exp(x@.Data)
+    units(x) <- 'NA'
+    return(x)
+  }
 ) # }}}
 
 # median        {{{
 setMethod("median", signature(x="FLArray"),
-	function(x, na.rm=TRUE){
-		return(median(c(x), na.rm=na.rm))
-	}
+  function(x, na.rm=TRUE){
+    return(median(c(x), na.rm=na.rm))
+  }
 )   # }}}
