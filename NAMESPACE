@@ -1,6 +1,8 @@
 import("methods")
 importFrom("MASS",
   "mvrnorm")
+importFrom("Matrix",
+  "expand")
 importFrom("stats",
   "update",
   "AIC",

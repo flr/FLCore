@@ -54,7 +54,7 @@ setGeneric("tsp", useAsDefault=tsp)
 setGeneric("cbind", signature="...")
 setGeneric("rbind", signature="...")
 setGeneric("wireframe", useAsDefault=wireframe)
-
+setGeneric("expand", useAsDefault=Matrix::expand)
 
 # NEW methods
 
@@ -476,10 +476,6 @@ setGeneric("iter<-", function(object, value)
 # trim
 setGeneric("trim", function(x, ...)
 	standardGeneric("trim"))
-
-# expand
-setGeneric("expand", function(x, ...)
-	standardGeneric("expand"))
 
 # catchNames
 setGeneric('catchNames', function(object, ...)

@@ -926,7 +926,6 @@ setMethod("sr", signature(object="FLStock"),
 		return(FLQuants(rec=rec, ssb=ssb))
 }) # }}}
 
-
 # catch.sel {{{
 setMethod("catch.sel", signature(object="FLStock"),
   function(object) {
