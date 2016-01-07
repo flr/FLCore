@@ -51,13 +51,13 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 
 	lst <- as(x, "list")
     names(lst) <- names(x)
-
-	lst <- do.call("$<-",list(x=lst, name=name, value=value))
+	
+    lst <- do.call("$<-",list(x=lst, name=name, value=value))
 
 	res <- new(class(x), lst)
 	class(res) <- class(x)
     
-    res@names <- x@names
+    res@names <- res@names
     res@desc <- x@desc
     res@lock <- x@lock
 
