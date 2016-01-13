@@ -6,224 +6,320 @@
 
 # class FLBiol {{{
 setClass("FLBiol",
-	representation(
-		"FLComp",
+  representation(
+    "FLComp",
     n        ="FLQuant",
-		m        ="FLQuant",
-		wt       ="FLQuant",
-		mat      ="predictModel",
-		fec      ="predictModel",
-		rec      ="predictModel",
-		spwn     ="FLQuant"
-  ),
-	prototype=prototype(
-		range    = unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
+    m        ="FLQuant",
+    wt       ="FLQuant",
+    mat      ="predictModel",
+    fec      ="predictModel",
+    rec      ="predictModel",
+    spwn     ="FLQuant"),
+  prototype=prototype(
+    range    = unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
     n        = FLQuant(),
-		m        = FLQuant(),
-		wt       = FLQuant(),
-		mat      = new('predictModel', FLQuants(mat=FLQuant()), model=~mat),
-		fec      = new('predictModel', FLQuants(fec=FLQuant()), model=~fec),
-		rec      = new('predictModel', FLQuants(cov=FLQuant()), model=~a * ssb * exp(-b * ssb)),
-		spwn     = FLQuant()
-		)
+    m        = FLQuant(),
+    wt       = FLQuant(),
+    mat      = new('predictModel', FLQuants(mat=FLQuant()), model=~mat),
+    fec      = new('predictModel', FLQuants(fec=FLQuant()), model=~fec),
+    rec      = new('predictModel', FLQuants(cov=FLQuant()), model=~a * ssb * exp(-b * ssb)),
+    spwn     = FLQuant())
 ) # }}}
 
-invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range')))	# }}}
+# class FLBiolcpp {{{
+setClass("FLBiolcpp",
+  representation(
+    "FLComp",
+    n        ="FLQuant",
+    m        ="FLQuant",
+    wt       ="FLQuant",
+    mat      ="FLQuant",
+    fec      ="FLQuant",
+    rec      ="FLQuant",
+    spwn     ="FLQuant"),
+  prototype=prototype(
+    range    = unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
+    n        = FLQuant(),
+    m        = FLQuant(),
+    wt       = FLQuant(),
+    mat      = FLQuant(),
+    fec      = FLQuant(),
+    rec      = FLQuant(),
+    spwn     = FLQuant())
+) # }}}
+
+invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range')))  # }}}
 
 # evalPredictModel {{{
 evalPredictModel <- function(object, slot='fec') {
 
-	# EXTRACT slot
-	slot <- slot(object, slot)
+  # EXTRACT slot
+  slot <- slot(object, slot)
 
-	lis <- list()
+  lis <- list()
 
-	# EXTRACT expression to evaluate
-	args <- all.names(slot@model, functions=FALSE)
+  # EXTRACT expression to evaluate
+  args <- all.names(slot@model, functions=FALSE)
 
-	# (1) EXTRACT from FLQuants
+  # (1) EXTRACT from FLQuants
 
-	# MATCH names
-	idx <- names(slot) %in% args
-	
-	# EXTRACT
-	if(any(idx)) {
-		lis <- slot@.Data[idx]
-		names(lis) <- names(slot)[idx]
-		
-		# DROP extracted args
-		args <- args[!args %in% names(lis)]
-	}
+  # MATCH names
+  idx <- names(slot) %in% args
+  
+  # EXTRACT
+  if(any(idx)) {
+    lis <- slot@.Data[idx]
+    names(lis) <- names(slot)[idx]
+    
+    # DROP extracted args
+    args <- args[!args %in% names(lis)]
+  }
 
-	# (2) FLPar
-	pars <- as(slot@params, 'list')
-	idx <- names(pars) %in% args
-	if(any(idx)) {
-		lis <- c(lis, as(slot@params, 'list')[idx])
-		
-		# DROP extracted args
-		args <- args[!args %in% names(lis)]
-	}
+  # (2) FLPar
+  pars <- as(slot@params, 'list')
+  idx <- names(pars) %in% args
+  if(any(idx)) {
+    lis <- c(lis, as(slot@params, 'list')[idx])
+    
+    # DROP extracted args
+    args <- args[!args %in% names(lis)]
+  }
 
-	# (3) CALL methods on object (inc. accessors)
-	if(length(args) > 0)
-		for(i in args)
-			lis[[i]] <- do.call(i, list(object))
+  # (3) CALL methods on object (inc. accessors)
+  if(length(args) > 0)
+    for(i in args)
+      lis[[i]] <- do.call(i, list(object))
 
-	# RETURN
-	return(eval(slot@model[[2]], lis))
+  # RETURN
+  return(eval(slot@model[[2]], lis))
 } # }}}
 
 # fec {{{
 setMethod('fec', signature('FLBiol'),
-	function(object, slot=NULL, compute=TRUE) {
-		if(compute)
-			return(evalPredictModel(object, slot='fec'))
-		else
-			return(new('FLQuants', object@fec@.Data, names=object@fec@names,
-				lock=object@fec@lock))
-	}
+  function(object, slot=NULL, compute=TRUE) {
+    if(compute)
+      return(evalPredictModel(object, slot='fec'))
+    else
+      return(new('FLQuants', object@fec@.Data, names=object@fec@names,
+        lock=object@fec@lock))
+  }
 ) # }}}
 
 # fec<- {{{
 
 # fec<- predictModel
 setReplaceMethod('fec', signature(object='FLBiol', value='predictModel'),
-	function(object, value) {
-		object@fec <- value
-		return(object)
-	}
+  function(object, value) {
+    object@fec <- value
+    return(object)
+  }
 )
 
 # fec<- FLQuant: change to fec@.Data['fec']
 setReplaceMethod('fec', signature(object='FLBiol', value='FLQuant'),
-	function(object, value) {
-		object@fec@.Data <- FLQuants(fec=value)
-		return(object)
-	}
+  function(object, value) {
+    object@fec@.Data <- FLQuants(fec=value)
+    return(object)
+  }
 )
 
 # fec<- FLQuants: assign to @.Data
 setReplaceMethod('fec', signature(object='FLBiol', value='FLQuants'),
-	function(object, value) {
-		object@fec@.Data <- value
-		return(object)
-	}
+  function(object, value) {
+    object@fec@.Data <- value
+    return(object)
+  }
 )
 
 # fec<- formula:
 setReplaceMethod('fec', signature(object='FLBiol', value='formula'),
-	function(object, ..., value) {
-		object@fec@model <- value
-		return(object)
-	}
+  function(object, ..., value) {
+    object@fec@model <- value
+    return(object)
+  }
 )
 
 # fec<- params:
 setReplaceMethod('fec', signature(object='FLBiol', value='FLPar'),
-	function(object, value) {
-		object@fec@params <- value
-		return(object)
-	}
+  function(object, value) {
+    object@fec@params <- value
+    return(object)
+  }
 ) 
 
 # fec<- list:
 setReplaceMethod('fec', signature(object='FLBiol', value='list'),
-	function(object, value) {
-		
-		# FLQuants
-		idx <- unlist(lapply(value, is, 'FLQuants'))
-		if(sum(idx) > 1)
-			stop("More than one element in the list is of class 'FLQuants'")
-		
-		object@fec@.Data <- value[idx][[1]]
-		object@fec@names <- names(value[idx][[1]])
+  function(object, value) {
+    
+    # FLQuants
+    idx <- unlist(lapply(value, is, 'FLQuants'))
+    if(sum(idx) > 1)
+      stop("More than one element in the list is of class 'FLQuants'")
+    
+    object@fec@.Data <- value[idx][[1]]
+    object@fec@names <- names(value[idx][[1]])
 
-		# params & modes
-		idx <- !idx
+    # params & modes
+    idx <- !idx
 
-		if(sum(idx) > 0)
-		for(i in names(value[idx]))
-			slot(object@fec, i) <- value[[i]]
+    if(sum(idx) > 0)
+    for(i in names(value[idx]))
+      slot(object@fec, i) <- value[[i]]
 
-		return(object)
-	}
+    return(object)
+  }
 ) # }}}
 
 # mat {{{
 setMethod('mat', signature('FLBiol'),
-	function(object, slot=NULL, compute=TRUE) {
-		if(compute)
-			return(evalPredictModel(object, slot='mat'))
-		else
-			return(new('FLQuants', object@mat@.Data, names=object@mat@names,
-				lock=object@mat@lock))
-	}
+  function(object, slot=NULL, compute=TRUE) {
+    if(compute)
+      return(evalPredictModel(object, slot='mat'))
+    else
+      return(new('FLQuants', object@mat@.Data, names=object@mat@names,
+        lock=object@mat@lock))
+  }
 ) # }}}
 
 # mat<- {{{
 
 # mat<- predictModel
 setReplaceMethod('mat', signature(object='FLBiol', value='predictModel'),
-	function(object, value) {
-		object@mat <- value
-		return(object)
-	}
+  function(object, value) {
+    object@mat <- value
+    return(object)
+  }
 )
 
 # mat<- FLQuant: change to mat@.Data['mat']
 setReplaceMethod('mat', signature(object='FLBiol', value='FLQuant'),
-	function(object, value) {
-		object@mat@.Data <- FLQuants(mat=value)
-		return(object)
-	}
+  function(object, value) {
+    object@mat@.Data <- FLQuants(mat=value)
+    return(object)
+  }
 )
 
 # mat<- FLQuants: assign to @.Data
 setReplaceMethod('mat', signature(object='FLBiol', value='FLQuants'),
-	function(object, value) {
-		object@mat@.Data <- value
-		return(object)
-	}
+  function(object, value) {
+    object@mat@.Data <- value
+    return(object)
+  }
 )
 
 # mat<- formula:
 setReplaceMethod('mat', signature(object='FLBiol', value='formula'),
-	function(object, ..., value) {
-		object@mat@model <- value
-		return(object)
-	}
+  function(object, ..., value) {
+    object@mat@model <- value
+    return(object)
+  }
 )
 
 # mat<- params:
 setReplaceMethod('mat', signature(object='FLBiol', value='FLPar'),
-	function(object, value) {
-		object@mat@params <- value
-		return(object)
-	}
+  function(object, value) {
+    object@mat@params <- value
+    return(object)
+  }
 ) 
 
 # mat<- list:
 setReplaceMethod('mat', signature(object='FLBiol', value='list'),
-	function(object, value) {
-		
-		# FLQuants
-		idx <- unlist(lapply(value, is, 'FLQuants'))
-		if(sum(idx) > 1)
-			stop("More than one element in the list is of class 'FLQuants'")
-		
-		object@mat@.Data <- value[idx][[1]]
-		object@mat@names <- names(value[idx][[1]])
+  function(object, value) {
+    
+    # FLQuants
+    idx <- unlist(lapply(value, is, 'FLQuants'))
+    if(sum(idx) > 1)
+      stop("More than one element in the list is of class 'FLQuants'")
+    
+    object@mat@.Data <- value[idx][[1]]
+    object@mat@names <- names(value[idx][[1]])
 
-		# params & modes
-		idx <- !idx
+    # params & modes
+    idx <- !idx
 
-		if(sum(idx) > 0)
-		for(i in names(value[idx]))
-			slot(object@mat, i) <- value[[i]]
+    if(sum(idx) > 0)
+    for(i in names(value[idx]))
+      slot(object@mat, i) <- value[[i]]
 
-		return(object)
-	}
+    return(object)
+  }
+) # }}}
+
+# rec {{{
+setMethod('rec', signature('FLBiol'),
+  function(object, slot=NULL, compute=TRUE) {
+    if(compute)
+      return(evalPredictModel(object, slot='rec'))
+    else
+      return(new('FLQuants', object@rec@.Data, names=object@rec@names,
+        lock=object@rec@lock))
+  }
+) # }}}
+
+# rec<- {{{
+
+# rec<- predictModel
+setReplaceMethod('rec', signature(object='FLBiol', value='predictModel'),
+  function(object, value) {
+    object@rec <- value
+    return(object)
+  }
+)
+
+# rec<- FLQuant: change to rec@.Data['rec']
+setReplaceMethod('rec', signature(object='FLBiol', value='FLQuant'),
+  function(object, value) {
+    object@rec@.Data <- FLQuants(rec=value)
+    return(object)
+  }
+)
+
+# rec<- FLQuants: assign to @.Data
+setReplaceMethod('rec', signature(object='FLBiol', value='FLQuants'),
+  function(object, value) {
+    object@rec@.Data <- value
+    return(object)
+  }
+)
+
+# rec<- formula:
+setReplaceMethod('rec', signature(object='FLBiol', value='formula'),
+  function(object, ..., value) {
+    object@rec@model <- value
+    return(object)
+  }
+)
+
+# rec<- params:
+setReplaceMethod('rec', signature(object='FLBiol', value='FLPar'),
+  function(object, value) {
+    object@rec@params <- value
+    return(object)
+  }
+) 
+
+# rec<- list:
+setReplaceMethod('rec', signature(object='FLBiol', value='list'),
+  function(object, value) {
+    
+    # FLQuants
+    idx <- unlist(lapply(value, is, 'FLQuants'))
+    if(sum(idx) > 1)
+      stop("More than one element in the list is of class 'FLQuants'")
+    
+    object@rec@.Data <- value[idx][[1]]
+    object@rec@names <- names(value[idx][[1]])
+
+    # params & modes
+    idx <- !idx
+
+    if(sum(idx) > 0)
+    for(i in names(value[idx]))
+      slot(object@rec, i) <- value[[i]]
+
+    return(object)
+  }
 ) # }}}
 
 # tep {{{
@@ -231,47 +327,47 @@ setGeneric('tep', function(object, ...) standardGeneric('tep'))
 
 setMethod('tep', signature(object='FLBiol'), function(object, formula=~n*wt*fec*mat) {
 
-	args <- all.names(formula, functions=FALSE)
+  args <- all.names(formula, functions=FALSE)
 
-	lis <- vector('list', length=length(args))
-	
-	for(i in args)
-			lis[[i]] <- do.call(i, list(object))
-	
-	eval(formula[[2]], lis)
-	}
+  lis <- vector('list', length=length(args))
+  
+  for(i in args)
+      lis[[i]] <- do.call(i, list(object))
+  
+  eval(formula[[2]], lis)
+  }
 ) # }}}
 
 # summary {{{
 setMethod("summary", signature(object="FLBiol"),
-	function(object) {
+  function(object) {
 
-		# CAT name, desc, range and FLQuant slots
-		callNextMethod()
+    # CAT name, desc, range and FLQuant slots
+    callNextMethod()
 
-		# predictModel slots
-		pnames <- getSlotNamesClass(object, 'predictModel')
-		for (i in pnames) {
-			# name
-			cat(substr(paste0(i, "          "), start=1, stop=14),
-			# model
-			as.character(slot(object, i)@model), "\n")
-			# FLQuants
-			if(length(names(slot(object, i))) > 0) {
-				for(j in names(slot(object, i))) {
-					cat(substr(paste0("  ", i, "          "), start=1, stop=12),
-						" : [", dim(slot(object,i)[[j]]),"], units = ",
-						slot(object,i)[[j]]@units, "\n")
-				}
-			}
-			# params
-			par <- slot(object, i)@params
-			cat(substr(paste0("  (", ifelse(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == "",
-				"NA", paste(dimnames(par)[[1]], collapse=", ")),
-				")           "), start=1, stop=12), " : [", dim(slot(object,i)@params),
-				"], units = ", slot(object,i)@params@units, "\n")
-		}
-	}
+    # predictModel slots
+    pnames <- getSlotNamesClass(object, 'predictModel')
+    for (i in pnames) {
+      # name
+      cat(substr(paste0(i, "          "), start=1, stop=14),
+      # model
+      as.character(slot(object, i)@model), "\n")
+      # FLQuants
+      if(length(names(slot(object, i))) > 0) {
+        for(j in names(slot(object, i))) {
+          cat(substr(paste0("  ", i, "          "), start=1, stop=12),
+            " : [", dim(slot(object,i)[[j]]),"], units = ",
+            slot(object,i)[[j]]@units, "\n")
+        }
+      }
+      # params
+      par <- slot(object, i)@params
+      cat(substr(paste0("  (", ifelse(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == "",
+        "NA", paste(dimnames(par)[[1]], collapse=", ")),
+        ")           "), start=1, stop=12), " : [", dim(slot(object,i)@params),
+        "], units = ", slot(object,i)@params@units, "\n")
+    }
+  }
 ) # }}}
 
 # FLBiol()   {{{
@@ -286,13 +382,13 @@ setMethod('FLBiol', signature(object='FLQuant'),
     dims <- dims(object)
 
     res <- new("FLBiol",
-	    n=object, m=object, wt=object, spwn=object,
-  	  range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
-				minyear=dims$minyear, maxyear=dims$maxyear)))
+      n=object, m=object, wt=object, spwn=object,
+      range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
+        minyear=dims$minyear, maxyear=dims$maxyear)))
 
     # Load given slots
-  	for(i in names(args))
-			slot(res, i) <- args[[i]]
+    for(i in names(args))
+      slot(res, i) <- args[[i]]
 
     return(res)
   }
@@ -314,7 +410,6 @@ setMethod('FLBiol', signature(object='missing'),
   }
 ) # }}}
 
-
 # FLBiols {{{
 vFLSs <- function(object){
 
@@ -322,12 +417,12 @@ vFLSs <- function(object){
   if(!all(unlist(lapply(object, is, 'FLBiol'))))
       return("Components must be FLBiol")
 
-	return(TRUE)
+  return(TRUE)
 }
 
 # class
 setClass("FLBiols", contains="FLComps",
-	validity=vFLSs
+  validity=vFLSs
 )
 
 # constructor
@@ -339,15 +434,15 @@ setMethod("FLBiols", signature(object="FLBiol"), function(object, ...) {
 setMethod("FLBiols", signature(object="missing"),
   function(...) {
     # empty
-  	if(missing(...)){
-	  	new("FLBiols")
+    if(missing(...)){
+      new("FLBiols")
     # or not
-  	} else {
+    } else {
       args <- list(...)
       object <- args[!names(args)%in%c('names', 'desc', 'lock')]
       args <- args[!names(args)%in%names(object)]
       do.call('FLBiols',  c(list(object=object), args))
-	  }
+    }
   }
 )
 
@@ -383,49 +478,67 @@ setMethod("FLBiols", signature(object="list"),
 
 }) # }}}
 
+# coerce
+
+setAs('FLBiol', 'FLBiolcpp',
+  function(from) {
+    # process modelPredict slots
+    new("FLBiolcpp",
+        name = name(from),
+        desc = desc(from),
+        range = range(from),
+        n = n(from),
+        m = m(from),
+        wt = wt(from),
+        mat = mat(from),
+        fec = fec(from),
+        rec = rec(from),
+        spwn = spwn(from))
+  })
+
 # ---
 
-# mean.lifespan {{{
-setMethod("mean.lifespan", signature(x="FLBiol"),
-	function(x, ref.age = 'missing',...) {
+# meanLifespan {{{
+setMethod("meanLifespan", signature(x="FLBiol"),
+  function(x, ref.age = 'missing',...) {
 
-		# checks
-		if(missing(ref.age))
-			ref.age <- dims(m(x))$min
+    # checks
+    if(missing(ref.age))
+      ref.age <- dims(m(x))$min
 
-		if(ref.age >= dims(m(x))$max)
-			stop("Error in mean.lifespan: reference age greater than last true age")
-		mm <- trim(m(x),age=ref.age:dims(m(x))$max)
-		mm <- yearMeans(mm)
-		mm <- seasonSums(mm)
+    if(ref.age >= dims(m(x))$max)
+      stop("Error in mean.lifespan: reference age greater than last true age")
+    mm <- trim(m(x),age=ref.age:dims(m(x))$max)
+    mm <- yearMeans(mm)
+    mm <- seasonSums(mm)
 
-		# assuming last true age's M is the future M
-		# apply the actuarial formula for mean lifspan
-		# ::
-		# function m.lf to be applied to unit, seas
+    # assuming last true age's M is the future M
+    # apply the actuarial formula for mean lifspan
+    # ::
+    # function m.lf to be applied to unit, seas
 
-		m.lf <- function(x) {
-			xx <- array(rep(NA,1000))
-			xx[1:length(x)] <- x[]
-			xx[(length(x)+1):1000] <- x[length(x)]
-			lf <- 0
-			for(i in 1:1000)
-					lf <- lf + prod(exp(-xx[1:i]))
-			return(lf)
-		}
+    m.lf <- function(x) {
+      xx <- array(rep(NA,1000))
+      xx[1:length(x)] <- x[]
+      xx[(length(x)+1):1000] <- x[length(x)]
+      lf <- 0
+      for(i in 1:1000)
+          lf <- lf + prod(exp(-xx[1:i]))
+      return(lf)
+    }
 
-		mm <- apply(mm,2:6,m.lf)
+    mm <- apply(mm,2:6,m.lf)
 
-		# return the FLQuant age/year aggregated but with unit, area and iter
-		# specific values of the mean lifespan
+    # return the FLQuant age/year aggregated but with unit, area and iter
+    # specific values of the mean lifespan
 
-		return(mm)
-	}
+    return(mm)
+  }
 )# }}}
 
 # plot {{{
 setMethod("plot", signature(x="FLBiol", y="missing"),
-	function(x, y, ...)
+  function(x, y, ...)
   {
     data <- as.data.frame(FLQuants(ssb=ssb(x), recruitment=n(x)[1,]))
 
@@ -458,51 +571,51 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
     for(i in names(args))
       options[i] <- args[i]
 
-		condnames <- names(dimnames(x@n)[c(3:5)][dim(x@n)[c(3:5)]!=1])
-		cond <- paste(condnames, collapse="+")
-		if(cond != "")
+    condnames <- names(dimnames(x@n)[c(3:5)][dim(x@n)[c(3:5)]!=1])
+    cond <- paste(condnames, collapse="+")
+    if(cond != "")
       cond <- paste("|qname*", cond)
     else
       cond <- paste("|qname")
-		formula <- formula(paste("data~year", cond))
+    formula <- formula(paste("data~year", cond))
     do.call(xyplot, c(options, list(x=formula, data=data)))
 
-	}
+  }
 ) # }}}
 
 # ssb  {{{
 setMethod("ssb", signature(object="FLBiol"),
-	function(object, ...)
+  function(object, ...)
   {
-		res <- quantSums(n(object) * wt(object) * fec(object) * exp(-spwn(object) *
+    res <- quantSums(n(object) * wt(object) * fec(object) * exp(-spwn(object) *
       m(object)), na.rm=FALSE)
     units(res) <- paste(units(n(object)), units(wt(object)), sep=' * ')
     return(res)
   }
-)	# }}}
+)  # }}}
 
 # tsb  {{{
 setMethod("tsb", signature(object="FLBiol"),
-	function(object, ...)
+  function(object, ...)
   {
-		res <- quantSums(n(object) * wt(object) * exp(-spwn(object) *
+    res <- quantSums(n(object) * wt(object) * exp(-spwn(object) *
       m(object)), na.rm=FALSE)
     units(res) <- paste(units(n(object)), units(wt(object)), sep=' * ')
     return(res)
   }
-)	# }}}
+)  # }}}
 
 # computeStock  {{{
 setMethod("computeStock", signature(object="FLBiol"),
-	function(object, ...)
-		return(quantSums(n(object) * wt(object) , ...))
-)	# }}}
+  function(object, ...)
+    return(quantSums(n(object) * wt(object) , ...))
+)  # }}}
 
 # ssn  {{{
 setMethod("ssn", signature(object="FLBiol"),
-	function(object, ...)
-		return(quantSums(n(object) * fec(object) * exp(-spwn(object) * m(object)), ...))
-)	# }}}
+  function(object, ...)
+    return(quantSums(n(object) * fec(object) * exp(-spwn(object) * m(object)), ...))
+)  # }}}
 
 # harvest {{{
 setMethod('harvest', signature(object='FLBiol', catch='missing'),
@@ -582,57 +695,57 @@ setMethod('harvest', signature(object='FLBiol', catch='missing'),
 # this is just for the year and age version as tweeks will be needed for
 # sexually dimorphic and seasonal models
 setMethod("leslie", signature(object="FLBiol"),
-	function(object, plusgroup = FALSE, ...) {
+  function(object, plusgroup = FALSE, ...) {
 
-		# create arrays with no dimnames to speed things up
+    # create arrays with no dimnames to speed things up
 
-		xx <- object
-		dms.n <- c(dim(n(xx)))
-		n <- array(dim=dms.n)
-		pm <- array(dim=dms.n)
-		m.spwn <- array(dim=dms.n)
-		fec <- array(dim=dms.n)
+    xx <- object
+    dms.n <- c(dim(n(xx)))
+    n <- array(dim=dms.n)
+    pm <- array(dim=dms.n)
+    m.spwn <- array(dim=dms.n)
+    fec <- array(dim=dms.n)
 
-		n[] <- n(xx)@.Data[]
-		pm[] <- exp(-m(xx)@.Data[])
-		m.spwn[] <- spwn(xx)@.Data[]
-		fec[] <- fec(xx)@.Data[]
+    n[] <- n(xx)@.Data[]
+    pm[] <- exp(-m(xx)@.Data[])
+    m.spwn[] <- spwn(xx)@.Data[]
+    fec[] <- fec(xx)@.Data[]
 
-		amax <- dms.n[1]
-		ymax <- dms.n[2]
+    amax <- dms.n[1]
+    ymax <- dms.n[2]
 
-		if(is.na(n[1,1,1,1,1,]))
-			stop("Error in leslie: initial population number is missing")
+    if(is.na(n[1,1,1,1,1,]))
+      stop("Error in leslie: initial population number is missing")
 
-		# first set the eqm levels of n based on R0 and the survival schedule
+    # first set the eqm levels of n based on R0 and the survival schedule
 
-		for(a in 2:amax)
-			n[a,1,1,1,1,] <- n[a-1,1,1,1,1,] * pm[a-1,1,1,1,1,]
+    for(a in 2:amax)
+      n[a,1,1,1,1,] <- n[a-1,1,1,1,1,] * pm[a-1,1,1,1,1,]
 
-		if(plusgroup)
-			n[amax,1,1,1,1,] <- n[amax,1,1,1,1,]/(1-pm[amax,1,1,1,1,])
+    if(plusgroup)
+      n[amax,1,1,1,1,] <- n[amax,1,1,1,1,]/(1-pm[amax,1,1,1,1,])
 
-		for(y in 2:ymax) {
+    for(y in 2:ymax) {
 
-			# standard Leslie matrix dynamics
+      # standard Leslie matrix dynamics
 
-			n[-c(1),y,1,1,1,] <- n[-c(amax),y-1,1,1,1,] * pm[-c(amax),y-1,1,1,1,]
+      n[-c(1),y,1,1,1,] <- n[-c(amax),y-1,1,1,1,] * pm[-c(amax),y-1,1,1,1,]
 
-			if(plusgroup)
-				n[amax,y,1,1,1,] <- n[amax,y-1,1,1,1,] * pm[amax,y-1,1,1,1,]
+      if(plusgroup)
+        n[amax,y,1,1,1,] <- n[amax,y-1,1,1,1,] * pm[amax,y-1,1,1,1,]
 
-			# now recruits given by usual equations
+      # now recruits given by usual equations
 
-			tmp <- FLQuant(n * fec * (1 - m.spwn * (1 - pm)))
-			n[1,y,1,1,1,] <- quantSums(tmp)@.Data[,y-1,,,,]
-		}
+      tmp <- FLQuant(n * fec * (1 - m.spwn * (1 - pm)))
+      n[1,y,1,1,1,] <- quantSums(tmp)@.Data[,y-1,,,,]
+    }
 
-		# OK turn the n back into an FLQuant and send it back in the FLBiol object
+    # OK turn the n back into an FLQuant and send it back in the FLBiol object
 
-		n <- FLQuant(quant='age',n,dimnames = dimnames(n(xx)))
-		n(xx) <- n
-		return(xx)
-	}
+    n <- FLQuant(quant='age',n,dimnames = dimnames(n(xx)))
+    n(xx) <- n
+    return(xx)
+  }
 )
 # }}}
 
@@ -640,152 +753,152 @@ setMethod("leslie", signature(object="FLBiol"),
 # calculates the intrinsic rate of increase from the Leslie-transition matrix
 # or the Euler-Lotka equation by year or by cohort.
 setMethod("r", signature(m="FLQuant", fec="FLQuant"),
-	function(m, fec, by = 'year', method = 'el',...)
+  function(m, fec, by = 'year', method = 'el',...)
   {
     # checks
-		if(by != 'year' && by != 'cohort')
-			stop("Error in r: direction of estimation is neither year nor cohort")
+    if(by != 'year' && by != 'cohort')
+      stop("Error in r: direction of estimation is neither year nor cohort")
 
-		if(method != 'leslie' && method != 'el')
-			stop("Error in r: method used is neither Leslie matrix or Euler-Lotka")
+    if(method != 'leslie' && method != 'el')
+      stop("Error in r: method used is neither Leslie matrix or Euler-Lotka")
 
-		# estimate by year
-		if(by == 'year')
+    # estimate by year
+    if(by == 'year')
     {
-			dmf <- dim(fec)
-			dmm <- dim(m)
-			age <- as.numeric(dimnames(fec)$age)
+      dmf <- dim(fec)
+      dmm <- dim(m)
+      age <- as.numeric(dimnames(fec)$age)
 
-			# solve Euler-Lotka equation
-			if(method == 'el')
+      # solve Euler-Lotka equation
+      if(method == 'el')
       {
         m <- survprob(m)
 
-				r.func <- function(ff, p, age)
+        r.func <- function(ff, p, age)
         {
-					# solve Euler-Lotka using optimise
-					elfn <- function(x)
-						return((sum(exp(-x[1] * age) * p * ff) - 1) ^ 2)
+          # solve Euler-Lotka using optimise
+          elfn <- function(x)
+            return((sum(exp(-x[1] * age) * p * ff) - 1) ^ 2)
 
-					res.r <- optimise(elfn, interval=c(-10,10))[[1]]
-					return(res.r)
-				}
+          res.r <- optimise(elfn, interval=c(-10,10))[[1]]
+          return(res.r)
+        }
 
-				if(dmf[6] > 1 && dmm[6] > 1 && (dmf[6] != dmm[6]))
-					stop("Error in r: iteration dimensions are not the same for fec and m")
+        if(dmf[6] > 1 && dmm[6] > 1 && (dmf[6] != dmm[6]))
+          stop("Error in r: iteration dimensions are not the same for fec and m")
 
         nits <- max(dmf[6], dmm[6])
 
-				if(dmf[6] > 1 && dmm[6] == 1)
+        if(dmf[6] > 1 && dmm[6] == 1)
         {
-					tmp <- m
-					ps <- fec
-					ps[] <- tmp[]
-					rm(tmp)
-					nits <- dmf[6]
-				}
+          tmp <- m
+          ps <- fec
+          ps[] <- tmp[]
+          rm(tmp)
+          nits <- dmf[6]
+        }
 
-				if(dmf[6] == 1 && dmm[6] > 1)
+        if(dmf[6] == 1 && dmm[6] > 1)
         {
-					tmp <- fec
-					f <- m
-					f[] <- tmp[]
-					rm(tmp)
-					nits <- dmm[6]
-				}
+          tmp <- fec
+          f <- m
+          f[] <- tmp[]
+          rm(tmp)
+          nits <- dmm[6]
+        }
 
-				r.ret <- FLQuant(dim=c(1,dmf[2],1,1,1,nits),
+        r.ret <- FLQuant(dim=c(1,dmf[2],1,1,1,nits),
           dimnames=dimnames(quantMeans(fec))[1:5])
 
-				# define required variables for the estimation
-				for(y in 1:dmf[2])
+        # define required variables for the estimation
+        for(y in 1:dmf[2])
         {
-					# loop over the iterations
-					for(i in 1:nits)
+          # loop over the iterations
+          for(i in 1:nits)
           {
-						ff <- as.vector(fec[,y,,,,i])
-						p <- as.vector(m[,y,,,,i])
+            ff <- as.vector(fec[,y,,,,i])
+            p <- as.vector(m[,y,,,,i])
 
-						r.ret[,y,,,,i] <- r.func(ff, p, age)
-					}
-				}
-			}
+            r.ret[,y,,,,i] <- r.func(ff, p, age)
+          }
+        }
+      }
 
-			# use Leslie matrix lead eigenvalues
+      # use Leslie matrix lead eigenvalues
       else if(method == 'leslie')
       {
-				m <- exp(-m)
+        m <- exp(-m)
 
-				# define function to construct leslie matrix and calculate r
+        # define function to construct leslie matrix and calculate r
 
-				r.func <- function(ff, p) {
+        r.func <- function(ff, p) {
 
-					# construct the leslie matrix
-					lesm <- matrix(ncol=length(ff),nrow=length(ff))
+          # construct the leslie matrix
+          lesm <- matrix(ncol=length(ff),nrow=length(ff))
 
-					lesm[,] <- 0
-					lesm[1,] <- ff[]
-					na <- length(ff)
-					for(a in 1:(na-1))
-						lesm[a+1,a] <- p[a+1]
+          lesm[,] <- 0
+          lesm[1,] <- ff[]
+          na <- length(ff)
+          for(a in 1:(na-1))
+            lesm[a+1,a] <- p[a+1]
 
-					# calculate log of real part of the lead eigenvalue of the leslie matrix
-					res.r <- log(max(Re(eigen(lesm)[['values']])))
+          # calculate log of real part of the lead eigenvalue of the leslie matrix
+          res.r <- log(max(Re(eigen(lesm)[['values']])))
 
-					return(res.r)
-				}
+          return(res.r)
+        }
 
-				if(dmf[6] > 1 && dmm[6] > 1 && (dmf[6] != dmm[6]))
-					stop("Error in r: iteration dimensions are not the same for fec and m")
+        if(dmf[6] > 1 && dmm[6] > 1 && (dmf[6] != dmm[6]))
+          stop("Error in r: iteration dimensions are not the same for fec and m")
 
         nits <- max(dmf[6], dmm[6])
 
-				if(dmf[6] > 1 && dmm[6] == 1)
+        if(dmf[6] > 1 && dmm[6] == 1)
         {
-					tmp <- m
-					ps <- fec
-					ps[] <- tmp[]
-					rm(tmp)
-					nits <- dmf[6]
-				}
+          tmp <- m
+          ps <- fec
+          ps[] <- tmp[]
+          rm(tmp)
+          nits <- dmf[6]
+        }
 
-				if(dmf[6] == 1 && dmm[6] > 1)
+        if(dmf[6] == 1 && dmm[6] > 1)
         {
-					tmp <- fec
-					f <- m
-					f[] <- tmp[]
-					rm(tmp)
-					nits <- dmm[6]
-				}
+          tmp <- fec
+          f <- m
+          f[] <- tmp[]
+          rm(tmp)
+          nits <- dmm[6]
+        }
 
-				r.ret <- FLQuant(dim=c(1,dmf[2],1,1,1,nits),
+        r.ret <- FLQuant(dim=c(1,dmf[2],1,1,1,nits),
           dimnames=dimnames(quantMeans(fec))[1:5])
 
-				for(y in 1:dmf[2])
+        for(y in 1:dmf[2])
         {
-					# loop over the iterations
-					for(i in 1:nits)
+          # loop over the iterations
+          for(i in 1:nits)
           {
-						ff <- as.vector(fec[,y,,,,i])
-						p <- as.vector(m[,y,,,,i])
-						r.ret[,y,,,,i] <- r.func(ff,p)
-					}
-				}
-			}
-		}
+            ff <- as.vector(fec[,y,,,,i])
+            p <- as.vector(m[,y,,,,i])
+            r.ret[,y,,,,i] <- r.func(ff,p)
+          }
+        }
+      }
+    }
 
-		# estimate by cohort
+    # estimate by cohort
 
     else if(by == 'cohort') {
       stop("not implemented yet")
-		}
+    }
 
-		return(r.ret)
-	}
+    return(r.ret)
+  }
 )
 
 setMethod("r", signature(m="FLBiol", fec="missing"),
-	function(m, by = 'year', method = 'el',...)
+  function(m, by = 'year', method = 'el',...)
   {
     r(m(m), fec(m), by=by, method=method,)
   }
@@ -794,37 +907,37 @@ setMethod("r", signature(m="FLBiol", fec="missing"),
 # survprob {{{
 # estimate survival probabilities by year or cohort
 setMethod("survprob", signature(object="FLBiol"),
-	function(object, by = 'year',...) {
+  function(object, by = 'year',...) {
 
-		# estimate by year
-		if(by == 'year')
+    # estimate by year
+    if(by == 'year')
       return(survprob(m(object)))
 
-		# estimate by cohort
+    # estimate by cohort
     else if(by == 'cohort')
       return(survprob(FLCohort(m(object))))
 
-	}
+  }
 ) # }}}
 
 # setPlusGroup {{{
 setMethod('setPlusGroup', signature(x='FLBiol', plusgroup='numeric'),
-s.<-	function(x, plusgroup, na.rm=FALSE)
-	{
-	pg.wt.mean <-c("wt","m","fec","spwn")
+s.<-  function(x, plusgroup, na.rm=FALSE)
+  {
+  pg.wt.mean <-c("wt","m","fec","spwn")
 
-	#check plusgroup valid
-	if (!missing(plusgroup))
+  #check plusgroup valid
+  if (!missing(plusgroup))
      x@range["plusgroup"]<-plusgroup
   if(x@range["plusgroup"] > x@range["max"])
-		 return("Error : plus group greater than oldest age")
+     return("Error : plus group greater than oldest age")
 
-	#Perform +grp calcs
+  #Perform +grp calcs
   pg.range <- as.character(x@range["max"]:x@range["plusgroup"])
 
-	#do the weighted stuff first
-	for (i in pg.wt.mean){
-	   if (dims(n(x))$iter!=dims(slot(x,i))$iter)
+  #do the weighted stuff first
+  for (i in pg.wt.mean){
+     if (dims(n(x))$iter!=dims(slot(x,i))$iter)
          slot(x,i)<-propagate(slot(x,i),dims(n(x))$iter)
      slot(x,i)[as.character(x@range["plusgroup"])]<-quantSums(slot(x,i)[pg.range]*x@n[pg.range])/quantSums(x@n[pg.range])
      }
@@ -834,8 +947,8 @@ s.<-	function(x, plusgroup, na.rm=FALSE)
 
   x@range["max"]<-x@range["plusgroup"]
 
-	return(x)
-	}
+  return(x)
+  }
 )# }}}
 
 # fbar {{{
