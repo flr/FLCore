@@ -23,7 +23,15 @@ setClass("FLBiol",
     mat      = new('predictModel', FLQuants(mat=FLQuant()), model=~mat),
     fec      = new('predictModel', FLQuants(fec=FLQuant()), model=~fec),
     rec      = new('predictModel', FLQuants(cov=FLQuant()), model=~a * ssb * exp(-b * ssb)),
-    spwn     = FLQuant())
+    spwn     = FLQuant()),
+  validity = function(object) {
+
+    # dim[1] of spwn is of length 1
+    if(dim(object@spwn)[1] != 1)
+      return(paste0("First dimension '", names(object@spwn)[1], "' of @spwn can only be of length 1"))
+
+    return(TRUE)
+  }
 ) # }}}
 
 # class FLBiolcpp {{{
@@ -382,7 +390,7 @@ setMethod('FLBiol', signature(object='FLQuant'),
     dims <- dims(object)
 
     res <- new("FLBiol",
-      n=object, m=object, wt=object, spwn=object,
+      n=object, m=object, wt=object, spwn=object[1,],
       range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
         minyear=dims$minyear, maxyear=dims$maxyear)))
 
@@ -587,7 +595,7 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 setMethod("ssb", signature(object="FLBiol"),
   function(object, ...)
   {
-    res <- quantSums(n(object) * wt(object) * fec(object) * exp(-spwn(object) *
+    res <- quantSums(n(object) * wt(object) * fec(object) %*% exp(-spwn(object) %*%
       m(object)), na.rm=FALSE)
     units(res) <- paste(units(n(object)), units(wt(object)), sep=' * ')
     return(res)

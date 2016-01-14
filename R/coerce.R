@@ -3,7 +3,6 @@
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: coerce.R 1789 2012-12-10 10:34:22Z imosqueira $
 
 # TO data.frame {{{
 setAs('FLArray', 'data.frame',
@@ -214,14 +213,13 @@ setAs('FLStock', 'FLIndex',
 # TO FLBiol  {{{
 setAs('FLStock', 'FLBiol',
   function(from) {
-    FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m, spwn=from@m.spwn,
+    FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m, spwn=from@m.spwn[1,],
       mat=new("predictModel", FLQuants(mat=from@mat), model=~mat),
       fec=new('predictModel', FLQuants(fec=from@mat), model=~fec),
       rec = new('predictModel', FLQuants(), model=~ssb - ssb + mean(ssb)),
       name=from@name, desc=from@desc, range=from@range)
   }
-)
-# }}}
+) # }}}
 
 # TO FLPar  {{{
 setAs('data.frame', 'FLPar',
