@@ -22,7 +22,7 @@ setClass("FLBiol",
     wt       = FLQuant(),
     mat      = new('predictModel', FLQuants(mat=FLQuant()), model=~mat),
     fec      = new('predictModel', FLQuants(fec=FLQuant()), model=~fec),
-    rec      = new('predictModel', FLQuants(cov=FLQuant()), model=~a * ssb * exp(-b * ssb)),
+    rec      = new('predictModel', FLQuants(rec=FLQuant()), model=~rec),
     spwn     = FLQuant()),
   validity = function(object) {
 
@@ -43,7 +43,6 @@ setClass("FLBiolcpp",
     wt       ="FLQuant",
     mat      ="FLQuant",
     fec      ="FLQuant",
-    rec      ="FLQuant",
     spwn     ="FLQuant"),
   prototype=prototype(
     range    = unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
@@ -52,7 +51,6 @@ setClass("FLBiolcpp",
     wt       = FLQuant(),
     mat      = FLQuant(),
     fec      = FLQuant(),
-    rec      = FLQuant(),
     spwn     = FLQuant())
 ) # }}}
 
@@ -385,18 +383,26 @@ setMethod('FLBiol', signature(object='FLQuant'),
     args <- list(...)
 
     # empty object
+    # TODO
     object[] <- NA
 
     dims <- dims(object)
 
     res <- new("FLBiol",
       n=object, m=object, wt=object, spwn=object[1,],
+      mat = new('predictModel', FLQuants(mat=object), model=~mat),
+      fec = new('predictModel', FLQuants(fec=object), model=~mat),
+      rec = new('predictModel', FLQuants(rec=object[1,]), model=~rec),
       range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
         minyear=dims$minyear, maxyear=dims$maxyear)))
 
     # Load given slots
     for(i in names(args))
       slot(res, i) <- args[[i]]
+
+    # FIX rec to n[1,] if no rec given
+    if(! 'rec' %in% names(args))
+      res@rec[['rec']] <- res@n[1,]
 
     return(res)
   }
@@ -486,7 +492,7 @@ setMethod("FLBiols", signature(object="list"),
 
 }) # }}}
 
-# coerce
+# coerce FLBiol - FLBiolcpp {{{
 
 setAs('FLBiol', 'FLBiolcpp',
   function(from) {
@@ -500,9 +506,9 @@ setAs('FLBiol', 'FLBiolcpp',
         wt = wt(from),
         mat = mat(from),
         fec = fec(from),
-        rec = rec(from),
         spwn = spwn(from))
-  })
+  }
+) # }}}
 
 # ---
 

@@ -216,7 +216,7 @@ setAs('FLStock', 'FLBiol',
     FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m, spwn=from@m.spwn[1,],
       mat=new("predictModel", FLQuants(mat=from@mat), model=~mat),
       fec=new('predictModel', FLQuants(fec=from@mat), model=~fec),
-      rec = new('predictModel', FLQuants(), model=~ssb - ssb + mean(ssb)),
+      rec = new('predictModel', FLQuants(rec=from@stock.n[1,]), model=~rec),
       name=from@name, desc=from@desc, range=from@range)
   }
 ) # }}}
