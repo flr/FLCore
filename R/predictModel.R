@@ -104,3 +104,47 @@ setMethod('show', signature(object='predictModel'),
 	}
 ) # }}}
 
+# evalPredictModel {{{
+evalPredictModel <- function(object, slot='fec') {
+
+  # EXTRACT slot
+  slot <- slot(object, slot)
+
+  lis <- list()
+
+  # EXTRACT expression to evaluate
+  args <- all.names(slot@model, functions=FALSE)
+
+  # (1) EXTRACT from FLQuants
+
+  # MATCH names
+  idx <- names(slot) %in% args
+  
+  # EXTRACT
+  if(any(idx)) {
+    lis <- slot@.Data[idx]
+    names(lis) <- names(slot)[idx]
+    
+    # DROP extracted args
+    args <- args[!args %in% names(lis)]
+  }
+
+  # (2) FLPar
+  pars <- as(slot@params, 'list')
+  idx <- names(pars) %in% args
+  if(any(idx)) {
+    lis <- c(lis, as(slot@params, 'list')[idx])
+    
+    # DROP extracted args
+    args <- args[!args %in% names(lis)]
+  }
+
+  # (3) CALL methods on object (inc. accessors)
+  if(length(args) > 0)
+    for(i in args)
+      lis[[i]] <- do.call(i, list(object))
+
+  # RETURN
+  return(eval(slot@model[[2]], lis))
+} # }}}
+

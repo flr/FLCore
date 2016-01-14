@@ -221,6 +221,24 @@ setAs('FLStock', 'FLBiol',
   }
 ) # }}}
 
+# TO FLBiolcpp {{{
+
+setAs('FLBiol', 'FLBiolcpp',
+  function(from) {
+    # process modelPredict slots
+    new("FLBiolcpp",
+        name = name(from),
+        desc = desc(from),
+        range = range(from),
+        n = n(from),
+        m = m(from),
+        wt = wt(from),
+        mat = mat(from),
+        fec = fec(from),
+        spwn = spwn(from))
+  }
+) # }}}
+
 # TO FLPar  {{{
 setAs('data.frame', 'FLPar',
   function(from) {

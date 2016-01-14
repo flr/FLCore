@@ -32,7 +32,9 @@ setClass("FLBiol",
 
     return(TRUE)
   }
-) # }}}
+)
+
+invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range')))  # }}}
 
 # class FLBiolcpp {{{
 setClass("FLBiolcpp",
@@ -53,52 +55,6 @@ setClass("FLBiolcpp",
     fec      = FLQuant(),
     spwn     = FLQuant())
 ) # }}}
-
-invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range')))  # }}}
-
-# evalPredictModel {{{
-evalPredictModel <- function(object, slot='fec') {
-
-  # EXTRACT slot
-  slot <- slot(object, slot)
-
-  lis <- list()
-
-  # EXTRACT expression to evaluate
-  args <- all.names(slot@model, functions=FALSE)
-
-  # (1) EXTRACT from FLQuants
-
-  # MATCH names
-  idx <- names(slot) %in% args
-  
-  # EXTRACT
-  if(any(idx)) {
-    lis <- slot@.Data[idx]
-    names(lis) <- names(slot)[idx]
-    
-    # DROP extracted args
-    args <- args[!args %in% names(lis)]
-  }
-
-  # (2) FLPar
-  pars <- as(slot@params, 'list')
-  idx <- names(pars) %in% args
-  if(any(idx)) {
-    lis <- c(lis, as(slot@params, 'list')[idx])
-    
-    # DROP extracted args
-    args <- args[!args %in% names(lis)]
-  }
-
-  # (3) CALL methods on object (inc. accessors)
-  if(length(args) > 0)
-    for(i in args)
-      lis[[i]] <- do.call(i, list(object))
-
-  # RETURN
-  return(eval(slot@model[[2]], lis))
-} # }}}
 
 # fec {{{
 setMethod('fec', signature('FLBiol'),
@@ -497,24 +453,6 @@ setMethod("FLBiols", signature(object="list"),
       )
 
 }) # }}}
-
-# coerce FLBiol - FLBiolcpp {{{
-
-setAs('FLBiol', 'FLBiolcpp',
-  function(from) {
-    # process modelPredict slots
-    new("FLBiolcpp",
-        name = name(from),
-        desc = desc(from),
-        range = range(from),
-        n = n(from),
-        m = m(from),
-        wt = wt(from),
-        mat = mat(from),
-        fec = fec(from),
-        spwn = spwn(from))
-  }
-) # }}}
 
 # ---
 
