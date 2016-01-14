@@ -716,7 +716,7 @@ setMethod("leslie", signature(object="FLBiol"),
 
     n[] <- n(xx)@.Data[]
     pm[] <- exp(-m(xx)@.Data[])
-    m.spwn[] <- spwn(xx)@.Data[]
+    m.spwn[] <- spwn(xx)@.Data
     fec[] <- fec(xx)@.Data[]
 
     amax <- dms.n[1]
