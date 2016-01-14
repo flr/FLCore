@@ -402,7 +402,7 @@ setMethod('FLBiol', signature(object='FLQuant'),
 
     # FIX rec to n[1,] if no rec given
     if(! 'rec' %in% names(args))
-      res@rec[['rec']] <- res@n[1,]
+     res@rec['rec']  <- new('predictModel', FLQuants(rec=res@n[1,]), model=~rec)
 
     return(res)
   }
@@ -413,13 +413,19 @@ setMethod('FLBiol', signature(object='missing'),
   {
     args <- list(...)
 
+    slots <- unlist(lapply(args, function(x) is(x, 'FLQuant')))
+    slots <- names(slots[slots])
     # if no FLQuant argument given, then use empty FLQuant
-    slots <- lapply(args, class)
-    slots <- names(slots)[slots == 'FLQuant']
     if(length(slots) == 0)
       object <- FLQuant()
-    else
+    # if 1, use it
+    else if(length(slots) == 1)
       object <- args[[slots[1]]]
+    # if 2+, use !spwn
+    else {
+      slots <- slots[!slots %in% 'spwn']
+      object <- args[[slots[1]]]
+    }
     return(FLBiol(object, ...))
   }
 ) # }}}
