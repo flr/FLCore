@@ -54,7 +54,11 @@ setClass("FLBiolcpp",
     mat      = FLQuant(),
     fec      = FLQuant(),
     spwn     = FLQuant())
-) # }}}
+) 
+
+invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # }}}
+
+# }}}
 
 # fec {{{
 setMethod('fec', signature('FLBiol'),
@@ -216,6 +220,12 @@ setMethod('rec', signature('FLBiol'),
     else
       return(new('FLQuants', object@rec@.Data, names=object@rec@names,
         lock=object@rec@lock))
+  }
+) 
+
+setMethod('rec', signature('FLBiolcpp'),
+  function(object) {
+    return(n(object)[1,])
   }
 ) # }}}
 
