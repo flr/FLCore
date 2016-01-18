@@ -5,9 +5,68 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # class predictModel: model + data + params {{{
+#' A class for model prediction
+#'
+#' Object of the predictModel class are used in various FLR classes to allow
+#' flexible modelling of the dynamics of different biological and technological
+#' processes.
+#'
+#' The dependency of life history processes, such as maturity and fecundity, to biological
+#' and environmental factors, can be represented in objects of this class via a simple model
+#' (represented by a `formula`) and the corresponding paramaters (`FLPar`) and inputs
+#' (`FLQuants`).
+#'
+#' @name predictModel
+#' @rdname predictModel
+#' @docType class
+#' @aliases predictModel predictModel-methods predictModel-class
+#'
+#' @section Slots:
+#'     \describe{
+#'     \item{.Data}{Inputs to the model not found in enclosing class (\code{FLQuants}).}
+#'     \item{model}{Model representation (\code{formula}).}
+#'     \item{params}{Model paramaters (\code{FLPar}).}
+#' }
+#'
+#' @section Validity:
+#'
+#'   \describe{
+#'     \item{VALIDITY}{Neque porro quisquam est qui dolorem ipsum.}
+#' }
+#'
+#' You can inspect the class validity function by using
+#'    \code{getValidity(getClassDef('FLCatch'))}
+#'
+#' @section Accessors:
+#' All slots in the class have accessor and replacement methods defined that
+#' allow retrieving and substituting individual slots.
+#'
+#' The values passed for replacement need to be of the class of that slot.
+#' A numeric vector can also be used when replacing FLQuant slots, and the
+#' vector will be used to substitute the values in the slot, but not its other
+#' attributes.
+#'
+#' @section Constructor:
+#' A construction method exists for this class that can take named arguments for
+#' any of its slots. All slots are then created to match the requirements of the
+#' class validity.
+#'
+#' @section Methods:
+#' Methods exist for various calculations based on values stored in the class:
+#'
+#' \describe{
+#'     \item{METHOD}{Neque porro quisquam est qui dolorem ipsum.}
+#' }
+#'
+#' @author The FLR Team
+#' @seealso \link{FLQuants} \link{FLPar} \link{FLBiol}
+#' @keywords classes
+#' @examples
+#'
 setClass('predictModel',
 	contains='FLQuants',
-	representation(params='FLPar', model='formula')) # }}}
+	representation(params='FLPar', model='formula'),
+    prototype(FLQuants(), params=FLPar(a=as.numeric(NA)), model=~a)) # }}}
 
 # predictModel() {{{
 setMethod('predictModel', signature(object='FLQuants'),
@@ -105,6 +164,28 @@ setMethod('show', signature(object='predictModel'),
 ) # }}}
 
 # evalPredictModel {{{
+
+#' Evaluates a predictModel slot inside the object cointaining it
+#'
+#' Models in objects of the \link{predictModel} class can make use of slots and
+#' methods of the FLR class in which it is contained as a slot. This function can
+#' be used by methods wishing to evaluate a single `predictModel` slot in the
+#' context of the class it isd part of.
+#'
+#' @param object The FLR S4 object holding the `predictModel` slot.
+#' @param slot The name of the slot to be evaluated, as a character.
+#'
+#' @return The result of evaluating the model, usually an `FLQuant`
+#'
+#' @name evalPredictModel
+#' @rdname evalPredictModel
+#' @aliases evalPredictModel
+#'
+#' @author The FLR Team
+#' @seealso \link{predictModel}
+#' @keywords utilities
+#' @examples
+#' 
 evalPredictModel <- function(object, slot='fec') {
 
   # EXTRACT slot
