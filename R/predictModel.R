@@ -35,7 +35,7 @@
 #' }
 #'
 #' You can inspect the class validity function by using
-#'    \code{getValidity(getClassDef('FLCatch'))}
+#'    \code{getValidity(getClassDef('predictModel'))}
 #'
 #' @section Accessors:
 #' All slots in the class have accessor and replacement methods defined that
@@ -59,7 +59,7 @@
 #' }
 #'
 #' @author The FLR Team
-#' @seealso \link{FLQuants} \link{FLPar} \link{FLBiol}
+#' @seealso \code{\link{FLQuants}} \code{\link{FLPar}} \code{\link{FLBiol}}
 #' @keywords classes
 #' @examples
 #'
@@ -129,7 +129,7 @@ setReplaceMethod('params', signature(object='predictModel', value='FLPar'),
 # predict(predictModel) {{{
 setMethod('predict', signature(object='predictModel'),
 	function(object) {
-		return(eval(object@model[[3]], c(object, as(object@params, 'list'))))
+		return(eval(object@model[[length(object@model)]], c(object, as(object@params, 'list'))))
 	}
 ) # }}}
 
@@ -226,6 +226,6 @@ evalPredictModel <- function(object, slot='fec') {
       lis[[i]] <- do.call(i, list(object))
 
   # RETURN
-  return(eval(slot@model[[2]], lis))
+  return(eval(slot@model[[length(slot@model)]], lis))
 } # }}}
 

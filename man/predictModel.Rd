@@ -34,7 +34,7 @@ and environmental factors, can be represented in objects of this class via a sim
 }
 
 You can inspect the class validity function by using
-   \code{getValidity(getClassDef('FLCatch'))}
+   \code{getValidity(getClassDef('predictModel'))}
 }
 
 \section{Accessors}{
@@ -70,7 +70,7 @@ Methods exist for various calculations based on values stored in the class:
 The FLR Team
 }
 \seealso{
-\link{FLQuants} \link{FLPar} \link{FLBiol}
+\code{\link{FLQuants}} \code{\link{FLPar}} \code{\link{FLBiol}}
 }
 \keyword{classes}
 

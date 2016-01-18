@@ -12,3 +12,10 @@
 pm <- new('predictModel')
 
 validObject(pm)
+
+
+pm <- predictModel(a=FLQuant(1:10), model=res~a*b, params=FLPar(b=2))
+
+pm <- predictModel(a=FLQuant(1:10), model=~a*b, params=FLPar(b=2))
+
+predict(pm)

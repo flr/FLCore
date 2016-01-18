@@ -5,6 +5,44 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # class FLBiol {{{
+#' Class FLBiol
+#'
+#' A class for modelling age / length or biomass structured populations.
+#'
+#' The \code{FLBiol} class is a representation of a biological fish population.
+#' This includes information on abundances, natural mortality and fecundity.
+#'
+#' @name FLBiol
+#' @template FLBiol-aliases
+#' @docType class
+#' @section Slots: \describe{
+#'   \item{n}{Numbers in the population. \code{FLQuant}.}
+#'   \item{m}{Mortality rate of the population. \code{FLQuant}.}
+#'   \item{wt}{Mean weight of an individual. \code{FLQuant}.}
+#'   \item{mat}{\code{predictModel}.}
+#'   \item{fec}{\code{predictModel}.}
+#'   \item{rec}{\code{predictModel}.}
+#'   \item{spwn}{Proportion of time step at which spawning ocurrs. \code{FLQuant}.}
+#'   \item{name}{Name of the object. \code{character}.}
+#'   \item{desc}{Brief description of the object. \code{character}.}
+#'   \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
+#' @template Accessors
+#' @template Constructors
+#' @section Validity: \describe{
+#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+#'     \item{Iters}{The dimname for iter[1] should be '1'.}
+#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+#' }
+#' @author The FLR Team
+#' @seealso \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce}, \link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
+#' @keywords classes
+#' @examples
+#'
+#' # An FLBiol example dataset
+#' data(ple4.biol)
+#'
+#' summary(ple4.biol)
+#'
 setClass("FLBiol",
   representation(
     "FLComp",
@@ -57,8 +95,6 @@ setClass("FLBiolcpp",
 ) 
 
 invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # }}}
-
-# }}}
 
 # fec {{{
 setMethod('fec', signature('FLBiol'),

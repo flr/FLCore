@@ -3,66 +3,68 @@ Title: Core Package of FLR, Fisheries Library in R
 Version: 2.5.20150710.01
 Date: 2015-07-10
 Author: FLR Team and various contributors. Initial design by Laurence T. Kell &
-    Philippe Grosjean.
+  Philippe Grosjean.
 Maintainer: Iago Mosqueira <iago.mosqueira@jrc.ec.europa.eu>
 Description: FLCore contains the core classes and methods for FLR, a framework
-    for fisheries modelling and management strategy simulation in R. Developed
-    by a team of fisheries scientists in various countries. More information
-    can be found at http://flr-project.org/, including a development mailing
-    list.
+  for fisheries modelling and management strategy simulation in R. Developed
+  by a team of fisheries scientists in various countries. More information
+  can be found at http://flr-project.org/, including a development mailing
+  list.
 Depends:
-    methods,
-    R(>= 3.0),
-    lattice,
-    MASS
+  methods,
+  R(>= 3.0),
+  lattice,
+  MASS
 Imports:
-    grid,
-    stats,
-    graphics
+  grid,
+  stats,
+  graphics
+Suggests:
+  testthat
 License: GPL (>= 2)
 Collate:
-    'genericMethods.R'
-    'FLAccesors.R'
-    'classesArr.R'
-    'FLArray.R'
-    'FLQuant.R'
-    'FLQuantPoint.R'
-    'classesComp.R'
-    'FLQuantDistr.R'
-    'classesLst.R'
-    'FLPar.R'
-    'predictModel.R'
-    'FLBiol.R'
-    'FLlst-class.R'
-    'FLComp.R'
-    'FLS.R'
-    'FLStock.R'
-    'FLStockLen.R'
-    'FLI.R'
-    'FLIndex.R'
-    'FLIndexBiomass.R'
-    'FLModel.R'
-    'FLModelDeriv.R'
-    'FLModelSim.R'
-    'FLQuants.R'
-    'FLSR.R'
-    'operators.R'
-    'io.VPAsuite.R'
-    'io.FLStock.R'
-    'io.MFCL.R'
-    'io.ADMB.R'
-    'FLCohort.R'
-    'FLlst-methods.R'
-    'getPlural.R'
-    'io.FLIndices.R'
-    'FLGrowth.R'
-    'SRmodels.R'
-    'coerce.R'
-    'PlotDiagnostics.R'
-    'FLQuantJK.R'
-    'zzz.R'
-    'io.Adapt.R'
-    'io.VPA2Box.R'
+  'genericMethods.R'
+  'FLAccesors.R'
+  'classesArr.R'
+  'FLArray.R'
+  'FLQuant.R'
+  'FLQuantPoint.R'
+  'classesComp.R'
+  'FLQuantDistr.R'
+  'classesLst.R'
+  'FLPar.R'
+  'predictModel.R'
+  'FLBiol.R'
+  'FLlst-class.R'
+  'FLComp.R'
+  'FLS.R'
+  'FLStock.R'
+  'FLStockLen.R'
+  'FLI.R'
+  'FLIndex.R'
+  'FLIndexBiomass.R'
+  'FLModel.R'
+  'FLModelDeriv.R'
+  'FLModelSim.R'
+  'FLQuants.R'
+  'FLSR.R'
+  'operators.R'
+  'io.VPAsuite.R'
+  'io.FLStock.R'
+  'io.MFCL.R'
+  'io.ADMB.R'
+  'FLCohort.R'
+  'FLlst-methods.R'
+  'getPlural.R'
+  'io.FLIndices.R'
+  'FLGrowth.R'
+  'SRmodels.R'
+  'coerce.R'
+  'PlotDiagnostics.R'
+  'FLQuantJK.R'
+  'zzz.R'
+  'io.Adapt.R'
+  'io.VPA2Box.R'
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues
