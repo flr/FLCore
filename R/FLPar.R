@@ -649,10 +649,11 @@ setMethod("jackSummary", signature(object="FLPar"),
   }
 ) # }}}
 
-# rbind {{{
-setMethod('rbind', signature('FLPar'),
-  function(...) {
-    args <- list(...)
+# rbind2 {{{
+setMethod('rbind2', signature(x='FLPar', y='FLPar'),
+  function(x, y, ...) {
+
+    args <- c(list(x=x, y=y), list(...))
 
     # dims
     dimar <- lapply(args, function(x) dim(x))
@@ -673,11 +674,11 @@ setMethod('rbind', signature('FLPar'),
   }
 ) # }}}
 
-# cbind {{{
-setMethod('cbind', signature('FLPar'),
-  function(...) {
+# cbind2 {{{
+setMethod('cbind2', signature(x='FLPar', y='FLPar'),
+  function(x, y, ...) {
     
-    args <- list(...)
+    args <- c(list(x=x, y=y), list(...))
     
     idx <- unlist(lapply(args, is, 'FLPar'))
     if(!all(idx))

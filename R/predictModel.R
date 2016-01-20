@@ -194,7 +194,7 @@ evalPredictModel <- function(object, slot='fec') {
   lis <- list()
 
   # EXTRACT expression to evaluate
-  args <- all.names(slot@model, functions=FALSE)
+  args <- all.names(slot@model[[length(slot@model)]], functions=FALSE)
 
   # (1) EXTRACT from FLQuants
 

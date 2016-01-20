@@ -49,8 +49,6 @@ setGeneric("rpois", useAsDefault=rpois)
 setGeneric("mvrnorm", useAsDefault=mvrnorm)
 setGeneric("tail", useAsDefault=tail)
 setGeneric("tsp", useAsDefault=tsp)
-setGeneric("cbind", signature="...")
-setGeneric("rbind", signature="...")
 setGeneric("wireframe", useAsDefault=wireframe)
 
 

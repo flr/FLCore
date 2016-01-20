@@ -44,7 +44,7 @@ setMethod("[", signature(x="FLArray"),
       if(length(list(...)) > 0)
         stop(paste(class(x), 'objects only have 6 dimensions'))
 	  	dx <- dim(x)
-		  if (missing(i))
+	  if (missing(i))
         i  <-  seq(1, dx[1])
       if (missing(j))
         j  <-  seq(1, dx[2])

@@ -100,12 +100,12 @@ setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(
 
 # lapply  {{{
 setMethod("lapply", signature(X="FLlst"),
-	function(X, FUN, ...) {
+  function(X, FUN, ...) {
 
-		if(length(X) == 0)
-			return(new(class(X)))
+    if(length(X) == 0)
+	  return(new(class(X)))
 		
-		lstargs <- list(...)
+    lstargs <- list(...)
 
    	lstargs$X <- X@.Data
    	names(lstargs$X) <- names(X)
@@ -120,7 +120,7 @@ setMethod("lapply", signature(X="FLlst"),
     	lst <- new(cls, lst, lock=FALSE, names=attr(X, 'names'), desc=attr(X, 'desc'))
    	}
 	 	names(lst) <- names(X)
-  return(lst)
+ return(lst)
 	}
 )  # }}}
 
