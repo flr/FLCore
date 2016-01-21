@@ -654,7 +654,7 @@ setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x, c(1:3,6), mean, na.rm=na.rm))
+  return(apply(x, c(1:3,5,6), mean, na.rm=na.rm))
 })
 
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
