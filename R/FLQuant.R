@@ -1123,7 +1123,42 @@ setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),
 
 		return(FLQuant(res, dimnames=dmns, units=uts))
 	}
-) # }}}
+) 
+
+setMethod("ifelse", signature(test="ANY", yes="ANY", no="FLQuant"),
+	function(test, yes, no) {
+		
+      #
+	  uts <- units(no)
+	  dmns <- dimnames(no)
+
+	  test <- as(test, 'logical')
+	  yes <- c(yes)
+	  no <- c(no)
+
+	  res <- callNextMethod()
+
+	  return(FLQuant(res, dimnames=dmns, units=uts))
+	}
+)
+
+setMethod("ifelse", signature(test="ANY", yes="FLQuant", no="ANY"),
+	function(test, yes, no) {
+		
+      #
+	  uts <- units(yes)
+	  dmns <- dimnames(yes)
+
+	  test <- as(test, 'logical')
+	  yes <- c(yes)
+	  no <- c(no)
+
+	  res <- callNextMethod()
+
+	  return(FLQuant(res, dimnames=dmns, units=uts))
+	}
+)
+# }}}
 
 # tail {{{
 setMethod("tail", signature(x="FLQuant"),
