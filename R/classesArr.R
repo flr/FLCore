@@ -274,7 +274,7 @@ setClass("FLCohort",
 # FLPar {{{
 setClass('FLPar', representation('array', units='character'),
 	prototype=prototype(array(as.numeric(NA), dim=c(1,1),
-	dimnames=list(params=character(1), iter=1)), units='NA'),
+	dimnames=list(params=character(0), iter=1)), units='NA'),
 	validity=function(object) {
 		# object must be numeric
 		if(!is.numeric(object))

@@ -363,14 +363,14 @@ setMethod("summary", signature(object="FLBiol"),
       # FLQuants
       if(length(names(slot(object, i))) > 0) {
         for(j in names(slot(object, i))) {
-          cat(substr(paste0("  ", i, "          "), start=1, stop=12),
+          cat(substr(paste0("  ", j, "          "), start=1, stop=12),
             " : [", dim(slot(object,i)[[j]]),"], units = ",
             slot(object,i)[[j]]@units, "\n")
         }
       }
       # params
       par <- slot(object, i)@params
-      cat(substr(paste0("  (", ifelse(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == "",
+      cat(substr(paste0("  (", ifelse(all(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == ""),
         "NA", paste(dimnames(par)[[1]], collapse=", ")),
         ")           "), start=1, stop=12), " : [", dim(slot(object,i)@params),
         "], units = ", slot(object,i)@params@units, "\n")

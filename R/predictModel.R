@@ -66,11 +66,11 @@
 setClass('predictModel',
 	contains='FLQuants',
 	representation(params='FLPar', model='formula'),
-    prototype(FLQuants(), params=FLPar(a=as.numeric(NA)), model=~a)) # }}}
+    prototype(FLQuants(), params=FLPar(), model=~NA)) # }}}
 
 # predictModel() {{{
 setMethod('predictModel', signature(object='FLQuants'),
-	function(object, model=~a, params=FLPar(a=as.numeric(NA))) {
+	function(object, model=~NA, params=FLPar()) {
 
 	# CREATE object
 	res <- new("predictModel", object, model=model, params=params)
