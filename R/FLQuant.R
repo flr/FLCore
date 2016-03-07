@@ -582,7 +582,7 @@ setMethod('quantTotals', signature(x='FLQuant'),
   function(x, na.rm=TRUE) {
     sums <- x
     for (i in 1:dim(x)[2])
-      sums[,i,,,,] <- rowSums(x, dim=1, na.rm=na.rm)
+      sums[,i,,,,] <- rowSums(x, na.rm=na.rm, dims=1)
     return(sums)
   }
 )
