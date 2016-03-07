@@ -360,7 +360,7 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
       {
         m <- survprob(m)
 
-				r.func <- function(ff, p, age)
+				r.el <- function(ff, p, age)
         {
 					# solve Euler-Lotka using optimise
 					elfn <- function(x)
@@ -405,7 +405,7 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
 						ff <- as.vector(fec[,y,,,,i])
 						p <- as.vector(m[,y,,,,i])
 
-						r.ret[,y,,,,i] <- r.func(ff, p, age)
+						r.ret[,y,,,,i] <- r.el(ff, p, age)
 					}
 				}
 			}
@@ -417,7 +417,7 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
 
 				# define function to construct leslie matrix and calculate r
 
-				r.func <- function(ff, p) {
+				r.le <- function(ff, p) {
 
 					# construct the leslie matrix
 					lesm <- matrix(ncol=length(ff),nrow=length(ff))
@@ -467,7 +467,7 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
           {
 						ff <- as.vector(fec[,y,,,,i])
 						p <- as.vector(m[,y,,,,i])
-						r.ret[,y,,,,i] <- r.func(ff,p)
+						r.ret[,y,,,,i] <- r.le(ff,p)
 					}
 				}
 			}
