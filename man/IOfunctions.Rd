@@ -14,13 +14,15 @@
   stock assessment.
 }
 \usage{
-  readFLStock(file, type = "VPA", name, desc = paste("Imported from a", type, "file. (",
-    file, "). ", date()), m = 0.2, quant = "age", quiet = TRUE, no.discards = FALSE, sep="")
+  readFLStock(file, type = "VPA", name,
+    desc = paste("Imported from a", type, "file. (", file, "). ", date()),
+    m = 0.2, quant = "age", quiet = TRUE, no.discards = FALSE, sep="")
   readVPAFile(file, sep = "", units = "NA", quiet = TRUE)
   readFLIndex(file, type = "VPA", index.names, descs,
     desc =  paste("Imported from ", type, " file '", file, "'", sep = ""))
   readFLIndices(file, file2, type = "VPA", index.names, descs,
-    desc = paste("Imported from ", type, " file '", file, "'", sep = ""), na.strings = "NA", sep="")
+    desc = paste("Imported from ", type, " file '", file, "'", sep = ""),
+    na.strings = "NA", sep="")
   writeFLStock(FLStock, output.file=FLStock@name, type = "VPA")
 }
 \arguments{
@@ -86,16 +88,16 @@
 path  <- getwd()
 
 ## reads a set of 'Lowestoft File Format' for a stock and creates an FLStock object
-ple4        <-readFLStock(paste(path, "pleindex.txt", sep=""))
+ple4 <- readFLStock(paste(path, "pleindex.txt", sep=""))
 
 ## reads a single file in 'Lowestoft File Format' and creates an FLQuant
-ple4.catch.n<-readVPAFile(paste(path, "plecanum.txt", sep=""))
+ple4.catch.n <- readVPAFile(paste(path, "plecanum.txt", sep=""))
 
 ## reads a set of tuning data in 'Lowestoft File Format' and creates an FLIndices object
-ple4.indices<-readFLIndices(paste(path, "plecpue.txt", sep=""))
+ple4.indices <- readFLIndices(paste(path, "plecpue.txt", sep=""))
 
 ## reads a single index from a tuning file in 'Lowestoft File Format' and creates an FLIndex object
-ple4.index  <-readFLIndex(paste(path, "plecpue1.txt", sep=""))
+ple4.index <- readFLIndex(paste(path, "plecpue1.txt", sep=""))
 
 ## writes an FLStock to 'Lowestoft File Format' in the current working directory
 writeFLStock(ple4,output.file=file.path(getwd(),"Ple4"))
