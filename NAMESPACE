@@ -1,4 +1,6 @@
 import("methods")
+importFrom("utils",
+  "packageDescription") 
 importFrom("MASS",
   "mvrnorm")
 importFrom("Matrix",
