@@ -1,46 +1,10 @@
 # classesComp.R -
 # FLCore/R/classesComp.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # FLComp   {{{
-validFLComp <- function(object){
-
-  # range must be named ...
-  nms <- names(range(object))
-  # with non/empty strings
-  if(any(nchar(nms) == 0))
-    return("names in range cannot be empty")
-
-  # Any FLArray?
-  slots <- getSlots(class(object))
-
-  if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
-
-    # FLQuant slots must have either 1 or n iter
-    dims <- unlist(qapply(object, function(x) dims(x)$iter))
-    test <- dims != max(dims) & dims != 1
-    if (any(test))
-      stop(paste("All slots must have iters equal to 1 or 'n': error in",
-        paste(names(test[!test]), collapse=', ')))
-
-    # and dimname for iter[1] should be '1'
-    dimnms <- qapply(object, function(x) dimnames(x)$iter)
-    test <- unlist(dimnms[dims == 1])
-    if(!all(test==test))
-      stop(paste("Incorrect names on the iter dimension in ",
-        paste(names(test[!test]), collapse=', ')))
-
-    # all 'quant' should be equal
-   # quants <- unlist(qapply(object, quant))
-   # if(any(quants != quants[1]))
-   #   stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
-
-  }
-
-  return(TRUE)
-}
 
 #' Class FLComp
 #'
@@ -60,7 +24,7 @@ validFLComp <- function(object){
 #' @section Slots: \describe{
 #'    \item{name}{A character vector for the object name.}
 #'    \item{desc}{A textual description of the object contents.}
-#'    \item{range}{A named numeric vector with various values of quant and year ranges, plusgroup, fishing mortality ranges, etc.}
+#'    \item{range}{A named numeric vector with various values of quant and year ranges, plusgroup, fishing mortality ranges, etc. Elements are specific to each child class.}
 #' }
 #' @author The FLR Team
 #' @seealso \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame},
@@ -69,16 +33,52 @@ validFLComp <- function(object){
 #' \link{units<-,FLComp,list-method}, \link[stats]{window}
 #' @keywords classes
 setClass("FLComp",
-  representation(
-    name="character",
-    desc="character",
-    range="numeric",
-    "VIRTUAL"),
-  prototype(
-    name=character(1),
-    desc=character(0),
-    range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))),
-  validity=validFLComp)
+	representation(
+		name="character",
+		desc="character",
+		range="numeric",
+		"VIRTUAL"),
+	prototype(
+		name=character(1),
+		desc=character(0),
+  	range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))),
+  validity=function(object){
+
+	# range must be named ...
+	nms <- names(range(object))
+	# with non/empty strings
+	if(any(nchar(nms) == 0))
+		return("names in range cannot be empty")
+
+	# Any FLArray?
+	slots <- getSlots(class(object))
+
+	if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
+
+		# FLQuant slots must have either 1 or n iter
+  	dims <- unlist(qapply(object, function(x) dims(x)$iter))
+	  test <- dims != max(dims) & dims != 1
+		if (any(test))
+			stop(paste("All slots must have iters equal to 1 or 'n': error in",
+				paste(names(test[!test]), collapse=', ')))
+
+	  # and dimname for iter[1] should be '1'
+  	dimnms <- qapply(object, function(x) dimnames(x)$iter)
+		test <- unlist(dimnms[dims == 1])
+		if(!all(test==test))
+			stop(paste("Incorrect names on the iter dimension in ",
+				paste(names(test[!test]), collapse=', ')))
+
+	  # all 'quant' should be equal
+#  	  quants <- unlist(qapply(object, quant))
+#	  if(any(quants != quants[1]))
+# 	  stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
+
+	}
+
+	return(TRUE)
+}
+	)
 
 invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #  }}}
@@ -167,38 +167,7 @@ remove(validFLS)
 
 invisible(createFLAccesors("FLS", exclude=c('name', 'desc', 'range', 'harvest')))  # }}}
 
-# FLStock      {{{
-validFLStock <- function(object) {
-
-  names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
-  for(i in names){
-    # all dimnames but iter are the same
-    if(!identical(unlist(dimnames(object@catch.n)[2:5]),
-      unlist(dimnames(slot(object, i))[2:5])))
-      return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
-    # no. iter are equal or one
-  }
-  for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
-  {
-    # quant is n
-    if(!identical(unlist(dimnames(object@catch.n)[1]),
-      unlist(dimnames(slot(object, i))[1])))
-      return(paste('All elements must share quant names: Error in FLStock', i))
-  }
-  for (i in c('catch', 'landings', 'discards'))
-  {
-    # quant is 1
-    if(dim(slot(object, i))[1] != 1)
-      return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
-  }
-  # check range
-  dim <- dim(object@catch.n)
-  dimnm <- dimnames(object@catch.n)
-  if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-    as.numeric(dimnm$year[dim[2]]))))
-    return('Range does not match object dimensions')
-
-  return(TRUE)}
+# FLStock			{{{
 
 #' Class FLStock
 #'
@@ -239,62 +208,86 @@ validFLStock <- function(object) {
 #'
 #' data(ple4)
 #'
-#' # get the landings slot
-#' landings(ple4) #get the landings slot
 #' # assign values to the landings slot
+#' landings(ple4) #get the landings slot
 #' landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)
 #'
 #' discards(ple4) <- computeDiscards(ple4)
 #'
-#' # set the units of the harvest slot of an FLStock object
-#' harvest(ple4) <- 'f'
+#' harvest(ple4) <- 'f' # set the units of the harvest slot of an FLStock object
 #'
 #' catch(ple4) <- computeCatch(ple4)
 #' catch(ple4) <- computeCatch(ple4, slot="all")
 #'
 #' ple4[,1] # subset the FLStock
-#' # trim the FLStock
-#' trim(ple4, age=2:6, year=1980:1990)
+#' trim(ple4, age=2:6, year=1980:1990) #trim the FLStock
 #'
-#' # calculate SSB
-#' ssb(ple4)
-#' # calculate SSB per recruit
-#' ssbpurec(ple4)
+#' ssb(ple4) # calculate SSB
+#' ssbpurec(ple4) # calculate SSB per recruit
 #'
-#' # coerce an FLStock to an FLBiol
-#' biol <- as(ple4, "FLBiol")
-#' # initialise an FLSR object from an FLStock
-#' flsr <- as.FLSR(ple4)
+#' biol <- as(ple4, "FLBiol")  # coerce an FLStock to an FLBiol
+#' flsr <- as.FLSR(ple4)       # initialise an FLSR object from an FLStock
+#'
+#'
 #'
 setClass("FLStock",
-  representation(
-  "FLS"
-  ),
-  prototype=prototype(
-    range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
-    catch  = FLQuant(),
-    catch.n  = FLQuant(),
-    catch.wt= FLQuant(),
-    discards= FLQuant(),
-    discards.n = FLQuant(),
-    discards.wt= FLQuant(),
-    landings   = FLQuant(),
-    landings.n = FLQuant(),
-    landings.wt= FLQuant(),
-    stock     = FLQuant(),
-    stock.n   = FLQuant(),
-    stock.wt = FLQuant(),
-    m     = FLQuant(),
-    mat     = FLQuant(),
-    harvest   = FLQuant(units="f"),
-    harvest.spwn = FLQuant(),
-    m.spwn   = FLQuant()
-  ),
-  validity=validFLStock
-)
-remove(validFLStock)
+	representation(
+	"FLS"
+	),
+	prototype=prototype(
+		range	= unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1, minfbar=0, maxfbar=0)),
+		catch	= FLQuant(),
+		catch.n	= FLQuant(),
+		catch.wt= FLQuant(),
+		discards= FLQuant(),
+		discards.n = FLQuant(),
+		discards.wt= FLQuant(),
+		landings   = FLQuant(),
+		landings.n = FLQuant(),
+		landings.wt= FLQuant(),
+		stock	   = FLQuant(),
+		stock.n	 = FLQuant(),
+		stock.wt = FLQuant(),
+		m		 = FLQuant(),
+		mat		 = FLQuant(),
+		harvest	 = FLQuant(units="f"),
+		harvest.spwn = FLQuant(),
+		m.spwn	 = FLQuant()
+	),
+  validity=function(object) {
 
-#invisible(createFLAccesors("FLStock", exclude=c('name', 'desc', 'range', 'harvest')))  # }}}
+	names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
+	for(i in names){
+		# all dimnames but iter are the same
+		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
+			unlist(dimnames(slot(object, i))[2:5])))
+			return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
+		# no. iter are equal or one
+	}
+	for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
+	{
+		# quant is n
+		if(!identical(unlist(dimnames(object@catch.n)[1]),
+			unlist(dimnames(slot(object, i))[1])))
+			return(paste('All elements must share quant names: Error in FLStock', i))
+	}
+	for (i in c('catch', 'landings', 'discards'))
+	{
+		# quant is 1
+		if(dim(slot(object, i))[1] != 1)
+			return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
+	}
+	# check range
+	dim <- dim(object@catch.n)
+	dimnm <- dimnames(object@catch.n)
+	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
+		as.numeric(dimnm$year[dim[2]]))))
+		return('Range does not match object dimensions')
+
+	return(TRUE)}
+)
+
+#invisible(createFLAccesors("FLStock", exclude=c('name', 'desc', 'range', 'harvest')))	# }}}
 
 # FLStockLen      {{{
 
@@ -410,111 +403,118 @@ setClass("FLStockLen",
 ) # }}}
 
 # FLBiol {{{
-validFLBiol <- function(object){
+
+#' Class FLBiol
+#' 
+#' A class for modelling age / length or biomass structured populations.
+#' 
+#' The \code{FLBiol} class is a representation of a biological fish population
+#' (in contrast to \code{\link{FLStock}}, which represents a fish stock; the
+#' two may not fully coincide). This includes information on abundances,
+#' natural mortlity and fecundity.
+#' 
+#' @name FLBiol
+#' @aliases FLBiol FLBiol,FLQuant-method FLBiol,missing-method FLBiol-class
+#' FLBiol-methods desc,FLBiol-method desc<-,FLBiol,character-method
+#' fec,FLBiol-method fec<-,FLBiol,FLQuant-method m,FLBiol-method
+#' m<-,FLBiol,FLQuant-method n,FLBiol-method n<-,FLBiol,FLQuant-method
+#' name,FLBiol-method name<-,FLBiol,character-method range,FLBiol-method
+#' range<-,FLBiol,numeric-method spwn,FLBiol-method
+#' spwn<-,FLBiol,FLQuant-method wt,FLBiol-method wt<-,FLBiol,FLQuant-method
+#' @docType class
+#' @section Slots: \describe{ \item{n}{Numbers in the population.
+#' \code{FLQuant}.} \item{m}{Mortality rate of the population. \code{FLQuant}.}
+#' \item{wt}{Mean weight of an individual. \code{FLQuant}.}
+#' \item{fec}{Fecundity/maturity/per capita birth rate. \code{FLQuant}.}
+#' \item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
+#' \item{name}{Name of the object. \code{character}.} \item{desc}{Brief
+#' description of the object. \code{character}.} \item{range}{Named numeric
+#' vector containing the quant and year ranges, and the plusgroup
+#' (\code{numeric}).} }
+#' @author The FLR Team
+#' @seealso \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce},
+#' \link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
+#' @keywords classes
+#' @examples
+#' 
+#' # An FLBiol example dataset
+#'   data(ple4.biol)
+#'   summary(ple4.biol)
+#'
+#' # Create an FLBiol object from an existing FLStock object
+#'   data(ple4)
+#'   flb1 <- as.FLBiol(ple4)
+#'   plot(flb1)
+#'
+#'   # Just extract same dimensions without contents
+#'     flb2 <- FLBiol(stock.n(ple4))
+#'
+
+setClass("FLBiol",
+	representation(
+		"FLComp",
+    n        ="FLQuant",
+		m        ="FLQuant",
+		wt       ="FLQuant",
+		fec      ="FLQuant",
+		mat      ="FLQuant",
+		spwn     ="FLQuant"
+      ),
+	prototype=prototype(
+		range    =unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
+    n        = FLQuant(),
+		m        = FLQuant(),
+		wt       = FLQuant(),
+		mat      = FLQuant(),
+		spwn     = FLQuant()),
+	validity=function(object){
 
    ## All FLQuant objects must have same dimensions
    Dim <- dim(object@n)[-6]
 
-   s.  <-list("n","wt","fec","spwn","m","mat")
+   s.  <-list("n","wt","fec","spwn","m")
 
-   for (i. in s.)  {
-     t. <- slot(object,i.)
-     if (is.FLQuant(t.) & !all(dim(t.)[-6] == Dim))
-        return(paste("FLQuant dimensions wrong for ", i.))
-     }
+   for (i. in s.)	{
+	   t. <- slot(object,i.)
+	   if (is.FLQuant(t.) & !all(dim(t.)[-6] == Dim))
+	      return(paste("FLQuant dimensions wrong for ", i.))
+	   }
 
    # Verify that bounds are correct and correspond to first slot
-  .t  <-getSlots(class(object))
-  .t  <-.t[.t=="FLQuant"]
+	.t  <-getSlots(class(object))
+	.t  <-.t[.t=="FLQuant"]
 
    if (length(.t)> 0) {
 
       Par <- dims(.s<-slot(object,names(.t[1])))
 
-     min <- object@range["min"]
+	   min <- object@range["min"]
       if (!is.na(min) && (min < Par$min || min > Par$max))
-       return("min quant is outside range in FLQuant slots")
-     max <- object@range["max"]
-     if (!is.na(max) && (max < Par$min || max > Par$max))
-       return("max quant is outside range in FLQuant slots")
-     if (!is.na(min) && !is.na(max) && max < min)
-       return("max quant is lower than min")
-     plusgroup <- object@range["plusgroup"]
-     if (!is.na(plusgroup) && (plusgroup < Par$min || plusgroup > Par$max))
-       return("plusgroup is outside [min, max] quant range in FLQuant slots")
-     minyear <- object@range["minyear"]
-     if (!is.na(minyear) && (minyear < Par$minyear || minyear > Par$maxyear))
-       return("minyear is outside years range in FLQuant slots")
-     maxyear <- object@range["maxyear"]
-     if (!is.na(maxyear) && (maxyear < Par$minyear || maxyear > Par$maxyear))
-       return("maxyear is outside years range in FLQuant slots")
-     if (!is.na(minyear) && !is.na(maxyear) && maxyear < minyear)
-       return("maxyear is lower than minyear")
-     }
+   		return("min quant is outside range in FLQuant slots")
+	   max <- object@range["max"]
+	   if (!is.na(max) && (max < Par$min || max > Par$max))
+	   	return("max quant is outside range in FLQuant slots")
+	   if (!is.na(min) && !is.na(max) && max < min)
+		   return("max quant is lower than min")
+	   plusgroup <- object@range["plusgroup"]
+	   if (!is.na(plusgroup) && (plusgroup < Par$min || plusgroup > Par$max))
+		   return("plusgroup is outside [min, max] quant range in FLQuant slots")
+	   minyear <- object@range["minyear"]
+	   if (!is.na(minyear) && (minyear < Par$minyear || minyear > Par$maxyear))
+		   return("minyear is outside years range in FLQuant slots")
+	   maxyear <- object@range["maxyear"]
+	   if (!is.na(maxyear) && (maxyear < Par$minyear || maxyear > Par$maxyear))
+		   return("maxyear is outside years range in FLQuant slots")
+	   if (!is.na(minyear) && !is.na(maxyear) && maxyear < minyear)
+		   return("maxyear is lower than minyear")
+	   }
 
    # Everything is fine
    return(TRUE)
    }
 
-#' Class FLBiol
-#'
-#' A class for modelling age / length or biomass structured populations.
-#'
-#' The \code{FLBiol} class is a representation of a biological fish population.
-#' This includes information on abundances, natural mortlity and fecundity.
-#'
-#' @name FLBiol
-#' @template FLBiol-aliases
-#' @docType class
-#' @section Slots: \describe{
-#'     \item{n}{Numbers in the population. \code{FLQuant}.}
-#'     \item{m}{Mortality rate of the population. \code{FLQuant}.}
-#'     \item{wt}{Mean weight of an individual. \code{FLQuant}.}
-#'     \item{fec}{Fecundity/maturity/per capita birth rate. \code{FLQuant}.}
-#'     \item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
-#'     \item{name}{Name of the object. \code{character}.}
-#'     \item{desc}{Brief description of the object. \code{character}.}
-#'     \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
-#' @template Accessors
-#' @template Constructors
-#' @section Validity: \describe{
-#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-#'     \item{Iters}{The dimname for iter[1] should be '1'.}
-#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
-#' }
-#' @author The FLR Team
-#' @seealso \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce}, \link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
-#' @keywords classes
-#' @examples
-#'
-#' # An FLBiol example dataset
-#' data(ple4.biol)
-#'
-#' summary(ple4.biol)
-#'
-setClass("FLBiol",
-  representation(
-    "FLComp",
-        n        ="FLQuant",
-        mat      ="FLQuant",
-    m        ="FLQuant",
-    wt       ="FLQuant",
-    fec      ="FLQuant",
-    spwn     ="FLQuant"
-      ),
-  prototype=prototype(
-    range    =unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
-        n        = FLQuant(),
-        mat      = FLQuant(),
-    m        = FLQuant(),
-    wt       = FLQuant(),
-    fec      = FLQuant(),
-    spwn     = FLQuant()),
-  validity=validFLBiol
 )
 
-setValidity("FLBiol", validFLBiol)
-remove(validFLBiol)  # We do not need this function any more
 invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range'))) # }}}
 
 # FLI    {{{
@@ -637,48 +637,63 @@ setClass("FLI",
 # FLIndex    {{{
 
 #' Class FLIndex
-#'
-#' A class that holds data and parameters related to abundance indices.
+#' 
+#' A class for modelling abundance indices.
+#' 
+#' The \code{FLIndex} object holds data and parameters related to abundance
+#' indices.
 #'
 #' @name FLIndex
-#' @template FLIndex-aliases
+#' @aliases FLIndex FLIndex,FLQuant-method FLIndex,missing-method
+#' FLIndex-methods catch.n,FLIndex-method
+#' catch.n<-,FLIndex,FLQuant-method catch.wt,FLIndex-method
+#' catch.wt<-,FLIndex,FLQuant-method desc,FLIndex-method
+#' desc<-,FLIndex,character-method distribution,FLIndex-method
+#' distribution<-,FLIndex,character-method effort,FLIndex-method
+#' effort<-,FLIndex,FLQuant-method index,FLIndex-method index.q,FLIndex-method
+#' index.q<-,FLIndex,FLQuant-method index.var,FLIndex-method
+#' index.var<-,FLIndex,FLQuant-method index<-,FLIndex,FLQuant-method
+#' name,FLIndex-method name<-,FLIndex,character-method range,FLIndex-method
+#' range<-,FLIndex,numeric-method sel.pattern,FLIndex-method
+#' sel.pattern<-,FLIndex,FLQuant-method type,FLIndex-method
+#' type<-,FLIndex,character-method
 #' @docType class
-#' @section Slots: \describe{
-#'     \item{type}{Type of index (\code{character}).}
-#'     \item{distribution}{Statistical distribution of the index values (\code{character}).}
-#'     \item{index}{Index values (\code{FLQuant}).}
-#'     \item{index.var}{Variance of the index (\code{FLQuant}).}
-#'     \item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
-#'     \item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
-#'     \item{effort}{Effort used to create the index (\code{FLQuant}).}
-#'     \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
-#'     \item{index.q}{Catchability of the index (\code{FLQuant}).}
-#'     \item{name}{Name of the stock (\code{character}).}
-#'     \item{desc}{General description of the object (\code{character}).}
-#'     \item{range}{Range of the object (\code{numeric})}
-#' }
-#' @template Accessors
-#' @template Constructors
-#' @section Validity: \describe{
-#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-#'     \item{Iters}{The dimname for iter[1] should be '1'.}
-#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
-#' }
+#' @section Slots: \describe{ \item{type}{Type of index (\code{character}).}
+#' \item{distribution}{Statistical distribution of the index values
+#' (\code{character}).} \item{index}{Index values (\code{FLQuant}).}
+#' \item{index.var}{Variance of the index (\code{FLQuant}).}
+#' \item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
+#' \item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
+#' \item{effort}{Effort used to create the index (\code{FLQuant}).}
+#' \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
+#' \item{index.q}{Catchability of the index (\code{FLQuant}).} \item{name}{Name
+#' of the stock (\code{character}).} \item{desc}{General description of the
+#' object (\code{character}).} \item{range}{Named numeric vector containing the
+#' quant and year ranges, the plusgroup, and the period of the year, expressed
+#' as proportions of a year, that corresponds to the index (\code{numeric}).} }
 #' @author The FLR Team
-#' @seealso \link{computeCatch}, \link{dims},
-#' \link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
+#' @seealso \link{computeCatch}, \link{dims}, \link{iter},
+#' \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
 #' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
 #' @keywords classes
 #' @examples
+#' 
+#' # Create an FLIndex object.
+#'   fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
+#'   summary(fli)
+#'   index(fli)
 #'
-#' fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
-#' summary(fli)
-#' index(fli)
+#' # Creat an FLIndex object using an existing FLQuant object.
+#'   data(ple4)
+#'   # Create a perfect index of abundance from abundance at age
+#'     fli2 <- FLIndex(index=stock.n(ple4))
+#'   # Add some noise around the signal
+#'     index(fli2) <- index(fli2)*exp(rnorm(1, index(fli2)-index(fli2), 0.1))
 #'
 setClass("FLIndex",
     representation(
-    "FLI",
-    type         = "character"),
+		"FLI",
+		type         = "character"),
     prototype=prototype(
     type         = character(0)),
     validity=function(object) {
@@ -702,98 +717,158 @@ setClass("FLIndex",
 # FLIndexBiomass    {{{
 
 #' Class FLIndexBiomass
+#' 
+#' A class for modelling biomass indices.
 #'
-#' A class that holds data and parameters related to biomass abundance indices.
+#' The \code{FLIndexBiomass} object holds data and parameters related to
+#' biomass indices.
 #'
 #' @name FLIndexBiomass
-#' @template FLIndex-aliases
+#' @aliases FLIndexBiomass FLIndexBiomass,FLQuant-method FLIndexBiomass,missing-method
+#' FLIndexBiomass-methods FLIndexBiomassBiomass catch.n,FLIndexBiomass-method
+#' catch.n<-,FLIndexBiomass,FLQuant-method catch.wt,FLIndexBiomass-method
+#' catch.wt<-,FLIndexBiomass,FLQuant-method desc,FLIndexBiomass-method
+#' desc<-,FLIndexBiomass,character-method distribution,FLIndexBiomass-method
+#' distribution<-,FLIndexBiomass,character-method effort,FLIndexBiomass-method
+#' effort<-,FLIndexBiomass,FLQuant-method index,FLIndexBiomass-method index.q,FLIndexBiomass-method
+#' index.q<-,FLIndexBiomass,FLQuant-method index.var,FLIndexBiomass-method
+#' index.var<-,FLIndexBiomass,FLQuant-method index<-,FLIndexBiomass,FLQuant-method
+#' name,FLIndexBiomass-method name<-,FLIndexBiomass,character-method range,FLIndexBiomass-method
+#' range<-,FLIndexBiomass,numeric-method sel.pattern,FLIndexBiomass-method
+#' sel.pattern<-,FLIndexBiomass,FLQuant-method type,FLIndexBiomass-method
+#' type<-,FLIndexBiomass,character-method
 #' @docType class
-#' @section Slots: \describe{
-#'     \item{distribution}{Statistical distribution of the index values (\code{character}).}
-#'     \item{index}{Index values (\code{FLQuant}).}
-#'     \item{index.var}{Variance of the index (\code{FLQuant}).}
-#'     \item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
-#'     \item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
-#'     \item{effort}{Effort used to create the index (\code{FLQuant}).}
-#'     \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
-#'     \item{index.q}{Catchability of the index (\code{FLQuant}).}
-#'     \item{name}{Name of the stock (\code{character}).}
-#'     \item{desc}{General description of the object (\code{character}).}
-#'     \item{range}{Range of the object (\code{numeric})}
-#' }
-#' @template Accessors
-#' @template Constructors
-#' @section Validity: \describe{
-#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-#'     \item{Iters}{The dimname for iter[1] should be '1'.}
-#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
-#' }
+#' @section Slots: \describe{ \item{distribution}{Statistical distribution of
+#' the index values (\code{character}).} \item{index}{Index values
+#' (\code{FLQuant}).} \item{index.var}{Variance of the index (\code{FLQuant}).}
+#' \item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
+#' \item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
+#' \item{effort}{Effort used to create the index (\code{FLQuant}).}
+#' \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
+#' \item{index.q}{Catchability of the index (\code{FLQuant}).} \item{name}{Name
+#' of the stock (\code{character}).} \item{desc}{General description of the
+#' object (\code{character}).} \item{range}{Named numeric vector containing the
+#' quant and year ranges, the plusgroup, and the period of the year, expressed
+#' as proportions of a year, that corresponds to the index (\code{numeric}).} }
 #' @author The FLR Team
-#' @seealso \link{computeCatch}, \link{dims},
-#' \link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
+#' @seealso \link{computeCatch}, \link{dims}, \link{iter},
+#' \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
 #' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
 #' @keywords classes
 #' @examples
 #'
-#' idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
-#'
-#' data(ple4)
-#' ida <- FLIndexBiomass(index=ssb(ple4),
-#'   catch.n=catch.n(ple4))
-#'
+#' # Create an FLIndexBiomass object from scratch...
+#'   idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
+#' 
+#' # ...from an existing FLStock object
+#'   data(ple4)
+#'   ida <- FLIndexBiomass(index=(catch(ple4)/fbar(ple4))*
+#'     exp(rnorm(1,catch(ple4)*0,0.3)), catch.n=catch.n(ple4),
+#'     catch.wt=catch.wt(ple4))
+#' 
 setClass("FLIndexBiomass",
-  representation(
-    "FLI"),
+	representation(
+		"FLI"),
   prototype=prototype(
     index=FLQuant(dimnames=list(age='all'))
-  ),
+	),
   validity=function(object) {
 
-    dims <- dims(object)
+		dims <- dims(object)
 
-    # age='all'
-    if(dims$quant != 'age')
-      return("quant in FLIndexBiomass must be 'age'")
+		# age='all'
+		if(dims$quant != 'age')
+			return("quant in FLIndexBiomass must be 'age'")
 
-    if(dimnames(object@index)['age'] != 'all')
-      return("quant dimnames in FLIndexBiomass must be 'all'")
+		if(dimnames(object@index)['age'] != 'all')
+			return("quant dimnames in FLIndexBiomass must be 'all'")
 
-    # slots with no ages
-    dimq <- unlist(qapply(object, function(x) dim(x)[1]))
+		# slots with no ages
+		dimq <- unlist(qapply(object, function(x) dim(x)[1]))
 
-    # slots with no ages
-    noq <- c('index', 'index.var', 'index.q')
-    if(any(!noq %in% names(dimq)[dimq == 1]))
-      return("slots index, index.var and index.q must have age='all'")
+		# slots with no ages
+		noq <- c('index', 'index.var', 'index.q')
+		if(any(!noq %in% names(dimq)[dimq == 1]))
+			return("slots index, index.var and index.q must have age='all'")
 
-    # others must have equal age
-    dimq <- dimq[names(dimq) %in% c('catch.n', 'catch.wt', 'sel.pattern')]
-    if(any(dimq =! dimq[1]))
-      return("Slots with age data must have the same dimensions")
+		# others must have equal age
+		dimq <- dimq[names(dimq) %in% c('catch.n', 'catch.wt', 'sel.pattern')]
+		if(any(dimq =! dimq[1]))
+			return("Slots with age data must have the same dimensions")
 
-    # Everything is fine
-    return(TRUE)
+		# Everything is fine
+	  return(TRUE)
   }
 ) #   }}}
 
 # FLModel  {{{
-validFLModel <- function(object)
-{
-  # All FLArray slots are of the same exact class
-  flarr <- getSlotNamesClass(object, 'FLArray')
-  class <- class(slot(object, flarr[1]))
-  for(i in flarr[-1])
-    if(class(slot(object, i)) != class)
-      return(paste('FLQuant/FLCohort slots in object should all be of the same class: ',
-        i))
 
-  # initial returns an FLPar
-  init <- do.call(initial(object), lapply(formals(initial(object)), function(x) x<-0.1))
-  if(!is.null(init) & !is(init, 'FLPar'))
-    return("initial function must return an 'FLPar'")
+#' Class FLModel
+#'
+#' A virtual class for statistical models
+#'
+#' The \code{FLModel} class provides a virtual class that developers of various
+#' statistical models can use to implement classes that allow those models to
+#' be tested, fitted and presented.
+#' 
+#' Slots in this class attempt to map all the usual outputs for a modelling
+#' exercise, together with the standard inputs. Input data are stored in slots
+#' created by a specified class that is based on \code{FLModel}. See for example
+#' \code{\linkS4class{FLSR}} for a class used for stock-recruitment models.
+#' 
+#' Various fitting algorithms, similar to those present in the basic R packages,
+#' are currently available for \code{FLModel}, including \code{\link{fmle}},
+#' \code{\link{nls-FLCore}} and \code{\link[stats]{glm}}.
+#' 
+#' @name FLModel
+#' @aliases FLModel-class FLModel FLModel-methods FLModel,formula-method
+#' FLModel,missing-method FLModel,character-method FLModel,function-method
+#' @docType class
+#' @section Slots: \describe{ \item{name}{Name of the object.
+#' \code{character}.} \item{desc}{Description of the object. \code{character}.}
+#' \item{range}{Range. \code{numeric}.} \item{fitted}{Estimated values for rec.
+#' \code{FLQuant}.} \item{residuals}{Residuals obtained from the model fit.
+#' \code{FLQuant}.} \item{model}{Model formula. \code{formula}.}
+#' \item{gr}{Function returning the gradient of the likelihood.
+#' \code{function}.} \item{logl}{Log-likelihood function. \code{function}.}
+#' \item{initial}{Function returning initial parameter values for the
+#' optimizer, as an object of class \code{FLPar}. \code{function}.}
+#' \item{params}{Estimated parameter values. \code{FLPar}.} \item{logLik}{Value
+#' of the log-likelihood. \code{logLik}.} \item{vcov}{Variance-covariance
+#' matrix. \code{array}.} \item{hessian}{Hessian matrix obtained from the
+#' parameter fitting. \code{array}.} \item{details}{extra information on the
+#' model fit procedure. \code{list}.} }
+#' @author The FLR Team
+#' @seealso \link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
+#' \link[stats]{nls}, \link{FLComp}
+#' @keywords classes
+#' @examples
+#' 
+#' # Normally, FLModel objects won't be created if "class" is not set
+#'   summary(FLModel(length~width*alpha))
+#' 
+#' # Objects of FLModel-based classes use their own constructor,
+#' # which internally calls FLModel
+#'   fsr <- FLModel(rec~ssb*a, class='FLSR')
+#'   is(fsr)
+#'   summary(fsr)
+#' 
+#' # An example constructor method for an FLModel-based class
+#'   # Create class FLGrowth with a single new slot, 'mass'
+#'     setClass('FLGrowth', representation('FLModel', mass='FLArray'))
+#'
+#'   # Define a creator method based on FLModel
+#' 		 setGeneric("FLGrowth", function(object, ...) standardGeneric("FLGrowth"))
+#'     setMethod('FLGrowth', signature(object='ANY'),
+#'       function(object, ...) return(FLModel(object, ..., class='FLGrowth')))
+#'     setMethod('FLGrowth', signature(object='missing'),
+#'       function(...) return(FLModel(formula(NULL), ..., class='FLGrowth')))
+#'
+#'   # Define an accessor method
+#'     setMethod('mass', signature(object='FLGrowth'),
+#'       function(object) return(slot(object, 'mass')))
+#'
 
-  return(TRUE)
-}
 setClass('FLModel',
   representation('FLComp',
     model='formula',
@@ -815,6 +890,19 @@ setClass('FLModel',
         'f', 'gamma', 'geom', 'hyper', 'lnorm', 'multinom', 'nbinom', 'norm',
         'pois', 't', 'unif', 'weibull')),
     fitted=FLQuant(),
-    residuals=FLQuant())
+    residuals=FLQuant()),
+	validity=function(object)
+		{
+	  # All FLArray slots are of the same exact class
+  	flarr <- getSlotNamesClass(object, 'FLArray')
+	  class <- class(slot(object, flarr[1]))
+  	for(i in flarr[-1])
+    	if(class(slot(object, i)) != class)
+      	return(paste('FLQuant/FLCohort slots in object should all be of the same class: ',
+        	i))
+	  
+		return(TRUE)
+		}
 )
-invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution')))  # }}}
+invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution'))) 
+# }}}
