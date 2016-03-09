@@ -1,9 +1,8 @@
 # FLlst-methods.R - FLlst-methods class and methods
 # FLCore/R/FLlst-methods.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Ernesto Jardim, IPIMAR
-# $Id: FLlst-methods.R 1778 2012-11-23 08:43:57Z imosqueira $
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # coerce NULL {{{
 setAs("NULL", "FLStock", function(from) FLStock())
@@ -12,8 +11,9 @@ setAs("NULL", "FLBiol", function(from) FLBiol())
 setAs("NULL", "FLQuant", function(from) FLQuant())
 # }}}
 
-# [[<-, [<- {{{
-
+# [<-, [[<- {{{
+#' @rdname Extract
+#' @aliases [[,FLlst,ANY,missing,ANY-method
 setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
   function(x, i, j, value) {
 
@@ -43,6 +43,8 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	}
 )
 
+#' @rdname Extract
+#' @aliases $<-,FLlst,ANY-method
 setReplaceMethod("$", signature(x="FLlst", value="ANY"),
   function(x, name, value) {
 
@@ -68,6 +70,8 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
   }
 )
 
+#' @rdname Extract
+#' @aliases [<-,FLlst,ANY,missing,ANY-method
 setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
 	{
@@ -87,6 +91,19 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	}
 )
 
+#  [ {{{
+#' @rdname Extract
+#' @aliases [,FLlst,ANY,missing,ANY-method
+#' @examples
+#'
+#' # FLStocks (& any FLlst)
+#' fll <- FLStocks(PLE4=ple4, OLD=ple4[,1:20])
+#' summary(fll)
+#' # Subset FLStocks
+#' summary(fll[1])
+#' # Extract single element
+#' summary(fll[[1]])
+#'
 setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
   function(x,i,j,drop) {
 
@@ -132,6 +149,8 @@ setMethod("lapply", signature(X="FLlst"),
 )  # }}}
 
 # window  {{{
+#' @rdname window
+#' @aliases window,FLlst-method
 setMethod("window", "FLlst", function(x,...){
 	args <- list(...)
 	args$FUN <- "window"

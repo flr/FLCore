@@ -1,8 +1,8 @@
 # FLPar - common structure for parameter matrices of various types.
 # FLCore/R/FLPar.R
 
-# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # Constructors  {{{
 
@@ -12,9 +12,9 @@ setMethod('FLPar', signature(object="array"),
     iter=seq(dim(object)[length(dim(object))]), units=rep('NA', dim(object)[1]),
     dimnames= c(list(params=params), lapply(as.list(dim(object)[-c(1,
       length(dim(object)))]), seq), list(iter=iter))) {
-
+    
     # if no dimnames, 1st is params, last is iter
-    if(!is.null(dimnames(object)))
+    if(!all(is.null(unlist(dimnames(object)))))
     {
       dimnames <- dimnames(object)
       
@@ -283,9 +283,29 @@ setMethod("histogram", signature("formula", "FLPar"), function(x, data, ...){
 })
 
 # splom
-if (!isGeneric("splom")) {
-  setGeneric("splom", useAsDefault = splom)
-}
+
+#' Method splom
+#' 
+#' Draws a conditional scatter plot matrix.
+#' 
+#' See the help page in \code{\link[lattice]{lattice}} for a full description
+#' of each plot and all possible arguments.
+#'
+#' @name splom
+#' @aliases splom,FLPar,missing-method
+#' @docType methods
+#' @section Generic function: splom(x,data)
+#' @author The FLR Team
+#' @seealso \link[lattice]{splom}
+#' @keywords methods
+#' @examples
+#' 
+#' flp <- FLPar(t(mvrnorm(500, mu=c(0, 120, 0.01, 20),
+#'   Sigma=matrix(.7, nrow=4, ncol=4) + diag(4) * 0.3)),
+#'   dimnames=list(params=c('a','b','c','d'), iter=1:500))
+#'
+#' splom(flp)
+#'
 
 setMethod("splom", signature("FLPar", "missing"),
   function(x, data, ...){
@@ -294,12 +314,18 @@ setMethod("splom", signature("FLPar", "missing"),
 )   # }}}
 
 # units        {{{
+
+#' @rdname units
+#' @aliases units,FLPar-method
 setMethod("units", signature(x="FLPar"),
   function(x)
     return(x@units)
 ) # }}}
 
 # units<-      {{{
+
+#' @rdname units
+#' @aliases units<-,FLPar,character-method
 setMethod("units<-", signature(x="FLPar", value="character"),
   function(x, value) {
     x@units <- value
@@ -334,10 +360,35 @@ setMethod("iterMedians", "FLPar",
   }
 )
 
-setMethod("iterVars", "FLPar",
-  function(x, na.rm=TRUE) {
-    dim <- seq(length=length(dim(x)))
-    apply(x, dim[-length(dim)], var, na.rm=na.rm)
+#' Method var
+#'
+#' Variance of an FLPar
+#' 
+#' \code{var} computes the variance of an \code{\link{FLPar}} object along the
+#' last dimension (\code{iter}) returning a value for each \code{param}
+#' 
+#' By default, arguments \code{na.rm} and \code{use} have values of
+#' \code{FALSE} and \code{'all.obs'} respectively. See the
+#' \code{\link[stats]{var}} help page for more information on possible argument
+#' values.
+#'
+#' @name var
+#' @aliases var,FLPar,missing,missing,missing-method var,FLPar-method
+#' @docType methods
+#' @section Generic function: var(x, y, na.rm, use)
+#' @author The FLR Team
+#' @seealso \code{\link[stats]{var}}, \code{\linkS4class{FLPar}}
+#' @keywords methods
+#' @examples
+#' 
+#' flp <- FLPar(rnorm(200), params=c('a', 'b'))
+#' var(flp)
+#'
+
+setMethod("var", signature(x='FLPar'),
+	function(x, y=NULL, na.rm=TRUE, use) {
+  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
+      var, na.rm=na.rm, use='all.obs'))
   }
 )
 # }}}
@@ -416,6 +467,21 @@ setAs('FLPar', 'FLQuant',
 # }}}
 
 # propagate {{{
+
+#' @rdname propagate
+#' @aliases propagate,FLPar-method
+#' @examples
+#'
+#' # For an FLPar object
+#' flp <- FLPar(1:10, params=letters[1:10])
+#' propagate(flp, 10)
+#' propagate(flp, 10, fill.iter=FALSE)
+#'
+#' # With iters
+#' flp <- FLPar(1:15, params=letters[1:5], iter=3)
+#' propagate(flp, 10, fill.iter=FALSE)
+#'
+
 setMethod("propagate", signature(object="FLPar"),
   function(object, iter, fill.iter=TRUE)
   {
@@ -473,6 +539,10 @@ setMethod("names<-", signature(x="FLPar", value="character"),
 # }}}
 
 # show     {{{
+
+#' @rdname show
+#' @aliases show,FLPar-method
+
 setMethod("show", signature(object="FLPar"),
   function(object) {
     ndim <- length(dim(object))
@@ -496,6 +566,9 @@ setMethod("show", signature(object="FLPar"),
 )   # }}}
 
 # print {{{
+
+#' @rdname print
+#' @aliases print,FLPar-method
 setMethod("print", signature(x="FLPar"),
   function(x){
     show(x)
@@ -504,6 +577,17 @@ setMethod("print", signature(x="FLPar"),
 ) # }}}
 
 # Arith    {{{
+#' @rdname Arith
+#' @aliases Arith,FLPar,FLPar-method
+#' @examples
+#' 
+#' # FLQuant and FLPar
+#' flq * FLPar(a=3)
+#'
+#' # Operations are made to match dimension names
+#' flp <- FLPar(1/(1:5), dimnames=list(params='a', year=1:5, iter=1), units='NA')
+#' flq * flp
+#'
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
   signature(e1 = "FLPar", e2 = "FLPar"),
   function(e1, e2)
@@ -511,7 +595,8 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
     return(new('FLPar', callGeneric(e1@.Data, e2@.Data)))
   }
 )
-
+#' @rdname Arith
+#' @aliases Arith,FLArray,FLPar-method
 setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
   function(e1, e2) {
     # objects dims
@@ -546,7 +631,8 @@ setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
     }
   }
 )
-
+#' @rdname Arith
+#' @aliases Arith,FLPar,FLArray-method
 setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
   function(e1, e2) {
     # objects dims
@@ -643,6 +729,10 @@ setMethod('sv', signature(x='FLPar', model='formula'),
   })# }}}
 
 # sweep {{{
+
+#' @rdname sweep
+#' @aliases sweep,FLPar-method
+
 setMethod('sweep', signature(x='FLPar'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
   {
@@ -652,6 +742,8 @@ setMethod('sweep', signature(x='FLPar'),
 ) # }}}
 
 # apply {{{
+#' @rdname apply
+#' @aliases apply,FLPar,numeric,function-method
 setMethod('apply', signature(X='FLPar'),
   function(X, MARGIN, FUN, ...)
   {

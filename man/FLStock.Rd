@@ -114,8 +114,9 @@ for sizing but not stored in any slot.
 
 data(ple4)
 
+# assign values to the landings slot
 landings(ple4) #get the landings slot
-landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)   # assign values to the landings slot
+landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)
 
 discards(ple4) <- computeDiscards(ple4)
 

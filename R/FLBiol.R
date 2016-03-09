@@ -1,9 +1,8 @@
 # FLBiol - class for representing a natural population
 # FLCore/R/FLBiol.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Laurie Kell, CEFAS
-# $Id: FLBiol.R 1779 2012-11-23 09:39:31Z imosqueira $
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 
 # FLBiol()   {{{
@@ -46,13 +45,13 @@ setMethod('FLBiol', signature(object='missing'),
   }
 ) # }}}
 
-## is.FLBiol {{{
+# is.FLBiol {{{
 # Test if an object is of FLBiol class
 is.FLBiol <- function(x)
 	return(inherits(x, "FLBiol"))
 # }}}
 
-## meanLifespan {{{
+# meanLifespan {{{
 setMethod("meanLifespan", signature(x="FLBiol"),
 	function(x, ref.age = 'missing',...) {
 
@@ -90,7 +89,7 @@ setMethod("meanLifespan", signature(x="FLBiol"),
 	}
 )# }}}
 
-## as.FLBiol {{{
+# as.FLBiol {{{
 setMethod("as.FLBiol", signature(object="FLBiol"),
 
   function(object, unit  =1:dim(object@n)[3],
@@ -108,17 +107,18 @@ setMethod("as.FLBiol", signature(object="FLBiol"),
   }
 )
 
-setMethod("as.FLBiol", signature(object="FLStock"), function(object,...){
-	flb <- new("FLBiol")
-	flb@name <- object@name
-	flb@desc <- object@desc
-	flb@range <- object@range
-	flb@n <- object@stock.n
-	flb@m <- object@m
-	flb@wt <- object@stock.wt
-	flb@mat <- object@mat
-	flb@spwn <- object@m.spwn
-    return(flb)
+setMethod("as.FLBiol", signature(object="FLStock"),
+  function(object,...) {
+
+    res <- as(object, 'FLBiol')
+
+    args <- list(...)
+    if(length(args) > 0) {
+
+      for (i in names(args))
+        slot(res, i) <- args[[i]]
+    }
+    return(res)
   }
 ) # }}}
 
@@ -169,7 +169,23 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 	}
 ) # }}}
 
-## ssb  {{{
+# ssb  {{{
+
+#' @rdname ssb
+#' @aliases ssb,FLBiol-method
+#' @examples
+#'
+#' # For an FLBiol
+#'   data(ple4.biol)
+#' # Change spwn slot to make the calculation more interesting
+#'   spwn(ple4.biol)<-0.5
+#'
+#' # Calculate ssb and check
+#'  ssb(ple4.biol)
+#'  ssbp <- quantSums(n(ple4.biol) * fec(ple4.biol) * wt(ple4.biol) *
+#'    exp(-m(ple4.biol)*spwn(ple4.biol)))
+#'  ssb(ple4.biol)-ssbp
+#'
 setMethod("ssb", signature(object="FLBiol"),
 	function(object, ...)
   {
@@ -180,7 +196,7 @@ setMethod("ssb", signature(object="FLBiol"),
   }
 )	# }}}
 
-## tsb  {{{
+# tsb  {{{
 setMethod("tsb", signature(object="FLBiol"),
 	function(object, ...)
   {
@@ -191,16 +207,46 @@ setMethod("tsb", signature(object="FLBiol"),
   }
 )	# }}}
 
-## computeStock  {{{
+# computeStock  {{{
 setMethod("computeStock", signature(object="FLBiol"),
 	function(object, ...)
 		return(quantSums(n(object) * wt(object) , ...))
 )	# }}}
 
-## ssn  {{{
+# ssn  {{{
+
+#' Method ssn
+#' 
+#' Returns the Spawning Stock Numbers of \code{\linkS4class{FLBiol}} objects.
+#'
+#' \code{ssn} is calculated as follows:
+#'
+#'  	\eqn{SSB = sum(N * mat * exp(-M*propM))}
+#'
+#' @name ssn
+#' @aliases ssn ssn-methods ssn,FLBiol-method
+#' @docType methods
+#' @section Generic function: ssn(object)
+#' @author The FLR Team
+#' @seealso \link{FLComp} \link{FLStock}
+#' @keywords methods
+#' @examples
+#'
+#' data(ple4.biol)
+#'
+#' # Change spwn slot to make the calculation more interesting
+#' spwn(ple4.biol)<-0.5
+#'
+#' # Calculate ssn and check
+#' ssn(ple4.biol)
+#' ssnp <- quantSums(n(ple4.biol) * fec(ple4.biol) *
+#'   exp(-m(ple4.biol)*spwn(ple4.biol)))
+#' ssn(ple4.biol)-ssnp
+#'
+
 setMethod("ssn", signature(object="FLBiol"),
 	function(object, ...)
-		return(quantSums(n(object) * fec(object) * exp(-spwn(object) * m(object)), ...))
+		return(quantSums(n(object) * mat(object) * exp(-spwn(object) * m(object)), ...))
 )	# }}}
 
 # harvest {{{
@@ -336,8 +382,79 @@ setMethod("leslie", signature(object="FLBiol"),
 # }}}
 
 # r {{{
-# calculates the intrinsic rate of increase from the Leslie-transition matrix
-# or the Euler-Lotka equation by year or by cohort.
+#' Methods r
+#'
+#' Intrinsic rate of increase from the Leslie-transition matrix
+#' 
+#' From two \code{FLQuant} objects representing the natural mortality-at-age
+#' and fecundity, this method calculates the intrinsic rate of increase,
+#' \code{r}, for the given population. Methods exist for objects of classes
+#' \code{FLBiol} and \code{FLStock}, where the \code{fec} and \code{m} slots
+#' are used.
+#' 
+#' This calculation can be carried out using two methods:
+#' (1) Solving the Euler-Lotka equation.
+#' (2) Calculating the logarithm of the real part of the largest/lead
+#' eigenvalue of the Leslie transition matrix.
+#' 
+#' These two methods are not identical but give similar answers for the same
+#' data and parameters.
+#' 
+#' To chose the method used to estimate \code{r} (Euler-Lotka or Leslie matrix)
+#' either 'el' or 'leslie' is supplied as the 'method' argument (see below). To
+#' calculate \code{r} along years or cohorts, either 'year' or 'cohort' is
+#' supplied as the 'by' argument (see below).
+#' 
+#' The method can handle Monte Carlo samples (i.e. with iterations) in either
+#' the fec or m (or both) slots required to calculate \code{r}, and the
+#' conversion is done internally so that an \code{FLQuant} of the correct
+#' dimensions is obtained.
+#' 
+#' @name r
+#' @aliases r r-methods r,FLBiol,missing-method
+#' @param object An object of type \code{\linkS4class{FLBiol}}.
+#' @param \dots Extra arguments accepted by each implementation.
+#' @return An object of class \code{\linkS4class{FLQuant}}.
+#' @author FLR Team
+#' @seealso \code{\linkS4class{FLBiol}}
+#' @keywords methods
+#' @examples
+#'
+#' # Call the North Sea plaice stock and biol objects
+#'   data(ple4)
+#'   data(ple4.biol)
+#'
+#' # Calculate the gradient at the origin of recruits vs. spawning stock numbers
+#'   tmp <- ple4.biol
+#'   n(tmp) <- stock.n(ple4)
+#'   m(tmp) <- harvest(ple4)+m(ple4.biol)
+#'
+#' # Use nls to calculate gradient of (recruits/spawning stock numbers)
+#' # assuming log-normal errors
+#'   dfx <- data.frame(rec=as.vector(n(tmp)[1,]),ssn=as.vector(ssn(tmp)))
+#'   res <- nls(log(rec)~log(a)+log(ssn),dfx,start=list(a=mean(n(tmp)[1,]/
+#'     ssn(tmp))))
+#'
+#' # Use this value of recruits per spawner times maturity as the birth function
+#' # for the Leslie transition matrix/Euler-Lotka equation
+#'   alpha <- coef(res)[[1]]
+#'   fec(tmp)[] <- fec(tmp)[] * alpha
+#'
+#' # calculate r assuming only natural mortality and by year using both the
+#' # Euler-Lotka (el) and Leslie matrix (leslie) method
+#'   m(tmp) <- m(ple4.biol)
+#'   r.ple.el <- r(tmp,by='year',method='el')
+#'   r.ple.lm <- r(tmp,by='year',method='leslie')
+#'
+setMethod("r", signature(m="FLBiol", fec="missing"),
+	function(m, by = 'year', method = 'el',...)
+  {
+    r(m(m), fec(m), by=by, method=method,)
+  }
+)
+
+#' @rdname r
+#' @aliases r,FLQuant,FLQuant-method
 setMethod("r", signature(m="FLQuant", fec="FLQuant"),
 	function(m, fec, by = 'year', method = 'el',...)
   {
@@ -483,15 +600,39 @@ setMethod("r", signature(m="FLQuant", fec="FLQuant"),
 	}
 )
 
-setMethod("r", signature(m="FLBiol", fec="missing"),
-	function(m, by = 'year', method = 'el',...)
-  {
-    r(m(m), fec(m), by=by, method=method,)
-  }
-) # }}}
+
+
+# }}}
 
 # survprob {{{
-# estimate survival probabilities by year or cohort
+
+#' Method survprob
+#'
+#' Calculating survival probabilties given mortality in the \code{FLBiol} object
+#' 
+#' For an \code{FLBiol} object with the mortality-at-quant present, this method
+#' calculates the associated survival probability-at-quant. This can be used
+#' later by the \code{r()} method. The calculation can be carried out either by
+#' year or by cohort.
+#' 
+#' Individual survival probability (i.e. from one year to the next) is simply
+#' exp(-M) and the survival probaiblity for a given quant is the cumulative
+#' product along the quant dimension of the individual survival probabilities.
+#'
+#' @name survprob
+#' @aliases survprob survprob-methods survprob,FLBiol-method
+#' @param object An object of type \code{\linkS4class{FLBiol}}.
+#' @param \dots Extra arguments accepted by each implementation.
+#' @return An object of class \code{\linkS4class{FLQuant}}.
+#' @author FLR Team
+#' @seealso \code{\linkS4class{FLBiol}}
+#' @keywords methods
+#' @examples
+#'
+#' data(ple4.biol)
+#' survprob(ple4.biol,by='year')
+#'
+
 setMethod("survprob", signature(object="FLBiol"),
 	function(object, by = 'year',...) {
 
@@ -507,6 +648,16 @@ setMethod("survprob", signature(object="FLBiol"),
 ) # }}}
 
 # setPlusGroup {{{
+#' @rdname setPlusGroup
+#' @aliases setPlusGroup,FLBiol,numeric-method
+#' @examples
+#'
+#' # For an FLBiol
+#' data(ple4.biol)
+#' # Change spwn slot to make the calculation more interesting
+#' summary(setPlusGroup(ple4.biol, 5))
+#
+
 setMethod('setPlusGroup', signature(x='FLBiol', plusgroup='numeric'),
 s.<-	function(x, plusgroup, na.rm=FALSE)
 	{

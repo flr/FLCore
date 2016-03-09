@@ -92,6 +92,10 @@ setMethod("iter", signature(obj="FLQuants"),
 #)   # }}}
 
 # show  {{{
+
+#' @rdname show
+#' @aliases show,FLQuants-method
+
 setMethod('show', signature('FLQuants'),
         function(object) {
 			if(length(object) == 0)

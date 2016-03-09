@@ -109,6 +109,12 @@ setMethod("z", "FLS", function(object, ...) {
 }) # }}}
 
 # trim {{{
+
+#' @rdname trim
+#' @aliases trim,FLS-method
+#' @aliases trim,FLStock-method
+#' @aliases trim,FLStockLen-method
+
 setMethod("trim", signature(x="FLS"), function(x, ...){
 
   args <- list(...)

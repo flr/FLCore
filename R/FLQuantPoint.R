@@ -1,9 +1,8 @@
 # FLQuantPoint - FLQuant class summarizing iters
 # FLCore/R/FLQuantPoint.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# $Id: FLQuantPoint.R 1779 2012-11-23 09:39:31Z imosqueira $
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # FLQuantPoint()	{{{
 
@@ -56,6 +55,10 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
 )	# }}}
 
 # show     {{{
+
+#' @rdname show
+#' @aliases show,FLQuantPoint-method
+
 # TODO show median(var) or [lowq-uppq]
 setMethod("show", signature(object="FLQuantPoint"),
 	function(object){
@@ -82,6 +85,31 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLQuantPoint", sdlog="missin
 	rlnorm(n, mean(meanlog), sqrt(var(meanlog)))
 )
 # rgamma
+
+#' Method rgamma
+#' 
+#' Random generation for the Gamma distribution with parameters 'shape' and
+#' 'scale'. 'shape' can be of class \code{\link{FLQuantPoint}} in which case
+#' 'shape' and 'scale' are set as \eqn{\hat{x}^2 / \sigma^2}{mean^2 / var} and
+#' \eqn{\sigma^2 / \hat{x}}{var / mean} respectively.
+#'
+#' @name rgamma
+#' @aliases rgamma,numeric,FLQuantPoint,missing,missing-method
+#' @docType methods
+#' @section Generic function: rgamma(n,shape,rate,scale)
+#' @author The FLR Team
+#' @seealso \link[stats]{rgamma}, \linkS4class{FLQuantPoint}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(1000,mean=10,sd=2),dim=c(1,10,1,1,1,100))
+#' flqp <- FLQuantPoint(flq)
+#' rgamma(10,shape=flqp)
+#'
+#' data(ple4)
+#' rgamma(10,FLQuantPoint(rnorm(200, catch(ple4), 20000)))
+#'
+
 setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 	scale="missing"),
 	function(n=1, shape) {
@@ -191,6 +219,18 @@ setMethod("plot", signature(x="FLQuantPoint", y="missing"),
 )	# }}}
 
 # quantile   {{{
+#' @rdname quantile
+#' @aliases quantile,FLQuant-method
+#' @examples
+#' # Create an FLQuantPoint from a previous FLQuant...
+#'   flp <- FLQuantPoint(flq)
+#' # ...and return each of the two quantiles (025 and 0.75)...
+#'   quantile(flp, 0.25)
+#'   quantile(flp, 0.75)
+#' # ...or alternatively use lowq and uppq
+#'   lowq(flp)
+#'   uppq(flp)
+#' 
 setMethod("quantile", signature(x="FLQuantPoint"),
 	function(x, probs=0.25, na.rm=FALSE, dim=1:5, ...) {
 		if(probs==0.25)

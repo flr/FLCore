@@ -1,9 +1,8 @@
 # operators.R - DESC
 # operators.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # FLQuant, FLQuant {{{
 # %*% {{{

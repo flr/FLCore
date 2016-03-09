@@ -1,9 +1,8 @@
 # FLModel - Extendable class for all types of models to be fitted and analysed
 # FLCore/R/FLModel.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# $Id: FLModel.R 1778 2012-11-23 08:43:57Z imosqueira $
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 
 # FLModel()  {{{
@@ -521,7 +520,30 @@ setMethod('predict', signature(object='character'),
   }
 ) # }}}
 
-# AIC & BIC   {{{
+# AIC {{{
+#' Method AIC
+#' 
+#' Akaike's information criterion (AIC) method
+#'
+#' A method to calculate Akaike's 'An Information Criterion' (AIC) of an
+#' \link{FLModel} object from the value of the obtained log-likelihood stored
+#' in its \code{logLik} slot.
+#'
+#' @name AIC
+#' @rdname AIC
+#' @aliases AIC,FLModel,numeric-method AIC,FLModel,missing-method
+#' @docType methods
+#' @section Generic function: AIC(object, k)
+#' @param object an FLModel object
+#' @param k the penalty per parameter to be used; the default 'k = 2' is the classical AIC.
+#' @author The FLR Team
+#' @seealso \link[stats]{AIC}, \link[stats]{logLik}, \link{FLModel}
+#' @keywords methods
+#' @examples
+#' 
+#' data(nsher)
+#' AIC(nsher)
+#' 
 setMethod('AIC', signature(object='FLModel', k='numeric'),
   function(object, k=2)
     return(AIC(object@logLik, k))
@@ -529,8 +551,34 @@ setMethod('AIC', signature(object='FLModel', k='numeric'),
 # AIC with RSS: 2k + n * ln(RSS/n)
 setMethod('AIC', signature(object='FLModel', k='missing'),
   function(object)
-    return(AIC(object@logLik))
-)
+    return(AIC(object, k=2))
+)  # }}}
+
+# BIC   {{{
+
+#' Method BIC
+#'
+#' Bayesian information criterion (BIC) method
+#' 
+#' A method to calculate the Bayesian information criterion (BIC), also known
+#' as Schwarz's Bayesian criterion of an \link{FLModel} object from the value
+#' of the obtained log-likelihood stored in its \code{logLik} slot.
+#'
+#' @name BIC
+#' @aliases BIC,FLModel-method
+#' @docType methods
+#' @section Generic function: BIC(object)
+#' @param object a fitted FLModel object for which there exists a 'logLik' method to
+#' extract the corresponding log-likelihood.
+#' @author The FLR Team
+#' @seealso \link[stats]{BIC}, \link[stats]{AIC}, \link{FLModel},
+#' \link[stats]{logLik}
+#' @keywords methods
+#' @examples
+#' 
+#' data(nsher)
+#' BIC(nsher)
+#' 
 
 setMethod('BIC', signature(object='FLModel'),
   function(object)
@@ -672,6 +720,29 @@ setMethod('summary', signature(object='FLModel'),
 )  # }}}
 
 # sd {{{
+
+#' Method sd
+#'
+#' Standard deviation of an \code{FLModel} object
+#' 
+#' \code{sd} computes the standard deviation of the parameter estimates in an
+#' \code{FLModel} object by calculating either the square root of the diagonal
+#' of the variance-covariance matrix[[, or, if there are multiple parameter
+#' estimates, the standard deviation of each parameter]].
+#'
+#' @name sd
+#' @aliases sd,FLModel,missing-method
+#' @docType methods
+#' @section Generic function: sd(x, na.rm)
+#' @author The FLR Team
+#' @seealso \code{\link[stats]{sd}}, \code{\link{FLModel}}
+#' @keywords methods
+#' @examples
+#' 
+#' data(nsher)
+#' sd(nsher)
+#' 
+
 setMethod('sd', signature(x='FLModel', na.rm='missing'),
   function(x)
   {
@@ -750,8 +821,26 @@ setReplaceMethod('model', signature(object='FLModel', value='formula'),
 ) # }}}
 
 # update  {{{
-if (!isGeneric("update"))
-  setGeneric('update', useAsDefault = update)
+
+#' Method update
+#' 
+#' \code{update} is a generic function for updating a model fit using the
+#' same call that generated it. Input arguments can be provided that will alter
+#' the FLModel object accordingly.
+#'
+#' @name update
+#' @aliases update,FLModel-method
+#' @docType methods
+#' @section Generic function: update(object, ...)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLModel}, \link[stats]{update}
+#' @keywords methods
+#' @examples
+#' 
+#' data(nsher)
+#' nsher <- update(nsher, ssb=ssb(nsher) * 1.4)
+#'
+
 setMethod('update', signature(object='FLModel'),
   function(object, ...)
   {

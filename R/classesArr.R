@@ -1,9 +1,8 @@
 # classesArr.R - 
 # FLCore/R/classesArr.R - 
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
-
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 # FLArray {{{
 
 #' Class FLArray
@@ -253,6 +252,36 @@ setClass("FLQuantDistr",
 }) # }}}
 
 # FLCohort {{{
+#' Class FLCohort
+#'
+#' A class for modelling cohorts.
+#'
+#' This class represents cohorts in columns. It simply shifts the typical
+#' matrix representation where cohorts are found on the diagonals, into a
+#' matrix where cohorts are found in columns. It is very usefull for all
+#' analysis that want to make use of cohorts instead of years.
+#' 
+#' @name FLCohort
+#' @rdname FLCohort-class
+#' @aliases FLCohort-class FLCohort-methods
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{Internal S4 data representation.
+#' \code{array}.} \item{units}{The data units in some understandable metric.
+#' \code{character}} }
+#' @author The FLR Team
+#' @seealso \link{[}, \link{as.data.frame}, \link{bubbles}, \link{ccplot},
+#' \link{FLCohort,FLQuant-method}, \link{flc2flq}, \link[graphics]{plot},
+#' \link{quant}, \link{trim}, \link{units},
+#' \link{units<-,FLCohort,character-method}, \link[lattice]{xyplot},
+#' \link[base]{array}
+#' @keywords classes
+#' @examples
+#' 
+#' data(ple4)
+#' flq <- catch.n(ple4)
+#' flc <- FLCohort(flq)
+#' plot(trim(flc, cohort=1960:2000))
+#' 
 setClass("FLCohort",
 	representation("FLArray", units="character"),
 	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
@@ -271,6 +300,44 @@ setClass("FLCohort",
 ) # }}}
 
 # FLPar {{{
+
+#' Class FLPar
+#' 
+#' A class for storing parameters of a model.
+#'
+#' The \code{FLPar} class is based on the array class which can store
+#' Monte Carlo samples and the names of the relevant parameter vectors.
+#' 
+#' Methods for this class include subsetting and replacement as for the
+#' \code{\linkS4class{FLQuant}} class. There are methods for extracting
+#' statistics of the sample (mean, median etc.) and for plotting the parameter
+#' samples.
+#'
+#' @name FLPar
+#' @aliases FLPar-class FLPar FLPar-methods FLPar,array-method
+#' FLPar,missing-method FLPar,vector-method FLPar,FLPar-method
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{Describe slot. \code{array}.}
+#' \item{units}{Units of measurement. \code{character}.} }
+#' @author The FLR Team
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame},
+#' \link[lattice]{densityplot}, \link[lattice]{histogram}, \link{iter},
+#' \link{iter<-}, \link[base]{mean}, \link[stats]{median},
+#' \link[graphics]{plot}, \link[lattice]{splom}, \link[base]{summary},
+#' \link{units,FLPar-method}, \link{units<-,FLPar,character-method},
+#' \link[stats]{var}
+#' @keywords classes
+#' @examples
+#' 
+#' FLPar(rnorm(4), params=c('a','b','c','sigma2'))
+#'
+#' FLPar(rnorm(20), dimnames=list(params=c('a','b'), year=1990:1999, iter=1),
+#'   units='NA')
+#'
+#' # with iters
+#'   FLPar(rnorm(80), params=c('a', 'b'), iter=1:40)
+#'
+
 setClass('FLPar', representation('array', units='character'),
 	prototype=prototype(array(as.numeric(NA), dim=c(1,1),
 	dimnames=list(params=character(1), iter=1)), units='NA'),

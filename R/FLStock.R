@@ -1,9 +1,8 @@
 # FLStock.R - FLStock class and methods
 # FLCore/R/FLStock.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Rob Scott, CEFAS
-# Notes:
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # FLStock()   {{{
 setMethod('FLStock', signature(object='FLQuant'),
@@ -184,108 +183,15 @@ setMethod("plot", signature(x="FLStock", y="missing"),
 	}
 )	# }}}
 
-# setPlusGroup function	{{{
-#  changes the level of the plus group of the stock object
-calc.pg <- function(s., i., k., r., pg., action, na.rm) {
-	q.<-slot(s.,i.)
+# setPlusGroup {{{
 
-	minage <- s.@range["min"]
-
-	#first check that object actually has ages
-	a.<-dimnames(q.)[[quant(q.)]]
-
-	if (any(a.=="all"))
-	  return(q.)
-
-	if (any(is.na(a.)) | !all(as.integer(a.)==sort(as.integer(a.))))
-	  return(q.)
-
-	pospg <- pg. - as.numeric(dimnames(slot(s., i.))[[1]][1]) + 1
-
-	if (action == "sum"){
-	  q.[pospg,,,,]<-apply(q.[r.,],2:6,sum, na.rm=na.rm)
-	}
-	else{
-	  if(action == "wt.mean"){
-  	sum.r <- apply(slot(s.,k.)[r.,],2:6,sum, na.rm=na.rm)
-		q.[pospg,,,,]<- ifelse(sum.r@.Data == 0, 0, apply(q.[r.,]*slot(s.,k.)[r.,],2:6,sum,na.rm=na.rm)/sum.r)
-	  }
-	}
-	a. <- dimnames(q.)
-	q. <- q.[1:pospg,,,,]
-	dimnames(q.)[[1]] <- minage:pg.
-	dimnames(q.)[2:6] <- a.[2:6]
-
-	return(q.)}
-
-expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...)
-    {
-    if (class(object)!="FLStock") stop('not a FLStock object')
-    if (!validObject(object)) stop('object not a valid FLStock')
-
-    res <-object
-    if (maxage<=range(res,"max")) stop('maxage not valid')
-    if (keepPlusGroup) range(res,c("max","plusgroup"))<-maxage else range(res,c("max","plusgroup"))<-c(maxage,NA)
-
-    dmns     <-dimnames(m(res))
-    oldMaxage<-dims(res)$max
-    dmns$age <-as.numeric(dmns$age[1]):maxage
-
-    Pdiscard<-discards.n(res)[ac(oldMaxage)]/catch.n(res)[ac(oldMaxage)]
-    Planding<-landings.n(res)[ac(oldMaxage)]/catch.n(res)[ac(oldMaxage)]
-
-    slts<-c("catch.n",
-            "catch.wt",
-            "discards.n",
-            "discards.wt",
-            "landings.n",
-            "landings.wt",
-            "stock.n",
-            "stock.wt",
-            "m",
-            "mat",
-            "harvest",
-            "m.spwn",
-            "harvest.spwn")
-
-    # create extra ages and fill with plusgroup
-    for (i in slts) {
-       dmns$iter  <-dimnames(slot(res,i))$iter
-       slot(res,i)<-FLQuant(slot(res,i),dimnames=dmns)
-       slot(res,i)[ac((oldMaxage+1):maxage)]<-0;
-       slot(res,i)[ac((oldMaxage+1):maxage)]<-sweep(slot(res,i)[ac((oldMaxage+1):maxage)],2:6,slot(res,i)[ac(oldMaxage)],"+")
-       }
-
-    # calc exp(-cum(Z)) i.e. the survivors
-    n <- FLQuant(exp(-apply((slot(res,"m")+slot(res,"harvest"))[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)), quant='age')
-    if (keepPlusGroup)
-    	n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
-    n <-sweep(n,2:6,apply(n,2:6,sum),"/")
-
-    stock.n(res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],1:6,n,"*")
-
-    z<-harvest(res)[ac(maxage)]+m(res)[ac(maxage)]
-
-    catch.n(res)[   ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")
-    catch.n(   res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")
-    if (dims(discards.n(res))$iter==1 & (dims(catch.n(res))$iter>1 | dims(Pdiscard)$iter>1))
-       discards.n(res)<-propagate(discards.n(res),dims(res)$iter)
-    if (dims(landings.n(res))$iter==1 & (dims(catch.n(res))$iter>1 | dims(Planding)$iter>1))
-       landings.n(res)<-propagate(landings.n(res),dims(res)$iter)
-    discards.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Pdiscard,"*")
-    landings.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Planding,"*")
-
-    # replace any slots passed in (...)
-    args <-names(list(...))
-    slots<-getSlots("FLStock")
-    for (i in args)
-	    if (any(i==names(slots)))
-        if (class(list(...)[[i]])==slots[i]) slot(res,i)<-list(...)[[i]]
-
-     if (!validObject(res)) stop("Not valid")
-
-    return(res)
-    }
+#' @rdname setPlusGroup
+#' @aliases setPlusGroup,FLStock,numeric-method
+#' @examples
+#'
+#' # For FLStock
+#' data(ple4)
+#' summary(setPlusGroup(ple4, 5))
 
 setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
   function(x, plusgroup, na.rm=FALSE, keepPlusGroup=TRUE)
@@ -390,9 +296,184 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 	}
 	return(x)
 	}
-)# }}}
+)
+
+#  changes the level of the plus group of the stock object
+calc.pg <- function(s., i., k., r., pg., action, na.rm) {
+	q.<-slot(s.,i.)
+
+	minage <- s.@range["min"]
+
+	#first check that object actually has ages
+	a.<-dimnames(q.)[[quant(q.)]]
+
+	if (any(a.=="all"))
+	  return(q.)
+
+	if (any(is.na(a.)) | !all(as.integer(a.)==sort(as.integer(a.))))
+	  return(q.)
+
+	pospg <- pg. - as.numeric(dimnames(slot(s., i.))[[1]][1]) + 1
+
+	if (action == "sum"){
+	  q.[pospg,,,,]<-apply(q.[r.,],2:6,sum, na.rm=na.rm)
+	}
+	else{
+	  if(action == "wt.mean"){
+  	sum.r <- apply(slot(s.,k.)[r.,],2:6,sum, na.rm=na.rm)
+		q.[pospg,,,,]<- ifelse(sum.r@.Data == 0, 0, apply(q.[r.,]*slot(s.,k.)[r.,],2:6,sum,na.rm=na.rm)/sum.r)
+	  }
+	}
+	a. <- dimnames(q.)
+	q. <- q.[1:pospg,,,,]
+	dimnames(q.)[[1]] <- minage:pg.
+	dimnames(q.)[2:6] <- a.[2:6]
+
+	return(q.)}
+
+expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...)
+    {
+    if (class(object)!="FLStock") stop('not a FLStock object')
+    if (!validObject(object)) stop('object not a valid FLStock')
+
+    res <-object
+    if (maxage<=range(res,"max")) stop('maxage not valid')
+    if (keepPlusGroup) range(res,c("max","plusgroup"))<-maxage else range(res,c("max","plusgroup"))<-c(maxage,NA)
+
+    dmns     <-dimnames(m(res))
+    oldMaxage<-dims(res)$max
+    dmns$age <-as.numeric(dmns$age[1]):maxage
+
+    Pdiscard<-discards.n(res)[ac(oldMaxage)]/catch.n(res)[ac(oldMaxage)]
+    Planding<-landings.n(res)[ac(oldMaxage)]/catch.n(res)[ac(oldMaxage)]
+
+    slts<-c("catch.n",
+            "catch.wt",
+            "discards.n",
+            "discards.wt",
+            "landings.n",
+            "landings.wt",
+            "stock.n",
+            "stock.wt",
+            "m",
+            "mat",
+            "harvest",
+            "m.spwn",
+            "harvest.spwn")
+
+    # create extra ages and fill with plusgroup
+    for (i in slts) {
+       dmns$iter  <-dimnames(slot(res,i))$iter
+       slot(res,i)<-FLQuant(slot(res,i),dimnames=dmns)
+       slot(res,i)[ac((oldMaxage+1):maxage)]<-0;
+       slot(res,i)[ac((oldMaxage+1):maxage)]<-sweep(slot(res,i)[ac((oldMaxage+1):maxage)],2:6,slot(res,i)[ac(oldMaxage)],"+")
+       }
+
+    # calc exp(-cum(Z)) i.e. the survivors
+    n <- FLQuant(exp(-apply((slot(res,"m")+slot(res,"harvest"))[ac(oldMaxage:maxage)]@.Data,2:6,cumsum)), quant='age')
+    if (keepPlusGroup)
+    	n[ac(maxage)]<-n[ac(maxage)]*(-1.0/(exp(-harvest(res)[ac(maxage)]-m(res)[ac(maxage)])-1.0))
+    n <-sweep(n,2:6,apply(n,2:6,sum),"/")
+
+    stock.n(res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],1:6,n,"*")
+
+    z<-harvest(res)[ac(maxage)]+m(res)[ac(maxage)]
+
+    catch.n(res)[   ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")
+    catch.n(   res)[ac((oldMaxage):maxage)]<-sweep(stock.n(res)[ac((oldMaxage):maxage)],2:6,harvest(res)[ac(maxage)]/z*(1-exp(-z)),"*")
+    if (dims(discards.n(res))$iter==1 & (dims(catch.n(res))$iter>1 | dims(Pdiscard)$iter>1))
+       discards.n(res)<-propagate(discards.n(res),dims(res)$iter)
+    if (dims(landings.n(res))$iter==1 & (dims(catch.n(res))$iter>1 | dims(Planding)$iter>1))
+       landings.n(res)<-propagate(landings.n(res),dims(res)$iter)
+    discards.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Pdiscard,"*")
+    landings.n(res)[ac((oldMaxage):maxage)]<-sweep(catch.n(res)[ac((oldMaxage):maxage)],2:6,Planding,"*")
+
+    # replace any slots passed in (...)
+    args <-names(list(...))
+    slots<-getSlots("FLStock")
+    for (i in args)
+	    if (any(i==names(slots)))
+        if (class(list(...)[[i]])==slots[i]) slot(res,i)<-list(...)[[i]]
+
+     if (!validObject(res)) stop("Not valid")
+
+    return(res)
+    }
+# }}}
 
 # ssb		{{{
+
+#' Method ssb
+#' 
+#' Returns the spawning stock biomass of \code{FLStock} and \code{FLBiol}
+#' objects.
+#' 
+#' If spawning occurs at the beginning of the year, the calculated SSB is the
+#' same regardless of the units of the harvest slot. If spawning occurs at any
+#' other time during the year such that the stock is subject to fishing
+#' mortality prior to spawning, then the calculated SSB will depend on the units
+#' of the harvest slot (either 'f' or 'hr').
+#'
+#' For an \code{FLStock} with harvest units 'f', SSB is calculated as
+#'
+#'    \eqn{SSB = sum(N*exp(-F*propF-M*propM) * wt * mat)}
+#'
+#' where propM and propF are the proportions of natural and fishing mortality,
+#' respectively, that occurr before spawning (m.spwn and harvest.spwn slots).
+#'
+#' For an \code{FLStock} with harvest units 'hr', SSB is calculated as
+#'
+#'		\eqn{SSB = sum(N*(1-harvest*propF)*exp(-M*propM) * wt * mat)}
+#'
+#' The units of the harvest slot in the \code{FLStock} object must be specified
+#' as either 'f' for an instantaneous fishing mortality or else as 'hr' for a
+#' harvest rate.
+#'
+#' For an \code{FLBiol} the spawning biomass is calculated as
+#'
+#'  	\eqn{SSB = sum(N * wt * mat * exp(-M*propM))}
+#'
+#' and so does not include fishing mortality between the start of the year and spawning time.
+#'
+#' @name ssb
+#' @aliases ssb ssb-methods ssb,FLStock-method
+#' @docType methods
+#' @section Generic function: ssb(object)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLBiol} \linkS4class{FLStock}
+#' @keywords methods
+#' @examples
+#' 
+#' # For an FLStock
+#'   data(ple4)
+#' 
+#' # Change spwn slots to make the calculation more interesting
+#'   harvest.spwn(ple4) <- 0.5
+#'   m.spwn(ple4) <- 0.5
+#' 
+#' # check the units of the harvest slot
+#'   units(harvest(ple4))
+#' 
+#' # ssb with F
+#'   ssb(ple4)
+#' 
+#' # Recalculate ssb with F and check
+#'   ssbF <- quantSums(stock.n(ple4) * stock.wt(ple4) * mat(ple4) *
+#'     exp(-harvest(ple4) * harvest.spwn(ple4) - m(ple4) * m.spwn(ple4)))
+#'   ssb(ple4)-ssbF
+#' 
+#' 
+#' # Recalculate ssb with hr and check
+#'   hr <- catch.n(ple4) / stock.n(ple4)
+#'   units(hr) <- 'hr'
+#' 
+#' # ssb with hr
+#'   harvest(ple4) <- hr
+#'   ssb(ple4)
+#'   ssbHR <- quantSums(stock.n(ple4) * stock.wt(ple4) * mat(ple4) *
+#'     (1 - hr * harvest.spwn(ple4)) * exp(-m(ple4) * m.spwn(ple4)))
+#'   ssb(ple4)-ssbHR
+
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
 
@@ -455,6 +536,36 @@ setMethod("fbar", signature(object="FLStock"),
 )	# }}}
 
 # sop	{{{
+
+#' Method sop
+#'
+#' Calculates the sum of products correction
+#' 
+#' Calculates the \code{sop} correction for quantities such as catch,
+#' discards and landings.  For example, in an object of class
+#' \code{\linkS4class{FLStock}}, there are slots such as \emph{catch.n},
+#' \emph{catch.wt} and \emph{catch}. \emph{catch} should equal the product
+#' \emph{catch.n}*\emph{catch.wt} summed over ages. This function returns the
+#' ratio (i.e. the correction) of \emph{catch.n}*\emph{catch.wt} : \emph{catch},
+#' which can then be used to correct either \emph{catch.n} or \emph{catch.wt}.
+#' 
+#' Can be used for any class or slot where there are the three FLQuant slots
+#' \emph{x}, \emph{x.n} and \emph{x.wt}, representing totals added over
+#' all quants (ages), numbers by quant, and weight by quant.
+#' 
+#' @param stock An FLStock object
+#' @param slot Name of the slot group, i.e. "catch", "landings" or "discards"
+#' for an FLStock object.
+#' @return Returns the ratio as an FLQuant
+#' @author FLR Team
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' sop(ple4,"catch")
+#' sop(ple4,"landings")
+#'
+
 sop <- function(stock, slot="catch") {
 	return(quantSums(slot(stock, paste(slot, ".n", sep="")) *
 		slot(stock, paste(slot, ".wt", sep=""))) / slot(stock, slot))
@@ -471,6 +582,26 @@ setMethod("catch<-", signature(object="FLStock", value="FLQuants"),
 ) # }}}
 
 # ssbpurec  {{{
+
+#' Method ssbpurec
+#' 
+#' Calculates the spawning stock biomass per unit recruit at zero fishing
+#' mortality for an \code{FLStock} object.
+#' 
+#' @name ssbpurec
+#' @aliases ssbpurec ssbpurec-methods ssbpurec,FLStock-method
+#' @docType methods
+#' @section Generic function: ssbpurec(object)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLStock}
+#' @keywords methods
+#' @examples
+#'
+#' data(ple4)
+#' ssbpurec(ple4)
+#' ssbpurec(ple4, start=1980, end=2000)
+#'
+
 setMethod("ssbpurec",signature(object="FLStock"),
 	function(object, start = "missing", end = "missing", type = "non-param", recs = "missing", spwns = "missing", plusgroup = TRUE, ...) {
 
@@ -537,7 +668,18 @@ setMethod("ssbpurec",signature(object="FLStock"),
 	}
 )# }}}
 
-# '['       {{{
+#  [       {{{
+#' @rdname Extract
+#' @aliases [,FLStock,ANY,ANY,ANY-method
+#' @examples
+#' # FLStock
+#' data(ple4)
+#' # Method for FLStock distinguishes first dimension 'age'
+#' ple <- ple4[1:4,]
+#' summary(ple4)
+#' # Be AWARE that aggregated slots (catch, landings, ...) are NOT recomputed
+#' all.equal(catch(ple), quantSums(catch.n(ple) * catch.wt(ple)))
+# 
 setMethod('[', signature(x='FLStock'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE)
   {
@@ -803,6 +945,8 @@ setMethod("fapex", signature(x="FLQuant"),
 # }}}
 
 # r {{{
+#' @rdname r
+#' @aliases r,FLStock,missing-method
 setMethod("r", signature(m="FLStock", fec="missing"),
 	function(m, by = 'year', method = 'el',...) {
     do.call('r', list(m=m(m), fec=mat(m), by=by, method=method))

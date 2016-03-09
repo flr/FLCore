@@ -1,8 +1,8 @@
 # FLQuant.R - FLQuant class and methods
 # FLCore/R/FLQuant.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # FLQuant(missing){{{
 # FLQuant  <- FLQuant()
@@ -414,6 +414,29 @@ setMethod("show", signature(object="FLQuant"),
 )   # }}}
 
 # print {{{
+
+#' Method print
+#' 
+#' \code{print} prints its argument and returns it invisibly (via
+#' \link[base]{invisible}(x)).
+#'
+#' @name print
+#' @aliases print,FLQuant-method
+#' @docType methods
+#' @section Generic function: print(x)
+#' @author The FLR Team
+#' @seealso \link{show}
+#' @keywords methods
+#' @examples
+#' 
+#' fq <- FLQuant(1:6, dim = c(2,3))
+#' for(i in 1:3) print(fq[,1:i])
+#'
+#' for(i in 1:3) fq[,1:i]
+#'
+#' fp <- print(FLPar())
+#' fp
+#'
 setMethod("print", signature(x="FLQuant"),
   function(x){
     show(x)
@@ -554,20 +577,26 @@ ans
 
 # wireframe
 
-#' @title 3D plot for FLQuant objects
+#' Method wireframe
+#'
+#' 3D plot for FLQuant objects
+#' 
+#' Method to plot 3D representations of FLQuant objects
+#'
 #' @name wireframe
+#' @aliases wireframe wireframe,FLQuant-method
 #' @docType methods
-#' @rdname wireframe
-#' @aliases wireframe,FLQuant-method
-#' @description Method to plot 3D representations of FLQuant objects
 #'
 #' @param x a \code{formula} formula for lattice
 #' @param data a \code{FLQuant} object with the values
 #' @param ... Additional argument list to be passed to \code{wireframe}
 #' @return a \code{wireframe} plot
 #' @examples
+#' 
 #' data(ple4)
 #' wireframe(data~age+year, data=harvest(ple4))
+#'
+
 setMethod("wireframe", c("formula","FLQuant"),
   function(x, data, ...) {
     args <- list(...)
@@ -701,6 +730,41 @@ setMethod('iterCVs', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 }) # }}}
 
 # quantile   {{{
+#' Method quantile
+#' 
+#' Quantiles for \code{\linkS4class{FLQuant}} objects can be obtained with this
+#' method.  Default quantiles returned are \code{seq(0, 1, 0.25)}, but they can
+#' be specified using the \code{probs} argument. The returned
+#' \code{\linkS4class{FLQuant}} object uses the sixth dimension (\emph{iter})
+#' to store the requested quantiles, with appropriate dimnames.
+#' 
+#' For objects of class \code{\linkS4class{FLQuantPoint}}, quantile is merely
+#' an accessor for two elements of the sixth dimension, \code{lowq} and
+#' \code{uppq}. You could use the \code{\link{lowq}} and \code{\link{uppq}}
+#' methods instead.
+#'
+#' @name quantile
+#' @aliases quantile,FLQuant-method quantile,FLQuantPoint-method
+#' @docType methods
+#' @section Generic function: quantile(x, ...)
+#' @author The FLR Team
+#' @seealso \link[stats]{quantile}, \linkS4class{FLQuant},
+#' \linkS4class{FLQuantPoint}
+#' @keywords methods
+#' @examples
+#' 
+#' # Normally distributed FLQuant with lognormal random mean and fixed sd of 20
+#'   flq <- rnorm(100, FLQuant(rlnorm(20), dim=c(2,10)), 20)
+#' 
+#' # Obtain all standard quantiles (0, 0.25, 0.5, 0.75 and 1)...
+#'   quantile(flq)
+#'   dimnames(quantile(flq))$iter
+#' # ...and select one of them
+#'   quantile(flq)[,,,,,1]
+#'
+#' # Calculate the 0.05 quantile only
+#'   quantile(flq, 0.05)
+#' 
 setMethod("quantile", signature(x="FLQuant"),
   function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, ...) {
     res <- FLQuant(NA, dimnames=c(dimnames(x)[-6],
@@ -740,6 +804,39 @@ return(object)
 )   # }}}
 
 # propagate {{{
+
+#' Method propagate
+#'
+#' Extend an FLQuant along the iter dimension
+#' 
+#' FLR objects with a single iteration (length of 1 in the sixth dimension) can
+#' be extended using the \code{propagate} method. The \code{type} argument
+#' selects whether the new iterations are filled with the content of the first
+#' iteration (\code{fill.iter=TRUE}, the default) or filled with NAs
+#' (\code{fill.iter=FALSE}).
+#' 
+#' For objects of class \code{\linkS4class{FLPar}}, propagate will extend the
+#' object along the last dimension, \code{iter}. The fill.iter argument
+#' defaults to TRUE. Objects do not need to have \code{iter=1} to be extended,
+#' but this only works if fill.iter=FALSE.
+#'
+#' @name propagate
+#' @aliases propagate propagate-methods propagate,FLQuant-method
+#' @docType methods
+#' @section Generic function: propagate(object)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#'
+#' # For an FLQuant object
+#'   flq <- FLQuant(rnorm(50), dim=c(5,10))
+#'   propagate(flq, 10)
+#'   # Look at the % NA in summary...
+#'     summary(propagate(flq, 10, fill.iter=FALSE))
+#'   # ...and compare with
+#'     summary(propagate(flq, 10))
+#'
 setMethod("propagate", signature(object="FLQuant"),
   function(object, iter, fill.iter=TRUE)
   {
@@ -766,6 +863,31 @@ setMethod("propagate", signature(object="FLQuant"),
 ) # }}}
 
 # rnorm{{{
+
+#' Method rnorm
+#' 
+#' Generates random numbers following a normal distribution. \emph{mean} and
+#' \emph{sd} can be specified as objects of class \code{\linkS4class{FLQuant}},
+#' of the same dimensions, but any of the two could be given as a numeric, in
+#' which case the value will be reused accordingly. If either is of class
+#' \code{FLQuant} then the resultant object will be of class \code{FLQuant}.
+#'
+#' @name rnorm
+#' @aliases rnorm,numeric,FLQuant,FLQuant-method
+#' rnorm,numeric,FLQuant,missing-method rnorm,numeric,FLQuant,numeric-method
+#' rnorm,numeric,numeric,FLQuant-method rnorm,numeric,missing,FLQuant-method
+#' @docType methods
+#' @section Generic function: rnorm(n, mean, sd)
+#' @author The FLR Team
+#' @seealso \link[stats]{rnorm}, \linkS4class{FLQuant},
+#' \linkS4class{FLQuantPoint}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' rnorm(10,mean=harvest(ple4)[,"2001"], sd=harvest(ple4)[,"2001"])
+#'
+
 setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
   function(n=1, mean, sd) {
     if(dim(mean)[6] > 1 | dim(sd)[6] > 1)
@@ -797,6 +919,33 @@ rnorm(n, 0, sd)
 # }}}
 
 # rlnorm {{{
+
+#' Method rlnorm
+#' 
+#' Random generation for the lognormal distribution whose logarithm has mean
+#' equal to \emph{meanlog} and standard deviation equal to \emph{sdlog}.
+#' \emph{meanlog} and \emph{sdlog} can be given as \code{FLQuant} objects. If
+#' both are given as \code{FLQuant} objects their dimensions must be the same.
+#' If either of these arguments are \code{FLQuant} objects, \code{rlnorm}
+#' returns an \code{FLQuant}.
+#'
+#' @name rlnorm
+#' @aliases rlnorm,numeric,FLQuant,FLQuant-method
+#' rlnorm,numeric,FLQuant,missing-method rlnorm,numeric,FLQuant,numeric-method
+#' rlnorm,numeric,numeric,FLQuant-method rlnorm,numeric,missing,FLQuant-method
+#' @docType methods
+#' @section Generic function: rlnorm(n,meanlog,sdlog)
+#' @author The FLR Team
+#' @seealso \link[stats]{rlnorm}, \linkS4class{FLQuant},
+#' \linkS4class{FLQuantPoint}
+#' @keywords methods
+#' @examples
+#' 
+#' out <- rlnorm(1000, meanlog=FLQuant(rep(5,5)), sdlog=FLQuant(0:4))
+#' apply(log(out),2,sd)
+#' apply(log(out),2,mean)
+#'
+
 setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="FLQuant"),
   function(n=1, meanlog, sdlog) {
     if(dim(meanlog)[6] > 1 | dim(sdlog)[6] > 1)
@@ -841,6 +990,26 @@ setMethod("rlnorm", signature(n='FLQuant', meanlog="ANY", sdlog="ANY"),
 # }}}
 
 # rpois{{{
+
+#' Method rpois
+#' 
+#' Generates random numbers following a Poisson distribution. \emph{lambda},
+#' the (non-negative) mean, can be specified as an object of class
+#' \code{\linkS4class{FLQuant}}.
+#'
+#' @name rpois
+#' @aliases rpois,numeric,FLQuant-method rpois,numeric,FLQuant-method
+#' @docType methods
+#' @section Generic function: rpois(n, lambda)
+#' @author The FLR Team
+#' @seealso \link{rpois}, \link{FLQuant}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' rpois(50,lambda=harvest(ple4))
+#'
+
 setMethod("rpois", signature(n='numeric', lambda="FLQuant"),
 function(n=1, lambda) {
     if(dim(lambda)[6] > 1)
@@ -898,9 +1067,32 @@ setMethod("mvrnorm",
   }
 )# }}}
 
-# PV{{{
-setGeneric("pv", function(object, ...)
-standardGeneric("pv"))
+# pv {{{
+
+#' Method pv
+#'
+#' Population variability
+#' 
+#' The \code{pv} method computes the population variability (\emph{pv}) of an
+#' \code{FLQuant} object.
+#'
+#' @name pv
+#' @aliases pv pv-methods pv,FLQuant-method
+#' @docType methods
+#' @section Generic function: pv(object)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @references Heath, J.P. 2006. Quantifying temporal variability in population
+#' abundances. \emph{Oikos} \bold{115 (3)}: 573--581.
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(40), dim=c(1,40))
+#' pv(flq)
+#' 
+#' data(ple4)
+#' pv(stock(ple4))
+#' 
 
 # Heath. 2006. Oikos 115:573-581
 setMethod('pv', signature(object='FLQuant'),
@@ -943,8 +1135,26 @@ return(pv)
 # }}}
 
 # setPlusGroup{{{
-setGeneric("setPlusGroup", function(x, plusgroup, ...)
-standardGeneric("setPlusGroup"))
+#' Method setPlusGroup
+#' 
+#' Calculates the appropriate values for the plusgroup of an object and returns
+#' a new object with the plusgroup set to the given age.
+#' 
+#' \emph{quant} of the given object must be 'age', and the selected age must
+#' not be greater than the oldest age present in the object.
+#'
+#' @name setPlusGroup
+#' @aliases setPlusGroup setPlusGroup-methods setPlusGroup,FLQuant,numeric-method 
+#' @docType methods
+#' @section Generic function: sePlusGroup(x, plusgroup)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLStock}, \linkS4class{FLQuant}, \linkS4class{FLBiol}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' ple4.pg <- setPlusGroup(ple4, 6)
+#' 
 setMethod("setPlusGroup", signature(x='FLQuant', plusgroup='numeric'),
 function(x, plusgroup, na.rm=FALSE, by='mean') {
 # only valid for age-based FLQuant
@@ -984,9 +1194,9 @@ return(res)
 )# }}}
 
 # sweep {{{
-if (!isGeneric("sweep"))
-setGeneric("sweep", function (x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)
-standardGeneric("sweep"))
+
+#' @rdname sweep
+#' @aliases sweep,FLQuant-method
 
 setMethod('sweep', signature(x='FLQuant'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
@@ -1106,6 +1316,18 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
     return(res)
   }
 ) # }}}
+
+# show     {{{
+
+#' @rdname show
+#' @aliases show,FLQuant-method
+
+setMethod("show", signature(object="FLQuant"),
+	function(object){
+		callNextMethod()
+		cat("units: ", object@units, "\n")
+	}
+)   # }}}
 
 # ifelse {{{
 setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),

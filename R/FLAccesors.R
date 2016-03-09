@@ -1,11 +1,21 @@
 # FLAccesors - Accesor-generating functions
 # FLCore/R/FLAccesors.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# $Id: FLAccesors.R 1778 2012-11-23 08:43:57Z imosqueira $
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # createFLAccesors    {{{
+#' Create accesor methods for a given class
+#' 
+#' This function creates a complete set of standard S4 class accessors and
+#' replacers. Not intended for direct use.
+#'
+#' @param class name of the class
+#' @param exclude Slot names to exclude
+#' @param include Slot names to include
+#' @author The FLR Team
+#' @keywords methods
+#'
 createFLAccesors <- function(class, exclude=character(1), include=missing) {
   
   object <- class

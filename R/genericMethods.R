@@ -1,7 +1,8 @@
 # genericMethods - S4 generics
 # genericMethods
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 globalVariables(c("qname"))
 
@@ -831,3 +832,9 @@ setGeneric("e<-", function(x, value) standardGeneric("e<-"))
 
 # predictModel
 setGeneric("predictModel", function(object, ...) standardGeneric("predictModel"))
+
+# setPlusGroup
+setGeneric("setPlusGroup", function(x, plusgroup, ...) standardGeneric("setPlusGroup"))
+
+# pv
+setGeneric("pv", function(object, ...) standardGeneric("pv"))

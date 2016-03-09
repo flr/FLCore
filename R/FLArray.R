@@ -1,10 +1,46 @@
 # FLArray-class - Base class for FLQuant and FLCohort
 
-# Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# $Id: FLArray.R 1779 2012-11-23 09:39:31Z imosqueira $
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # units {{{
+
+#' Method units
+#'
+#' \code{units} attribute for FLQuant objects
+#' 
+#' Objects of \code{FLArray}-based classes (e.g. \code{\link{FLQuant}}) contain
+#' a \code{units} attribute of class \code{character}. This should be used to
+#' store the corresponding units of measurement.  This attribute can be directly
+#' accessed and modified using the \code{units} and \code{units<-} methods.
+#' 
+#' For complex objects, \code{units} will return a named list containing the
+#' attributes of all \code{FLQuant} slots. \code{units} of a complex object can
+#' be modified for all slots or a subset of them, by passing a named list with
+#' the new values. See examples below.
+#'
+#' @name units
+#' @aliases units,FLArray-method units<-,FLArray,character-method
+#' @docType methods
+#' @section Generic function: units(x)
+#' 
+#' units<-(x,value)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLQuant}, \linkS4class{FLPar}, \linkS4class{FLCohort}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(100), dim=c(5,20), units='kg')
+#' units(flq)
+#' units(flq) <- 't'
+#' summary(flq)
+#' 
+#' # units for a complex object
+#'   data(ple4)
+#'   units(ple4)
+#'   units(ple4) <- list(harvest='hr')
+#'
+
 setMethod("units", signature(x="FLArray"),
   function(x)
     return(x@units)
@@ -19,6 +55,30 @@ setMethod("units<-", signature(x="FLArray", value="character"),
 ) # }}}
 
 # quant        {{{
+#' Method quant
+#' 
+#' Function to get or set the name of the first dimension (quant) in an object
+#' of class \code{FLQuant} or \code{FLCohort}.
+#'
+#' @name quant
+#' @aliases quant quant-methods quant,FLArray-method quant<- quant<--methods
+#' quant<-,FLArray,missing-method quant<-,FLArray-method
+#' quant<-,FLArray,character-method
+#' @docType methods
+#' @section Generic function: quant(object) quant<-(object,value)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLQuant}, \linkS4class{FLCohort}
+#' @keywords methods
+#' @examples
+#' 
+#' # quant is 'quant' by default
+#'   quant(FLQuant())
+#'
+#' flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age')
+#' quant(flq)
+#' quant(flq) <- 'length'
+#' summary(flq)
+#'
 setMethod("quant", signature(object="FLArray"),
   function(object)
   {
@@ -37,7 +97,61 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
   }
 ) # }}}
 
-# "["             {{{
+#  [             {{{
+#' Extract
+#'
+#' Extract or replace parts of an FLR Object
+#' 
+#' Operators acting on FLQuant, FLCohort, FLPar, FLComp, and derived classes to
+#' extract or replace sections of an object.
+#' 
+#' Please note the differences between referencing sections of an object by
+#' position using values of class \code{numeric}, or by using dimnames of class
+#' \code{character}. See examples below.
+#' 
+#' All classes that are derived from \code{FLComp} (for example, \code{FLStock}
+#' and \code{FLBiol}) can be subset along the six dimensions of their
+#' \code{FLQuant} slots.
+#' 
+#' Classes that are derived from \code{FLlst} (for example, \code{FLStocks} and
+#' \code{FLBiols}) can be subset in a similar way to ordinary list objects.
+#'
+#' @name Extract
+#' @rdname Extract
+#' @aliases [,FLArray,ANY,ANY,ANY-method
+#' @docType methods
+#' @section Generic function: \describe{ \item{}{[x,i,j,drop]}
+#' \item{}{[<-(x,i,j,value)} \item{}{[[<-(x,i,j,value)}
+#' \item{}{\$<-(x,name,value)} }
+#' @param x object from which to extract or replace element(s)
+#' @param i,j,k,l,m,n,... indices specifying elements to extract or replace.
+#' @param drop If 'TRUE' the result is coerced to the lowest possible dimension,
+#' and so it might change class (e.g. drop='TRUE' on an \code{FLQuant} might
+#' return an \code{array}.
+#' @param value An object of a similar or simpler class than 'x'.
+#' @param name
+#' See \link[base]{Extract} for further details.
+#' @author The FLR Team
+#' @seealso \link[base]{Extract}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(200), dimnames=list(age=0:4, year=1991:2000,
+#'   season=1:4))
+#'
+#' # Extracting by position...
+#'   flq[1,]
+#'   flq[,1:5]
+#'   flq[1:2,,,c(1,3)]
+#'
+#' # ...by dimnames
+#'   flq['0',]
+#'   flq[,'1991']
+#'   flq[,as.character(1991:1995),,'1']
+#'
+#' # Replacing part of the object
+#'   flq['0',,,1]<-0
+#'
 setMethod("[", signature(x="FLArray"),
     function(x, i, j, k, l, m, n, ..., drop=FALSE)
     {
@@ -65,6 +179,8 @@ setMethod("[", signature(x="FLArray"),
   }
 )
 
+#' @rdname Extract
+#' @aliases [,FLArray,array,missing,missing-method
 setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
   function(x, i)
   {
@@ -82,6 +198,8 @@ setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
 )   # }}}
 
 # "[<-"            {{{
+#' @rdname Extract
+#' @aliases `[<-,FLArray,ANY,ANY,ANY-method`
 setMethod("[<-", signature(x="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -112,9 +230,10 @@ setMethod("[<-", signature(x="FLArray"),
 
      return(x)
   }
-)   # }}}
+) 
 
-# "[<-"            {{{
+#' @rdname Extract 
+#' @aliases `[<-,FLArray,ANY,ANY,FLArray-method`
 setMethod("[<-", signature(x="FLArray", value="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -182,6 +301,34 @@ setMethod("iter", signature(obj="FLArray"),
 )   # }}}
 
 # summary          {{{
+
+#' Method summary
+#' 
+#' Outputs a general summary of the structure and content of the object. The
+#' particular output obtined depends on the class of the argument object.
+#'
+#' @name summary
+#' @aliases summary,FLArray-method
+#' @aliases summary,FLQuant-method summary,FLQuantPoint-method
+#' summary,FLComp-method summary,FLQuants-method summary,FLPar-method
+#' summary,FLModel-method summary,FLArray-method summary,FLlst-method
+#' @docType methods
+#' @section Generic function: summary(object)
+#' @author The FLR Team
+#' @seealso \link[base]{summary}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
+#' summary(flq)
+#'
+#' data(ple4)
+#' summary(ple4)
+#' 
+#' data(nsher)
+#' summary(nsher)
+#'
+
 setMethod("summary", signature(object="FLArray"),
   function(object, ...)
   {
@@ -214,6 +361,36 @@ setMethod("summary", signature(object="FLArray"),
 )   # }}}
 
 # show     {{{
+
+#' Method show
+#' 
+#' Standard display of an object contents in an interactive session. Objects of
+#' class \code{\linkS4class{FLQuant}} with length > 1 along the sixth dimension
+#' (\emph{iter}) are output in a summarised form, as \code{median(mad)}, where
+#' mad is the median absolute deviation. See \code{\link[stats]{mad}}.
+#' 
+#' The same format is used for objects of class \code{\linkS4class{FLPar}} with
+#' length > 1 on the last dimension (\emph{iter}).
+#'
+#' @name show
+#' @aliases show,FLArray-method
+#' @aliases show,FLQuants-method show,FLPar-method
+#' @docType methods
+#' @section Generic function: show(object)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#' 
+#' # no 'iter'
+#'   flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age', units='kg')
+#'   flq
+#' 
+#' # with 'iter'
+#'   flq <- FLQuant(rnorm(800), dim=c(4,20,1,1,1,10), quant='age', units='kg')
+#'   flq
+#'
+
 setMethod("show", signature(object="FLArray"),
   function(object){
     cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
@@ -233,6 +410,59 @@ setMethod("show", signature(object="FLArray"),
 )   # }}}
 
 # trim {{{
+
+#' Method trim
+#'
+#' Trim FLR objects using named dimensions
+#' 
+#' Subsetting of FLR objects can be carried out with dimension names by using
+#' \code{trim}. A number of dimension names and selected dimensions are passed
+#' to the method and those are used to subset the input object.
+#' 
+#' Exceptions are made for those classes where certain slots might differ in
+#' one or more dimensions. If trim is applied to an FLQuant object of length 1
+#' in its first dimension and with dimension name equal to 'all', values to
+#' \code{trim} specified for that dimension will be ignored. For example,
+#' \code{\link{FLStock}} objects contain slots with length=1 in their first
+#' dimension. Specifying values to trim over the first dimension will have no
+#' effect on those slots (\code{catch}, \code{landings}, \code{discards}, and
+#' \code{stock}). Calculations might need to be carried out to recalculate
+#' those slots (e.g. using \code{computeCatch}, \code{computeLandings},
+#' \code{computeDiscards} and \code{computeStock}) if their quant-structured
+#' counterparts are modified along the first dimension.
+#'
+#' @name trim
+#' @aliases trim trim-methods trim,FLArray-method trim,FLQuant-method
+#' trim,FLComp-method trim,FLStock-method trim,FLCohort-method
+#' trim,FLIndex-method
+#' @docType methods
+#' @section Generic function: trim(x)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLQuant}, \linkS4class{FLStock},
+#' \linkS4class{FLCohort}, \linkS4class{FLIndex}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' 
+#' trim(catch(ple4), year=1990:1995)
+#' # which is equivalent to
+#'   window(catch(ple4), start=1990, end=1995)
+#'
+#' trim(catch.n(ple4), year=1990:1995, age=1:2)
+#' 
+#' # Now on an FLStock
+#'   summary(trim(ple4, year=1990:1995))
+#' 
+#' # If 'age' is trimmed in ple4, catch, landings and discards need to be
+#' # recalculated
+#'   shpl4 <- trim(ple4, age=1:4)
+#'   landings(shpl4) <- computeLandings(shpl4)
+#'   discards(shpl4) <- computeDiscards(shpl4)
+#'   catch(shpl4) <- computeCatch(shpl4)
+#'   summary(shpl4)
+#'
+
 setMethod('trim', signature(x='FLArray'),
   function(x, ...)
   {
@@ -425,53 +655,56 @@ uomTable[c('*', '/'), 'm', nums] <- rep(rep(uoms[snums], each=2), 3)
 uomTable[c('*', '/'), 'z', nums] <- rep(rep(uoms[snums], each=2), 3)
 uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
 
-#' uom Units of Measurement
+#' Method uom
+#'
+#' Units of Measurement
 #' 
-#' The 'units' attribute of FLQuant objects provides a mechanism for keeping track
-#' of the units of measurement of that particular piece of data. 
+#' The \code{units} attribute of \code{FLQuant} objects provides a mechanism for
+#' keeping track of the units of measurement of that particular piece of data.
+#' This method in the form \code{uom()} carries out a conversion across units.
 #' 
-#' Arithmetic operators for 'FLQuant' objects are aware of a limited set of units
-#' of measurement and will output the right unit when two object are arithmetically
-#' combined. For example, the product of object with units of 'kg' and '1000' will
-#' output an object with 'units' of 't' (for metric tonnes).
+#' Arithmetic operators for \code{FLQuant} objects operate with a limited set of
+#' units of measurement, and will output the right unit when two appropriate
+#' objects are arithmetically combined. For example, the product of objects with
+#' units of 'kg' and '1000' will output an object with units of 't' (for
+#' metric tonnes).
+#' 
+#' Operations involving combinations of units not defined will result in the
+#' \code{units} attribute simply storing a string indicating the input units of
+#' measurement and the operation carried out, as in '10 * 1000'.
+#' 
+#' Note that no scaling or modification of the values in the object takes
+#' place.
 #'
-#' Operations involving combinations of units not defined will not issue any
-#' warning, and the resulting 'units' attribute will simply keep a string
-#' indicating the input units of measurement and the operation carried out,
-#' as in '10 * 1000'.
-#'
-#' Note that no scaling or modification of the values in the object takes place.
-#'
-#' Conversion across units is carried out by the \code{uom()} function
-#'
+#' @name uom
+#' @docType methods
 #' @param op The arithmetic operator to be used, one of '+', '-', '*' or '/'
 #' @param u1 The units of measurement string of the first object
 #' @param u2 The units of measurement string of the second object
-#' @return a string with the corresponding units of measurement, a string such as '10 *100' when not compatible
-#' 
-#' @section Recognized Units:
-#' The following units of measurement are recognized by the 'Arith' operators
-#' (+, -, * /).
-#' \describe{
-#'    \item{Weight}{'kg', 't'}
-#'    \item{Numbers}{1 - 100000000, 1e0 - 1e8, 10^0 - 10^8}
-#'    \item{Mortality}{'m', 'f', 'z', 'hr'}
-#'    \item{Other}{'NA'}
-#' }
+#' @return a string with the corresponding units of measurement, a string such
+#' as '10 *100' when not compatible
 #'
-#' @name uom
-#' @aliases uom
-#' @docType methods
+#' @section Recognized Units:
+#' 
+#' The following units of measurement are recognized by the 'Arith' operators
+#' (+, -, * /). \describe{ \item{Weight}{'kg', 't'} \item{Numbers}{1 -
+#' 100000000, 1e0 - 1e8, 10^0 - 10^8} \item{Mortality}{'m', 'f', 'z', 'hr'}
+#' \item{Other}{'NA'} }
 #' @author The FLR Team
 #' @seealso \code{\linkS4class{FLQuant}} \code{\link{units,FLArray-method}}
 #' @keywords function
 #' @examples
-#'
+#' 
 #' # Conversion between weights
-#' FLQuant(1, units='kg') * FLQuant(1000, units='1')
+#'   flq1 <- FLQuant(1, units='kg')
+#'   flq2 <- FLQuant(5, units='1000')
+#'   flq1 * flq2
 #'
 #' # Conversion between mortalities
-#' FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
+#'   flq1 <- FLQuant(0.2, units='m')
+#'   flq2 <- FLQuant(0.34, units='f')
+#'   flq1 + flq2
+#'
 
 uom <- function(op, u1, u2) {
 
@@ -506,13 +739,49 @@ uom <- function(op, u1, u2) {
 # }}}
 
 # Arith    {{{
-setMethod("Arith", #  "+", "-", "*", "^", "%%", "%/%", "/"
-  signature(e1 = "numeric", e2 = "FLArray"),
-  function(e1, e2)
-  {
-    return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
-  }
+#' Method Arith
+#'
+#' Arithmetic methods for FLR objects
+#'
+#' The \code{Arith} group of methods, comprising addition, substraction,
+#' product, division, exponentiation, modulus and integer division ().
+#' These methods work exactly as in an object of class \code{array}, but always
+#' return an \code{FLQuant} object, thus no dimension is dropped.
+#'
+#' Operations between an \code{FLQuant} and an \code{FLPar} object will always
+#' return an FLQuant, with the \code{FLPar} dimensions being place on top of
+#' the correspoding ones at the \code{FLQuant} object. See examples below.
+#'
+#' @name Arith
+#' @rdname Arith
+#' @aliases Arith,numeric,FLArray-method
+#' @docType methods
+#' @section Generic function: Arith(e1,e2)
+#' @param e1,e2 Objects
+#' @author The FLR Team
+#' @seealso \code{\link[base]{Arithmetic}}, \code{\link[methods]{Arith}}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(c(9,5), dim=c(2,5))
+#' fl2 <- FLQuant(2, dim=c(2,5))
+#' flq * fl2
+#' flq / fl2
+#'
+#' # FLQuant against numeric vector
+#' flq * 2.5
+#' # Recycling rule applies
+#' flq * c(1, 2)
+#'
+setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
+	signature(e1 = "numeric", e2 = "FLArray"),
+	function(e1, e2)
+	{
+		return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
+	}
 )
+#' @rdname Arith
+#' @aliases Arith,FLArray,numeric-method
 setMethod("Arith",
   signature(e1 = "FLArray", e2 = "numeric"),
   function(e1, e2)
@@ -520,6 +789,8 @@ setMethod("Arith",
     return(new(class(e1), callGeneric(e1@.Data, e2), units=units(e1)))
   }
 )
+#' @rdname Arith
+#' @aliases Arith,FLArray,FLArray-method
 setMethod("Arith",
   signature(e1 = "FLArray", e2 = "FLArray"),
   function(e1, e2)
@@ -604,6 +875,31 @@ setMethod("scale", signature(x="FLArray", center="missing", scale="missing"),
 ) # }}}
 
 # sweep {{{
+
+#' Method sweep
+#'
+#' Sweep out FLArray Summaries
+#' 
+#' Return an \code{FLQuant} or \code{FLCohort} obtained from an input object by
+#' sweeping out a summary statistic along the selected dimensions.
+#'
+#' @name sweep
+#' @aliases sweep,FLArray-method
+#' @docType methods
+#' @return An FLQuant or FLCohort with the same shape as \code{x}, but with the
+#' summary statistics swept out.
+#' @section Generic function: sweep(x, MARGIN, STATS, FUN="-",
+#' check.margin=TRUE, \dots{})
+#' @author The FLR Team
+#' @seealso \code{\link[base]{sweep}}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' mean.f <- apply(harvest(ple4),2,mean)
+#' scaled.f <- sweep(harvest(ple4),2,mean.f,"/")
+#'
+
 setMethod('sweep', signature(x='FLArray'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
   {
@@ -649,6 +945,32 @@ setMethod("qmin", signature(x="FLArray"),
 # }}}
 
 # apply {{{
+#' Method apply
+#' 
+#' Functions can be applied to margins of an \code{FLQuant} or \code{FLPar} array
+#' using this method. In contrast with the standard R method, dimensions are not collapsed
+#' in the output object.
+#' 
+#' \code{FUN} in the case of an \code{FLQuant} must be a function whose results is least one
+#' dimension less when applied over an array (e.g. sum, mean, ...).
+#' 
+#' For further details see \link[base]{apply}.
+#'
+#' @name apply
+#' @aliases apply,ANY,missing,missing-method apply,FLQuant,numeric,function-method
+#' apply,FLArray,numeric,function-method
+#' @docType methods
+#' @section Generic function: apply(X,MARGIN,FUN)
+#' @author The FLR Team
+#' @seealso \link[base]{apply}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(1000), dim=c(10,20,1,1,1,5))
+#' apply(flq, 1, sum)
+#' apply(flq, 2:6, sum)
+#' 
+
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
   function(X, MARGIN, FUN, ...)
   {
@@ -702,6 +1024,33 @@ setMethod("survprob", signature(object="FLArray"),
 ) # }}}
 
 # window           {{{
+
+#' Method window
+#'
+#' Extract time (year) windows of an FLR object
+#' 
+#' This method extracts a section of, or extends an \code{FLQuant} or other FLR
+#' objects along the \code{year} dimension. If a frequency is specified, the
+#' new object contains data at only those year steps.
+#' 
+#' Although objects of class \code{\link{FLQuant}} do have another temporal
+#' dimension, \code{season},  window currently only works along the \code{year}
+#' dimension. To subset/extend along other dimensions, refer to
+#' \link{Extract-FLCore}, \code{\link{trim}}, or \code{\link{expand}}.
+#'
+#' @name window
+#' @aliases window,FLQuant-method
+#' @docType methods
+#' @section Generic function: window(x)
+#' @author The FLR Team
+#' @seealso \link[stats]{window}, \link{Extract-FLCore}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(50), dimnames=list(age=1:5, year=1991:2000))
+#' window(flq, start=1995, end=1998)
+#' window(flq, start=1990, end=2010, frequency=2)
+#' 
 setMethod("window", signature(x="FLArray"),
   function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1)
   {

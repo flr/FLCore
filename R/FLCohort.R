@@ -1,10 +1,12 @@
 # FLCohort - 
 # FLCore/R/FLCohort.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
 
 # FLCohort(FLQuant)  {{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,FLQuant-method
 setMethod("FLCohort", signature("FLQuant"),
   function(object, ...) {
     
@@ -55,6 +57,8 @@ setMethod("FLCohort", signature("FLQuant"),
 ) # }}}
 
 # FLCohort(FLCohort)  {{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,FLCohort-method
 setMethod('FLCohort', signature(object='FLCohort'),
   function(object, units=units(object))
   {
@@ -66,6 +70,8 @@ setMethod('FLCohort', signature(object='FLCohort'),
 ) # }}}
 
 # FLCohort(array)    {{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,array-method
 setMethod("FLCohort", signature(object="array"),
   function(object, dim=rep(1,6), dimnames="missing", units="NA",
     iter=1, fill.iter=TRUE) {
@@ -125,6 +131,8 @@ setMethod("FLCohort", signature(object="array"),
 )  # }}}
 
 # FLCohort(vector) {{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,vector-method
 setMethod("FLCohort", signature(object="vector"),
   function(object, dim=c(length(object), rep(1,5)), dimnames="missing",
       units="NA", iter=1) 
@@ -140,6 +148,8 @@ setMethod("FLCohort", signature(object="vector"),
 )  # }}}
 
 # FLCohort(missing)    {{{
+#' @rdname FLCohort-class
+#' @aliases FLCohort,missing-method
 setMethod("FLCohort", signature(object="missing"),
   function(object, dim=rep(1,6), dimnames="missing", units="NA", iter=1) {
     
@@ -349,6 +359,15 @@ setMethod("iter<-", signature(object="FLCohort", value="FLCohort"),
 )   # }}}
 
 # propagate {{{
+
+#' @rdname propagate
+#' @aliases propagate,FLCohort-method
+#' @examples
+#'
+#' # For an FLStock
+#' flc <- FLCohort(catch.n(ple4))
+#' summary(propagate(flc, 25))
+#'
 setMethod("propagate", signature(object="FLCohort"),
   function(object, iter, fill.iter=TRUE)
   {

@@ -51,6 +51,15 @@ setMethod("window", signature(x="FLComp"),
 )	# }}}
 
 # propagate {{{
+
+#' @rdname propagate
+#' @aliases propagate,FLComp-method
+#' @examples
+#'
+#' # For an FLStock
+#' data(ple4)
+#' summary(propagate(ple4, 25))
+#'
 setMethod("propagate", signature(object="FLComp"),
 	function(object, iter, fill.iter=TRUE) {
 
@@ -139,6 +148,32 @@ function(`_data`, ...)
 )	# }}}
 
 # qapply		{{{
+#' Method qapply
+#' 
+#' Returns a \code{\link[base]{list}} or \code{\link{FLlst}} containing values
+#' obtained by applying a function to margins for each FLQuant in a composite
+#' FLR object.
+#'
+#' @name qapply
+#' @aliases qapply qapply-methods qapply,FLComp,function-method
+#' @docType methods
+#' @section Generic function: qapply(X,FUN)
+#' @author The FLR Team
+#' @seealso \link{FLComp} \link{apply}
+#' @keywords methods
+#' @examples
+#'
+#' data(ple4)
+#' 
+#' # Returns a list containing the max value for each quant
+#' qapply(ple4, max)
+#' 
+#' # Returns an FLStock of means across all dimensions except year
+#' qapply(ple4, apply, 2, mean, na.rm=TRUE)
+#' 
+#' # Returns an FLStock of max values across all dimensions except year and age
+#' qapply(ple4, apply, c(1,2), max)
+#'
 setMethod('qapply', signature(X='FLComp', FUN='function'),
 	function(X, FUN, ..., exclude=missing) {
 
@@ -470,6 +505,49 @@ setMethod('model.frame', signature(formula='FLComp'),
 # }}}
 
 # range {{{
+#' Method range
+#' 
+#' Extraction and modification of the \emph{range} slot from objects of any
+#' class inheriting from \code{\linkS4class{FLComp}}.
+#'
+#' For example, this method allows the quant range used in the \code{fbar}
+#' calcluation for an \code{FLStock} object (set by \code{minfbar} and
+#' \code{maxfbar}), and the period of a year relevant to \code{FLIndex} or
+#' \code{FLIndexBiomass} objects (set by \code{startf} \code{endf}) to be
+#' changed. Any other changes that are structural in nature should not be made
+#' with this method, but rather with methods such as \code{trim}, \code{expand}
+#' and \code{setPlusGroup}.
+#'
+#' The \emph{range} slots that are produced depend on the object being queried
+#' and can include one of the following: \code{min} and \code{max} relate to the
+#' minimum and maximum quants, \code{minyear} and \code{maxyear} to the minimum
+#' and maximum years, and \code{plusgroup} to the plusgroup. Additional slots
+#' are included for \code{FLStock} (\code{minfbar} and \code{maxfbar}), and
+#' \code{FLIndex} or \code{FLIndexBiomass} (\code{startf} and \code{endf}),
+#' as described above.
+#'
+#' @name range
+#' @aliases range-methods range,FLComp,missing-method range,FLComp-method
+#' range,FLlst-method range<- range<--methods range<-,FLComp-method
+#' @docType methods
+#' @section Generic function: range(x, i) range<-(x, i, value)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' data(ple4.index)
+#' range(ple4)
+#' range(ple4.index)
+#'
+#' # Change the quant (here age) range used in the fbar calculation for an
+#' # FLStock object
+#'   fbar(ple4)
+#'   range(ple4, c('minfbar','maxfbar'))
+#'   range(ple4, 'minfbar')<-4
+#'   fbar(ple4)
+#'
 setMethod("range", "FLComp",
   function(x, i='missing', ..., na.rm = FALSE)
   {

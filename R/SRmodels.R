@@ -1,71 +1,247 @@
 # SRmodels - Stock-recruitment models
 # FLCore/R/SRmodels
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Laurie Kell, Cefas
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
-# Reference:
-# Notes:
+#' Methods SRModels
+#'
+#' Stock-Recruitment models
+#' 
+#' A range of stock-recruitment (SR) models commonly used in fisheries science
+#' are provided in FLCore.
+#' 
+#' Each method is defined as a function returning a list with one or more
+#' elements as follows:
+#' \itemize{
+#' \item model Formula for the model, using the slot names \emph{rec} and \emph{ssb}
+#  to refer to the usual inputs
+#' \item logl Function to calculate the loglikelihood of the given model when
+#' estimated through MLE (See \code{\link{fmle}})
+#' \item initial Function to provide initial values for all parameters to the
+#' minimization algorithms called by \code{\link{fmle}} or \code{\link[stats]{nls}}.
+#' This function can also have two attributes, \code{\link{lower}} and
+#' \code{\link{upper}}, that give lower and upper limits for the parameter
+#' values, respectively. This is used by some of the methods defined in
+#' \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}
+#' }.
+#'
+#' The \emph{model<-} method for \code{\linkS4class{FLModel}} can then be called
+#' with \emph{value} being a list as described above, the name of the function
+#' returning such a list, or the function itself. See the examples below.
+#' 
+#' Several functions to fit commonly-used SR models are available. They all use
+#' maximum likelihood to estimate the parameters through the method
+#' \code{\link{loglAR1}}.
+#'
+#' \itemize{
+#' \item ricker: Ricker stock-recruitment model fit: \deqn{R = a S e^{-b
+#' S}}{R = a*S*exp(-b*S)} \emph{a} is related to productivity (recruits per
+#' stock unit at small stock size) and \emph{b} to density dependence.
+#' (\emph{a, b} > 0).
+#'
+#' \item bevholt: Beverton-Holt stock-recruitment model
+#' fit: \deqn{R = \frac{a S}{b + S}}{R = a*S / (b + S)} \emph{a} is the
+#' maximum recruitment (asymptotically) and \emph{b} is the stock level needed
+#' to produce the half of maximum recruitment \eqn{\frac{a}{2}}{a/2}.
+#' (\emph{a, b} > 0).
+#' 
+#' \item segreg: Segmented regression stock-recruitment model fit:
+#' \deqn{R = \mathbf{ifelse}(S \leq b, a S, a b)}{ R = ifelse(S <= b, a*S, a*b)}
+#' \emph{a} is the slope of the recruitment for stock levels below \emph{b}, and
+#' \eqn{a b}{a*b} is the mean recruitment for stock levels above \emph{b}.
+#' (\emph{a, b} > 0).
+#'
+#' \item geomean: Constant recruitment model fit, equal to the
+#' historical geometric mean recruitment.
+#' \deqn{exp(mean(log(R_1) + ... + log(R_n)))}{exp(mean(log(R_1) + ... + log(R_n)))}
+#' 
+#' \item shepherd: Shepherd stock-recruitment model fit: \deqn{R =
+#' \frac{a S}{1+(\frac{S}{b})^c}}{ R = a * S/(1 + (S/b)^c)} \emph{a} represents
+#' density-independent survival (similar to \emph{a} in the Ricker stock-recruit
+#' model), \emph{b} the stock size above which density-dependent processes
+#' predominate over density-independent ones (also referred to as the threshold
+#' stock size), and \emph{c} the degree of compensation.
+#'
+#' \item cushing: Cushing stock-recruitment model fit: \deqn{R = a S
+#' e^{b}}{R = a*S*exp(b)} This model has been used less often, and is limited
+#' by the fact that it is unbounded for \emph{b}>=1 as \emph{S} increases.
+#' (\emph{a, b} > 0).
+#' }
+#'
+#' Stock recruitment models parameterized for steepness and virgin biomass:
+#'
+#' \itemize{
+#' \item rickerSV: Fits a ricker stock-recruitment model
+#' parameterized for steepness and virgin biomass.
+#' \deqn{a = e^{\frac{b \cdot vbiomass}{spr0}}}{a = exp(b*vbiomass)/spr0}
+#' \deqn{b = \frac{\log(5 \cdot steepness)}{0.8 \cdot vbiomass}}{b =
+#' log(5*steepness)/(0.8*vbiomass)}
+#'
+#' \item bevholtSV: Fits a Beverton-Holt stock-recruitment model
+#' parameterised for steepness and virgin biomass.
+#' \deqn{a = \frac{4 \cdot vbiomass \cdot steepness}{(spr0 \cdot (5 \cdot
+#' steepness-1.0}}{a = 4*vbiomass*steepness/(spr0*(5*steepness-1.0))}
+#' \deqn{b = \frac{vbiomass (1.0-steepness)}{5 \cdot steepnes-1.0}}{b =
+#' vbiomass*(1.0-steepness)/(5*steepness-1.0)}
+#'
+#' \item sheperdSV: Fits a shepher stock-recruitment model
+#' parameterized for steepness and virgin biomass.
+#' \deqn{a = \frac{1.0+(\frac{vbiomass}{b})^c}{spr0}}{a = (1.0 +
+#' (vbiomass/b)^c)/spr0}
+#' \deqn{b = vbiomass (\frac{0.2-steepness}{steepness (0.2)^c - 0.2})^
+#' (\frac{-1.0}{c})}{b = vbiomass*((0.2-steepness)/(steepness*0.2^c - 0.2))^
+#' (-1.0/c)}
+#' }
+#'
+#' Models fitted using autoregressive residuals of first order:
+#'
+#' \itemize{
+#' \item bevholtAR1, rickerAR1, segregAR1: Beverton-Holt, Ricker and segmented
+#' regression stock-recruitment models with autoregressive normal log residuals
+#' of first order. In the model fit, the corresponding stock-recruit
+#' model is combined with an autoregressive normal log likelihood of first order
+#' for the residuals. If \eqn{R_t}{R_t} is the observed recruitment and
+#' \eqn{\hat{R}_t}{Rest_t} is the predicted recruitment, an autoregressive model
+#' of first order is fitted to the log-residuals, \eqn{x_t =
+#' \log(\frac{R_t}{\hat{R}_t})}{x_t = log(R_t/Rest_t)}.
+#' \deqn{x_t=\rho x_{t-1} + e}{x_t = rho*x_t-1 + e}
+#' where \eqn{e}{e} follows a normal distribution with mean 0: \eqn{e \sim N(0,
+#' \sigma^2_{AR})}{e ~ N(0, sigma_ar^2)}.
+#' }
+#'
+#' Ricker model with one covariate. The covariate can be used, for example, to
+#' account for an enviromental factor that influences the recruitment dynamics.
+#' In the equations, \emph{c} is the shape parameter and \emph{X} is the
+#' covariate.
+#' 
+#' \itemize{
+#' \item rickerCa: Ricker stock-recruitment model with one
+#' multiplicative covariate.
+#' \deqn{R = a (1- c X) S e^{-b S}}{R = a*(1-c*X)*S*e^{-b*S}} }
+#'
+#' @name SRModels
+#' @aliases SRModels ab2sv 
+#' @param rho Autoregression
+#' @param sigma2 Autoregression
+#' @param obs Observed values
+#' @param hat estimated values
+#' @param steepness Steepness.
+#' @param vbiomass Virgin biomass.
+#' @param spr0 Spawners per recruit at F=0, see \code{\link{spr0}}.
+#' @param model character vector with model name, either 'bevholt' or 'ricker'.
+#' @author The FLR Team
+#' @seealso \linkS4class{FLSR}, \linkS4class{FLModel}
+#' @references Beverton, R.J.H. and Holt, S.J. (1957) On the dynamics of
+#' exploited fish populations. MAFF Fish. Invest., Ser: II 19, 533.
+#' 
+#' Needle, C.L. Recruitment models: diagnosis and prognosis.  Reviews in Fish
+#' Biology and Fisheries 11: 95-111, 2002.
+#' 
+#' Ricker, W.E. (1954) Stock and recruitment. J. Fish. Res. Bd Can. 11,
+#' 559-623.
+#' 
+#' Shepherd, J.G. (1982) A versatile new stock-recruitment relationship for
+#' fisheries and the construction of sustainable yield curves.  J. Cons. Int.
+#' Explor. Mer 40, 67-75.
+#' @keywords models
+#' @examples
+#' 
+#' # inspect the output of one of the model functions
+#'   bevholt()
+#'   names(bevholt())
+#'   bevholt()$logl
+#' 
+#' # once an FLSR model is in the workspace ...
+#'   data(nsher)
+#' 
+#' # the three model-definition slots can be modified
+#' # at once by calling 'model<-' with
+#' # (1) a list
+#'   model(nsher) <- bevholt()
+#' 
+#' # (2) the name of the function returning this list
+#'   model(nsher) <- 'bevholt'
+#'
+#' # or (3) the function itself that returns this list
+#'   model(nsher) <- bevholt
+#'
+NULL
 
 # ricker {{{
+#' @rdname SRModels
+#' @aliases ricker
 ricker <- function(){
   logl <- function(a, b, rec, ssb)
-      loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))
+      loglAR1(log(rec), log(a * ssb * exp(-b * ssb)))
 
   initial <- structure(function(rec, ssb) {
-		# The function to provide initial values
-    res  <-coefficients(lm(log(c(rec)/c(ssb))~c(ssb)))
-    return(FLPar(a=max(exp(res[1])), b=-max(res[2])))},
-    
-  # lower and upper limits for optim()
-	lower=rep(-Inf, 2),
-	upper=rep( Inf, 2))
-	
-	model  <- rec~a*ssb*exp(-b*ssb)
+    # The function to provide initial values
+    res  <- coefficients(lm(log(c(rec) / c(ssb))~c(ssb)))
+    return(FLPar(a=max(exp(res[1])), b=-max(res[2])))
+  },
 
-	return(list(logl=logl, model=model, initial=initial))}
-  # }}}
+  # lower and upper limits for optim()
+  lower=rep(-Inf, 2),
+  upper=rep( Inf, 2))
+
+  model  <- rec~a * ssb * exp(-b * ssb)
+
+  return(list(logl=logl, model=model, initial=initial))
+} # }}}
 
 # bevholt {{{
+#' @rdname SRModels
+#' @aliases bevholt
 bevholt <- function()
   {
   ## log likelihood, assuming normal log.
   logl <- function(a, b, rec, ssb)
-      loglAR1(log(rec), log(a*ssb/(b+ssb)))
+      loglAR1(log(rec), log(a * ssb / (b + ssb)))
 
-  ## initial parameter values
+  # initial parameter values
   initial <- structure(function(rec, ssb) {
     a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
-    b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
-    return(FLPar(a = a, b = a/b))},
+    b <- max(quantile(c(rec) / c(ssb), 0.9, na.rm = TRUE))
+    return(FLPar(a = a, b = a / b))
+  },
 
-  ## bounds
+  # bounds
   lower=rep(-Inf, 2),
-	upper=rep( Inf, 2))
+  upper=rep( Inf, 2))
 
-  ## model to be fitted
-  model  <- rec~a*ssb/(b+ssb)
-  
-	return(list(logl=logl, model=model, initial=initial))
+  # model to be fitted
+  model  <- rec~a * ssb / (b + ssb)
+
+  return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # segreg  {{{
+#' @rdname SRModels
+#' @aliases segreg
 segreg <- function(){
-	logl <- function(a, b, rec, ssb){
+  logl <- function(a, b, rec, ssb){
 
-    loglAR1(log(rec), FLQuant(log(ifelse(c(ssb)<=b,a*c(ssb),a*b)),dimnames=dimnames(ssb)))}
+    loglAR1(log(rec), FLQuant(log(ifelse(c(ssb) <= b, a * c(ssb), a * b)),
+      dimnames=dimnames(ssb)))
+  }
 
-  model <- rec ~ FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))
+  model <- rec ~ FLQuant(ifelse(c(ssb) <= b, a * c(ssb), a * b),
+      dimnames=dimnames(ssb))
 
   initial <- structure(function(rec, ssb){
-    return(FLPar(a=median(c(rec)/c(ssb),na.rm=TRUE), b=median(c(ssb),na.rm=TRUE)))},
+    return(FLPar(a=median(c(rec) / c(ssb),na.rm=TRUE),
+      b=median(c(ssb),na.rm=TRUE)))
+  },
     lower=rep(  0, 0),
     upper=rep(Inf, 2))
 
-	return(list(logl=logl, model=model, initial=initial))
+  return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # geomean {{{
+#' @rdname SRModels
+#' @aliases geomean
 geomean<-function() 
     {
     logl <- function(a, rec)
@@ -76,13 +252,15 @@ geomean<-function()
         }, 
         lower = c(1e-08), upper = rep(Inf))
     
-		# TRICK: 
+    # TRICK: 
     model <- rec ~ a + ssb/ssb - 1
     
     return(list(logl = logl, model = model, initial = initial))
     } # }}}
 
 # shepherd  {{{
+#' @rdname SRModels
+#' @aliases shepherd
 shepherd <- function()
 {
   logl <- function(a,b,c,rec,ssb)
@@ -91,7 +269,7 @@ shepherd <- function()
   initial <- structure(function(rec,ssb){
     c <- 1
     x <- ssb^c
-		y <- ssb/rec
+    y <- ssb/rec
 
     res <- coefficients(lm(c(y)~c(x)))
 
@@ -111,6 +289,8 @@ shepherd <- function()
 } # }}}
 
 # cushing {{{
+#' @rdname SRModels
+#' @aliases cushing
 cushing<-function()
 {
   logl <- function(a, b, rec, ssb)
@@ -123,16 +303,18 @@ cushing<-function()
     return(FLPar(a=a,b=b))
   },
   lower=c(-Inf, -Inf),
-	upper=c( Inf,  Inf))
+  upper=c( Inf,  Inf))
 #  lower=c(0, 0.0001),
-#	upper=c(Inf, 1))
+#  upper=c(Inf, 1))
 
   model  <- rec~a*ssb^b
 
-	return(list(logl=logl, model=model, initial=initial))
+  return(list(logl=logl, model=model, initial=initial))
 }  # }}}
 
 # rickerSV  {{{
+#' @rdname SRModels
+#' @aliases rickerSV
 rickerSV <- function()
 {
   logl <- function(s, v, spr0, rec, ssb)
@@ -147,17 +329,19 @@ rickerSV <- function()
     spr0 <- quantile(c(ssb/rec), prob = 0.9, na.rm = TRUE, names=FALSE)
     v <-mean(as.vector(ssb), na.rm = TRUE)*2
     return(FLPar(s=s, v=v, spr0=spr0))
-	},
-  ## bounds
+  },
+  # bounds
   lower=c(rep(1e-8, 3)),
-	upper=c(10, Inf, Inf))
+  upper=c(10, Inf, Inf))
 
-	model  <- rec~abPars('ricker', s=s, v=v, spr0=spr0)['a']*ssb*exp(-abPars('ricker', s=s, v=v, spr0=spr0)['b']*ssb)
+  model  <- rec~abPars('ricker', s=s, v=v, spr0=spr0)['a']*ssb*exp(-abPars('ricker', s=s, v=v, spr0=spr0)['b']*ssb)
 
-	return(list(logl=logl, model=model, initial=initial))
+  return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # bevholtSV {{{
+#' @rdname SRModels
+#' @aliases bevholtSV
 bevholtSV <- function()
   {
   logl <- function(s, v, spr0, rec, ssb)
@@ -166,7 +350,7 @@ bevholtSV <- function()
     loglAR1(log(rec), log(pars['a']%*%ssb/(pars['b']%+%ssb)))
   }
 
-  ## initial parameter values
+  # initial parameter values
   initial <- structure(function(rec, ssb)
   {
     s <- 0.75
@@ -174,17 +358,19 @@ bevholtSV <- function()
     v <-mean(as.vector(ssb), na.rm = TRUE)*2
     return(FLPar(s=s, v=v, spr0=spr0))
   },
-  ## bounds
+  # bounds
   lower=c(0.2, rep(10e-8, 2)),
-	upper=c(0.999, Inf, Inf))
+  upper=c(0.999, Inf, Inf))
 
-  ## model to be fitted
+  # model to be fitted
   model  <- rec~FLPar(abPars('bevholt', s=s, v=v, spr0=spr0))['a']%*%ssb %/% (FLPar(abPars('bevholt', s=s, v=v, spr0=spr0))['b']%+%ssb)
   
-	return(list(logl=logl, model=model, initial=initial))
+  return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # shepherdSV {{{
+#' @rdname SRModels
+#' @aliases shepherdSV
 shepherdSV <- function()
   {
   logl <- function(s, v, spr0, c, rec, ssb)
@@ -193,74 +379,80 @@ shepherdSV <- function()
     loglAR1(log(rec), log(pars['a']*ssb/(1+(ssb/pars['b'])^c)))
   }
 
-  ## initial parameter values
+  # initial parameter values
   initial <- structure(function(rec, ssb)
   {
     s <- 0.75
     spr0 <- quantile(c(ssb/rec), prob = 0.9, na.rm = TRUE, names=FALSE)
     v <-mean(as.vector(ssb), na.rm = TRUE)*2
     return(FLPar(s=s, v=v, spr0=spr0, c=1))
-	},
-  ## bounds
+  },
+  # bounds
   lower=c(0.2, rep(10e-8, 2), 1),
-	upper=c(0.999, Inf, Inf, 10))
+  upper=c(0.999, Inf, Inf, 10))
 
-  ## model to be fitted
+  # model to be fitted
   model  <- rec~abPars('shepherd', s=s, v=v, spr0=spr0, c=c)['a']*ssb /
     (1 + (ssb / abPars('shepherd', s=s, v=v, spr0=spr0, c=c)['b']) ^ c)
   
-	return(list(logl=logl, model=model, initial=initial))
+  return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # bevholtAR1 {{{
+#' @rdname SRModels
+#' @aliases bevholtAR1
 bevholtAR1 <- function()
   {
-  ## log likelihood, assuming normal log.
+  # log likelihood, assuming normal log.
   logl <- function(a, b, rho, rec, ssb)
     loglAR1(log(rec), log(a*ssb/(b+ssb)), rho=rho)
 
-  ## initial parameter values
+  # initial parameter values
   initial <- structure(function(rec, ssb) {
     a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
     return(FLPar(a = a, b = a/b, rho=0))
-	},
+  },
 
-  ## bounds
+  # bounds
   lower=c(rep(10e-8, 2), -1),
-	upper=c(rep(Inf, 2), 1))
+  upper=c(rep(Inf, 2), 1))
 
-  ## model to be fitted
+  # model to be fitted
   model  <- rec~a*ssb/(b+ssb)
   
-	return(list(logl=logl, model=model, initial=initial))
+  return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # rickerAR1 {{{
+#' @rdname SRModels
+#' @aliases bevholtAR1
 rickerAR1 <- function()
   {
-  ## log likelihood, assuming normal log.
+  # log likelihood, assuming normal log.
   logl <- function(a, b, rho, rec, ssb)
       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)), rho=rho)
 
-  ## initial parameter values
+  # initial parameter values
   initial <- structure(function(rec, ssb) {
-		# The function to provide initial values
+    # The function to provide initial values
     res  <-coefficients(lm(c(log(rec/ssb))~c(ssb)))
     return(FLPar(a=max(exp(res[1])), b=-max(res[2]), rho=0))
-	},
+  },
   # lower and upper limits for optim()
-	lower=c(rep(1e-10, 2), -1),
-	upper=c(rep(Inf, 2), 1)
-	)
+  lower=c(rep(1e-10, 2), -1),
+  upper=c(rep(Inf, 2), 1)
+  )
 
-  ## model to be fitted
-	model  <- rec~a*ssb*exp(-b*ssb)
+  # model to be fitted
+  model  <- rec~a*ssb*exp(-b*ssb)
   
-	return(list(logl=logl, model=model, initial=initial))
+  return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 #segregAR1 {{{
+#' @rdname SRModels
+#' @aliases segregAR1
 segregAR1 <- function(){
     logl <- function(a, b, rho, rec, ssb){
        loglAR1(log(rec), FLQuant(log(ifelse(c(ssb)<=b,a*c(ssb),a*b)),dimnames=dimnames(ssb)),rho=rho)}
@@ -276,27 +468,53 @@ return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # Ricker with covariate  {{{
+#' @rdname SRModels
+#' @aliases rickerCa
 rickerCa <- function() {
   logl <- function(a, b, c, rec, ssb, covar)
     loglAR1(log(rec), log(a * (1 - c * covar) * ssb * exp(-b * ssb)))
  
   initial <- structure(function(rec, ssb) {
-		# The function to provide initial values
+    # The function to provide initial values
     res  <-coefficients(lm(c(log(rec/ssb))~c(ssb)))
     return(FLPar(a=max(exp(res[1])), b=-max(res[2]), c=1))},
     
   # lower and upper limits for optim()
-	lower=rep(-Inf, 3),
-	upper=rep( Inf, 3))
-	
-	model  <- rec ~ a * (1 - c * covar) * ssb * exp(-b * ssb)
-	return(list(logl=logl, model=model, initial=initial))
+  lower=rep(-Inf, 3),
+  upper=rep( Inf, 3))
+  
+  model  <- rec ~ a * (1 - c * covar) * ssb * exp(-b * ssb)
+  return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
 # methods
 
 # spr0  {{{
-## calcs spawner per recruit at F=0.0   
+
+#' Method spr0
+#' 
+#' Calculates spawners per recruit at F=0.
+#' 
+#' This method regresses SSB/R against Fbar, and estimates the intercept as
+#' \code{spr0}. The method currently does not work if any of the input objects
+#' have multiple units, seasons or areas (i.e. if dim(object)[3:5] > 1).
+#' 
+#' @name spr0
+#' @aliases spr0 spr0-methods spr0,FLQuant,FLQuant,FLQuant-method
+#' spr0,FLStock,missing,missing-method spr0,FLSR,missing,FLQuant-method
+#' @docType methods
+#' @section Generic function: quant(ssb, rec, fbar)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLStock}, \linkS4class{FLSR}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' spr0(ple4)
+#'
+#' # equivalent to
+#' spr0(ssb(ple4), rec(ple4), fbar(ple4))
+#'
 setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
    function(ssb, rec, fbar)
   {
@@ -323,6 +541,9 @@ setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
   }
 )
 
+#' @rdname spr0
+#' @aliases spr0,FLStock,missing,missing-method
+
 setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
   function(ssb)
   {
@@ -333,6 +554,9 @@ setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
     spr0(ssb=ssb(ssb), rec=rec(sr), fbar=fbar(ssb))
   }
 )
+
+#' @rdname spr0
+#' @aliases spr0,FLSR,missing,FLQuant-method
 
 setMethod('spr0', signature(ssb='FLSR', rec='missing', fbar='FLQuant'),
   function(ssb, fbar)
@@ -347,7 +571,7 @@ setMethod('spr0', signature(ssb='FLSR', rec='missing', fbar='FLQuant'),
 setMethod('rSq', signature(obs='FLQuant',hat='FLQuant'),
   function(obs, hat=rep(0,length(obs)))
   {
-    ## calculates R squared
+    # calculates R squared
     mn   <-mean(obs)
     mnHat<-mean(hat)
     SStot<-sum((obs-mn)^2)
@@ -361,11 +585,23 @@ setMethod('rSq', signature(obs='FLQuant',hat='FLQuant'),
 ) # }}}
 
 # loglAR1 {{{
+#' FLSR log-likelihood function
+#'
+#' DESC
+#'
+#' TEXT
+#' @name loglAR1
+#' @rdname loglAR1
+#' @aliases loglAR1 loglAR1,FLQuant,FLQuant-method
+#' @references
+#' Seber, G.A.F., Wild, C.J. 2005. Autocorrelated Errors. In Seber, G.A.F., Wild, C.J.
+#'   Nonlinear regression, pages 271-323. doi: 10.1002/0471725315.ch6.
+#'
 setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
   function(obs, hat, rho=0){
 
-		# HACK
-		units(hat) <- units(obs)
+    # HACK
+    units(hat) <- units(obs)
 
     # calculates likelihood for AR(1) process
     n   <- dim(obs)[2]
@@ -391,6 +627,8 @@ setMethod('loglAR1', signature(obs='FLQuant', hat='FLQuant'),
     return(res)}) 
 
 
+#' @rdname loglAR1
+#' @aliases loglAR1,numeric,numeric-method
 setMethod("loglAR1", signature(obs = "numeric", hat = "numeric"),
   function(obs, hat, rho = 0) 
   {
@@ -409,6 +647,28 @@ setMethod("loglAR1", signature(obs = "numeric", hat = "numeric"),
      return(res)}) # }}}
 
 # SRModelName {{{
+
+#' Method SRModelName
+#'
+#' Convenience function to identify an SR model by its formula
+#' 
+#' A supplied formula, representing a stock-recruitment relationship, is
+#' matched against the list of all models defined in \code{FLCore} (See
+#' \link{SRModels}).
+#' 
+#' If a match is found, a string character with the name of the model is
+#' returned, otherwise \code{FALSE} is obtained.
+#'
+#' @param model A formula defining the model
+#' @return \item{name}{A character string or NULL}
+#' @author FLR Team
+#' @seealso \code{\link{SRModels}}
+#' @keywords models utilities
+#' @examples
+#' 
+#' SRModelName(rec ~ a * ssb * exp(-b * ssb))
+#' 
+
 SRModelName <- function(model){
   return(switch(gsub(" ", "", as.character(as.list(model)[3])),
       "a*ssb*exp(-b*ssb)"                 = "ricker",
@@ -419,7 +679,7 @@ SRModelName <- function(model){
       "a+ssb/ssb-1"                       = "mean",
       "FLQuant(a,dimnames=dimnames(rec))" = "mean",
       "a"                                 = "mean",
-			"FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"a\"]%*%ssb%/%(FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"b\"]%+%ssb)" = "bevholtSV",
+      "FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"a\"]%*%ssb%/%(FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"b\"]%+%ssb)" = "bevholtSV",
       'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "rickerSV",
       NULL))} # }}}
 

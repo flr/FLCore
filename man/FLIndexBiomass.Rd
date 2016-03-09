@@ -2,98 +2,75 @@
 % Please edit documentation in R/classesComp.R
 \docType{class}
 \name{FLIndexBiomass}
-\alias{FLIndex}
-\alias{FLIndex,FLQuant-method}
-\alias{FLIndex,missing-method}
-\alias{FLIndex-methods}
 \alias{FLIndexBiomass}
-\alias{FLQuant}
-\alias{catch.n,FLIndex-method}
-\alias{catch.n<-,FLIndex,FLQuant-method}
-\alias{catch.wt,FLIndex-method}
-\alias{catch.wt<-,FLIndex,FLQuant-method}
-\alias{desc,FLIndex-method}
-\alias{desc<-,FLIndex,character-method}
-\alias{distribution,FLIndex-method}
-\alias{distribution<-,FLIndex,character-method}
-\alias{effort,FLIndex-method}
-\alias{effort<-,FLIndex,FLQuant-method}
-\alias{index,FLIndex-method}
-\alias{index.q,FLIndex-method}
-\alias{index.q<-,FLIndex,FLQuant-method}
-\alias{index.var,FLIndex-method}
-\alias{index.var<-,FLIndex,FLQuant-method}
-\alias{index<-,FLIndex,FLQuant-method}
-\alias{missing}
-\alias{name,FLIndex-method}
-\alias{name<-,FLIndex,character-method}
-\alias{range,FLIndex-method}
-\alias{range<-,FLIndex,numeric-method}
-\alias{sel.pattern,FLIndex-method}
-\alias{sel.pattern<-,FLIndex,FLQuant-method}
-\alias{type,FLIndex-method}
-\alias{type<-,FLIndex,character-method}
+\alias{FLIndexBiomass,FLQuant-method}
+\alias{FLIndexBiomass,missing-method}
+\alias{FLIndexBiomass-methods}
+\alias{FLIndexBiomassBiomass}
+\alias{catch.n,FLIndexBiomass-method}
+\alias{catch.n<-,FLIndexBiomass,FLQuant-method}
+\alias{catch.wt,FLIndexBiomass-method}
+\alias{catch.wt<-,FLIndexBiomass,FLQuant-method}
+\alias{desc,FLIndexBiomass-method}
+\alias{desc<-,FLIndexBiomass,character-method}
+\alias{distribution,FLIndexBiomass-method}
+\alias{distribution<-,FLIndexBiomass,character-method}
+\alias{effort,FLIndexBiomass-method}
+\alias{effort<-,FLIndexBiomass,FLQuant-method}
+\alias{index,FLIndexBiomass-method}
+\alias{index.q,FLIndexBiomass-method}
+\alias{index.q<-,FLIndexBiomass,FLQuant-method}
+\alias{index.var,FLIndexBiomass-method}
+\alias{index.var<-,FLIndexBiomass,FLQuant-method}
+\alias{index<-,FLIndexBiomass,FLQuant-method}
+\alias{name,FLIndexBiomass-method}
+\alias{name<-,FLIndexBiomass,character-method}
+\alias{range,FLIndexBiomass-method}
+\alias{range<-,FLIndexBiomass,numeric-method}
+\alias{sel.pattern,FLIndexBiomass-method}
+\alias{sel.pattern<-,FLIndexBiomass,FLQuant-method}
+\alias{type,FLIndexBiomass-method}
+\alias{type<-,FLIndexBiomass,character-method}
 \title{Class FLIndexBiomass}
 \description{
-A class that holds data and parameters related to biomass abundance indices.
+A class for modelling biomass indices.
+}
+\details{
+The \code{FLIndexBiomass} object holds data and parameters related to
+biomass indices.
 }
 \section{Slots}{
- \describe{
-    \item{distribution}{Statistical distribution of the index values (\code{character}).}
-    \item{index}{Index values (\code{FLQuant}).}
-    \item{index.var}{Variance of the index (\code{FLQuant}).}
-    \item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
-    \item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
-    \item{effort}{Effort used to create the index (\code{FLQuant}).}
-    \item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
-    \item{index.q}{Catchability of the index (\code{FLQuant}).}
-    \item{name}{Name of the stock (\code{character}).}
-    \item{desc}{General description of the object (\code{character}).}
-    \item{range}{Range of the object (\code{numeric})}
-}
-}
-
-\section{Accesors}{
-
-All slots in the class have accessor and replacement methods defined that
-allow retrieving and substituting individual slots.
-
-The values passed for replacement need to be of the class of that slot.
-A numeric vector can also be used when replacing FLQuant slots, and the
-vector will be used to substitute the values in the slot, but not its other
-attributes.
-}
-
-\section{Constructor}{
-
-A construction method exists for this class that can take named arguments for
-any of its slots. All slots are then created to match the requirements of the
-class validity. If an unnamed \code{FLQuant} object is provided, this is used
-for sizing but not stored in any slot.
-}
-
-\section{Validity}{
- \describe{
-    \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-    \item{Iters}{The dimname for iter[1] should be '1'.}
-    \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
-}
+ \describe{ \item{distribution}{Statistical distribution of
+the index values (\code{character}).} \item{index}{Index values
+(\code{FLQuant}).} \item{index.var}{Variance of the index (\code{FLQuant}).}
+\item{catch.n}{Catch numbers used to create the index (\code{FLQuant}).}
+\item{catch.wt}{Catch weight of the index (\code{FLQuant}).}
+\item{effort}{Effort used to create the index (\code{FLQuant}).}
+\item{sel.pattern}{Selection pattern for the index (\code{FLQuant}).}
+\item{index.q}{Catchability of the index (\code{FLQuant}).} \item{name}{Name
+of the stock (\code{character}).} \item{desc}{General description of the
+object (\code{character}).} \item{range}{Named numeric vector containing the
+quant and year ranges, the plusgroup, and the period of the year, expressed
+as proportions of a year, that corresponds to the index (\code{numeric}).} }
 }
 \examples{
 
-idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
+# Create an FLIndexBiomass object from scratch...
+  idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
 
-data(ple4)
-ida <- FLIndexBiomass(index=ssb(ple4),
-  catch.n=catch.n(ple4))
+# ...from an existing FLStock object
+  data(ple4)
+  ida <- FLIndexBiomass(index=(catch(ple4)/fbar(ple4))*
+    exp(rnorm(1,catch(ple4)*0,0.3)), catch.n=catch.n(ple4),
+    catch.wt=catch.wt(ple4))
 
 }
 \author{
 The FLR Team
 }
 \seealso{
-\link{computeCatch}, \link{dims},
-\link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
+\link{computeCatch}, \link{dims}, \link{iter},
+\link[graphics]{plot}, \link{propagate}, \link[base]{summary},
 \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
 }
 \keyword{classes}

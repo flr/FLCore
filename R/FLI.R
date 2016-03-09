@@ -1,10 +1,8 @@
 # FLI.R - DESC
 # FLI.R
 
-# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# Soundtrack:
-# Notes:
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 ## computeCatch  {{{
 setMethod(computeCatch, signature("FLI"), function(object){
@@ -14,6 +12,8 @@ setMethod(computeCatch, signature("FLI"), function(object){
 })  # }}}
 
 # '['       {{{
+#' @rdname Extract
+#' @aliases [,FLI,ANY,ANY,ANY-method
 setMethod('[', signature(x='FLI'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE)
   {
@@ -71,7 +71,13 @@ setMethod("dims", signature(obj="FLI"),
     }
 )    # }}}
 
-## trim     {{{
+# trim     {{{
+
+#' @rdname trim
+#' @aliases trim,FLI-method
+#' @aliases trim,FLIndex-method
+#' @aliases trim,FLIndexBiomass-method
+
 setMethod("trim", signature("FLI"), function(x, ...){
 
 	args <- list(...)

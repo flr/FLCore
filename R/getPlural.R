@@ -1,11 +1,18 @@
 # getPlural.R - DESC
-# getPlural.R
+# FLCore/R/getPlural.R
 
-# Copyright 2003-2013 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# Soundtrack:
-# Notes:
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
+#' FLCore-internal
+#' 
+#' FLCore-internal
+#'
+#' @aliases ac convert6d convertFLPar convertFLPar-methods
+#' convertFLPar,FLPar-method convertFLPar,FLModel-method getPlural
+#' @author The FLR Team
+#' @keywords methods
+#'
 
 # ANY -> list
 setMethod('getPlural', signature(object='ANY'),
