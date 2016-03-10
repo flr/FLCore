@@ -1,9 +1,6 @@
-# Simple .travis.yml for R projects.
-
 os:
   - linux
   - osx
-
 language: r
-  
-sudo: required
+sudo: false
+cache: packages
