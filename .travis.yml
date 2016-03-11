@@ -1,9 +1,23 @@
-# Simple .travis.yml for R projects.
+# .travis.yml for R projects.
+#
+# See README.md for instructions, or for more configuration options,
+
+warnings_are_errors: false
 
 os:
   - linux
   - osx
 
 language: r
-  
-sudo: required
+r:
+  - release
+  - devel
+
+sudo: false
+
+cache: packages
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
