@@ -176,7 +176,7 @@ setClass("FLQuant",
 #' 
 #' @name FLQuantPoint
 #' @aliases FLQuantPoint-class FLQuantPoint FLQuantPoint-methods
-#' FLQuantPoint,FLQuant-method
+#' @aliases FLQuantPoint,FLQuant-method
 #' @docType class
 #' @section Slots: \describe{
 #'  \item{.Data}{The main array holding the computed statistics. \code{array}.}
@@ -210,7 +210,6 @@ setClass("FLQuant",
 #' var(flqp)
 #' rnorm(200, flqp)
 #' 
-
 setClass("FLQuantPoint",
     representation("FLQuant"),
 	prototype(new('FLQuant', array(as.numeric(NA), dim=c(1,1,1,1,1,5),

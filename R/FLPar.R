@@ -241,78 +241,6 @@ setMethod('summary', signature(object='FLPar'),
   }
 )   # }}}
 
-# plots {{{
-
-# plot
-setMethod("plot", signature(x="FLPar", y="missing"),
-  function(x, y="missing", ...) {
-    # get dimensions to condition on (skip iter)
-    condnames <- names(dimnames(x))[names(dimnames(x)) != 'iter']
-    cond <- paste(condnames, collapse="+")
-    if(cond != "") cond <- paste("|", cond)
-      formula <- formula(paste("~data", cond))
-    # set strip to show conditioning dimensions names
-    strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
-
-    do.call('densityplot', list(x=formula, data=as.data.frame(x, row.names='row'),
-      ylab="", xlab="", scales=list(y=list(draw=FALSE), relation='free'), col='black'))
-  }
-)
-
-# densityplot
-if (!isGeneric("densityplot")) {
-  setGeneric("densityplot", useAsDefault = densityplot)
-}
-setMethod("densityplot", signature("formula", "FLPar"), function(x, data, ...){
-  lst <- substitute(list(...))
-  lst <- as.list(lst)[-1]
-  lst$data <- as.data.frame(data, row.names='row')
-  lst$x <- x
-  do.call("densityplot", lst)
-})
-
-# histogram
-setMethod("histogram", signature("formula", "FLPar"), function(x, data, ...){
-  lst <- substitute(list(...))
-  lst <- as.list(lst)[-1]
-  data <- as.data.frame(data)
-  lst$data <- data.frame(param=rep(names(data), each=nrow(data)),
-    data=as.vector(unlist(c(data))))
-  lst$x <- x
-  do.call("histogram", lst)
-})
-
-# splom
-
-#' Method splom
-#' 
-#' Draws a conditional scatter plot matrix.
-#' 
-#' See the help page in \code{\link[lattice]{lattice}} for a full description
-#' of each plot and all possible arguments.
-#'
-#' @name splom
-#' @aliases splom,FLPar,missing-method
-#' @docType methods
-#' @section Generic function: splom(x,data)
-#' @author The FLR Team
-#' @seealso \link[lattice]{splom}
-#' @keywords methods
-#' @examples
-#' 
-#' flp <- FLPar(t(mvrnorm(500, mu=c(0, 120, 0.01, 20),
-#'   Sigma=matrix(.7, nrow=4, ncol=4) + diag(4) * 0.3)),
-#'   dimnames=list(params=c('a','b','c','d'), iter=1:500))
-#'
-#' splom(flp)
-#'
-
-setMethod("splom", signature("FLPar", "missing"),
-  function(x, data, ...){
-    splom(as.data.frame(x))
-  }
-)   # }}}
-
 # units        {{{
 
 #' @rdname units
@@ -360,32 +288,7 @@ setMethod("iterMedians", "FLPar",
   }
 )
 
-#' Method var
-#'
-#' Variance of an FLPar
-#' 
-#' \code{var} computes the variance of an \code{\link{FLPar}} object along the
-#' last dimension (\code{iter}) returning a value for each \code{param}
-#' 
-#' By default, arguments \code{na.rm} and \code{use} have values of
-#' \code{FALSE} and \code{'all.obs'} respectively. See the
-#' \code{\link[stats]{var}} help page for more information on possible argument
-#' values.
-#'
-#' @name var
-#' @aliases var,FLPar,missing,missing,missing-method var,FLPar-method
-#' @docType methods
-#' @section Generic function: var(x, y, na.rm, use)
-#' @author The FLR Team
-#' @seealso \code{\link[stats]{var}}, \code{\linkS4class{FLPar}}
-#' @keywords methods
-#' @examples
-#' 
-#' flp <- FLPar(rnorm(200), params=c('a', 'b'))
-#' var(flp)
-#'
-
-setMethod("var", signature(x='FLPar'),
+setMethod("iterVars", signature(x='FLPar'),
 	function(x, y=NULL, na.rm=TRUE, use) {
   	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
       var, na.rm=na.rm, use='all.obs'))
@@ -515,6 +418,14 @@ setMethod("dims", signature(obj="FLPar"),
 )   # }}}
 
 # names         {{{
+
+#' @rdname names
+#' @aliases names,FLPar-method
+#' @examples
+#' # FLPar
+#' data(nsher)
+#' names(params(nsher))
+#'
 setMethod("names", signature(x="FLPar"),
   function(x)
     names(dimnames(x))

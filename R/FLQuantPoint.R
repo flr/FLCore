@@ -122,6 +122,8 @@ setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 # }}}
 
 # accesors	{{{
+#' @rdname FLQuantPoint
+#' @aliases mean,FLQuantPoint-method mean<-,FLQuantPoint,ANY-method
 setMethod("mean", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(FLQuant(x[,,,,,'mean']))
@@ -132,7 +134,8 @@ setMethod("mean<-", signature(x="FLQuantPoint"),
 		return(x)
 	}
 )
-
+#' @rdname FLQuantPoint
+#' @aliases median,FLQuantPoint-method median<-,FLQuantPoint,ANY-method
 setMethod("median", signature(x="FLQuantPoint"),
 	function(x, na.rm=FALSE)
 		return(FLQuant(x[,,,,,'median']))
@@ -144,6 +147,8 @@ setMethod("median<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 )
 
+#' @rdname FLQuantPoint
+#' @aliases var,FLQuantPoint-method var<-,FLQuantPoint,ANY-method
 setMethod("var", signature(x="FLQuantPoint"),
 	function(x, y=NULL, na.rm=FALSE, use)
 		return(FLQuant(x[,,,,,'var']))
@@ -156,6 +161,8 @@ setMethod("var<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 )
 
+#' @rdname FLQuantPoint
+#' @aliases uppq,FLQuantPoint-method uppq<-,FLQuantPoint,ANY-method
 setMethod("uppq", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(FLQuant(x[,,,,,'uppq']))
@@ -168,6 +175,8 @@ setMethod("uppq<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 )
 
+#' @rdname FLQuantPoint
+#' @aliases lowq,FLQuantPoint-method lowq<-,FLQuantPoint,ANY-method
 setMethod("lowq", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(FLQuant(x[,,,,,'lowq']))
@@ -179,44 +188,6 @@ setMethod("lowq<-", signature(x="FLQuantPoint", value="ANY"),
 		return(x)
 	}
 ) # }}}
-
-# plot	{{{
-# TODO Fix, it is badly broken! 12.09.07 imosqueira
-setMethod("plot", signature(x="FLQuantPoint", y="missing"),
-	function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
-		type='bar', ...) {
-
-		# get dimensions to condition on (length !=1)
-		condnames <- names(dimnames(x)[c(1,3:5)][dim(x)[c(1,3:5)]!=1])
-		cond <- paste(condnames, collapse="+")
-		if(cond != "") cond <- paste("|", cond)
-		formula <- formula(paste("data~year", cond))
-		# set strip to show conditioning dimensions names
-		strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
-
-		pfun <- function(x, y, subscripts, groups, ...){
-			larrows(x[groups[subscripts]=='lowq'], y[groups[subscripts]=='lowq'],
-				x[groups[subscripts]=='uppq'], y[groups[subscripts]=='uppq'], angle=90,
-				length=0.05, ends='both')
-			lpoints(x[groups[subscripts]=='mean'], y[groups[subscripts]=='mean'], pch=16)
-			lpoints(x[groups[subscripts]=='median'], y[groups[subscripts]=='median'], pch=3)
-		}
-
-	# using do.call to avoid eval of some arguments
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(x)
-	lst$x <- formula
-	lst$xlab <- xlab
-	lst$ylab <- ylab
-	lst$strip <- strip
-	lst$groups <- lst$data$iter
-	lst$subscripts <- TRUE
-	lst$panel <- pfun
-
-	do.call("xyplot", lst)
-	}
-)	# }}}
 
 # quantile   {{{
 #' @rdname quantile

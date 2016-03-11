@@ -122,53 +122,6 @@ setMethod("as.FLBiol", signature(object="FLStock"),
   }
 ) # }}}
 
-# plot {{{
-setMethod("plot", signature(x="FLBiol", y="missing"),
-	function(x, y, ...)
-  {
-    data <- as.data.frame(FLQuants(ssb=ssb(x), recruitment=n(x)[1,]))
-
-     if(length(levels(data$iter)) > 1)
-     pfun <- function(x, y, ...)
-      {
-        args <- list(...)
-        # median
-        do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, median), lwd=2, lty=1,
-          type='l'), args[!names(args) %in% c('lwd', 'lty', 'type')]))
-        # lowq
-        do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, quantile, 0.025), lwd=1,
-        lty=2, type='l'), args[!names(args) %in% c('lwd', 'lty', 'type')]))
-        # uppq
-        do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, quantile, 0.975), lwd=1,
-        lty=2, type='l'), args[!names(args) %in% c('lwd', 'lty', 'type')]))
-      }
-    else
-    pfun <- function(x, y, ...)
-    {
-      panel.xyplot(x, y, ...)
-      args <- list(...)
-      args <- args[!names(args) %in% c('type', 'pch')]
-      do.call(panel.xyplot, c(args, list(x=x[length(x)], y=y[length(y)], pch=19)))
-    }
-
-    options <- list(aspect='xy', type='l', col='black', pch=19, cex=0.5, lwd=2,
-      scales=list(relation='free'), ylab='', xlab='', panel=pfun)
-    args <- list(...)
-    for(i in names(args))
-      options[i] <- args[i]
-
-		condnames <- names(dimnames(x@n)[c(3:5)][dim(x@n)[c(3:5)]!=1])
-		cond <- paste(condnames, collapse="+")
-		if(cond != "")
-      cond <- paste("|qname*", cond)
-    else
-      cond <- paste("|qname")
-		formula <- formula(paste("data~year", cond))
-    do.call(xyplot, c(options, list(x=formula, data=data)))
-
-	}
-) # }}}
-
 # ssb  {{{
 
 #' @rdname ssb

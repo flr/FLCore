@@ -116,7 +116,7 @@ setMethod('coef', signature(object='FLModel'),
   }
 )  # }}}
 
-# fmle()    {{{
+# fmle {{{
 setMethod('fmle',
   signature(object='FLModel', start='FLPar'),
   function(object, start, method='Nelder-Mead', fixed=list(),
@@ -370,6 +370,36 @@ setMethod('fmle',
 )   # }}}
 
 # predict   {{{
+
+#' Method predict
+#' 
+#' \emph{predict} returns predicted values according to the parameter values
+#' and model formula in an \code{\linkS4class{FLModel}} object. If no extra
+#' input is given, \emph{predict} will use the input values contained in the
+#' relevant slots. If any extra named argument is provided, this is used
+#' instead, and the corresponding predicted values are returned.
+#'
+#' @name predict
+#' @aliases predict,FLModel-method
+#' @docType methods
+#' @section Generic function: predict(object, ...)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#' 
+#' # nsher FLSR dataset
+#'   data(nsher)
+#' 
+#' # Predict with no extra arguments returns the final values predicted during
+#' # model fitting...
+#' predict(nsher)
+#' # ...which can also be extracted from the 'fitted' slot
+#' fitted(nsher)
+#' 
+#' # A different ssb vector can be provided
+#' predict(nsher, ssb=FLQuant(seq(10, 150, by=5)))
+#' 
 setMethod('predict', signature(object='FLModel'),
   function(object, ...)
   {
@@ -586,9 +616,40 @@ setMethod('BIC', signature(object='FLModel'),
 )  # }}}
 
 # nls   {{{
-if (!isGeneric("nls"))
-  setGeneric('nls', useAsDefault = nls)
 
+#' Method nls
+#' 
+#' For a given forumla (describing a model) and data, this method applies the
+#' simple non-linear least squares algorithm, which calculates the parameters
+#' that minimise the sum of squares difference between the observed (data) and
+#' predicted (model) values.
+#' 
+#' The algorithm can be sensitive to initial values, so the user should try
+#' different start points and check they converge to the same estimates.
+#' 
+#' 
+#' @name nls
+#' @aliases
+#' nls,FLModel,missing,missing,missing,missing,missing,missing,missing,missing,missing,missing,missing-method
+#' nls,FLModel,missing-method nls-FLCore
+#' @docType methods
+#' @section Generic function:
+#' nls(formula,data,start,control,algorithm,trace,subset,weights,na.action,model,lower,upper)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#' 
+#' # An example FLSR (FLModel) object
+#'   data(nsher)
+#' 
+#'   # set bevholt model
+#'     model(nsher) <- bevholt
+#' 
+#'   # fit through nls
+#'     nsher <- nls(nsher)
+#'     summary(nsher)
+#' 
 setMethod('nls',
   signature(formula='FLModel', data='missing',  start='ANY',
     control='ANY',  algorithm='ANY',  trace='ANY',  subset='ANY',

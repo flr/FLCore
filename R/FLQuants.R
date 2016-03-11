@@ -43,26 +43,6 @@ setMethod('summary', signature(object='FLQuants'),
   }
 ) # }}}
 
-# xyplot {{{
-setMethod("xyplot", signature("formula", "FLQuants"), function(x, data, ...)
-	{
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    	lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("xyplot", lst)
-}) # }}}
-
-# histogram {{{
-setMethod("histogram", signature("formula", "FLQuants"), function(x, data, ...)
-	{
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    	lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("histogram", lst)
-}) # }}}
-
 ## iter {{{
 setMethod("iter", signature(obj="FLQuants"),
 	  function(obj, iter) {
