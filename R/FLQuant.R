@@ -445,6 +445,37 @@ setMethod("print", signature(x="FLQuant"),
 ) # }}}
 
 # totals {{{
+#' Methods quantTotals
+#' 
+#' Methods to compute totals over selected dimensions of \code{FLQuant} objects
+#'
+#' These methods return an object of same dimensions as the input but with the
+#' sums along the first (\code{yearTotals}) or second dimension
+#' (\code{quantTotals}). Although the names might appear contradictory, it must
+#' be noted that what each method really returns are the totals over the
+#' selected dimension.
+#' 
+#' 
+#' @name quantTotals
+#' @aliases quantTotals quantTotals-methods quantTotals,FLQuant-method
+#' @docType methods
+#' @section Generic function: quantTotals(x)
+#' 
+#' yearTotals(x)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(100), dim=c(10,10))
+#' quantTotals(flq)
+#' # See how the values obtained by yearSums are being replicated
+#'   yearSums(flq)
+#' # Get the proportions by quant
+#'   flq / quantTotals(flq)
+#' # or year
+#'   flq / yearTotals(flq)
+#'
 setMethod('quantTotals', signature(x='FLQuant'),
   function(x, na.rm=TRUE) {
     sums <- x
@@ -453,7 +484,8 @@ setMethod('quantTotals', signature(x='FLQuant'),
     return(sums)
   }
 )
-
+#' @name quantTotals
+#' @aliases yearTotals yearTotals-methods yearTotals,FLQuant-method
 setMethod('yearTotals', signature(x='FLQuant'),
   function(x, na.rm=TRUE) {
     sums <- x
@@ -464,6 +496,56 @@ setMethod('yearTotals', signature(x='FLQuant'),
 ) # }}}
 
 # sums         {{{
+#' Methods quantSums
+#'
+#' Methods to compute sums, means and variances along the various dimensions of
+#' \code{FLQuant}, \code{FLPar} and \code{FLQuantDistr} objects
+#' 
+#' This set of methods computes three different summaries (sum, mean and
+#' variance) of an \code{FLQuant} object along each of the six dimensions
+#' (quant, year, unit, season, area, or iter). Medians can also be computed
+#' along the sixth dimension, \code{iter}.
+#' 
+#' These methods simply encapsulate a call to \code{\link[base]{apply}} with
+#' the corresponding dimensions and function.
+#' 
+#' Sums are not calculated for the \code{iter} dimension, as it is used to
+#' store multiple replicates of a given array of values.
+#'
+#' Methods along the iter dimension are also defined for objects of class
+#' \code{FLPar}.
+#' 
+#' Methods to operate over the first dimension refer to it as the \code{quant}
+#' dimension, regardless of the actual name used in the object.
+#' 
+#' The output object will have length=1 on the selected dimension.
+#'
+#' @name quantSums
+#' @docType methods
+#' @aliases quantSums quantSums-methods quantSums,FLQuant-method
+#' @section Generic methods:
+#' quantSums(x), quantMeans(x), quantVars(x)
+#' yearSums(x), yearMeans(x), yearVars(x)
+#' unitSums(x), unitMeans(x), unitVars(x)
+#' seasonSums(x), seasonMeans(x), seasonVars(x)
+#' areaSums(x), areaMeans(x), areaVars(x)
+#' iterMeans(x), iterVars(x), iterMedians(x)
+#' dimSums(x), dimMeans(x), dimVars(x)
+#' @param x An object.
+#' @param na.rm Should NAs be removed before calculation? Defaults to TRUE.
+#' @author The FLR Team
+#' @seealso \link{FLQuant}, \link[base]{sum}, \link[base]{mean},
+#' \link[stats]{var}
+#' @keywords methods
+#' @examples
+#' 
+#'  flq <- FLQuant(rnorm(4000), dim=c(5,10,2,2,2,10), quant='age')
+#'  quantSums(flq)
+#'  quantMeans(flq)
+#'  yearSums(flq)
+#'  iterMeans(flq)
+#'  dim(quantSums(flq))
+#'
 setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
   res <- colSums(x, na.rm=na.rm)
@@ -479,25 +561,29 @@ setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]),
     quant=quant(x), units=units(x)))
 })
-
+#' @rdname quantSums
+#' @aliasesyearSums yearSums-methods yearSums,FLQuant-method
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
 })
-
+#' @rdname quantSums
+#' @aliasesunitSums unitSums-methods unitSums,FLQuant-method
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
 })
-
+#' @rdname quantSums
+#' @aliasesseasonSums seasonSums-methods seasonSums,FLQuant-method
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,3,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
 })
-
+#' @rdname quantSums
+#' @aliasesareaSums areaSums-methods areaSums,FLQuant-method
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -505,59 +591,75 @@ setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 }) # }}}
 
 # means         {{{
+#' @rdname quantSums
+#' @aliasesquantMeans quantMeans-methods quantMeans,FLQuant-method
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   res <- colMeans(x, na.rm=na.rm)
   dim(res) <- c(1, dim(res))
   return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant(x),
     units=units(x)))
 })
-
+#' @rdname quantSums
+#' @aliasesyearMeans yearMeans-methods yearMeans,FLQuant-method
 setMethod('yearMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1,3:6), mean, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesunitMeans unitMeans-methods unitMeans,FLQuant-method
 setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:2,4:6), mean, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesseasonMeans seasonMeans-methods seasonMeans,FLQuant-method
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:3,5,6), mean, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesareaMeans areaMeans-methods areaMeans,FLQuant-method
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:4,6), mean, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesiterMeans iterMeans-methods iterMeans,FLQuant-method
 setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), mean, na.rm=na.rm))
 }) # }}}
 
 # medians {{{
+#' @rdname quantSums
+#' @aliasesiterMedians iterMedians-method iterMedians,FLQuant-method
 setMethod('iterMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), median, na.rm=na.rm))
 }) # }}}
 
 # vars         {{{
+#' @rdname quantSums
+#' @aliasesquantVars quantVars-methods quantVars,FLQuant-method
 setMethod('quantVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, 2:6, var, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesyearVars yearVars-methods yearVars,FLQuant-method
 setMethod('yearVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1,3:6), var, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesunitVars unitVars-methods unitVars,FLQuant-method
 setMethod('unitVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:2,4:6), var, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesseasonVars seasonVars-methods seasonVars,FLQuant-method
 setMethod('seasonVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:3,5:6), var, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesareaVars areaVars-methods areaVars,FLQuant-method
 setMethod('areaVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:4,6), var, na.rm=na.rm))
 })
-
+#' @rdname quantSums
+#' @aliasesiterVars iterVars-methods iterVars,FLQuant-method
 setMethod('iterVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), var, na.rm=na.rm))
 }) # }}}

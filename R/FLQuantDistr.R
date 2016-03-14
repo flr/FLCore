@@ -271,24 +271,39 @@ setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing
 # }}}
 
 # sums         {{{
+#' @rdname quantSums
+#' @aliases yearSums,FLQuantDistr-method
+
+#' @aliases yearVars,FLQuantDistr-method unitVars,FLQuantDistr-method
+#' @aliases seasonVars,FLQuantDistr-method areaVars,FLQuantDistr-method
+#' @aliases iterVars,FLQuantDistr-method iterMedians,FLQuantDistr-method
+
+#' @rdname quantSums
+#' @aliases yearSums,FLQuantDistr-method
 setMethod('yearSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 	return(apply(e(x),c(1,3,4,5,6), function(x, NA.RM=na.rm){ 
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
+#' @rdname quantSums
+#' @aliases unitSums,FLQuantDistr-method
 setMethod('unitSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 	return(apply(e(x),c(1,2,4,5,6), function(x, NA.RM=na.rm){ 
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
+#' @rdname quantSums
+#' @aliases seasonSums,FLQuantDistr-method
 setMethod('seasonSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 	return(apply(e(x),c(1,2,3,5,6), function(x, NA.RM=na.rm){ 
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
+#' @rdname quantSums
+#' @aliases areaSums,FLQuantDistr-method
 setMethod('areaSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 	return(apply(e(x),c(1,2,3,4,6), function(x, NA.RM=na.rm){ 
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -296,52 +311,76 @@ setMethod('areaSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 }) # }}}
 
 # means         {{{
+#' @rdname quantSums
+#' @aliases quantMeans,FLQuantDistr-method
 setMethod('yearMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1,3:6), mean, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases unitMeans,FLQuantDistr-method
 setMethod('unitMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:2,4:6), mean, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases seasonMeans,FLQuantDistr-method
 setMethod('seasonMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:3,6), mean, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases areaMeans,FLQuantDistr-method
 setMethod('areaMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:4,6), mean, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases iterMeans,FLQuantDistr-method
 setMethod('iterMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:5), mean, na.rm=na.rm))
 }) # }}}
 
 # medians {{{
+#' @rdname quantSums
+#' @aliases iterMedians,FLQuantDistr-method
 setMethod('iterMedians', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:5), median, na.rm=na.rm))
 }) # }}}
 
 # vars         {{{
+#' @rdname quantSums
+#' @aliases quantVars,FLQuantDistr-method
 setMethod('quantVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), 2:6, var, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases yearVars,FLQuantDistr-method
 setMethod('yearVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1,3:6), var, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases unitVars,FLQuantDistr-method
 setMethod('unitVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:2,4:6), var, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases seasonVars,FLQuantDistr-method
 setMethod('seasonVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:3,5:6), var, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases areaVars,FLQuantDistr-method
 setMethod('areaVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:4,6), var, na.rm=na.rm))
 })
 
+#' @rdname quantSums
+#' @aliases iterVars,FLQuantDistr-method
 setMethod('iterVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:5), var, na.rm=na.rm))
 }) # }}}
@@ -374,7 +413,3 @@ setMethod("propagate", signature(object="FLQuantDistr"),
 		}
   }
 ) # }}}
-
-
-
-

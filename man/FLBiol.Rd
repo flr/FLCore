@@ -37,7 +37,8 @@ natural mortlity and fecundity.
  \describe{ \item{n}{Numbers in the population.
 \code{FLQuant}.} \item{m}{Mortality rate of the population. \code{FLQuant}.}
 \item{wt}{Mean weight of an individual. \code{FLQuant}.}
-\item{fec}{Fecundity/maturity/per capita birth rate. \code{FLQuant}.}
+\item{fec}{Fecundity per unit of body weight. \code{FLQuant}.}
+\item{mat}{Maturity proportion at age. \code{FLQuant}.}
 \item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
 \item{name}{Name of the object. \code{character}.} \item{desc}{Brief
 description of the object. \code{character}.} \item{range}{Named numeric

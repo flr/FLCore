@@ -3,38 +3,32 @@
 \docType{class}
 \name{FLQuants}
 \alias{FLQuants}
-\alias{FLQuants,ANY-method}
-\alias{FLQuants,FLQuants-method}
-\alias{FLQuants,list-method}
-\alias{FLQuants,missing-method}
 \alias{FLQuants-class}
 \alias{FLQuants-methods}
 \title{Class FLQuants}
 \description{
-\code{FLQuants} is a \code{list} of \code{FLQuant} objects.
-It is very similar to the standard \code{list} class.
-It implements a lock mechanism that, when turned on, does
-not allow the user to increase or decrease the object length.
-The elements of \code{FLQuants} must all be of class  \code{FLQuant}.
+\code{FLQuants} is a \code{list} of \code{FLQuant} objects. It is very
+similar to the standard \code{list} class. It implements a lock mechanism
+that, when turned on, does not allow the user to increase or decrease the
+object length. The elements of \code{FLQuants} must all be of class
+\code{FLQuant}.
 }
 \section{Slots}{
- \describe{
-    \item{.Data}{The data. \code{list}.}
-    \item{names}{Names of the list elements. \code{character}.}
-    \item{desc}{Description of the object. \code{character}.}
-    \item{lock}{Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. \code{logical}.}
+ \describe{ \item{.Data}{The data. \code{list}.}
+\item{names}{Names of the list elements. \code{character}.}
+\item{desc}{Description of the object. \code{character}.} \item{lock}{Lock
+mechanism, if turned on the length of the list can not be modified by adding
+or removing elements. \code{logical}.} }
 }
-}
+\examples{
 
-\section{Accesors}{
+# Compute various FLStock indicators
+  data(ple4)
+  fqs <- FLQuants(ssb=ssb(ple4), catch=catch(ple4), rec=rec(ple4),
+    f=fbar(ple4))
+  summary(fqs)
+  xyplot(data~year|qname, fqs, type='b', scales=list(relation='free'))
 
-Elements in the list can be accessed using '[' and '[['
-}
-
-\section{Constructor}{
-
-A constructor method exists for this class that can take named arguments for
-any of the list elements.
 }
 \author{
 The FLR Team

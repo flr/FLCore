@@ -274,22 +274,26 @@ setMethod("as.data.frame", signature(x="FLPar"),
 )   # }}}
 
 # iterMedians, Means & Vars {{{
-setMethod("iterMeans", "FLPar",
+#' @rdname quantSums
+#' @aliases iterMeans,FLPar-method
+setMethod("iterMeans", signature(x="FLPar"),
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
     apply(x, dim[-length(dim)], mean, na.rm=na.rm)
   }
 )
-
-setMethod("iterMedians", "FLPar",
+#' @rdname quantSums
+#' @aliases iterMedians,FLPar-method
+setMethod("iterMedians", signature(x="FLPar"),
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
     apply(x, dim[-length(dim)], median, na.rm=na.rm)
   }
 )
-
-setMethod("iterVars", signature(x='FLPar'),
-	function(x, y=NULL, na.rm=TRUE, use) {
+#' @rdname quantSums
+#' @aliases iterVars,FLPar-method
+setMethod("iterVars", signature(x="FLPar"),
+	function(x, na.rm=TRUE) {
   	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
       var, na.rm=na.rm, use='all.obs'))
   }
@@ -893,4 +897,3 @@ setMethod('$', signature(x='FLPar'),
     return(x[name,])
   }
 ) # }}}
-
