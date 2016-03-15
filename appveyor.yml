@@ -41,8 +41,10 @@ artifacts:
     name: Bits
 
 environment:
-  global:
-    WARNINGS_ARE_ERRORS: 0
+
+  WARNINGS_ARE_ERRORS: 0
+
+  _R_CHECK_FORCE_SUGGESTS_: false
 
   matrix:
   - R_VERSION: devel
