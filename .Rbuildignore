@@ -3,3 +3,4 @@ gh-pages/
 man-roxygen/
 Makefile
 .git/
+^appveyor\.yml$
