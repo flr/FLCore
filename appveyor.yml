@@ -39,3 +39,5 @@ artifacts:
 
   - path: '\*_*.zip'
     name: Bits
+
+R_VERSION: release
