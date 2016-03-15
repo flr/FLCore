@@ -1,10 +1,5 @@
+# https://ci.appveyor.com/project/iagomosqueira/flcore
 # DO NOT CHANGE the "init" and "install" sections below
-
-environment:
-  matrix:
-  - R_VERSION: release
-
-  - R_VERSION: devel
 
 # Download script file from GitHub
 init:
@@ -17,6 +12,15 @@ install:
   ps: Bootstrap
 
 # Adapt as necessary starting from here
+
+environment:
+  global:
+    WARNINGS_ARE_ERRORS: 1
+
+  matrix:
+  - R_VERSION: release
+
+  - R_VERSION: devel
 
 build_script:
   - travis-tool.sh install_deps
