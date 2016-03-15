@@ -2,7 +2,7 @@
 
 environment:
 
-WARNINGS_ARE_ERRORS: 0
+  WARNINGS_ARE_ERRORS: 0
 
 matrix:
   - R_VERSION: oldrel
