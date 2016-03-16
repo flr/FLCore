@@ -20,7 +20,9 @@ or download from the [FLCore releases page](https://github.com/flr/FLCore/releas
 - Vignette
 
 ## Build Status
-[![Build Status](https://travis-ci.org/flr/FLCore.svg?branch=master)](https://travis-ci.org/flr/FLCore)
+[![Travis Build Status](https://travis-ci.org/flr/FLCore.svg?branch=master)](https://travis-ci.org/flr/FLCore)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/flr/FLCore?branch=master&svg=true)](https://ci.appveyor.com/project/flr/FLCore)
+
 
 ## Releases
 - [Latest release](https://github.com/flr/FLCore/releases/tag/v2.5.20130716)
