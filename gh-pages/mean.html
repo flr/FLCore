@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>mean. FLCore 2.5.20140814</title>
+<title>mean. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,25 +54,27 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>Calculates the arithmetic mean. Can be used directly on an object or with apply etc.</p>
   
     </div>
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>mean(x)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(x=FLPar) :</dt><dd>Returns the mean of x</dd>
-<dt> signature(x=FLQuantPoint) :</dt><dd>Returns the mean of x</dd>
-</dl></p>
+<dt> signature(x=FLPar) :</dt><dd>Returns the mean of x</dd></p>
+  
+      <p><dt> signature(x=FLQuantPoint) :</dt><dd>Returns the mean of x</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -68,11 +82,7 @@
     <pre class="examples"><div class='input'>flp &lt;- FLPar(rnorm(80), params=c(&#39;a&#39;, &#39;b&#39;), iter=1:40)
 mean(flp)
 </div>
-<div class='output'>An object of class &quot;FLPar&quot;
-params
-          a           b 
--0.00062548  0.02669172 
-units:  NA NA 
+<div class='output'>[1] -0.08416
 </div></pre>
   </div>
   <div class="span4">
@@ -85,8 +95,8 @@ units:  NA NA
       
     <h2>See also</h2>
     
-<a href='http://www.inside-r.org/packages/cran/stats/docs/median'>median</a>
-<a href='http://www.inside-r.org/packages/cran/base/docs/apply'>apply</a>
+median
+apply
     
     <h2>Author</h2>
     The FLR Team
@@ -96,7 +106,7 @@ units:  NA NA
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

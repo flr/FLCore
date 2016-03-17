@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>as.data.frame. FLCore 2.5.20140814</title>
+<title>as.data.frame. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -40,22 +52,17 @@
 <div class="row">
   <div class="span8">
         
-    <div class="Method as.data.frame">
-      <h2>Method as.data.frame</h2>
-      
-    </div>
-
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>This method converts an FLQuant or any other FLR object composed of FLQuants into
-	a <code><a href='http://www.inside-r.org/packages/cran/base/docs/data.frame'>data.frame</a></code>.</p>
+	a <code><a href='http://www.inside-r.org/r-doc/base/data.frame'>data.frame</a></code>.</p>
   
       <p>For a single <a href='FLIndexBiomass.html'>FLQuant</a>, the <code>data.frame</code> returned has 7 columns:  <code>quant</code>,
 	<code>year</code>, <code>unit</code>, <code>season</code>, <code>area</code>, <code>iter</code> and <code>data</code>.
 	The last column contains the actual values stored in the original object, while the
 	first six contain the corresponding dimensions. The <code>year</code> and <code>data</code> columns
-	are of class <a href='http://www.inside-r.org/packages/cran/base/docs/numeric'>numeric</a>, while the other five are of class <a href='http://www.inside-r.org/packages/cran/base/docs/factor'>factor</a>.</p>
+	are of class <a href='http://www.inside-r.org/r-doc/base/numeric'>numeric</a>, while the other five are of class <a href='http://www.inside-r.org/r-doc/base/factor'>factor</a>.</p>
   
       <p>When converting an <code>FLCohort</code> object, the <code>year</code> column is 
   substituted by <code>cohort</code>.</p>
@@ -78,28 +85,34 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>as.data.frame(x, row.names, optional)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
 <dt> signature(x=FLQuant,row.names=ANY,optional=ANY) :</dt><dd>Converts an FLQuant into a
-	data.frame</dd>
-<dt> signature(x=FLComp,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
-	any class inheriting from FLComp into a data.frame</dd>
-<dt> signature(x=FLQuants,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
-	class FLQuants into a data.frame</dd>
-<dt> signature(x=FLCohorts,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
-	class FLCohorts into a data.frame</dd>
-<dt> signature(x=FLPar,row.names=ANY,optional=ANY) :</dt><dd>Converts objects of 
-	class FLPar into a data.frame</dd>
-<dt> signature(x=FLCohort,row.names=ANY,optional=ANY) :</dt><dd>Converts objects of 
-	class FLCohort into a data.frame</dd>
-</dl></p>
+	data.frame</dd></p>
+  
+      <p><dt> signature(x=FLComp,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
+	any class inheriting from FLComp into a data.frame</dd></p>
+  
+      <p><dt> signature(x=FLQuants,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
+	class FLQuants into a data.frame</dd></p>
+  
+      <p><dt> signature(x=FLCohorts,row.names=missing,optional=missing) :</dt><dd>Converts objects of 
+	class FLCohorts into a data.frame</dd></p>
+  
+      <p><dt> signature(x=FLPar,row.names=ANY,optional=ANY) :</dt><dd>Converts objects of 
+	class FLPar into a data.frame</dd></p>
+  
+      <p><dt> signature(x=FLCohort,row.names=ANY,optional=ANY) :</dt><dd>Converts objects of 
+	class FLCohort into a data.frame</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -137,13 +150,13 @@ head(fdf)
 sdf &lt;- as.data.frame(ple4)
 head(sdf)
 </div>
-<div class='output'>   slot age year   unit season   area iter      data
-1 catch all 1957 unique    all unique    1  78422.95
-2 catch all 1958 unique    all unique    1  88240.06
-3 catch all 1959 unique    all unique    1 109237.62
-4 catch all 1960 unique    all unique    1 117137.86
-5 catch all 1961 unique    all unique    1 118330.99
-6 catch all 1962 unique    all unique    1 125272.44
+<div class='output'>   slot age year   unit season   area iter   data
+1 catch all 1957 unique    all unique    1  78423
+2 catch all 1958 unique    all unique    1  88240
+3 catch all 1959 unique    all unique    1 109238
+4 catch all 1960 unique    all unique    1 117138
+5 catch all 1961 unique    all unique    1 118331
+6 catch all 1962 unique    all unique    1 125272
 </div></pre>
   </div>
   <div class="span4">
@@ -155,7 +168,7 @@ head(sdf)
     </ul> -->
       
     <h2>See also</h2>
-     <a href='http://www.inside-r.org/packages/cran/base/docs/as.data.frame'>as.data.frame</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/model.frame'>model.frame</a>, <a href='model.frame.html'>model.frame,FLlst-method</a>
+     <a href='http://www.inside-r.org/r-doc/base/as.data.frame'>as.data.frame</a>, <a href='http://www.inside-r.org/r-doc/stats/model.frame'>model.frame</a>, <a href='model.frame.html'>model.frame,FLlst-method</a>
     
     <h2>Author</h2>
     The FLR Team
@@ -165,7 +178,7 @@ head(sdf)
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

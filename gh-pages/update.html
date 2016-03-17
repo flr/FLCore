@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>update. FLCore 2.5.20140814</title>
+<title>update. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p><code>update</code> is a generic function for updating a model fitting using the same call
  that generated it. Input arguments can be provided that will alter the FLModel object 
  accordingly.</p>
@@ -51,25 +63,26 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>update(object, ...)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(object=FLModel) :</dt><dd>Rerun using details(object)[['call']]</dd>
-</dl></p>
+<dt> signature(object=FLModel) :</dt><dd>Rerun using details(object)[['call']]</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+    <pre class="examples"><div class='input'>## Not run: 
 # data(nsher)
 # nsher &lt;- update(nsher, ssb=ssb(nsher) * 1.4)
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;</div></pre>
+# ## End(Not run)</div></pre>
   </div>
   <div class="span4">
     <!-- <ul>
@@ -80,7 +93,7 @@
     </ul> -->
       
     <h2>See also</h2>
-    FLModel, <a href='http://www.inside-r.org/packages/cran/stats/docs/update'>update</a>
+    FLModel, <a href='http://www.inside-r.org/r-doc/stats/update'>update</a>
     
     <h2>Author</h2>
     The FLR Team
@@ -90,7 +103,7 @@
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

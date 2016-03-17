@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>r. FLCore 2.5.20140814</title>
+<title>r. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -52,7 +64,7 @@
     
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>For an <code>FLBiol</code> object with the mortality-at-age, fecundity and spwn data 
 	present in the object slots, this method calculates the intrinsic rate of increase r 
   for the given population.</p>
@@ -71,7 +83,7 @@
 
     <div class="Details">
       <h2>Details</h2>
-      
+
       <p>To chose the method used to estimate r (Euler-Lotka or Leslie matrix) we supply either 
 'el' or 'leslie' as the 'method' argument (see below). To calculate r along years or cohorts
 by supply either 'year' or 'cohort' as the 'by' argument (see below).</p>
@@ -82,8 +94,10 @@ by supply either 'year' or 'cohort' as the 'by' argument (see below).</p>
 
     <div class="Value">
       <h2>Value</h2>
-      
-      <p>An object of class <code>FLQuant</code>.</p>
+
+      <p><dl>
+	An object of class <code>FLQuant</code>.
+</dl></p>
   
     </div>
     
@@ -109,7 +123,7 @@ by supply either 'year' or 'cohort' as the 'by' argument (see below).</p>
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

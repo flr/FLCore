@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>nls. FLCore 2.5.20140814</title>
+<title>nls. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>For a given forumla (describing a model) and data this method applies the simple non-
  linear least squares algorithm - this calculates the parameters that minimisethe sum of 
  squares difference between the observed (data) and predicted (model) values.</p>
@@ -54,18 +66,19 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>nls(formula,data,start,control,algorithm,trace,subset,weights,na.action,model,lower,upper)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
 <dt> signature(formula=FLModel,data=missing,start=missing,control=missing,algorithm=missing,trace=missing,subset=missing,weights=missing,na.action=missing,model=missing,lower=missing,upper=missing) :</dt><dd>Applies non-linear sum of squares to
-the model and data in the input FLModel object.</dd>
-</dl></p>
+the model and data in the input FLModel object.</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -83,10 +96,10 @@ summary(nsher)
 </div>
 <div class='output'>An object of class &quot;FLSR&quot;
 
-Name: Autumn spawning herring in IV, V  3/4/2005 14:46 
-Description: &#39;rec&#39; and &#39;ssb&#39; slots obtained from a &#39;FLStock&#39; object 
-Range:	  
-		
+Name:  
+Description:  
+Range:	 min	minyear	max	maxyear 
+	0	1960	0	2004	
 Quant: age 
 
 rec           : [ 1 45 1 1 1 1 ], units =  10^3 
@@ -95,16 +108,16 @@ residuals     : [ 1 45 1 1 1 1 ], units =  NA
 fitted        : [ 1 45 1 1 1 1 ], units =  t*10^3 
 
 Model: 	rec ~ a * ssb/(b + ssb)
-&lt;environment: 0x3dbf438&gt;
+&lt;environment: 0x1072c2b0&gt;
 Parameters: 
     params
 iter    a     b
    1 5824 19.58
 
 Log-likelihood:  -409.19(0) 
-Variance-covariance:            a        b
-a 778311.614 9226.557
-b   9226.557  147.714
+Variance-covariance:        a      b
+a 778312 9226.6
+b   9227  147.7
 </div></pre>
   </div>
   <div class="span4">
@@ -126,7 +139,7 @@ b   9226.557  147.714
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

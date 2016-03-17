@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>ssb. FLCore 2.5.20140814</title>
+<title>ssb. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>Returns the Spawning Stock Biomass of <code>FLStock</code> and <code>FLBiol</code> objects.</p>
   
       <p>For <code>FLStock</code> objects the nature of the calculation depends
@@ -52,14 +64,14 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>ssb(object)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
 <dt> signature(object=FLStock) :</dt><dd>
  If spawning occurs at the beginning of the year the calculated SSB is the same
@@ -79,14 +91,16 @@
       <p>The units of the harvest slot in the <code>FLStock</code> object must be specified
  as either 'f' for an instantaneous fishing mortality or else as 'hr' for a
  harvest rate.
-</dd>
-<dt> signature(object=FLBiol) :</dt><dd>
+</dd></p>
+  
+      <p><dt> signature(object=FLBiol) :</dt><dd>
  For an <code>FLBiol</code> the spawning biomass at the beginning of the
  year is calculated.</p>
   
       <p>SSB = sum(N * wt * mat)
-</dd>
-</dl></p>
+</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -102,23 +116,20 @@
 , , unit = unique, season = all, area = unique
 
      year
-age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
-  all 274205 288540 296825 308164 321354 372863 370373 363077 344013 361549
+age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966   1967   1968  
+  all 274205 288540 296825 308164 321354 372863 370373 363077 344013 361549 416563 402521
      year
-age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
-  all 416563 402521 377432 333933 316343 319062 268714 278648 293136 310954
+age   1969   1970   1971   1972   1973   1974   1975   1976   1977   1978   1979   1980  
+  all 377432 333933 316343 319062 268714 278648 293136 310954 316929 303433 297122 272416
      year
-age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
-  all 316929 303433 297122 272416 262061 263998 314021 326341 348675 375392
+age   1981   1982   1983   1984   1985   1986   1987   1988   1989   1990   1991   1992  
+  all 262061 263998 314021 326341 348675 375392 445855 391254 408489 368969 335747 269528
      year
-age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
-  all 445855 391254 408489 368969 335747 269528 228668 193093 174408 173903
+age   1993   1994   1995   1996   1997   1998   1999   2000   2001   2002   2003   2004  
+  all 228668 193093 174408 173903 185308 211327 184733 208393 234078 162725 179158 151508
      year
-age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
-  all 185308 211327 184733 208393 234078 162725 179158 151508 167531 173783
-     year
-age   2007   2008  
-  all 166061 206480
+age   2005   2006   2007   2008  
+  all 167531 173783 166061 206480
 
 units:  t 
 </div></pre>
@@ -142,7 +153,7 @@ units:  t
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

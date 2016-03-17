@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>quant. FLCore 2.5.20140814</title>
+<title>quant. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,14 +54,14 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>Function to get or set the name of first dimension (quant) in an object of class <code>FLQuant</code> or <code>FLCohort</code>.</p>
   
     </div>
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>quant(object) 
  quant<-(object,value)</p>
   
@@ -57,12 +69,15 @@
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(object=FLQuant) :</dt><dd>Get the name of the first dimension of an <code>FLQuant</code> object.</dd>
-<dt> signature(object=FLCohort) :</dt><dd>Get the name of the first dimension of an <code>FLCohort</code> object.</dd>
-<dt> signature(object=FLQuant,value=ANY) :</dt><dd>Set the name of the first dimension of an <code>FLQuant</code> object.</dd>
-</dl></p>
+<dt> signature(object=FLQuant) :</dt><dd>Get the name of the first dimension of an <code>FLQuant</code> object.</dd></p>
+  
+      <p><dt> signature(object=FLCohort) :</dt><dd>Get the name of the first dimension of an <code>FLCohort</code> object.</dd></p>
+  
+      <p><dt> signature(object=FLQuant,value=ANY) :</dt><dd>Set the name of the first dimension of an <code>FLQuant</code> object.</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -89,12 +104,12 @@ dim  :  4 20 1 1 1 1
 quant:  length 
 units:  NA 
 
-Min    :  -2.457948 
-1st Qu.:  -0.6137825 
-Mean   :  0.02569028 
-Median :  0.05474546 
-3rd Qu.:  0.5926897 
-Max    :  3.992368 
+Min    :  -1.675 
+1st Qu.:  -0.7161 
+Mean   :  0.08414 
+Median :  0.126 
+3rd Qu.:  0.7327 
+Max    :  3.436 
 NAs    :  0 %
 </div></pre>
   </div>
@@ -117,7 +132,7 @@ NAs    :  0 %
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

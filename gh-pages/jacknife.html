@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>jacknife. FLCore 2.5.20140814</title>
+<title>jacknife. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>The <code>jacknife</code> method sets up objects ready for jacknifing, i.e. to systematically recompute a given statistic leaving out one observation at a time. From this new set of "observations" for the statistic an estimate for the bias can be calculated as well as an estimate for the variance of the statistic.</p>
   
       <p>Input objects cannot have length > 1 along the <code>iter</code> dimension, and the resulting 
@@ -52,17 +64,18 @@ object will have as many <code>iterations</code> as elements in the original obj
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>jacknife(object, ...)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt>signature(object=FLQuant) :</dt><dd>Returns an FLQuant with iter=length(object), where in each <code>iteration</code> one element has been sequantally converted to <code>NA</code>.</dd>
-</dl></p>
+<dt>signature(object=FLQuant) :</dt><dd>Returns an FLQuant with iter=length(object), where in each <code>iteration</code> one element has been sequantally converted to <code>NA</code>.</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -121,7 +134,7 @@ units:  NA
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

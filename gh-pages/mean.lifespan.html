@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>mean.lifespan. FLCore 2.5.20140814</title>
+<title>mean.lifespan. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -52,7 +64,7 @@
     
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>For an <code>FLBiol</code> object with the natural mortality-at-age
 	present in the object.</p>
   
@@ -60,11 +72,11 @@
 
     <div class="Details">
       <h2>Details</h2>
-      
+
       <p>Using actuarial definitions for the expected life-span of a given species, for a given 
-survival rate-at-age (natural mortality), we can compute the expected life-span, <code class = 'eq'>logL(x)</code>, of a species, from a given reference age <code class = 'eq'>x</code>, using the following equation:</p>
+survival rate-at-age (natural mortality), we can compute the expected life-span, $logL(x)$, of a species, from a given reference age $x$, using the following equation:</p>
   
-      <p><pre class = 'eq'>logL(x) = SUM_1_inf exp(SUM_i=x_x+t m_i)</pre>.</p>
+      <p>$$\ell_x = \sum\limits_{t=1}^{\infty} \exp\left(-\sum\limits_{i=x}^{x+t}M_i\right)$$.</p>
   
       <p>The method accepts objects of class <code>FLBiol</code> of any particular dimension. If the 
 object has a seasonal structure to the population dynamics, then we sum over all seasons 
@@ -74,8 +86,10 @@ to get the yearly survival rate.</p>
 
     <div class="Value">
       <h2>Value</h2>
-      
-      <p>An object of class <code>FLQuant</code> whose first and second dimension is of length one.</p>
+
+      <p><dl>
+	An object of class <code>FLQuant</code> whose first and second dimension is of length one.
+</dl></p>
   
     </div>
     
@@ -101,7 +115,7 @@ to get the yearly survival rate.</p>
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

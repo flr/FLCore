@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>bubbles. FLCore 2.5.20140814</title>
+<title>bubbles. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,44 +54,57 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>This method plots three dimensional data like matrices by age and year or age-class, very common in fisheries. The bubbles are proportional to the values on the matrix. Note that <code>bubbles</code> accept an argument <code>bub.scale</code> to control the relative size of the bubbles. Positive and negative values have separate colours.</p>
   
     </div>
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>bubbles(x, data)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(x=formula, data=FLQuant) :</dt><dd>Produce bubbles plot of the object.</dd>
-<dt> signature(x=formula, data=FLQuants) :</dt><dd>Produce a lattice of bubbles plot of the objects. Commonly used to plot residuals of VPA assessments.</dd>
-<dt> signature(x=formula, data=FLCohort) :</dt><dd>Produce bubbles plot of the object.</dd>
-<dt> signature(x=formula, data=data.frame) :</dt><dd>Produce bubbles plot of the object.</dd>
-</dl></p>
+<dt> signature(x=formula, data=FLQuant) :</dt><dd>Produce bubbles plot of the object.</dd></p>
+  
+      <p><dt> signature(x=formula, data=FLQuants) :</dt><dd>Produce a lattice of bubbles plot of the objects. Commonly used to plot residuals of VPA assessments.</dd></p>
+  
+      <p><dt> signature(x=formula, data=FLCohort) :</dt><dd>Produce bubbles plot of the object.</dd></p>
+  
+      <p><dt> signature(x=formula, data=data.frame) :</dt><dd>Produce bubbles plot of the object.</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>data(ple4)
 bubbles(age~year, data=catch.n(ple4))
-bubbles(age~year, data=catch.n(ple4), bub.scale=5)
-bubbles(age~cohort, data=FLCohort(catch.n(ple4)), bub.scale=5)
-
+</div>
+<p><img src='bubbles-2.png' alt='' width='540' height='400' /></p>
+<div class='input'>bubbles(age~year, data=catch.n(ple4), bub.scale=5)
+</div>
+<p><img src='bubbles-4.png' alt='' width='540' height='400' /></p>
+<div class='input'>bubbles(age~cohort, data=FLCohort(catch.n(ple4)), bub.scale=5)
+</div>
+<p><img src='bubbles-6.png' alt='' width='540' height='400' /></p>
+<div class='input'>
 qt01 &lt;- log(catch.n(ple4)+1)
 qt02 &lt;- qt01+rnorm(length(qt01))
 flqs &lt;- FLQuants(qt01=qt01, qt02=qt02)
 bubbles(age~year|qname, data=flqs, bub.scale=1)
-
+</div>
+<p><img src='bubbles-8.png' alt='' width='540' height='400' /></p>
+<div class='input'>
 qt03 &lt;- FLQuant(rnorm(100),dimnames=list(age=as.character(1:10),year=as.character(1:10)))
 bubbles(age~year, data=qt03, bub.scale=7, col=c(&quot;black&quot;,&quot;red&quot;))
-</div></pre>
+</div>
+<p><img src='bubbles-10.png' alt='' width='540' height='400' /></p></pre>
   </div>
   <div class="span4">
     <!-- <ul>
@@ -90,7 +115,7 @@ bubbles(age~year, data=qt03, bub.scale=7, col=c(&quot;black&quot;,&quot;red&quot
     </ul> -->
       
     <h2>See also</h2>
-     <a href='http://www.inside-r.org/packages/cran/lattice/docs/Lattice'>lattice</a>, <code>FLQuant</code>, <code>FLQuants</code>,<code>FLCohort</code>
+     <a href='http://www.inside-r.org/r-doc/lattice/Lattice'>lattice</a>, <code>FLQuant</code>, <code>FLQuants</code>,<code>FLCohort</code>
     
     <h2>Author</h2>
     The FLR Team
@@ -100,7 +125,7 @@ bubbles(age~year, data=qt03, bub.scale=7, col=c(&quot;black&quot;,&quot;red&quot
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

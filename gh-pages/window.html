@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>window. FLCore 2.5.20140814</title>
+<title>window. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,32 +54,35 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>This method extracts a section of or extends an <code>FLQuant</code> or other FLR objects 
   along the <code>year</code> dimension. If a frequency is specified, the new object contains 
   data at only those year steps.</p>
   
-      <p>Although objects of class <code><a href='FLIndex.html'>FLQuant</a></code> do have another temporal dimension,
+      <p>Although objects of class <code><a href='FLIndexBiomass.html'>FLQuant</a></code> do have another temporal dimension,
   <code>season</code>, currently window only works along the <code>year</code> dimension. To subset
-  along other dimensions, refer to <a href='Extract.html'>Extract-FLCore</a>.</p>
+  along other dimensions, refer to Extract-FLCore.</p>
   
     </div>
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>window(x)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt>signature(x=FLQuant) :</dt><dd>Subset along the <code>year</code> dimension</dd>
-<dt>signature(x=FLComp) :</dt><dd>The method is applied to each slot of class <code>FLQuant</code>.</dd>
-<dt>signature(x=FLlst) :</dt><dd>The window method is applied to each element in the list.</dd>
-</dl></p>
+<dt>signature(x=FLQuant) :</dt><dd>Subset along the <code>year</code> dimension</dd></p>
+  
+      <p><dt>signature(x=FLComp) :</dt><dd>The method is applied to each slot of class <code>FLQuant</code>.</dd></p>
+  
+      <p><dt>signature(x=FLlst) :</dt><dd>The window method is applied to each element in the list.</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -79,12 +94,12 @@ window(flq, start=1995, end=1998)
 , , unit = unique, season = all, area = unique
 
    year
-age 1995      1996      1997      1998     
-  1  2.501724 -0.773567  1.263990 -1.084002
-  2 -0.320864 -0.599468 -0.253052 -1.438044
-  3  0.221626 -1.205928  1.068119 -0.563720
-  4  0.711417 -1.472050  0.225633  0.448369
-  5 -0.531334 -0.123292 -0.666219  0.011573
+age 1995     1996     1997     1998    
+  1 -0.52733  1.37561  1.14016 -0.16100
+  2  1.68536  0.65867 -0.12540  1.66909
+  3 -0.77818 -0.82256 -1.31062 -1.24408
+  4  0.49303 -1.25492 -0.49610  1.49874
+  5 -0.17809 -1.63677  1.89896 -1.21073
 
 units:  NA 
 </div>
@@ -94,19 +109,19 @@ units:  NA
 , , unit = unique, season = all, area = unique
 
    year
-age 1990      1992      1994      1996      1998      2000      2002     
-  1  1.052086  0.521150  0.684404 -0.773567 -1.084002  1.052086        NA
-  2  1.899837 -0.016217  0.674849 -0.599468 -1.438044  1.899837        NA
-  3  1.132218 -1.382895 -0.043956 -1.205928 -0.563720  1.132218        NA
-  4  1.298352  0.560498  0.938172 -1.472050  0.448369  1.298352        NA
-  5  1.119185  0.172936 -1.763239 -0.123292  0.011573  1.119185        NA
+age 1990       1992       1994       1996       1998       2000       2002      
+  1  1.0178758 -0.5135355  1.2796693  1.3756059 -0.1610029  1.0178758         NA
+  2  0.0818331 -0.8366303  0.0436796  0.6586719  1.6690864  0.0818331         NA
+  3 -0.1289863 -0.0073897  1.1153878 -0.8225561 -1.2440833 -0.1289863         NA
+  4  1.4236996 -0.6120015  0.6451434 -1.2549231  1.4987401  1.4236996         NA
+  5  0.1039591  1.1091645  0.9621355 -1.6367724 -1.2107264  0.1039591         NA
    year
-age 2004      2006      2008      2010     
-  1        NA        NA        NA        NA
-  2        NA        NA        NA        NA
-  3        NA        NA        NA        NA
-  4        NA        NA        NA        NA
-  5        NA        NA        NA        NA
+age 2004       2006       2008       2010      
+  1         NA         NA         NA         NA
+  2         NA         NA         NA         NA
+  3         NA         NA         NA         NA
+  4         NA         NA         NA         NA
+  5         NA         NA         NA         NA
 
 units:  NA 
 </div></pre>
@@ -120,7 +135,7 @@ units:  NA
     </ul> -->
       
     <h2>See also</h2>
-    <a href='http://www.inside-r.org/packages/cran/stats/docs/window'>window</a>, <a href='Extract.html'>Extract-FLCore</a>
+    <a href='http://www.inside-r.org/r-doc/stats/window'>window</a>, Extract-FLCore
     
     <h2>Author</h2>
     The FLR Team
@@ -130,7 +145,7 @@ units:  NA
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

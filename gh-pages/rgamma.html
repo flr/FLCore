@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>rgamma. FLCore 2.5.20140814</title>
+<title>rgamma. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,24 +54,25 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
-      <p>Random generation for the Gamma distribution with parameters 'shape' and 'scale'.  'shape' can be of class <code><a href='FLQuantPoint.html'>FLQuantPoint</a></code> in which case 'shape' and 'scale' are set as <code class = 'eq'>mean^2 / var</code> and <code class = 'eq'>var / mean^2</code>.</p>
+
+      <p>Random generation for the Gamma distribution with parameters 'shape' and 'scale'.  'shape' can be of class <code><a href='FLQuantPoint.html'>FLQuantPoint</a></code> in which case 'shape' and 'scale' are set as $mean^2 / var$ and $var / mean^2$.</p>
   
     </div>
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>rgamma(n,shape,rate,scale)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(n=numeric,shape=FLQuantPoint,rate=missing,scale=missing) :</dt><dd>Returns an FLQuant for Gamma-distributed values.</dd>
-</dl></p>
+<dt> signature(n=numeric,shape=FLQuantPoint,rate=missing,scale=missing) :</dt><dd>Returns an FLQuant for Gamma-distributed values.</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -74,11 +87,11 @@ iters:  10
 , , unit = unique, season = all, area = unique
 
      year
-quant 1          2          3          4          5          6         
-  all 11.1802(0)  9.1815(0)  8.7279(0)  7.0525(0)  9.6765(0) 12.2166(0)
+quant 1              2              3              4              5             
+  all 10.6793(1.058) 10.4545(1.625)  8.4852(1.151) 10.7948(1.204)  9.4980(0.998)
      year
-quant 7          8          9          10        
-  all 10.5414(0)  7.7350(0) 10.6217(0)  8.0163(0)
+quant 6              7              8              9              10            
+  all 10.2014(2.662) 10.6400(2.713) 11.9016(3.007) 11.0747(3.048)  9.9139(1.077)
 
 units:  NA 
 </div></pre>
@@ -92,7 +105,7 @@ units:  NA
     </ul> -->
       
     <h2>See also</h2>
-     <a href='http://www.inside-r.org/packages/cran/stats/docs/GammaDist'>rgamma</a>, FLQuantPoint 
+     <a href='http://www.inside-r.org/r-doc/stats/GammaDist'>rgamma</a>, FLQuantPoint 
     
     <h2>Author</h2>
     The FLR Team
@@ -102,7 +115,7 @@ units:  NA
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

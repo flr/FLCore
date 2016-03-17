@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>Arith. FLCore 2.5.20140814</title>
+<title>Arith. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>The <code>Arith</code> group of methods, comprising addition, substraction, product, division,
 	exponentiation, and integer division (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>,
 	<code>%%</code> and <code>%/%</code>). These methods work exactly as in an object of class 
@@ -52,17 +64,18 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>Arith(e1,e2)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(e1=FLQuant,e2=FLQuant) :</dt><dd>Operations between two FLQuant objects</dd>
-</dl></p>
+<dt> signature(e1=FLQuant,e2=FLQuant) :</dt><dd>Operations between two FLQuant objects</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -75,9 +88,9 @@ flq*fl2
 , , unit = unique, season = all, area = unique
 
      year
-quant 1        2        3        4        5       
-    1  1.76573  0.21923  1.31365  6.55764  1.16415
-    2 -0.70204  0.24964 -1.45129  2.41856  0.96770
+quant 1         2         3         4         5        
+    1 -0.733158  0.666874  0.981696  0.712643  0.088739
+    2  0.441492  0.986117 -1.406604 -1.315358  1.337233
 
 units:  NA 
 </div>
@@ -87,8 +100,8 @@ units:  NA
 
      year
 quant 1         2         3         4         5        
-    1  0.441433  0.054808  0.328412  1.639411  0.291037
-    2 -0.175511  0.062409 -0.362823  0.604640  0.241925
+    1 -0.183289  0.166719  0.245424  0.178161  0.022185
+    2  0.110373  0.246529 -0.351651 -0.328839  0.334308
 
 units:  NA 
 </div></pre>
@@ -102,7 +115,7 @@ units:  NA
     </ul> -->
       
     <h2>See also</h2>
-    <code><a href='http://www.inside-r.org/packages/cran/base/docs/Arithmetic'>Arithmetic</a></code>, <code><a href='http://www.inside-r.org/packages/cran/methods/docs/S4groupGeneric'>Arith</a></code>
+    <code><a href='http://www.inside-r.org/r-doc/base/Arithmetic'>Arithmetic</a></code>, <code><a href='http://www.inside-r.org/r-doc/methods/S4groupGeneric'>Arith</a></code>
     
     <h2>Author</h2>
     The FLR Team
@@ -112,7 +125,7 @@ units:  NA
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

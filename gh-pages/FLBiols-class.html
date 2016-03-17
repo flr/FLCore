@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>FLBiols. FLCore 2.5.20140814</title>
+<title>FLBiols. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,48 +54,60 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>A list of <code>FLBiol</code> objects.</p>
   
     </div>
 
     <div class="Slots">
       <h2>Slots</h2>
-      
+
       <p><dl>
-<dt>.Data</dt><dd>Internal S4 data representation, of class <code>list</code>.</dd>
-<dt>desc</dt><dd>As textual description of the object contents</dd>
-<dt>lock</dt><dd>Can the object be extended/trimmed? <code>TRUE</code> or <code>FALSE</code>.</dd>
-<dt>names</dt><dd>A character vector for the element names</dd>
-</dl></p>
+<dt>.Data</dt><dd>Internal S4 data representation, of class <code>list</code>.</dd></p>
+  
+      <p><dt>desc</dt><dd>As textual description of the object contents</dd></p>
+  
+      <p><dt>lock</dt><dd>Can the object be extended/trimmed? <code>TRUE</code> or <code>FALSE</code>.</dd></p>
+  
+      <p><dt>names</dt><dd>A character vector for the element names</dd></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Extends">
       <h2>Extends</h2>
-      
+
       <p><dl>
+FLlst
+list
+vector
 </dl></p>
   
     </div>
 
     <div class="Constructor">
       <h2>Constructor</h2>
-      
+
       <p><dl>
 <dt></dt><dd>The <code>FLBiols(object, ...)</code> constructor method allows simple creation of new FLBiols objects with the methods described below.
-</dd>
-<dt> signature(object=ANY) :</dt><dd>Returns an FLBiols object</dd>
-<dt> signature(object=missing) :</dt><dd>Returns an empty FLBiols object</dd>
-<dt> signature(object=list) :</dt><dd>Returns an FLBiols object</dd>
-</dl></p>
+</dd></p>
+  
+      <p><dt> signature(object=ANY) :</dt><dd>Returns an FLBiols object</dd></p>
+  
+      <p><dt> signature(object=missing) :</dt><dd>Returns an empty FLBiols object</dd></p>
+  
+      <p><dt> signature(object=list) :</dt><dd>Returns an FLBiols object</dd></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
+All methods are inherited.
 </dl></p>
   
     </div>
@@ -97,7 +121,7 @@
     </ul> -->
       
     <h2>See also</h2>
-     <a href='FLlst-class.html'>FLlst</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/list'>list</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/vector'>vector</a> 
+     <a href='FLlst-class.html'>FLlst</a>, <a href='http://www.inside-r.org/r-doc/base/list'>list</a>, <a href='http://www.inside-r.org/r-doc/base/vector'>vector</a> 
     
     <h2>Author</h2>
     The FLR Team
@@ -107,7 +131,7 @@
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

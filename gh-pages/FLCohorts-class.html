@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>FLCohorts. FLCore 2.5.20140814</title>
+<title>FLCohorts. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,69 +54,100 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p><code>FLCohorts</code> is a class that extends <code>list</code> through <code>FLlst</code> but implements a set of features that give a little bit more structure to list objects. The elements of <code>FLCohorts</code> must all be of class <code>FLCohort</code>. It implements a lock mechanism that, when turned on, does not allow the user to increase or decrease the object length.</p>
   
     </div>
 
     <div class="Slots">
       <h2>Slots</h2>
-      
+
       <p><dl>
-<dt>.Data</dt><dd>The data. <code>list</code></dd>
-<dt>names</dt><dd>Names of the list elements. <code>character</code></dd>
-<dt>desc</dt><dd>Description of the object. <code>character</code></dd>
-<dt>lock</dt><dd>Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. <code>logical</code></dd>
-</dl></p>
+<dt>.Data</dt><dd>The data. <code>list</code></dd></p>
+  
+      <p><dt>names</dt><dd>Names of the list elements. <code>character</code></dd></p>
+  
+      <p><dt>desc</dt><dd>Description of the object. <code>character</code></dd></p>
+  
+      <p><dt>lock</dt><dd>Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. <code>logical</code></dd></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Extends">
       <h2>Extends</h2>
-      
+
       <p><dl>
+FLlst
+list
+vector
 </dl></p>
   
     </div>
 
     <div class="Constructor">
       <h2>Constructor</h2>
-      
+
       <p><dl>
 <dt></dt><dd>The <code>FLCohorts(object, ...)</code> constructor method allows simple creation of new FLCatch with the methods described below.
-</dd>
-<dt> signature(object=ANY) :</dt><dd>Returns an FLCohorts object</dd>
-<dt> signature(object=missing) :</dt><dd>Returns an empty FLCohorts object</dd>
-<dt> signature(object=list) :</dt><dd>Returns an FLCohorts object</dd>
-</dl></p>
+</dd></p>
+  
+      <p><dt> signature(object=ANY) :</dt><dd>Returns an FLCohorts object</dd></p>
+  
+      <p><dt> signature(object=missing) :</dt><dd>Returns an empty FLCohorts object</dd></p>
+  
+      <p><dt> signature(object=list) :</dt><dd>Returns an FLCohorts object</dd></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/Arithmetic'>*</a>(base) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(e1=FLCohorts,e2=FLCohorts) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/methods/docs/S4groupGeneric'>Arith</a>(methods) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(e1=FLCohorts,e2=FLCohorts) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/as.data.frame'>as.data.frame</a>(base) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(x=FLCohorts,row.names=missing,optional=missing) </code></dd>
-<dt><a href='bubbles.html'>bubbles</a>(FLCore) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(x=formula,data=FLCohorts) </code></dd>
-<dt>catch<-(FLCore) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(object=FLStock,value=FLCohorts) </code></dd>
-<dt><a href='iter.html'>iter</a>(FLCore) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(object=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/stats/docs/model.frame'>model.frame</a>(stats) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(formula=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/methods/docs/show'>show</a>(methods) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(object=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/summary'>summary</a>(base) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(object=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/lattice/docs/xyplot'>xyplot</a>(lattice) :</dt><dd>Describe method</dd>
-<dt></dt><dd><code> signature(x=formula,data=FLCohorts) </code></dd>
-</dl></p>
+<dt><a href='http://www.inside-r.org/r-doc/base/Arithmetic'>*</a>(base) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(e1=FLCohorts,e2=FLCohorts) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/methods/S4groupGeneric'>Arith</a>(methods) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(e1=FLCohorts,e2=FLCohorts) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/as.data.frame'>as.data.frame</a>(base) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLCohorts,row.names=missing,optional=missing) </code></dd></p>
+  
+      <p><dt><a href='bubbles.html'>bubbles</a>(FLCore) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=formula,data=FLCohorts) </code></dd></p>
+  
+      <p><dt>catch<-(FLCore) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=FLStock,value=FLCohorts) </code></dd></p>
+  
+      <p><dt><a href='iter.html'>iter</a>(FLCore) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/stats/model.frame'>model.frame</a>(stats) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(formula=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/methods/show'>show</a>(methods) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/summary'>summary</a>(base) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/lattice/xyplot'>xyplot</a>(lattice) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=formula,data=FLCohorts) </code></dd></p>
+  
+      <p></dl></p>
   
     </div>
       </div>
@@ -117,7 +160,7 @@
     </ul> -->
       
     <h2>See also</h2>
-     <a href='http://www.inside-r.org/packages/cran/base/docs/Arithmetic'>*</a>, <a href='http://www.inside-r.org/packages/cran/methods/docs/S4groupGeneric'>Arith</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/as.data.frame'>as.data.frame</a>, <a href='bubbles.html'>bubbles</a>, catch<-, <a href='iter.html'>iter</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/model.frame'>model.frame</a>, <a href='http://www.inside-r.org/packages/cran/methods/docs/show'>show</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/summary'>summary</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/xyplot'>xyplot</a>, <a href='FLlst-class.html'>FLlst</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/list'>list</a>
+     <a href='http://www.inside-r.org/r-doc/base/Arithmetic'>*</a>, <a href='http://www.inside-r.org/r-doc/methods/S4groupGeneric'>Arith</a>, <a href='http://www.inside-r.org/r-doc/base/as.data.frame'>as.data.frame</a>, <a href='bubbles.html'>bubbles</a>, catch<-, <a href='iter.html'>iter</a>, <a href='http://www.inside-r.org/r-doc/stats/model.frame'>model.frame</a>, <a href='http://www.inside-r.org/r-doc/methods/show'>show</a>, <a href='http://www.inside-r.org/r-doc/base/summary'>summary</a>, <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>xyplot</a>, <a href='FLlst-class.html'>FLlst</a>, <a href='http://www.inside-r.org/r-doc/base/list'>list</a>
     
     <h2>Author</h2>
     The FLR Team
@@ -127,7 +170,7 @@
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

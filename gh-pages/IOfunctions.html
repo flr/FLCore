@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>IOfunctions. FLCore 2.5.20140814</title>
+<title>IOfunctions. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -78,7 +90,7 @@
     
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>These functions read and save FLR objects of class <code>FLStock</code>, <code>FLIndex</code> and
   <code>FLQuant</code> to and from various datafile formats commonly used in fisheries work and
   stock assessment.</p>
@@ -87,7 +99,7 @@
 
     <div class="Details">
       <h2>Details</h2>
-      
+
       <p>These functions are used for reading and writing stock and CPUE data used to conduct
   stock assessment. A number of data input formats are currently supported. These include
   the 'Lowestoft VPA Suite file format' which comprises a number of flat ascii data files 
@@ -98,8 +110,7 @@
   Any comments in the file must be prefixed with a '\#'. An index file gives the names of 
   the individual data files to be read in. This is the file that should be passed 
   to <code>readFLStock</code>. A single file can be read by <code>readVPA</code> into an 
-  <code>FLQuant</code>. 
-  Further information on the VPA file format can be obtained from <a href = 'http://my.web.site'>http://my.web.site</a>.</p>
+  <code>FLQuant</code>.</p>
   
       <p>The 'Adapt file format' comprises a single file for input containing both the biological
   parameters, catches and catch per unit effort data.</p>
@@ -127,14 +138,16 @@
 
     <div class="Value">
       <h2>Value</h2>
-      
-      <p>An object of class <code>FLQuant</code>, <code>FLStock</code> or <code>FLIndex</code> depending on the function.</p>
+
+      <p><dl>
+  An object of class <code>FLQuant</code>, <code>FLStock</code> or <code>FLIndex</code> depending on the function.
+</dl></p>
   
     </div>
 
     <div class="References">
       <h2>References</h2>
-      
+
       <p>Darby, C.D. and Flatman, F. Virtual Population Analysis:
   version 3.1 (Windows/DOS) user guide.
   Information technology series, No 1. CEFAS, Lowestoft, UK</p>
@@ -145,24 +158,24 @@
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+    <pre class="examples"><div class='input'>## Not run: 
 # path  &lt;- getwd()
 # 
 # ## reads a set of &#39;Lowestoft File Format&#39; for a stock and creates an FLStock object
-# ple4        &lt;-readFLStock(paste(path, &quot;pleindex.txt&quot;, sep=&quot;&quot;))
+# ple4 &lt;- readFLStock(paste(path, &quot;pleindex.txt&quot;, sep=&quot;&quot;))
 # 
 # ## reads a single file in &#39;Lowestoft File Format&#39; and creates an FLQuant
-# ple4.catch.n&lt;-readVPAFile(paste(path, &quot;plecanum.txt&quot;, sep=&quot;&quot;))
+# ple4.catch.n &lt;- readVPAFile(paste(path, &quot;plecanum.txt&quot;, sep=&quot;&quot;))
 # 
 # ## reads a set of tuning data in &#39;Lowestoft File Format&#39; and creates an FLIndices object
-# ple4.indices&lt;-readFLIndices(paste(path, &quot;plecpue.txt&quot;, sep=&quot;&quot;))
+# ple4.indices &lt;- readFLIndices(paste(path, &quot;plecpue.txt&quot;, sep=&quot;&quot;))
 # 
 # ## reads a single index from a tuning file in &#39;Lowestoft File Format&#39; and creates an FLIndex object
-# ple4.index  &lt;-readFLIndex(paste(path, &quot;plecpue1.txt&quot;, sep=&quot;&quot;))
+# ple4.index &lt;- readFLIndex(paste(path, &quot;plecpue1.txt&quot;, sep=&quot;&quot;))
 # 
 # ## writes an FLStock to &#39;Lowestoft File Format&#39; in the current working directory
 # writeFLStock(ple4,output.file=file.path(getwd(),&quot;Ple4&quot;))
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+# ## End(Not run)
 
 </div></pre>
   </div>
@@ -187,7 +200,7 @@
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

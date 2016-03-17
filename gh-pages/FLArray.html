@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>FLArray. FLCore 2.5.20140814</title>
+<title>FLArray. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="
 The FLR Team
@@ -16,13 +16,25 @@ The FLR Team
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,14 +54,9 @@ The FLR Team
 <div class="row">
   <div class="span8">
         
-    <div class="Class FLArray">
-      <h2>Class FLArray</h2>
-      
-    </div>
-
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>A basic 6D array class. No objects of this class are created in
 FLCore, as it is used only for method inheritance.</p>
   
@@ -57,10 +64,11 @@ FLCore, as it is used only for method inheritance.</p>
 
     <div class="Slots">
       <h2>Slots</h2>
-      
+
       <p><dl>
-<dt>.Data</dt><dd>Internal S4 data representation, of class <code>array</code>.</dd>
-</dl></p>
+  <dt>.Data</dt><dd>Internal S4 data representation, of class <code>array</code>.</dd></p>
+  
+      <p></dl></p>
   
       <p></p>
   
@@ -68,11 +76,13 @@ FLCore, as it is used only for method inheritance.</p>
 
     <div class="Validity">
       <h2>Validity</h2>
-      
+
       <p><dl>
-<dt>Dimensions:</dt><dd>Array must have 6 dimensions</dd>
-<dt>Content:</dt><dd>Array must be of class <code>numeric</code></dd>
-</dl></p>
+<dt>Dimensions:</dt><dd>Array must have 6 dimensions</dd></p>
+  
+      <p><dt>Content:</dt><dd>Array must be of class <code>numeric</code></dd></p>
+  
+      <p></dl></p>
   
       <p></p>
   
@@ -101,7 +111,7 @@ The FLR Team
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>
