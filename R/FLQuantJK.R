@@ -82,7 +82,6 @@ setMethod("FLQuantJK", signature(object="FLQuant"),
     return(jackknife(object, ...))
   }) # }}}
 
-
 # jackknife  {{{
 
 #' A method for creating an object of class FLQuantJK, a jackknifed FLQuant
@@ -108,6 +107,12 @@ setMethod("FLQuantJK", signature(object="FLQuant"),
 #' @seealso \code{\linkS4class{FLQuantJK}}, \code{\linkS4class{FLQuant}}
 #' @keywords classes
 #' @examples
+#'
+#' flq <- FLQuant(rnorm(50), dim=c(5,10))
+#' flj <- jackknife(flq)
+#' 
+#' # using 'quant' dim
+#' flj <- jackknife(flq, dim='quant')
 #'
 setMethod("jackknife", signature(object="FLQuant"),
   function(object, dim="year", rm.na=TRUE) {

@@ -28,6 +28,12 @@ dimension.
 }
 \examples{
 
+flq <- FLQuant(rnorm(50), dim=c(5,10))
+flj <- jackknife(flq)
+
+# using 'quant' dim
+flj <- jackknife(flq, dim='quant')
+
 }
 \author{
 The FLR Team

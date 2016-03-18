@@ -4,6 +4,8 @@
 \name{bubbles}
 \alias{bubbles}
 \alias{bubbles,formula,FLCohort-method}
+\alias{bubbles,formula,FLQuant-method}
+\alias{bubbles,formula,FLQuants-method}
 \alias{bubbles,formula,data.frame-method}
 \alias{bubbles-methods}
 \title{Method Bubbles plot}
@@ -15,6 +17,9 @@
   col = c("blue", "red"), ...)
 
 \S4method{bubbles}{formula,FLCohort}(x, data, bub.scale = 2.5, ...)
+
+\S4method{bubbles}{formula,FLQuants}(x, data, bub.scale = 2.5,
+  bub.col = gray(c(0.1, 0.1)), ...)
 }
 \description{
 This method plots three dimensional data such as matrices by age and year or

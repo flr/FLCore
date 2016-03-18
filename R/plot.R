@@ -1056,7 +1056,7 @@ setMethod("densityplot", signature("formula", "FLPar"), function(x, data, ...){
 #' Positive and negative values have separate colours.
 #'
 #' @name bubbles
-#' @aliases bubbles bubbles-methods
+#' @aliases bubbles bubbles-methods bubbles,formula,FLQuant-method
 #' @docType methods
 #' @section Generic function: bubbles(x, data)
 #' @author The FLR Team
@@ -1080,19 +1080,20 @@ setMethod("densityplot", signature("formula", "FLPar"), function(x, data, ...){
 #' bubbles(age~year, data=qt03, bub.scale=7, col=c("black","red"), pch=16)
 #'
 setMethod("bubbles", signature(x="formula", data ="FLQuant"),
-function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
-dots <- list(...)
-data <- as.data.frame(data)
-dots$data <- data
-dots$cex <- bub.scale*(abs(data$data)/max(abs(data$data),na.rm=T))+bub.scale*0.1
-dots$col <- ifelse(data$data>0, col[1], col[2])
-dots$panel <- function(x, y, ..., cex, subscripts){
-panel.xyplot(x, y, cex=cex[subscripts], ...)
-}
-call.list <- c(x=x, dots)
-ans <- do.call("xyplot", call.list)
-ans
-})
+  function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
+    dots <- list(...)
+    data <- as.data.frame(data)
+    dots$data <- data
+    dots$cex <- bub.scale*(abs(data$data)/max(abs(data$data),na.rm=T))+bub.scale*0.1
+    dots$col <- ifelse(data$data>0, col[1], col[2])
+    dots$panel <- function(x, y, ..., cex, subscripts){
+      panel.xyplot(x, y, cex=cex[subscripts], ...)
+    }
+    call.list <- c(x=x, dots)
+    ans <- do.call("xyplot", call.list)
+    return(ans)
+  }
+)
 
 #' @rdname bubbles
 setMethod("bubbles", signature(x="formula", data ="data.frame"),
@@ -1126,7 +1127,60 @@ setMethod("bubbles", signature(x="formula", data ="FLCohort"),
       ans$call <- match.call()
       ans
     }
-) # }}}
+)
+
+#' @rdname bubbles
+setMethod("bubbles", signature(x="formula", data ="FLQuants"),
+  function(x, data, bub.scale=2.5, bub.col=gray(c(0.1, 0.1)), ...){
+	# data
+	dots <- list(...)
+	dots$data <- as.data.frame(data)
+
+	# def col & pch to plot negative values
+	col <- as.numeric(dots$data$data>=0)
+	coln <- vector(mode="character", length=length(col))
+	pchn <- vector(mode="integer", length=length(col))
+
+	# for negs
+	coln[col==0] <- bub.col[1]
+	pchn[col==0] <- 1
+
+	# for pos
+	coln[col==1] <- bub.col[2]
+	pchn[col==1] <- 19
+
+	# for NA
+	coln[coln==""] <- NA
+	pchn[coln==""] <- NA
+
+	# rescale cex to make it prety (I hope)
+	cex0 <- abs(dots$data$data)
+	cex <- bub.scale*cex0/max(cex0, na.rm=TRUE)
+
+	# panel
+	pfun <- function(x,y,subscripts,...){
+		panel.xyplot(x,y,col=coln[subscripts], pch=pchn[subscripts], cex=cex[subscripts]+bub.scale*0.1)
+	}
+
+	# legend
+
+	akey <- bkey(list(data=dots$data$data, cex=cex, bub.col=bub.col, bub.scale=bub.scale), border=F, title="Scale", cex.title=0.8, padding.text=4)
+
+	# call list
+	dots$cex <- cex
+	dots$pch <- pchn
+	dots$col <- coln
+	dots$panel <- pfun
+	dots$key <- akey
+	call.list <- c(x = x, dots)
+
+	# plot
+	ans <- do.call("xyplot", call.list)
+	ans
+
+})
+
+# }}}
 
 # wireframe {{{
 
