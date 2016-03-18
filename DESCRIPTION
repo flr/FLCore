@@ -65,6 +65,7 @@ Collate:
     'io.VPA2Box.R'
     'predictModel.R'
     'FLCore-package.R'
+    'data.R'
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues

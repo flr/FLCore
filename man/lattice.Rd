@@ -10,7 +10,6 @@
 \alias{dotplot,formula,FLComp-method}
 \alias{dotplot,formula,FLQuant-method}
 \alias{histogram,formula,FLComp-method}
-\alias{histogram,formula,FLPar-method}
 \alias{histogram,formula,FLQuant-method}
 \alias{histogram,formula,FLQuants-method}
 \alias{lattice}
@@ -24,6 +23,36 @@
 \title{Lattice methods}
 \usage{
 \S4method{xyplot}{formula,FLQuant}(x, data, ...)
+
+\S4method{xyplot}{formula,FLCohort}(x, data, ...)
+
+\S4method{xyplot}{formula,FLQuants}(x, data, ...)
+
+\S4method{xyplot}{formula,FLComp}(x, data, ...)
+
+\S4method{bwplot}{formula,FLQuant}(x, data, ...)
+
+\S4method{bwplot}{formula,FLComp}(x, data, ...)
+
+\S4method{dotplot}{formula,FLQuant}(x, data, ...)
+
+\S4method{dotplot}{formula,FLComp}(x, data, ...)
+
+\S4method{barchart}{formula,FLQuant}(x, data, ...)
+
+\S4method{barchart}{formula,FLComp}(x, data, ...)
+
+\S4method{stripplot}{formula,FLQuant}(x, data, ...)
+
+\S4method{stripplot}{formula,FLComp}(x, data, ...)
+
+\S4method{histogram}{formula,FLQuant}(x, data, ...)
+
+\S4method{histogram}{formula,FLComp}(x, data, ...)
+
+\S4method{histogram}{formula,FLQuants}(x, data, ...)
+
+\S4method{densityplot}{formula,FLPar}(x, data, ...)
 }
 \description{
 Implementation of Trellis graphics in FLR
@@ -41,7 +70,8 @@ obtained by converting the FLR objects using as.data.frame. For details on
 this transformation, see \link{as.data.frame-FLCore}.
 }
 \section{Generic function}{
- barchart(x, data, ...)
+
+barchart(x, data, ...)
 
 bwplot(x, data, ...)
 

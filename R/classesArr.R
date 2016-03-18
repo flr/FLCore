@@ -3,6 +3,7 @@
 
 # Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC
+
 # FLArray {{{
 
 #' Class FLArray

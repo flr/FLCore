@@ -11,16 +11,13 @@ fisheries modelling and management strategy simulation in R. Developed by a
 team of fisheries scientists in various countries. More information can be
 found at http://flr-project.org/, including a development mailing list.
 }
-\details{
-\tabular{ll}{ Package: \tab FLCore\cr Version: \tab 3.0\cr Date: \tab
-2009\cr Depends: \tab methods, R(>= 2.8.1), graphics, stats, stats4, grid,
-lattice\cr License: \tab GPL 2 or above\cr LazyLoad: \tab Yes\cr LazyData:
-\tab Yes\cr Built: \tab R 2.8.1; i686-pc-linux-gnu; 2009-01-22 12:08:46;
-unix\cr }
-}
 \author{
-FLR Team and various contributors. Initial design by Laurence T.
-Kell & Philippe Grosjean.
+FLR Team \email{flrteam@flr-project.org},
+Iago Mosqueira \email{iago.mosqueira@jrc.ec.europa.eu},
+Laurence T. Kell \email{laurie.kell@iccat.int},
+Philippe Grosjean \email{Philippe.Grosjean@umons.ac.be}
+
+Maintainer: Iago Mosqueira \email{iago.mosqueira@jrc.ec.europa.eu},
 }
 \references{
 Website at \url{http://flr-project.org/}.

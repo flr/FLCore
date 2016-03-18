@@ -10,7 +10,7 @@
 
 #' Method plot
 #' 
-#' Standard plot methods for every FLR class. FLR plot methods are based on
+#' Standard plot methods for every FLCore class. FLR plot methods are based on
 #' \code{\link[lattice]{lattice}}, and attempt to show a general view of the
 #' object contents.
 #' 
@@ -662,352 +662,7 @@ setMethod("plot", signature(x="FLCohort", y="missing"),
   }
 ) # }}}
 
-# lattice {{{
-
-#' Lattice methods 
-#'
-#' Implementation of Trellis graphics in FLR
-#' 
-#' Plot methods in the \code{\link[lattice]{lattice}} package are available for
-#' an object of classes \code{FLQuant}, \code{FLQuants} or those derived from
-#' \code{FLComp}.
-#' 
-#' See the help page in \code{\link[lattice]{lattice}} for a full description
-#' of each plot method and all possible arguments.
-#' 
-#' Plot methods from lattice are called by passing a \link[base]{data.frame}
-#' obtained by converting the FLR objects using as.data.frame. For details on
-#' this transformation, see \link{as.data.frame-FLCore}.
-#'
-#' @name lattice
-#' @aliases lattice-FLCore barchart,formula,FLQuant-method
-#' barchart,formula,FLComp-method bwplot,formula,FLQuant-method
-#' bwplot,formula,FLComp-method densityplot,formula,FLPar-method
-#' dotplot,formula,FLQuant-method dotplot,formula,FLComp-method
-#' histogram,formula,FLQuant-method histogram,formula,FLQuants-method
-#' histogram,formula,FLComp-method histogram,formula,FLPar-method
-#' stripplot,formula,FLQuant-method stripplot,formula,FLComp-method
-#' xyplot,formula,FLQuant-method xyplot,formula,FLQuants-method
-#' xyplot,formula,FLCohort-method xyplot,formula,FLComp-method
-#' @docType methods
-#' @section Generic function: barchart(x, data, ...)
-#' 
-#' bwplot(x, data, ...)
-#' 
-#' densityplot(x, data, ...)
-#' 
-#' dotplot(x, data, ...)
-#' 
-#' histogram(x, data, ...)
-#' 
-#' stripplot(x, data, ...)
-#' 
-#' xyplot(x, data, ...)
-#' @author The FLR Team
-#' @seealso \link[lattice]{xyplot}, \link[lattice]{barchart},
-#' \link[lattice]{bwplot}, \link[lattice]{densityplot},
-#' \link[lattice]{dotplot}, \link[lattice]{histogram},
-#' \link[lattice]{stripplot}
-#' @keywords methods
-#' @examples
-#' 
-#' data(ple4)
-#' # xyplot on FLQuant
-#'   xyplot(data~year|age, catch.n(ple4)[, 1:20])
-#'   xyplot(data~year|as.factor(age), catch.n(ple4)[, 1:20], type='b', pch=19,
-#'     cex=0.5)
-#' 
-#' # bwplot on FLQuant with iter...
-#'   flq <- rnorm(100, catch.n(ple4)[, 1:20], catch.n(ple4)[,1:20])
-#'   bwplot(data~year|as.factor(age), flq)
-#' # ...now with same style modifications
-#'   bwplot(data~year|as.factor(age), flq, scales=list(relation='free',
-#'     x=list(at=seq(1, 20, by=5),
-#'     labels=dimnames(catch.n(ple4)[,1:20])$year[seq(1, 20, by=5)])),
-#'     cex=0.5, strip=strip.custom(strip.names=TRUE, strip.levels=TRUE,
-#'     var.name='age'))
-#' 
-# xyplot
-setMethod("xyplot", signature("formula", "FLQuant"),
-function(x, data, ...){
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-lst$x <- x
-do.call("xyplot", lst)
-})
-
-setMethod("xyplot", signature("formula", "FLCohort"), function(x, data, ...){
-  lst <- substitute(list(...))
-  lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-  lst$x <- x
-  do.call("xyplot", lst)
-})
-
-# bwplot
-setMethod("bwplot", signature("formula", "FLQuant"),
-
-function(x, data, ...){
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-lst$x <- x
-do.call("bwplot", lst)
-
-})
-
-# dotplot
-setMethod("dotplot", signature("formula", "FLQuant"), function(x, data, ...){
-
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-lst$x <- x
-do.call("dotplot", lst)
-
-})
-
-# barchart
-setMethod("barchart", signature("formula", "FLQuant"), function(x, data, ...){
-
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-lst$x <- x
-do.call("barchart", lst)
-
-})
-
-# stripplot
-setMethod("stripplot", signature("formula", "FLQuant"), function(x, data, ...){
-
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-lst$x <- x
-do.call("stripplot", lst)
-
-})
-
-# histogram
-setMethod("histogram", signature("formula", "FLQuant"), function(x, data, ...){
-
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-lst$x <- x
-do.call("histogram", lst)
-
-})
-
-# bubbles
-setMethod("bubbles", signature(x="formula", data ="FLQuant"),
-function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
-dots <- list(...)
-data <- as.data.frame(data)
-dots$data <- data
-dots$cex <- bub.scale*(abs(data$data)/max(abs(data$data),na.rm=T))+bub.scale*0.1
-dots$col <- ifelse(data$data>0, col[1], col[2])
-dots$panel <- function(x, y, ..., cex, subscripts){
-panel.xyplot(x, y, cex=cex[subscripts], ...)
-}
-call.list <- c(x=x, dots)
-ans <- do.call("xyplot", call.list)
-ans
-})
-
-setMethod("bubbles", signature(x="formula", data ="data.frame"),
-function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
-dots <- list(...)
-  datanm <- as.character(as.list(x)[[2]])
-dots$data <- data
-dots$cex <- bub.scale*(abs(data[,datanm])/max(abs(data[,datanm]),na.rm=T))+bub.scale*0.1
-dots$col <- ifelse(data[,datanm]>0, col[1], col[2])
-dots$panel <- function(x, y, ..., cex, subscripts){
-panel.xyplot(x, y, cex=cex[subscripts], ...)
-}
-call.list <- c(x=x, dots)
-ans <- do.call("xyplot", call.list)
-ans
-})
-
-setMethod("bubbles", signature(x="formula", data ="FLCohort"),
-    function(x, data, bub.scale=2.5, ...){
-      dots <- list(...)
-      data <- as.data.frame(data)
-      dots$data <- data
-      dots$cex <- bub.scale*data$data/max(data$data, na.rm=TRUE)+0.1
-      pfun <- function(x, y, ..., cex, subscripts){
-        panel.xyplot(x, y, ..., cex = cex[subscripts])
-    }
-      call.list <- c(x = x, dots, panel=pfun)
-      xyplot <- lattice::xyplot
-      ans <- do.call("xyplot", call.list)
-      ans$call <- match.call()
-      ans
-    }
-)
-
-# densityplot
-setMethod("densityplot", signature("formula", "FLPar"), function(x, data, ...){
-  lst <- substitute(list(...))
-  lst <- as.list(lst)[-1]
-  lst$data <- as.data.frame(data, row.names='row')
-  lst$x <- x
-  do.call("densityplot", lst)
-}) # }}}
-
-# lattice plots	{{{
-# xyplot
-setMethod("xyplot", signature("formula", "FLComp"),
-	function(x, data, ...){
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("xyplot", lst)
-})
-
-# bwplot
-setMethod("bwplot", signature("formula", "FLComp"),
-
-	function(x, data, ...){
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-	lst$x <- x
-	do.call("bwplot", lst)
-
-})
-
-# dotplot
-setMethod("dotplot", signature("formula", "FLComp"), function(x, data, ...){
-
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-	lst$x <- x
-	do.call("dotplot", lst)
-
-})
-
-# barchart
-setMethod("barchart", signature("formula", "FLComp"), function(x, data, ...){
-
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("barchart", lst)
-
-})
-
-# stripplot
-setMethod("stripplot", signature("formula", "FLComp"), function(x, data, ...){
-
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-	lst$x <- x
-	do.call("stripplot", lst)
-
-})
-
-# histogram
-setMethod("histogram", signature("formula", "FLComp"), function(x, data, ...){
-
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("histogram", lst)
-
-})  # }}}
-
-# xyplot {{{
-setMethod("xyplot", signature("formula", "FLQuants"), function(x, data, ...)
-	{
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    	lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("xyplot", lst)
-}) # }}}
-
-# histogram {{{
-setMethod("histogram", signature("formula", "FLQuants"), function(x, data, ...)
-	{
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    	lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("histogram", lst)
-}) # }}}
-
-# wireframe {{{
-
-#' Method wireframe
-#'
-#' 3D plot for FLQuant objects
-#' 
-#' Method to plot 3D representations of FLQuant objects
-#'
-#' @name wireframe
-#' @aliases wireframe wireframe,FLQuant-method
-#' @docType methods
-#'
-#' @param x a \code{formula} formula for lattice
-#' @param data a \code{FLQuant} object with the values
-#' @param ... Additional argument list to be passed to \code{wireframe}
-#' @return a \code{wireframe} plot
-#' @examples
-#' 
-#' data(ple4)
-#' wireframe(data~age+year, data=harvest(ple4))
-#'
-
-setMethod("wireframe", c("formula","FLQuant"),
-  function(x, data, ...) {
-    args <- list(...)
-    args$x <- x
-    args$data <- as.data.frame(data)
-    do.call("wireframe", args)
-  }
-) # }}}
-
-# ccplot  {{{
-setMethod("ccplot", signature(x="formula", data ="FLCohort"), function(x, data, ...){
-
-    dots <- list(...)
-  # define a suitable xlim based on years
-  if(all.vars(x)[2]=="year"){
-    ys <- dimnames(data)$cohort[dim(data)[1]]
-      ye <- dimnames(data)$cohort[dim(data)[2]]
-    xlim <- c(as.numeric(ys), as.numeric(ye)+2) 
-      dots$xlim <- xlim
-  }
-  # now data coerce
-    data <- as.data.frame(data)
-  # some options
-    data$year <- data$cohort + data$age
-    dots$data <- data
-    dots$groups <- data$cohort
-  # call & run
-    call.list <- c(x = x, dots)
-    xyplot <- lattice::xyplot
-    ans <- do.call("xyplot", call.list)
-    ans
-
-})  # }}}
-
-# plot(FLIndices)  {{{
+# FLIndices  {{{
 setMethod("plot", signature(x="FLIndices",y="missing"),
   function(x,show.scales=FALSE,log.scales=TRUE,...)
   {
@@ -1065,7 +720,7 @@ setMethod("plot", signature(x="FLIndices",y="missing"),
   }
 ) # }}}
 
-# plot(FLStocks) {{{
+# FLStocks {{{
 setMethod('plot', signature(x='FLStocks', y='missing'),
 	function(x, key=list(lines=TRUE, points=FALSE), ...)
 	{
@@ -1145,3 +800,388 @@ setMethod('plot', signature(x='FLStocks', y='FLPar'),
 
   }
 ) # }}}
+
+# lattice {{{
+
+#' Lattice methods 
+#'
+#' Implementation of Trellis graphics in FLR
+#' 
+#' Plot methods in the \code{\link[lattice]{lattice}} package are available for
+#' an object of classes \code{FLQuant}, \code{FLQuants} or those derived from
+#' \code{FLComp}.
+#' 
+#' See the help page in \code{\link[lattice]{lattice}} for a full description
+#' of each plot method and all possible arguments.
+#' 
+#' Plot methods from lattice are called by passing a \link[base]{data.frame}
+#' obtained by converting the FLR objects using as.data.frame. For details on
+#' this transformation, see \link{as.data.frame-FLCore}.
+#'
+#' @name lattice
+#' @aliases lattice-FLCore
+#' @docType methods
+#' @section Generic function:
+#' barchart(x, data, ...)
+#' 
+#' bwplot(x, data, ...)
+#' 
+#' densityplot(x, data, ...)
+#' 
+#' dotplot(x, data, ...)
+#' 
+#' histogram(x, data, ...)
+#' 
+#' stripplot(x, data, ...)
+#' 
+#' xyplot(x, data, ...)
+#' @author The FLR Team
+#' @seealso \link[lattice]{xyplot}, \link[lattice]{barchart},
+#' \link[lattice]{bwplot}, \link[lattice]{densityplot},
+#' \link[lattice]{dotplot}, \link[lattice]{histogram},
+#' \link[lattice]{stripplot}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' # xyplot on FLQuant
+#'   xyplot(data~year|age, catch.n(ple4)[, 1:20])
+#'   xyplot(data~year|as.factor(age), catch.n(ple4)[, 1:20], type='b', pch=19,
+#'     cex=0.5)
+#' 
+#' # bwplot on FLQuant with iter...
+#'   flq <- rnorm(100, catch.n(ple4)[, 1:20], catch.n(ple4)[,1:20])
+#'   bwplot(data~year|as.factor(age), flq)
+#' # ...now with same style modifications
+#'   bwplot(data~year|as.factor(age), flq, scales=list(relation='free',
+#'     x=list(at=seq(1, 20, by=5),
+#'     labels=dimnames(catch.n(ple4)[,1:20])$year[seq(1, 20, by=5)])),
+#'     cex=0.5, strip=strip.custom(strip.names=TRUE, strip.levels=TRUE,
+#'     var.name='age'))
+#' 
+NULL # }}}
+
+# xyplot {{{
+
+#' @rdname lattice
+setMethod("xyplot", signature("formula", "FLQuant"),
+function(x, data, ...){
+lst <- substitute(list(...))
+lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+lst$x <- x
+do.call("xyplot", lst)
+})
+
+#' @rdname lattice
+setMethod("xyplot", signature("formula", "FLCohort"), function(x, data, ...){
+  lst <- substitute(list(...))
+  lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+  lst$x <- x
+  do.call("xyplot", lst)
+})
+
+#' @rdname lattice
+setMethod("xyplot", signature("formula", "FLQuants"), function(x, data, ...)
+	{
+	lst <- substitute(list(...))
+	lst <- as.list(lst)[-1]
+    	lst$data <- as.data.frame(data)
+	lst$x <- x
+	do.call("xyplot", lst)
+}) 
+
+#' @rdname lattice
+setMethod("xyplot", signature("formula", "FLComp"),
+	function(x, data, ...){
+	lst <- substitute(list(...))
+	lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+	lst$x <- x
+	do.call("xyplot", lst)
+})
+# }}}
+
+# bwplot {{{
+#' @rdname lattice
+setMethod("bwplot", signature("formula", "FLQuant"),
+
+function(x, data, ...){
+lst <- substitute(list(...))
+lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+    lst$data$year <- as.factor(lst$data$year)
+lst$x <- x
+do.call("bwplot", lst)
+
+})
+
+#' @rdname lattice
+setMethod("bwplot", signature("formula", "FLComp"),
+
+	function(x, data, ...){
+	lst <- substitute(list(...))
+	lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+    lst$data$year <- as.factor(lst$data$year)
+	lst$x <- x
+	do.call("bwplot", lst)
+
+}) # }}}
+
+# dotplot {{{
+#' @rdname lattice
+setMethod("dotplot", signature("formula", "FLQuant"),
+  function(x, data, ...) {
+    lst <- substitute(list(...))
+    lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+    lst$data$year <- as.factor(lst$data$year)
+    lst$x <- x
+    do.call("dotplot", lst)
+  })
+
+#' @rdname lattice
+setMethod("dotplot", signature("formula", "FLComp"),
+  function(x, data, ...){
+    lst <- substitute(list(...))
+  	lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+    lst$data$year <- as.factor(lst$data$year)
+	  lst$x <- x
+  	do.call("dotplot", lst)
+  }) # }}}
+
+# barchart {{{
+#' @rdname lattice
+setMethod("barchart", signature("formula", "FLQuant"), function(x, data, ...){
+
+lst <- substitute(list(...))
+lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+lst$x <- x
+do.call("barchart", lst)
+
+})
+
+#' @rdname lattice
+setMethod("barchart", signature("formula", "FLComp"), function(x, data, ...){
+
+	lst <- substitute(list(...))
+	lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+	lst$x <- x
+	do.call("barchart", lst)
+
+}) # }}}
+
+# stripplot {{{
+#' @rdname lattice
+setMethod("stripplot", signature("formula", "FLQuant"), function(x, data, ...){
+
+lst <- substitute(list(...))
+lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+    lst$data$year <- as.factor(lst$data$year)
+lst$x <- x
+do.call("stripplot", lst)
+
+})
+
+#' @rdname lattice
+setMethod("stripplot", signature("formula", "FLComp"), function(x, data, ...){
+
+	lst <- substitute(list(...))
+	lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+    lst$data$year <- as.factor(lst$data$year)
+	lst$x <- x
+	do.call("stripplot", lst)
+
+}) # }}}
+
+# histogram {{{
+
+#' @rdname lattice
+setMethod("histogram", signature("formula", "FLQuant"), function(x, data, ...){
+
+lst <- substitute(list(...))
+lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+lst$x <- x
+do.call("histogram", lst)
+
+})
+
+#' @rdname lattice
+setMethod("histogram", signature("formula", "FLComp"), function(x, data, ...){
+
+	lst <- substitute(list(...))
+	lst <- as.list(lst)[-1]
+    lst$data <- as.data.frame(data)
+	lst$x <- x
+	do.call("histogram", lst)
+
+})
+
+#' @rdname lattice
+setMethod("histogram", signature("formula", "FLQuants"), function(x, data, ...)
+	{
+	lst <- substitute(list(...))
+	lst <- as.list(lst)[-1]
+    	lst$data <- as.data.frame(data)
+	lst$x <- x
+	do.call("histogram", lst)
+}) # }}}
+
+# densityplot {{{
+#' @rdname lattice
+setMethod("densityplot", signature("formula", "FLPar"), function(x, data, ...){
+  lst <- substitute(list(...))
+  lst <- as.list(lst)[-1]
+  lst$data <- as.data.frame(data, row.names='row')
+  lst$x <- x
+  do.call("densityplot", lst)
+}) # }}}
+
+# bubbles {{{
+
+#' Method Bubbles plot
+#' 
+#' This method plots three dimensional data such as matrices by age and year or
+#' age-class, very common in fisheries. The area of each bubble is proportional
+#' to the corresponding value in the matrix. Note that \code{bubbles} accepts
+#' an argument \code{bub.scale} to control the relative size of the bubbles.
+#' Positive and negative values have separate colours.
+#'
+#' @name bubbles
+#' @aliases bubbles bubbles-methods
+#' @docType methods
+#' @section Generic function: bubbles(x, data)
+#' @author The FLR Team
+#' @seealso \link[lattice]{lattice}, \code{\linkS4class{FLQuant}},
+#' \code{\linkS4class{FLQuants}},\code{\linkS4class{FLCohort}}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' bubbles(age~year, data=catch.n(ple4))
+#' bubbles(age~year, data=catch.n(ple4), bub.scale=5)
+#' bubbles(age~cohort, data=FLCohort(catch.n(ple4)), bub.scale=5)
+#' 
+#' qt01 <- log(catch.n(ple4)+1)
+#' qt02 <- qt01+rnorm(length(qt01))
+#' flqs <- FLQuants(qt01=qt01, qt02=qt02)
+#' bubbles(age~year|qname, data=flqs, bub.scale=1)
+#' 
+#' qt03 <- FLQuant(rnorm(100),dimnames=list(age=as.character(1:10),
+#'   year=as.character(1:10)))
+#' bubbles(age~year, data=qt03, bub.scale=7, col=c("black","red"), pch=16)
+#'
+setMethod("bubbles", signature(x="formula", data ="FLQuant"),
+function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
+dots <- list(...)
+data <- as.data.frame(data)
+dots$data <- data
+dots$cex <- bub.scale*(abs(data$data)/max(abs(data$data),na.rm=T))+bub.scale*0.1
+dots$col <- ifelse(data$data>0, col[1], col[2])
+dots$panel <- function(x, y, ..., cex, subscripts){
+panel.xyplot(x, y, cex=cex[subscripts], ...)
+}
+call.list <- c(x=x, dots)
+ans <- do.call("xyplot", call.list)
+ans
+})
+
+#' @rdname bubbles
+setMethod("bubbles", signature(x="formula", data ="data.frame"),
+function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
+dots <- list(...)
+  datanm <- as.character(as.list(x)[[2]])
+dots$data <- data
+dots$cex <- bub.scale*(abs(data[,datanm])/max(abs(data[,datanm]),na.rm=T))+bub.scale*0.1
+dots$col <- ifelse(data[,datanm]>0, col[1], col[2])
+dots$panel <- function(x, y, ..., cex, subscripts){
+panel.xyplot(x, y, cex=cex[subscripts], ...)
+}
+call.list <- c(x=x, dots)
+ans <- do.call("xyplot", call.list)
+ans
+})
+
+#' @rdname bubbles
+setMethod("bubbles", signature(x="formula", data ="FLCohort"),
+    function(x, data, bub.scale=2.5, ...){
+      dots <- list(...)
+      data <- as.data.frame(data)
+      dots$data <- data
+      dots$cex <- bub.scale*data$data/max(data$data, na.rm=TRUE)+0.1
+      pfun <- function(x, y, ..., cex, subscripts){
+        panel.xyplot(x, y, ..., cex = cex[subscripts])
+    }
+      call.list <- c(x = x, dots, panel=pfun)
+      xyplot <- lattice::xyplot
+      ans <- do.call("xyplot", call.list)
+      ans$call <- match.call()
+      ans
+    }
+) # }}}
+
+# wireframe {{{
+
+#' Method wireframe
+#'
+#' 3D plot for FLQuant objects
+#' 
+#' Method to plot 3D representations of FLQuant objects
+#'
+#' @name wireframe
+#' @aliases wireframe wireframe,FLQuant-method
+#' @docType methods
+#'
+#' @param x a \code{formula} formula for lattice
+#' @param data a \code{FLQuant} object with the values
+#' @param ... Additional argument list to be passed to \code{wireframe}
+#' @return a \code{wireframe} plot
+#' @examples
+#' 
+#' data(ple4)
+#' wireframe(data~age+year, data=harvest(ple4))
+#'
+
+setMethod("wireframe", c("formula","FLQuant"),
+  function(x, data, ...) {
+    args <- list(...)
+    args$x <- x
+    args$data <- as.data.frame(data)
+    do.call("wireframe", args)
+  }
+) # }}}
+
+# ccplot  {{{
+setMethod("ccplot", signature(x="formula", data ="FLCohort"), function(x, data, ...){
+
+    dots <- list(...)
+  # define a suitable xlim based on years
+  if(all.vars(x)[2]=="year"){
+    ys <- dimnames(data)$cohort[dim(data)[1]]
+      ye <- dimnames(data)$cohort[dim(data)[2]]
+    xlim <- c(as.numeric(ys), as.numeric(ye)+2) 
+      dots$xlim <- xlim
+  }
+  # now data coerce
+    data <- as.data.frame(data)
+  # some options
+    data$year <- data$cohort + data$age
+    dots$data <- data
+    dots$groups <- data$cohort
+  # call & run
+    call.list <- c(x = x, dots)
+    xyplot <- lattice::xyplot
+    ans <- do.call("xyplot", call.list)
+    ans
+
+})  # }}}
+
+

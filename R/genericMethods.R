@@ -663,6 +663,10 @@ setGeneric("FLSR", function(model, ...)
 	setGeneric("as.FLQuant", function(x, ...)
 		standardGeneric("as.FLQuant"))
 
+# FLQuantJK
+	setGeneric("FLQuantJK", function(object, ...)
+		standardGeneric("FLQuantJK"))
+
 # jackknife
 setGeneric("jacknife", function(object, ...)
 	standardGeneric("jacknife"))

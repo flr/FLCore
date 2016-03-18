@@ -76,7 +76,9 @@
 #'             b     <- 1
 #'             sigma <- sqrt(var(rec-a-ssb*b))
 #' 
-#'             return(list(a = a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
+#'             return(list(a = a, b = b, sigma = sigma))},
+#'               lower = c(0, 1e-04, 1e-04),
+#'               upper = rep(Inf, 3))
 #' 
 #'        return(list(model = formula, initial = initial, logl = logl))
 #'     }
@@ -104,26 +106,26 @@
 #' 
 setClass('FLSR',
   representation(
-	  'FLModel',
-  	rec='FLQuant',
-	  ssb='FLQuant',
-  	covar='FLQuants',
+    'FLModel',
+    rec='FLQuant',
+    ssb='FLQuant',
+    covar='FLQuants',
     logerror='logical'),
   prototype(
     residuals=FLQuant(),
     fitted=FLQuant(),
     logerror=TRUE,
     covar=new('FLQuants')),
-	validity=function(object)
+  validity=function(object)
   {
-	  # params must have dims equal to quants
-  	return(TRUE)
+    # params must have dims equal to quants
+    return(TRUE)
   }
 )
 
 invisible(createFLAccesors("FLSR", include=c('rec', 'ssb', 'covar'))) # }}}
 
-# FLSR()	{{{
+# FLSR()  {{{
 setMethod('FLSR', signature(model='ANY'),
   function(model, ...)
   {
@@ -160,20 +162,20 @@ setMethod('FLSR', signature(model='ANY'),
   }
 )
 setMethod('FLSR', signature(model='missing'),
-	function(...)
-		return(FLSR(formula(NULL), ...))) # }}}
+  function(...)
+    return(FLSR(formula(NULL), ...))) # }}}
 
 # as.FLSR   {{{
 setMethod("as.FLSR", signature(object="FLStock"),
   function(object, rec.age = dims(stock.n(object))$min, ...)
-	{
-	  # check rec.age
+  {
+    # check rec.age
     if(rec.age < dims(stock.n(object))$min)
       stop("Supplied recruitment age less than minimum age class")
 
     args <- list(...)
     slots <- names(args)[ifelse(length(which(names(args) == "rec.age"))>0,
-		  -which(names(args) == "rec.age"), 1:length(args))]
+      -which(names(args) == "rec.age"), 1:length(args))]
 
     # calculate ssb and create FLSR object incorprating rec.age
     rec <- object@stock.n[as.character(rec.age),]
@@ -186,12 +188,12 @@ setMethod("as.FLSR", signature(object="FLStock"),
     rec <- rec[,(1+rec.age):dim(rec)[2]]
     units(rec) <- units(slot(object, "stock.n"))
     ssb <- ssb[,1:(dim(ssb)[2] - rec.age)]
-		units(ssb) <- units(slot(object, "stock.wt"))
+    units(ssb) <- units(slot(object, "stock.wt"))
 
     # create the FLSR object
     sr <- FLSR(rec=rec, ssb=ssb, name=object@name,
-		fitted = FLQuant(dimnames = dimnames(rec), units=units(rec)),
-		residuals = FLQuant(dimnames = dimnames(rec)),
+    fitted = FLQuant(dimnames = dimnames(rec), units=units(rec)),
+    residuals = FLQuant(dimnames = dimnames(rec)),
     desc = "'rec' and 'ssb' slots obtained from a 'FLStock' object", ...)
 
     validObject(sr)
@@ -200,7 +202,7 @@ setMethod("as.FLSR", signature(object="FLStock"),
 )
 setMethod("as.FLSR", signature(object="FLBiol"),
     function(object, rec.age = "missing", ...)
-	{
+  {
         validObject(object)
 
         # recruitment delay set using minage
@@ -243,7 +245,7 @@ setMethod("as.FLSR", signature(object="FLBiol"),
         slot(sr, "residuals") <- FLQuant(dimnames = dimnames(slot(sr, "rec")))
 
         units(slot(sr, "rec")) <- units(slot(object, "n"))
-	      units(slot(sr, "ssb")) <- units(slot(object, "wt"))
+        units(slot(sr, "ssb")) <- units(slot(object, "wt"))
         units(slot(sr, "fitted")) <- units(slot(sr, "rec"))
 
         return(sr)
@@ -345,12 +347,12 @@ setMethod('parscale', signature(object='FLSR'),
 
 # FLSRs {{{
 vFLSRs <- setClass("FLSRs", contains="FLComps",
-	validity=function(object) {
+  validity=function(object) {
     # All items are FLSR
     if(!all(unlist(lapply(object, is, 'FLSR'))))
       return("Components must be FLSR")
 
-	  return(TRUE)
+    return(TRUE)
   }
 )
 
@@ -363,15 +365,15 @@ setMethod("FLSRs", signature(object="FLSR"), function(object, ...) {
 setMethod("FLSRs", signature(object="missing"),
   function(...) {
     # empty
-  	if(missing(...)){
-	  	new("FLSRs")
+    if(missing(...)){
+      new("FLSRs")
     # or not
-  	} else {
+    } else {
       args <- list(...)
       object <- args[!names(args)%in%c('names', 'desc', 'lock')]
       args <- args[!names(args)%in%names(object)]
       do.call('FLSRs',  c(list(object=object), args))
-	  }
+    }
   }
 )
 

@@ -31,7 +31,7 @@
 \S4method{plot}{FLPar,missing}(x, y = "missing", ...)
 }
 \description{
-Standard plot methods for every FLR class. FLR plot methods are based on
+Standard plot methods for every FLCore class. FLR plot methods are based on
 \code{\link[lattice]{lattice}}, and attempt to show a general view of the
 object contents.
 }

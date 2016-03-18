@@ -254,6 +254,7 @@ exportMethods(
   "FLPars",
   "FLQuant",
   "FLQuantDistr",
+  "FLQuantJK",
   "FLQuantPoint",
   "FLQuants",
   "FLSR",

@@ -795,11 +795,11 @@ uom <- function(op, u1, u2) {
 #' flq * c(1, 2)
 #'
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
-	signature(e1 = "numeric", e2 = "FLArray"),
-	function(e1, e2)
-	{
-		return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
-	}
+  signature(e1 = "numeric", e2 = "FLArray"),
+  function(e1, e2)
+  {
+    return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
+  }
 )
 #' @rdname Arith
 #' @aliases Arith,FLArray,numeric-method

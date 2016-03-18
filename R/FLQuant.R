@@ -484,7 +484,7 @@ setMethod('quantTotals', signature(x='FLQuant'),
     return(sums)
   }
 )
-#' @name quantTotals
+#' @rdname quantTotals
 #' @aliases yearTotals yearTotals-methods yearTotals,FLQuant-method
 setMethod('yearTotals', signature(x='FLQuant'),
   function(x, na.rm=TRUE) {
@@ -562,28 +562,28 @@ setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
     quant=quant(x), units=units(x)))
 })
 #' @rdname quantSums
-#' @aliasesyearSums yearSums-methods yearSums,FLQuant-method
+#' @aliases yearSums yearSums-methods yearSums,FLQuant-method
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
 })
 #' @rdname quantSums
-#' @aliasesunitSums unitSums-methods unitSums,FLQuant-method
+#' @aliases unitSums unitSums-methods unitSums,FLQuant-method
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
 })
 #' @rdname quantSums
-#' @aliasesseasonSums seasonSums-methods seasonSums,FLQuant-method
+#' @aliases seasonSums seasonSums-methods seasonSums,FLQuant-method
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,3,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
 })
 #' @rdname quantSums
-#' @aliasesareaSums areaSums-methods areaSums,FLQuant-method
+#' @aliases areaSums areaSums-methods areaSums,FLQuant-method
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -592,7 +592,7 @@ setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
 # means         {{{
 #' @rdname quantSums
-#' @aliasesquantMeans quantMeans-methods quantMeans,FLQuant-method
+#' @aliases quantMeans quantMeans-methods quantMeans,FLQuant-method
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   res <- colMeans(x, na.rm=na.rm)
   dim(res) <- c(1, dim(res))
@@ -600,66 +600,66 @@ setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
     units=units(x)))
 })
 #' @rdname quantSums
-#' @aliasesyearMeans yearMeans-methods yearMeans,FLQuant-method
+#' @aliases yearMeans yearMeans-methods yearMeans,FLQuant-method
 setMethod('yearMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1,3:6), mean, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesunitMeans unitMeans-methods unitMeans,FLQuant-method
+#' @aliases unitMeans unitMeans-methods unitMeans,FLQuant-method
 setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:2,4:6), mean, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesseasonMeans seasonMeans-methods seasonMeans,FLQuant-method
+#' @aliases seasonMeans seasonMeans-methods seasonMeans,FLQuant-method
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:3,5,6), mean, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesareaMeans areaMeans-methods areaMeans,FLQuant-method
+#' @aliases areaMeans areaMeans-methods areaMeans,FLQuant-method
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:4,6), mean, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesiterMeans iterMeans-methods iterMeans,FLQuant-method
+#' @aliases iterMeans iterMeans-methods iterMeans,FLQuant-method
 setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), mean, na.rm=na.rm))
 }) # }}}
 
 # medians {{{
 #' @rdname quantSums
-#' @aliasesiterMedians iterMedians-method iterMedians,FLQuant-method
+#' @aliases iterMedians iterMedians-method iterMedians,FLQuant-method
 setMethod('iterMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), median, na.rm=na.rm))
 }) # }}}
 
 # vars         {{{
 #' @rdname quantSums
-#' @aliasesquantVars quantVars-methods quantVars,FLQuant-method
+#' @aliases quantVars quantVars-methods quantVars,FLQuant-method
 setMethod('quantVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, 2:6, var, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesyearVars yearVars-methods yearVars,FLQuant-method
+#' @aliases yearVars yearVars-methods yearVars,FLQuant-method
 setMethod('yearVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1,3:6), var, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesunitVars unitVars-methods unitVars,FLQuant-method
+#' @aliases unitVars unitVars-methods unitVars,FLQuant-method
 setMethod('unitVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:2,4:6), var, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesseasonVars seasonVars-methods seasonVars,FLQuant-method
+#' @aliases seasonVars seasonVars-methods seasonVars,FLQuant-method
 setMethod('seasonVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:3,5:6), var, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesareaVars areaVars-methods areaVars,FLQuant-method
+#' @aliases areaVars areaVars-methods areaVars,FLQuant-method
 setMethod('areaVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:4,6), var, na.rm=na.rm))
 })
 #' @rdname quantSums
-#' @aliasesiterVars iterVars-methods iterVars,FLQuant-method
+#' @aliases iterVars iterVars-methods iterVars,FLQuant-method
 setMethod('iterVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), var, na.rm=na.rm))
 }) # }}}
