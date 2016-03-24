@@ -766,7 +766,7 @@ setMethod("propagate", signature(object="FLQuant"),
 ) # }}}
 
 # rnorm{{{
-setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
+setMethod("rnorm", signature(n="numeric", mean="FLQuant", sd="FLQuant"),
   function(n=1, mean, sd) {
     if(dim(mean)[6] > 1 | dim(sd)[6] > 1)
       stop("mean or sd can only have iter=1")
@@ -778,21 +778,39 @@ setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
   }
 )
 
-setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="numeric"),
-function(n=1, mean, sd)
-rnorm(n, mean, FLQuant(sd, dimnames=dimnames(mean)))
+setMethod("rnorm", signature(n="numeric", mean="FLQuant", sd="numeric"),
+  function(n=1, mean, sd) {
+    rnorm(n, mean, FLQuant(sd, dimnames=dimnames(mean)))
+  }
 )
-setMethod("rnorm", signature(n='numeric', mean="numeric", sd="FLQuant"),
-function(n=1, mean, sd)
-rnorm(n, FLQuant(mean, dimnames=dimnames(sd)), sd)
+setMethod("rnorm", signature(n="numeric", mean="numeric", sd="FLQuant"),
+  function(n=1, mean, sd) {
+    rnorm(n, FLQuant(mean, dimnames=dimnames(sd)), sd)
+  }
 )
-setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="missing"),
-function(n=1, mean)
-rnorm(n, mean, 1)
+setMethod("rnorm", signature(n="numeric", mean="FLQuant", sd="missing"),
+  function(n=1, mean) {
+    rnorm(n, mean, 1)
+  }
 )
-setMethod("rnorm", signature(n='numeric', mean="missing", sd="FLQuant"),
-function(n=1, sd)
-rnorm(n, 0, sd)
+setMethod("rnorm", signature(n="numeric", mean="missing", sd="FLQuant"),
+  function(n=1, sd) {
+    rnorm(n, 0, sd)
+  }
+)
+setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="ANY"),
+  function(mean, sd=1) {
+    mean[] <- rnorm(length(mean), c(mean), sd)
+    return(mean)
+  }
+)
+setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="FLQuant"),
+  function(mean, sd) {
+    if(!all(dim(mean) == dim(sd)))
+      stop("dimensions of 'mean' and 'sd' must be the same")
+    mean[] <- rnorm(length(mean), c(mean), c(sd))
+    return(mean)
+  }
 )
 # }}}
 
@@ -837,7 +855,20 @@ setMethod("rlnorm", signature(n='FLQuant', meanlog="ANY", sdlog="ANY"),
     FLQuant(rlnorm(length(n), meanlog, sdlog), dimnames=dimnames(n), units=units(n))
   }
 )
-
+setMethod("rlnorm", signature(n="missing", meanlog="FLQuant", sdlog="ANY"),
+  function(meanlog, sdlog=1) {
+    meanlog[] <- rlnorm(length(meanlog), c(meanlog), sdlog)
+    return(meanlog)
+  }
+)
+setMethod("rlnorm", signature(n="missing", meanlog="FLQuant", sdlog="FLQuant"),
+  function(meanlog, sdlog) {
+    if(!all(dim(meanlog) == dim(sdlog)))
+      stop("dimensions of 'meanlog' and 'sdlog' must be the same")
+    meanlog[] <- rlnorm(length(meanlog), c(meanlog), c(sdlog))
+    return(meanlog)
+  }
+)
 # }}}
 
 # rpois{{{
