@@ -52,89 +52,72 @@
 A class for modelling a fish stock.
 }
 \details{
-The \code{FLStock} object contains a representation of a fish stock
-This includes information on removals (i.e. catches, landings and discards),
-maturity, natural mortality and the results of an analytical assessment (i.e.
-estimates of abundance and removal rates).
+The \code{FLStock} object contains a representation of a fish stock as
+constructed for the purposes of scientific analysis and advice. This includes
+information on removals (i.e. catches, landings and discards), maturity,
+natural mortality and the results of an analytical assessment (i.e. estimates
+of abundance and removal rates).
 }
 \section{Slots}{
 
-    \describe{
-    \item{catch}{Total catch weight (\code{FLQuant}).}
-    \item{catch.n}{Catch numbers (\code{FLQuant}).}
-    \item{catch.wt}{Mean catch weights (\code{FLQuant}).}
-    \item{discards}{Total discards weight (\code{FLQuant}).}
-    \item{discards.n}{Discard numbers (\code{FLQuant}).}
-    \item{discards.wt}{Mean discard weights (\code{FLQuant}).}
-    \item{landings}{Total landings weight (\code{FLQuant}).}
-    \item{landings.n}{Landing numbers (\code{FLQuant}).}
-    \item{landings.wt}{Landing weights (\code{FLQuant}).}
-    \item{stock}{Total stock weight (\code{FLQuant}).}
-    \item{stock.n}{Stock numbers (\code{FLQuant}).}
-    \item{stock.wt}{Mean stock weights (\code{FLQuant}).}
-    \item{m}{Natural mortality (\code{FLQuant}).}
-    \item{mat}{Proportion mature (\code{FLQuant}).}
-    \item{harvest}{Harvest rate or fishing mortality. The units of the FLQuant should be set to 'harvest' or 'f' accordingly (\code{FLQuant}).} 
-    \item{harvest.spwn}{Proportion of harvest/fishing mortality before spawning (\code{FLQuant}).}
-    \item{m.spwn}{Proportion of natural mortality before spawning (\code{FLQuant}).}
-    \item{name}{Name of the stock (\code{character}).}
-    \item{desc}{Description of stock (\code{character}).}
-    \item{range}{Named numeric vector containing the quant and year ranges, the plusgroup and the quant range that the average fishing mortality is calculated over (\code{numeric}).}
-}
-}
-
-\section{Validity}{
- \describe{
-    \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-    \item{Iters}{The dimname for iter[1] should be '1'.}
-    \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
-    \item{Totals}{The length of the quant dimension for the totals slots (catch, landings and discards) must be equal to 1.}
-}
-}
-
-\section{Accesors}{
-
-All slots in the class have accessor and replacement methods defined that
-allow retrieving and substituting individual slots.
-
-The values passed for replacement need to be of the class of that slot.
-A numeric vector can also be used when replacing FLQuant slots, and the
-vector will be used to substitute the values in the slot, but not its other
-attributes.
-}
-
-\section{Constructor}{
-
-A construction method exists for this class that can take named arguments for
-any of its slots. All slots are then created to match the requirements of the
-class validity. If an unnamed \code{FLQuant} object is provided, this is used
-for sizing but not stored in any slot.
+\describe{
+ \item{halfwidth}{The middle of the length bins (\code{numeric}).}
+ \item{catch}{Total catch weight (\code{FLQuant}).}
+ \item{catch.n}{Catch numbers (\code{FLQuant}).}
+ \item{catch.wt}{Mean catch weights (\code{FLQuant}).}
+ \item{discards}{Total discards weight (\code{FLQuant}).}
+ \item{discards.n}{Discard numbers (\code{FLQuant}).}
+ \item{discards.wt}{Mean discard weights (\code{FLQuant}).}
+ \item{landings}{Total landings weight (\code{FLQuant}).}
+ \item{landings.n}{Landing numbers (\code{FLQuant}).}
+ \item{landings.wt}{Landing weights (\code{FLQuant}).}
+ \item{stock}{Total stock weight (\code{FLQuant}).}
+ \item{stock.n}{Stock numbers (\code{FLQuant}).}
+ \item{stock.wt}{Mean stock weights (\code{FLQuant}).}
+ \item{m}{Natural mortality (\code{FLQuant}).}
+ \item{mat}{Proportion mature (\code{FLQuant}).}
+ \item{harvest}{Harvest rate or fishing mortality. The units of this slot
+  should be set to 'harvest' or 'f' accordingly (\code{FLQuant}).}
+ \item{harvest.spwn}{Proportion of harvest/fishing mortality before
+  spawning (\code{FLQuant}).}
+ \item{m.spwn}{Proportion of natural mortality before spawning
+  (\code{FLQuant}).}
+ \item{name}{Name of the stock (\code{character}).}
+ \item{desc}{Description of the stock (\code{character}).}
+ \item{range}{Named numeric vector containing the quant and year ranges,
+  the plusgroup and the quant range that the average fishing mortality should
+  be calculated over (\code{numeric}).} }
 }
 \examples{
 
 data(ple4)
+summary(ple4)
 
-# assign values to the landings slot
-landings(ple4) #get the landings slot
-landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)
+# get the landings slot and assign values to it
+  landings(ple4)
+  landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)
 
-discards(ple4) <- computeDiscards(ple4)
+# perform similar calculation as the preceding apply function
+  discards(ple4) <- computeDiscards(ple4)
+  catch(ple4) <- computeCatch(ple4)
+  catch(ple4) <- computeCatch(ple4, slot="all")
 
-harvest(ple4) <- 'f' # set the units of the harvest slot of an FLStock object
+# set the units of the harvest slot of an FLStock object
+  harvest(ple4) <- 'f'
 
-catch(ple4) <- computeCatch(ple4)
-catch(ple4) <- computeCatch(ple4, slot="all")
+# subset and trim the FLStock
+  ple4[,1]
+  trim(ple4, age=2:6, year=1980:1990)
 
-ple4[,1] # subset the FLStock
-trim(ple4, age=2:6, year=1980:1990) #trim the FLStock
+# Calculate SSB, and SSB per recruit at zero fishing mortality
+  ssb(ple4)
+  ssbpurec(ple4)
 
-ssb(ple4) # calculate SSB
-ssbpurec(ple4) # calculate SSB per recruit
+# Coerce an FLStock to an FLBiol
+  biol <- as(ple4, "FLBiol")
 
-biol <- as(ple4, "FLBiol")  # coerce an FLStock to an FLBiol
-flsr <- as.FLSR(ple4)       # initialise an FLSR object from an FLStock
-
-
+# Initialise an FLSR object from an FLStock
+  flsr <- as.FLSR(ple4)
 
 }
 \author{

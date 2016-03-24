@@ -56,7 +56,6 @@ Collate:
     'FLlst-methods.R'
     'getPlural.R'
     'io.FLIndices.R'
-    'FLGrowth.R'
     'SRmodels.R'
     'coerce.R'
     'FLQuantJK.R'

@@ -511,6 +511,10 @@ setGeneric("mcf", function(object, ...)
 setGeneric("FLPar", function(object, ...)
 	standardGeneric("FLPar"))
 
+# FLPars
+setGeneric("FLPars", function(object, ...)
+	standardGeneric("FLPars"))
+
 # lower
 setGeneric("lower", function(object, ...)
   standardGeneric("lower"))

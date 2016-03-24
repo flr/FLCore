@@ -460,27 +460,36 @@ setMethod("FLBiols", signature(object="list"),
 }) # }}}
 
 # FLPars {{{
-# validity
-vFLPs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLPar")) stop("Components must be FLPar")
-	}
-	# Everything is fine
-	return(TRUE)
-}
 
-# class
+#' Class FLPars
+#' 
+#' A list of \code{FLPar} objects.
+#'
+#' @name FLPars
+#' @aliases FLPars-class FLPars FLPars-methods
+#' @docType class
+#' @section Slots: \describe{
+#'   \item{.Data}{Internal S4 data representation, of class \code{list}.}
+#'   \item{desc}{As textual description of the object contents}
+#'   \item{lock}{Can the object be extended/trimmed? \code{TRUE} or \code{FALSE}.}
+#'   \item{names}{A character vector for the element names} }
+#' @author The FLR Team
+#' @seealso \link{FLlst}, \link[base]{list}, \link[base]{vector}
+#' @keywords classes
+#'
 setClass("FLPars", contains="FLlst",
-	validity=vFLPs
+	validity=function(object){
+  	# Make sure the list contains all items of the same class
+	  for(i in 1:length(object)){
+		  if(!is(object[[i]], "FLPar")) stop("Components must be FLPar")
+  	}
+	  # Everything is fine
+  	return(TRUE)
+  }
 )
 
-# constructor
-setGeneric("FLPars", function(object, ...){
-	standardGeneric("FLPars")
-	}
-)
-
+#' @rdname FLPars
+#' @aliases FLPars,ANY-method
 setMethod("FLPars", signature(object="ANY"), function(object, ...){
 	lst1 <- list(...)
 	nlst <- length(lst1)
@@ -491,6 +500,8 @@ setMethod("FLPars", signature(object="ANY"), function(object, ...){
 	new("FLPars", lst)
 })
 
+#' @rdname FLPars
+#' @aliases FLPars,missing-method
 setMethod("FLPars", "missing", function(...){
 	if(missing(...)){
 		new("FLPars")
@@ -500,10 +511,14 @@ setMethod("FLPars", "missing", function(...){
 	}
 })
 
+#' @rdname FLPars
+#' @aliases FLPars,list-method
 setMethod("FLPars", "list", function(object){
 	new("FLPars", object)
 })
 
+#' @rdname FLPars
+#' @aliases FLPars,FLPars-method
 setMethod("FLPars", "FLPars", function(object){
 	return(object)
 }) # }}}
