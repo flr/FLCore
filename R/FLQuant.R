@@ -798,10 +798,16 @@ setMethod("rnorm", signature(n="numeric", mean="missing", sd="FLQuant"),
     rnorm(n, 0, sd)
   }
 )
-setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="ANY"),
+setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="numeric"),
   function(mean, sd=1) {
     mean[] <- rnorm(length(mean), c(mean), sd)
     return(mean)
+  }
+)
+setMethod("rnorm", signature(n="missing", mean="numeric", sd="FLQuant"),
+  function(mean=0, sd) {
+    sd[] <- rnorm(length(sd), mean, c(sd))
+    return(sd)
   }
 )
 setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="FLQuant"),

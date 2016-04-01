@@ -1,7 +1,7 @@
 Package: FLCore
 Title: Core Package of FLR, Fisheries Modelling in R
-Version: 2.6.0.20160323
-Date: 2016-03-23
+Version: 2.6.0.20160401
+Date: 2016-04-01
 Authors@R: c(
   person("Iago", "Mosqueira", email = "iago.mosqueira@jrc.ec.europa.eu", role = "cre"),
   person("Laurence T.", "Kell", email = "laurie.kell@iccat.int", role = "aut"),
@@ -12,11 +12,11 @@ Description: Core classes and methods for FLR, a framework for fisheries
     http://flr-project.org/.
 Depends:
     R(>= 3.0),
+    MASS
 Imports:
     methods,
     utils,
     lattice,
-    MASS,
     Matrix,
     grid,
     stats,
