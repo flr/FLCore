@@ -355,6 +355,7 @@ setMethod('fmle',
         attr(object@logLik, 'nobs') <- length(data[[1]])
 
         # fitted & residuals
+        browser()
         iter(fitted(object), it) <- predict(iter(object, it))
         iter(residuals(object), it) <- iter(slot(object,
           as.list(object@model)[[2]]),it) - iter(fitted(object), it)
@@ -390,7 +391,7 @@ setMethod('predict', signature(object='FLModel'),
     # create list of input data
     #   get FLQuant/FLCohort slots' names
     datanm <- getSlotNamesClass(object, 'FLArray')
-    datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
+    #datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
     datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
 
     # add dimnames if used
@@ -450,7 +451,6 @@ setMethod('predict', signature(object='FLModel'),
 
       # add newdata
       data[names(args)] <- lapply(args, iter, it)
-
       params <- as.vector(obj@params@.Data)
       names(params) <- dimnames(obj@params)[['params']]
 
@@ -464,8 +464,9 @@ setMethod('predict', signature(object='FLModel'),
       if(it == 1)
       {
 				# BUG with spr0 as covar ts
-        res <- propagate(do.call(class(object@fitted), list(eval(call,
-          envir=c(params, data, dimdat)))), iters, fill.iter=FALSE)
+        res <- propagate(do.call(class(object@fitted),
+          list(eval(call, envir=c(params, data, dimdat)))), iters,
+          fill.iter=FALSE)
         dimnames(res)[1:5] <- dimnames[1:5]
       }
       else
