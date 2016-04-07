@@ -208,7 +208,7 @@ setMethod('fmle',
     for (i in datanm[!datanm%in%names(covar(object))])
       alldata[[i]] <- slot(object, i)
 		if(length(covar(object)) > 0)
-			for (i in names(covar(object)))
+      for (i in datanm[datanm%in%names(covar(object))])
 				alldata[[i]]  <- covar(object)[[i]]
 
     # add dimnames if used
