@@ -355,7 +355,6 @@ setMethod('fmle',
         attr(object@logLik, 'nobs') <- length(data[[1]])
 
         # fitted & residuals
-        browser()
         iter(fitted(object), it) <- predict(iter(object, it))
         iter(residuals(object), it) <- iter(slot(object,
           as.list(object@model)[[2]]),it) - iter(fitted(object), it)
