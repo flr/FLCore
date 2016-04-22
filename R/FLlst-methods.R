@@ -339,7 +339,7 @@ setMethod("range", "FLlst",
   {
     range <- matrix(unlist(lapply(x, function(x) range(x))), nrow=length(x), byrow=TRUE,
       dimnames=list(1:length(x), names(range(x[[1]]))))
-    return(unlist(list(min=min(range[,'min']), max=min(range[,'max']),
+    return(unlist(list(min=min(range[,'min']), max=max(range[,'max']),
       minyear=min(range[,'minyear']), maxyear=min(range[,'maxyear']))))
   }
 ) # }}}
