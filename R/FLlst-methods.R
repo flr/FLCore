@@ -1,9 +1,8 @@
-# FLlst-methods.R - FLlst-methods class and methods
+# FLlst-methods.R - FLlst classes' methods
 # FLCore/R/FLlst-methods.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Ernesto Jardim, IPIMAR
-# $Id: FLlst-methods.R 1778 2012-11-23 08:43:57Z imosqueira $
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # coerce NULL {{{
 setAs("NULL", "FLStock", function(from) FLStock())
@@ -12,61 +11,57 @@ setAs("NULL", "FLBiol", function(from) FLBiol())
 setAs("NULL", "FLQuant", function(from) FLQuant())
 # }}}
 
-# [[<-, [<- {{{
-
+# replacement, [[<-, $, [<- {{{
 setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
-  function(x, i, j, value) {
-
-    if(isTRUE(x@lock) & (
-      (is.character(i) & is.na(match(i, names(x)))) |
-      (is.numeric(i) & length(x)<i)))
-	    stop("The object is locked. You can not replace non-existent elements.")
-
+	function(x, i, j, value)
+	{
+		if(isTRUE(x@lock) & (
+			(is.character(i) & is.na(match(i, names(x))))
+			|
+			(is.numeric(i) & length(x)<i)))
+				stop("The object is locked. You can not replace non-existent elements.")
+    
     lst <- as(x, "list")
-
     names(lst) <- names(x)
 
-	lst[[i]] <- value
+		lst[[i]] <- value
 
-	res <- FLlst(lst)
-    
-    res@names <- x@names
-    res@desc <- x@desc
-    res@lock <- x@lock
+		res <- FLlst(lst)
+		class(res) <- class(x)
 
-	class(res) <- class(x)
-
-	if(validObject(res))
-	  return(res)
-	else
-	  stop("Invalid object, classes do not match.")
+		if(validObject(res))
+			return(res)
+		else
+			stop("Invalid object, classes do not match.")
 	}
 )
 
 setReplaceMethod("$", signature(x="FLlst", value="ANY"),
-  function(x, name, value) {
+	function(x, name, value)
+	{
+		if(isTRUE(x@lock) & is.na(match(name, names(x))))
+			stop("The object is locked. You can not replace non-existent elements.")
 
-    if(isTRUE(x@lock) & is.na(match(name, names(x))))
-      stop("The object is locked. You can not replace non-existent elements.")
-
-	lst <- as(x, "list")
+		lst <- as(x, "list")
     names(lst) <- names(x)
-	
-    lst <- do.call("$<-",list(x=lst, name=name, value=value))
 
-	res <- new(class(x), lst)
-	class(res) <- class(x)
-    
-    res@names <- res@names
-    res@desc <- x@desc
-    res@lock <- x@lock
+#		if(length(lst)==0)
+#		{
+#			cls <- is(value)[1]
+#			lst <- do.call("$<-",list(x=lst, name=name, value=value))
+#			lst <- lapply(lst, as, cls)
+#		}
 
-    if(validObject(res))
-	  return(res)
-	else
-	  stop("Invalid object, classes do not match.")
-  }
-)
+		lst <- do.call("$<-",list(x=lst, name=name, value=value))
+
+		res <- FLlst(lst)
+		class(res) <- class(x)
+
+		if(validObject(res))
+			return(res)
+		else
+			stop("Invalid object, classes do not match.")
+})
 
 setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
@@ -78,56 +73,53 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			(is.numeric(i) & !identical(sum(i %in% 1:length(x)), li))))
 				stop("The object is locked. You can not replace non-existent elements.")
 
+    nms <- names(x)
+    idx <- seq(length(x))
+    # HACK, need to check why names get dropped in here
 		x@.Data[i] <- value
+    names(x)[idx] <- nms
 
 		if(validObject(x))
 			return(x)
 		else
 			stop("Invalid object, classes do not match.")
 	}
-)
+) # }}}
 
-setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
-  function(x,i,j,drop) {
+# subset, [ {{{
 
-    lst <- as(x, "list")
 
-    # names dropped!
-    names(lst) <- names(x)
-
+setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(x,i,j,drop){
+	lst <- as(x, "list")
+  # names dropped!
+  names(lst) <- names(x)
 	lst <- lst[i]
-
-	res <- new(is(x), lst)
-
-    res@desc <- x@desc
-    res@lock <- x@lock
-
-    return(res)
-  }
-)  # }}}
+	new(is(x), lst)
+})  # }}}
 
 # lapply  {{{
 setMethod("lapply", signature(X="FLlst"),
   function(X, FUN, ...) {
 
     if(length(X) == 0)
-      return(X)
+	  return(new(class(X)))
+		
+    lstargs <- list(...)
 
-	lstargs <- list(...)
    	lstargs$X <- X@.Data
    	names(lstargs$X) <- names(X)
 
    	lstargs$FUN <- FUN
    	lst <- do.call("lapply", lstargs)
 
-	# getclass
+		# getclass
    	cls <- getPlural(lst[[1]])
-   	if(cls != 'list') {
-      lst <- new(cls, lst, lock=FALSE, names=attr(X, 'names'), desc=attr(X, 'desc'))
+   	if(cls != 'list')
+   	{
+    	lst <- new(cls, lst, lock=FALSE, names=attr(X, 'names'), desc=attr(X, 'desc'))
    	}
-    names(lst) <- names(X)
-    
-    return(lst)
+	 	names(lst) <- names(X)
+ return(lst)
 	}
 )  # }}}
 
@@ -235,7 +227,7 @@ setMethod("plot", signature(x="FLIndices",y="missing"),
   }
 ) # }}}
 
-# TODO  {{{
+# plot(FLStocks, FLPar)  {{{
 setMethod('plot', signature(x='FLStocks', y='FLPar'),
   function(x, y, ylab="", xlab="", ...)
   {
@@ -352,14 +344,14 @@ setMethod("range", "FLlst",
   }
 ) # }}}
 
-## names         {{{
+# names         {{{
 setMethod("names", signature(x="FLlst"),
 	function(x)
     attr(x, 'names')
 )
 # }}}
 
-## as.data.frame	{{{
+# as.data.frame	{{{
 setMethod("as.data.frame", signature(x="FLCohorts", row.names="missing",
 	optional="missing"),
 		function(x) {

@@ -62,6 +62,7 @@
 - square operators for FLlst return the right names, desc and lock
 - Attributes of FLPar maintained by [ and [<-
 - as(data.frame, 'FLPar') transposed objects without need
+- [<- FLlst now respects names when list elements are added
 
 ## UTILITIES
 
