@@ -14,8 +14,7 @@ setMethod('FLPar', signature(object="array"),
       length(dim(object)))]), seq), list(iter=iter))) {
 
     # if no dimnames, 1st is params, last is iter
-    if(!is.null(dimnames(object)))
-    {
+    if(!is.null(dimnames(object))) {
       dimnames <- dimnames(object)
       
       # if iter missing, add it
@@ -42,29 +41,40 @@ setMethod('FLPar', signature(object="array"),
     }
     if(!is.numeric(object))
       mode(object) <- 'double'
-
     res <- array(object, dim=dim(object), dimnames=dimnames)
     return(new('FLPar', res, units=units))
   }
 )
-  
+ 
 # FLPar(missing, iter, param)
 setMethod('FLPar', signature(object="missing"),
-  function(..., params='a', iter=1, dimnames=list(params=params, iter=seq(iter)),
-      units=rep('NA', length(params)))
-  {
+  function(..., params=character(1), iter=1, units='NA') {
+
     args <- list(...)
-    if(length(args) > 0)
-    {
-      len <- length(args[[1]])
-      res <- t(array(unlist(args), dim=c(len, length(args)), 
-        dimnames=list(iter=seq(len), params=names(args))))
+
+    # NO args, but iter and/or units
+    if(length(args) == 0) {
+      return(FLPar(array(as.numeric(NA), dim=c(length(params), iter),
+        dimnames=list(params=params, iter=seq(iter))), units=units))
     }
-    else
-      res <- array(as.numeric(NA), dim=unlist(lapply(dimnames, length)),
-        dimnames=dimnames)
-    # FLPar(array)
-    return(FLPar(res, units=units, dimnames=dimnames(res)))
+   
+    # TREAT all inputs as vectors
+    args <- lapply(args, c)
+
+    # WARN if iter forces extending params
+    its <- unlist(lapply(args, length))
+    if(iter > 1 && any(its[its > 1] != iter))
+      warning("params with iterations will be extended to 'iter' length")
+
+    # CREATE dimnames, iter as max(length(args), iter)
+    dmns <- list(params=names(args), iter=seq(max(c(iter, its))))
+    dm <- unlist(lapply(dmns, length))
+
+    # EXTEND by iter
+    args <- lapply(args, rep, length.out=dm[2])
+
+    res <- array(do.call(rbind, args), dim=unname(dm), dimnames=dmns)
+    return(FLPar(res, units=units))
   }
 )
 

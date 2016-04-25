@@ -3,8 +3,6 @@
 
 # Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, JRC
-# $Id: FLModel.R 1778 2012-11-23 08:43:57Z imosqueira $
-
 
 # FLModel()  {{{
 setMethod('FLModel', signature(model='missing'),
