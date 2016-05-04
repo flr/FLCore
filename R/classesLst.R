@@ -23,14 +23,6 @@ setClass("FLlst", contains="list",
 ) # }}}
 
 # FLQuants {{{
-# validity
-vFLQs <- function(object){
-	# Make sure the list contains all items of the same class
-    if(!all(unlist(lapply(object, is, 'FLQuant'))))
-		return("Components must be FLQuant")
-	# Everything is fine
-	return(TRUE)
-}
 
 #' Class FLQuants
 #'
@@ -60,7 +52,14 @@ vFLQs <- function(object){
 #' @keywords classes
 # class
 setClass("FLQuants", contains="FLlst",
-	validity=vFLQs
+	validity=function(object){
+	# Make sure the list contains all items of the same class
+    if(!all(unlist(lapply(object, is, 'FLQuant'))))
+		return("Components must be FLQuant")
+	# Everything is fine
+	return(TRUE)
+}
+
 )
 
 # constructor
