@@ -7,7 +7,7 @@
 # FLlst class{{{
 setClass("FLlst", contains="list",
   representation(names="character", desc="character", lock="logical"),
-	prototype(lock=FALSE),
+	prototype(desc=character(1), lock=FALSE),
 	validity=function(object) {
 		
   	# All elements in the list are validObjects themselves

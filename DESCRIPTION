@@ -25,6 +25,7 @@ Collate:
   'genericMethods.R'
   'FLAccesors.R'
   'classesArr.R'
+  'uom.R'
   'FLArray.R'
   'FLQuant.R'
   'FLQuantPoint.R'

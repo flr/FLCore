@@ -229,10 +229,6 @@ setGeneric("r", function(m, fec, ...)
 setGeneric("survprob", function(object, ...)
   standardGeneric("survprob"))
 
-# rec
-setGeneric("rec", function(object, ...)
-  standardGeneric("rec"))
-
 # gear
   setGeneric('gear', function(object, ...) standardGeneric('gear'))
   setGeneric('gear<-', function(object, ..., value) standardGeneric('gear<-'))
@@ -412,6 +408,10 @@ setGeneric('rec', function(object, ...)
 		standardGeneric('rec'))
 setGeneric('rec<-', function(object, ..., value)
 		standardGeneric('rec<-'))
+
+# rec.obs
+setGeneric('rec.obs', function(object, ...)
+		standardGeneric('rec.obs'))
 
 # ssb
 setGeneric('ssb', function(object, ...)

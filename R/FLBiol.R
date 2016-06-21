@@ -500,6 +500,13 @@ setMethod("FLBiols", signature(object="list"),
 
 }) # }}}
 
+# rec.obs {{{
+setMethod("rec.obs", signature(object="FLBiol"),
+  function(object, age=1) {
+    return(n(object)[age,])
+  }
+) # }}}
+
 # ---
 
 # meanLifespan {{{
