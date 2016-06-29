@@ -410,7 +410,7 @@ setMethod("loglAR1", signature(obs = "numeric", hat = "numeric"),
 
 # SRModelName {{{
 SRModelName <- function(model){
-  return(switch(gsub(" ", "", as.character(as.list(model)[3])),
+  return(switch(gsub(" ", "", as.character(as.list(model)[length(model)])),
       "a*ssb*exp(-b*ssb)"                 = "ricker",
       "a*ssb/(b+ssb)"                     = "bevholt",
       "a*ssb/(1+(ssb/b)^c)"               = "shepherd",

@@ -152,7 +152,7 @@ setMethod('[', signature(x='FLPar'),
       return(do.call('[', c(list(x=x@.Data), dx, list(drop=TRUE))))
     }
     res <- new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=FALSE))),
-      units=units(x))
+      units=units(x)[i])
  
     # Add attributes not in standard object   
     if(length(attrs) > 0) {
