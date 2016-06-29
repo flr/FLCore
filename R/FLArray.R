@@ -1,6 +1,6 @@
 # FLArray-class - Base class for FLQuant and FLCohort
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 # $Id: FLArray.R 1779 2012-11-23 09:39:31Z imosqueira $
 
@@ -69,16 +69,16 @@ setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
   function(x, i)
   {
     dimn <- dimnames(i)
-    for(d in 1:6)
+    for(d in 1:6) {
       dimn[[d]] <- dimn[[d]][apply(i@.Data, d, any, FALSE)==TRUE]
-
+	}
     if(length(x@.Data[i]) != prod(unlist(lapply(dimn, length)))) {
-      	warning("Selected elements do not form a coherent 6D array")
+      warning("Selected elements do not form a coherent 6D array")
       return(x@.Data[i])
-		} else {
+	} else {
       return(new(class(x), array(x@.Data[i], dimnames=dimn,
-        dim=unlist(lapply(dimn, length)))))
-		}
+      dim=unlist(lapply(dimn, length)))))
+	}
   }
 )   # }}}
 
@@ -230,8 +230,6 @@ setMethod("show", signature(object="FLArray"),
       v3 <- paste(format(apply(object@.Data, 1:5, median, na.rm=TRUE),digits=5))
 		
     print(array(v3, dim=dim(object)[1:5], dimnames=dimnames(object)[1:5]), quote=FALSE)
-
-		# cat("units: ", object@units, "\n")
 	}
 )   # }}}
 
