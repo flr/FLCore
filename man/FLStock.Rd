@@ -146,7 +146,7 @@ flsr <- as.FLSR(ple4)
 The FLR Team
 }
 \seealso{
-\link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
+\link[base]{[}, \link[base]{[<-}, \link{as.FLSR},
 \link{catch}, \link{catch<-}, \link{catch.n}, \link{catch.n<-},
 \link{catch.wt}, \link{catch.wt<-}, \link[methods]{coerce},
 \link{computeCatch}, \link{computeDiscards}, \link{computeLandings},

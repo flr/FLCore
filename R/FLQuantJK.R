@@ -2,8 +2,8 @@
 # FLQuantJK.R - FLQuantJK class and methods
 # FLCore/R/FLQuantJK.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 # $Id: FLQuant.R 1348 2011-10-28 06:52:43Z lauriekell $
 
 

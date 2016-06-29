@@ -1,13 +1,22 @@
+<<<<<<< HEAD
+# Simple .travis.yml for R projects.
+=======
 # .travis.yml for R projects.
 #
 # https://travis-ci.org/flr/FLCore
 
 warnings_are_errors: false
+>>>>>>> master
 
 os:
   - linux
   - osx
 
+<<<<<<< HEAD
+language: R
+  
+sudo: required
+=======
 language: r
 
 r:
@@ -26,3 +35,4 @@ notifications:
 branches:
   only:
     - master
+>>>>>>> master

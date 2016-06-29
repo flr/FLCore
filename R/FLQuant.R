@@ -1,8 +1,8 @@
 # FLQuant.R - FLQuant class and methods
 # FLCore/R/FLQuant.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # FLQuant(missing){{{
 # FLQuant  <- FLQuant()
@@ -1278,7 +1278,7 @@ setMethod("tsp", signature(x="FLQuant"),
 ) # }}}
 
 # NOT EXPORTED
-## filldimnames       {{{
+# filldimnames       {{{
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {
 # check only one name for quant in input
 if(length(names(dnames)[!names(dnames)%in%c("year","unit","season","area","iter")]) > 1)

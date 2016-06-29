@@ -11,6 +11,7 @@
 - wireframe method from lattice now available for FLQuant
 - [ method for FLQuantDistr
 - FLIndexBiomass class for biomass-based indices of abundance.
+- Class FLBiolcpp for interfacing  with CPP
 - New catch.sel method for FLStock, computed as proportion across ages of harvest
 - predictMosdel class for use in FLBiol
 

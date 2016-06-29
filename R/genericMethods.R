@@ -1,7 +1,7 @@
 # genericMethods - S4 generics
-# genericMethods
+# FLCore/R/genericMethods
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 
 globalVariables(c("qname"))
 
@@ -51,8 +51,6 @@ setGeneric("rpois", useAsDefault=rpois)
 setGeneric("mvrnorm", useAsDefault=mvrnorm)
 setGeneric("tail", useAsDefault=tail)
 setGeneric("tsp", useAsDefault=tsp)
-setGeneric("cbind", signature="...")
-setGeneric("rbind", signature="...")
 setGeneric("wireframe", useAsDefault=wireframe)
 setGeneric("expand", useAsDefault=Matrix::expand)
 
@@ -232,10 +230,6 @@ setGeneric("r", function(m, fec, ...)
 # survprob
 setGeneric("survprob", function(object, ...)
   standardGeneric("survprob"))
-
-# rec
-setGeneric("rec", function(object, ...)
-  standardGeneric("rec"))
 
 # gear
   setGeneric('gear', function(object, ...) standardGeneric('gear'))
@@ -417,6 +411,10 @@ setGeneric('rec', function(object, ...)
 setGeneric('rec<-', function(object, ..., value)
 		standardGeneric('rec<-'))
 
+# rec.obs
+setGeneric('rec.obs', function(object, ...)
+		standardGeneric('rec.obs'))
+
 # ssb
 setGeneric('ssb', function(object, ...)
 		standardGeneric('ssb'))
@@ -470,7 +468,7 @@ setGeneric("quant<-", function(object, value)
 # iter, iter<-
 setGeneric("iter", function(obj, ...)
 	standardGeneric("iter"))
-setGeneric("iter<-", function(object, value)
+setGeneric("iter<-", function(object, ..., value)
   standardGeneric("iter<-"))
 
 # trim

@@ -1,8 +1,8 @@
 # SRmodels - Stock-recruitment models
 # FLCore/R/SRmodels
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Laurie Kell, Cefas
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # Reference:
 # Notes:

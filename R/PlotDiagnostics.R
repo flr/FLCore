@@ -1,8 +1,8 @@
 # Plot - plots of residuals for diagnostic checking
 # FLCore/R/PlotResid.R
 
-# Copyright 2003-2012 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: laurie Kell, ICCAT
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 # $Id: PlotResid.R
 
 # Reference:

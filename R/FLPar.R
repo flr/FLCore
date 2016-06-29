@@ -1,8 +1,8 @@
 # FLPar - common structure for parameter matrices of various types.
 # FLCore/R/FLPar.R
 
-# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # Constructors  {{{
 
@@ -140,20 +140,21 @@ setMethod('[', signature(x='FLPar'),
     attrs <- attributes(x)
     attrs <- attrs[!names(attrs) %in% c("dim", "dimnames", "units", "class")]
       
-    ldx <- length(dim(x))
-      
-    # PARSE dims
-    for(ds in names(dx)) {
-      # MISSING arg
-      if(!do.call(missing, list(x=ds)))
-        dx[[ds]] <- get(ds)
-    }
-    if(drop) {
-      return(do.call('[', c(list(x=x@.Data), dx, list(drop=TRUE))))
-    }
+			ldx <- length(dim(x))
+			
+			# PARSE dims
+			for(ds in names(dx)) {
+				# MISSING arg
+				if(!do.call(missing, list(x=ds)))
+					dx[[ds]] <- get(ds)
+				}
+			
+			if(drop) {
+				return(do.call('[', c(list(x=x@.Data), dx, list(drop=TRUE))))
+			}
     res <- new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=FALSE))),
       units=units(x)[i])
- 
+    
     # Add attributes not in standard object   
     if(length(attrs) > 0) {
       for(i in names(attrs)) {
@@ -691,10 +692,11 @@ setMethod("jackSummary", signature(object="FLPar"),
   }
 ) # }}}
 
-# rbind {{{
-setMethod('rbind', signature('FLPar'),
-  function(...) {
-    args <- list(...)
+# rbind2 {{{
+setMethod('rbind2', signature(x='FLPar', y='FLPar'),
+  function(x, y, ...) {
+
+    args <- c(list(x=x, y=y), list(...))
 
     # dims
     dimar <- lapply(args, function(x) dim(x))
@@ -715,11 +717,11 @@ setMethod('rbind', signature('FLPar'),
   }
 ) # }}}
 
-# cbind {{{
-setMethod('cbind', signature('FLPar'),
-  function(..., deparse.level=1) {
+# cbind2 {{{
+setMethod('cbind2', signature(x='FLPar', y='FLPar'),
+  function(x, y, ...) {
     
-    args <- list(...)
+    args <- c(list(x=x, y=y), list(...))
     
     idx <- unlist(lapply(args, is, 'FLPar'))
     if(!all(idx))

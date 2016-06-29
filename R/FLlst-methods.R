@@ -28,6 +28,7 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 
 		res <- FLlst(lst)
 		class(res) <- class(x)
+    res@desc <- x@desc
 
 		if(validObject(res))
 			return(res)

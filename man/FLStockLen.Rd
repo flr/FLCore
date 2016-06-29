@@ -117,7 +117,7 @@ for sizing but not stored in any slot.
 The FLR Team
 }
 \seealso{
-\link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
+\link[base]{[}, \link[base]{[<-}, \link{as.FLSR},
 \link{computeCatch}, \link{computeDiscards}, \link{computeLandings}, \link[graphics]{plot}, \link{ssb},
 \link{ssbpurec}, \link{trim}, \link{FLComp}
 }

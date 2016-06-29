@@ -1,9 +1,8 @@
-# FLGrowth - Example extension of FLModel for growth
-# R/FLGrowth
+# FLGrowth - An FLModel-based class for growth models
+# FLCore/R/FLGrowth
 
-# Copyright 2003-2008 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# $Id: FLArray.R 613 2010-03-30 09:59:23Z imosqueira $
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # class FLGrowth
 setClass('FLGrowth', representation('FLModel',

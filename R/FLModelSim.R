@@ -1,8 +1,8 @@
 # FLModelSim.R - A class for models used in simulation
 # FLCore/R/FLModelSim.R
 
-# Copyright 2003-2013 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: FLR Team
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # FLModelSim {{{
 # validity

@@ -5,42 +5,6 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # FLComp   {{{
-validFLComp <- function(object){
-
-  # range must be named ...
-  nms <- names(range(object))
-  # with non/empty strings
-  if(any(nchar(nms) == 0))
-    return("names in range cannot be empty")
-
-  # Any FLArray?
-  slots <- getSlots(class(object))
-
-  if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
-
-    # FLQuant slots must have either 1 or n iter
-    dims <- unlist(qapply(object, function(x) dims(x)$iter))
-    test <- dims != max(dims) & dims != 1
-    if (any(test))
-      stop(paste("All slots must have iters equal to 1 or 'n': error in",
-        paste(names(test[!test]), collapse=', ')))
-
-    # and dimname for iter[1] should be '1'
-    dimnms <- qapply(object, function(x) dimnames(x)$iter)
-    test <- unlist(dimnms[dims == 1])
-    if(!all(test==test))
-      stop(paste("Incorrect names on the iter dimension in ",
-        paste(names(test[!test]), collapse=', ')))
-
-    # all 'quant' should be equal
-   # quants <- unlist(qapply(object, quant))
-   # if(any(quants != quants[1]))
-   #   stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
-
-  }
-
-  return(TRUE)
-}
 
 #' Class FLComp
 #'
@@ -78,7 +42,40 @@ setClass("FLComp",
     name=character(1),
     desc=character(0),
     range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))),
-  validity=validFLComp)
+  validity=function(object){
+
+  # range must be named ...
+  nms <- names(range(object))
+  # with non/empty strings
+  if(any(nchar(nms) == 0))
+    return("names in range cannot be empty")
+
+  # Any FLArray?
+  slots <- getSlots(class(object))
+
+  if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
+
+    # FLQuant slots must have either 1 or n iter
+    dims <- unlist(qapply(object, function(x) dims(x)$iter))
+    test <- dims != max(dims) & dims != 1
+    if (any(test))
+      stop(paste("All slots must have iters equal to 1 or 'n': error in",
+        paste(names(test[!test]), collapse=', ')))
+
+    # and dimname for iter[1] should be '1'
+    dimnms <- qapply(object, function(x) dimnames(x)$iter)
+    test <- unlist(dimnms[dims == 1])
+    if(!all(test==test))
+      stop(paste("Incorrect names on the iter dimension in ",
+        paste(names(test[!test]), collapse=', ')))
+
+    # all 'quant' should be equal
+  }
+
+  return(TRUE)
+}
+
+  )
 
 invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #  }}}
@@ -223,7 +220,7 @@ validFLStock <- function(object) {
 #' @template Accessors
 #' @template Constructors
 #' @author The FLR Team
-#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLSR},
 #' \link{catch}, \link{catch<-}, \link{catch.n}, \link{catch.n<-},
 #' \link{catch.wt}, \link{catch.wt<-}, \link[methods]{coerce},
 #' \link{computeCatch}, \link{computeDiscards}, \link{computeLandings},
@@ -343,7 +340,7 @@ remove(validFLStock)
 #'     \item{Totals}{The length of the quant dimension for the totals slots (catch, landings and discards) must be equal to 1.}
 #' }
 #' @author The FLR Team
-#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLSR},
 #' \link{computeCatch}, \link{computeDiscards}, \link{computeLandings}, \link[graphics]{plot}, \link{ssb},
 #' \link{ssbpurec}, \link{trim}, \link{FLComp}
 #' @keywords classes
@@ -377,148 +374,11 @@ setClass("FLStockLen",
 
   # TODO
   return(TRUE)
+  }
 
-  names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
-  for(i in names){
-    # all dimnames but iter are the same
-    if(!identical(unlist(dimnames(object@catch.n)[2:5]),
-      unlist(dimnames(slot(object, i))[2:5])))
-      return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
-    # no. iter are equal or one
-  }
-  for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
-  {
-    # quant is n
-    if(!identical(unlist(dimnames(object@catch.n)[1]),
-      unlist(dimnames(slot(object, i))[1])))
-      return(paste('All elements must share quant names: Error in FLStock', i))
-  }
-  for (i in c('catch', 'landings', 'discards'))
-  {
-    # quant is 1
-    if(dim(slot(object, i))[1] != 1)
-      return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
-  }
-  # check range
-  dim <- dim(object@catch.n)
-  dimnm <- dimnames(object@catch.n)
-  if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-    as.numeric(dimnm$year[dim[2]]))))
-    return('Range does not match object dimensions')
-
-  return(TRUE)}
 ) # }}}
 
-# FLBiol {{{
-validFLBiol <- function(object){
-
-   ## All FLQuant objects must have same dimensions
-   Dim <- dim(object@n)[-6]
-
-   s.  <-list("n","wt","fec","spwn","m","mat")
-
-   for (i. in s.)  {
-     t. <- slot(object,i.)
-     if (is.FLQuant(t.) & !all(dim(t.)[-6] == Dim))
-        return(paste("FLQuant dimensions wrong for ", i.))
-     }
-
-   # Verify that bounds are correct and correspond to first slot
-  .t  <-getSlots(class(object))
-  .t  <-.t[.t=="FLQuant"]
-
-   if (length(.t)> 0) {
-
-      Par <- dims(.s<-slot(object,names(.t[1])))
-
-     min <- object@range["min"]
-      if (!is.na(min) && (min < Par$min || min > Par$max))
-       return("min quant is outside range in FLQuant slots")
-     max <- object@range["max"]
-     if (!is.na(max) && (max < Par$min || max > Par$max))
-       return("max quant is outside range in FLQuant slots")
-     if (!is.na(min) && !is.na(max) && max < min)
-       return("max quant is lower than min")
-     plusgroup <- object@range["plusgroup"]
-     if (!is.na(plusgroup) && (plusgroup < Par$min || plusgroup > Par$max))
-       return("plusgroup is outside [min, max] quant range in FLQuant slots")
-     minyear <- object@range["minyear"]
-     if (!is.na(minyear) && (minyear < Par$minyear || minyear > Par$maxyear))
-       return("minyear is outside years range in FLQuant slots")
-     maxyear <- object@range["maxyear"]
-     if (!is.na(maxyear) && (maxyear < Par$minyear || maxyear > Par$maxyear))
-       return("maxyear is outside years range in FLQuant slots")
-     if (!is.na(minyear) && !is.na(maxyear) && maxyear < minyear)
-       return("maxyear is lower than minyear")
-     }
-
-   # Everything is fine
-   return(TRUE)
-   }
-
-#' Class FLBiol
-#'
-#' A class for modelling age / length or biomass structured populations.
-#'
-#' The \code{FLBiol} class is a representation of a biological fish population.
-#' This includes information on abundances, natural mortlity and fecundity.
-#'
-#' @name FLBiol
-#' @template FLBiol-aliases
-#' @docType class
-#' @section Slots: \describe{
-#'     \item{n}{Numbers in the population. \code{FLQuant}.}
-#'     \item{m}{Mortality rate of the population. \code{FLQuant}.}
-#'     \item{wt}{Mean weight of an individual. \code{FLQuant}.}
-#'     \item{fec}{Fecundity/maturity/per capita birth rate. \code{FLQuant}.}
-#'     \item{spwn}{Proportion of mortality before spawning/birth. \code{FLQuant}.}
-#'     \item{name}{Name of the object. \code{character}.}
-#'     \item{desc}{Brief description of the object. \code{character}.}
-#'     \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
-#' @template Accessors
-#' @template Constructors
-#' @section Validity: \describe{
-#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-#'     \item{Iters}{The dimname for iter[1] should be '1'.}
-#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
-#' }
-#' @author The FLR Team
-#' @seealso \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce}, \link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
-#' @keywords classes
-#' @examples
-#'
-#' # An FLBiol example dataset
-#' data(ple4.biol)
-#'
-#' summary(ple4.biol)
-#'
-setClass("FLBiol",
-  representation(
-    "FLComp",
-        n        ="FLQuant",
-        mat      ="FLQuant",
-    m        ="FLQuant",
-    wt       ="FLQuant",
-    fec      ="FLQuant",
-    spwn     ="FLQuant"
-      ),
-  prototype=prototype(
-    range    =unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
-        n        = FLQuant(),
-        mat      = FLQuant(),
-    m        = FLQuant(),
-    wt       = FLQuant(),
-    fec      = FLQuant(),
-    spwn     = FLQuant()),
-  validity=validFLBiol
-)
-
-setValidity("FLBiol", validFLBiol)
-remove(validFLBiol)  # We do not need this function any more
-invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range'))) # }}}
-
 # FLI    {{{
-
 
 #' Class FLI
 #'

@@ -1,8 +1,8 @@
 # FLIndexBiomass.R - DESC
 # FLIndexBiomass.R
 
-# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 # Soundtrack:
 # Notes:
 

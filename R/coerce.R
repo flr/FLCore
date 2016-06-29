@@ -1,9 +1,8 @@
 # coerce - Various coercion methods for FLCore classes
 # FLCore/R/coerce.R
 
-# Copyright 2003-2014 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
-# $Id: coerce.R 1789 2012-12-10 10:34:22Z imosqueira $
+# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # TO data.frame {{{
 setAs('FLArray', 'data.frame',
@@ -213,14 +212,32 @@ setAs('FLStock', 'FLIndex',
 
 # TO FLBiol  {{{
 setAs('FLStock', 'FLBiol',
-  function(from)
-  {
-    FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m,
-      name=from@name, desc=from@desc, mat=from@mat, spwn=from@m.spwn,
-      range=from@range[c('min', 'max', 'plusgroup', 'minyear', 'maxyear')])
+  function(from) {
+    FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m, spwn=from@m.spwn[1,],
+      mat=new("predictModel", FLQuants(mat=from@mat), model=~mat),
+      fec=new('predictModel', FLQuants(fec=from@mat), model=~fec),
+      rec = new('predictModel', FLQuants(rec=from@stock.n[1,]), model=~rec),
+      name=from@name, desc=from@desc, range=from@range)
   }
-)
-# }}}
+) # }}}
+
+# TO FLBiolcpp {{{
+
+setAs('FLBiol', 'FLBiolcpp',
+  function(from) {
+    # process modelPredict slots
+    new("FLBiolcpp",
+        name = name(from),
+        desc = desc(from),
+        range = range(from),
+        n = n(from),
+        m = m(from),
+        wt = wt(from),
+        mat = mat(from),
+        fec = fec(from),
+        spwn = spwn(from))
+  }
+) # }}}
 
 # TO FLPar  {{{
 setAs('data.frame', 'FLPar',
@@ -262,7 +279,48 @@ setAs("FLPar", "list",
         names(lst) <- dimnames(from)[[1]]
         return(lst)
     }
-) # }}}
+) 
+
+setAs("predictModel", "list",
+  function(from) {
+
+  res <- list()
+  
+  mod <- slot(from, 'model')
+  fqs <- slot(from, '.Data')
+  flp <- slot(from,'params')
+
+  # EXTRACT expression to evaluate
+  args <- all.names(mod, functions=FALSE)
+
+  # (1) EXTRACT from FLQuants
+
+  # MATCH names
+  idx <- names(fqs) %in% args
+  
+  # EXTRACT
+  if(any(idx)) {
+    res <- fqs[idx]
+    names(res) <- names(fqs)[idx]
+    
+    # DROP extracted args
+    args <- args[!args %in% names(res)]
+  }
+
+  # (2) FLPar
+  pars <- as(flp, 'list')
+  idx <- names(pars) %in% args
+  if(any(idx)) {
+    res <- c(res, pars[idx])
+    
+    # DROP extracted args
+    args <- args[!args %in% names(res)]
+  }
+
+  # RETURN
+  return(res)
+  }) 
+# }}}
 
 # TO FLQuants  {{{
 setAs('FLComp', 'FLQuants',
@@ -284,13 +342,13 @@ setAs('FLComp', 'FLQuants',
 setAs('data.frame', 'FLQuants',
   function(from)
   {
-    qns <- as.character(unique(from$qname))
+    qns <- as.character(unique(from[,'qname']))
 
     res <- vector(mode='list', length=length(qns))
     names(res) <- qns
 
     for(i in qns)
-      res[[i]] <- as.FLQuant(subset(from, qname == i, -qname))
+      res[[i]] <- as.FLQuant(from[from$qname == i, !names(from) %in% 'qname'])
 
     return(FLQuants(res))
   }

@@ -1,8 +1,8 @@
 # FLCohort - 
 # FLCore/R/FLCohort.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, JRC
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC G03
 
 # FLCohort(FLQuant)  {{{
 setMethod("FLCohort", signature("FLQuant"),
@@ -193,6 +193,7 @@ setAs("FLQuant", "FLCohort",
 
 # coerce FLCohort into FLQuant
 setAs("FLCohort", "FLQuant", function(from){
+  
   # dimensions and co
   ystart <- as.numeric(dimnames(from)$cohort[1])
   dobj <- dim(from)  
@@ -214,7 +215,6 @@ setAs("FLCohort", "FLQuant", function(from){
   
   # et voila
   new("FLQuant", flq, units=units(from))
-
 })  # }}}
 
 # flc2flq {{{

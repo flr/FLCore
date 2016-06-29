@@ -24,12 +24,14 @@ Imports:
 License: GPL (>= 2)
 Collate:
     'genericMethods.R'
+    'uom.R'
     'FLAccesors.R'
     'classesArr.R'
     'FLArray.R'
     'FLQuant.R'
     'FLQuantPoint.R'
     'FLQuantDistr.R'
+    'FLPar.R'
     'classesComp.R'
     'classesLst.R'
     'FLlst-class.R'
@@ -37,7 +39,6 @@ Collate:
     'FLS.R'
     'FLStock.R'
     'FLStockLen.R'
-    'FLBiol.R'
     'FLI.R'
     'FLIndex.R'
     'FLIndexBiomass.R'
@@ -46,7 +47,8 @@ Collate:
     'FLModelSim.R'
     'FLQuants.R'
     'FLSR.R'
-    'FLPar.R'
+    'predictModel.R'
+    'FLBiol.R'
     'operators.R'
     'io.VPAsuite.R'
     'io.FLStock.R'
@@ -64,7 +66,6 @@ Collate:
     'zzz.R'
     'io.Adapt.R'
     'io.VPA2Box.R'
-    'predictModel.R'
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues
