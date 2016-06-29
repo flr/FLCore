@@ -1,10 +1,8 @@
 # FLModel - Extendable class for all types of models to be fitted and analysed
 # FLCore/R/FLModel.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: FLModel.R 1778 2012-11-23 08:43:57Z imosqueira $
-
 
 # FLModel()  {{{
 setMethod('FLModel', signature(model='missing'),
@@ -208,7 +206,7 @@ setMethod('fmle',
     for (i in datanm[!datanm%in%names(covar(object))])
       alldata[[i]] <- slot(object, i)
 		if(length(covar(object)) > 0)
-			for (i in names(covar(object)))
+      for (i in datanm[datanm%in%names(covar(object))])
 				alldata[[i]]  <- covar(object)[[i]]
 
     # add dimnames if used
@@ -390,7 +388,7 @@ setMethod('predict', signature(object='FLModel'),
     # create list of input data
     #   get FLQuant/FLCohort slots' names
     datanm <- getSlotNamesClass(object, 'FLArray')
-    datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
+    #datanm <- c(datanm, getSlotNamesClass(object, 'FLQuants'))
     datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
 
     # add dimnames if used
@@ -450,7 +448,6 @@ setMethod('predict', signature(object='FLModel'),
 
       # add newdata
       data[names(args)] <- lapply(args, iter, it)
-
       params <- as.vector(obj@params@.Data)
       names(params) <- dimnames(obj@params)[['params']]
 
@@ -464,8 +461,9 @@ setMethod('predict', signature(object='FLModel'),
       if(it == 1)
       {
 				# BUG with spr0 as covar ts
-        res <- propagate(do.call(class(object@fitted), list(eval(call,
-          envir=c(params, data, dimdat)))), iters, fill.iter=FALSE)
+        res <- propagate(do.call(class(object@fitted),
+          list(eval(call, envir=c(params, data, dimdat)))), iters,
+          fill.iter=FALSE)
         dimnames(res)[1:5] <- dimnames[1:5]
       }
       else
@@ -794,52 +792,6 @@ setMethod('lm', signature(formula='FLModel', data = "missing", subset = "missing
   }
 ) # }}}
 
-# getFLPar {{{
-getFLPar <- function(object, formula=object@model)
-{
-  # get FLQuant slots' names
-  datanm <- getSlotNamesClass(object, 'FLArray')
-  flqs <- getSlotNamesClass(object, 'FLQuants')
-  if(length(flqs) > 0)
-  {
-    datanm <- c(datanm, flqs)
-    for(i in seq(length(flqs)))
-      datanm <- c(datanm, names(slot(object, flqs[i])))
-  }
-  datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
-  datanm <- datanm[!datanm %in% c('residuals', 'fitted')]
-  if(length(datanm) > 0)
-    datanm <- c(datanm, names(dimnames(slot(object, datanm[1]))))
-
-  # get those in formula
-  datanm <- datanm[datanm%in%all.vars(formula)]
-  parnm <- all.vars(formula)[!all.vars(formula) %in% datanm]
-
-  # covar
-  if('covar' %in% slotNames(object))
-  {
-    covarnm <- names(object@covar)
-    covarnm <- covarnm[covarnm%in%parnm]
-    if(length(covarnm))
-    {
-      datanm <- c(datanm, covarnm)
-      parnm <- parnm[!parnm %in% covarnm]
-    }
-  }
-
-  # check likelihood
-  if(!is.null(body(object@logl)))
-  {
-    lkhnm <- names(formals(object@logl))
-    lkhnm <- lkhnm[!lkhnm %in% datanm]
-    parnm <- c(lkhnm, sort(parnm)[!sort(parnm) %in% sort(lkhnm)])
-  }
-
-  # params
-  params <- FLPar(params=parnm)
-  return(params)
-} # }}}
-
 # lower & upper {{{
 setMethod("lower", signature(object="FLModel"),
   function(object)
@@ -1128,3 +1080,51 @@ setMethod('computeLogLik', signature(object='FLModel'),
   return(res)
   }
 ) # }}}
+
+# INTERNAL
+
+# getFLPar {{{
+getFLPar <- function(object, formula=object@model)
+{
+  # get FLQuant slots' names
+  datanm <- getSlotNamesClass(object, 'FLArray')
+  flqs <- getSlotNamesClass(object, 'FLQuants')
+  if(length(flqs) > 0)
+  {
+    datanm <- c(datanm, flqs)
+    for(i in seq(length(flqs)))
+      datanm <- c(datanm, names(slot(object, flqs[i])))
+  }
+  datanm <- c(datanm, getSlotNamesClass(object, 'numeric'))
+  datanm <- datanm[!datanm %in% c('residuals', 'fitted')]
+  if(length(datanm) > 0)
+    datanm <- c(datanm, names(dimnames(slot(object, datanm[1]))))
+
+  # get those in formula
+  datanm <- datanm[datanm%in%all.vars(formula)]
+  parnm <- all.vars(formula)[!all.vars(formula) %in% datanm]
+
+  # covar
+  if('covar' %in% slotNames(object))
+  {
+    covarnm <- names(object@covar)
+    covarnm <- covarnm[covarnm%in%parnm]
+    if(length(covarnm))
+    {
+      datanm <- c(datanm, covarnm)
+      parnm <- parnm[!parnm %in% covarnm]
+    }
+  }
+
+  # check likelihood
+  if(!is.null(body(object@logl)))
+  {
+    lkhnm <- names(formals(object@logl))
+    lkhnm <- lkhnm[!lkhnm %in% datanm]
+    parnm <- c(lkhnm, sort(parnm)[!sort(parnm) %in% sort(lkhnm)])
+  }
+
+  # params
+  params <- FLPar(params=parnm)
+  return(params)
+} # }}}

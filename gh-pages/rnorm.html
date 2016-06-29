@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>rnorm. FLCore 2.5.20140814</title>
+<title>rnorm. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>Generates random numbers following a normal distribution. <em>mean</em> and 
   <em>sd</em> can be specified as objects of class <code>FLQuant</code>, of the 
   same dimensions, but any of the two could be given as a numeric. In this case the value 
@@ -52,23 +64,27 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>rnorm(n, mean, sd)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(n=numeric,mean=FLQuant,sd=FLQuant) :</dt><dd><code>n</code> is the number of iterations of the return object. <code>mean</code> and <code>sd</code> are FLQuant objects and must be of equal size.  When both <code>sd</code> and <code>mean</code> are specified the returned object is an FLQuant object with <code>n</code> iterations, filled with randomly generated numbers.  When only 1 of <code>mean</code> or <code>sd</code> is supplied the return object is a vector of length <code>n</code>.</dd>
-<dt> signature(n=numeric,mean=numeric,sd=FLQuant) :</dt><dd>same as above, but dimensions will
-  be given by sd, and mean will be reused accordingly.</dd>
-<dt> signature(n=numeric,mean=FLQuant,sd=numeric) :</dt><dd>same as above, but instead 
-  dimensions will be given by mean, and sd will be reused accordingly.</dd>
-<dt> signature(n=numeric,mean=FLQuantPoint,sd=missing) :</dt><dd>uses an FLQuantPoint to obtain
-  mean and sd from the mean and var iterations.</dd>
-</dl></p>
+<dt> signature(n=numeric,mean=FLQuant,sd=FLQuant) :</dt><dd><code>n</code> is the number of iterations of the return object. <code>mean</code> and <code>sd</code> are FLQuant objects and must be of equal size.  When both <code>sd</code> and <code>mean</code> are specified the returned object is an FLQuant object with <code>n</code> iterations, filled with randomly generated numbers.  When only 1 of <code>mean</code> or <code>sd</code> is supplied the return object is a vector of length <code>n</code>.</dd></p>
+  
+      <p><dt> signature(n=numeric,mean=numeric,sd=FLQuant) :</dt><dd>same as above, but dimensions will
+  be given by sd, and mean will be reused accordingly.</dd></p>
+  
+      <p><dt> signature(n=numeric,mean=FLQuant,sd=numeric) :</dt><dd>same as above, but instead 
+  dimensions will be given by mean, and sd will be reused accordingly.</dd></p>
+  
+      <p><dt> signature(n=numeric,mean=FLQuantPoint,sd=missing) :</dt><dd>uses an FLQuantPoint to obtain
+  mean and sd from the mean and var iterations.</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -82,17 +98,17 @@ iters:  10
 , , unit = unique, season = all, area = unique
 
     year
-age  2001            
-  1  0.091213(0.0815)
-  2  0.644104(1.0489)
-  3  0.441808(1.2076)
-  4  1.405666(0.8670)
-  5  0.408283(0.6946)
-  6  0.843554(0.4690)
-  7  0.480250(0.5245)
-  8  0.938708(0.3207)
-  9  0.481509(0.4067)
-  10 0.709510(1.2043)
+age  2001           
+  1  0.047180(0.137)
+  2  1.334328(1.199)
+  3  1.005011(1.754)
+  4  0.325863(0.916)
+  5  0.470318(1.232)
+  6  0.509459(0.610)
+  7  0.734117(0.561)
+  8  0.095692(0.441)
+  9  0.401091(0.297)
+  10 0.759689(0.455)
 
 units:  f 
 </div></pre>
@@ -106,7 +122,7 @@ units:  f
     </ul> -->
       
     <h2>See also</h2>
-    <a href='http://www.inside-r.org/packages/cran/stats/docs/Normal'>rnorm</a>, FLQuant, FLQuantPoint 
+    <a href='http://www.inside-r.org/r-doc/stats/Normal'>rnorm</a>, FLQuant, FLQuantPoint 
     
     <h2>Author</h2>
     The FLR Team
@@ -116,7 +132,7 @@ units:  f
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

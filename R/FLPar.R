@@ -8,14 +8,13 @@
 
 # FLPar(array)
 setMethod('FLPar', signature(object="array"),
-	function(object, params=letters[1:dim(object)[1]],
+  function(object, params=letters[1:dim(object)[1]],
     iter=seq(dim(object)[length(dim(object))]), units=rep('NA', dim(object)[1]),
     dimnames= c(list(params=params), lapply(as.list(dim(object)[-c(1,
       length(dim(object)))]), seq), list(iter=iter))) {
 
     # if no dimnames, 1st is params, last is iter
-    if(!is.null(dimnames(object)))
-    {
+    if(!is.null(dimnames(object))) {
       dimnames <- dimnames(object)
       
       # if iter missing, add it
@@ -23,7 +22,7 @@ setMethod('FLPar', signature(object="array"),
       {
         dimnames <- c(dimnames, list(iter=1))
         object <- array(object, dimnames=dimnames,
-					dim=c(unlist(lapply(dimnames, length))))
+          dim=c(unlist(lapply(dimnames, length))))
       }
       
       # dimnames with no names, last one is iter ...
@@ -37,59 +36,70 @@ setMethod('FLPar', signature(object="array"),
       # forcing iter to be last dim, all others as given
       iterpos <- match(c('iter'), names(dimnames))
       object <- aperm(object,
-				c(seq(1, length(dimnames))[!seq(1,length(dimnames)) %in% iterpos],
-				iterpos))
+        c(seq(1, length(dimnames))[!seq(1,length(dimnames)) %in% iterpos],
+        iterpos))
     }
-		if(!is.numeric(object))
-			mode(object) <- 'double'
-
+    if(!is.numeric(object))
+      mode(object) <- 'double'
     res <- array(object, dim=dim(object), dimnames=dimnames)
-		return(new('FLPar', res, units=units))
-	}
+    return(new('FLPar', res, units=units))
+  }
 )
-	
+ 
 # FLPar(missing, iter, param)
 setMethod('FLPar', signature(object="missing"),
-	function(..., params="", iter=1, dimnames=list(params=params, iter=seq(iter)),
-      units=rep("NA", length(params)))
-	{
+  function(..., params=character(1), iter=1, units='NA') {
+
     args <- list(...)
-    if(length(args) > 0)
-    {
-      len <- length(args[[1]])
-      res <- array(unlist(args), dim=c(length(args), iter), 
-        dimnames=list(params=names(args), iter=seq(iter)))
+
+    # NO args, but iter and/or units
+    if(length(args) == 0) {
+      return(FLPar(array(as.numeric(NA), dim=c(length(params), iter),
+        dimnames=list(params=params, iter=seq(iter))), units=units))
     }
-    else
-      res <- array(as.numeric(NA), dim=unlist(lapply(dimnames, length)),
-        dimnames=dimnames)
-		# FLPar(array)
-		return(FLPar(res, units=units, dimnames=dimnames(res)))
-	}
+   
+    # TREAT all inputs as vectors
+    args <- lapply(args, c)
+
+    # WARN if iter forces extending params
+    its <- unlist(lapply(args, length))
+    if(iter > 1 && any(its[its > 1] != iter))
+      warning("params with iterations will be extended to 'iter' length")
+
+    # CREATE dimnames, iter as max(length(args), iter)
+    dmns <- list(params=names(args), iter=seq(max(c(iter, its))))
+    dm <- unlist(lapply(dmns, length))
+
+    # EXTEND by iter
+    args <- lapply(args, rep, length.out=dm[2])
+
+    res <- array(do.call(rbind, args), dim=unname(dm), dimnames=dmns)
+    return(FLPar(res, units=units))
+  }
 )
 
 # FLPar(vector)
 setMethod('FLPar', signature(object='vector'),
-	function(object, params= if(length(names(object))==length(object))
-		names(object) else letters[seq(length(object)/length(iter))], iter=1,
-		dimnames=list(params=params, iter=seq(iter)), byrow=FALSE,
-		units=rep('NA', length(params)))
+  function(object, params= if(length(names(object))==length(object))
+    names(object) else letters[seq(length(object)/length(iter))], iter=1,
+    dimnames=list(params=params, iter=seq(iter)), byrow=FALSE,
+    units=rep('NA', length(params)))
   {
     # if length(iter) == 1, then expand
     if(length(iter) == 1 && as.character(iter) != '1')
       iter <- seq(iter)
 
-		res <- array(object,dim=unlist(lapply(dimnames, length)))
-		# FLPar(array)
-		return(FLPar(res, units=units, dimnames=dimnames))
-	}
+    res <- array(object,dim=unlist(lapply(dimnames, length)))
+    # FLPar(array)
+    return(FLPar(res, units=units, dimnames=dimnames))
+  }
 )
 
 # FLPar(FLPar)
 setMethod('FLPar', signature('FLPar'),
   function(object, dimnames=attr(object, 'dimnames'), params=dimnames$params,
     iter=dimnames$iter, units=object@units, newDim="missing")
-	{
+  {
     
     # get iter as vector if single number given
     if(!missing(iter) && length(iter) == 1 && ac(iter) != '1')
@@ -106,26 +116,26 @@ setMethod('FLPar', signature('FLPar'),
     res2=do.call('[<-', c(list(res), dimnames, list(value=object)))
     
     if (missing(newDim))
-			return(res2)
+      return(res2)
     
     dimnames <- dimnames(res2)
     ord <- length(dimnames)
     ord <- c(1:(ord-1),ord+1:length(newDim),ord)
     dimnames[names(newDim)] <- newDim
-		res3  <- FLPar(rep(c(res2), length(unlist(newDim))),
-			dimnames=dimnames[ord],units=units)
+    res3  <- FLPar(rep(c(res2), length(unlist(newDim))),
+      dimnames=dimnames[ord],units=units)
  
     return(res3)
-	}
+  }
 ) # }}}
 
 # '['   {{{
 setMethod('[', signature(x='FLPar'),
   function(x, i, j, k, l, m, n, ..., drop=FALSE) {
 
-			dx <- lapply(as.list(dim(x)), seq_len)
-    	names(dx) <- letters[seq(9, length=length(dx))]
-		  
+    dx <- lapply(as.list(dim(x)), seq_len)
+    names(dx) <- letters[seq(9, length=length(dx))]
+
     # EXTRACT non-standard attributes
     attrs <- attributes(x)
     attrs <- attrs[!names(attrs) %in% c("dim", "dimnames", "units", "class")]
@@ -152,7 +162,7 @@ setMethod('[', signature(x='FLPar'),
       }
     }
     return(res)
-    }
+  }
 )
 
 setMethod('[', signature(x='FLPar', i='array'),
@@ -163,69 +173,82 @@ setMethod('[', signature(x='FLPar', i='array'),
 
 # "[<-"     {{{
 setMethod("[<-", signature(x="FLPar", value="ANY"),
-	function(x, i, j, k, l, m, n, ..., value)
+  function(x, i, j, k, l, m, n, ..., value)
   {
-		# SUBSET on i if array
+    # SUBSET on i if array
     if(!missing(i) && is.array(i))
     {
-			x@.Data[i] <- value
-			return(x)
-		}
-		dx <- lapply(as.list(dim(x)), seq_len)
-    names(dx) <- letters[seq(9, length=length(dx))]
-		
-		for(ds in names(dx)) {
-			# MISSING arg
-			if(!do.call(missing, list(x=ds)))
-				dx[[ds]] <- get(ds)
-		}
+      x@.Data[i] <- value
+      return(x)
+    }
     
-		return(new(class(x), do.call('[<-', c(list(x=x@.Data), dx, list(value=value)))))
-	}
+    # EXTRACT non-standard attributes
+    attrs <- attributes(x)
+    attrs <- attrs[!names(attrs) %in% c("dim", "dimnames", "units", "class")]
+    dx <- lapply(as.list(dim(x)), seq_len)
+    
+    names(dx) <- letters[seq(9, length=length(dx))]
+    
+    for(ds in names(dx)) {
+      # MISSING arg
+      if(!do.call(missing, list(x=ds)))
+        dx[[ds]] <- get(ds)
+    }
+    
+    res  <- new(class(x), do.call('[<-', c(list(x=x@.Data), dx, list(value=value))))
+   
+    # Add attributes not in standard object   
+    if(length(attrs) > 0) {
+      for(i in names(attrs)) {
+        attr(res, i) <- attrs[[i]]
+      }
+    }
+    return(res)
+  }
 )   # }}}
 
 # iter, iter<-     {{{
 setMethod("iter", signature(obj="FLPar"),
-	function(obj, iter) {
+  function(obj, iter) {
     if(dim(obj)[length(dim(obj))] == 1)
       return(obj)
     else {
-    	lst <- list(x=obj, pos=iter)
-    	names(lst) <- c('x', letters[8+length(dim(obj))])
-    	return(do.call('[', lst))
-	  }
-	}
+      lst <- list(x=obj, pos=iter)
+      names(lst) <- c('x', letters[8+length(dim(obj))])
+      return(do.call('[', lst))
+    }
+  }
 )
 setMethod("iter<-", signature(object="FLPar", value="FLPar"),
-	function(object, iter, value)
+  function(object, iter, value)
   {
     lst <- list(x=object, pos=iter, value=value)
     names(lst) <- c('x', letters[8+length(dim(object))], 'value')
     object <- do.call('[<-', lst)
-		return(object)
-	}
+    return(object)
+  }
 ) 
 
 setMethod("iter<-", signature(object="FLPar", value="numeric"),
-	function(object, iter, value)
+  function(object, iter, value)
   {
     lst <- list(x=object, pos=iter, value=value)
     names(lst) <- c('x', letters[8+length(dim(object))], 'value')
     object <- do.call('[<-', lst)
-		return(object)
-	}
+    return(object)
+  }
 )
 
 # }}}
 
 # summary   {{{
 setMethod('summary', signature(object='FLPar'),
-	function(object, ...) {
-		cat("An object of class \"", class(object), "\"\n\n", sep="")
+  function(object, ...) {
+    cat("An object of class \"", class(object), "\"\n\n", sep="")
     if(dim(object)[length(dim(object))] == 1)
-	  	return(object)
+      return(object)
     else
-  		return(apply(object@.Data, seq(dim(object))[-length(dim(object))], summary))
+      return(apply(object@.Data, seq(dim(object))[-length(dim(object))], summary))
   }
 )   # }}}
 
@@ -233,72 +256,72 @@ setMethod('summary', signature(object='FLPar'),
 
 # plot
 setMethod("plot", signature(x="FLPar", y="missing"),
-	function(x, y="missing", ...) {
-	  # get dimensions to condition on (skip iter)
-		condnames <- names(dimnames(x))[names(dimnames(x)) != 'iter']
-		cond <- paste(condnames, collapse="+")
-		if(cond != "") cond <- paste("|", cond)
-			formula <- formula(paste("~data", cond))
-		# set strip to show conditioning dimensions names
-		strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
+  function(x, y="missing", ...) {
+    # get dimensions to condition on (skip iter)
+    condnames <- names(dimnames(x))[names(dimnames(x)) != 'iter']
+    cond <- paste(condnames, collapse="+")
+    if(cond != "") cond <- paste("|", cond)
+      formula <- formula(paste("~data", cond))
+    # set strip to show conditioning dimensions names
+    strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
 
     do.call('densityplot', list(x=formula, data=as.data.frame(x, row.names='row'),
       ylab="", xlab="", scales=list(y=list(draw=FALSE), relation='free'), col='black'))
-	}
+  }
 )
 
 # densityplot
 if (!isGeneric("densityplot")) {
-	setGeneric("densityplot", useAsDefault = densityplot)
+  setGeneric("densityplot", useAsDefault = densityplot)
 }
 setMethod("densityplot", signature("formula", "FLPar"), function(x, data, ...){
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-	lst$data <- as.data.frame(data, row.names='row')
-	lst$x <- x
-	do.call("densityplot", lst)
+  lst <- substitute(list(...))
+  lst <- as.list(lst)[-1]
+  lst$data <- as.data.frame(data, row.names='row')
+  lst$x <- x
+  do.call("densityplot", lst)
 })
 
 # histogram
 setMethod("histogram", signature("formula", "FLPar"), function(x, data, ...){
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-	data <- as.data.frame(data)
-	lst$data <- data.frame(param=rep(names(data), each=nrow(data)),
-		data=as.vector(unlist(c(data))))
-	lst$x <- x
-	do.call("histogram", lst)
+  lst <- substitute(list(...))
+  lst <- as.list(lst)[-1]
+  data <- as.data.frame(data)
+  lst$data <- data.frame(param=rep(names(data), each=nrow(data)),
+    data=as.vector(unlist(c(data))))
+  lst$x <- x
+  do.call("histogram", lst)
 })
 
 # splom
 if (!isGeneric("splom")) {
-	setGeneric("splom", useAsDefault = splom)
+  setGeneric("splom", useAsDefault = splom)
 }
 
 setMethod("splom", signature("FLPar", "missing"),
-	function(x, data, ...){
-		splom(as.data.frame(x))
-	}
+  function(x, data, ...){
+    splom(as.data.frame(x))
+  }
 )   # }}}
 
 # units        {{{
 setMethod("units", signature(x="FLPar"),
-	function(x)
-		return(x@units)
+  function(x)
+    return(x@units)
 ) # }}}
 
 # units<-      {{{
 setMethod("units<-", signature(x="FLPar", value="character"),
-	function(x, value) {
-		x@units <- value
-		return(x)
-	}
+  function(x, value) {
+    x@units <- value
+    return(x)
+  }
 ) # }}}
 
 # as.data.frame     {{{
 setMethod("as.data.frame", signature(x="FLPar"),
-	function(x, row.names='col', optional=FALSE, drop=FALSE) {
-	  res <- as(x, 'data.frame')
+  function(x, row.names='col', optional=FALSE, drop=FALSE) {
+    res <- as(x, 'data.frame')
     if(drop) {
       idx <- names(x)[dim(x) > 1]
       res <- res[, c(idx, 'data')]
@@ -307,26 +330,28 @@ setMethod("as.data.frame", signature(x="FLPar"),
   }
 )   # }}}
 
-# mean, median, var, quantile   {{{
-# TODO review for 3D param objects
-setMethod("mean", signature(x='FLPar'),
-	function(x, na.rm=TRUE)
-  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      mean, na.rm=na.rm))
+# iterMedians, Means & Vars {{{
+setMethod("iterMeans", "FLPar",
+  function(x, na.rm=TRUE) {
+    dim <- seq(length=length(dim(x)))
+    apply(x, dim[-length(dim)], mean, na.rm=na.rm)
+  }
 )
 
-setMethod("median", signature(x='FLPar'),
-	function(x, na.rm=TRUE)
-  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      median, na.rm=na.rm))
+setMethod("iterMedians", "FLPar",
+  function(x, na.rm=TRUE) {
+    dim <- seq(length=length(dim(x)))
+    apply(x, dim[-length(dim)], median, na.rm=na.rm)
+  }
 )
 
-setMethod("var", signature(x='FLPar'),
-	function(x, y=NULL, na.rm=TRUE, use) {
-  	return(apply(x, seq(1, length(dim(x)))[!names(dimnames(x))=='iter'],
-      var, na.rm=na.rm, use='all.obs'))
-	}
-)   # }}}
+setMethod("iterVars", "FLPar",
+  function(x, na.rm=TRUE) {
+    dim <- seq(length=length(dim(x)))
+    apply(x, dim[-length(dim)], var, na.rm=na.rm)
+  }
+)
+# }}}
 
 # coerce  {{{
 setAs('FLPar', 'numeric',
@@ -340,11 +365,11 @@ setAs('FLPar', 'numeric',
 )
 
 setAs("FLPar", "list",
-	function(from) {
-		lst <- split(from@.Data, 1:nrow(from))
-		names(lst) <- dimnames(from)[[1]]
-		return(lst)
-	}
+  function(from) {
+    lst <- split(from@.Data, 1:nrow(from))
+    names(lst) <- dimnames(from)[[1]]
+    return(lst)
+  }
 )
 
 setAs('FLQuant', 'FLPar',
@@ -424,29 +449,29 @@ setMethod("propagate", signature(object="FLPar"),
 
 # dims       {{{
 setMethod("dims", signature(obj="FLPar"),
-	# Return a list with different parameters
-	function(obj, ...) {
+  # Return a list with different parameters
+  function(obj, ...) {
     dimnames(obj)
     names(obj)
-		iter <- length(dimnames(obj)$iter)
+    iter <- length(dimnames(obj)$iter)
     params <- dimnames(obj)$params
-		return(list(iter=iter, params=params))
-	}
+    return(list(iter=iter, params=params))
+  }
 )   # }}}
 
 # names         {{{
 setMethod("names", signature(x="FLPar"),
-	function(x)
+  function(x)
     names(dimnames(x))
 )
 # }}}
 
 # names<-         {{{
 if (!isGeneric("names<-"))
-	setGeneric("names<-")
+  setGeneric("names<-")
 
 setMethod("names<-", signature(x="FLPar", value="character"),
-	function(x, value)
+  function(x, value)
   {
     # last dim must be 'iter', as in validFLPar
     if(value[length(value)] != 'iter')
@@ -460,26 +485,34 @@ setMethod("names<-", signature(x="FLPar", value="character"),
 
 # show     {{{
 setMethod("show", signature(object="FLPar"),
-	function(object) {
+  function(object) {
     ndim <- length(dim(object))
-		cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
-		if(dim(object)[ndim] != 1)
-			cat("iters: ", dim(object)[ndim],"\n\n")
+    cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
+    if(dim(object)[ndim] != 1)
+      cat("iters: ", dim(object)[ndim],"\n\n")
     if(dim(object)[ndim] > 1)
     {
-		  v1 <- apply(object@.Data, 1:(ndim-1), median, na.rm=TRUE)
-  		v2 <- apply(object@.Data, 1:(ndim-1), mad, na.rm=TRUE)	 
+      v1 <- apply(object@.Data, 1:(ndim-1), median, na.rm=TRUE)
+      v2 <- apply(object@.Data, 1:(ndim-1), mad, na.rm=TRUE)   
       v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
     }
     else
-			v3 <- format(object@.Data, digits=5)
-		
+      v3 <- format(object@.Data, digits=5)
+    
     print(array(v3, dim=dim(object)[1:(ndim-1)], dimnames=dimnames(object)[1:(ndim-1)]),
       quote=FALSE)
 
-		cat("units: ", object@units, "\n")
-	}
+    cat("units: ", object@units, "\n")
+  }
 )   # }}}
+
+# print {{{
+setMethod("print", signature(x="FLPar"),
+  function(x){
+    show(x)
+    invisible(x)
+  }
+) # }}}
 
 # Arith    {{{
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
@@ -570,7 +603,7 @@ setMethod('ab', signature(x='FLPar', model='character'),
   {
     # input params and default values
     args <- c(as(x, 'list'), as.list(spr0))
-		names(args)[length(args)] <- "spr0"
+    names(args)[length(args)] <- "spr0"
     args['model'] <- model
 
     res <- do.call('abPars', args)
@@ -599,7 +632,7 @@ setMethod('sv', signature(x='FLPar', model='character'),
   {
     # input params and default values
     args <- c(as(x, 'list'), as.list(spr0))
-		names(args)[length(args)] <- "spr0"
+    names(args)[length(args)] <- "spr0"
     args['model'] <- model
 
     res <- do.call('svPars', args)
@@ -803,35 +836,35 @@ setMethod("rnorm", signature(n='FLPar', mean="ANY", sd="ANY"),
 
 # mvrnorm {{{
 setMethod("mvrnorm", signature(n="numeric", mu="FLPar", Sigma="matrix",
-	tol="missing", empirical="missing", EISPACK="missing"),
-	function(n, mu, Sigma) {
-		
-		dm <- dim(mu)
-		dnm <- dimnames(mu)
-		
-		# Check that params second dim is "iter"
-		if(names(dnm)[2]!="iter")
-			stop("To apply this method params must have 2 dimensions only and the
-				second has to be \"iter\".")	
+  tol="missing", empirical="missing", EISPACK="missing"),
+  function(n, mu, Sigma) {
+    
+    dm <- dim(mu)
+    dnm <- dimnames(mu)
+    
+    # Check that params second dim is "iter"
+    if(names(dnm)[2]!="iter")
+      stop("To apply this method params must have 2 dimensions only and the
+        second has to be \"iter\".")  
 
-		# Check dims
-		if(dm[2] > 1)
-			stop("mu FLPar cannot have iterations")
+    # Check dims
+    if(dm[2] > 1)
+      stop("mu FLPar cannot have iterations")
 
-		res <- do.call("mvrnorm", list(mu=c(mu), Sigma=Sigma, n=n))
-		
-		if(n>1)
-			res <- t(res)
-		else
-			res <- matrix(res, ncol=1)
+    res <- do.call("mvrnorm", list(mu=c(mu), Sigma=Sigma, n=n))
+    
+    if(n>1)
+      res <- t(res)
+    else
+      res <- matrix(res, ncol=1)
 
-		dnm$iter <- 1:n
-		dimnames(res) <- dnm
-		res <- FLPar(res)
-		units(res) <- units(mu)
+    dnm$iter <- 1:n
+    dimnames(res) <- dnm
+    res <- FLPar(res)
+    units(res) <- units(mu)
 
-		return(res)
-	}
+    return(res)
+  }
 ) # }}}
 
 # model.frame {{{
@@ -863,9 +896,10 @@ setMethod("model.frame", signature(formula="FLPar"),
   }
 ) # }}}
 
-# itermMedians {{{
-setMethod("iterMedians", "FLPar",
-	function(x) {
-		apply(x, -match("iter", names(dimnames(x))), median)
-	}
+# $ {{{
+setMethod('$', signature(x='FLPar'),
+  function(x, name) {
+    return(x[name,])
+  }
 ) # }}}
+

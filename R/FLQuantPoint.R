@@ -1,13 +1,13 @@
-# FLQuantPoint - Summary of FLQuant with iters
+# FLQuantPoint - FLQuant class summarizing iters
 # FLCore/R/FLQuantPoint.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 # $Id: FLQuantPoint.R 1779 2012-11-23 09:39:31Z imosqueira $
 
-## FLQuantPoint()	{{{
+# FLQuantPoint()	{{{
 
-## FLQuantPoint(FLQuant())
+# FLQuantPoint(FLQuant())
 setMethod("FLQuantPoint", signature(object="missing"),
   function(..., units='NA') {
 
@@ -55,14 +55,14 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
     }
 )	# }}}
 
-## show     {{{
+# show     {{{
 # TODO show median(var) or [lowq-uppq]
 setMethod("show", signature(object="FLQuantPoint"),
 	function(object){
 		cat("An object of class \"FLQuantPoint\":\n")
 		cat("-- median:\n")
 		if(any(complete.cases(object)))
-			print(unclass(apply(mean(object)@.Data, 1:5, median, na.rm=TRUE)), digits=3)
+			print(unclass(median(object)@.Data), digits=3)
 		else
 			print(unclass(array(NA, dimnames=dimnames(object@.Data)[1:5],
 				dim=dim(object@.Data)[1:5])))
@@ -70,7 +70,7 @@ setMethod("show", signature(object="FLQuantPoint"),
 	}
 )   # }}}
 
-## random generators	{{{
+# random generators	{{{
 # rnorm(FLQuantPoint, missing)
 setMethod("rnorm", signature(n='numeric', mean="FLQuantPoint", sd="missing"),
 	function(n=1, mean)
@@ -81,20 +81,19 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLQuantPoint", sdlog="missin
 	function(n=1, meanlog)
 	rlnorm(n, mean(meanlog), sqrt(var(meanlog)))
 )
-# gamma
-if (!isGeneric("rgamma"))
-	setGeneric("rgamma", useAsDefault=rgamma)
-
+# rgamma
 setMethod("rgamma", signature(n='numeric', shape="FLQuantPoint", rate="missing",
 	scale="missing"),
-	function(n=1, shape)
-	FLQuant(rgamma(n, shape=mean(shape)^2/var(shape), scale=var(shape)/mean(shape)),
-		dim=c(dim(shape)[-6], n))
+	function(n=1, shape) {
+		return(FLQuant(rgamma(prod(dim(shape)[-6])*n, shape=mean(shape)^2/var(shape),
+			scale=var(shape)/mean(shape)), dimnames=c(dimnames(shape)[-6],
+			list(iter=seq(n)))))
+	}
 )
 # pearson
 # }}}
 
-## accesors	{{{
+# accesors	{{{
 setMethod("mean", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(FLQuant(x[,,,,,'mean']))
@@ -153,7 +152,7 @@ setMethod("lowq<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 ) # }}}
 
-## plot	{{{
+# plot	{{{
 # TODO Fix, it is badly broken! 12.09.07 imosqueira
 setMethod("plot", signature(x="FLQuantPoint", y="missing"),
 	function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
@@ -191,7 +190,7 @@ setMethod("plot", signature(x="FLQuantPoint", y="missing"),
 	}
 )	# }}}
 
-## quantile   {{{
+# quantile   {{{
 setMethod("quantile", signature(x="FLQuantPoint"),
 	function(x, probs=0.25, na.rm=FALSE, dim=1:5, ...) {
 		if(probs==0.25)
@@ -203,7 +202,7 @@ setMethod("quantile", signature(x="FLQuantPoint"),
 	}
 )   # }}}
 
-## summary          {{{
+# summary          {{{
 setMethod("summary", signature(object="FLQuantPoint"),
 	function(object, ...){
 		cat("An object of class \"FLQuantPoint\" with:\n")

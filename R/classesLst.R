@@ -17,11 +17,11 @@ setClass("FLlst", contains="list",
 
 		# Everything is fine
 		return(TRUE)
-}
-
+  }
 ) # }}}
 
 # FLQuants {{{
+
 #' Class FLQuants
 #'
 #' \code{FLQuants} is a \code{list} of \code{FLQuant} objects.

@@ -39,7 +39,14 @@ setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
     dni <- dimnames(x)
     dni[di > dx] <- dimnames(y)[di > dx]
 
-    return(FLQuant(rx * ry, dimnames=dni, units=paste(units(x), units(y), sep="*")))
+		# units
+		if(identical(units(x), units(y))) {
+			units <- units(x)
+		} else {
+			units <- uom('*', units(x), units(y))
+		}
+
+    return(FLQuant(rx * ry, dimnames=dni, units=units))
   }
 ) # }}}
 
@@ -76,7 +83,14 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
     dni <- dimnames(e1)
     dni[di > de1] <- dimnames(e2)[di > de1]
 
-    return(FLQuant(re1 / re2, dimnames=dni, units=paste(units(e1), units(e2), sep="/")))
+		# units
+		if(identical(units(e1), units(e2))) {
+			units <- units(e1)
+		} else {
+			units <- uom('/', units(e1), units(e2))
+		}
+    
+		return(FLQuant(re1 / re2, dimnames=dni, units=units))
   }
 ) # }}}
 
@@ -112,8 +126,15 @@ setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
     # dimnames
     dni <- dimnames(x)
     dni[di > dx] <- dimnames(y)[di > dx]
+	
+		# units
+		if(identical(units(x), units(y))) {
+			units <- units(x)
+		} else {
+			units <- uom('+', units(x), units(y))
+		}
 
-    return(FLQuant(rx + ry, dimnames=dni, units=paste(units(x), units(y), sep="+")))
+    return(FLQuant(rx + ry, dimnames=dni, units=units))
   }
 ) # }}}
 
@@ -150,7 +171,14 @@ setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
     dni <- dimnames(x)
     dni[di > dx] <- dimnames(y)[di > dx]
 
-    return(FLQuant(rx - ry, dimnames=dni, units=paste(units(x), units(y), sep="-")))
+		# units
+		if(identical(units(x), units(y))) {
+			units <- units(x)
+		} else {
+			units <- uom('-', units(x), units(y))
+		}
+
+    return(FLQuant(rx - ry, dimnames=dni, units=units))
   }
 ) # }}}
 
@@ -187,7 +215,14 @@ setMethod("%^%", signature(x="FLQuant", y="FLQuant"),
     dni <- dimnames(x)
     dni[di > dx] <- dimnames(y)[di > dx]
 
-    return(FLQuant(rx ^ ry, dimnames=dni, units=paste(units(x), units(y), sep="-")))
+		# units
+		if(identical(units(x), units(y))) {
+			units <- units(x)
+		} else {
+			units <- uom('^', units(x), units(y))
+		}
+
+    return(FLQuant(rx ^ ry, dimnames=dni, units=units))
   }
 ) # }}}
 

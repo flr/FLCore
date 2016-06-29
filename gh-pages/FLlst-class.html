@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>FLlst. FLCore 2.5.20140814</title>
+<title>FLlst. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,63 +54,86 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p><code>FLlst</code> is a class that extends <code>list</code> but implements a set of features that give a little bit more structure to list objects. First the elements of <code>FLlst</code> must all be of the same class. Second it implements a lock mechanism that, when turned on, does not allow the user to increase or decrease the object length.</p>
   
     </div>
 
     <div class="Slots">
       <h2>Slots</h2>
-      
+
       <p><dl>
-<dt>.Data</dt><dd>The data. <code>list</code>.</dd>
-<dt>names</dt><dd>Names of the list elements. <code>character</code>.</dd>
-<dt>desc</dt><dd>Description of the object. <code>character</code>.</dd>
-<dt>lock</dt><dd>Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. <code>logical</code>.</dd>
-</dl></p>
+<dt>.Data</dt><dd>The data. <code>list</code>.</dd></p>
+  
+      <p><dt>names</dt><dd>Names of the list elements. <code>character</code>.</dd></p>
+  
+      <p><dt>desc</dt><dd>Description of the object. <code>character</code>.</dd></p>
+  
+      <p><dt>lock</dt><dd>Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. <code>logical</code>.</dd></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Extends">
       <h2>Extends</h2>
-      
+
       <p><dl>
+list
 </dl></p>
   
     </div>
 
     <div class="Constructor">
       <h2>Constructor</h2>
-      
+
       <p><dl>
 <dt></dt><dd>The <code>FLlst(object)</code> constructor method allows simple creation of new FLlst with the methods described below.
-</dd>
-<dt> signature(object=ANY) :</dt><dd>Returns an <code>FLlst</code> object with the provided elements if they are all o the same class.</dd>
-<dt> signature(object=missing) :</dt><dd>Returns an empty <code>FLlst</code> object</dd>
-<dt> signature(object=list) :</dt><dd>Returns and <code>FLlst</code> object with the input list at its core</dd>
-</dl></p>
+</dd></p>
+  
+      <p><dt> signature(object=ANY) :</dt><dd>Returns an <code>FLlst</code> object with the provided elements if they are all o the same class.</dd></p>
+  
+      <p><dt> signature(object=missing) :</dt><dd>Returns an empty <code>FLlst</code> object</dd></p>
+  
+      <p><dt> signature(object=list) :</dt><dd>Returns and <code>FLlst</code> object with the input list at its core</dd></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[</a>(base) :</dt><dd>Select method.</dd>
-<dt></dt><dd><code> signature(x=FLlst,i=ANY,j=missing,drop=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[<-</a>(base) :</dt><dd>Replacement method for elements.</dd>
-<dt></dt><dd><code> signature(x=FLlst,i=ANY,j=missing,value=ANY) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[[<-</a>(base) :</dt><dd>Replacement method within elements.</dd>
-<dt></dt><dd><code> signature(x=FLlst,i=ANY,j=missing,value=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>$<-</a>(base) :</dt><dd>Replacement method for elements.</dd>
-<dt></dt><dd><code> signature(x=FLlst,name=character,value=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/methods/docs/as'>coerce</a>(methods) :</dt><dd>Coerce method.</dd>
-<dt></dt><dd><code> signature(from=FLlst,to=list,strict=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/lapply'>lapply</a>(base) :</dt><dd><code>lapply</code> implemented for <code>FLlst</code> objects.</dd>
-<dt></dt><dd><code> signature(X=missing,FUN=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/stats/docs/window'>window</a>(stats) :</dt><dd>Selects a set of years from all elements at once.</dd>
-<dt></dt><dd><code> signature(x=missing) </code></dd>
-</dl></p>
+<dt><a href='http://www.inside-r.org/r-doc/base/Extract'>[</a>(base) :</dt><dd>Select method.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLlst,i=ANY,j=missing,drop=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/Extract'>[<-</a>(base) :</dt><dd>Replacement method for elements.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLlst,i=ANY,j=missing,value=ANY) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/Extract'>[[<-</a>(base) :</dt><dd>Replacement method within elements.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLlst,i=ANY,j=missing,value=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/Extract'>$<-</a>(base) :</dt><dd>Replacement method for elements.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLlst,name=character,value=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/methods/as'>coerce</a>(methods) :</dt><dd>Coerce method.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(from=FLlst,to=list,strict=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/lapply'>lapply</a>(base) :</dt><dd><code>lapply</code> implemented for <code>FLlst</code> objects.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(X=missing,FUN=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/stats/window'>window</a>(stats) :</dt><dd>Selects a set of years from all elements at once.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=missing) </code></dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -123,7 +158,7 @@ names(fll01)
     </ul> -->
       
     <h2>See also</h2>
-     <a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[<-</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[[<-</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>$<-</a>, <a href='http://www.inside-r.org/packages/cran/methods/docs/as'>coerce</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/lapply'>lapply</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/window'>window</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/list'>list</a>
+     <a href='http://www.inside-r.org/r-doc/base/Extract'>[</a>, <a href='http://www.inside-r.org/r-doc/base/Extract'>[<-</a>, <a href='http://www.inside-r.org/r-doc/base/Extract'>[[<-</a>, <a href='http://www.inside-r.org/r-doc/base/Extract'>$<-</a>, <a href='http://www.inside-r.org/r-doc/methods/as'>coerce</a>, <a href='http://www.inside-r.org/r-doc/base/lapply'>lapply</a>, <a href='http://www.inside-r.org/r-doc/stats/window'>window</a>, <a href='http://www.inside-r.org/r-doc/base/list'>list</a>
     
     <h2>Author</h2>
     The FLR Team
@@ -133,7 +168,7 @@ names(fll01)
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

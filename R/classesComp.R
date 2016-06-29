@@ -3,45 +3,8 @@
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
-# $Id:  $
 
 # FLComp   {{{
-validFLComp <- function(object){
-
-  # range must be named ...
-  nms <- names(range(object))
-  # with non/empty strings
-  if(any(nchar(nms) == 0))
-    return("names in range cannot be empty")
-
-  # Any FLArray?
-  slots <- getSlots(class(object))
-
-  if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
-
-    # FLQuant slots must have either 1 or n iter
-    dims <- unlist(qapply(object, function(x) dims(x)$iter))
-    test <- dims != max(dims) & dims != 1
-    if (any(test))
-      stop(paste("All slots must have iters equal to 1 or 'n': error in",
-        paste(names(test[!test]), collapse=', ')))
-
-    # and dimname for iter[1] should be '1'
-    dimnms <- qapply(object, function(x) dimnames(x)$iter)
-    test <- unlist(dimnms[dims == 1])
-    if(!all(test==test))
-      stop(paste("Incorrect names on the iter dimension in ",
-        paste(names(test[!test]), collapse=', ')))
-
-    # all 'quant' should be equal
-    quants <- unlist(qapply(object, quant))
-    if(any(quants != quants[1]))
-      stop("Not all 'quant' names are the same. Check using qapply(x, quant)")
-
-  }
-
-  return(TRUE)
-}
 
 #' Class FLComp
 #'
@@ -79,7 +42,40 @@ setClass("FLComp",
     name=character(1),
     desc=character(0),
     range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))),
-  validity=validFLComp)
+  validity=function(object){
+
+  # range must be named ...
+  nms <- names(range(object))
+  # with non/empty strings
+  if(any(nchar(nms) == 0))
+    return("names in range cannot be empty")
+
+  # Any FLArray?
+  slots <- getSlots(class(object))
+
+  if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
+
+    # FLQuant slots must have either 1 or n iter
+    dims <- unlist(qapply(object, function(x) dims(x)$iter))
+    test <- dims != max(dims) & dims != 1
+    if (any(test))
+      stop(paste("All slots must have iters equal to 1 or 'n': error in",
+        paste(names(test[!test]), collapse=', ')))
+
+    # and dimname for iter[1] should be '1'
+    dimnms <- qapply(object, function(x) dimnames(x)$iter)
+    test <- unlist(dimnms[dims == 1])
+    if(!all(test==test))
+      stop(paste("Incorrect names on the iter dimension in ",
+        paste(names(test[!test]), collapse=', ')))
+
+    # all 'quant' should be equal
+  }
+
+  return(TRUE)
+}
+
+  )
 
 invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #  }}}
@@ -224,7 +220,7 @@ validFLStock <- function(object) {
 #' @template Accessors
 #' @template Constructors
 #' @author The FLR Team
-#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLSR},
 #' \link{catch}, \link{catch<-}, \link{catch.n}, \link{catch.n<-},
 #' \link{catch.wt}, \link{catch.wt<-}, \link[methods]{coerce},
 #' \link{computeCatch}, \link{computeDiscards}, \link{computeLandings},
@@ -240,26 +236,32 @@ validFLStock <- function(object) {
 #'
 #' data(ple4)
 #'
+#' # get the landings slot
 #' landings(ple4) #get the landings slot
-#' landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)   # assign values to the landings slot
+#' # assign values to the landings slot
+#' landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)
 #'
 #' discards(ple4) <- computeDiscards(ple4)
 #'
-#' harvest(ple4) <- 'f' # set the units of the harvest slot of an FLStock object
+#' # set the units of the harvest slot of an FLStock object
+#' harvest(ple4) <- 'f'
 #'
 #' catch(ple4) <- computeCatch(ple4)
 #' catch(ple4) <- computeCatch(ple4, slot="all")
 #'
 #' ple4[,1] # subset the FLStock
-#' trim(ple4, age=2:6, year=1980:1990) #trim the FLStock
+#' # trim the FLStock
+#' trim(ple4, age=2:6, year=1980:1990)
 #'
-#' ssb(ple4) # calculate SSB
-#' ssbpurec(ple4) # calculate SSB per recruit
+#' # calculate SSB
+#' ssb(ple4)
+#' # calculate SSB per recruit
+#' ssbpurec(ple4)
 #'
-#' biol <- as(ple4, "FLBiol")  # coerce an FLStock to an FLBiol
-#' flsr <- as.FLSR(ple4)       # initialise an FLSR object from an FLStock
-#'
-#'
+#' # coerce an FLStock to an FLBiol
+#' biol <- as(ple4, "FLBiol")
+#' # initialise an FLSR object from an FLStock
+#' flsr <- as.FLSR(ple4)
 #'
 setClass("FLStock",
   representation(
@@ -338,7 +340,7 @@ remove(validFLStock)
 #'     \item{Totals}{The length of the quant dimension for the totals slots (catch, landings and discards) must be equal to 1.}
 #' }
 #' @author The FLR Team
-#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLSR},
 #' \link{computeCatch}, \link{computeDiscards}, \link{computeLandings}, \link[graphics]{plot}, \link{ssb},
 #' \link{ssbpurec}, \link{trim}, \link{FLComp}
 #' @keywords classes
@@ -372,40 +374,11 @@ setClass("FLStockLen",
 
   # TODO
   return(TRUE)
+  }
 
-  names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
-  for(i in names){
-    # all dimnames but iter are the same
-    if(!identical(unlist(dimnames(object@catch.n)[2:5]),
-      unlist(dimnames(slot(object, i))[2:5])))
-      return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
-    # no. iter are equal or one
-  }
-  for (i in names[!names%in%c('catch', 'landings', 'discards', 'stock')])
-  {
-    # quant is n
-    if(!identical(unlist(dimnames(object@catch.n)[1]),
-      unlist(dimnames(slot(object, i))[1])))
-      return(paste('All elements must share quant names: Error in FLStock', i))
-  }
-  for (i in c('catch', 'landings', 'discards'))
-  {
-    # quant is 1
-    if(dim(slot(object, i))[1] != 1)
-      return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
-  }
-  # check range
-  dim <- dim(object@catch.n)
-  dimnm <- dimnames(object@catch.n)
-  if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-    as.numeric(dimnm$year[dim[2]]))))
-    return('Range does not match object dimensions')
-
-  return(TRUE)}
 ) # }}}
 
 # FLI    {{{
-
 
 #' Class FLI
 #'

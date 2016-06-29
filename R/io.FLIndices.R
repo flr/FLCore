@@ -5,8 +5,6 @@
 # Reference:
 # Notes:
 
-# TODO 26/11/2004 iagoazti: Review checkIndex, add write.FLIndices function
-
 ## writeIndicesVPA		{{{
 writeIndicesVPA <- function(FLIndices., file.) {
 
@@ -426,7 +424,7 @@ readFLIndices <- function(file, file2, type="VPA", index.names, descs,
     return(res)
 }	# }}}
 
-## readFLIndex		{{{
+# readFLIndex		{{{
 readFLIndex <- function(file, type="VPA", index.names, descs, 
     desc=paste("Imported from ", type, " file '", file, "'", sep="")) {
 

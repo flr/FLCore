@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>rlnorm. FLCore 2.5.20140814</title>
+<title>rlnorm. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,27 +54,31 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>Random generation for the log normal distribution whose logarithm has mean equal to <em>meanlog</em> and standard deviation equal to <em>sdlog</em>.  <em>meanlog</em> and <em>sdlog</em> can be given as FLQuant objects.  If both are given as FLQuant objects their dimensions must be the same.  If either of these arguments are FLQuant objects, rlnorm returns an FLQuant.</p>
   
     </div>
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>rlnorm(n,meanlog,sdlog)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(n=numeric,meanlog=FLQuant,sdlog=FLQuant) :</dt><dd>Generates random deviates for the log normal distribution. FLQuant arguments must have the same dimension. Returns an FLQuant object.</dd>
-<dt> signature(n=numeric,meanlog=FLQuant,sdlog=numeric) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd>
-<dt> signature(n=numeric,meanlog=numeric,sdlog=FLQuant) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd>
-<dt> signature(n=numeric,meanlog=FLQuantPoint,sdlog=missing) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd>
-</dl></p>
+<dt> signature(n=numeric,meanlog=FLQuant,sdlog=FLQuant) :</dt><dd>Generates random deviates for the log normal distribution. FLQuant arguments must have the same dimension. Returns an FLQuant object.</dd></p>
+  
+      <p><dt> signature(n=numeric,meanlog=FLQuant,sdlog=numeric) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd></p>
+  
+      <p><dt> signature(n=numeric,meanlog=numeric,sdlog=FLQuant) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd></p>
+  
+      <p><dt> signature(n=numeric,meanlog=FLQuantPoint,sdlog=missing) :</dt><dd>Generates random deviates for the log normal distribution. Returns an FLQuant object.</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -75,7 +91,7 @@ apply(log(out),2,sd)
 
      year
 quant 1       2       3       4       5      
-  all 0.00000 0.97458 2.00628 2.96746 4.01208
+  all 0.00000 0.99178 2.02890 2.93386 3.98213
 
 units:  NA 
 </div>
@@ -86,7 +102,7 @@ units:  NA
 
      year
 quant 1      2      3      4      5     
-  all 5.0000 5.0437 5.0053 4.9618 4.9420
+  all 5.0000 5.0107 4.9986 5.0164 4.8293
 
 units:  NA 
 </div></pre>
@@ -100,7 +116,7 @@ units:  NA
     </ul> -->
       
     <h2>See also</h2>
-     <a href='http://www.inside-r.org/packages/cran/stats/docs/Lognormal'>rlnorm</a>, FLQuant, FLQuantPoint  
+     <a href='http://www.inside-r.org/r-doc/stats/Lognormal'>rlnorm</a>, FLQuant, FLQuantPoint  
     
     <h2>Author</h2>
     The FLR Team
@@ -110,7 +126,7 @@ units:  NA
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

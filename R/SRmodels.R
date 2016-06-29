@@ -1,9 +1,8 @@
 # SRmodels - Stock-recruitment models
 # FLCore/R/SRmodels
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: SRmodels.R 1778 2012-11-23 08:43:57Z imosqueira $
 
 # Reference:
 # Notes:
@@ -39,15 +38,6 @@ bevholt <- function()
     a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
     return(FLPar(a = a, b = a/b))},
-
-#rec=ssb*a/(b+ssb)
-#ssb/rec=b/a+ssb/a
-
-#    x <-c(ssb)
-#    y <-c(ssb)/c(rec)
-#    res <- lm(y~x, na.action = na.omit)
-
-#    return(FLPar(a = 1/coef(res)[2], b = coef(res)[1]*coef(res)[2]))},
 
   ## bounds
   lower=rep(-Inf, 2),
@@ -86,6 +76,7 @@ geomean<-function()
         }, 
         lower = c(1e-08), upper = rep(Inf))
     
+		# TRICK: 
     model <- rec ~ a + ssb/ssb - 1
     
     return(list(logl = logl, model = model, initial = initial))
@@ -226,11 +217,11 @@ bevholtAR1 <- function()
   {
   ## log likelihood, assuming normal log.
   logl <- function(a, b, rho, rec, ssb)
-      loglAR1(log(rec), log(a*ssb/(b+ssb)), rho=rho)
+    loglAR1(log(rec), log(a*ssb/(b+ssb)), rho=rho)
 
   ## initial parameter values
   initial <- structure(function(rec, ssb) {
-      a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
+    a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
     return(FLPar(a = a, b = a/b, rho=0))
 	},

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>sop. FLCore 2.5.20140814</title>
+<title>sop. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -52,7 +64,7 @@
     
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>Calculates the sum of products correction for quantities such a catch, discards, 
   landings.  For example in an object of class <code>FLStock</code> there are 
   slots <em>catch.n</em>, <em>catch.wt</em> and <em>catch</em>. <em>catch</em> should equal
@@ -64,15 +76,17 @@
 
     <div class="Details">
       <h2>Details</h2>
-      
+
       <p>Can be used for any class or slot where there are the three FLQuant slots <em>foo</em>, <em>foo.n</em> and <em>foo.wt</em>, representing totals added over all quants (ages), numbers by quant, and weight by quant.</p>
   
     </div>
 
     <div class="Value">
       <h2>Value</h2>
-      
-      <p>Returns the ratio as an FLQuant</p>
+
+      <p><dl>
+  Returns the ratio as an FLQuant
+</dl></p>
   
     </div>
     
@@ -84,17 +98,17 @@ sop(ple4,&quot;catch&quot;)
 , , unit = unique, season = all, area = unique
 
      year
-age   1957 1958 1959 1960 1961 1962 1963 1964 1965 1966 1967 1968 1969 1970
-  all 1    1    1    1    1    1    1    1    1    1    1    1    1    1   
+age   1957 1958 1959 1960 1961 1962 1963 1964 1965 1966 1967 1968 1969 1970 1971 1972
+  all 1    1    1    1    1    1    1    1    1    1    1    1    1    1    1    1   
      year
-age   1971 1972 1973 1974 1975 1976 1977 1978 1979 1980 1981 1982 1983 1984
-  all 1    1    1    1    1    1    1    1    1    1    1    1    1    1   
+age   1973 1974 1975 1976 1977 1978 1979 1980 1981 1982 1983 1984 1985 1986 1987 1988
+  all 1    1    1    1    1    1    1    1    1    1    1    1    1    1    1    1   
      year
-age   1985 1986 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998
-  all 1    1    1    1    1    1    1    1    1    1    1    1    1    1   
+age   1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004
+  all 1    1    1    1    1    1    1    1    1    1    1    1    1    1    1    1   
      year
-age   1999 2000 2001 2002 2003 2004 2005 2006 2007 2008
-  all 1    1    1    1    1    1    1    1    1    1   
+age   2005 2006 2007 2008
+  all 1    1    1    1   
 
 units:  t 
 </div></pre>
@@ -116,7 +130,7 @@ units:  t
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

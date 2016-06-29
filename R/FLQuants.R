@@ -53,6 +53,16 @@ setMethod("xyplot", signature("formula", "FLQuants"), function(x, data, ...)
 	do.call("xyplot", lst)
 }) # }}}
 
+# bwplot {{{
+setMethod("bwplot", signature("formula", "FLQuants"), function(x, data, ...)
+	{
+	lst <- substitute(list(...))
+	lst <- as.list(lst)[-1]
+    	lst$data <- as.data.frame(data)
+	lst$x <- x
+	do.call("bwplot", lst)
+}) # }}}
+
 # histogram {{{
 setMethod("histogram", signature("formula", "FLQuants"), function(x, data, ...)
 	{
@@ -63,7 +73,7 @@ setMethod("histogram", signature("formula", "FLQuants"), function(x, data, ...)
 	do.call("histogram", lst)
 }) # }}}
 
-## iter {{{
+# iter {{{
 setMethod("iter", signature(obj="FLQuants"),
 	  function(obj, iter) {
 
@@ -73,23 +83,6 @@ setMethod("iter", signature(obj="FLQuants"),
 		return(flqs)
 	  }
 ) # }}}
-
-## is.FLQuants       {{{
-#is.FLQuants  <-  function(x)
-#	return(is(x, "FLQuants"))
-# }}}
-
-## "["             {{{
-#setMethod("[", signature(x="FLQuants"),
-#	function(x, i="missing", j="missing",..., drop="missing") {
-#
-#		if (missing(i))
-#			i  <-  seq(1, length(x))
-#       res <- new('FLQuants', x@.Data[i])
-#        names(res) <- names(x)[i]
-#   		return(res)
-#	}
-#)   # }}}
 
 # show  {{{
 setMethod('show', signature('FLQuants'),
@@ -326,3 +319,16 @@ setMethod('Products', signature(object='FLQuants'),
 		eval(parse(text=paste('object[[', paste(seq(length(object)),
 			collapse=']] * object[['), ']]', sep='')))
 )	# }}}
+
+# plot {{{
+setMethod("plot", signature(x="FLQuants", y="missing"),
+  function(x, ...) {
+
+    its <- unlist(lapply(x, function(z) dim(z)[6]))
+
+    if(any(its > 1))
+      bwplot(data~year | qname, data=x, ...)
+    else
+      xyplot(data~year | qname, data=x, ...)
+  }
+) # }}}

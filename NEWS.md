@@ -12,6 +12,8 @@
 - [ method for FLQuantDistr
 - FLIndexBiomass class for biomass-based indices of abundance.
 - Class FLBiolcpp for interfacing  with CPP
+- New catch.sel method for FLStock, computed as proportion across ages of harvest
+- predictMosdel class for use in FLBiol
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
@@ -35,6 +37,9 @@
 - FLQuants() now accepts an FLCOMP object and a list of names/functions to be used to extract individual FLQuant(s)
 - FLPar validity now checks that content is numeric. Default frist dimname is now 'params'
 - FLIndices class can take both FLIndex and FLIndexBiomass objects
+- mean.lifespan renamed as meanLifespan to avoid S3 conflict
+- uom() returns kg for 1 * kg
+- expand() now stops if new dimnames do not contain old ones and these were of length greater than 1
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
@@ -53,6 +58,12 @@
 - Wrong test in validity for FLModelSim
 - Fixed bug in FLPar %% FLPar when objects were actually equal in dims, always returned product
 - quantile(FLQuant) returned oject with wrong dimensions
+- FLPar(missing) now creates objects with right number of iters, works when used with call()
+- lapply(FLst) works on zero length object, does nothing
+- square operators for FLlst return the right names, desc and lock
+- Attributes of FLPar maintained by [ and [<-
+- as(data.frame, 'FLPar') transposed objects without need
+- [<- FLlst now respects names when list elements are added
 
 ## UTILITIES
 

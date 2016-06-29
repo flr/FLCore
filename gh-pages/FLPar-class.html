@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>FLPar. FLCore 2.5.20140814</title>
+<title>FLPar. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>The <code>FLPar</code> class is a class for storing the parameters of a model. It is based on 
  the array class which can store Monte Carlo samples and the names of the relevant 
  parameter vectors.</p>
@@ -55,70 +67,107 @@
 
     <div class="Slots">
       <h2>Slots</h2>
-      
+
       <p><dl>
-<dt>.Data</dt><dd>Describe slot. <code>array</code>.</dd>
-<dt>units</dt><dd>Units of measurement. <code>character</code>.</dd>
-</dl></p>
+<dt>.Data</dt><dd>Describe slot. <code>array</code>.</dd></p>
+  
+      <p><dt>units</dt><dd>Units of measurement. <code>character</code>.</dd></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Extends">
       <h2>Extends</h2>
-      
+
       <p><dl>
+array
 </dl></p>
   
     </div>
 
     <div class="Constructor">
       <h2>Constructor</h2>
-      
+
       <p><dl>
 <dt></dt><dd>The <code>FLPar(object)</code> constructor method allows simple creation of new FLPar with the methods described below.
-</dd>
-<dt>signature(object=array) :</dt><dd>Describe method</dd>
-<dt>signature(object=missing) :</dt><dd>Describe method</dd>
-<dt>signature(object=vector) :</dt><dd>Describe method</dd>
-</dl></p>
+</dd></p>
+  
+      <p><dt>signature(object=array) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt>signature(object=missing) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt>signature(object=vector) :</dt><dd>Describe method</dd></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[</a>(base) :</dt><dd>Subsetting method to access the parameter values.</dd>
-<dt></dt><dd><code> signature(x=FLPar,i=ANY,j=ANY,drop=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[<-</a>(base) :</dt><dd>Replacement method for the parameter values.</dd>
-<dt></dt><dd><code> signature(x=FLPar,i=ANY,j=ANY,value=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/as.data.frame'>as.data.frame</a>(base) :</dt><dd>Creates a data frame from the object.</dd>
-<dt></dt><dd><code> signature(x=FLPar,row.names=ANY,optional=ANY) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/lattice/docs/histogram'>densityplot</a>(lattice) :</dt><dd>applies the densityplot method from <code>lattice</code></dd>
-<dt></dt><dd><code> signature(x=formula,data=FLPar) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/lattice/docs/histogram'>histogram</a>(lattice) :</dt><dd>applies the histogram method from <code>lattice</code></dd>
-<dt></dt><dd><code> signature(x=formula,data=FLPar) </code></dd>
-<dt><a href='iter.html'>iter</a>(FLCore) :</dt><dd>extracts the relevant iteration for the given parameter sample.</dd>
-<dt></dt><dd><code> signature(object=missing) </code></dd>
-<dt><a href='iter.html'>iter<-</a>(FLCore) :</dt><dd>replacement method for the parameter iteration.</dd>
-<dt></dt><dd><code> signature(object=missing,value=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/mean'>mean</a>(base) :</dt><dd>calculates the mean of the parameter samples.</dd>
-<dt></dt><dd><code> signature(x=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/stats/docs/median'>median</a>(stats) :</dt><dd>calculates the median of the parameter samples.</dd>
-<dt></dt><dd><code> signature(x=missing,na.rm=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/graphics/docs/plot'>plot</a>(graphics) :</dt><dd>default plot method for <code>FLPar</code></dd>
-<dt></dt><dd><code> signature(x=FLPar,y=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/lattice/docs/splom'>splom</a>(lattice) :</dt><dd>applies the splom method from <code>lattice</code></dd>
-<dt></dt><dd><code> signature(x=FLPar,data=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/summary'>summary</a>(base) :</dt><dd>Summarises the <code>FLPar</code> object.</dd>
-<dt></dt><dd><code> signature(object=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/difftime'>units</a>(base) :</dt><dd>extracts the units of the parameters.</dd>
-<dt></dt><dd><code> signature(x=missing) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/base/docs/difftime'>units<-</a>(base) :</dt><dd>replacement method for the units of the object.</dd>
-<dt></dt><dd><code> signature(x=FLPar,value=character) </code></dd>
-<dt><a href='http://www.inside-r.org/packages/cran/stats/docs/cor'>var</a>(stats) :</dt><dd>calculates the variance of the parameter samples.</dd>
-<dt></dt><dd><code> signature(x=missing,y=missing,na.rm=missing,use=missing) </code></dd>
-</dl></p>
+<dt><a href='http://www.inside-r.org/r-doc/base/Extract'>[</a>(base) :</dt><dd>Subsetting method to access the parameter values.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLPar,i=ANY,j=ANY,drop=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/Extract'>[<-</a>(base) :</dt><dd>Replacement method for the parameter values.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLPar,i=ANY,j=ANY,value=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/as.data.frame'>as.data.frame</a>(base) :</dt><dd>Creates a data frame from the object.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLPar,row.names=ANY,optional=ANY) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/lattice/histogram'>densityplot</a>(lattice) :</dt><dd>applies the densityplot method from <code>lattice</code></dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=formula,data=FLPar) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/lattice/histogram'>histogram</a>(lattice) :</dt><dd>applies the histogram method from <code>lattice</code></dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=formula,data=FLPar) </code></dd></p>
+  
+      <p><dt><a href='iter.html'>iter</a>(FLCore) :</dt><dd>extracts the relevant iteration for the given parameter sample.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing) </code></dd></p>
+  
+      <p><dt><a href='iter.html'>iter<-</a>(FLCore) :</dt><dd>replacement method for the parameter iteration.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing,value=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/mean'>mean</a>(base) :</dt><dd>calculates the mean of the parameter samples.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/stats/median'>median</a>(stats) :</dt><dd>calculates the median of the parameter samples.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=missing,na.rm=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/graphics/plot'>plot</a>(graphics) :</dt><dd>default plot method for <code>FLPar</code></dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLPar,y=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/lattice/splom'>splom</a>(lattice) :</dt><dd>applies the splom method from <code>lattice</code></dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLPar,data=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/summary'>summary</a>(base) :</dt><dd>Summarises the <code>FLPar</code> object.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/difftime'>units</a>(base) :</dt><dd>extracts the units of the parameters.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/difftime'>units<-</a>(base) :</dt><dd>replacement method for the units of the object.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLPar,value=character) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/stats/cor'>var</a>(stats) :</dt><dd>calculates the variance of the parameter samples.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=missing,y=missing,na.rm=missing,use=missing) </code></dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -127,8 +176,8 @@
 </div>
 <div class='output'>An object of class &quot;FLPar&quot;
 params
-       a        b        c   sigma2 
--1.26619 -0.75519 -0.28192 -0.89873 
+        a         b         c    sigma2 
+0.0038788 0.6635589 1.5737239 1.1425042 
 units:  NA NA NA NA 
 </div></pre>
   </div>
@@ -141,7 +190,7 @@ units:  NA NA NA NA
     </ul> -->
       
     <h2>See also</h2>
-     <a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/Extract'>[<-</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/as.data.frame'>as.data.frame</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/histogram'>densityplot</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/histogram'>histogram</a>, <a href='iter.html'>iter</a>, <a href='iter.html'>iter<-</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/mean'>mean</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/median'>median</a>, <a href='http://www.inside-r.org/packages/cran/graphics/docs/plot'>plot</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/splom'>splom</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/summary'>summary</a>, <a href='units.html'>units,FLPar-method</a>, <a href='units.html'>units<-,FLPar,character-method</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/cor'>var</a> 
+     <a href='http://www.inside-r.org/r-doc/base/Extract'>[</a>, <a href='http://www.inside-r.org/r-doc/base/Extract'>[<-</a>, <a href='http://www.inside-r.org/r-doc/base/as.data.frame'>as.data.frame</a>, <a href='http://www.inside-r.org/r-doc/lattice/histogram'>densityplot</a>, <a href='http://www.inside-r.org/r-doc/lattice/histogram'>histogram</a>, <a href='iter.html'>iter</a>, <a href='iter.html'>iter<-</a>, <a href='http://www.inside-r.org/r-doc/base/mean'>mean</a>, <a href='http://www.inside-r.org/r-doc/stats/median'>median</a>, <a href='http://www.inside-r.org/r-doc/graphics/plot'>plot</a>, <a href='http://www.inside-r.org/r-doc/lattice/splom'>splom</a>, <a href='http://www.inside-r.org/r-doc/base/summary'>summary</a>, <a href='units.html'>units,FLPar-method</a>, <a href='units.html'>units<-,FLPar,character-method</a>, <a href='http://www.inside-r.org/r-doc/stats/cor'>var</a> 
     
     <h2>Author</h2>
     The FLR Team
@@ -151,7 +200,7 @@ units:  NA NA NA NA
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

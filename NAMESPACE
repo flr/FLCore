@@ -1,6 +1,10 @@
 import("methods")
+importFrom("utils",
+  "packageDescription") 
 importFrom("MASS",
   "mvrnorm")
+importFrom("Matrix",
+  "expand")
 importFrom("stats",
   "update",
   "AIC",
@@ -35,11 +39,11 @@ importFrom("lattice",
   "panel.barchart",
   "panel.fill",
   "panel.lmline",
-  "panel.qqmath",
-  "panel.qqmathline",
   "panel.lines",
   "panel.loess",
   "panel.number",
+  "panel.qqmath",
+  "panel.qqmathline",
   "panel.splom",
   "panel.superpose",
   "panel.xyplot",
@@ -57,8 +61,8 @@ importFrom("lattice",
 )
 importFrom("grid",
   "gpar",
-  "viewport",
-  "unit")
+  "unit",
+  "viewport")
 export(
   "plot",
   "abModel",
@@ -137,6 +141,7 @@ exportClasses(
   "predictModel"
 )
 exportMethods(
+  "$",
   "+",
   "%*%",
   "%+%",

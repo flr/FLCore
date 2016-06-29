@@ -11,8 +11,7 @@ setAs("NULL", "FLBiol", function(from) FLBiol())
 setAs("NULL", "FLQuant", function(from) FLQuant())
 # }}}
 
-# replacement {{{
-
+# replacement, [[<-, $, [<- {{{
 setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
 	{
@@ -21,16 +20,9 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			|
 			(is.numeric(i) & length(x)<i)))
 				stop("The object is locked. You can not replace non-existent elements.")
-
+    
     lst <- as(x, "list")
     names(lst) <- names(x)
-
-#		if(length(lst)==0)
-#		{
-#			cls <- is(value)[1]
-#			lst[[i]] <- value
-#			lst <- lapply(lst, as, cls)
-#		}
 
 		lst[[i]] <- value
 
@@ -82,14 +74,21 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			(is.numeric(i) & !identical(sum(i %in% 1:length(x)), li))))
 				stop("The object is locked. You can not replace non-existent elements.")
 
+    nms <- names(x)
+    idx <- seq(length(x))
+    # HACK, need to check why names get dropped in here
 		x@.Data[i] <- value
+    names(x)[idx] <- nms
 
 		if(validObject(x))
 			return(x)
 		else
 			stop("Invalid object, classes do not match.")
 	}
-)
+) # }}}
+
+# subset, [ {{{
+
 
 setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(x,i,j,drop){
 	lst <- as(x, "list")
@@ -229,7 +228,7 @@ setMethod("plot", signature(x="FLIndices",y="missing"),
   }
 ) # }}}
 
-# TODO  {{{
+# plot(FLStocks, FLPar)  {{{
 setMethod('plot', signature(x='FLStocks', y='FLPar'),
   function(x, y, ylab="", xlab="", ...)
   {
@@ -341,19 +340,19 @@ setMethod("range", "FLlst",
   {
     range <- matrix(unlist(lapply(x, function(x) range(x))), nrow=length(x), byrow=TRUE,
       dimnames=list(1:length(x), names(range(x[[1]]))))
-    return(unlist(list(min=min(range[,'min']), max=min(range[,'max']),
+    return(unlist(list(min=min(range[,'min']), max=max(range[,'max']),
       minyear=min(range[,'minyear']), maxyear=min(range[,'maxyear']))))
   }
 ) # }}}
 
-## names         {{{
+# names         {{{
 setMethod("names", signature(x="FLlst"),
 	function(x)
     attr(x, 'names')
 )
 # }}}
 
-## as.data.frame	{{{
+# as.data.frame	{{{
 setMethod("as.data.frame", signature(x="FLCohorts", row.names="missing",
 	optional="missing"),
 		function(x) {

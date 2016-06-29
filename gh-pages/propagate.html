@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>propagate. FLCore 2.5.20140814</title>
+<title>propagate. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>FLR objects with a single iteration (length of 1 in the sixth dimension) can be
   extended using the <code>propagate</code> method. The <code>type</code> argument
   selects whether the new iterations are filled with the content of the first iteration 
@@ -59,20 +71,23 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>propagate(object)</p>
   
     </div>
 
     <div class="Arguments">
       <h2>Arguments</h2>
-      
+
       <p><dl>
-<dt>object :</dt><dd>An FLR object to extend.</dd>
-<dt>fill.iter :</dt><dd>Copy the first iteration along the new ones ('TRUE'), the default,
-    or leave them empty ('FALSE').</dd>
-<dt>iter :</dt><dd>Number of iterations.</dd>
-</dl></p>
+    <dt>object :</dt><dd>An FLR object to extend.</dd></p>
+  
+      <p><dt>fill.iter :</dt><dd>Copy the first iteration along the new ones ('TRUE'), the default,
+    or leave them empty ('FALSE').</dd></p>
+  
+      <p><dt>iter :</dt><dd>Number of iterations.</dd></p>
+  
+      <p></dl></p>
   
       <p></p>
   
@@ -80,14 +95,18 @@
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt>signature(object=FLQuant) :</dt><dd>Extends object along the <code>iter</code> dimension</dd>
-<dt>signature(object=FLPar) :</dt><dd>Extends object along the <code>iter</code> dimension</dd>
-<dt>signature(object=FLComp) :</dt><dd>Extends all <code>FLQuant</code> slots in the
-  object along the <code>iter</code> dimension</dd>
-<dt>signature(object=FLPar) :</dt><dd>Extends object along the <code>iter</code> dimension</dd>
-</dl></p>
+<dt>signature(object=FLQuant) :</dt><dd>Extends object along the <code>iter</code> dimension</dd></p>
+  
+      <p><dt>signature(object=FLPar) :</dt><dd>Extends object along the <code>iter</code> dimension</dd></p>
+  
+      <p><dt>signature(object=FLComp) :</dt><dd>Extends all <code>FLQuant</code> slots in the
+  object along the <code>iter</code> dimension</dd></p>
+  
+      <p><dt>signature(object=FLPar) :</dt><dd>Extends object along the <code>iter</code> dimension</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -101,19 +120,19 @@ iters:  10
 , , unit = unique, season = all, area = unique
 
      year
-quant 1            2            3            4            5           
-    1 -0.675779(0)  1.446124(0)  0.953608(0) -0.101262(0) -0.795086(0)
-    2  0.241857(0) -0.728621(0) -1.312398(0) -0.047084(0)  2.343310(0)
-    3  0.623768(0) -1.274914(0) -0.247546(0)  0.399192(0) -0.672457(0)
-    4  1.034145(0)  0.297336(0)  1.627645(0) -0.093893(0)  0.815905(0)
-    5 -0.589603(0) -0.265425(0)  2.131190(0)  1.335359(0)  1.425717(0)
+quant 1             2             3             4             5             6            
+    1 -1.2304497(0) -0.1797485(0)  1.1923671(0) -2.0433330(0) -0.1784393(0) -0.1287709(0)
+    2  1.2213548(0)  2.8955785(0) -2.3681238(0)  0.3439422(0) -0.3848288(0)  0.0057617(0)
+    3 -0.0322886(0)  0.3035256(0)  0.9310721(0)  0.0263496(0) -1.0065157(0) -1.0312175(0)
+    4 -0.3731203(0)  0.2841049(0)  0.3435411(0) -0.0868157(0)  0.1284781(0)  0.9228455(0)
+    5 -0.0530964(0) -0.9441145(0) -0.2245811(0) -0.3125025(0) -0.9777645(0)  0.0188311(0)
      year
-quant 6            7            8            9            10          
-    1 -1.989175(0)  0.873081(0)  0.453700(0) -1.432826(0)  1.147027(0)
-    2 -0.856607(0)  0.894613(0) -1.701969(0) -0.389752(0)  0.461798(0)
-    3 -0.315682(0) -0.028767(0)  1.466665(0)  0.367913(0) -0.250148(0)
-    4 -0.048829(0) -0.041368(0)  1.224046(0) -2.045295(0)  0.633247(0)
-    5  1.799202(0)  0.819307(0) -0.027160(0)  0.379279(0)  1.780030(0)
+quant 7             8             9             10           
+    1  0.5496992(0) -0.1672637(0) -0.2614475(0)  1.2136221(0)
+    2 -0.0494480(0)  0.0423682(0) -1.2436347(0)  0.4150203(0)
+    3 -0.4914139(0)  1.8256894(0)  0.7433986(0)  0.4183025(0)
+    4  0.0338344(0) -1.1991374(0)  0.3833389(0) -1.0623366(0)
+    5  1.0316726(0)  0.1434046(0) -0.5727659(0)  0.9569530(0)
 
 units:  NA 
 </div>
@@ -125,12 +144,12 @@ dim  :  5 10 1 1 1 10
 quant:  quant 
 units:  NA 
 
-Min    :  -2.045295 
-1st Qu.:  -0.3712345 
-Mean   :  0.2208683 
-Median :  0.2695966 
-3rd Qu.:  0.9388591 
-Max    :  2.34331 
+Min    :  -2.368 
+1st Qu.:  -0.3819 
+Mean   :  -0.004562 
+Median :  -0.01326 
+3rd Qu.:  0.4071 
+Max    :  2.896 
 NAs    :  90 %
 </div>
 <div class='input'>
@@ -187,7 +206,7 @@ units:  NA
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

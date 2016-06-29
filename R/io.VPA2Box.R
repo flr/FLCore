@@ -1,5 +1,5 @@
-# io.VPA2Box - Inout and ouput for VPA2Box format
-# io.VPA2Box
+# io.VPA2Box - I/O code for VPA2Box
+# FLCore/R/io.VPA2Box
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03

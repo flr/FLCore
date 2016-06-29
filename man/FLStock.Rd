@@ -114,33 +114,39 @@ for sizing but not stored in any slot.
 
 data(ple4)
 
+# get the landings slot
 landings(ple4) #get the landings slot
-landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)   # assign values to the landings slot
+# assign values to the landings slot
+landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)
 
 discards(ple4) <- computeDiscards(ple4)
 
-harvest(ple4) <- 'f' # set the units of the harvest slot of an FLStock object
+# set the units of the harvest slot of an FLStock object
+harvest(ple4) <- 'f'
 
 catch(ple4) <- computeCatch(ple4)
 catch(ple4) <- computeCatch(ple4, slot="all")
 
 ple4[,1] # subset the FLStock
-trim(ple4, age=2:6, year=1980:1990) #trim the FLStock
+# trim the FLStock
+trim(ple4, age=2:6, year=1980:1990)
 
-ssb(ple4) # calculate SSB
-ssbpurec(ple4) # calculate SSB per recruit
+# calculate SSB
+ssb(ple4)
+# calculate SSB per recruit
+ssbpurec(ple4)
 
-biol <- as(ple4, "FLBiol")  # coerce an FLStock to an FLBiol
-flsr <- as.FLSR(ple4)       # initialise an FLSR object from an FLStock
-
-
+# coerce an FLStock to an FLBiol
+biol <- as(ple4, "FLBiol")
+# initialise an FLSR object from an FLStock
+flsr <- as.FLSR(ple4)
 
 }
 \author{
 The FLR Team
 }
 \seealso{
-\link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
+\link[base]{[}, \link[base]{[<-}, \link{as.FLSR},
 \link{catch}, \link{catch<-}, \link{catch.n}, \link{catch.n<-},
 \link{catch.wt}, \link{catch.wt<-}, \link[methods]{coerce},
 \link{computeCatch}, \link{computeDiscards}, \link{computeLandings},

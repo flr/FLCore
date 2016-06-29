@@ -1,7 +1,9 @@
-# genericMethods - Generic methods, new and based on R functions
-# genericMethods
+# genericMethods - S4 generics
+# FLCore/R/genericMethods
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+
+globalVariables(c("qname"))
 
 # Existing methods/functions
 
@@ -50,7 +52,7 @@ setGeneric("mvrnorm", useAsDefault=mvrnorm)
 setGeneric("tail", useAsDefault=tail)
 setGeneric("tsp", useAsDefault=tsp)
 setGeneric("wireframe", useAsDefault=wireframe)
-
+setGeneric("expand", useAsDefault=Matrix::expand)
 
 # NEW methods
 
@@ -466,16 +468,12 @@ setGeneric("quant<-", function(object, value)
 # iter, iter<-
 setGeneric("iter", function(obj, ...)
 	standardGeneric("iter"))
-setGeneric("iter<-", function(object, value)
+setGeneric("iter<-", function(object, ..., value)
   standardGeneric("iter<-"))
 
 # trim
 setGeneric("trim", function(x, ...)
 	standardGeneric("trim"))
-
-# expand
-setGeneric("expand", function(x, ...)
-	standardGeneric("expand"))
 
 # catchNames
 setGeneric('catchNames', function(object, ...)

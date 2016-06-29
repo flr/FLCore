@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>lowess. FLCore 2.5.20140814</title>
+<title>lowess. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,7 +54,7 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>LOWESS smoother based on locally-weighted polynomial regression for objects of class
   <code>FLSR</code>. The model fitted is of the form rec(x)~ssb(x). Returns an
   object of class <code>FLQuants</code> with elements named <code>ssb</code> and <code>rec</code>.</p>
@@ -51,7 +63,7 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>lowess(x, y, f=2/3, iter=3, delta=0.01 * diff(range(xy\$x[o])))</p>
   
       <p></p>
@@ -60,11 +72,12 @@
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
 <dt>signature(x=FLSR,y=missing) :</dt><dd>lowess(x, y, f=2/3, iter=3, delta=0.01 * diff(range(ssb(x))))
-</dd>
-</dl></p>
+</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -74,15 +87,7 @@ data(nsher)
 
 # fitting a rec ~ ssb lowess
 nshlos &lt;- lowess(nsher)
-</div>
-<strong class='warning'>Warning message:
-Selected elements do not form a coherent 6D array</strong>
-<strong class='warning'>Warning message:
-Selected elements do not form a coherent 6D array</strong>
-<strong class='warning'>Warning message:
-Selected elements do not form a coherent 6D array</strong>
-<strong class='warning'>Warning message:
-Selected elements do not form a coherent 6D array</strong></pre>
+</div></pre>
   </div>
   <div class="span4">
     <!-- <ul>
@@ -93,7 +98,7 @@ Selected elements do not form a coherent 6D array</strong></pre>
     </ul> -->
       
     <h2>See also</h2>
-     <a href='http://www.inside-r.org/packages/cran/stats/docs/lowess'>lowess</a>, <code>FLSR</code>
+     <a href='http://www.inside-r.org/r-doc/stats/lowess'>lowess</a>, <code>FLSR</code>
     
     <h2>Author</h2>
     The FLR Team
@@ -103,7 +108,7 @@ Selected elements do not form a coherent 6D array</strong></pre>
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

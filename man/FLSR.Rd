@@ -42,50 +42,51 @@ formulation implemented for each of them.
 }
 \examples{
 
-    # Create an empty FLSR object.
-    sr1 <- FLSR()
+  # Create an empty FLSR object.
+  sr1 <- FLSR()
 
-    # Create an  FLSR object using the existing SR models.
-    sr2 <- FLSR(model = 'ricker')
-    sr2@model
-    sr2@initial
-    sr2@logl
+  # Create an  FLSR object using the existing SR models.
+  sr2 <- FLSR(model = 'ricker')
+  sr2@model
+  sr2@initial
+  sr2@logl
 
-    sr3 <- FLSR(model = 'bevholt')
-    sr3@model
-    sr3@initial
-    sr3@logl
+  sr3 <- FLSR(model = 'bevholt')
+  sr3@model
+  sr3@initial
+  sr3@logl
 
-    # Create an FLSR using a function.
-    mysr1 <- function(){
-        model <- rec ~ a*ssb^b
-        return(list(model = model))}
+  # Create an FLSR using a function.
+  mysr1 <- function(){
+    model <- rec ~ a*ssb^b
+    return(list(model = model))}
 
-    sr4 <- FLSR(model = mysr1)
+  sr4 <- FLSR(model = mysr1)
 
-    # Create an FLSR using a function and check that it works.
-    mysr2 <- function(){
-        formula <- rec ~ a+ssb*b
+  # Create an FLSR using a function and check that it works.
+  mysr2 <- function(){
+    formula <- rec ~ a+ssb*b
 
-        logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec,
-            a + ssb*b, sqrt(sigma), TRUE))
+    logl <- function(a, b, sigma, rec, ssb) sum(dnorm(rec,
+      a + ssb*b, sqrt(sigma), TRUE))
 
-       initial <- structure(function(rec, ssb) {
-            a     <- mean(rec)
-            b     <- 1
-            sigma <- sqrt(var(rec))
+   initial <- structure(function(rec, ssb) {
+      a   <- mean(rec)
+      b   <- 1
+      sigma <- sqrt(var(rec))
 
-            return(list(a= a, b = b, sigma = sigma))}, lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
+      return(list(a=a, b=b, sigma=sigma))},
+        lower = c(0, 1e-04, 1e-04), upper = rep(Inf, 3))
 
-       return(list(model = formula, initial = initial, logl = logl))
-    }
+   return(list(model = formula, initial = initial, logl = logl))
+  }
 
-    ssb <- FLQuant(runif(10, 10000, 100000))
-    rec <- 10000 + 2*ssb + rnorm(10,0,1)
-    sr5 <- FLSR(model = mysr2, ssb = ssb, rec = rec)
+  ssb <- FLQuant(runif(10, 10000, 100000))
+  rec <- 10000 + 2*ssb + rnorm(10,0,1)
+  sr5 <- FLSR(model = mysr2, ssb = ssb, rec = rec)
 
-    sr5.mle <- fmle(sr5)
-    sr5.nls <- nls(sr5)
+  sr5.mle <- fmle(sr5)
+  sr5.nls <- nls(sr5)
 
 # NS Herring stock-recruitment dataset
 data(nsher)

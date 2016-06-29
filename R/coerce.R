@@ -104,7 +104,7 @@ setAs('FLBiol', 'FLStock',
   function(from)
   {
     FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
-      name=from@name, desc=from@desc, mat=from@fec,
+      name=from@name, desc=from@desc, mat=from@mat,
       m.spwn=from@spwn,harvest.spwn=from@spwn, range=from@range)
   }
 )
@@ -242,23 +242,31 @@ setAs('FLBiol', 'FLBiolcpp',
 # TO FLPar  {{{
 setAs('data.frame', 'FLPar',
   function(from) {
+    
+    # long ...
+    if(!"data" %in% colnames(from)) {
 
-    # iter names from df
-    if("iter" %in% colnames(from))
-      iters <- from$iter
-    # or from rownames, if present
-    else
-      iters <- rownames(from, do.NULL=TRUE, prefix="")
+      do.call('FLPar', c(from))
 
-    # param named columns
-    pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
+    # ... or wide
+    } else {
+      # iter names from df
+      if("iter" %in% colnames(from))
+        iters <- from$iter
+      # or from rownames, if present
+      else
+        iters <- rownames(from, do.NULL=TRUE, prefix="")
 
-    pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
-    pnames <- lapply(pnames, as.character)
+      # param named columns
+      pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
 
-    dmns <- c(pnames, list(iter=unique(iters)))
+      pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
+      pnames <- lapply(pnames, as.character)
 
-    return(FLPar(from$data, dimnames=dmns, units="NA"))
+      dmns <- c(pnames, list(iter=unique(iters)))
+
+      return(FLPar(from$data, dimnames=dmns, units="NA"))
+    }
   }
 )
 

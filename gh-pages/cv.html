@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>cv. FLCore 2.5.20140814</title>
+<title>cv. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,18 +54,18 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>The Coefficient of Variation of an object with mutiple iterations along the sixth 
   (<code>iter</code>) dimension can be calculated using <code>cv()</code>. An object of the same 
   class, with length=1 on the sixth dimension, will be returned.</p>
   
-      <p>CV of <code>x</code> is calculated as <code class = 'eq'>sd(x)/mean(x)</code>.</p>
+      <p>CV of <code>x</code> is calculated as $sd(x)/mean(x)$.</p>
   
       <p>For objects of class <code><a href='FLModel-class.html'>FLModel</a></code>, <code>cv</code> returns the result of</p>
   
-      <p><pre class = 'eq'>sqrt(diag(sigma))/theta</pre></p>
+      <p>$$\frac{\sqrt{diag(\Sigma)}}{\Theta}$$</p>
   
-      <p>where <code class = 'eq'>sigma</code> is the variance-covariance matrix of the <code class = 'eq'>theta</code>
+      <p>where $sigma$ is the variance-covariance matrix of the $theta$
   parameter set.</p>
   
       <p></p>
@@ -62,18 +74,19 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>cv(object)</p>
   
     </div>
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
 <dt> signature(object=FLQuant) :</dt><dd>Works along the <code>iter</code> dimension of an 
-  <code>FLQuant</code></dd>
-</dl></p>
+  <code>FLQuant</code></dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -81,7 +94,7 @@
     <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(200, 5, 10), dim=c(5,10), iter=100)
 cv(flq)
 </div>
-<div class='output'>[1] 1.99505
+<div class='output'>[1] 1.731
 </div></pre>
   </div>
   <div class="span4">
@@ -103,7 +116,7 @@ cv(flq)
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

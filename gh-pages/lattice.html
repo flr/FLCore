@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>lattice. FLCore 2.5.20140814</title>
+<title>lattice. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="The FLR Team">
 
@@ -14,13 +14,25 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,15 +54,15 @@
         
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p>Implementation of Trellis graphics in FLR. Plot methods in the 
- <code><a href='http://www.inside-r.org/packages/cran/lattice/docs/Lattice'>lattice</a></code> package are  available for object of class 
+ <code><a href='http://www.inside-r.org/r-doc/lattice/Lattice'>lattice</a></code> package are  available for object of class 
  <code>FLQuant</code>, <code>FLQuants</code> or those derive from <code>FLComp</code>.</p>
   
-      <p>See the help page in <code><a href='http://www.inside-r.org/packages/cran/lattice/docs/Lattice'>lattice</a></code> for a full description of each plot 
+      <p>See the help page in <code><a href='http://www.inside-r.org/r-doc/lattice/Lattice'>lattice</a></code> for a full description of each plot 
  method and of all possible arguments.</p>
   
-      <p>Plot methods from lattice are called by passing a <a href='http://www.inside-r.org/packages/cran/base/docs/data.frame'>data.frame</a> obtained by 
+      <p>Plot methods from lattice are called by passing a <a href='http://www.inside-r.org/r-doc/base/data.frame'>data.frame</a> obtained by 
  converting the FLR objects using as.data.frame. For details on this transformation, see 
  <a href='as.data.frame.html'>as.data.frame-FLCore</a>.</p>
   
@@ -58,7 +70,7 @@
 
     <div class="Generic function">
       <h2>Generic function</h2>
-      
+
       <p>barchart(x, data, ...)</p>
   
       <p>bwplot(x, data, ...)</p>
@@ -77,13 +89,17 @@
 
     <div class="Methods">
       <h2>Methods</h2>
-      
+
       <p><dl>
-<dt> signature(x=formula, data=FLQuant) :</dt><dd>Use the lattice functionality for objects of class FLQuant</dd>
-<dt> signature(x=formula, data=FLQuants) :</dt><dd>Use the lattice functionality for objects of class FLQuants</dd>
-<dt> signature(x=formula, data=FLComp) :</dt><dd>Use the lattice functionality for objects of class FLComp</dd>
-<dt> signature(x=formula, data=FLPar) :</dt><dd>Use the lattice functionality for objects of class FLPar</dd>
-</dl></p>
+<dt> signature(x=formula, data=FLQuant) :</dt><dd>Use the lattice functionality for objects of class FLQuant</dd></p>
+  
+      <p><dt> signature(x=formula, data=FLQuants) :</dt><dd>Use the lattice functionality for objects of class FLQuants</dd></p>
+  
+      <p><dt> signature(x=formula, data=FLComp) :</dt><dd>Use the lattice functionality for objects of class FLComp</dd></p>
+  
+      <p><dt> signature(x=formula, data=FLPar) :</dt><dd>Use the lattice functionality for objects of class FLPar</dd></p>
+  
+      <p></dl></p>
   
     </div>
     
@@ -91,19 +107,26 @@
     <pre class="examples"><div class='input'>data(ple4)
 # xyplot on FLQuant
 xyplot(data~year|age, catch.n(ple4)[, 1:20])
-
+</div>
+<p><img src='lattice-2.png' alt='' width='540' height='400' /></p>
+<div class='input'>
 xyplot(data~year|as.factor(age), catch.n(ple4)[, 1:20], type=&#39;b&#39;, pch=19, cex=0.5)
-
+</div>
+<p><img src='lattice-4.png' alt='' width='540' height='400' /></p>
+<div class='input'>
 # bwplot on FLQuant with iter
 flq &lt;- rnorm(100, catch.n(ple4)[, 1:20], catch.n(ple4)[,1:20])
 bwplot(data~year|as.factor(age), flq)
-
+</div>
+<p><img src='lattice-6.png' alt='' width='540' height='400' /></p>
+<div class='input'>
 # now with same style modifications
 bwplot(data~year|as.factor(age), flq, scales=list(relation=&#39;free&#39;,
   x=list(at=seq(1, 20, by=5), labels=dimnames(catch.n(ple4)[,1:20])$year[seq(1, 20,
   by=5)])), cex=0.5, strip = strip.custom(strip.names = TRUE, strip.levels = TRUE,
   var.name=&#39;age&#39;))
-</div></pre>
+</div>
+<p><img src='lattice-8.png' alt='' width='540' height='400' /></p></pre>
   </div>
   <div class="span4">
     <!-- <ul>
@@ -114,7 +137,7 @@ bwplot(data~year|as.factor(age), flq, scales=list(relation=&#39;free&#39;,
     </ul> -->
       
     <h2>See also</h2>
-    <a href='http://www.inside-r.org/packages/cran/lattice/docs/xyplot'>xyplot</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/xyplot'>barchart</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/xyplot'>bwplot</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/histogram'>densityplot</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/xyplot'>dotplot</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/histogram'>histogram</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/xyplot'>stripplot</a>
+    <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>xyplot</a>, <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>barchart</a>, <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>bwplot</a>, <a href='http://www.inside-r.org/r-doc/lattice/histogram'>densityplot</a>, <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>dotplot</a>, <a href='http://www.inside-r.org/r-doc/lattice/histogram'>histogram</a>, <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>stripplot</a>
     
     <h2>Author</h2>
     The FLR Team
@@ -124,7 +147,7 @@ bwplot(data~year|as.factor(age), flq, scales=list(relation=&#39;free&#39;,
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

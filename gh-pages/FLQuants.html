@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>FLQuants. FLCore 2.5.20140814</title>
+<title>FLQuants. FLCore 2.6.0.20160316</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="
 The FLR Team
@@ -16,13 +16,25 @@ The FLR Team
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   </head>
 
   <body>
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -42,14 +54,9 @@ The FLR Team
 <div class="row">
   <div class="span8">
         
-    <div class="Class FLQuants">
-      <h2>Class FLQuants</h2>
-      
-    </div>
-
     <div class="Description">
       <h2>Description</h2>
-      
+
       <p><code>FLQuants</code> is a <code>list</code> of <code>FLQuant</code> objects.
 It is very similar to the standard <code>list</code> class.
 It implements a lock mechanism that, when turned on, does
@@ -60,13 +67,17 @@ The elements of <code>FLQuants</code> must all be of class  <code>FLQuant</code>
 
     <div class="Slots">
       <h2>Slots</h2>
-      
+
       <p><dl>
-<dt>.Data</dt><dd>The data. <code>list</code>.</dd>
-<dt>names</dt><dd>Names of the list elements. <code>character</code>.</dd>
-<dt>desc</dt><dd>Description of the object. <code>character</code>.</dd>
-<dt>lock</dt><dd>Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. <code>logical</code>.</dd>
-</dl></p>
+    <dt>.Data</dt><dd>The data. <code>list</code>.</dd></p>
+  
+      <p><dt>names</dt><dd>Names of the list elements. <code>character</code>.</dd></p>
+  
+      <p><dt>desc</dt><dd>Description of the object. <code>character</code>.</dd></p>
+  
+      <p><dt>lock</dt><dd>Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. <code>logical</code>.</dd></p>
+  
+      <p></dl></p>
   
       <p></p>
   
@@ -74,7 +85,7 @@ The elements of <code>FLQuants</code> must all be of class  <code>FLQuant</code>
 
     <div class="Accesors">
       <h2>Accesors</h2>
-      
+
       <p></p>
   
       <p>Elements in the list can be accessed using '[' and '[['</p>
@@ -83,7 +94,7 @@ The elements of <code>FLQuants</code> must all be of class  <code>FLQuant</code>
 
     <div class="Constructor">
       <h2>Constructor</h2>
-      
+
       <p></p>
   
       <p>A constructor method exists for this class that can take named arguments for
@@ -101,10 +112,10 @@ any of the list elements.</p>
       
     <h2>See also</h2>
     
-<a href='http://www.inside-r.org/packages/cran/base/docs/Arithmetic'>*</a>, <a href='http://www.inside-r.org/packages/cran/methods/docs/S4groupGeneric'>Arith</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/as.data.frame'>as.data.frame</a>,
-<a href='bubbles.html'>bubbles</a>, catch<-, <a href='iter.html'>iter</a>, <a href='http://www.inside-r.org/packages/cran/stats/docs/model.frame'>model.frame</a>,
-<a href='http://www.inside-r.org/packages/cran/methods/docs/show'>show</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/summary'>summary</a>, <a href='http://www.inside-r.org/packages/cran/lattice/docs/xyplot'>xyplot</a>,
-<a href='FLlst-class.html'>FLlst</a>, <a href='http://www.inside-r.org/packages/cran/base/docs/list'>list</a>
+<a href='http://www.inside-r.org/r-doc/base/Arithmetic'>*</a>, <a href='http://www.inside-r.org/r-doc/methods/S4groupGeneric'>Arith</a>, <a href='http://www.inside-r.org/r-doc/base/as.data.frame'>as.data.frame</a>,
+<a href='bubbles.html'>bubbles</a>, catch<-, <a href='iter.html'>iter</a>, <a href='http://www.inside-r.org/r-doc/stats/model.frame'>model.frame</a>,
+<a href='http://www.inside-r.org/r-doc/methods/show'>show</a>, <a href='http://www.inside-r.org/r-doc/base/summary'>summary</a>, <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>xyplot</a>,
+<a href='FLlst-class.html'>FLlst</a>, <a href='http://www.inside-r.org/r-doc/base/list'>list</a>
 
     
     <h2>Author</h2>
@@ -117,7 +128,7 @@ The FLR Team
       
       <footer>
       <p class="pull-right"><a href="#">Back to top</a></p>
-<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
       </footer>
     </div>
   </body>

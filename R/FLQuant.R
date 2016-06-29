@@ -1,55 +1,54 @@
 # FLQuant.R - FLQuant class and methods
 # FLCore/R/FLQuant.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: FLQuant.R 1778 2012-11-23 08:43:57Z imosqueira $
 
 # FLQuant(missing){{{
 # FLQuant  <- FLQuant()
 setMethod("FLQuant", signature(object="missing"),
-	function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA",
-		iter=1) {
+  function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA",
+    iter=1) {
 
-		# no dim or dimnames
-		if (missing(dim) && missing(dimnames)) {
-			dim <- c(1,1,1,1,1,iter)
-			dimnames <- list(quant='all', year=1, unit='unique', season='all',
-				area='unique', iter=1:dim[6])
-		} else if (missing(dim)) {
-			# dim missing
-			dimnames <- filldimnames(dimnames, iter=iter)
-			dim <- as.numeric(sapply(dimnames, length))
-		} else if (missing(dimnames)) {
-		# dimnames missing
-		dim <- c(dim, rep(1,6))[1:6]
-				# but iter
-				if(!missing(iter))
-				dim[6] <- iter
-				dimnames <- list(
-						quant=if(dim[1]==1){"all"}else{1:dim[1]},
-						year=1:dim[2],
-						unit=if(dim[3]==1){"unique"}else{1:dim[3]},
-						season=if(dim[4]==1){"all"}else{1:dim[4]},
-						area=if(dim[5]==1){"unique"}else{1:dim[5]},
-						iter=1:dim[6])
-		} else {
-				# both missing
-				dim <- c(dim, rep(1,6))[1:6]
-				# but iter
-				if(!missing(iter))
-						dim[6] <- iter
-				dimnames <- filldimnames(dimnames, dim=dim, iter=iter)
-		}
+    # no dim or dimnames
+    if (missing(dim) && missing(dimnames)) {
+      dim <- c(1,1,1,1,1,iter)
+      dimnames <- list(quant='all', year=1, unit='unique', season='all',
+        area='unique', iter=1:dim[6])
+    } else if (missing(dim)) {
+      # dim missing
+      dimnames <- filldimnames(dimnames, iter=iter)
+      dim <- as.numeric(sapply(dimnames, length))
+    } else if (missing(dimnames)) {
+    # dimnames missing
+    dim <- c(dim, rep(1,6))[1:6]
+        # but iter
+        if(!missing(iter))
+        dim[6] <- iter
+        dimnames <- list(
+            quant=if(dim[1]==1){"all"}else{1:dim[1]},
+            year=1:dim[2],
+            unit=if(dim[3]==1){"unique"}else{1:dim[3]},
+            season=if(dim[4]==1){"all"}else{1:dim[4]},
+            area=if(dim[5]==1){"unique"}else{1:dim[5]},
+            iter=1:dim[6])
+    } else {
+        # both missing
+        dim <- c(dim, rep(1,6))[1:6]
+        # but iter
+        if(!missing(iter))
+            dim[6] <- iter
+        dimnames <- filldimnames(dimnames, dim=dim, iter=iter)
+    }
 
-	flq <- new("FLQuant", array(as.numeric(NA), dim=dim, dimnames=dimnames),
-		units=units)
+  flq <- new("FLQuant", array(as.numeric(NA), dim=dim, dimnames=dimnames),
+    units=units)
 
-		if (!is.null(quant))
-				quant(flq) <- quant
+    if (!is.null(quant))
+        quant(flq) <- quant
 
-		return(flq)
-		}
+    return(flq)
+    }
 )# }}}
 
 # FLQuant(vector){{{
@@ -250,30 +249,30 @@ return(res)
 
 # as.FLQuant(array){{{
 setMethod("as.FLQuant", signature(x="array"),
-	function(x, ...) {
-		return(FLQuant(x, ...))
-	}
+  function(x, ...) {
+    return(FLQuant(x, ...))
+  }
 )
 
 setAs("array", "FLQuant", function(from)
-	return(FLQuant(from)))
+  return(FLQuant(from)))
 # }}}
 
 # as.FLQuant(matrix){{{
 setMethod("as.FLQuant", signature(x="matrix"),
-	function(x, ...) {
-		return(FLQuant(x, ...))
-	}
+  function(x, ...) {
+    return(FLQuant(x, ...))
+  }
 )
 setAs("matrix", "FLQuant", function(from)
-	return(FLQuant(from)))
+  return(FLQuant(from)))
 # }}}
 
 # as.FLQuant(FLQuant){{{
 setMethod("as.FLQuant", signature(x="FLQuant"),
-	function(x, ...) {
-		return(FLQuant(x, ...))
-	}
+  function(x, ...) {
+    return(FLQuant(x, ...))
+  }
 )# }}}
 
 # as.FLQuant(vector){{{
@@ -283,7 +282,7 @@ return(FLQuant(x, ...))
 }
 )
 setAs("vector", "FLQuant", function(from)
-	return(FLQuant(from)))
+  return(FLQuant(from)))
 # }}}
 
 # as.FLQuant(data.frame){{{
@@ -291,26 +290,26 @@ setMethod("as.FLQuant", signature(x="data.frame"),
 function(x, ...)
   {
 
-		# get data.frame names and compare
-		names(x) <- tolower(names(x))
-  	validnames <-c("year","unit","season","area","iter","data")
+    # get data.frame names and compare
+    names(x) <- tolower(names(x))
+    validnames <-c("year","unit","season","area","iter","data")
 
-		indices <- match(validnames, names(x))
-  	indices <- indices[!is.na(indices)]
+    indices <- match(validnames, names(x))
+    indices <- indices[!is.na(indices)]
 
-	  # get quant
-  	qname <- names(x)
-		qname[indices] <- NA
-		qname <- qname[!is.na(qname)]
+    # get quant
+    qname <- names(x)
+    qname[indices] <- NA
+    qname <- qname[!is.na(qname)]
 
-	  if (length(qname) > 1)
-			stop("too many columns in data.frame")
-	  if(length(qname) == 0)
-  	  qname <- "quant"
+    if (length(qname) > 1)
+      stop("too many columns in data.frame")
+    if(length(qname) == 0)
+      qname <- "quant"
 
-		# sort years if present
-		if('year' %in% names(x))
-			x <- x[order(x$year),]
+    # sort years if present
+    if('year' %in% names(x))
+      x <- x[order(x$year),]
 
     # check and fill up missing dimensions
     n <- dim(x)[1]
@@ -380,25 +379,25 @@ setMethod("dimnames<-", signature(x="FLQuant", value='list'),
 # dims       {{{
 # Return a list with different parameters
 setMethod("dims", signature(obj="FLQuant"),
-	function(obj, ...){
+  function(obj, ...){
 
-		names <- names(dimnames(obj))
-		quant   <-  as.numeric(dim(obj)[names == quant(obj)])
-		min <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][1]))
-		max <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][length(dimnames(obj)[[quant(obj)]])]))
-		year<-  as.numeric(dim(obj)[names == "year"])
-		minyear <-  suppressWarnings(as.numeric(dimnames(obj)$year[1]))
-		maxyear <-  suppressWarnings(as.numeric(dimnames(obj)$year[dim(obj)[names == "year"]]))
-		unit<-  dim(obj)[names == "unit"]
-		season  <-  dim(obj)[names == "season"]
-		area <-  dim(obj)[names == "area"]
-		iter <- dim(obj)[names == "iter"]
-		list <- list(quant=quant, min=min, max=max, year=year, minyear=minyear,
-		maxyear=maxyear, unit=unit, season=season, area=area, iter=iter)
-		names(list)[1] <- quant(obj)
+    names <- names(dimnames(obj))
+    quant   <-  as.numeric(dim(obj)[names == quant(obj)])
+    min <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][1]))
+    max <- suppressWarnings(as.numeric(dimnames(obj)[[quant(obj)]][length(dimnames(obj)[[quant(obj)]])]))
+    year<-  as.numeric(dim(obj)[names == "year"])
+    minyear <-  suppressWarnings(as.numeric(dimnames(obj)$year[1]))
+    maxyear <-  suppressWarnings(as.numeric(dimnames(obj)$year[dim(obj)[names == "year"]]))
+    unit<-  dim(obj)[names == "unit"]
+    season  <-  dim(obj)[names == "season"]
+    area <-  dim(obj)[names == "area"]
+    iter <- dim(obj)[names == "iter"]
+    list <- list(quant=quant, min=min, max=max, year=year, minyear=minyear,
+    maxyear=maxyear, unit=unit, season=season, area=area, iter=iter)
+    names(list)[1] <- quant(obj)
 
-		return(list)
-	}
+    return(list)
+  }
 )   # }}}
 
 # is.FLQuant       {{{
@@ -406,44 +405,51 @@ is.FLQuant  <-  function(x)
 return(is(x, "FLQuant"))
 # }}}
 
-# print {{{
-if (!isGeneric("print"))
-setGeneric("print", useAsDefault=print)
-
-setMethod("print", signature(x="FLQuant"),
-function(x){
-show(x)
-}
+# show     {{{
+setMethod("show", signature(object="FLQuant"),
+  function(object){
+    callNextMethod()
+    cat("units: ", object@units, "\n")
+  }
 )   # }}}
+
+# print {{{
+setMethod("print", signature(x="FLQuant"),
+  function(x){
+    show(x)
+    invisible(x)
+  }
+) # }}}
 
 # plot     {{{
 setMethod("plot", signature(x="FLQuant", y="missing"),
-function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
-type='p', ...)
-    {
-# get dimensions to condition on (length !=1)
-condnames <- names(dimnames(x)[c(1,3:5)][dim(x)[c(1,3:5)]!=1])
-cond <- paste(condnames, collapse="+")
-if(cond != "") cond <- paste("|", cond)
-formula <- formula(paste("data~year", cond))
-# set strip to show conditioning dimensions names
-strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
+  function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""), type='p', ...) {
 
-    # using do.call to avoid eval of some arguments
-    lst <- substitute(list(...))
-    lst <- as.list(lst)[-1]
-        lst$data <- x
-    lst$x <- formula
-    lst$xlab <- xlab
-    lst$ylab <- ylab
-    lst$strip <- strip
-    lst$type <- type
-    if(dim(x)[6] == 1)
-      do.call("xyplot", lst)
-      else
-        do.call("bwplot", lst)
-}
-)   # }}}
+    # get dimensions to condition on (length !=1)
+  condnames <- names(dimnames(x)[c(1,3:5)][dim(x)[c(1,3:5)]!=1])
+  cond <- paste(condnames, collapse="+")
+
+  if(cond != "") cond <- paste("|", cond)
+    formula <- formula(paste("data~year", cond))
+
+  # set strip to show conditioning dimensions names
+  strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
+
+  # using do.call to avoid eval of some arguments
+  lst <- substitute(list(...))
+  lst <- as.list(lst)[-1]
+  lst$data <- x
+  lst$x <- formula
+  lst$xlab <- xlab
+  lst$ylab <- ylab
+  lst$strip <- strip
+  lst$type <- type
+  if(dim(x)[6] == 1)
+    do.call("xyplot", lst)
+  else
+    do.call("bwplot", lst)
+  }
+) # }}}
 
 # lattice plots{{{
 # xyplot
@@ -563,12 +569,12 @@ ans
 #' data(ple4)
 #' wireframe(data~age+year, data=harvest(ple4))
 setMethod("wireframe", c("formula","FLQuant"),
-	function(x, data, ...) {
-		args <- list(...)
-		args$x <- x
-		args$data <- as.data.frame(data)
-		do.call("wireframe", args)
-	}
+  function(x, data, ...) {
+    args <- list(...)
+    args$x <- x
+    args$data <- as.data.frame(data)
+    do.call("wireframe", args)
+  }
 ) # }}}
 
 # totals {{{
@@ -576,7 +582,7 @@ setMethod('quantTotals', signature(x='FLQuant'),
   function(x, na.rm=TRUE) {
     sums <- x
     for (i in 1:dim(x)[2])
-      sums[,i,,,,] <- rowSums(x, dims=1, na.rm=na.rm)
+      sums[,i,,,,] <- rowSums(x, na.rm=na.rm, dims=1)
     return(sums)
   }
 )
@@ -593,42 +599,42 @@ setMethod('yearTotals', signature(x='FLQuant'),
 # sums         {{{
 setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
-	res <- colSums(x, na.rm=na.rm)
+  res <- colSums(x, na.rm=na.rm)
   dim(res) <- c(1, dim(res))
 
-	# FIX all NAs
-	if(na.rm & any(res == 0)) {
-		z <- is.na(x)
-		y <- colSums(z) == dim(x)[1]
-		res[y] <- NA
-	}
+  # FIX all NAs
+  if(na.rm & any(res == 0)) {
+    z <- is.na(x)
+    y <- colSums(z) == dim(x)[1]
+    res[y] <- NA
+  }
 
   return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]),
-		quant=quant(x), units=units(x)))
+    quant=quant(x), units=units(x)))
 })
 
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){
-		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
-	}))
+  return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+  }))
 })
 
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
-		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
-	}))
+  return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+  }))
 })
 
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	return(apply(x,c(1,2,3,5,6), function(x, NA.RM=na.rm){
-		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
-	}))
+  return(apply(x,c(1,2,3,5,6), function(x, NA.RM=na.rm){
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+  }))
 })
 
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-	return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
-		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
-	}))
+  return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+  }))
 }) # }}}
 
 # means         {{{
@@ -648,7 +654,7 @@ setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x, c(1:3,6), mean, na.rm=na.rm))
+  return(apply(x, c(1:3,5,6), mean, na.rm=na.rm))
 })
 
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
@@ -696,13 +702,13 @@ setMethod('iterCVs', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
 # quantile   {{{
 setMethod("quantile", signature(x="FLQuant"),
-	function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, ...) {
-		res <- FLQuant(NA, dimnames=c(dimnames(x)[-6],
-			list(iter=paste(probs*100, "%", sep=""))), units=units(x))
-	res[,,,,,] <- aperm(apply(x@.Data, 1:5, quantile, c(0, probs), na.rm=na.rm),
+  function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, ...) {
+    res <- FLQuant(NA, dimnames=c(dimnames(x)[-6],
+      list(iter=paste(probs*100, "%", sep=""))), units=units(x))
+  res[,,,,,] <- aperm(apply(x@.Data, 1:5, quantile, c(0, probs), na.rm=na.rm),
     c(2:6,1))[,,,,,-1,drop=FALSE]
-	return(res)
-	}
+  return(res)
+  }
 ) # }}}
 
 # iters     {{{
@@ -737,30 +743,30 @@ return(object)
 setMethod("propagate", signature(object="FLQuant"),
   function(object, iter, fill.iter=TRUE)
   {
-		dob <- dim(object)
+    dob <- dim(object)
 
-		if(iter == dob[6])
-			return(object)
+    if(iter == dob[6])
+      return(object)
 
-		# CHECK no iters in object
-		if(dob[6] > 1)
-			stop("propagate can only extend objects with no iters")
+    # CHECK no iters in object
+    if(dob[6] > 1)
+      stop("propagate can only extend objects with no iters")
 
-		# fill.iter
-		if(fill.iter) {
-			return(new('FLQuant', array(rep(object, iter), dim=c(dob[-6], iter),
-				dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))),
-				units=units(object)))
-		# or NAs
-		} else {
-			return(new('FLQuant', array(c(object, rep(NA, prod(dob)*(iter-1))),
-				dim=c(dim(object)[-6], iter), dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), units=units(object)))
-		}
+    # fill.iter
+    if(fill.iter) {
+      return(new('FLQuant', array(rep(object, iter), dim=c(dob[-6], iter),
+        dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))),
+        units=units(object)))
+    # or NAs
+    } else {
+      return(new('FLQuant', array(c(object, rep(NA, prod(dob)*(iter-1))),
+        dim=c(dim(object)[-6], iter), dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), units=units(object)))
+    }
   }
 ) # }}}
 
 # rnorm{{{
-setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
+setMethod("rnorm", signature(n="numeric", mean="FLQuant", sd="FLQuant"),
   function(n=1, mean, sd) {
     if(dim(mean)[6] > 1 | dim(sd)[6] > 1)
       stop("mean or sd can only have iter=1")
@@ -772,21 +778,45 @@ setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="FLQuant"),
   }
 )
 
-setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="numeric"),
-function(n=1, mean, sd)
-rnorm(n, mean, FLQuant(sd, dimnames=dimnames(mean)))
+setMethod("rnorm", signature(n="numeric", mean="FLQuant", sd="numeric"),
+  function(n=1, mean, sd) {
+    rnorm(n, mean, FLQuant(sd, dimnames=dimnames(mean)))
+  }
 )
-setMethod("rnorm", signature(n='numeric', mean="numeric", sd="FLQuant"),
-function(n=1, mean, sd)
-rnorm(n, FLQuant(mean, dimnames=dimnames(sd)), sd)
+setMethod("rnorm", signature(n="numeric", mean="numeric", sd="FLQuant"),
+  function(n=1, mean, sd) {
+    rnorm(n, FLQuant(mean, dimnames=dimnames(sd)), sd)
+  }
 )
-setMethod("rnorm", signature(n='numeric', mean="FLQuant", sd="missing"),
-function(n=1, mean)
-rnorm(n, mean, 1)
+setMethod("rnorm", signature(n="numeric", mean="FLQuant", sd="missing"),
+  function(n=1, mean) {
+    rnorm(n, mean, 1)
+  }
 )
-setMethod("rnorm", signature(n='numeric', mean="missing", sd="FLQuant"),
-function(n=1, sd)
-rnorm(n, 0, sd)
+setMethod("rnorm", signature(n="numeric", mean="missing", sd="FLQuant"),
+  function(n=1, sd) {
+    rnorm(n, 0, sd)
+  }
+)
+setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="numeric"),
+  function(mean, sd=1) {
+    mean[] <- rnorm(length(mean), c(mean), sd)
+    return(mean)
+  }
+)
+setMethod("rnorm", signature(n="missing", mean="numeric", sd="FLQuant"),
+  function(mean=0, sd) {
+    sd[] <- rnorm(length(sd), mean, c(sd))
+    return(sd)
+  }
+)
+setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="FLQuant"),
+  function(mean, sd) {
+    if(!all(dim(mean) == dim(sd)))
+      stop("dimensions of 'mean' and 'sd' must be the same")
+    mean[] <- rnorm(length(mean), c(mean), c(sd))
+    return(mean)
+  }
 )
 # }}}
 
@@ -801,7 +831,7 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="FLQuant"),
       rep(iter(meanlog, 1)[drop=TRUE], n),
       rep(iter(sdlog, 1)[drop=TRUE],n)), dim=c(dim(meanlog)[-6], n)),
       dimnames=c(dimnames(meanlog)[-6], list(iter=seq(n))), fill.iter=TRUE,
-			units=units(meanlog))
+      units=units(meanlog))
   }
 )
 
@@ -831,7 +861,20 @@ setMethod("rlnorm", signature(n='FLQuant', meanlog="ANY", sdlog="ANY"),
     FLQuant(rlnorm(length(n), meanlog, sdlog), dimnames=dimnames(n), units=units(n))
   }
 )
-
+setMethod("rlnorm", signature(n="missing", meanlog="FLQuant", sdlog="ANY"),
+  function(meanlog, sdlog=1) {
+    meanlog[] <- rlnorm(length(meanlog), c(meanlog), sdlog)
+    return(meanlog)
+  }
+)
+setMethod("rlnorm", signature(n="missing", meanlog="FLQuant", sdlog="FLQuant"),
+  function(meanlog, sdlog) {
+    if(!all(dim(meanlog) == dim(sdlog)))
+      stop("dimensions of 'meanlog' and 'sdlog' must be the same")
+    meanlog[] <- rlnorm(length(meanlog), c(meanlog), c(sdlog))
+    return(meanlog)
+  }
+)
 # }}}
 
 # rpois{{{
@@ -1049,8 +1092,8 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE) {
     if(cohort) {
       res$cohort  <-  "all"
       if(quant(x) == "age")
-				if(!any(is.na(dims(x)[c('min', 'max')])))
-  	    	res$cohort <- res$year - res$age
+        if(!any(is.na(dims(x)[c('min', 'max')])))
+          res$cohort <- res$year - res$age
     }
 
     # create timestep column
@@ -1061,15 +1104,14 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE) {
 
     # create date column
     if(date) {
-		lens <- (ISOdate(2014, 12, 31) - ISOdate(2014, 1, 1)) / dim(x)[4]
-		res$date <- ISOdate(res$year, 1, 1) + lens * (as.numeric(res$season) - 1)
+    lens <- (ISOdate(2014, 12, 31) - ISOdate(2014, 1, 1)) / dim(x)[4]
+    res$date <- ISOdate(res$year, 1, 1) + lens * (as.numeric(res$season) - 1)
     }
-
 
     # drops columns with a single value, i.e. dims of length=1
     if(drop) {
-      idx <- names(x)[dim(x) > 1]
-      res <- res[, c(idx, 'data')]
+      idx <- names(x)[dim(x) == 1]
+      res <- res[, !colnames(res) %in% idx]
     }
 
     return(res)
@@ -1102,110 +1144,137 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
   }
 ) # }}}
 
-# show     {{{
-setMethod("show", signature(object="FLQuant"),
-	function(object){
-		callNextMethod()
-		cat("units: ", object@units, "\n")
-	}
-)   # }}}
-
 # ifelse {{{
 setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),
-	function(test, yes, no) {
+  function(test, yes, no) {
 
-		#
-		uts <- units(test)
-		dmns <- dimnames(test)
+    #
+    uts <- units(test)
+    dmns <- dimnames(test)
 
-		test <- as(test, 'logical')
-		yes <- c(yes)
-		no <- c(no)
+    test <- as(test, 'logical')
+    yes <- c(yes)
+    no <- c(no)
 
-		res <- callNextMethod()
+    res <- callNextMethod()
 
-		return(FLQuant(res, dimnames=dmns, units=uts))
-	}
-) # }}}
+    return(FLQuant(res, dimnames=dmns, units=uts))
+  }
+) 
+
+setMethod("ifelse", signature(test="ANY", yes="ANY", no="FLQuant"),
+  function(test, yes, no) {
+    
+      #
+    uts <- units(no)
+    dmns <- dimnames(no)
+
+    test <- as(test, 'logical')
+    yes <- c(yes)
+    no <- c(no)
+
+    res <- callNextMethod()
+
+    return(FLQuant(res, dimnames=dmns, units=uts))
+  }
+)
+
+setMethod("ifelse", signature(test="ANY", yes="FLQuant", no="ANY"),
+  function(test, yes, no) {
+    
+      #
+    uts <- units(yes)
+    dmns <- dimnames(yes)
+
+    test <- as(test, 'logical')
+    yes <- c(yes)
+    no <- c(no)
+
+    res <- callNextMethod()
+
+    return(FLQuant(res, dimnames=dmns, units=uts))
+  }
+)
+# }}}
 
 # tail {{{
 setMethod("tail", signature(x="FLQuant"),
-	function(x, n=1, dim=2, ...) {
+  function(x, n=1, dim=2, ...) {
 
-		# dim of length 1
-		if(length(dim) > 1)
-			stop("tail(FLQuant) can allow apply to a single dim(ension)")
+    # dim of length 1
+    if(length(dim) > 1)
+      stop("tail(FLQuant) can allow apply to a single dim(ension)")
 
-		# character dim
-		if(is(dim, 'character'))
-			dim <- which(dim == names(x))
+    # character dim
+    if(is(dim, 'character'))
+      dim <- which(dim == names(x))
 
 
-		# named list of dimension vectors
-		idx <- lapply(as.list(dim(x)), seq)
-		names(idx) <- c('i','j','k','l','m','n')
+    # named list of dimension vectors
+    idx <- lapply(as.list(dim(x)), seq)
+    names(idx) <- c('i','j','k','l','m','n')
 
-		# tail dimension set by dim
-		idx[[dim]] <- tail(idx[[dim]], n=n)
+    # tail dimension set by dim
+    idx[[dim]] <- tail(idx[[dim]], n=n)
 
-		# apply '['
-		return(do.call('[', c(list(x=x), idx)))
-	}
+    # apply '['
+    return(do.call('[', c(list(x=x), idx)))
+  }
 ) # }}}
 
 # tS, tS<- {{{
 setMethod("tS", signature(object="FLQuant", step="numeric"),
-	function(object, step) {
+  function(object, step) {
 
-	# dims
-	do <- dim(object)[c(2,4)]
+  # dims
+  do <- dim(object)[c(2,4)]
 
-	# find pout season and year
-	season <- step %% do[2]
-	year <- step %/% do[2] + 1
+  # find pout season and year
+  season <- step %% do[2]
+  year <- step %/% do[2] + 1
 
-	# correct for those in season 4
-	idx <- (step %% do[2]) == 0
-	year[idx] <- (step %/% do[2]) [idx]
-	season[idx] <- do[2]
+  # correct for those in season 4
+  idx <- (step %% do[2]) == 0
+  year[idx] <- (step %/% do[2]) [idx]
+  season[idx] <- do[2]
 
-	# Are n elements contiguous in years or seasons ?
-	if(length(unique(year)) > 1 & length(unique(season)) > 1)
-		stop("requested time steps do not generate a consistent object")
+  # Are n elements contiguous in years or seasons ?
+  if(length(unique(year)) > 1 & length(unique(season)) > 1)
+    stop("requested time steps do not generate a consistent object")
 
-	return(object[, unique(year), ,unique(season),,])
-	}
+  return(object[, unique(year), ,unique(season),,])
+  }
 )
 
 setMethod("tS<-", signature(object="FLQuant", step="numeric", value="vector"),
-	function(object, step, value) {
+  function(object, step, value) {
 
-	# dims
-	do <- dim(object)[c(2,4)]
+  # dims
+  do <- dim(object)[c(2,4)]
 
-	# find pout season and year
-	season <- step %% do[2]
-	year <- step %/% do[2] + 1
+  # find pout season and year
+  season <- step %% do[2]
+  year <- step %/% do[2] + 1
 
-	# correct for those in season 4
-	idx <- (step %% do[2]) == 0
-	year[idx] <- step %/% do[2]
-	season[idx] <- do[2]
+  # correct for those in season 4
+  idx <- (step %% do[2]) == 0
+  year[idx] <- step %/% do[2]
+  season[idx] <- do[2]
 
-	object[, unique(year), ,unique(season),,]  <- value
+  object[, unique(year), ,unique(season),,]  <- value
 
-	return(object)
-	}
+  return(object)
+  }
 )
 
 # }}}
 
 # tsp {{{
 setMethod("tsp", signature(x="FLQuant"),
-	function(x) {
-		dms <- dimnames(x)
-		return(c(as.numeric(dms$year[c(1, length(dms$year))]), length(dms$season)))
-	}
+  function(x) {
+    dms <- dimnames(x)
+    return(c(as.numeric(dms$year[c(1, length(dms$year))]), length(dms$season)))
+  }
 ) # }}}
 
 # NOT EXPORTED

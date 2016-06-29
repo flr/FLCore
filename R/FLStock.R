@@ -403,9 +403,9 @@ setMethod("ssb", signature(object="FLStock"),
 				m(object) * m.spwn(object))) * stock.wt(object) * mat(object)))
 
 		} else if(uns == 'hr') {
-			stock.n(object) * (1 - harvest(object) * harvest.spwn(object)) *
-				exp(-m(object) * m.spwn(object)) * harvest.spwn(object) * mat(object) *
-				stock.wt(object)
+			return(quantSums(stock.n(object) * stock.wt(object) * mat(object) *
+				(1 - harvest(object) * harvest.spwn(object)) *
+				exp(-m(object) * m.spwn(object))))
   	} else {
 		stop("Correct units (f or hr) not specified in the harvest slot")
 		}
@@ -925,7 +925,6 @@ setMethod("sr", signature(object="FLStock"),
 
 		return(FLQuants(rec=rec, ssb=ssb))
 }) # }}}
-
 
 # catch.sel {{{
 setMethod("catch.sel", signature(object="FLStock"),

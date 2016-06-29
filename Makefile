@@ -18,12 +18,11 @@ README.md: DESCRIPTION
 gh-pages: $(HELP_FILES) README.md
 	R --vanilla --silent -e "library(staticdocs);" \
   -e "build_site('../$(PKGNAME)/', site_path='gh-pages', launch=FALSE)"; \
-	rm Rplots.pdf  
+	rm -rf Rplots.pdf  
 	git subtree push --prefix gh-pages origin gh-pages
-	# git push origin `git subtree split --prefix gh-pages master`:gh-pages --force
 
 NEWS: NEWS.md
-	sed -e 's/^-/  -/' -e 's/^## *//' -e 's/^#/\t\t/' <NEWS.md | fmt -80 >NEWS
+	sed -e 's/^-/-/' -e 's/^## *//' -e 's/^#//' <NEWS.md | fmt -80 -s > NEWS
 
 roxygen: $(R_FILES)
 	R --vanilla --silent -e "library(devtools);" \
