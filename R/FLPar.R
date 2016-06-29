@@ -121,11 +121,15 @@ setMethod('FLPar', signature('FLPar'),
 
 # '['   {{{
 setMethod('[', signature(x='FLPar'),
-    function(x, i, j, k, l, m, n, ..., drop=FALSE)
-    {
+  function(x, i, j, k, l, m, n, ..., drop=FALSE) {
+
 			dx <- lapply(as.list(dim(x)), seq_len)
     	names(dx) <- letters[seq(9, length=length(dx))]
 		  
+    # EXTRACT non-standard attributes
+    attrs <- attributes(x)
+    attrs <- attrs[!names(attrs) %in% c("dim", "dimnames", "units", "class")]
+      
 			ldx <- length(dim(x))
 			
 			# PARSE dims
@@ -138,10 +142,16 @@ setMethod('[', signature(x='FLPar'),
 			if(drop) {
 				return(do.call('[', c(list(x=x@.Data), dx, list(drop=TRUE))))
 			}
+    res <- new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=FALSE))),
+      units=units(x)[i])
 			
-			return(new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=FALSE))),
-				units=units(x)))
-			
+    # Add attributes not in standard object   
+    if(length(attrs) > 0) {
+      for(i in names(attrs)) {
+        attr(res, i) <- attrs[[i]]
+      }
+    }
+    return(res)
     }
 )
 
