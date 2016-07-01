@@ -20,7 +20,8 @@ Imports:
     Matrix,
     grid,
     stats,
-    graphics
+    graphics,
+    grDevices
 License: GPL (>= 2)
 Collate:
     'genericMethods.R'
@@ -46,9 +47,9 @@ Collate:
     'FLModelDeriv.R'
     'FLModelSim.R'
     'FLQuants.R'
-    'FLSR.R'
     'predictModel.R'
     'FLBiol.R'
+    'FLSR.R'
     'operators.R'
     'io.VPAsuite.R'
     'io.FLStock.R'
@@ -63,9 +64,11 @@ Collate:
     'coerce.R'
     'PlotDiagnostics.R'
     'FLQuantJK.R'
-    'zzz.R'
     'io.Adapt.R'
     'io.VPA2Box.R'
+    'plot.R'
+    'data.R'
+    'zzz.R'
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues

@@ -3,7 +3,13 @@
 \docType{class}
 \name{FLI}
 \alias{FLI}
+\alias{FLI-class}
 \title{Class FLI}
+\arguments{
+\item{object}{FLQuant object used for sizing}
+
+\item{...}{Other objects to be assigned by name to the class slots}
+}
 \description{
 A VIRTUAL class that holds data and parameters related to abundance indices.
 }

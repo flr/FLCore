@@ -3,3 +3,5 @@
 #' any of its slots. All slots are then created to match the requirements of the
 #' class validity. If an unnamed \code{FLQuant} object is provided, this is used
 #' for sizing but not stored in any slot.
+#' @param object FLQuant object used for sizing
+#' @param ... Other objects to be assigned by name to the class slots

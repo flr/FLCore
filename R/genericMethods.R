@@ -1,17 +1,19 @@
 # genericMethods - S4 generics
 # FLCore/R/genericMethods
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 globalVariables(c("qname"))
 
-# Existing methods/functions
+# OVERLOADED methods/functions
 
 setGeneric("AIC", useAsDefault = stats::AIC)
 setGeneric("apply", useAsDefault = apply)
 setGeneric("as.data.frame", useAsDefault = as.data.frame)
 setGeneric("barchart", useAsDefault = barchart)
 setGeneric("BIC", useAsDefault = stats4::BIC)
+
 setGeneric("bwplot", useAsDefault = bwplot)
 setGeneric("coef", useAsDefault = coef)
 setGeneric("densityplot", useAsDefault = densityplot)
@@ -54,7 +56,115 @@ setGeneric("tsp", useAsDefault=tsp)
 setGeneric("wireframe", useAsDefault=wireframe)
 setGeneric("expand", useAsDefault=Matrix::expand)
 
-# NEW methods
+
+# class CONSTRUCTORS, documented with each class
+
+# FLBiol
+#' @rdname FLBiol
+#' @aliases FLBiol FLBiol-methods
+setGeneric('FLBiol', function(object, ...) standardGeneric('FLBiol'))
+
+# FLBiols
+#' @rdname FLBiols
+#' @aliases FLBiols FLBiols-methods
+setGeneric("FLBiols", function(object, ...) standardGeneric("FLBiols"))
+
+# FLCohort
+#' @rdname FLCohort
+#' @aliases FLCohort FLCohort-methods
+setGeneric("FLCohort", function(object, ...) standardGeneric("FLCohort"))
+
+# FLGrowth
+#' @rdname FLGrowth
+#' @aliases FLGrowth FLGrowth-methods
+setGeneric('FLGrowth', function(model, ...) standardGeneric('FLGrowth'))
+
+# FLIndex
+#' @rdname FLIndex
+#' @aliases FLIndex FLIndex-methods
+setGeneric('FLIndex', function(object, ...) standardGeneric('FLIndex'))
+
+# FLIndexBiomass
+#' @rdname FLIndexBiomass
+#' @aliases FLIndexBiomass FLIndexBiomass-methods
+setGeneric('FLIndexBiomass', function(object, ...)
+  standardGeneric('FLIndexBiomass'))
+
+# FLIndices
+#' @rdname FLIndices
+#' @aliases FLIndices FLIndices-methods
+setGeneric("FLIndices", function(object, ...) standardGeneric("FLIndices"))
+
+# FLlst
+#' @rdname FLlst
+#' @aliases FLlst FLlst-methods
+setGeneric("FLlst", function(object, ...) standardGeneric("FLlst"))
+
+# FLModel
+#' @rdname FLModel
+#' @aliases FLModel FLModel-methods
+setGeneric('FLModel', function(model, ...) standardGeneric('FLModel'))
+
+#' FLModelSim
+#' @rdname FLModelSim
+#' @aliases FLModelSim FLModelSim-methods 
+setGeneric("FLModelSim", function(object, ...)
+	standardGeneric("FLModelSim"))
+
+# FLPar
+#' @rdname FLPar
+#' @aliases FLPar FLPar-methods
+setGeneric("FLPar", function(object, ...) standardGeneric("FLPar"))
+
+# FLPars
+#' @rdname FLPars
+#' @aliases FLPars FLPars-methods
+setGeneric("FLPars", function(object, ...) standardGeneric("FLPars"))
+
+# FLQuant
+#' @rdname FLQuant
+#' @aliases FLQuant FLQuant-methods
+setGeneric("FLQuant", function(object, ...) standardGeneric("FLQuant"))
+
+# FLQuantDistr
+#' @rdname FLQuantDistr
+#' @aliases FLQuantDistr FLQuantDistr-methods
+setGeneric("FLQuantDistr", function(object, var, ...)
+	standardGeneric("FLQuantDistr"))
+
+# FLQuantPoint
+#' @rdname FLQuantPoint
+#' @aliases FLQuantPoint FLQuantPoint-methods
+setGeneric("FLQuantPoint", function(object, ...)
+  standardGeneric("FLQuantPoint"))
+
+# FLSR
+#' @rdname FLSR
+#' @aliases FLSR FLSR-methods
+setGeneric("FLSR", function(model, ...) standardGeneric("FLSR"))
+
+# FLSRs
+#' @rdname FLSRs
+#' @aliases FLSRs FLSRs-methods
+setGeneric("FLSRs", function(object, ...) standardGeneric("FLSRs"))
+
+# FLStock
+#' @rdname FLStock
+#' @aliases FLStock FLStock-methods
+setGeneric('FLStock', function(object, ...) standardGeneric('FLStock'))
+
+# FLStockLen
+#' @rdname FLStockLen
+#' @aliases FLStockLen FLStockLen-methods
+setGeneric('FLStockLen', function(object, ...) standardGeneric('FLStockLen'))
+
+# FLStocks
+#' @rdname FLStocks
+#' @aliases FLStocks FLStocks-methods
+setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
+
+
+# ACCESSORS
 
 # range<-
 setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
@@ -65,9 +175,6 @@ setGeneric("units<-", function(x, value) standardGeneric("units<-"))
 # desc
 setGeneric('desc', function(object, ...) standardGeneric('desc'))
 setGeneric('desc<-', function(object, ..., value) standardGeneric('desc<-'))
-
-# dims
-setGeneric("dims", function(obj, ...) standardGeneric("dims"))
 
 # catch
 setGeneric('catch', function(object, ...) standardGeneric('catch'))
@@ -92,12 +199,6 @@ setGeneric('discards.n<-', function(object, ..., value) standardGeneric('discard
 # discards.wt
 setGeneric('discards.wt', function(object, ...) standardGeneric('discards.wt'))
 setGeneric('discards.wt<-', function(object, ..., value) standardGeneric('discards.wt<-'))
-
-# FLStock
-setGeneric('FLStock', function(object, ...) standardGeneric('FLStock'))
-
-# FLStockLen
-setGeneric('FLStockLen', function(object, ...) standardGeneric('FLStockLen'))
 
 # landings
 setGeneric('landings', function(object, ...) standardGeneric('landings'))
@@ -147,131 +248,29 @@ setGeneric('harvest.spwn<-', function(object, ..., value) standardGeneric('harve
 setGeneric('mat', function(object, ...) standardGeneric('mat'))
 setGeneric('mat<-', function(object, ..., value) standardGeneric('mat<-'))
 
-# computeLandings
-setGeneric("computeLandings", function(object, ...)
-		standardGeneric("computeLandings"))
-
-# computeDiscards
-	setGeneric("computeDiscards", function(object, ...)
-		standardGeneric("computeDiscards"))
-
-# computeCatch
-	setGeneric("computeCatch", function(object, ...)
-		standardGeneric("computeCatch"))
-
-# computeStock
-setGeneric("computeStock", function(object, ...)
-		standardGeneric("computeStock"))
-
-# ssb
-	setGeneric("ssb", function(object, ...)
-		standardGeneric("ssb"))
-
-# tsb
-	setGeneric("tsb", function(object, ...)
-		standardGeneric("tsb"))
-
-# fbar
-	setGeneric("fbar", function(object, ...)
-		standardGeneric("fbar"))
-
-# as.FLStock
-	setGeneric("as.FLStock", function(object, ...)
-		standardGeneric("as.FLStock"))
-
-# ssbpurec
-	setGeneric("ssbpurec", function(object, ...)
-		standardGeneric("ssbpurec"))
-
 # n
-  setGeneric('n', function(object, ...) standardGeneric('n'))
-  setGeneric('n<-', function(object, ..., value) standardGeneric('n<-'))
+setGeneric('n', function(object, ...) standardGeneric('n'))
+setGeneric('n<-', function(object, ..., value) standardGeneric('n<-'))
 
 # m
-  setGeneric('m', function(object, ...) standardGeneric('m'))
-  setGeneric('m<-', function(object, ..., value) standardGeneric('m<-'))
+setGeneric('m', function(object, ...) standardGeneric('m'))
+setGeneric('m<-', function(object, ..., value) standardGeneric('m<-'))
 
 # wt
-  setGeneric('wt', function(object, ...) standardGeneric('wt'))
-  setGeneric('wt<-', function(object, ..., value) standardGeneric('wt<-'))
+setGeneric('wt', function(object, ...) standardGeneric('wt'))
+setGeneric('wt<-', function(object, ..., value) standardGeneric('wt<-'))
 
 # fec
-  setGeneric('fec', function(object, ...) standardGeneric('fec'))
+setGeneric('fec', function(object, ...) standardGeneric('fec'))
 setGeneric('fec<-', function(object, ..., value) standardGeneric('fec<-'))
 
 # spwn
-  setGeneric('spwn', function(object, ...) standardGeneric('spwn'))
-  setGeneric('spwn<-', function(object, ..., value) standardGeneric('spwn<-'))
-
-# FLBiol
-setGeneric('FLBiol', function(object, ...)
-  standardGeneric('FLBiol'))
-
-# meanLifespan
-setGeneric("meanLifespan", function(x, ...)
-	standardGeneric("meanLifespan"))
-
-# as.FLBiol
-setGeneric("as.FLBiol", function(object, ...)
-  standardGeneric("as.FLBiol"))
-
-# ssn
-setGeneric("ssn", function(object, ...)
-  standardGeneric("ssn"))
-
-# leslie
-setGeneric("leslie", function(object, ...)
-	standardGeneric("leslie"))
-
-# r
-setGeneric("r", function(m, fec, ...)
-  standardGeneric("r"))
-
-# survprob
-setGeneric("survprob", function(object, ...)
-  standardGeneric("survprob"))
-
-# gear
-  setGeneric('gear', function(object, ...) standardGeneric('gear'))
-  setGeneric('gear<-', function(object, ..., value) standardGeneric('gear<-'))
-
-# effshare
-  setGeneric('effshare', function(object, ...) standardGeneric('effshare'))
-  setGeneric('effshare<-', function(object, ..., value) standardGeneric('effshare<-'))
-
-# vcost
-  setGeneric('vcost', function(object, ...) standardGeneric('vcost'))
-  setGeneric('vcost<-', function(object, ..., value) standardGeneric('vcost<-'))
-
-# catches
-  setGeneric('catches', function(object, ...) standardGeneric('catches'))
-  setGeneric('catches<-', function(object, ..., value) standardGeneric('catches<-'))
+setGeneric('spwn', function(object, ...) standardGeneric('spwn'))
+setGeneric('spwn<-', function(object, ..., value) standardGeneric('spwn<-'))
 
 # effort
-  setGeneric("effort", function(object, metier, ...) standardGeneric("effort"))
-  setGeneric("effort<-", function(object, ..., value) standardGeneric("effort<-"))
-
-# fcost
-  setGeneric('fcost', function(object, ...) standardGeneric('fcost'))
-  setGeneric('fcost<-', function(object, ..., value) standardGeneric('fcost<-'))
-
-# capacity
-  setGeneric('capacity', function(object, ...) standardGeneric('capacity'))
-  setGeneric('capacity<-', function(object, ..., value) standardGeneric('capacity<-'))
-
-# crewshare
-  setGeneric('crewshare', function(object, ...) standardGeneric('crewshare'))
-  setGeneric('crewshare<-', function(object, ..., value) standardGeneric('crewshare<-'))
-
-# metiers
-  setGeneric('metiers', function(object, ...) standardGeneric('metiers'))
-  setGeneric('metiers<-', function(object, ..., value) standardGeneric('metiers<-'))
-
-# metier
-setGeneric('metier', function(object, metier, ...)
-		standardGeneric('metier'))
-setGeneric('metier<-', function(object, metier, ..., value)
-		standardGeneric('metier<-'))
+setGeneric("effort", function(object, metier, ...) standardGeneric("effort"))
+setGeneric("effort<-", function(object, ..., value) standardGeneric("effort<-"))
 
 # type
 setGeneric('type', function(object, ...)
@@ -326,18 +325,6 @@ setGeneric('index.q', function(object, ...)
 		standardGeneric('index.q'))
 setGeneric('index.q<-', function(object, ..., value)
 		standardGeneric('index.q<-'))
-
-# FLIndex
-setGeneric('FLIndex', function(object, ...)
-	standardGeneric('FLIndex'))
-
-# FLIndexBiomass
-setGeneric('FLIndexBiomass', function(object, ...)
-	standardGeneric('FLIndexBiomass'))
-
-# as.FLindex
-setGeneric("as.FLIndex", function(object, ...)
-  standardGeneric("as.FLIndex"))
 
 # model
 setGeneric('model', function(object, ...)
@@ -415,50 +402,6 @@ setGeneric('rec<-', function(object, ..., value)
 setGeneric('rec.obs', function(object, ...)
 		standardGeneric('rec.obs'))
 
-# ssb
-setGeneric('ssb', function(object, ...)
-		standardGeneric('ssb'))
-setGeneric('ssb<-', function(object, ..., value)
-		standardGeneric('ssb<-'))
-
-# covar
-setGeneric('covar', function(object, ...)
-		standardGeneric('covar'))
-setGeneric('covar<-', function(object, ..., value)
-		standardGeneric('covar<-'))
-
-# catch.q
-setGeneric('catch.q', function(object, ...)
-		standardGeneric('catch.q'))
-setGeneric('catch.q<-', function(object, ..., value)
-		standardGeneric('catch.q<-'))
-
-# discards.sel
-setGeneric('discards.sel', function(object, ...)
-		standardGeneric('discards.sel'))
-setGeneric('discards.sel<-', function(object, ..., value)
-		standardGeneric('discards.sel<-'))
-
-# landings.sel
-setGeneric('landings.sel', function(object, ...)
-		standardGeneric('landings.sel'))
-setGeneric('landings.sel<-', function(object, ..., value)
-		standardGeneric('landings.sel<-'))
-
-# price
-setGeneric('price', function(object, ...)
-		standardGeneric('price'))
-setGeneric('price<-', function(object, ..., value)
-		standardGeneric('price<-'))
-
-# spr0
-setGeneric("spr0", function(ssb, rec, fbar, ...)
-	  standardGeneric("spr0"))
-
-# ab
-setGeneric('ab', function(object, ...)
-		standardGeneric('ab'))
-
 # quant, quant<-
 setGeneric("quant", function(object, ...)
   standardGeneric("quant"))
@@ -470,43 +413,6 @@ setGeneric("iter", function(obj, ...)
 	standardGeneric("iter"))
 setGeneric("iter<-", function(object, ..., value)
   standardGeneric("iter<-"))
-
-# trim
-setGeneric("trim", function(x, ...)
-	standardGeneric("trim"))
-
-# catchNames
-setGeneric('catchNames', function(object, ...)
-		standardGeneric('catchNames'))
-setGeneric('catchNames<-', function(object, ..., value)
-		standardGeneric('catchNames<-'))
-
-# catch.sel
-setGeneric('catch.sel', function(object, ...)
-		standardGeneric('catch.sel'))
-
-# FLCohort
-setGeneric("FLCohort", function(object, ...)
-	standardGeneric("FLCohort"))
-
-# flc2flq
-setGeneric("flc2flq", function(object, ...)
-	standardGeneric("flc2flq"))
-
-# ccplot
-setGeneric("ccplot", function(x, data, ...)
-	standardGeneric("ccplot"))
-
-# qapply
-setGeneric("qapply", function(X, FUN, ...) standardGeneric("qapply"))
-
-# mcf
-setGeneric("mcf", function(object, ...)
-	standardGeneric("mcf"))
-
-# FLPar
-setGeneric("FLPar", function(object, ...)
-	standardGeneric("FLPar"))
 
 # lower
 setGeneric("lower", function(object, ...)
@@ -526,13 +432,165 @@ setGeneric("params", function(object, ...)
 setGeneric("params<-", function(object, value)
   standardGeneric("params<-"))
 
-# FLModel
-setGeneric('FLModel', function(model, ...)
-    standardGeneric('FLModel'))
+# ssb
+setGeneric('ssb', function(object, ...)
+		standardGeneric('ssb'))
+setGeneric('ssb<-', function(object, ..., value)
+		standardGeneric('ssb<-'))
 
-# as.FLSR
-setGeneric("as.FLSR", function(object, ...)
-  standardGeneric("as.FLSR"))
+# catch.q
+setGeneric('catch.q', function(object, ...)
+		standardGeneric('catch.q'))
+setGeneric('catch.q<-', function(object, ..., value)
+		standardGeneric('catch.q<-'))
+
+# discards.sel
+setGeneric('discards.sel', function(object, ...)
+		standardGeneric('discards.sel'))
+setGeneric('discards.sel<-', function(object, ..., value)
+		standardGeneric('discards.sel<-'))
+
+# landings.sel
+setGeneric('landings.sel', function(object, ...)
+		standardGeneric('landings.sel'))
+setGeneric('landings.sel<-', function(object, ..., value)
+		standardGeneric('landings.sel<-'))
+
+
+# METHODS
+
+# dims {{{
+
+#' Method dims
+#'
+#' List with information on object dimensions
+#' 
+#' Method \code{dims} returns a named list with information on the dimensions
+#' and dimension names of a given object. The list returned could be
+#' extended in the future and currently contains, depending on the class of the
+#' object, some of the following:
+#' \describe{
+#'   \item{quant}{Length of the first dimension}
+#'   \item{min}{First quant}
+#'   \item{max}{Last quant}
+#'   \item{year}{Number of years}
+#'   \item{minyear}{First year in series}
+#'   \item{maxyear}{Last year in series}
+#'   \item{cohort}{Number of cohorts}
+#'   \item{mincohort}{First cohort in series}
+#'   \item{maxcohort}{Last cohort in series}
+#'   \item{unit}{Length of the third (\code{unit}) dimension}
+#'   \item{season}{Length of the fourth (\code{season}) dimension}
+#'   \item{area}{Length of the fifth (\code{area}) dimension}
+#'   \item{iter}{Length of the sixth (\code{iter}) dimension} }
+#' Values in the returned list are of class \code{numeric}, unless dimnames are
+#' strings with no numeric translation, in which case the result is \code{NA}.
+#' 
+#' Please note that the name of the first element in the returned list changes
+#' with the name of the first dimension in the input object. Use
+#' \code{\link{quant}} to obtain the name and extract the relevant element from
+#' the result list.
+#'
+#' @name dims
+#' @aliases dims dims-methods
+#' @docType methods
+#' @section Generic function: dims(obj)
+#' @author The FLR Team
+#' @seealso \code{\link[base]{dimnames}}, \code{\link{FLQuant}}
+#' @keywords methods
+
+setGeneric("dims", function(obj, ...) standardGeneric("dims")) # }}}
+
+# computeLandings
+setGeneric("computeLandings", function(object, ...)
+		standardGeneric("computeLandings"))
+
+# computeDiscards
+	setGeneric("computeDiscards", function(object, ...)
+		standardGeneric("computeDiscards"))
+
+# computeCatch
+	setGeneric("computeCatch", function(object, ...)
+		standardGeneric("computeCatch"))
+
+# computeStock
+setGeneric("computeStock", function(object, ...)
+		standardGeneric("computeStock"))
+
+# tsb
+	setGeneric("tsb", function(object, ...)
+		standardGeneric("tsb"))
+
+# fbar
+	setGeneric("fbar", function(object, ...)
+		standardGeneric("fbar"))
+
+# ssbpurec
+	setGeneric("ssbpurec", function(object, ...)
+		standardGeneric("ssbpurec"))
+
+# meanLifespan
+setGeneric("meanLifespan", function(x, ...)
+	standardGeneric("meanLifespan"))
+
+# ssn
+setGeneric("ssn", function(object, ...)
+  standardGeneric("ssn"))
+
+# leslie
+setGeneric("leslie", function(object, ...)
+	standardGeneric("leslie"))
+
+# r
+setGeneric("r", function(m, fec, ...)
+  standardGeneric("r"))
+
+# survprob
+setGeneric("survprob", function(object, ...)
+  standardGeneric("survprob"))
+
+# covar
+setGeneric('covar', function(object, ...)
+		standardGeneric('covar'))
+setGeneric('covar<-', function(object, ..., value)
+		standardGeneric('covar<-'))
+
+# spr0
+setGeneric("spr0", function(ssb, rec, fbar, ...)
+	  standardGeneric("spr0"))
+
+# ab
+setGeneric('ab', function(object, ...)
+		standardGeneric('ab'))
+
+# trim
+setGeneric("trim", function(x, ...)
+	standardGeneric("trim"))
+
+# catchNames
+setGeneric('catchNames', function(object, ...)
+		standardGeneric('catchNames'))
+setGeneric('catchNames<-', function(object, ..., value)
+		standardGeneric('catchNames<-'))
+
+# catch.sel
+setGeneric('catch.sel', function(object, ...)
+		standardGeneric('catch.sel'))
+
+# flc2flq
+setGeneric("flc2flq", function(object, ...)
+	standardGeneric("flc2flq"))
+
+# ccplot
+setGeneric("ccplot", function(x, data, ...)
+	standardGeneric("ccplot"))
+
+# qapply
+setGeneric("qapply", function(X, FUN, ...) standardGeneric("qapply"))
+
+# mcf
+setGeneric("mcf", function(object, ...)
+	standardGeneric("mcf"))
 
 # autoParscale
 setGeneric("autoParscale", function(object, ...)
@@ -606,55 +664,19 @@ setGeneric('Sums', function(object, ...)
 setGeneric('Products', function(object, ...)
 		standardGeneric('Products'))
 
-# revenue
-setGeneric('revenue', function(object, ...)
-		standardGeneric('revenue'))
-
 # catches
 setGeneric('catches', function(object, ...)
 		standardGeneric('catches'))
 setGeneric('catches<-', function(object, catch, ..., value)
 		standardGeneric('catches<-'))
 
-# FLGrowth
-setGeneric('FLGrowth', function(model, ...)
-  standardGeneric('FLGrowth'))
-
 # mass
 setGeneric('mass', function(object, ...)
   standardGeneric('mass'))
 
-# FLlst
-setGeneric("FLlst", function(object, ...)
-	standardGeneric("FLlst"))
-
-# FLStocks
-setGeneric("FLStocks", function(object, ...)
-	standardGeneric("FLStocks"))
-
-# FLIndices
-setGeneric("FLIndices", function(object, ...)
-	standardGeneric("FLIndices"))
-
-# FLBiols
-setGeneric("FLBiols", function(object, ...)
-	standardGeneric("FLBiols"))
-
 # readMFCL
 setGeneric("readMFCL", function(file, ...)
   standardGeneric("readMFCL"))
-
-# FLSRs
-setGeneric("FLSRs", function(object, ...)
-  standardGeneric("FLSRs"))
-
-# FLSR
-setGeneric("FLSR", function(model, ...)
-		standardGeneric("FLSR"))
-
-# FLQuant
-	setGeneric("FLQuant", function(object, ...)
-		standardGeneric("FLQuant"))
 
 # as.FLQuant
 	setGeneric("as.FLQuant", function(x, ...)
@@ -691,14 +713,6 @@ setGeneric("bubbles", function(x, data, ...)
 # readASPIC
 setGeneric("readASPIC", function(x, type, scen, ...)
   standardGeneric("readASPIC"))
-
-# FLQuantPoint
-setGeneric("FLQuantPoint", function(object, ...)
-		standardGeneric("FLQuantPoint"))
-
-# FLQuantDistr
-setGeneric("FLQuantDistr", function(object, var, ...)
-		standardGeneric("FLQuantDistr"))
 
 # distribution
 setGeneric("distribution", function(object, ...)
@@ -828,4 +842,27 @@ setGeneric("e", function(x, ...) standardGeneric("e"))
 setGeneric("e<-", function(x, value) standardGeneric("e<-"))
 
 # predictModel
-setGeneric("predictModel", function(object, ...) standardGeneric("predictModel"))
+setGeneric("predictModel", function(object, ...)
+  standardGeneric("predictModel"))
+
+# bkey
+setGeneric("bkey", function(object, ...)
+	standardGeneric("bkey"))
+
+# COERCION
+
+# as.FLStock
+	setGeneric("as.FLStock", function(object, ...)
+		standardGeneric("as.FLStock"))
+
+# as.FLBiol
+setGeneric("as.FLBiol", function(object, ...)
+  standardGeneric("as.FLBiol"))
+
+# as.FLindex
+setGeneric("as.FLIndex", function(object, ...)
+  standardGeneric("as.FLIndex"))
+
+# as.FLSR
+setGeneric("as.FLSR", function(object, ...)
+  standardGeneric("as.FLSR"))

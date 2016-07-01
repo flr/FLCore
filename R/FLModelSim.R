@@ -1,12 +1,63 @@
 # FLModelSim.R - A class for models used in simulation
 # FLCore/R/FLModelSim.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Copyright 2003-2013 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: FLR Team
 
 # FLModelSim {{{
-# validity
-validFLMS <- function(object){
+
+#' Class FLModelSim
+#'
+#' A virtual class for statistical simulation models
+#'
+#' The \code{FLModelSim} class provides a virtual class that developers of various
+#' statistical models can use to implement classes that allow those models to
+#' be tested, fitted and presented.
+#' 
+#' Slots in this class attempt to map all the usual outputs for a modelling
+#' exercise, together with the standard inputs. Input data are stored in slots
+#' created by a specified class that is based on \code{FLModelSim}. See for example
+#' \code{\linkS4class{FLSR}} for a class used for stock-recruitment models.
+#' 
+#' Various fitting algorithms, similar to those present in the basic R packages,
+#' are currently available for \code{FLModelSim}, including \code{\link{fmle}},
+#' \code{\link{nls-FLCore}} and \code{\link[stats]{glm}}.
+#' 
+#' @name FLModelSim
+#' @aliases FLModelSim-class FLModelSim FLModelSim-methods FLModelSim,formula-method
+#' FLModelSim,missing-method FLModelSim,character-method FLModelSim,function-method
+#' @docType class
+#' @section Slots: \describe{ \item{name}{Name of the object.
+#' \code{character}.} \item{desc}{Description of the object. \code{character}.}
+#' \item{range}{Range. \code{numeric}.} \item{fitted}{Estimated values for rec.
+#' \code{FLQuant}.} \item{residuals}{Residuals obtained from the model fit.
+#' \code{FLQuant}.} \item{model}{Model formula. \code{formula}.}
+#' \item{gr}{Function returning the gradient of the likelihood.
+#' \code{function}.} \item{logl}{Log-likelihood function. \code{function}.}
+#' \item{initial}{Function returning initial parameter values for the
+#' optimizer, as an object of class \code{FLPar}. \code{function}.}
+#' \item{params}{Estimated parameter values. \code{FLPar}.} \item{logLik}{Value
+#' of the log-likelihood. \code{logLik}.} \item{vcov}{Variance-covariance
+#' matrix. \code{array}.} \item{hessian}{Hessian matrix obtained from the
+#' parameter fitting. \code{array}.} \item{details}{extra information on the
+#' model fit procedure. \code{list}.} }
+#' @author The FLR Team
+#' @seealso \link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
+#' \link[stats]{nls}, \link{FLComp}
+#' @keywords classes
+
+setClass("FLModelSim",
+	representation(
+		model = "formula",
+		params = "FLPar",
+		vcov = "array",
+		distr = "character"),
+	prototype = prototype(
+		model = ~1,
+		params = new("FLPar"),
+		vcov = new("array"),
+		distr = "norm"),
+	validity=function(object){
 
 	pars <- object@params
 	frm <- object@model
@@ -29,26 +80,16 @@ validFLMS <- function(object){
 		return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
 
 	return(TRUE)
-}
+  }
 
+) 
 
-setClass("FLModelSim",
-	representation(
-		model = "formula",
-		params = "FLPar",
-		vcov = "array",
-		distr = "character"),
-	prototype = prototype(
-		model = ~1,
-		params = new("FLPar"),
-		vcov = new("array"),
-		distr = "norm"),
-	validity=validFLMS
-) # }}}
+invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "distr")))  # }}}
 
-# FLModelSim() {{{
-setGeneric("FLModelSim", function(object, ...)
-	standardGeneric("FLModelSim"))
+# FLModelSim {{{
+
+#' @rdname FLModelSim
+#' @aliases FLModelSim,missing-method
 
 setMethod("FLModelSim", signature(object="missing"),
   function(...) {
@@ -64,9 +105,7 @@ setMethod("FLModelSim", signature(object="missing"),
       do.call("new", args)
 	  }
   }
-)
-
-invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "distr")))  # }}}
+) # }}}
 
 # mvrnorm {{{
 setMethod("mvrnorm", signature(n="numeric", mu="FLModelSim", Sigma="missing",

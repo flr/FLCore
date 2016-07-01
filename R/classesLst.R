@@ -1,46 +1,80 @@
 # classesLst.R - DESC
 # classesLst.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
-# FLlst class{{{
+# FLlst {{{
+
+#' Class FLlst
+#' 
+#' \code{FLlst} is a class that extends \code{list} but implements a set of
+#' features that give a little more structure to list objects. First the
+#' elements of \code{FLlst} must all be of the same class. Second it implements
+#' a lock mechanism that, when turned on, does not allow the user to increase
+#' or decrease the object length.
+#' 
+#' @name FLlst
+#' @aliases FLlst-class FLlst FLlst-methods FLlst,ANY-method
+#' FLlst,missing-method FLlst,list-method
+#' @docType class
+#' @section Slots: \describe{
+#'   \item{.Data}{The data. \code{list}.}
+#'   \item{names}{Names of the list elements. \code{character}.}
+#'   \item{desc}{Description of the object. \code{character}.}
+#'   \item{lock}{Lock mechanism, if turned on the length of the list can not be
+#'     modified by adding or removing elements. \code{logical}.} }
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link[base]{[[<-},
+#' \link[base]{$<-}, \link[methods]{coerce}, \link[base]{lapply},
+#' \link[stats]{window}, \link[base]{list}
+#' @keywords classes
+#' @examples
+#' 
+#' fll01 <- new("FLlst", list(a=1:10, b=10:20))
+#' fll02 <- new("FLlst", list(1:10, 10:20), names=c("a","b"))
+#' fll03 <- FLlst(a=1:10, b=10:20)
+#' fll04 <- FLlst(list(a=1:10, b=10:20))
+#' fll05 <- FLlst(c(1:10), c(10:20))
+#' names(fll05) <- names(fll01)
+#' names(fll01)
+#' 
 setClass("FLlst", contains="list",
   representation(names="character", desc="character", lock="logical"),
-	prototype(desc=character(1), lock=FALSE),
-	validity=function(object) {
-		
-  	# All elements in the list are validObjects themselves
-		if(length(object) > 0)
-	  	if(!all(unlist(lapply(object, validObject))))
-			  return("Components must be valid objects themselves (validObject == TRUE)")
+	prototype(lock=FALSE),
+	validity=function(object){
 
-		# Everything is fine
-		return(TRUE)
-  }
+  # All elements in the list are validObjects themselves
+  if(!all(unlist(lapply(object, validObject))))
+	  return("Components must be valid objects themselves (validObject == TRUE)")
+
+	# Everything is fine
+	return(TRUE)
+}
+
 ) # }}}
 
 # FLQuants {{{
 
 #' Class FLQuants
-#'
-#' \code{FLQuants} is a \code{list} of \code{FLQuant} objects.
-#' It is very similar to the standard \code{list} class.
-#' It implements a lock mechanism that, when turned on, does
-#' not allow the user to increase or decrease the object length.
-#' The elements of \code{FLQuants} must all be of class  \code{FLQuant}.
+#' 
+#' \code{FLQuants} is a \code{list} of \code{FLQuant} objects. It is very
+#' similar to the standard \code{list} class. It implements a lock mechanism
+#' that, when turned on, does not allow the user to increase or decrease the
+#' object length. The elements of \code{FLQuants} must all be of class
+#' \code{FLQuant}.
 #'
 #' @name FLQuants
-#' @aliases FLQuants-class FLQuants FLQuants-methods FLQuants,ANY-method
-#' FLQuants,missing-method FLQuants,list-method FLQuants,FLQuants-method
 #' @docType class
-#' @section Slots: \describe{
-#'     \item{.Data}{The data. \code{list}.}
-#'     \item{names}{Names of the list elements. \code{character}.}
-#'     \item{desc}{Description of the object. \code{character}.}
-#'     \item{lock}{Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. \code{logical}.}
-#' }
-#' @template FLlst-accessors
+#' @aliases FLQuants FLQuants-class FLQuants-methods
+#' @aliases FLQuants,ANY-method FLQuants,FLQuants-method
+#' @aliases FLQuants,list-method FLQuants,missing-method
+#' @section Slots: \describe{ \item{.Data}{The data. \code{list}.}
+#' \item{names}{Names of the list elements. \code{character}.}
+#' \item{desc}{Description of the object. \code{character}.} \item{lock}{Lock
+#' mechanism, if turned on the length of the list can not be modified by adding
+#' or removing elements. \code{logical}.} }
 #' @template FLlst-constructors
 #' @author The FLR Team
 #' @seealso \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame},
@@ -48,20 +82,23 @@ setClass("FLlst", contains="list",
 #' \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
 #' \link{FLlst}, \link[base]{list}
 #' @keywords classes
-# class
+#' @examples
+#'
+#' # Compute various FLStock indicators
+#'   data(ple4)
+#'   fqs <- FLQuants(ssb=ssb(ple4), catch=catch(ple4), rec=rec(ple4),
+#'     f=fbar(ple4))
+#'   summary(fqs)
+#'   xyplot(data~year|qname, fqs, type='b', scales=list(relation='free'))
+#'
 setClass("FLQuants", contains="FLlst",
-	validity=function(object){
-	
+	validity = function(object){
 	# Make sure the list contains all items of the same class
-	cls <- unlist(lapply(object, is, 'FLQuant'))
-
-	if(!all(cls))
-		return("Components must all be FLQuant")
-	
+    if(!all(unlist(lapply(object, is, 'FLQuant'))))
+		return("Components must be FLQuant")
 	# Everything is fine
 	return(TRUE)
 }
-
 )
 
 # constructor
@@ -133,8 +170,34 @@ setMethod("FLQuants", "FLQuants", function(object){
 
 # FLCohorts {{{
 
-# validity
-vFLQs <- function(object){
+#' Class FLCohorts
+#' 
+#' \code{FLCohorts} is a class that extends \code{list} through \code{FLlst}
+#' but implements a set of features that give a little more structure to
+#' list objects. The elements of \code{FLCohorts} must all be of class
+#' \code{FLCohort}. It implements a lock mechanism that, when turned on, does
+#' not allow the user to increase or decrease the object length.
+#'
+#' @name FLCohorts
+#' @aliases FLCohorts-class FLCohorts FLCohorts-methods FLCohorts,ANY-method
+#' FLCohorts,missing-method FLCohorts,list-method FLCohorts,FLCohorts-method
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{The data. \code{list}}
+#' \item{names}{Names of the list elements. \code{character}}
+#' \item{desc}{Description of the object. \code{character}} \item{lock}{Lock
+#' mechanism, if turned on the length of the list can not be modified by adding
+#' or removing elements. \code{logical}} }
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame},
+#' \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame},
+#' \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
+#' \link{FLlst}, \link[base]{list}
+#' @keywords classes
+#'
+
+setClass("FLCohorts", contains="FLlst",
+	validity=function(object){
 	# Make sure the list contains all items of the same class
 	for(i in 1:length(object)){
 		if(!is(object[[i]], "FLCohort")) stop("Components must be FLCohort")
@@ -142,11 +205,8 @@ vFLQs <- function(object){
 	# Everything is fine
 	return(TRUE)
 }
-
-# class
-setClass("FLCohorts", contains="FLlst",
-	validity=vFLQs
 )
+
 
 # constructor
 setGeneric("FLCohorts", function(object, ...){
@@ -182,20 +242,72 @@ setMethod("FLCohorts", "FLCohorts", function(object){
 }) # }}}
 
 # FLComps {{{
-vFLCs <- function(object) {
+
+#' Class FLComps
+#'
+#' A virtual class that forms the basis for many FLR list classes. No objects
+#' of this class can be constructed.
+#'
+#' @name FLComps
+#' @aliases FLComps FLComps-class
+#' @docType class
+#' @section Validity: \describe{
+#'     \item{Elements}{All elements must be of a class that inherits from FLComp}
+#' }
+#' @section Slots: \describe{
+#'   \item{.Data}{The data. \code{list}.}
+#'   \item{names}{Names of the list elements. \code{character}.}
+#'   \item{desc}{Description of the object. \code{character}.}
+#'   \item{lock}{Lock mechanism, if turned on the length of the list can not be
+#'     modified by adding or removing elements. \code{logical}.} }
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \link{FLlst}, \link{FLComp}
+#' @keywords classes
+
+setClass("FLComps", contains=c("FLlst"),
+  validity=function(object) {
 
   # all elements inherit from class FLComp
   if(!all(unlist(lapply(object, is, 'FLComp'))))
     return("All elements must be of a class that inherits from FLComp")
 
   return(TRUE)
-}
-
-setClass("FLComps", contains=c("FLlst"), validity=vFLCs)
-# }}}
+  }
+) # }}}
 
 # FLStocks {{{
-vFLSs <- function(object){
+
+#' Class FLStocks
+#' 
+#' \code{FLStocks} is a class that extends \code{list} through \code{FLlst} but
+#' implements a set of features that give a little bit more structure to list
+#' objects. The elements of \code{FLStocks} must all be of class
+#' \code{FLStock}. It implements a lock mechanism that, when turned on, does
+#' not allow the user to increase or decrease the object length.
+#'
+#' @name FLStocks
+#' @aliases FLStocks-class FLStocks FLStocks-methods FLStocks,ANY-method
+#' FLStocks,missing-method FLStocks,list-method
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{The data. \code{list}.}
+#' \item{names}{Names of the list elements. \code{character}.}
+#' \item{desc}{Description of the object. \code{character}.} \item{lock}{Lock
+#' mechanism, if turned on the length of the list can not be modified by adding
+#' or removing elements. \code{logical}.} }
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \link[graphics]{plot}, \link{FLlst}, \link[base]{list}
+#' @keywords classes
+#' @examples
+#' 
+#' data(ple4)
+#' fls <- FLStocks(sa=ple4, sb=window(ple4, end=1980))
+#' summary(fls)
+#' 
+
+setClass("FLStocks", contains="FLComps",
+	validity=function(object){
 
   # All items are FLStock
   if(!all(unlist(lapply(object, is, 'FLStock'))))
@@ -204,9 +316,6 @@ vFLSs <- function(object){
 	return(TRUE)
 }
 
-# class
-setClass("FLStocks", contains="FLComps",
-	validity=vFLSs
 )
 
 # constructor
@@ -264,7 +373,33 @@ setMethod("FLStocks", signature(object="list"),
 }) # }}}
 
 # FLIndices {{{
-# class
+
+#' Class FLIndices
+#' 
+#' \code{FLIndices} is a class that extends \code{list} through \code{FLlst}
+#' but implements a set of features that give a little more structure to
+#' list objects. The elements of \code{FLIndices} must all be of class
+#' \code{FLIndex}. It implements a lock mechanism that, when turned on, does
+#' not allow the user to increase or decrease the object length.
+#'
+#' @name FLIndices
+#' @aliases FLIndices-class FLIndices FLIndices-methods FLIndices,ANY-method
+#' FLIndices,missing-method FLIndices,list-method
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{The data. \code{list}.}
+#' \item{names}{Names of the list elements. \code{character}.}
+#' \item{desc}{Description of the object. \code{character}.} \item{lock}{Lock
+#' mechanism, if turned on the length of the list can not be modified by adding
+#' or removing elements. \code{logical}.} }
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \linkS4class{FLlst}, \link[base]{list}
+#' @keywords classes
+#' @examples
+#' 
+#' data(ple4.index)
+#' flis <- FLIndices(INDa=ple4.index, INDb=window(ple4.index, end=2000))
+#'
 setClass("FLIndices", contains="FLComps",
 	validity = function(object) {
 
@@ -330,27 +465,37 @@ setMethod("FLIndices", signature(object="list"),
 }) # }}}
 
 # FLPars {{{
-# validity
-vFLPs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLPar")) stop("Components must be FLPar")
-	}
-	# Everything is fine
-	return(TRUE)
-}
 
-# class
+#' Class FLPars
+#' 
+#' A list of \code{FLPar} objects.
+#'
+#' @name FLPars
+#' @aliases FLPars-class FLPars FLPars-methods
+#' @docType class
+#' @section Slots: \describe{
+#'   \item{.Data}{Internal S4 data representation, of class \code{list}.}
+#'   \item{desc}{As textual description of the object contents}
+#'   \item{lock}{Can the object be extended/trimmed? \code{TRUE} or \code{FALSE}.}
+#'   \item{names}{A character vector for the element names} }
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \link{FLlst}, \link[base]{list}, \link[base]{vector}
+#' @keywords classes
+#'
 setClass("FLPars", contains="FLlst",
-	validity=vFLPs
+	validity=function(object){
+  	# Make sure the list contains all items of the same class
+	  for(i in 1:length(object)){
+		  if(!is(object[[i]], "FLPar")) stop("Components must be FLPar")
+  	}
+	  # Everything is fine
+  	return(TRUE)
+  }
 )
 
-# constructor
-setGeneric("FLPars", function(object, ...){
-	standardGeneric("FLPars")
-	}
-)
-
+#' @rdname FLPars
+#' @aliases FLPars,ANY-method
 setMethod("FLPars", signature(object="ANY"), function(object, ...){
 	lst1 <- list(...)
 	nlst <- length(lst1)
@@ -361,6 +506,8 @@ setMethod("FLPars", signature(object="ANY"), function(object, ...){
 	new("FLPars", lst)
 })
 
+#' @rdname FLPars
+#' @aliases FLPars,missing-method
 setMethod("FLPars", "missing", function(...){
 	if(missing(...)){
 		new("FLPars")
@@ -370,28 +517,48 @@ setMethod("FLPars", "missing", function(...){
 	}
 })
 
+#' @rdname FLPars
+#' @aliases FLPars,list-method
 setMethod("FLPars", "list", function(object){
 	new("FLPars", object)
 })
 
+#' @rdname FLPars
+#' @aliases FLPars,FLPars-method
 setMethod("FLPars", "FLPars", function(object){
 	return(object)
 }) # }}}
 
 # FLModelSims {{{
-# validity
-vFLMs <- function(object){
-	# Make sure the list contains all items of the same class
-	for(i in 1:length(object)){
-		if(!is(object[[i]], "FLModelSim")) stop("Components must be FLModelSim")
-	}
-	# Everything is fine
-	return(TRUE)
-}
 
-# class
+#' Class FLModelSims
+#' 
+#' A list of \code{\linkS4class{FLModelSim}} objects.
+#'
+#' @name FLModelSims
+#' @aliases FLModelSims-class FLModelSims FLModelSims-methods
+#' @docType class
+#' @section Slots: \describe{
+#'   \item{.Data}{The data. \code{list}.}
+#'   \item{names}{Names of the list elements. \code{character}.}
+#'   \item{desc}{Description of the object. \code{character}.}
+#'   \item{lock}{Lock mechanism, if turned on the length of the list can not be
+#'     modified by adding or removing elements. \code{logical}.} }
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \link{FLlst}, \link[base]{list}, \link[base]{vector}
+#' @keywords classes
+#'
+
 setClass("FLModelSims", contains="FLlst",
-	validity=vFLMs
+	validity=function(object){
+  	# Make sure the list contains all items of the same class
+	  for(i in 1:length(object)){
+		  if(!is(object[[i]], "FLModelSim")) stop("Components must be FLModelSim")
+  	}
+	  # Everything is fine
+	  return(TRUE)
+  }
 )
 
 # constructor

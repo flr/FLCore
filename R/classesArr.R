@@ -1,5 +1,5 @@
-# classesArr.R - 
-# FLCore/R/classesArr.R - 
+# classesArr.R - Array-based classes
+# FLCore/R/classesArr.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
@@ -43,7 +43,6 @@ setClass("FLArray",	representation("array"),
 
 # FLQuant {{{
 
-# FLQuant class
 #' FLQuant class for numerical data
 #' 
 #' The \code{FLQuant} class is a six-dimensional \code{\link[base]{array}}
@@ -96,6 +95,8 @@ setClass("FLArray",	representation("array"),
 #'     \item{dim:}{The dimensions of the object, a \code{\link[base]{numeric}} vector of length 6.}
 #'     \item{dimnames:}{A \code{\link[base]{list}} object providing the dimnames of the array. Only those different from the default ones need to be specified.}
 #'     \item{quant:}{The name of the first dimension, if different from 'quant', as a \code{\link[base]{character}} string.} }
+#' @param object Input numeric object
+#' @param ... Additonal arguments
 #'
 #' @author The FLR Team
 #' @seealso \code{\linkS4class{FLQuant}}
@@ -177,7 +178,7 @@ setClass("FLQuant",
 #' 
 #' @name FLQuantPoint
 #' @aliases FLQuantPoint-class FLQuantPoint FLQuantPoint-methods
-#' FLQuantPoint,FLQuant-method
+#' @aliases FLQuantPoint,FLQuant-method
 #' @docType class
 #' @section Slots: \describe{
 #'  \item{.Data}{The main array holding the computed statistics. \code{array}.}
@@ -199,6 +200,8 @@ setClass("FLQuant",
 #'  \item{iter:}{iter dimension is of length 5.}
 #'  \item{Dimnames:}{iter dimnames are 'mean', 'median', 'var', 'uppq' and'lowq'}
 #' }
+#' @param object Input numeric object
+#' @param ... Additonal arguments
 #' @author The FLR Team
 #' @seealso \link{FLQuant}
 #' @keywords classes
@@ -234,6 +237,85 @@ setClass("FLQuantPoint",
 ) # }}}
 
 # FLQuantDistr    {{{
+
+#' A class for samples of a probability distribution
+#'
+#' This extended FLQuant class holds both a measure of central tendendy (mean,
+#' median) and of dispersion (tipically variance), to be later used to generate,
+#' for example, random numbers with those mean and variances.
+#'
+#' @name FLQuantDistr
+#' @rdname FLQuantDistr
+#' @docType class
+#' @aliases FLQuantDistr-class
+#'
+#' @section Slots:
+#'     \describe{
+#'     \item{.Data}{Unnamed slot for storing the mean (or other measure of
+#'       expectation) (\code{FLQuant}).}
+#'     \item{var}{Variance, or other measure of dispersion, (\code{FLQuant}).}
+#'     \item{distr}{Name of the probability distribution, see Details
+#'       (\code{character}).}
+#' }
+#'
+#' @section Validity:
+#'
+#'   \describe{
+#'     \item{slot dims}{.Data and var slots must have the same dimensions.}
+#'     \item{slot dimnames}{.Data and var slots must have the same dimnames.}
+#' }
+#'
+#' You can inspect the class validity function by using
+#'    \code{getValidity(getClassDef('FLQuantDistr'))}
+#'
+#' @section Accessors:
+#' All slots in the class have accessor and replacement methods defined that
+#' allow retrieving and substituting individual slots.
+#'
+#' The values passed for replacement need to be of the class of that slot.
+#' A numeric vector can also be used when replacing FLQuant slots, and the
+#' vector will be used to substitute the values in the slot, but not its other
+#' attributes.
+#'
+#' The contents of the unnamed slot (.Data) can be accessed through the
+#' \code{e()} method, see Example below.
+#'
+#' @section Constructor:
+#' A construction method exists for this class that can take named arguments for
+#' any of its slots. All slots are then created to match the requirements of the
+#' class validity. If an unnamed \code{FLQuant} object is provided, this is used
+#' for the .Data slot.
+#' @param object Input numeric object
+#' @param ... Additonal arguments
+#'
+#' @section Methods:
+#' Methods exist for various calculations based on values stored in the class:
+#'
+#' \describe{
+#'     \item{Arith}{.}
+#' }
+#' @section Arithmetic:
+#' The methods under the \emph{Arith} group have been defined for objects of
+#' this class, both for operations between two \code{FLQuantDistr} objects and
+#' with objects of class \code{FLQuant} (\code{FLArray}) as follows:
+#'
+#' \describe{
+#'     \item{+, FLQuantDistr,FLArray}{.}
+#'     \item{-, FLQuantDistr,FLArray}{.}
+#'     \item{*, FLQuantDistr,FLArray}{.}
+#'     \item{/, FLQuantDistr,FLArray}{.}
+#'     \item{+, FLQuantDistr,FLQuantDistr}{.}
+#'     \item{-, FLQuantDistr,FLQuantDistr}{.}
+#'     \item{*, FLQuantDistr,FLQuantDistr}{.}
+#' }
+#' @author The FLR Team
+#' @seealso \link{FLQuant}
+#' @keywords classes
+#' @examples
+#'
+#' data(ple4)
+#' fqd <- FLQuantDistr(catch.n(ple4), var=catch.n(ple4) * 10, distr='norm')
+#'
 setClass("FLQuantDistr",
     representation("FLQuant", var="FLQuant", distr="character"),
 	prototype(new("FLQuant"), var=new("FLQuant"), distr="norm"),
@@ -252,7 +334,108 @@ setClass("FLQuantDistr",
     return(TRUE)
 }) # }}}
 
+# FLQuantJK     {{{
+
+#' A class for jackknifing fisheries data
+#'
+#' This extended FLQuant class holds both a jackknifed FLQuant, one in which each
+#' iter is missing one element, and the original object, as a separate
+#' \code{FLQuant} in the \code{orig} slot.
+#'
+#' @name FLQuantJK
+#' @docType class
+#' @aliases FLQuantJK-class
+#'
+#' @section Slots:
+#'     \describe{
+#'     \item{.Data}{Unnamed slot containing the jackknifed object(\linkS4class{FLQuant}).}
+#'     \item{orig}{Original object, (\linkS4class{FLQuant}).}
+#' }
+#'
+#' @section Validity:
+#'
+#'   \describe{
+#'     \item{slot dims}{.Data and orig slots must have the same dimensions 1-5.}
+#'     \item{slot dimnames}{.Data and var slots must have the same dimnames 1-5.}
+#' }
+#'
+#' You can inspect the class validity function by using
+#'    \code{getValidity(getClassDef('FLQuantJK'))}
+#'
+#' @section Accessors:
+#' All slots in the class have accessor and replacement methods defined that
+#' allow retrieving and substituting individual slots.
+#'
+#' The values passed for replacement need to be of the class of that slot.
+#' A numeric vector can also be used when replacing FLQuant slots, and the
+#' vector will be used to substitute the values in the slot, but not its other
+#' attributes.
+#'
+#' @section Constructor:
+#' Objects of this class must be constructed from an \linkS4class{FLQuant} that
+#' is to be jackknifed, through the \code{\link{jackknife}} method.
+#' @param object Input numeric object
+#' @param ... Additonal arguments
+#'
+#' @section Methods:
+#' All methods defined for the \linkS4class{FLQuant} class are available, but
+#' they will operate only on the jackknifed (\code{.Data}) slot. Please use
+#' \code{orig()} to apply them to the original object stored in the class.
+#'
+#' @author The FLR Team
+#' @seealso \link{FLQuant}
+#' @keywords classes
+#' @examples
+#'
+#' data(ple4)
+#' fjk <- jackknife(stock(ple4))
+#' # New object has as many iters as length of jackknifed dimension (defaults to 'year')
+#' dim(fjk)
+#'
+
+setClass("FLQuantJK",
+	representation("FLQuant", orig="FLQuant"),
+  prototype(new("FLQuant"), orig=new("FLQuant")),
+  validity=function(object) {
+
+    if(!all.equal(dimnames(object@.Data)[1:5], dimnames(object@orig)[1:5]))
+      return("Original and jackknifed object must share dimnames[1-5]")
+
+    return(TRUE)
+  }
+) # }}}
+
 # FLCohort {{{
+
+#' Class FLCohort
+#'
+#' A class for modelling cohorts.
+#'
+#' This class represents cohorts in columns. It simply shifts the typical
+#' matrix representation where cohorts are found on the diagonals, into a
+#' matrix where cohorts are found in columns. It is very usefull for all
+#' analysis that want to make use of cohorts instead of years.
+#' 
+#' @name FLCohort
+#' @aliases FLCohort FLCohort-class FLCohort-methods
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{Internal S4 data representation.
+#' \code{array}.} \item{units}{The data units in some understandable metric.
+#' \code{character}} }
+#' @author The FLR Team
+#' @seealso \link{[}, \link{as.data.frame}, \link{bubbles}, \link{ccplot},
+#' \link{FLCohort,FLQuant-method}, \link{flc2flq}, \link[graphics]{plot},
+#' \link{quant}, \link{trim}, \link{units},
+#' \link{units<-,FLCohort,character-method}, \link[lattice]{xyplot},
+#' \link[base]{array}
+#' @keywords classes
+#' @examples
+#' 
+#' data(ple4)
+#' flq <- catch.n(ple4)
+#' flc <- FLCohort(flq)
+#' plot(trim(flc, cohort=1960:2000))
+#' 
 setClass("FLCohort",
 	representation("FLArray", units="character"),
 	prototype(array(as.numeric(NA), dim=c(1,1,1,1,1,1),
@@ -271,6 +454,44 @@ setClass("FLCohort",
 ) # }}}
 
 # FLPar {{{
+
+#' Class FLPar
+#' 
+#' A class for storing parameters of a model.
+#'
+#' The \code{FLPar} class is based on the array class which can store
+#' Monte Carlo samples and the names of the relevant parameter vectors.
+#' 
+#' Methods for this class include subsetting and replacement as for the
+#' \code{\linkS4class{FLQuant}} class. There are methods for extracting
+#' statistics of the sample (mean, median etc.) and for plotting the parameter
+#' samples.
+#'
+#' @name FLPar
+#' @aliases FLPar-class FLPar FLPar-methods FLPar,array-method
+#' FLPar,missing-method FLPar,vector-method FLPar,FLPar-method
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{Describe slot. \code{array}.}
+#' \item{units}{Units of measurement. \code{character}.} }
+#' @author The FLR Team
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame},
+#' \link[lattice]{densityplot}, \link[lattice]{histogram}, \link{iter},
+#' \link{iter<-}, \link[base]{mean}, \link[stats]{median},
+#' \link[graphics]{plot}, \link[lattice]{splom}, \link[base]{summary},
+#' \link{units,FLPar-method}, \link{units<-,FLPar,character-method},
+#' \link[stats]{var}
+#' @keywords classes
+#' @examples
+#' 
+#' FLPar(rnorm(4), params=c('a','b','c','sigma2'))
+#'
+#' FLPar(rnorm(20), dimnames=list(params=c('a','b'), year=1990:1999, iter=1),
+#'   units='NA')
+#'
+#' # with iters
+#'   FLPar(rnorm(80), params=c('a', 'b'), iter=1:40)
+#'
+
 setClass('FLPar', representation('array', units='character'),
 	prototype=prototype(array(as.numeric(NA), dim=c(1,1),
 	dimnames=list(params=character(0), iter=1)), units='NA'),

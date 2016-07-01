@@ -43,36 +43,6 @@ setMethod('summary', signature(object='FLQuants'),
   }
 ) # }}}
 
-# xyplot {{{
-setMethod("xyplot", signature("formula", "FLQuants"), function(x, data, ...)
-	{
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    	lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("xyplot", lst)
-}) # }}}
-
-# bwplot {{{
-setMethod("bwplot", signature("formula", "FLQuants"), function(x, data, ...)
-	{
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    	lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("bwplot", lst)
-}) # }}}
-
-# histogram {{{
-setMethod("histogram", signature("formula", "FLQuants"), function(x, data, ...)
-	{
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    	lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("histogram", lst)
-}) # }}}
-
 # iter {{{
 setMethod("iter", signature(obj="FLQuants"),
 	  function(obj, iter) {
@@ -189,102 +159,6 @@ setMethod("as.data.frame", signature(x="FLQuants", row.names="missing",
 
 # }}}
 
-# bkey   {{{
-setGeneric("bkey", function(object, ...){
-	standardGeneric("bkey")
-	}
-)
-
-setMethod("bkey", signature("list"), function(object, ...){
-
-	# test
-	if(sum(names(object) %in% c("data", "cex", "bub.col", "bub.scale"))!=4){
-		stop("The list passed to bkey must have components \"data\", \"cex\", \"bub.col\" and \"bub.scale\"","\n")
-	}
-
-	# get info
-	dots <- list(...)
-	data <- object$data
-	adata <- abs(data)
-	cex <- object$cex
-	bub.col <- object$bub.col
-	bub.scale <- object$bub.scale
-
-	# vectors with cex, col, pch and text
-	v <- ceiling(max(adata, na.rm=T))
-	ktext <- format(round(seq(-v,v,l=9),2))
-	v <- ceiling(max(cex, na.rm=T))
-	kcex <- abs(seq(-v,v,l=9))+bub.scale*0.1
-	kcol <- rep(bub.col,c(4,5))
-	kpch <- rep(c(1,19),c(4,5))
-
-	# the key
-	akey <- simpleKey(text=ktext[9:1], points=T, lines=F, columns=1, space="right")
-	akey$points$col=kcol[9:1]
-	akey$points$pch=kpch[9:1]
-	akey$points$cex=kcex
-	akey$text$cex=0.8
-
-	# merging with other arguments
-	lst0 <- dots[names(dots) %in% names(akey)]
-	lst1 <- dots[!(names(dots) %in% names(akey))]
-	akey[match(names(lst0),names(akey),nomatch=0)] <- lst0
-	akey <- c(akey,lst1)
-
-	# output
-	akey
-})  # }}}
-
-# bubbles   {{{
-setMethod("bubbles", signature(x="formula", data ="FLQuants"), function(x, data, bub.scale=2.5, bub.col=gray(c(0.1, 0.1)), ...){
-	# data
-	dots <- list(...)
-	dots$data <- as.data.frame(data)
-
-	# def col & pch to plot negative values
-	col <- as.numeric(dots$data$data>=0)
-	coln <- vector(mode="character", length=length(col))
-	pchn <- vector(mode="integer", length=length(col))
-
-	# for negs
-	coln[col==0] <- bub.col[1]
-	pchn[col==0] <- 1
-
-	# for pos
-	coln[col==1] <- bub.col[2]
-	pchn[col==1] <- 19
-
-	# for NA
-	coln[coln==""] <- NA
-	pchn[coln==""] <- NA
-
-	# rescale cex to make it prety (I hope)
-	cex0 <- abs(dots$data$data)
-	cex <- bub.scale*cex0/max(cex0, na.rm=TRUE)
-
-	# panel
-	pfun <- function(x,y,subscripts,...){
-		panel.xyplot(x,y,col=coln[subscripts], pch=pchn[subscripts], cex=cex[subscripts]+bub.scale*0.1)
-	}
-
-	# legend
-
-	akey <- bkey(list(data=dots$data$data, cex=cex, bub.col=bub.col, bub.scale=bub.scale), border=F, title="Scale", cex.title=0.8, padding.text=4)
-
-	# call list
-	dots$cex <- cex
-	dots$pch <- pchn
-	dots$col <- coln
-	dots$panel <- pfun
-	dots$key <- akey
-	call.list <- c(x = x, dots)
-
-	# plot
-	ans <- do.call("xyplot", call.list)
-	ans
-
-})  # }}}
-
 # combine {{{
 setMethod('combine', signature(x='FLQuants', y='missing'),
   function(x) {
@@ -319,16 +193,3 @@ setMethod('Products', signature(object='FLQuants'),
 		eval(parse(text=paste('object[[', paste(seq(length(object)),
 			collapse=']] * object[['), ']]', sep='')))
 )	# }}}
-
-# plot {{{
-setMethod("plot", signature(x="FLQuants", y="missing"),
-  function(x, ...) {
-
-    its <- unlist(lapply(x, function(z) dim(z)[6]))
-
-    if(any(its > 1))
-      bwplot(data~year | qname, data=x, ...)
-    else
-      xyplot(data~year | qname, data=x, ...)
-  }
-) # }}}

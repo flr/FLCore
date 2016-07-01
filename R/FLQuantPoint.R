@@ -152,44 +152,6 @@ setMethod("lowq<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 ) # }}}
 
-# plot	{{{
-# TODO Fix, it is badly broken! 12.09.07 imosqueira
-setMethod("plot", signature(x="FLQuantPoint", y="missing"),
-	function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""),
-		type='bar', ...) {
-
-		# get dimensions to condition on (length !=1)
-		condnames <- names(dimnames(x)[c(1,3:5)][dim(x)[c(1,3:5)]!=1])
-		cond <- paste(condnames, collapse="+")
-		if(cond != "") cond <- paste("|", cond)
-		formula <- formula(paste("data~year", cond))
-		# set strip to show conditioning dimensions names
-		strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
-
-		pfun <- function(x, y, subscripts, groups, ...){
-			larrows(x[groups[subscripts]=='lowq'], y[groups[subscripts]=='lowq'],
-				x[groups[subscripts]=='uppq'], y[groups[subscripts]=='uppq'], angle=90,
-				length=0.05, ends='both')
-			lpoints(x[groups[subscripts]=='mean'], y[groups[subscripts]=='mean'], pch=16)
-			lpoints(x[groups[subscripts]=='median'], y[groups[subscripts]=='median'], pch=3)
-		}
-
-	# using do.call to avoid eval of some arguments
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(x)
-	lst$x <- formula
-	lst$xlab <- xlab
-	lst$ylab <- ylab
-	lst$strip <- strip
-	lst$groups <- lst$data$iter
-	lst$subscripts <- TRUE
-	lst$panel <- pfun
-
-	do.call("xyplot", lst)
-	}
-)	# }}}
-
 # quantile   {{{
 setMethod("quantile", signature(x="FLQuantPoint"),
 	function(x, probs=0.25, na.rm=FALSE, dim=1:5, ...) {

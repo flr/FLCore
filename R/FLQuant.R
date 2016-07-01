@@ -377,7 +377,21 @@ setMethod("dimnames<-", signature(x="FLQuant", value='list'),
 ) # }}}
 
 # dims       {{{
-# Return a list with different parameters
+
+#' @rdname dims
+#' @aliases dims,FLQuant-method
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(96), dim=c(3,8,1,4), quant='age')
+#' dims(flq)
+#' 
+#' # Number of seasons
+#'   dims(flq)$season
+#' 
+#' # Length of first dimension
+#'   dims(flq)[[quant(flq)]]
+#'
+
 setMethod("dims", signature(obj="FLQuant"),
   function(obj, ...){
 
@@ -418,162 +432,6 @@ setMethod("print", signature(x="FLQuant"),
   function(x){
     show(x)
     invisible(x)
-  }
-) # }}}
-
-# plot     {{{
-setMethod("plot", signature(x="FLQuant", y="missing"),
-  function(x, xlab="year", ylab=paste("data (", units(x), ")", sep=""), type='p', ...) {
-
-    # get dimensions to condition on (length !=1)
-  condnames <- names(dimnames(x)[c(1,3:5)][dim(x)[c(1,3:5)]!=1])
-  cond <- paste(condnames, collapse="+")
-
-  if(cond != "") cond <- paste("|", cond)
-    formula <- formula(paste("data~year", cond))
-
-  # set strip to show conditioning dimensions names
-  strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
-
-  # using do.call to avoid eval of some arguments
-  lst <- substitute(list(...))
-  lst <- as.list(lst)[-1]
-  lst$data <- x
-  lst$x <- formula
-  lst$xlab <- xlab
-  lst$ylab <- ylab
-  lst$strip <- strip
-  lst$type <- type
-  if(dim(x)[6] == 1)
-    do.call("xyplot", lst)
-  else
-    do.call("bwplot", lst)
-  }
-) # }}}
-
-# lattice plots{{{
-# xyplot
-setMethod("xyplot", signature("formula", "FLQuant"),
-function(x, data, ...){
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-lst$x <- x
-do.call("xyplot", lst)
-})
-
-# bwplot
-setMethod("bwplot", signature("formula", "FLQuant"),
-
-function(x, data, ...){
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-lst$x <- x
-do.call("bwplot", lst)
-
-})
-
-# dotplot
-setMethod("dotplot", signature("formula", "FLQuant"), function(x, data, ...){
-
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-lst$x <- x
-do.call("dotplot", lst)
-
-})
-
-# barchart
-setMethod("barchart", signature("formula", "FLQuant"), function(x, data, ...){
-
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-lst$x <- x
-do.call("barchart", lst)
-
-})
-
-# stripplot
-setMethod("stripplot", signature("formula", "FLQuant"), function(x, data, ...){
-
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-lst$x <- x
-do.call("stripplot", lst)
-
-})
-
-# histogram
-setMethod("histogram", signature("formula", "FLQuant"), function(x, data, ...){
-
-lst <- substitute(list(...))
-lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-lst$x <- x
-do.call("histogram", lst)
-
-})
-
-# bubbles
-setMethod("bubbles", signature(x="formula", data ="FLQuant"),
-function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
-dots <- list(...)
-data <- as.data.frame(data)
-dots$data <- data
-dots$cex <- bub.scale*(abs(data$data)/max(abs(data$data),na.rm=T))+bub.scale*0.1
-dots$col <- ifelse(data$data>0, col[1], col[2])
-dots$panel <- function(x, y, ..., cex, subscripts){
-panel.xyplot(x, y, cex=cex[subscripts], ...)
-}
-call.list <- c(x=x, dots)
-ans <- do.call("xyplot", call.list)
-ans
-})
-
-setMethod("bubbles", signature(x="formula", data ="data.frame"),
-function(x, data, bub.scale=2.5, col=c("blue","red"), ...){
-dots <- list(...)
-  datanm <- as.character(as.list(x)[[2]])
-dots$data <- data
-dots$cex <- bub.scale*(abs(data[,datanm])/max(abs(data[,datanm]),na.rm=T))+bub.scale*0.1
-dots$col <- ifelse(data[,datanm]>0, col[1], col[2])
-dots$panel <- function(x, y, ..., cex, subscripts){
-panel.xyplot(x, y, cex=cex[subscripts], ...)
-}
-call.list <- c(x=x, dots)
-ans <- do.call("xyplot", call.list)
-ans
-})
-
-# wireframe
-
-#' @title 3D plot for FLQuant objects
-#' @name wireframe
-#' @docType methods
-#' @rdname wireframe
-#' @aliases wireframe,FLQuant-method
-#' @description Method to plot 3D representations of FLQuant objects
-#'
-#' @param x a \code{formula} formula for lattice
-#' @param data a \code{FLQuant} object with the values
-#' @param ... Additional argument list to be passed to \code{wireframe}
-#' @return a \code{wireframe} plot
-#' @examples
-#' data(ple4)
-#' wireframe(data~age+year, data=harvest(ple4))
-setMethod("wireframe", c("formula","FLQuant"),
-  function(x, data, ...) {
-    args <- list(...)
-    args$x <- x
-    args$data <- as.data.frame(data)
-    do.call("wireframe", args)
   }
 ) # }}}
 

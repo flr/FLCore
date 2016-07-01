@@ -5,6 +5,13 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # FLCohort(FLQuant)  {{{
+
+#' @rdname FLCohort
+#' @aliases FLCohort,FLquant-method
+#' @section Constructor:
+#' Objects of this class are generally constructed from an \linkS4class{FLQuant}.
+#' @param object Input numeric object
+#' @param ... Additonal arguments
 setMethod("FLCohort", signature("FLQuant"),
   function(object, ...) {
     
@@ -249,76 +256,7 @@ setMethod("flc2flq", signature("FLCohort"), function(object, ...){
 
 })  # }}}
 
-# plot  {{{
-setMethod("plot", signature(x="FLCohort", y="missing"),
-  function(x, y="missing", ...){
-    dots <- list(...)
-    condnames <- names(dimnames(x)[c(3:5)][dim(x)[c(3:5)]!=1])
-    cond <- paste(condnames, collapse="+")
-    if(cond != "") cond <- paste("*", cond)
-    formula <- formula(paste("data~age|as.factor(cohort)", cond))
-    dots$x <- formula
-    dots$data <- x
-    dots$ylab <- units(x)
-    dots$xlab <- "age"
-    dots$type <- c("l")  
-    do.call("xyplot", dots)
-  }
-) # }}}
-
-# bubbles {{{
-setMethod("bubbles", signature(x="formula", data ="FLCohort"),
-    function(x, data, bub.scale=2.5, ...){
-      dots <- list(...)
-      data <- as.data.frame(data)
-      dots$data <- data
-      dots$cex <- bub.scale*data$data/max(data$data, na.rm=TRUE)+0.1
-      pfun <- function(x, y, ..., cex, subscripts){
-        panel.xyplot(x, y, ..., cex = cex[subscripts])
-    }
-      call.list <- c(x = x, dots, panel=pfun)
-      xyplot <- lattice::xyplot
-      ans <- do.call("xyplot", call.list)
-      ans$call <- match.call()
-      ans
-    }
-) # }}}
-
-# ccplot  {{{
-setMethod("ccplot", signature(x="formula", data ="FLCohort"), function(x, data, ...){
-
-    dots <- list(...)
-  # define a suitable xlim based on years
-  if(all.vars(x)[2]=="year"){
-    ys <- dimnames(data)$cohort[dim(data)[1]]
-      ye <- dimnames(data)$cohort[dim(data)[2]]
-    xlim <- c(as.numeric(ys), as.numeric(ye)+2) 
-      dots$xlim <- xlim
-  }
-  # now data coerce
-    data <- as.data.frame(data)
-  # some options
-    data$year <- data$cohort + data$age
-    dots$data <- data
-    dots$groups <- data$cohort
-  # call & run
-    call.list <- c(x = x, dots)
-    xyplot <- lattice::xyplot
-    ans <- do.call("xyplot", call.list)
-    ans
-
-})  # }}}
-
-# xyplot  {{{
-setMethod("xyplot", signature("formula", "FLCohort"), function(x, data, ...){
-  lst <- substitute(list(...))
-  lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-  lst$x <- x
-  do.call("xyplot", lst)
-})  # }}}
-
-## dims       {{{
+# dims       {{{
 setMethod("dims", signature(obj="FLCohort"),
   # Return a list with different parameters
   function(obj, ...){
@@ -357,7 +295,7 @@ setMethod("propagate", signature(object="FLCohort"),
   }
 ) # }}}
 
-## fillFLCdimnames       {{{
+# fillFLCdimnames       {{{
 fillFLCdimnames <- function(dnames, dim=rep(1,6), iter=1) {
   # generate standard names for given dimensions
   if(!missing(iter))
@@ -369,7 +307,7 @@ fillFLCdimnames <- function(dnames, dim=rep(1,6), iter=1) {
   return(xnames)
 } # }}}
 
-## dimnames<-       {{{
+# dimnames<-       {{{
 setMethod("dimnames<-", signature(x="FLCohort", value='list'),
   function(x, value) {
     if(any(!names(value) %in% c("age", "cohort", "unit", "season", "area", "iter")))

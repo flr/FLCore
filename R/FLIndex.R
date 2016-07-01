@@ -5,7 +5,7 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 # $Id: FLIndex.R 1778 2012-11-23 08:43:57Z imosqueira $
 
-## Accesors {{{
+# Accesors {{{
 invisible(createFLAccesors("FLIndex", exclude=c('name', 'desc', 'range', 'effort'))) # }}}
 
 # FLIndex()   {{{
@@ -59,30 +59,10 @@ setMethod('FLIndex', signature(object='missing'),
   }
 ) # }}}
 
-## is.FLIndex	{{{
+# is.FLIndex	{{{
 is.FLIndex <- function(x)
     return(inherits(x, "FLIndex"))
 # }}}
-
-# plot (FLIndex) {{{
-# Author: Mark Payne, DIFRES
-setMethod("plot", signature(x="FLIndex",y="missing"),
-  function(x, type=c("splom"), ...)
-  {
-    # The body of the plot method
-    validObject(x)
-		type <- type[1]
-
-	  res <- switch(type,
-		  "splom" = plotinternal(x=x, ... ),
-		  "ts" = plotts(x=x, ... ),
-		  "pairwise"=pairwiseConsistency(idx=x,...),
-		  "internal"=plotInternalConsistency(idx=x,...),
-		  cat("type must be 'splom', 'ts', 'pairwise' or 'internal'!\n"))
-	  # Return result invisibly
-	  invisible(res)
-    }
-)	# }}}
 
 # plotinternal  {{{
 plotinternal <- function(x, ... )
