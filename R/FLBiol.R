@@ -98,12 +98,11 @@ invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # 
 
 # fec {{{
 setMethod('fec', signature('FLBiol'),
-  function(object, slot=NULL, compute=TRUE) {
+  function(object, compute=TRUE) {
     if(compute)
       return(evalPredictModel(object, slot='fec'))
     else
-      return(new('FLQuants', object@fec@.Data, names=object@fec@names,
-        lock=object@fec@lock))
+      return(object@fec)
   }
 ) # }}}
 
@@ -174,12 +173,11 @@ setReplaceMethod('fec', signature(object='FLBiol', value='list'),
 
 # mat {{{
 setMethod('mat', signature('FLBiol'),
-  function(object, slot=NULL, compute=TRUE) {
+  function(object, compute=TRUE) {
     if(compute)
       return(evalPredictModel(object, slot='mat'))
     else
-      return(new('FLQuants', object@mat@.Data, names=object@mat@names,
-        lock=object@mat@lock))
+      return(object@mat)
   }
 ) # }}}
 
@@ -250,12 +248,11 @@ setReplaceMethod('mat', signature(object='FLBiol', value='list'),
 
 # rec {{{
 setMethod('rec', signature('FLBiol'),
-  function(object, slot=NULL, compute=TRUE) {
+  function(object, compute=TRUE) {
     if(compute)
       return(evalPredictModel(object, slot='rec'))
     else
-      return(new('FLQuants', object@rec@.Data, names=object@rec@names,
-        lock=object@rec@lock))
+      return(object@rec)
   }
 ) 
 
