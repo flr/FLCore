@@ -341,7 +341,16 @@ setMethod('tep', signature(object='FLBiol'), function(object, formula=~n*wt*fec*
   
   eval(formula[[2]], lis)
   }
-) # }}}
+)
+
+setMethod('tep', signature(object='FLBiol'),
+	function(object) {
+		return(quantSums(n(object) %*% wt(object) %*% fec(object)))
+	}
+)
+
+
+# }}}
 
 # summary {{{
 setMethod("summary", signature(object="FLBiol"),
