@@ -2,7 +2,7 @@
 #
 # https://travis-ci.org/flr/FLCore
 
-# warnings_are_errors: false
+warnings_are_errors: false
 
 os:
   - linux
