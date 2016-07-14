@@ -9,6 +9,10 @@ os:
   - osx
 
 language: R
+
+r:
+  - release
+  - devel
   
 sudo: false
 
