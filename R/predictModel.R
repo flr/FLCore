@@ -228,4 +228,3 @@ evalPredictModel <- function(object, slot='fec') {
   # RETURN
   return(eval(slot@model[[length(slot@model)]], lis))
 } # }}}
-
