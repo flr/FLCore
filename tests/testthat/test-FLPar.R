@@ -10,9 +10,9 @@ testFLPar <- function(par, msg, dim, dmns) {
   test_that(msg, {
 
     # check dim
-    expect_that(dim(par), equals(dim))
+    expect_equal(dim(par), dim)
     # check dimnames
-    expect_that(dimnames(par), equals(dmns))
+    expect_equal(dimnames(par), dmns)
     # validObject
     expect_true(validObject(par))
     # is("FLPar")
