@@ -601,8 +601,7 @@ setClass("FLI",
 #' indices.
 #'
 #' @name FLIndex
-#' @aliases FLIndex-class FLIndex,FLQuant-method FLIndex,missing-method
-#' FLIndex-methods catch.n,FLIndex-method
+#' @aliases FLIndex-class catch.n,FLIndex-method
 #' catch.n<-,FLIndex,FLQuant-method catch.wt,FLIndex-method
 #' catch.wt<-,FLIndex,FLQuant-method desc,FLIndex-method
 #' desc<-,FLIndex,character-method distribution,FLIndex-method

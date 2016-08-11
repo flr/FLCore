@@ -65,8 +65,7 @@ setClass("FLArray",	representation("array"),
 #' measurement relevant to the data.
 #' 
 #' @name FLQuant
-#' @aliases FLQuant-class FLQuant FLQuant-methods FLQuant,missing-method
-#' FLQuant,vector-method FLQuant,array-method FLQuant,matrix-method
+#' @aliases FLQuant-class FLQuant FLQuant-methods
 #' FLQuant,FLQuant-method
 #' @family FLCoreClasses
 #' @docType class

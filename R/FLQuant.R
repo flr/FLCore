@@ -88,17 +88,16 @@ function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA", iter=
     dim <- c(dim, rep(1,6))[1:6]
     if(!missing(iter)) {
       dim[6] <- iter
-      dimnames <- list(
+    }
+    dimnames <- list(
       quant=if(dim[1]==1){"all"}else{1:dim[1]},
       year=1:dim[2],
       unit=if(dim[3]==1){"unique"}else{1:dim[3]},
       season=if(dim[4]==1){"all"}else{1:dim[4]},
       area=if(dim[5]==1){"unique"}else{1:dim[5]},
       iter=1:dim[6])
-    }
   }
-
-  # both
+  # both provided
   else {
     dim <- c(dim, rep(1,6))[1:6]
     if(!missing(iter)) {

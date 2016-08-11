@@ -4,10 +4,61 @@
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 
+#' FLQuant arithmetic operators
+#'
+#' Arithmetic operations between two \linkS4class{FLQuant} objects using the
+#' standars operators (`+`, `-`, `*`, `/`, `^`, see \link{Arith}) need all dimensions in
+#' both objects to match. This requirement is relaxed by using the percent
+#' version of those four: `%+%`, `%-%`, `%*%`, `%/%` and `%^%`.
+#'
+#' If any of the objects is of length one in a dimensions where the other is
+#' longer, the dimensions will be extended and the element-by-element operation
+#' then conducted. Dimensions and dimnames of the output will be those of the
+#' larger object. See the examples to observe their behaviour.
+#'
+#' Please note that this behjaviour is present on the \link{Arith} methods for
+#' \linkS4class{FLArray}-derived classes but only on the 6th, `iter`, dimension.
+#'
+#' The original use of the `%*%` operator, as vector product, is not available
+#' for \linkS4class{FLQuant} objects, but can be applied to the \link{array}
+#' inside them, as in the example below.
+#'
+#' Methods for operations between an \linkS4class{FLQuant} and an
+#' \linkS4class{FLPar} object will match dimensions by names of dimnames,
+#' regardless of position.
+#'
+#' @name operators
+#' @aliases operators
+#' @docType methods
+#' @section Generic function: %+%, %-%, %*%, %/%, %^%
+#' @author The FLR Team
+#' @seealso \linkS4class{FLQuant}, \link[base]{%*%}
+#' @keywords methods
+#' @examples
+#' 
+#' a <- FLQuant(2, dim=c(3,3,2))
+#' b <- FLQuant(3, dim=c(3,3,1))
+#'
+#' # This should fail
+#' \dontrun{ a * b }
+#'
+#' a %*% b
+#' a %+% b
+#' # To use base's %*% vector product, apply it to a matrix from @.Data
+#' b@.Data[,,,,,] %*% 1:3
+#' # or
+#' b[,,drop=TRUE] %*% 1:3
+#'
+#' # FLPar vs. FLQuant works by dimnames' names
+#' flp <- FLPar(2, dimnames=list(params='a', year=2000:2005, iter=1))
+#' flq <- FLQuant(3, dimnames=list(year=2000:2005))
+#' flp %*% flq
 
 # FLQuant, FLQuant {{{
 # %*% {{{
-# Multiply two FLQuant objects by matching dimensions, expands 1 to n
+
+#' @rdname operators
+#' @aliases %*%,FLQuant,FLQuant-method
 setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
 	function(x, y) {
 
@@ -51,7 +102,9 @@ setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
 ) # }}}
 
 # %/% {{{
-# Divide two FLQuant objects by matching dimensions, expands 1 to n
+
+#' @rdname operators
+#' @aliases %/%,FLQuant,FLQuant-method
 setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
 	function(e1, e2) {
 
@@ -95,7 +148,9 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
 ) # }}}
 
 # %+% {{{
-# Add two FLQuant objects by matching dimensions, expands 1 to n
+
+#' @rdname operators
+#' @aliases %+%,FLQuant,FLQuant-method
 setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
 	function(x, y) {
 
@@ -139,7 +194,9 @@ setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
 ) # }}}
 
 # %-% {{{
-# Sustract two FLQuant objects by matching dimensions, expands 1 to n
+
+#' @rdname operators
+#' @aliases %-%,FLQuant,FLQuant-method
 setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
 	function(x, y) {
 
@@ -183,7 +240,9 @@ setMethod("%-%", signature(x="FLQuant", y="FLQuant"),
 ) # }}}
 
 # %^% {{{
-# Power of two FLQuant objects by matching dimensions, expands 1 to n
+
+#' @rdname operators
+#' @aliases %^%,FLQuant,FLQuant-method
 setMethod("%^%", signature(x="FLQuant", y="FLQuant"),
 	function(x, y) {
 
@@ -230,7 +289,9 @@ setMethod("%^%", signature(x="FLQuant", y="FLQuant"),
 
 # FLPar, FLQuant {{{
 # %*% {{{
-# Multiply FLPar against FLQuant by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %*%,FLPar,FLQuant-method
 setMethod("%*%", signature(x="FLPar", y="FLQuant"),
 	function(x, y) {
 
@@ -266,7 +327,10 @@ setMethod("%*%", signature(x="FLPar", y="FLQuant"),
 ) # }}}
 
 # %/% {{{
-# Divide FLPar against FLQuant by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %/%,FLPar,FLQuant-method
+
 setMethod("%/%", signature(e1="FLPar", e2="FLQuant"),
 	function(e1, e2) {
 
@@ -302,7 +366,9 @@ setMethod("%/%", signature(e1="FLPar", e2="FLQuant"),
 ) # }}}
 
 # %+% {{{
-# Add FLPar and FLQuant by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %+%,FLPar,FLQuant-method
 setMethod("%+%", signature(x="FLPar", y="FLQuant"),
 	function(x, y) {
 
@@ -338,7 +404,9 @@ setMethod("%+%", signature(x="FLPar", y="FLQuant"),
 ) # }}}
 
 # %-% {{{
-# Substract FLPar and FLQuant by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %-%,FLPar,FLQuant-method
 setMethod("%-%", signature(x="FLPar", y="FLQuant"),
 	function(x, y) {
 
@@ -374,7 +442,9 @@ setMethod("%-%", signature(x="FLPar", y="FLQuant"),
 ) # }}}
 
 # %^% {{{
-# Power of FLPar against FLQuant by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %^%,FLPar,FLQuant-method
 setMethod("%^%", signature(x="FLPar", y="FLQuant"),
 	function(x, y) {
 
@@ -412,7 +482,9 @@ setMethod("%^%", signature(x="FLPar", y="FLQuant"),
 
 # FLQuant, FLPar {{{
 # %*% {{{
-# Multiply FLQuant against FLPar by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %*%,FLQuant,FLPar-method
 setMethod("%*%", signature(x="FLQuant", y="FLPar"),
 	function(x, y) {
 
@@ -448,7 +520,9 @@ setMethod("%*%", signature(x="FLQuant", y="FLPar"),
 ) # }}}
 
 # %/% {{{
-# Divide FLPar against FLQuant by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %/%,FLQuant,FLPar-method
 setMethod("%/%", signature(e1="FLQuant", e2="FLPar"),
 	function(e1, e2) {
 
@@ -484,7 +558,9 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLPar"),
 ) # }}}
 
 # %+% {{{
-# Add FLQuant and FLPar by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %+%,FLQuant,FLPar-method
 setMethod("%+%", signature(x="FLQuant", y="FLPar"),
 	function(x, y) {
 
@@ -520,7 +596,9 @@ setMethod("%+%", signature(x="FLQuant", y="FLPar"),
 ) # }}}
 
 # %-% {{{
-# Substract FLQuant and FLPar by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %-%,FLQuant,FLPar-method
 setMethod("%-%", signature(x="FLQuant", y="FLPar"),
 	function(x, y) {
 
@@ -556,7 +634,9 @@ setMethod("%-%", signature(x="FLQuant", y="FLPar"),
 ) # }}}
 
 # %^% {{{
-# Substract FLQuant and FLPar by matching dimnames, expands 1 to n
+
+#' @rdname operators
+#' @aliases %^%,FLQuant,FLPar-method
 setMethod("%^%", signature(x="FLQuant", y="FLPar"),
 	function(x, y) {
 
@@ -595,6 +675,9 @@ setMethod("%^%", signature(x="FLQuant", y="FLPar"),
 
 # FLPar, FLPar {{{
 # %*% {{{
+
+#' @rdname operators
+#' @aliases %*%,FLPar,FLPar-method
 setMethod("%*%", signature(x="FLPar", y="FLPar"),
 	function(x, y) {
 
@@ -629,6 +712,9 @@ setMethod("%*%", signature(x="FLPar", y="FLPar"),
 ) # }}}
 
 # %+% {{{
+
+#' @rdname operators
+#' @aliases %+%,FLPar,FLPar-method
 setMethod("%+%", signature(x="FLPar", y="FLPar"),
 	function(x, y) {
 
@@ -663,6 +749,9 @@ setMethod("%+%", signature(x="FLPar", y="FLPar"),
 ) # }}}
 
 # %-% {{{
+
+#' @rdname operators
+#' @aliases %-%,FLPar,FLPar-method
 setMethod("%-%", signature(x="FLPar", y="FLPar"),
 	function(x, y) {
 
@@ -697,6 +786,9 @@ setMethod("%-%", signature(x="FLPar", y="FLPar"),
 ) # }}}
 
 # %/% {{{
+
+#' @rdname operators
+#' @aliases %/%,FLPar,FLPar-method
 setMethod("%/%", signature(e1="FLPar", e2="FLPar"),
 	function(e1, e2) {
 
@@ -731,6 +823,9 @@ setMethod("%/%", signature(e1="FLPar", e2="FLPar"),
 ) # }}}
 
 # %^% {{{
+
+#' @rdname operators
+#' @aliases %^%,FLPar,FLPar-method
 setMethod("%^%", signature(x="FLPar", y="FLPar"),
 	function(x, y) {
 

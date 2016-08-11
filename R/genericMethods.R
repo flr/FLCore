@@ -693,14 +693,20 @@ setGeneric("catchSel", function(object, ...){
 	standardGeneric("catchSel")})
 
 # %+%
+#' @rdname operators
+#' @aliases %+%
 setGeneric("%+%", function(x, y)
   standardGeneric("%+%"))
 
 # %-%
+#' @rdname operators
+#' @aliases %-%
 setGeneric("%-%", function(x, y)
   standardGeneric("%-%"))
 
 # %^%
+#' @rdname operators
+#' @aliases %^%
 setGeneric("%^%", function(x, y)
   standardGeneric("%^%"))
 

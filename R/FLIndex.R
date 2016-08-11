@@ -8,7 +8,10 @@
 # Accesors {{{
 invisible(createFLAccesors("FLIndex", exclude=c('name', 'desc', 'range', 'effort'))) # }}}
 
-# FLIndex()   {{{
+# FLIndex   {{{
+
+#' @rdname FLIndex
+#' @aliases FLIndex,FLQuant-method
 setMethod('FLIndex', signature(object='FLQuant'),
   function(object, plusgroup=dims(object)$max, ...)
   {
@@ -37,6 +40,8 @@ setMethod('FLIndex', signature(object='FLQuant'),
   }
 )
 
+#' @rdname FLIndex
+#' @aliases FLIndex,missing-method
 setMethod('FLIndex', signature(object='missing'),
   function(...)
   {
