@@ -353,8 +353,8 @@ setClass("FLStock",
 #' assessment (i.e. estimates of abundance and removal rates).
 #' 
 #' @name FLStockLen
-#' @aliases FLStockLen FLStockLen,FLQuant-method FLStockLen,missing-method
-#' FLStockLen-class FLStockLen-methods catch,FLStockLen-method
+#' @rdname FLStockLen
+#' @aliases FLStockLen-class catch,FLStockLen-method
 #' catch.n,FLStockLen-method catch.n<-,FLStockLen,FLQuant-method
 #' catch.wt,FLStockLen-method catch.wt<-,FLStockLen,FLQuant-method
 #' catch<-,FLStockLen,FLQuant-method desc,FLStockLen-method

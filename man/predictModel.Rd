@@ -3,9 +3,16 @@
 \docType{class}
 \name{predictModel}
 \alias{predictModel}
+\alias{predictModel,FLQuants-method}
+\alias{predictModel,missing-method}
 \alias{predictModel-class}
 \alias{predictModel-methods}
 \title{A class for model prediction}
+\usage{
+\S4method{predictModel}{FLQuants}(object, model = ~NA, params = FLPar())
+
+\S4method{predictModel}{missing}(object, ...)
+}
 \description{
 Object of the predictModel class are used in various FLR classes to allow
 flexible modelling of the dynamics of different biological and technological
@@ -65,6 +72,11 @@ Methods exist for various calculations based on values stored in the class:
 }
 \examples{
 
+fec <- FLQuants(fec=FLQuant(rlnorm(10, 20, 5), dimnames=list(year=2000:2009),
+  units='1'))
+predictModel(fec, model=~fec)
+
+predictModel(model=rec~a*ssb, params=FLPar(a=1.234))
 }
 \author{
 The FLR Team

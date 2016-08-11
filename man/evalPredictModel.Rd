@@ -20,9 +20,6 @@ methods of the FLR class in which it is contained as a slot. This function can
 be used by methods wishing to evaluate a single `predictModel` slot in the
 context of the class it isd part of.
 }
-\examples{
-
-}
 \author{
 The FLR Team
 }
