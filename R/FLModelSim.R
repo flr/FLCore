@@ -31,7 +31,7 @@
 #' \item{params}{Estimated parameter values. \code{FLPar}.}
 #' \item{distr}{\code{character}}
 #' \item{vcov}{\code{array}}
-#' \item{model}{\code{formula}}
+#' \item{model}{\code{formula}}}
 #' @author The FLR Team
 #' @seealso \link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
 #' \link[stats]{nls}

@@ -32,7 +32,7 @@
 #' @docType methods
 #' @section Generic function: x %+% y, x %-% y, x %*% y, e1 %/% e2, x %^% y
 #' @author The FLR Team
-#' @seealso \linkS4class{FLQuant}, \link[base]{%*%}
+#' @seealso \code{\linkS4class{FLQuant}}, \code{\link[base]{matmult}}
 #' @keywords methods
 #' @examples
 #' 

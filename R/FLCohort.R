@@ -7,9 +7,10 @@
 # FLCohort(FLQuant)  {{{
 
 #' @rdname FLCohort
-#' @aliases FLCohort,FLquant-method
+#' @aliases FLCohort,FLQuant-method
 #' @section Constructor:
-#' Objects of this class are generally constructed from an \linkS4class{FLQuant}.
+#' Objects of this class are generally constructed from an \linkS4class{FLQuant}
+#'   object.
 #' @param object Input numeric object
 #' @param ... Additonal arguments
 setMethod("FLCohort", signature("FLQuant"),
@@ -62,6 +63,8 @@ setMethod("FLCohort", signature("FLQuant"),
 ) # }}}
 
 # FLCohort(FLCohort)  {{{
+#' @rdname FLCohort
+#' @aliases FLCohort,FLCohort-method
 setMethod('FLCohort', signature(object='FLCohort'),
   function(object, units=units(object))
   {
@@ -73,6 +76,8 @@ setMethod('FLCohort', signature(object='FLCohort'),
 ) # }}}
 
 # FLCohort(array)    {{{
+#' @rdname FLCohort
+#' @aliases FLCohort,array-method
 setMethod("FLCohort", signature(object="array"),
   function(object, dim=rep(1,6), dimnames="missing", units="NA",
     iter=1, fill.iter=TRUE) {
@@ -132,6 +137,8 @@ setMethod("FLCohort", signature(object="array"),
 )  # }}}
 
 # FLCohort(vector) {{{
+#' @rdname FLCohort
+#' @aliases FLCohort,vector-method
 setMethod("FLCohort", signature(object="vector"),
   function(object, dim=c(length(object), rep(1,5)), dimnames="missing",
       units="NA", iter=1) 
@@ -147,6 +154,8 @@ setMethod("FLCohort", signature(object="vector"),
 )  # }}}
 
 # FLCohort(missing)    {{{
+#' @rdname FLCohort
+#' @aliases FLCohort,missing-method
 setMethod("FLCohort", signature(object="missing"),
   function(object, dim=rep(1,6), dimnames="missing", units="NA", iter=1) {
     

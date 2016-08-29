@@ -122,5 +122,8 @@ flp \%*\% flq
 \author{
 The FLR Team
 }
+\seealso{
+\code{\linkS4class{FLQuant}}, \code{\link[base]{matmult}}
+}
 \keyword{methods}
 

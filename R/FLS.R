@@ -6,6 +6,9 @@
 # Notes:
 
 # computeLandings  {{{
+#' @rdname compute
+#' @aliases computeLandings,FLS-method computeLandings,FLStock-method
+#' computeLandings,FLStockLen-method
 setMethod("computeLandings", signature(object="FLS"),
   function(object, na.rm=TRUE) {
         res        <- quantSums(landings.n(object) * landings.wt(object), na.rm=na.rm)
@@ -15,6 +18,8 @@ setMethod("computeLandings", signature(object="FLS"),
 )  # }}}
 
 # computeDiscards  {{{
+#' @rdname compute
+#' @aliases computeDiscards,FLS-method computeDiscards,FLStock-method
 setMethod("computeDiscards", signature(object="FLS"),
   function(object, na.rm=TRUE) {
         res <- quantSums(discards.n(object)*discards.wt(object), na.rm=na.rm)
@@ -24,6 +29,9 @@ setMethod("computeDiscards", signature(object="FLS"),
 )  # }}}
 
 # computeCatch  {{{
+#' @rdname compute
+#' @aliases computeCatch,FLS-method computeCatch,FLStock-method
+#' computeCatch,FLStockLen-method
 setMethod("computeCatch", signature(object="FLS"),
   function(object, slot="catch", na.rm=TRUE) {
     if(slot == "n"){
@@ -58,6 +66,9 @@ setMethod("computeCatch", signature(object="FLS"),
 )  # }}}
 
 # computeStock  {{{
+#' @rdname compute
+#' @aliases computeStock,FLS-method computeStock,FLStock-method
+#' computeStock,FLStockLen-method
 setMethod("computeStock", signature(object="FLS"),
   function(object, na.rm=TRUE) {
         res <- quantSums(stock.n(object) * stock.wt(object), na.rm=na.rm)

@@ -444,8 +444,7 @@ setMethod('FLBiol', signature(object='missing'),
 #' A list of \code{FLBiol} objects.
 #'
 #' @name FLBiols
-#' @aliases FLBiols-class FLBiols,ANY-method FLBiols,missing-method
-#' FLBiols,list-method
+#' @aliases FLBiols-class 
 #' @docType class
 #' @section Slots: \describe{
 #'   \item{.Data}{Internal S4 data representation, of class \code{list}.}
@@ -454,7 +453,8 @@ setMethod('FLBiol', signature(object='missing'),
 #'   \item{names}{A character vector for the element names} }
 #' @template FLlst-constructors
 #' @author The FLR Team
-#' @seealso \link{FLlst}, \link[base]{list}, \link[base]{vector}
+#' @seealso \code{\link{FLlst}}, \code{\link[base]{list}},
+#'   \code{\link[base]{vector}}
 #' @keywords classes
 #'
 setClass("FLBiols", contains="FLComps",
@@ -469,11 +469,15 @@ setClass("FLBiols", contains="FLComps",
 )
 
 # constructor
+#' @rdname FLBiols
+#' @aliases FLBiols,FLBiol-method
 setMethod("FLBiols", signature(object="FLBiol"), function(object, ...) {
     lst <- c(object, list(...))
     FLBiols(lst)
 })
 
+#' @rdname FLBiols
+#' @aliases FLBiols,missing-method
 setMethod("FLBiols", signature(object="missing"),
   function(...) {
     # empty
@@ -489,6 +493,8 @@ setMethod("FLBiols", signature(object="missing"),
   }
 )
 
+#' @rdname FLBiols
+#' @aliases FLBiols,list-method
 setMethod("FLBiols", signature(object="list"),
   function(object, ...) {
 

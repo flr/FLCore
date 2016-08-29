@@ -3,8 +3,11 @@
 \docType{class}
 \name{FLCohort}
 \alias{FLCohort}
+\alias{FLCohort,FLCohort-method}
 \alias{FLCohort,FLQuant-method}
-\alias{FLCohort,FLquant-method}
+\alias{FLCohort,array-method}
+\alias{FLCohort,missing-method}
+\alias{FLCohort,vector-method}
 \alias{FLCohort-class}
 \alias{FLCohort-methods}
 \title{Class FLCohort}
@@ -12,6 +15,17 @@
 FLCohort(object, ...)
 
 \S4method{FLCohort}{FLQuant}(object, ...)
+
+\S4method{FLCohort}{FLCohort}(object, units = units(object))
+
+\S4method{FLCohort}{array}(object, dim = rep(1, 6), dimnames = "missing",
+  units = "NA", iter = 1, fill.iter = TRUE)
+
+\S4method{FLCohort}{vector}(object, dim = c(length(object), rep(1, 5)),
+  dimnames = "missing", units = "NA", iter = 1)
+
+\S4method{FLCohort}{missing}(object, dim = rep(1, 6), dimnames = "missing",
+  units = "NA", iter = 1)
 }
 \arguments{
 \item{object}{Input numeric object}
@@ -35,7 +49,8 @@ analysis that want to make use of cohorts instead of years.
 
 \section{Constructor}{
 
-Objects of this class are generally constructed from an \linkS4class{FLQuant}.
+Objects of this class are generally constructed from an \linkS4class{FLQuant}
+  object.
 }
 \examples{
 

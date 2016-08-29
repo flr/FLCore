@@ -25,14 +25,14 @@ uom(op, u1, u2)
 \value{
 a string with the corresponding units of measurement, a string such as '10 *100' when not compatible
 
-a string with the corresponding units of measurement, a string such as '10 *100' when not compatible
+a string with the corresponding units of measurement, a string such
+as '10 *100' when not compatible
 }
 \description{
 The 'units' attribute of FLQuant objects provides a mechanism for keeping track
 of the units of measurement of that particular piece of data.
 
-The 'units' attribute of FLQuant objects provides a mechanism for keeping track
-of the units of measurement of that particular piece of data.
+Units of Measurement
 }
 \details{
 Arithmetic operators for 'FLQuant' objects are aware of a limited set of units
@@ -48,19 +48,22 @@ Note that no scaling or modification of the values in the object takes place.
 
 Conversion across units is carried out by the \code{uom()} function
 
-Arithmetic operators for 'FLQuant' objects are aware of a limited set of units
-of measurement and will output the right unit when two object are arithmetically
-combined. For example, the product of object with units of 'kg' and '1000' will
-output an object with 'units' of 't' (for metric tonnes).
+The \code{units} attribute of \code{FLQuant} objects provides a mechanism for
+keeping track of the units of measurement of that particular piece of data.
+This method in the form \code{uom()} carries out a conversion across units.
 
-Operations involving combinations of units not defined will not issue any
-warning, and the resulting 'units' attribute will simply keep a string
-indicating the input units of measurement and the operation carried out,
-as in '10 * 1000'.
+Arithmetic operators for \code{FLQuant} objects operate with a limited set of
+units of measurement, and will output the right unit when two appropriate
+objects are arithmetically combined. For example, the product of objects with
+units of 'kg' and '1000' will output an object with units of 't' (for
+metric tonnes).
 
-Note that no scaling or modification of the values in the object takes place.
+Operations involving combinations of units not defined will result in the
+\code{units} attribute simply storing a string indicating the input units of
+measurement and the operation carried out, as in '10 * 1000'.
 
-Conversion across units is carried out by the \code{uom()} function
+Note that no scaling or modification of the values in the object takes
+place.
 }
 \section{Recognized Units}{
 
@@ -74,14 +77,11 @@ The following units of measurement are recognized by the 'Arith' operators
 }
 
 
+
 The following units of measurement are recognized by the 'Arith' operators
-(+, -, * /).
-\describe{
-   \item{Weight}{'kg', 't'}
-   \item{Numbers}{1 - 100000000, 1e0 - 1e8, 10^0 - 10^8}
-   \item{Mortality}{'m', 'f', 'z', 'hr'}
-   \item{Other}{'NA'}
-}
+(+, -, * /). \describe{ \item{Weight}{'kg', 't'} \item{Numbers}{1 -
+100000000, 1e0 - 1e8, 10^0 - 10^8} \item{Mortality}{'m', 'f', 'z', 'hr'}
+\item{Other}{'NA'} }
 }
 \examples{
 
@@ -92,10 +92,15 @@ FLQuant(1, units='kg') * FLQuant(1000, units='1')
 FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
 
 # Conversion between weights
-FLQuant(1, units='kg') * FLQuant(1000, units='1')
+  flq1 <- FLQuant(1, units='kg')
+  flq2 <- FLQuant(5, units='1000')
+  flq1 * flq2
 
 # Conversion between mortalities
-FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
+  flq1 <- FLQuant(0.2, units='m')
+  flq2 <- FLQuant(0.34, units='f')
+  flq1 + flq2
+
 }
 \author{
 The FLR Team

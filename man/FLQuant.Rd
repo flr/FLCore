@@ -34,7 +34,19 @@ FLQuant(object, ...)
 \arguments{
 \item{object}{Input numeric object}
 
-\item{...}{Additonal arguments}
+\item{...}{Additional arguments}
+
+\item{dim}{Vector of dimension lengths}
+
+\item{dimnames}{List of dimension names}
+
+\item{quant}{Character vector for name of first dimension}
+
+\item{units}{Character vctor of units of measurement, see \link[FLCore]{uom}}
+
+\item{iter}{Number of iterations, i.e. length of the 6th dimension}
+
+\item{fill.iter}{Should iterations be filled with the same content as the first?}
 }
 \description{
 The \code{FLQuant} class is a six-dimensional \code{\link[base]{array}}

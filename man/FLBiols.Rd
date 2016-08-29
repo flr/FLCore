@@ -3,7 +3,7 @@
 \docType{class}
 \name{FLBiols}
 \alias{FLBiols}
-\alias{FLBiols,ANY-method}
+\alias{FLBiols,FLBiol-method}
 \alias{FLBiols,list-method}
 \alias{FLBiols,missing-method}
 \alias{FLBiols-class}
@@ -11,6 +11,12 @@
 \title{Class FLBiols}
 \usage{
 FLBiols(object, ...)
+
+\S4method{FLBiols}{FLBiol}(object, ...)
+
+\S4method{FLBiols}{missing}(object, ...)
+
+\S4method{FLBiols}{list}(object, ...)
 }
 \description{
 A list of \code{FLBiol} objects.
@@ -32,7 +38,8 @@ any of the list elements.
 The FLR Team
 }
 \seealso{
-\link{FLlst}, \link[base]{list}, \link[base]{vector}
+\code{\link{FLlst}}, \code{\link[base]{list}},
+  \code{\link[base]{vector}}
 }
 \keyword{classes}
 

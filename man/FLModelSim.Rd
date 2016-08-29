@@ -34,6 +34,13 @@ Various fitting algorithms, similar to those present in the basic R packages,
 are currently available for \code{FLModelSim}, including \code{\link{fmle}},
 \code{\link{nls-FLCore}} and \code{\link[stats]{glm}}.
 }
+\section{Slots}{
+ \describe{
+\item{params}{Estimated parameter values. \code{FLPar}.}
+\item{distr}{\code{character}}
+\item{vcov}{\code{array}}
+\item{model}{\code{formula}}}
+}
 \author{
 The FLR Team
 }
