@@ -27,23 +27,14 @@
 #' @aliases FLModelSim-class FLModelSim FLModelSim-methods FLModelSim,formula-method
 #' FLModelSim,missing-method FLModelSim,character-method FLModelSim,function-method
 #' @docType class
-#' @section Slots: \describe{ \item{name}{Name of the object.
-#' \code{character}.} \item{desc}{Description of the object. \code{character}.}
-#' \item{range}{Range. \code{numeric}.} \item{fitted}{Estimated values for rec.
-#' \code{FLQuant}.} \item{residuals}{Residuals obtained from the model fit.
-#' \code{FLQuant}.} \item{model}{Model formula. \code{formula}.}
-#' \item{gr}{Function returning the gradient of the likelihood.
-#' \code{function}.} \item{logl}{Log-likelihood function. \code{function}.}
-#' \item{initial}{Function returning initial parameter values for the
-#' optimizer, as an object of class \code{FLPar}. \code{function}.}
-#' \item{params}{Estimated parameter values. \code{FLPar}.} \item{logLik}{Value
-#' of the log-likelihood. \code{logLik}.} \item{vcov}{Variance-covariance
-#' matrix. \code{array}.} \item{hessian}{Hessian matrix obtained from the
-#' parameter fitting. \code{array}.} \item{details}{extra information on the
-#' model fit procedure. \code{list}.} }
+#' @section Slots: \describe{
+#' \item{params}{Estimated parameter values. \code{FLPar}.}
+#' \item{distr}{\code{character}}
+#' \item{vcov}{\code{array}}
+#' \item{model}{\code{formula}}
 #' @author The FLR Team
 #' @seealso \link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
-#' \link[stats]{nls}, \link{FLComp}
+#' \link[stats]{nls}
 #' @keywords classes
 
 setClass("FLModelSim",
@@ -59,29 +50,32 @@ setClass("FLModelSim",
 		distr = "norm"),
 	validity=function(object){
 
-	pars <- object@params
-	frm <- object@model
-	vc <- object@vcov
-	# check vcov has the same names
-	dnms <- dimnames(vc)
-	v1 <- all.equal(dnms[[1]], dnms[[2]])
+    	pars <- object@params
+    	frm <- object@model
+    	vc <- object@vcov
+    
+      # check vcov has the same names
+    	dnms <- dimnames(vc)
+    	v1 <- all.equal(dnms[[1]], dnms[[2]])
 
-	# check that the params and the model have the same params names
-	dps <- dimnames(pars)$params
-	if(any(dps != ""))
-		v2 <- dimnames(pars)$params %in% all.vars(frm)
-	else
-		v2 <- TRUE
+    	# check that the params and the model have the same params names
+    	dps <- dimnames(pars)$params
+    	if(any(dps != ""))
+		    v2 <- dimnames(pars)$params %in% all.vars(frm)
+    	else
+		    v2 <- TRUE
 
-	# check that the params and the vcov have the same params names
-	if(is.null(dnms[[1]])) v3 <- TRUE else v3 <- dnms[[1]] %in% dimnames(pars)$params
+    	# check that the params and the vcov have the same params names
+    	if(is.null(dnms[[1]]))
+        v3 <- TRUE
+      else 
+        v3 <- dnms[[1]] %in% dimnames(pars)$params
 
-	if(sum(!c(v1, v2, v3))>0)
-		return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
+    	if(sum(!c(v1, v2, v3))>0)
+		    return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
 
-	return(TRUE)
+  	return(TRUE)
   }
-
 ) 
 
 invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "distr")))  # }}}

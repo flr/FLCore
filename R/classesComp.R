@@ -95,10 +95,10 @@ invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #' @docType class
 #' @section Slots:
 #' \describe{
-#'  \item{halfwidth}{The middle of the length bins (\code{numeric}).}
 #'  \item{catch}{Total catch weight (\code{FLQuant}).}
 #'  \item{catch.n}{Catch numbers (\code{FLQuant}).}
 #'  \item{catch.wt}{Mean catch weights (\code{FLQuant}).}
+#'  \item{desc}{Description of the stock (\code{character}).}
 #'  \item{discards}{Total discards weight (\code{FLQuant}).}
 #'  \item{discards.n}{Discard numbers (\code{FLQuant}).}
 #'  \item{discards.wt}{Mean discard weights (\code{FLQuant}).}
@@ -109,15 +109,13 @@ invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #'  \item{stock.n}{Stock numbers (\code{FLQuant}).}
 #'  \item{stock.wt}{Mean stock weights (\code{FLQuant}).}
 #'  \item{m}{Natural mortality (\code{FLQuant}).}
+#'  \item{m.spwn}{Proportion of natural mortality before spawning (\code{FLQuant}).}
 #'  \item{mat}{Proportion mature (\code{FLQuant}).}
 #'  \item{harvest}{Harvest rate or fishing mortality. The units of this slot
 #'   should be set to 'harvest' or 'f' accordingly (\code{FLQuant}).}
 #'  \item{harvest.spwn}{Proportion of harvest/fishing mortality before
 #'   spawning (\code{FLQuant}).}
-#'  \item{m.spwn}{Proportion of natural mortality before spawning
-#'   (\code{FLQuant}).}
 #'  \item{name}{Name of the stock (\code{character}).}
-#'  \item{desc}{Description of the stock (\code{character}).}
 #'  \item{range}{Named numeric vector containing the quant and year ranges,
 #'   the plusgroup and the quant range that the average fishing mortality should
 #'   be calculated over (\code{numeric}).} }
@@ -211,7 +209,6 @@ invisible(createFLAccesors("FLS", exclude=c('name', 'desc', 'range', 'harvest'))
 #' @docType class
 #' @section Slots:
 #' \describe{
-#'  \item{halfwidth}{The middle of the length bins (\code{numeric}).}
 #'  \item{catch}{Total catch weight (\code{FLQuant}).}
 #'  \item{catch.n}{Catch numbers (\code{FLQuant}).}
 #'  \item{catch.wt}{Mean catch weights (\code{FLQuant}).}
@@ -484,7 +481,6 @@ setClass("FLStockLen",
 #' @docType class
 #' @aliases FLI FLI-class
 #' @section Slots: \describe{
-#'     \item{type}{Type of index (\code{character}).}
 #'     \item{distribution}{Statistical distribution of the index values (\code{character}).}
 #'     \item{index}{Index values (\code{FLQuant}).}
 #'     \item{index.var}{Variance of the index (\code{FLQuant}).}

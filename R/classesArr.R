@@ -95,7 +95,13 @@ setClass("FLArray",	representation("array"),
 #'     \item{dimnames:}{A \code{\link[base]{list}} object providing the dimnames of the array. Only those different from the default ones need to be specified.}
 #'     \item{quant:}{The name of the first dimension, if different from 'quant', as a \code{\link[base]{character}} string.} }
 #' @param object Input numeric object
-#' @param ... Additonal arguments
+#' @param dim Vector of dimension lengths
+#' @param dimnames List of dimension names
+#' @param quant Character vector for name of first dimension
+#' @param units Character vctor of units of measurement, see \link[FLCore]{uom}
+#' @param iter Number of iterations, i.e. length of the 6th dimension
+#' @param fill.iter Should iterations be filled with the same content as the first?
+#' @param ... Additional arguments
 #'
 #' @author The FLR Team
 #' @seealso \code{\linkS4class{FLQuant}}

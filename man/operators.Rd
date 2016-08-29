@@ -97,7 +97,7 @@ Methods for operations between an \linkS4class{FLQuant} and an
 regardless of position.
 }
 \section{Generic function}{
- %+%, %-%, %*%, %/%, %^%
+ x %+% y, x %-% y, x %*% y, e1 %/% e2, x %^% y
 }
 \examples{
 

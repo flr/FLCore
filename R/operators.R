@@ -30,7 +30,7 @@
 #' @name operators
 #' @aliases operators
 #' @docType methods
-#' @section Generic function: %+%, %-%, %*%, %/%, %^%
+#' @section Generic function: x %+% y, x %-% y, x %*% y, e1 %/% e2, x %^% y
 #' @author The FLR Team
 #' @seealso \linkS4class{FLQuant}, \link[base]{%*%}
 #' @keywords methods

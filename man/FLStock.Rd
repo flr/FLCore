@@ -73,7 +73,6 @@ of abundance and removal rates).
 \section{Slots}{
 
 \describe{
- \item{halfwidth}{The middle of the length bins (\code{numeric}).}
  \item{catch}{Total catch weight (\code{FLQuant}).}
  \item{catch.n}{Catch numbers (\code{FLQuant}).}
  \item{catch.wt}{Mean catch weights (\code{FLQuant}).}

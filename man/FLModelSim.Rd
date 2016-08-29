@@ -34,28 +34,12 @@ Various fitting algorithms, similar to those present in the basic R packages,
 are currently available for \code{FLModelSim}, including \code{\link{fmle}},
 \code{\link{nls-FLCore}} and \code{\link[stats]{glm}}.
 }
-\section{Slots}{
- \describe{ \item{name}{Name of the object.
-\code{character}.} \item{desc}{Description of the object. \code{character}.}
-\item{range}{Range. \code{numeric}.} \item{fitted}{Estimated values for rec.
-\code{FLQuant}.} \item{residuals}{Residuals obtained from the model fit.
-\code{FLQuant}.} \item{model}{Model formula. \code{formula}.}
-\item{gr}{Function returning the gradient of the likelihood.
-\code{function}.} \item{logl}{Log-likelihood function. \code{function}.}
-\item{initial}{Function returning initial parameter values for the
-optimizer, as an object of class \code{FLPar}. \code{function}.}
-\item{params}{Estimated parameter values. \code{FLPar}.} \item{logLik}{Value
-of the log-likelihood. \code{logLik}.} \item{vcov}{Variance-covariance
-matrix. \code{array}.} \item{hessian}{Hessian matrix obtained from the
-parameter fitting. \code{array}.} \item{details}{extra information on the
-model fit procedure. \code{list}.} }
-}
 \author{
 The FLR Team
 }
 \seealso{
 \link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
-\link[stats]{nls}, \link{FLComp}
+\link[stats]{nls}
 }
 \keyword{classes}
 
