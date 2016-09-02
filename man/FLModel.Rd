@@ -80,7 +80,7 @@ are currently available for \code{FLModel}, including \code{\link{fmle}},
 The FLR Team
 }
 \seealso{
-\link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
+\link[stats]{AIC}, \link[stats]{BIC}, \link{fmle},
 \link[stats]{nls}, \link{FLComp}
 }
 \keyword{classes}

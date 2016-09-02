@@ -798,7 +798,7 @@ setClass("FLIndexBiomass",
 #'   \item{hessian}{Hessian matrix obtained from the parameter fitting, \code{array}.} 
 #'   \item{details}{extra information on the model fit procedure, \code{list}.} }
 #' @author The FLR Team
-#' @seealso \link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
+#' @seealso \link[stats]{AIC}, \link[stats]{BIC}, \link{fmle},
 #' \link[stats]{nls}, \link{FLComp}
 #' @keywords classes
 #' @examples

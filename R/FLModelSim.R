@@ -33,7 +33,7 @@
 #' \item{vcov}{\code{array}}
 #' \item{model}{\code{formula}}}
 #' @author The FLR Team
-#' @seealso \link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
+#' @seealso \link[stats]{AIC}, \link[stats]{BIC}, \link{fmle},
 #' \link[stats]{nls}
 #' @keywords classes
 

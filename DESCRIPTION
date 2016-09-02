@@ -20,6 +20,7 @@ Imports:
     Matrix,
     grid,
     stats,
+    stats4,
     graphics,
     grDevices
 License: GPL (>= 2)

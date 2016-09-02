@@ -42,17 +42,19 @@
 #' 
 setClass("FLlst", contains="list",
   representation(names="character", desc="character", lock="logical"),
-	prototype(lock=FALSE),
-	validity=function(object){
+	prototype(lock=FALSE), validity=function(object){
 
-  # All elements in the list are validObjects themselves
-  if(!all(unlist(lapply(object, validObject))))
-	  return("Components must be valid objects themselves (validObject == TRUE)")
+    # ALL elements are of the same class
+    if(length(unique(lapply(object, is))) > 1)
+      return("Elements must be of the same class")
 
-	# Everything is fine
-	return(TRUE)
-}
+    # ALL elements in the list are validObjects themselves
+    if(!all(unlist(lapply(object, validObject))))
+	    return("Components must be valid objects themselves (validObject == TRUE)")
 
+	  # Everything is fine
+	  return(TRUE)
+  }
 ) # }}}
 
 # FLQuants {{{
@@ -67,9 +69,7 @@ setClass("FLlst", contains="list",
 #'
 #' @name FLQuants
 #' @docType class
-#' @aliases FLQuants FLQuants-class FLQuants-methods
-#' @aliases FLQuants,ANY-method FLQuants,FLQuants-method
-#' @aliases FLQuants,list-method FLQuants,missing-method
+#' @aliases FLQuants-class
 #' @section Slots: \describe{ \item{.Data}{The data. \code{list}.}
 #' \item{names}{Names of the list elements. \code{character}.}
 #' \item{desc}{Description of the object. \code{character}.} \item{lock}{Lock
@@ -95,18 +95,14 @@ setClass("FLQuants", contains="FLlst",
 	validity = function(object){
 	# Make sure the list contains all items of the same class
     if(!all(unlist(lapply(object, is, 'FLQuant'))))
-		return("Components must be FLQuant")
+	  	return("Components must be FLQuant")
 	# Everything is fine
 	return(TRUE)
-}
+  }
 )
 
-# constructor
-setGeneric("FLQuants", function(object, ...){
-	standardGeneric("FLQuants")
-	}
-)
-
+#' @rdname FLQuants
+#' @aliases FLQuants,ANY-method
 setMethod("FLQuants", signature(object="ANY"), function(object, ...){
 	lst1 <- list(...)
 	nlst <- length(lst1)
@@ -117,7 +113,8 @@ setMethod("FLQuants", signature(object="ANY"), function(object, ...){
 	new("FLQuants", lst)
 })
 
-
+#' @rdname FLQuants
+#' @aliases FLQuants,FLComp-method
 setMethod("FLQuants", signature(object="FLComp"),
 	function(object, ...) {
 
@@ -151,6 +148,8 @@ setMethod("FLQuants", signature(object="FLComp"),
 		return(new("FLQuants", res))
 })
 
+#' @rdname FLQuants
+#' @aliases FLQuants,missing-method
 setMethod("FLQuants", "missing", function(...){
 	if(missing(...)){
 		new("FLQuants")
@@ -160,10 +159,14 @@ setMethod("FLQuants", "missing", function(...){
 	}
 })
 
+#' @rdname FLQuants
+#' @aliases FLQuants,list-method
 setMethod("FLQuants", "list", function(object){
 	new("FLQuants", object)
 })
 
+#' @rdname FLQuants
+#' @aliases FLQuants,FLQuants-method
 setMethod("FLQuants", "FLQuants", function(object){
 	return(object)
 }) # }}}
@@ -205,13 +208,6 @@ setClass("FLCohorts", contains="FLlst",
 	# Everything is fine
 	return(TRUE)
 }
-)
-
-
-# constructor
-setGeneric("FLCohorts", function(object, ...){
-	standardGeneric("FLCohorts")
-	}
 )
 
 setMethod("FLCohorts", signature(object="ANY"), function(object, ...){

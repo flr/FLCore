@@ -12,6 +12,11 @@
 \usage{
 FLIndices(object, ...)
 }
+\arguments{
+\item{object}{unnamed object to be added to the list}
+
+\item{...}{other named or unnamed objects}
+}
 \description{
 \code{FLIndices} is a class that extends \code{list} through \code{FLlst}
 but implements a set of features that give a little more structure to

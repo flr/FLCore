@@ -7,9 +7,10 @@ importFrom("MASS",
   "mvrnorm")
 importFrom("Matrix",
   "expand")
+importFrom("stats4",
+  "BIC")
 importFrom("stats",
   "AIC",
-  "BIC",
   "coef",
   "coefficients",
   "complete.cases",

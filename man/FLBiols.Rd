@@ -18,6 +18,11 @@ FLBiols(object, ...)
 
 \S4method{FLBiols}{list}(object, ...)
 }
+\arguments{
+\item{object}{unnamed object to be added to the list}
+
+\item{...}{other named or unnamed objects}
+}
 \description{
 A list of \code{FLBiol} objects.
 }

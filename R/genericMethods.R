@@ -6,10 +6,9 @@
 
 globalVariables(c("qname"))
 
-# OVERLOADED methods/functions
+# -- OVERLOADED methods/functions
 
 setGeneric("AIC", useAsDefault = stats::AIC)
-setGeneric("BIC", useAsDefault = stats::BIC)
 setGeneric("apply", useAsDefault = apply)
 setGeneric("as.data.frame", useAsDefault = as.data.frame)
 setGeneric("barchart", useAsDefault = lattice::barchart)
@@ -28,6 +27,7 @@ setGeneric("median", useAsDefault = median)
 setGeneric("model.frame", useAsDefault = model.frame)
 setGeneric("mvrnorm", useAsDefault=mvrnorm)
 setGeneric("names")
+setGeneric("names<-")
 setGeneric("nls", useAsDefault = nls)
 setGeneric("plot")
 setGeneric("predict", useAsDefault = predict)
@@ -55,7 +55,7 @@ setGeneric("window", useAsDefault = window)
 setGeneric("wireframe", useAsDefault=wireframe)
 setGeneric("xyplot", useAsDefault = xyplot)
 
-# class CONSTRUCTORS, documented with each class
+# -- class CONSTRUCTORS, documented with each class
 
 # FLBiol
 #' @rdname FLBiol
@@ -71,6 +71,11 @@ setGeneric("FLBiols", function(object, ...) standardGeneric("FLBiols"))
 #' @rdname FLCohort
 #' @aliases FLCohort FLCohort-methods
 setGeneric("FLCohort", function(object, ...) standardGeneric("FLCohort"))
+
+# FLCohorts
+#' @rdname FLCohorts
+#' @aliases FLCohorts FLCohorts-methods
+setGeneric("FLCohorts", function(object, ...) standardGeneric("FLCohorts"))
 
 # FLIndex
 #' @rdname FLIndex
@@ -98,7 +103,7 @@ setGeneric("FLlst", function(object, ...) standardGeneric("FLlst"))
 #' @aliases FLModel FLModel-methods
 setGeneric('FLModel', function(model, ...) standardGeneric('FLModel'))
 
-#' FLModelSim
+# FLModelSim
 #' @rdname FLModelSim
 #' @aliases FLModelSim FLModelSim-methods 
 setGeneric("FLModelSim", function(object, ...)
@@ -118,6 +123,11 @@ setGeneric("FLPars", function(object, ...) standardGeneric("FLPars"))
 #' @rdname FLQuant
 #' @aliases FLQuant FLQuant-methods
 setGeneric("FLQuant", function(object, ...) standardGeneric("FLQuant"))
+
+# FLQuant
+#' @rdname FLQuants
+#' @aliases FLQuants FLQuants-methods
+setGeneric("FLQuants", function(object, ...) standardGeneric("FLQuants"))
 
 # FLQuantDistr
 #' @rdname FLQuantDistr
@@ -156,8 +166,83 @@ setGeneric('FLStockLen', function(object, ...) standardGeneric('FLStockLen'))
 #' @aliases FLStocks FLStocks-methods
 setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 
+# -- ACCESSORS
 
-# ACCESSORS
+#' Accesor and replacement methods for FLCore classes
+#'
+#' All S4 classes defined in FLCore have methods for accessing and replacing any
+#' of their slots. These methods are named as the slot, and will return the
+#' content of the slot, for the accessor method, or modify it with the provided
+#' value.
+#'
+#' Accessors and replacement methods, with some exception, are created at build
+#' time by calls to the \code{createFLAccessors} function. An accesor method is
+#' created for each slot, with simply calls \code{slot()} on the relevant slot
+#' name. For slots of class \code{\link{FLQuant}}, or \code{FLArray}-based, two
+#' methods are created: one if \code{value} is of class \code{FLQuant}, and
+#' another for \code{value} being a numeric vector. The later would insert the
+#' vector into the slot structure, using R's recycling rules.
+#'
+#' Users are encouraged to use the accessor methods, rather than the '@' operator
+#' or the \code{slot()} method, to isolate code from the internal structure of
+#' the class. If a slot was to be altered or deleted in the future, a method
+#' would be provided to return the same value, computed from other slots.
+#'
+#' Some of these methods might already not access directly an slot, and instead
+#' carry out a calculation to return the requested value, depending on the class
+#' being called with. Please refer to the particular method implementation to
+#' see if this is the case.
+#'
+#' Accessor methods for slots of class \code{\link{predictModel}} behave
+#' differently depending on the \code{compute} argument. Please refer to the
+#' relevant help page for further clarification.
+#'
+#' @param object The object from which a slot is to be extracted or replaced
+#' @param value Object to be inserted into the relevant slot
+#'
+#' @return The required slot, for an accessor method, or invisible modifies the
+#'   object, for the replacement one.
+#'
+#' @name accessors
+#' @rdname accesors
+#' @alias catch catch.n catch.n catch.n<- catch.n<- catch.q catch.q<- catch.wt
+#' @alias catch.wt catch.wt<- catch.wt<- catch<- desc desc<- details details<-
+#' @alias discards discards.n discards.n<- discards.sel discards.sel<- discards.wt
+#' @alias discards.wt<- discards<- distr distr<- distribution distribution<-
+#' @alias effort effort<- fec fec<- fitted fitted<- gr gr<- harvest harvest.spwn
+#' @alias harvest.spwn<- harvest<- hessian hessian<- index index.q index.q<-
+#' @alias index.var index.var<- index<- initial initial<- landings landings.n
+#' @alias landings.n<- landings.sel landings.sel<- landings.wt landings.wt<-
+#' @alias landings<- logLik logLik<- logerror logerror<- logl logl<- m m m.spwn
+#' @alias m.spwn<- m<- m<- mat mat<- model model<- n n<- name name<- params
+#' @alias params<- range<- rec rec.obs rec<- residuals residuals<- sel.pattern
+#' @alias sel.pattern<- spwn spwn<- stock stock.n stock.n<- stock.wt stock.wt<-
+#' @alias stock<- type type<- units<- vcov vcov<- wt wt<- 
+#'
+#' @genericMethods
+#' 
+#' @author The FLR Team
+#' @seealso \code{\link{FLQuant}}, \code{\link{FLStock}}, \code{\link{FLIndex}},
+#' \code{\link{FLBiol}}, \code{\link{predictModel}}
+#' @keywords methods
+#' @examples
+#'
+#' data(ple4)
+#'
+#' # To access the catch slot in an FLStock, use
+#' catch(ple4)
+#'
+#' # while to modify it, do
+#' catch(ple4) <- catch(ple4) * 2
+#'
+#' # A number can be used as input, to be recycled
+#' m(ple4) <- 0.3
+#' # same as a longer vector, by age
+#' m(ple4) <- 0.4^(seq(1, 2, length=10))
+#'
+#' # To see the methods defined by createFLAccessors, run, for example
+#' getMethod('catch', 'FLS')
+#'
 
 # range<-
 setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
@@ -395,42 +480,6 @@ setGeneric('rec<-', function(object, ..., value)
 setGeneric('rec.obs', function(object, ...)
 		standardGeneric('rec.obs'))
 
-# quant, quant<-
-setGeneric("quant", function(object, ...)
-  standardGeneric("quant"))
-setGeneric("quant<-", function(object, value)
-  standardGeneric("quant<-"))
-
-# iter, iter<-
-setGeneric("iter", function(obj, ...)
-	standardGeneric("iter"))
-setGeneric("iter<-", function(object, ..., value)
-  standardGeneric("iter<-"))
-
-# lower
-setGeneric("lower", function(object, ...)
-  standardGeneric("lower"))
-setGeneric("lower<-", function(object, ..., value)
-    standardGeneric("lower<-"))
-
-# upper
-setGeneric("upper", function(object, ...)
-  standardGeneric("upper"))
-setGeneric("upper<-", function(object, ..., value)
-  standardGeneric("upper<-"))
-
-# params, params<-
-setGeneric("params", function(object, ...)
-  standardGeneric("params"))
-setGeneric("params<-", function(object, value)
-  standardGeneric("params<-"))
-
-# ssb
-setGeneric('ssb', function(object, ...)
-		standardGeneric('ssb'))
-setGeneric('ssb<-', function(object, ..., value)
-		standardGeneric('ssb<-'))
-
 # catch.q
 setGeneric('catch.q', function(object, ...)
 		standardGeneric('catch.q'))
@@ -449,8 +498,94 @@ setGeneric('landings.sel', function(object, ...)
 setGeneric('landings.sel<-', function(object, ..., value)
 		standardGeneric('landings.sel<-'))
 
+# params, params<-
+setGeneric("params", function(object, ...)
+  standardGeneric("params"))
+setGeneric("params<-", function(object, value)
+  standardGeneric("params<-"))
 
-# METHODS
+
+# -- METHODS
+
+# quant, quant<- {{{
+#' Method quant
+#' 
+#' Function to get or set the name of the first dimension (quant) in an object
+#' of any FLArray-based class, like \code{\link{FLQuant}} or \code{\link{FLCohort}}.
+#'
+#' @name quant
+#' @rdname quant
+#' @aliases quant quant-methods
+#' @docType methods
+#' @section Generic function: quant(object) quant<-(object,value)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLQuant}, \linkS4class{FLCohort}
+#' @keywords methods
+#' @examples
+#' 
+#' # quant is 'quant' by default
+#'   quant(FLQuant())
+#'
+#' flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age')
+#' quant(flq)
+#' quant(flq) <- 'length'
+#' summary(flq)
+#'
+
+setGeneric("quant", function(object, ...)
+  standardGeneric("quant"))
+setGeneric("quant<-", function(object, value)
+  standardGeneric("quant<-")) # }}}
+
+# iter, iter<- {{{
+
+#' Methods iter
+#'
+#' Select or modify iterations of an FLR object
+#' 
+#' To extract or modify a subset of the iterations contained in an FLR object,
+#' the \code{iter} and \code{iter<-} methods can be used.
+#' 
+#' In complex objects with various \code{FLQuant} slots, the \code{iter} method
+#' checks whether individual slots contain more than one iteration, i.e.
+#' \code{dims(object)[6] > 1}. If a particular slot contains a single
+#' iteration, that is returned, otherwise the chosen iteration is selected.
+#' This is in contrast with the subset operator \code{[}, which does not carry
+#' out this check.
+#' 
+#' For objects of class \code{\link{FLModel}}, iters are extracted for slots of
+#' classes \code{FLQuant}, \code{FLCohort} and \code{FLPar}.
+#'
+#' @name iter
+#' @aliases iter iter-methods 
+#' @docType methods
+#' @section Generic function: iter(object) iter<-(object,value)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLComp}, \linkS4class{FLQuant}
+#' @keywords methods
+
+setGeneric("iter", function(obj, ...)
+	standardGeneric("iter"))
+setGeneric("iter<-", function(object, ..., value)
+  standardGeneric("iter<-")) # }}}
+
+# lower
+setGeneric("lower", function(object, ...)
+  standardGeneric("lower"))
+setGeneric("lower<-", function(object, ..., value)
+    standardGeneric("lower<-"))
+
+# upper
+setGeneric("upper", function(object, ...)
+  standardGeneric("upper"))
+setGeneric("upper<-", function(object, ..., value)
+  standardGeneric("upper<-"))
+
+# ssb
+setGeneric('ssb', function(object, ...)
+		standardGeneric('ssb'))
+setGeneric('ssb<-', function(object, ..., value)
+		standardGeneric('ssb<-'))
 
 # dims {{{
 
@@ -614,9 +749,40 @@ setGeneric("spr0", function(ssb, rec, fbar, ...)
 setGeneric('ab', function(object, ...)
 		standardGeneric('ab'))
 
-# trim
+# trim {{{
+
+#' Method trim
+#'
+#' Trim FLR objects using named dimensions
+#' 
+#' Subsetting of FLR objects can be carried out with dimension names by using
+#' \code{trim}. A number of dimension names and selected dimensions are passed
+#' to the method and those are used to subset the input object.
+#' 
+#' Exceptions are made for those classes where certain slots might differ in
+#' one or more dimensions. If trim is applied to an FLQuant object of length 1
+#' in its first dimension and with dimension name equal to 'all', values to
+#' \code{trim} specified for that dimension will be ignored. For example,
+#' \code{\link{FLStock}} objects contain slots with length=1 in their first
+#' dimension. Specifying values to trim over the first dimension will have no
+#' effect on those slots (\code{catch}, \code{landings}, \code{discards}, and
+#' \code{stock}). Calculations might need to be carried out to recalculate
+#' those slots (e.g. using \code{computeCatch}, \code{computeLandings},
+#' \code{computeDiscards} and \code{computeStock}) if their quant-structured
+#' counterparts are modified along the first dimension.
+#'
+#' @name trim
+#' @rdname trim
+#' @aliases trim trim-methods
+#' @docType methods
+#' @section Generic function: trim(x)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLQuant}, \linkS4class{FLStock},
+#' \linkS4class{FLCohort}, \linkS4class{FLIndex}
+#' @keywords methods
+
 setGeneric("trim", function(x, ...)
-	standardGeneric("trim"))
+	standardGeneric("trim")) # }}}
 
 # catchNames
 setGeneric('catchNames', function(object, ...)

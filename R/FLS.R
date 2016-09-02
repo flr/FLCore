@@ -120,6 +120,23 @@ setMethod("z", "FLS", function(object, ...) {
 }) # }}}
 
 # trim {{{
+
+#' @rdname trim
+#' @aliases trim,FLS-method
+#' @examples
+#' 
+#' # Now on an FLStock
+#' data(ple4)
+#' summary(trim(ple4, year=1990:1995))
+#' 
+#' # If 'age' is trimmed in ple4, catch, landings and discards need to be
+#' # recalculated
+#'   shpl4 <- trim(ple4, age=1:4)
+#'   landings(shpl4) <- computeLandings(shpl4)
+#'   discards(shpl4) <- computeDiscards(shpl4)
+#'   catch(shpl4) <- computeCatch(shpl4)
+#'   summary(shpl4)
+#'
 setMethod("trim", signature(x="FLS"), function(x, ...){
 
   args <- list(...)

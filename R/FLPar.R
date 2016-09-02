@@ -408,6 +408,8 @@ setMethod("dims", signature(obj="FLPar"),
 )   # }}}
 
 # names         {{{
+#' @rdname names
+#' @aliases names,FLPar-method
 setMethod("names", signature(x="FLPar"),
   function(x)
     names(dimnames(x))
@@ -415,9 +417,8 @@ setMethod("names", signature(x="FLPar"),
 # }}}
 
 # names<-         {{{
-if (!isGeneric("names<-"))
-  setGeneric("names<-")
-
+#' @rdname names
+#' @aliases names<-,FLPar,character-method
 setMethod("names<-", signature(x="FLPar", value="character"),
   function(x, value)
   {

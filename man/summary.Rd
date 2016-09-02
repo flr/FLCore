@@ -10,7 +10,7 @@
 }
 \description{
 Outputs a general summary of the structure and content of the object. The
-particular output obtined depends on the class of the argument object.
+particular output obtained depends on the class of the argument object.
 }
 \section{Generic function}{
  summary(object)

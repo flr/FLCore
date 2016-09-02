@@ -1,8 +1,8 @@
-# FLArray-class - Base class for FLQuant and FLCohort
+# FLArray- Base class for FLQuant and FLCohort
+# FLCore/R/FLarray.R
 
 # Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: FLArray.R 1779 2012-11-23 09:39:31Z imosqueira $
+# Maintainer: Iago Mosqueira, EC JRC
 
 # units {{{
 
@@ -55,15 +55,28 @@ setMethod("units<-", signature(x="FLArray", value="character"),
   }
 ) # }}}
 
-# quant        {{{
+# quant, quant<-        {{{
+
+#' @rdname quant
+#' @aliases quant,FLArray-method
+#' @examples
+#' 
+#' # quant is 'quant' by default
+#'   quant(FLQuant())
+#'
+#' flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age')
+#' quant(flq)
+#' quant(flq) <- 'length'
+#' summary(flq)
+#'
 setMethod("quant", signature(object="FLArray"),
   function(object)
   {
     return(names(dimnames(object))[1])
   }
-) # }}}
-
-# quant<-      {{{
+)
+#' @rdname quant
+#' @aliases quant<-,FLArray,character-method
 setMethod("quant<-", signature(object="FLArray", value='character'),
   function(object, value)
   {
@@ -207,7 +220,7 @@ setMethod("[<-", signature(x="FLArray"),
 
      return(x)
   }
-)   # }}}
+) 
 
 #' @rdname Extract
 #' @aliases `[<-,FLArray,ANY,ANY,FLArray-method`
@@ -261,6 +274,27 @@ setMethod("[<-", signature(x="FLArray", value="FLArray"),
 )   # }}}
 
 # names         {{{
+
+#' Method names
+#' 
+#' The \code{names} method returns the names of the dimnames of an object. For
+#' some classes, the names attribute can be modified directly using names<-.
+#'
+#' @name names
+#' @aliases names,FLArray-method
+#' @docType methods
+#' @section Generic function: names(x) names<-(x, value)
+#' @author The FLR Team
+#' @seealso \link[base]{names}
+#' @keywords methods
+#' @examples
+#' # FLQuant
+#' data(ple4)
+#' names(catch.n(ple4))
+#'
+#' # Contrast this with
+#' dimnames(catch.n(ple4))
+#'
 setMethod("names", signature(x="FLArray"),
   function(x)
     names(dimnames(x))
@@ -268,6 +302,25 @@ setMethod("names", signature(x="FLArray"),
 # }}}
 
 # iter     {{{
+
+#' @rdname iter
+#' @aliases iter,FLArray-method iter,FLQuant,ANY-method iter,FLCohort,ANY-method
+#' @examples
+#'
+#' # For an FLQuant
+#'   flq <- FLQuant(rnorm(800), dim=c(4,10,2), iter=10)
+#'   iter(flq, 2)
+#'
+#' # For the more complex FLStock object
+#'   fls <- FLStock(catch.n=flq, m=FLQuant(0.2, dim=c(4,10,2)))
+#'   summary(fls)
+#'
+#'   # Extraction using iter...
+#'     fls2 <- iter(fls, 2)
+#'     summary(fls2)
+#'   # ...in contrast to using [ which returns an error
+#'     \dontrun{fls[,,,,,2]}
+#' 
 setMethod("iter", signature(obj="FLArray"),
   function(obj, iter) {
     if(dims(obj)$iter == 1)
@@ -275,6 +328,17 @@ setMethod("iter", signature(obj="FLArray"),
     else
       return(obj[,,,,,iter])
   }
+)   
+
+#' @rdname iter
+#' @aliases iter,vector-method
+setMethod("iter", signature(obj="vector"),
+	function(obj, iter) {
+    if(length(obj)== 1)
+      return(obj)
+    else
+      return(obj[iter])
+	}
 )   # }}}
 
 # summary          {{{
@@ -282,13 +346,10 @@ setMethod("iter", signature(obj="FLArray"),
 #' Method summary
 #' 
 #' Outputs a general summary of the structure and content of the object. The
-#' particular output obtined depends on the class of the argument object.
+#' particular output obtained depends on the class of the argument object.
 #'
 #' @name summary
 #' @aliases summary,FLArray-method
-#' @aliases summary,FLQuant-method summary,FLQuantPoint-method
-#' summary,FLComp-method summary,FLQuants-method summary,FLPar-method
-#' summary,FLModel-method summary,FLArray-method summary,FLlst-method
 #' @docType methods
 #' @section Generic function: summary(object)
 #' @author The FLR Team
@@ -387,6 +448,20 @@ setMethod("show", signature(object="FLArray"),
 )   # }}}
 
 # trim {{{
+
+#' @rdname trim
+#' @aliases trim,FLArray-method
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(90), dimnames=list(age=1:10, year=2000:2016))
+#' 
+#' trim(flq, year=2000:2005)
+#' # which is equivalent to
+#' window(flq, start=2000, end=2005)
+#'
+#' trim(flq, year=2000:2005, age=1:2)
+#' 
+
 setMethod('trim', signature(x='FLArray'),
   function(x, ...)
   {

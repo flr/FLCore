@@ -5,6 +5,11 @@
 \alias{FLComps}
 \alias{FLComps-class}
 \title{Class FLComps}
+\arguments{
+\item{object}{unnamed object to be added to the list}
+
+\item{...}{other named or unnamed objects}
+}
 \description{
 A virtual class that forms the basis for many FLR list classes. No objects
 of this class can be constructed.

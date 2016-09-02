@@ -6,6 +6,11 @@
 \alias{FLModelSims-class}
 \alias{FLModelSims-methods}
 \title{Class FLModelSims}
+\arguments{
+\item{object}{unnamed object to be added to the list}
+
+\item{...}{other named or unnamed objects}
+}
 \description{
 A list of \code{\linkS4class{FLModelSim}} objects.
 }

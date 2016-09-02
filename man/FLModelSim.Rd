@@ -9,15 +9,13 @@
 \alias{FLModelSim,missing-method}
 \alias{FLModelSim-class}
 \alias{FLModelSim-methods}
-\title{FLModelSim}
+\title{Class FLModelSim}
 \usage{
 FLModelSim(object, ...)
 
 \S4method{FLModelSim}{missing}(object, ...)
 }
 \description{
-FLModelSim
-
 A virtual class for statistical simulation models
 }
 \details{
@@ -45,7 +43,7 @@ are currently available for \code{FLModelSim}, including \code{\link{fmle}},
 The FLR Team
 }
 \seealso{
-\link[stats]{AIC}, \link[stats4]{BIC}, \link{fmle},
+\link[stats]{AIC}, \link[stats]{BIC}, \link{fmle},
 \link[stats]{nls}
 }
 \keyword{classes}

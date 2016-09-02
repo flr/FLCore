@@ -10,6 +10,11 @@
 \alias{FLCohorts-class}
 \alias{FLCohorts-methods}
 \title{Class FLCohorts}
+\arguments{
+\item{object}{unnamed object to be added to the list}
+
+\item{...}{other named or unnamed objects}
+}
 \description{
 \code{FLCohorts} is a class that extends \code{list} through \code{FLlst}
 but implements a set of features that give a little more structure to
