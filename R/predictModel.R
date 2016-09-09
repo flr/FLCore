@@ -186,7 +186,7 @@ setMethod('show', signature(object='predictModel'),
 #' @keywords utilities
 #' @examples
 #' 
-evalPredictModel <- function(object, slot='fec') {
+evalPredictModel <- function(object, slot) {
 
   # EXTRACT slot
   slot <- slot(object, slot)

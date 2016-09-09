@@ -698,20 +698,32 @@ setMethod('rbind2', signature(x='FLPar', y='FLPar'),
 
     args <- c(list(x=x, y=y), list(...))
 
-    # dims
-    dimar <- lapply(args, function(x) dim(x))
-    iterar <- lapply(dimar, function(x) x[length(x)])
-
-    # extend iters
-    res <- args[[1]]@.Data
-    if(length(args) > 1)
-      for (i in seq(length(args))[-1])
-        res <- rbind(res, args[[i]]@.Data)
+    # FLPars dimensions and dimnames
+    dimar <- lapply(args, dim)
+    nrow <- sum(unlist(lapply(dimar, `[`, 1)))
+    dnms <- lapply(args, dimnames)
     
+    # CHECK names(dimnames) match
+    if(!all.equal(Reduce(intersect, lapply(dnms, names)), names(dnms[[1]])))
+       stop("Names of dimnames must match")
+    
+    # CHECK dimnames[-c(1, iter)] match
+    onms <- lapply(dnms, `[`, -c(1, length(dimar[[1]])))
+    for(i in names(onms[[1]])) {
+      if(length(unique(unlist(lapply(onms, `[[`, i)))) > 1)
+        stop(paste0("dimnames across all object must match for dimension '", i, "'"))
+    }
+
+    # params names
+    nargs <- lapply(lapply(args, dimnames), `[`, 1)
+
+    # aperm to join by row
+    pargs <- lapply(args, aperm, c(2,3,1))
+    # then re-aperm
+    res <- aperm(array(unlist(pargs), dim=c(dimar[[1]][-1], nrow)), c(3,1,2))
+
     # dimnames
-    names(dimnames(res)) <- names(dimnames(args[[1]]))
-    if(any(unlist(lapply(dimnames(res), function(x) any((x==x[1])[-1])))))
-      warning("Repeated dimnames in output FLPar")
+    dimnames(res) <- c(list(params=unlist(nargs, use.names=FALSE)), dimnames(x)[-1])
    
     return(FLPar(res, units=units(args[[1]])))
   }

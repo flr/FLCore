@@ -64,6 +64,7 @@
 - Attributes of FLPar maintained by [ and [<-
 - as(data.frame, 'FLPar') transposed objects without need
 - [<- FLlst now respects names when list elements are added
+- rbind(FLPar) should work better now
 
 ## UTILITIES
 
