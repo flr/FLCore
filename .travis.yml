@@ -4,16 +4,17 @@
 
 warnings_are_errors: false
 
-os:
-  - linux
-  - osx
+language: r
 
-language: R
+matrix:
+  include:
+    - os: linux
+      r: release
+    - os: linux
+      r: devel
+    - os: osx
+      r: release
 
-r:
-  - release
-  - devel
-  
 sudo: false
 
 cache: packages
