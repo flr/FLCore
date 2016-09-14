@@ -575,6 +575,16 @@ setMethod("meanLifespan", signature(x="FLBiol"),
 )# }}}
 
 # ssb  {{{
+#' @rdname ssb
+#' @details
+#' For an object of class \code{\link{FLBiol}}, the calculation of SSB is as
+#' follows:
+#' \deqn{SSB_{a,y} = \sum\nolimits_{a} N_{a,y} \cdot W_{a,y} \cdot e^{-S_{a,y} \cdot M_{a,y}}}{SSB_ay = sum_a N_ay * W_ay * exp(-S_ay * M_ay)}
+#' where \eqn{S_{a,y}}{S_ay} is the fraction of natural mortality before spawning (\code{spwn}). The method for this class does not correct the estimate, based on abundnaces at the
+#' start of the time period, for fishing mortality ocurring between that time and
+#' spawning, as the class holds no information on fishing mortality.
+
+#' @aliases ssb-FLBiol,method
 setMethod("ssb", signature(object="FLBiol"),
   function(object, ...)
   {

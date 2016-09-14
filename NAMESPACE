@@ -198,7 +198,6 @@ exportMethods(
   "catch.wt<-",
   "catches",
   "catches<-",
-  "catchNames",
   "catchSel",
   "cbind2",
   "ccplot",

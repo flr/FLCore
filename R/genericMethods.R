@@ -6,7 +6,7 @@
 
 globalVariables(c("qname"))
 
-# -- OVERLOADED methods/functions
+# -- OVERLOADED methods/functions {{{
 
 setGeneric("AIC", useAsDefault = stats::AIC)
 setGeneric("apply", useAsDefault = apply)
@@ -53,9 +53,9 @@ setGeneric("update", useAsDefault = update)
 setGeneric("var", useAsDefault = var)
 setGeneric("window", useAsDefault = window)
 setGeneric("wireframe", useAsDefault=wireframe)
-setGeneric("xyplot", useAsDefault = xyplot)
+setGeneric("xyplot", useAsDefault = xyplot) # }}}
 
-# -- class CONSTRUCTORS, documented with each class
+# -- CONSTRUCTORS, documented with each class {{{
 
 # FLBiol
 #' @rdname FLBiol
@@ -165,8 +165,9 @@ setGeneric('FLStockLen', function(object, ...) standardGeneric('FLStockLen'))
 #' @rdname FLStocks
 #' @aliases FLStocks FLStocks-methods
 setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
+# }}}
 
-# -- ACCESSORS
+# -- ACCESSORS {{{
 
 #' Accesor and replacement methods for FLCore classes
 #'
@@ -504,6 +505,7 @@ setGeneric("params", function(object, ...)
 setGeneric("params<-", function(object, value)
   standardGeneric("params<-"))
 
+# }}}
 
 # -- METHODS
 
@@ -581,11 +583,34 @@ setGeneric("upper", function(object, ...)
 setGeneric("upper<-", function(object, ..., value)
   standardGeneric("upper<-"))
 
-# ssb
+# ssb {{{
+
+#' Calculate or return the Spawning Stock Biomass
+#'
+#' The calculated Spawning Stock Biomass (SSB) of a fish population is returned
+#' by this method. SSB is the combined weight of all individuals in a fish stock
+#' that are capable of reproducing. In some classes this is calculated from
+#' information stored in different slots, while in others \code{ssb()} is simply
+#' an slot accessor. When the later is the case, the corresponding replacement
+#' method also exists.
+#'
+#' @param object Object on which \code{ssb} is calculated or extracted.
+#'
+#' @return An object, generally of class \code{\link{FLQuant}}.
+#'
+#' @name ssb
+#' @rdname ssb
+#' @aliases ssb ssb-methods
+#'
+#' @genericMethods
+#' 
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
 setGeneric('ssb', function(object, ...)
 		standardGeneric('ssb'))
 setGeneric('ssb<-', function(object, ..., value)
-		standardGeneric('ssb<-'))
+		standardGeneric('ssb<-')) # }}}
 
 # dims {{{
 
@@ -783,12 +808,6 @@ setGeneric('ab', function(object, ...)
 
 setGeneric("trim", function(x, ...)
 	standardGeneric("trim")) # }}}
-
-# catchNames
-setGeneric('catchNames', function(object, ...)
-		standardGeneric('catchNames'))
-setGeneric('catchNames<-', function(object, ..., value)
-		standardGeneric('catchNames<-'))
 
 # catch.sel
 setGeneric('catch.sel', function(object, ...)
