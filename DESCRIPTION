@@ -22,6 +22,7 @@ Imports:
     stats,
     graphics
 License: GPL (>= 2)
+Repository: flr
 Collate:
     'genericMethods.R'
     'uom.R'
@@ -63,6 +64,7 @@ Collate:
     'coerce.R'
     'PlotDiagnostics.R'
     'FLQuantJK.R'
+    'aliases.R'
     'zzz.R'
     'io.Adapt.R'
     'io.VPA2Box.R'

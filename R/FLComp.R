@@ -338,9 +338,8 @@ setMethod('mcf', signature(object='FLComp'),
 
 # dims {{{
 setMethod("dims", signature(obj="FLComp"),
-    # Returns a list with different parameters
-    function(obj, ...)
-	{
+  # Returns a list with different parameters
+  function(obj, ...) {
     qnames <- getSlotNamesClass(obj, 'FLArray')
 
     range <- as.list(range(obj))
@@ -360,7 +359,6 @@ setMethod("dims", signature(obj="FLComp"),
     dnames <- dnames[!names(dnames) %in% 'fbar']
     quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
       function(x) x[1] == max(dims[,1])))][[1]]
-
     res <- list(
       quant = quant(slot(obj, qnames[1])),
       quants = max(dims[,1]),
@@ -379,8 +377,8 @@ setMethod("dims", signature(obj="FLComp"),
     res <- lapply(res, function(x) if(is.null(x)) return(as.numeric(NA)) else return(x))
     names(res)[2] <- res$quant
     return(res)
-    }
-)    # }}}
+  }
+) # }}}
 
 # lattice plots	{{{
 # xyplot

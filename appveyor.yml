@@ -36,7 +36,9 @@ on_failure:
 artifacts:
   - path: '*.Rcheck\**\*.log'
     name: Logs
+
   - path: '\*_*.tar.gz'
     name: Bits
+
   - path: '\*_*.zip'
     name: Bits

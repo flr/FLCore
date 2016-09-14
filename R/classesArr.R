@@ -43,7 +43,6 @@ setClass("FLArray",	representation("array"),
 
 # FLQuant {{{
 
-# FLQuant class
 #' FLQuant class for numerical data
 #' 
 #' The \code{FLQuant} class is a six-dimensional \code{\link[base]{array}}
