@@ -14,6 +14,7 @@
 - Class FLBiolcpp for interfacing  with CPP
 - New catch.sel method for FLStock, computed as proportion across ages of harvest
 - predictMosdel class for use in FLBiol
+- A set of aliases for the class creators is now available. Should be used only when working interactively.
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim

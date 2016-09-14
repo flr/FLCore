@@ -17,26 +17,26 @@
 \alias{flss}
 \title{Short aliases for most FLCore classes construction methods}
 \usage{
-flq(...) for FLQuant(...)
-flqp(...) for FLQuantPoint(...)
-flqd(...) for FLQuantDistr(...)
-flc(...) for FLCohort(...)
-flp(...) for FLPar(...)
-fls(...) for FLStock(...)
-flsl(...) for FLStockLen(...)
-fli(...) for FLIndex(...)
-flib(...) for FLIndexBiomass(...)
-flsr(...) for FLSR(...)
-flqs(...) for FLQuants(...)
-flcs(...) for FLCohorts(...)
-flss(...) for FLStocks(...)
-flis(...) for FLIndices(...)
-flps(...) for FLPars(...)
-flb(...) for FLBiol(...)
-flbs(...) for FLBiols(...)
-flms(...) for FLModelSim(...)
-flmss(...) for FLModelSims(...)
-pm(...) for predictModel(...)
+flq(...)
+flqp(...)
+flqd(...)
+flc(...)
+flp(...)
+fls(...)
+flsl(...)
+fli(...)
+flib(...)
+flsr(...)
+flqs(...)
+flcs(...)
+flss(...)
+flis(...)
+flps(...)
+flb(...)
+flbs(...)
+flms(...)
+flmss(...)
+pm(...)
 }
 \value{
 An object of the requested class
@@ -50,6 +50,30 @@ construction methods a bit simpler.
 We recomend you use the full name of classes and methods when developing code
 that you intend to keep or distribute. A script written using these aliases
 can be later 'corrected' by substituting the aliases used in your editor.
+
+The aliases' equivalences are as follows:
+\describe{
+  \item{flq(...)}{For FLQuant(...)}
+  \item{flqp(...)}{For FLQuantPoint(...)}
+  \item{flqd(...)}{For FLQuantDistr(...)}
+  \item{flc(...)}{For FLCohort(...)}
+  \item{flp(...)}{For FLPar(...)}
+  \item{fls(...)}{For FLStock(...)}
+  \item{flsl(...)}{For FLStockLen(...)}
+  \item{fli(...)}{For FLIndex(...)}
+  \item{flib(...)}{For FLIndexBiomass(...)}
+  \item{flsr(...)}{For FLSR(...)}
+  \item{flqs(...)}{For FLQuants(...)}
+  \item{flcs(...)}{For FLCohorts(...)}
+  \item{flss(...)}{For FLStocks(...)}
+  \item{flis(...)}{For FLIndices(...)}
+  \item{flps(...)}{For FLPars(...)}
+  \item{flb(...)}{For FLBiol(...)}
+  \item{flbs(...)}{For FLBiols(...)}
+  \item{flms(...)}{For FLModelSim(...)}
+  \item{flmss(...)}{For FLModelSims(...)}
+  \item{pm(...)}{For predictModel(...)}
+}
 }
 \examples{
 
