@@ -75,6 +75,7 @@ export(
   "cor2cov",
   "createFLAccesors",
   "cushing",
+  "evalPredictModel",
   "is.FLQuant",
   "is.FLStock",
   "geomean",
