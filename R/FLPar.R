@@ -718,9 +718,11 @@ setMethod('rbind2', signature(x='FLPar', y='FLPar'),
     nargs <- lapply(lapply(args, dimnames), `[`, 1)
 
     # aperm to join by row
-    pargs <- lapply(args, aperm, c(2,3,1))
+    idx <- c(seq(2, length(dimar[[1]])), 1)
+    pargs <- lapply(args, aperm, idx)
     # then re-aperm
-    res <- aperm(array(unlist(pargs), dim=c(dimar[[1]][-1], nrow)), c(3,1,2))
+    idx <- c(length(dimar[[1]]), seq(1, length(dimar[[1]]) - 1))
+    res <- aperm(array(unlist(pargs), dim=c(dimar[[1]][-1], nrow)), idx)
 
     # dimnames
     dimnames(res) <- c(list(params=unlist(nargs, use.names=FALSE)), dimnames(x)[-1])
