@@ -58,9 +58,9 @@ setClass("FLBiol",
     n        = FLQuant(),
     m        = FLQuant(),
     wt       = FLQuant(),
-    mat      = new('predictModel', FLQuants(mat=FLQuant()), model=~mat),
-    fec      = new('predictModel', FLQuants(fec=FLQuant()), model=~fec),
-    rec      = new('predictModel', FLQuants(rec=FLQuant()), model=~rec),
+    mat      = new('predictModel', model=~mat),
+    fec      = new('predictModel', model=~fec),
+    rec      = new('predictModel', model=~rec),
     spwn     = FLQuant()),
   validity = function(object) {
 
@@ -376,9 +376,9 @@ setMethod("summary", signature(object="FLBiol"),
       }
       # params
       par <- slot(object, i)@params
-      cat(substr(paste0("  (", ifelse(all(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == ""),
+      cat(substr(paste0("  ", ifelse(all(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == ""),
         "NA", paste(dimnames(par)[[1]], collapse=", ")),
-        ")           "), start=1, stop=12), " : [", dim(slot(object,i)@params),
+        "           "), start=1, stop=12), " : [", dim(slot(object,i)@params),
         "], units = ", slot(object,i)@params@units, "\n")
     }
   }
@@ -604,9 +604,8 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 setMethod("ssb", signature(object="FLBiol"),
   function(object, ...)
   {
-    res <- quantSums(n(object) * wt(object) * fec(object) %*% exp(-spwn(object) %*%
+    res <- quantSums(n(object) * wt(object) * mat(object) %*% exp(-spwn(object) %*%
       m(object)), na.rm=FALSE)
-    units(res) <- paste(units(n(object)), units(wt(object)), sep=' * ')
     return(res)
   }
 )  # }}}
@@ -617,7 +616,6 @@ setMethod("tsb", signature(object="FLBiol"),
   {
     res <- quantSums(n(object) * wt(object) * exp(-spwn(object) *
       m(object)), na.rm=FALSE)
-    units(res) <- paste(units(n(object)), units(wt(object)), sep=' * ')
     return(res)
   }
 )  # }}}
