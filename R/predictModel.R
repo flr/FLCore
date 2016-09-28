@@ -66,7 +66,7 @@
 setClass('predictModel',
 	contains='FLQuants',
 	representation(params='FLPar', model='formula'),
-    prototype(FLQuants(), params=FLPar(), model=~NA)) # }}}
+    prototype(FLQuants(), params=FLPar(), model=as.formula("~NA", env=emptyenv()))) # }}}
 
 # predictModel() {{{
 setMethod('predictModel', signature(object='FLQuants'),

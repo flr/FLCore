@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>BIC. FLCore 2.6.0.2016914</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">FLCore 2.6.0.2016914</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Bayesian information criterion (BIC) method</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>A method to calculate the Bayesian information criterion (BIC), also known as Schwarz&#39;s 
+	Bayesian criterion of an <a href='FLModel-class.html'>FLModel</a> object from the value of the obtained
+  log-likelihood stored in its <code>logLik</code> slot.</p>
+
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>BIC(object)</p>
+
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt> signature(object=FLModel) :</dt><dd>BIC of an FLModel object with an specified 
+	value for the &quot;penalty&quot;.</dd></p>
+
+      <p><dt> signature(object=FLModel, k=missing) :</dt><dd>AIC of an FLModel object for which no
+	value of &quot;penalty&quot; is specified, thus k=2.</dd></p>
+
+      <p></dl></p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">nsher</span><span class="keyword">)</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/AIC'>BIC</a></span><span class="keyword">(</span><span class="symbol">nsher</span><span class="keyword">)</span></div>
+<div class='output'>[1] -24.11
+</div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>BIC,FLModel-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><a href='http://www.rdocumentation.org/packages/stats/topics/AIC'>BIC</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/AIC'>AIC</a>, <a href='FLModel-class.html'>FLModel</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a></p>
+
+    
+
+    <h2>Author</h2>
+    The FLR Team
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

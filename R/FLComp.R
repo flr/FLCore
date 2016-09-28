@@ -287,9 +287,6 @@ setMethod("as.data.frame", signature(x="FLComp", row.names="missing", optional="
       sdf[[quant]] <- as.character(sdf[[quant]])
       dfq <- cbind(slot=s, sdf)
 
-		  #if(any(class(dfq[,quant(slot(x, s))])=="factor"))
-			#	dfq[,quant(slot(x, s))] <- as.numeric(NA)
-
 			df  <- rbind(df, dfq)
 	  }
     # drop

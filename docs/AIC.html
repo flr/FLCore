@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>AIC. FLCore 2.6.0.2016914</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">FLCore 2.6.0.2016914</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Akaike information criterion (AIC) method</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>A method to calculate the Akaike information criterion (AIC) of an <a href='FLModel-class.html'>FLModel</a> object
+	from the value of the obtained log-likelihood stored in its <code>logLik</code> slot.</p>
+
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>AIC(object, k)</p>
+
+    </div>
+
+    <div class="Method arguments">
+      <h2>Method arguments</h2>
+
+      <p><dl>
+<dt><code>object</code> :</dt><dd>an object of class <a href='FLModel-class.html'>FLModel</a> or of one that inherits from it.</dd></p>
+
+      <p><dt><code>k</code> :</dt><dd>numeric, the &quot;penalty&quot; per parameter to be used; the default k = 2 is the classical AIC.</dd></p>
+
+      <p></dl></p>
+
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt> signature(object=FLModel, k=numeric) :</dt><dd>AIC of an FLModel object with an specified 
+	value for the &quot;penalty&quot;.</dd></p>
+
+      <p><dt> signature(object=FLModel, k=missing) :</dt><dd>AIC of an FLModel object with the default 
+	&quot;penalty&quot;.</dd></p>
+
+      <p></dl></p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">nsher</span><span class="keyword">)</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/AIC'>AIC</a></span><span class="keyword">(</span><span class="symbol">nsher</span><span class="keyword">)</span></div>
+<div class='output'>[1] -27.72
+</div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>AIC,FLModel,numeric-method</li><li>AIC,FLModel,missing-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><a href='http://www.rdocumentation.org/packages/stats/topics/AIC'>AIC</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/logLik'>logLik</a>, <a href='FLModel-class.html'>FLModel</a></p>
+
+    
+
+    <h2>Author</h2>
+    The FLR Team
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

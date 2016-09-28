@@ -58,9 +58,9 @@ setClass("FLBiol",
     n        = FLQuant(),
     m        = FLQuant(),
     wt       = FLQuant(),
-    mat      = new('predictModel', model=~mat),
-    fec      = new('predictModel', model=~fec),
-    rec      = new('predictModel', model=~rec),
+    mat      = new('predictModel', model=as.formula("~mat", env=emptyenv())),
+    fec      = new('predictModel', model=as.formula("~fec", env=emptyenv())),
+    rec      = new('predictModel', model=as.formula("~rec", env=emptyenv())),
     spwn     = FLQuant()),
   validity = function(object) {
 
@@ -398,9 +398,9 @@ setMethod('FLBiol', signature(object='FLQuant'),
 
     res <- new("FLBiol",
       n=object, m=object, wt=object, spwn=object[1,],
-      mat = new('predictModel', FLQuants(mat=object), model=~mat),
-      fec = new('predictModel', FLQuants(fec=object), model=~mat),
-      rec = new('predictModel', FLQuants(rec=object[1,]), model=~rec),
+      mat = new('predictModel', FLQuants(mat=object), model=as.formula("~mat", env=emptyenv())),
+      fec = new('predictModel', FLQuants(fec=object), model=as.formula("~fec", env=emptyenv())),
+      rec = new('predictModel', FLQuants(rec=object[1,]), model=as.formula("~rec", env=emptyenv())),
       range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
         minyear=dims$minyear, maxyear=dims$maxyear)))
 
@@ -410,7 +410,8 @@ setMethod('FLBiol', signature(object='FLQuant'),
 
     # FIX rec to n[1,] if no rec given
     if(! 'rec' %in% names(args))
-     res@rec['rec']  <- new('predictModel', FLQuants(rec=res@n[1,]), model=~rec)
+      res@rec['rec']  <- new('predictModel', FLQuants(rec=res@n[1,]),
+        model=as.formula("~rec", env=emptyenv()))
 
     return(res)
   }
