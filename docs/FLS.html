@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>FLS. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Class FLS</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>A virtual class that forms the basis for the <code><a href='FLStock.html'>FLStock</a></code>
+and <code><a href='FLStockLen.html'>FLStockLen</a></code> classes. No objects of this class can be
+constructed.</p>
+  
+    </div>
+
+    <div class="Validity">
+      <h2>Validity</h2>
+      
+      <p><dl>
+    <dt>None</dt><dd>No particular validity checks</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+      
+      <p></p>
+  
+      <p><dl>
+ <dt>catch</dt><dd>Total catch weight (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>catch.n</dt><dd>Catch numbers (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>catch.wt</dt><dd>Mean catch weights (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>desc</dt><dd>Description of the stock (<code>character</code>).</dd></p>
+  
+      <p><dt>discards</dt><dd>Total discards weight (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>discards.n</dt><dd>Discard numbers (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>discards.wt</dt><dd>Mean discard weights (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>landings</dt><dd>Total landings weight (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>landings.n</dt><dd>Landing numbers (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>landings.wt</dt><dd>Landing weights (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>stock</dt><dd>Total stock weight (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>stock.n</dt><dd>Stock numbers (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>stock.wt</dt><dd>Mean stock weights (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>m</dt><dd>Natural mortality (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>m.spwn</dt><dd>Proportion of natural mortality before spawning (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>mat</dt><dd>Proportion mature (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>harvest</dt><dd>Harvest rate or fishing mortality. The units of this slot
+  should be set to &#39;harvest&#39; or &#39;f&#39; accordingly (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>harvest.spwn</dt><dd>Proportion of harvest/fishing mortality before
+  spawning (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>name</dt><dd>Name of the stock (<code>character</code>).</dd></p>
+  
+      <p><dt>range</dt><dd>Named numeric vector containing the quant and year ranges,
+  the plusgroup and the quant range that the average fishing mortality should
+  be calculated over (<code>numeric</code>).</dd>
+ </dl></p>
+  
+      <p></p>
+  
+    </div>
+      </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>FLS</li><li>FLS-class</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>[</a>, [&lt;-, <a href='http://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a>,
+<a href='iter.html'>iter</a>, propagate, qapply, <a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a>,
+<a href='http://www.rdocumentation.org/packages/base/topics/transform'>transform</a>, <a href='trim.html'>trim</a>, units,FLComp-method,
+units&lt;-,FLComp,list-method, <a href='http://www.rdocumentation.org/packages/stats/topics/window'>window</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

@@ -1,0 +1,249 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>FLModel. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Class FLModel</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='FLModel.html'>FLModel</a></span><span class="keyword">(</span><span class="symbol">model</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>A virtual class for statistical models</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>The <code>FLModel</code> class provides a virtual class that developers of various
+statistical models can use to implement classes that allow those models to
+be tested, fitted and presented.</p>
+  
+      <p>Slots in this class attempt to map all the usual outputs for a modelling
+exercise, together with the standard inputs. Input data are stored in slots
+created by a specified class that is based on <code>FLModel</code>. See for example
+<code><a href='FLSR.html'>FLSR</a></code> for a class used for stock-recruitment models.</p>
+  
+      <p>Various fitting algorithms, similar to those present in the basic R packages,
+are currently available for <code>FLModel</code>, including <code>fmle</code>,
+<code>nls-FLCore</code> and <code><a href='http://www.rdocumentation.org/packages/stats/topics/glm'>glm</a></code>.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+      
+      <p><dl>
+  <dt>name</dt><dd>Name of the object, <code>character</code>.</dd></p>
+  
+      <p><dt>desc</dt><dd>Description of the object, <code>character</code>.</dd></p>
+  
+      <p><dt>range</dt><dd>Range, <code>numeric</code>.</dd></p>
+  
+      <p><dt>distribution</dt><dd>Associated error probability dfistribution, <code>factor</code>.</dd></p>
+  
+      <p><dt>fitted</dt><dd>Estimated values, <code>FLQuant</code>.</dd></p>
+  
+      <p><dt>residuals</dt><dd>Residuals obtained from the model fit, <code>FLQuant</code>.</dd></p>
+  
+      <p><dt>model</dt><dd>Model formula, <code>formula</code>.</dd></p>
+  
+      <p><dt>gr</dt><dd>Function returning the gradient of the likelihood, <code>function</code>.</dd></p>
+  
+      <p><dt>logl</dt><dd>Log-likelihood function. <code>function</code>.</dd></p>
+  
+      <p><dt>initial</dt><dd>Function returning initial parameter values for the
+    optimizer, as an object of class <code>FLPar</code>, <code>function</code>.</dd></p>
+  
+      <p><dt>params</dt><dd>Estimated parameter values, <code>FLPar</code>.</dd></p>
+  
+      <p><dt>logLik</dt><dd>Value of the log-likelihood, <code>logLik</code>.</dd></p>
+  
+      <p><dt>vcov</dt><dd>Variance-covariance matrix, <code>array</code>.</dd></p>
+  
+      <p><dt>hessian</dt><dd>Hessian matrix obtained from the parameter fitting, <code>array</code>.</dd></p>
+  
+      <p><dt>details</dt><dd>extra information on the model fit procedure, <code>list</code>.</dd>
+ </dl></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="comment"># Normally, FLModel objects won't be created if "class" is not set</span>
+  <span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="functioncall"><a href='FLModel.html'>FLModel</a></span><span class="keyword">(</span><span class="symbol">length</span><span class="keyword">~</span><span class="symbol">width</span><span class="keyword">*</span><span class="symbol">alpha</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLModel&quot;
+
+Name:  
+Description:  
+Range:	 min	max	minyear	maxyear 
+	NA	NA	1	1	
+Quant: quant 
+
+residuals     : [ 1 1 1 1 1 1 ], units =  NA 
+fitted        : [ 1 1 1 1 1 1 ], units =  NA 
+
+Model: 	length ~ width * alpha
+&lt;environment: 0x7088308&gt;
+Parameters: 
+    params
+iter length width alpha
+   1     NA    NA    NA
+
+Log-likelihood:  NA(NA) 
+Variance-covariance:         params
+params   length width alpha
+  length     NA    NA    NA
+  width      NA    NA    NA
+  alpha      NA    NA    NA
+</div>
+<div class='input'>
+<span class="comment"># Objects of FLModel-based classes use their own constructor,</span>
+<span class="comment"># which internally calls FLModel</span>
+  <span class="symbol">fsr</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLModel.html'>FLModel</a></span><span class="keyword">(</span><span class="symbol">rec</span><span class="keyword">~</span><span class="symbol">ssb</span><span class="keyword">*</span><span class="symbol">a</span><span class="keyword">,</span> <span class="argument">class</span><span class="argument">=</span><span class="string">'FLSR'</span><span class="keyword">)</span>
+  <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/is'>is</a></span><span class="keyword">(</span><span class="symbol">fsr</span><span class="keyword">)</span></div>
+<div class='output'>[1] &quot;FLSR&quot;    &quot;FLModel&quot; &quot;FLComp&quot; 
+</div>
+<div class='input'>  <span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="symbol">fsr</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLSR&quot;
+
+Name:  
+Description:  
+Range:	 min	max	minyear	maxyear 
+	NA	NA	1	1	
+Quant: quant 
+
+rec           : [ 1 1 1 1 1 1 ], units =  NA 
+ssb           : [ 1 1 1 1 1 1 ], units =  NA 
+residuals     : [ 1 1 1 1 1 1 ], units =  NA 
+fitted        : [ 1 1 1 1 1 1 ], units =  NA 
+
+Model: 	rec ~ ssb * a
+&lt;environment: 0x7088308&gt;
+Parameters: 
+    params
+iter  a
+   1 NA
+
+Log-likelihood:  NA(NA) 
+Variance-covariance:       params
+params  a
+     a NA
+</div>
+<div class='input'>
+<span class="comment"># An example constructor method for an FLModel-based class</span>
+  <span class="comment"># Create class FLGrowth with a single new slot, 'mass'</span>
+    <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/setClass'>setClass</a></span><span class="keyword">(</span><span class="string">'FLGrowth'</span><span class="keyword">,</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/representation'>representation</a></span><span class="keyword">(</span><span class="string">'FLModel'</span><span class="keyword">,</span> <span class="argument">mass</span><span class="argument">=</span><span class="string">'FLArray'</span><span class="keyword">)</span><span class="keyword">)</span>
+
+  <span class="comment"># Define a creator method based on FLModel</span>
+                 <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/setGeneric'>setGeneric</a></span><span class="keyword">(</span><span class="string">"FLGrowth"</span><span class="keyword">,</span> <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">object</span><span class="keyword">,</span> <span class="formalargs">...</span><span class="keyword">)</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/standardGeneric'>standardGeneric</a></span><span class="keyword">(</span><span class="string">"FLGrowth"</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>[1] &quot;FLGrowth&quot;
+</div>
+<div class='input'>    <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/setMethod'>setMethod</a></span><span class="keyword">(</span><span class="string">'FLGrowth'</span><span class="keyword">,</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/GenericFunctions'>signature</a></span><span class="keyword">(</span><span class="argument">object</span><span class="argument">=</span><span class="string">'ANY'</span><span class="keyword">)</span><span class="keyword">,</span>
+      <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">object</span><span class="keyword">,</span> <span class="formalargs">...</span><span class="keyword">)</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/function'>return</a></span><span class="keyword">(</span><span class="functioncall"><a href='FLModel.html'>FLModel</a></span><span class="keyword">(</span><span class="symbol">object</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">,</span> <span class="argument">class</span><span class="argument">=</span><span class="string">'FLGrowth'</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>[1] &quot;FLGrowth&quot;
+</div>
+<div class='input'>    <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/setMethod'>setMethod</a></span><span class="keyword">(</span><span class="string">'FLGrowth'</span><span class="keyword">,</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/GenericFunctions'>signature</a></span><span class="keyword">(</span><span class="argument">object</span><span class="argument">=</span><span class="string">'missing'</span><span class="keyword">)</span><span class="keyword">,</span>
+      <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">...</span><span class="keyword">)</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/function'>return</a></span><span class="keyword">(</span><span class="functioncall"><a href='FLModel.html'>FLModel</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/formula'>formula</a></span><span class="keyword">(</span>NULL<span class="keyword">)</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">,</span> <span class="argument">class</span><span class="argument">=</span><span class="string">'FLGrowth'</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>[1] &quot;FLGrowth&quot;
+</div>
+<div class='input'>
+  <span class="comment"># Define an accessor method</span>
+    <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/setMethod'>setMethod</a></span><span class="keyword">(</span><span class="string">'mass'</span><span class="keyword">,</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/GenericFunctions'>signature</a></span><span class="keyword">(</span><span class="argument">object</span><span class="argument">=</span><span class="string">'FLGrowth'</span><span class="keyword">)</span><span class="keyword">,</span>
+      <span class="keyword">function</span><span class="keyword">(</span><span class="formalargs">object</span><span class="keyword">)</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/function'>return</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/methods/topics/slot'>slot</a></span><span class="keyword">(</span><span class="symbol">object</span><span class="keyword">,</span> <span class="string">'mass'</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>[1] &quot;mass&quot;
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>FLModel</li><li>FLModel,character-method</li><li>FLModel,formula-method</li><li>FLModel,function-method</li><li>FLModel,missing-method</li><li>FLModel-class</li><li>FLModel-methods</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='http://www.rdocumentation.org/packages/stats/topics/AIC'>AIC</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/AIC'>BIC</a>, fmle,
+<a href='http://www.rdocumentation.org/packages/stats/topics/nls'>nls</a>, <a href='FLComp.html'>FLComp</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

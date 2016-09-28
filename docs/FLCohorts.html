@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>FLCohorts. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Class FLCohorts</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='FLCohorts.html'>FLCohorts</a></span><span class="keyword">(</span><span class="symbol">object</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>object</dt>
+      <dd>unnamed object to be added to the list</dd>
+      <dt>...</dt>
+      <dd>other named or unnamed objects</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p><code>FLCohorts</code> is a class that extends <code>list</code> through <code>FLlst</code>
+but implements a set of features that give a little more structure to
+list objects. The elements of <code>FLCohorts</code> must all be of class
+<code>FLCohort</code>. It implements a lock mechanism that, when turned on, does
+not allow the user to increase or decrease the object length.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+      
+      <p><dl>
+<dt>.Data</dt><dd>The data. <code>list</code></dd></p>
+  
+      <p><dt>names</dt><dd>Names of the list elements. <code>character</code></dd></p>
+  
+      <p><dt>desc</dt><dd>Description of the object. <code>character</code></dd>
+ <dt>lock</dt><dd>Lock
+mechanism, if turned on the length of the list can not be modified by adding
+or removing elements. <code>logical</code></dd>
+ </dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+      
+      <p></p>
+  
+      <p>A constructor method exists for this class that can take named arguments for
+any of the list elements.</p>
+  
+    </div>
+      </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>FLCohorts</li><li>FLCohorts,ANY-method</li><li>FLCohorts,FLCohorts-method</li><li>FLCohorts,list-method</li><li>FLCohorts,missing-method</li><li>FLCohorts-class</li><li>FLCohorts-methods</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/Arithmetic'>*</a>, <a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a>, <a href='http://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a>,
+<a href='bubbles.html'>bubbles</a>, catch&lt;-, <a href='iter.html'>iter</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/model.frame'>model.frame</a>,
+<a href='http://www.rdocumentation.org/packages/methods/topics/show'>show</a>, <a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a>, <a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a>,
+<a href='FLlst.html'>FLlst</a>, <a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

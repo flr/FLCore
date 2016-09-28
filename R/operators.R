@@ -58,7 +58,7 @@
 # %*% {{{
 
 #' @rdname operators
-#' @aliases %*%,FLQuant,FLQuant-method
+#' @aliases `%*%`,FLQuant,FLQuant-method
 setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
 	function(x, y) {
 

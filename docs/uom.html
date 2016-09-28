@@ -1,0 +1,264 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>uom. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>uom Units of Measurement</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='uom.html'>uom</a></span><span class="keyword">(</span><span class="symbol">op</span><span class="keyword">,</span> <span class="symbol">u1</span><span class="keyword">,</span> <span class="symbol">u2</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='uom.html'>uom</a></span><span class="keyword">(</span><span class="symbol">op</span><span class="keyword">,</span> <span class="symbol">u1</span><span class="keyword">,</span> <span class="symbol">u2</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>op</dt>
+      <dd>The arithmetic operator to be used, one of &#39;+&#39;, &#39;-&#39;, &#39;*&#39; or &#39;/&#39;</dd>
+      <dt>u1</dt>
+      <dd>The units of measurement string of the first object</dd>
+      <dt>u2</dt>
+      <dd>The units of measurement string of the second object</dd>
+      <dt>op</dt>
+      <dd>The arithmetic operator to be used, one of &#39;+&#39;, &#39;-&#39;, &#39;*&#39; or &#39;/&#39;</dd>
+      <dt>u1</dt>
+      <dd>The units of measurement string of the first object</dd>
+      <dt>u2</dt>
+      <dd>The units of measurement string of the second object</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+      
+      <p><dl>
+a string with the corresponding units of measurement, a string such as &#39;10 *100&#39; when not compatible</p>
+  
+      <p>a string with the corresponding units of measurement, a string such
+as &#39;10 *100&#39; when not compatible
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>The &#39;units&#39; attribute of FLQuant objects provides a mechanism for keeping track
+of the units of measurement of that particular piece of data.</p>
+  
+      <p>Units of Measurement</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>Arithmetic operators for &#39;FLQuant&#39; objects are aware of a limited set of units
+of measurement and will output the right unit when two object are arithmetically
+combined. For example, the product of object with units of &#39;kg&#39; and &#39;1000&#39; will
+output an object with &#39;units&#39; of &#39;t&#39; (for metric tonnes).</p>
+  
+      <p>Operations involving combinations of units not defined will issue a warning, and
+the resulting &#39;units&#39; attribute will simply keep a string indicating the input
+units of measurement and the operation carried out, as in &#39;10 * 1000&#39;.</p>
+  
+      <p>Note that no scaling or modification of the values in the object takes place.</p>
+  
+      <p>Conversion across units is carried out by the <code>uom()</code> function</p>
+  
+      <p>The <code>units</code> attribute of <code>FLQuant</code> objects provides a mechanism for
+keeping track of the units of measurement of that particular piece of data.
+This method in the form <code>uom()</code> carries out a conversion across units.</p>
+  
+      <p>Arithmetic operators for <code>FLQuant</code> objects operate with a limited set of
+units of measurement, and will output the right unit when two appropriate
+objects are arithmetically combined. For example, the product of objects with
+units of &#39;kg&#39; and &#39;1000&#39; will output an object with units of &#39;t&#39; (for
+metric tonnes).</p>
+  
+      <p>Operations involving combinations of units not defined will result in the
+<code>units</code> attribute simply storing a string indicating the input units of
+measurement and the operation carried out, as in &#39;10 * 1000&#39;.</p>
+  
+      <p>Note that no scaling or modification of the values in the object takes
+place.</p>
+  
+    </div>
+
+    <div class="Recognized Units">
+      <h2>Recognized Units</h2>
+      
+      <p></p>
+  
+      <p>The following units of measurement are recognized by the &#39;Arith&#39; operators
+(+, -, * /).
+<dl>
+   <dt>Weight</dt><dd>&#39;kg&#39;, &#39;t&#39;</dd></p>
+  
+      <p><dt>Numbers</dt><dd>1 - 100000000, 1e0 - 1e8, 10^0 - 10^8</dd></p>
+  
+      <p><dt>Mortality</dt><dd>&#39;m&#39;, &#39;f&#39;, &#39;z&#39;, &#39;hr&#39;</dd></p>
+  
+      <p><dt>Other</dt><dd>&#39;NA&#39;</dd></p>
+  
+      <p></dl></p>
+  
+      <p>The following units of measurement are recognized by the &#39;Arith&#39; operators
+(+, -, * /). <dl>
+<dt>Weight</dt><dd>&#39;kg&#39;, &#39;t&#39;</dd>
+ <dt>Numbers</dt><dd>1 -
+100000000, 1e0 - 1e8, 10^0 - 10^8</dd>
+ <dt>Mortality</dt><dd>&#39;m&#39;, &#39;f&#39;, &#39;z&#39;, &#39;hr&#39;</dd></p>
+  
+      <p><dt>Other</dt><dd>&#39;NA&#39;</dd>
+ </dl></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="comment"># Conversion between weights</span>
+<span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">1</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'kg'</span><span class="keyword">)</span> <span class="keyword">*</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">1000</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'1'</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1   
+  all 1000
+
+units:  kg 
+</div>
+<div class='input'>
+<span class="comment"># Conversion between mortalities</span>
+<span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">0.2</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'m'</span><span class="keyword">)</span> <span class="keyword">+</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">0.34</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'f'</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1   
+  all 0.54
+
+units:  z 
+</div>
+<div class='input'>
+<span class="comment"># Conversion between weights</span>
+  <span class="symbol">flq1</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">1</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'kg'</span><span class="keyword">)</span>
+  <span class="symbol">flq2</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">5</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'1000'</span><span class="keyword">)</span>
+  <span class="symbol">flq1</span> <span class="keyword">*</span> <span class="symbol">flq2</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1
+  all 5
+
+units:  t 
+</div>
+<div class='input'>
+<span class="comment"># Conversion between mortalities</span>
+  <span class="symbol">flq1</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">0.2</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'m'</span><span class="keyword">)</span>
+  <span class="symbol">flq2</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">0.34</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'f'</span><span class="keyword">)</span>
+  <span class="symbol">flq1</span> <span class="keyword">+</span> <span class="symbol">flq2</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1   
+  all 0.54
+
+units:  z 
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>uom</li>
+    </ul>
+    <ul>
+      <li>function</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><code><a href='FLQuant.html'>FLQuant</a></code> <code><a href='units.html'>units,FLArray-method</a></code></p>
+
+    <p><code><a href='FLQuant.html'>FLQuant</a></code> <code><a href='units.html'>units,FLArray-method</a></code></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

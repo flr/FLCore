@@ -116,7 +116,8 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 #' @param x object from which to extract or replace element(s)
 #' @param i,j,k,l,m,n,... indices specifying elements to extract or replace.
 #' @param drop If 'TRUE' the result is coerced to the lowest possible dimension, and so
-#' might chmnage class (e.g. drop='TRUE' on an \code{FLQuant} might return an \code{array}.
+#' might change class (e.g. drop='TRUE' on an \code{FLQuant} might return an
+#' \code{array} of less dimensions, a \code{matrix} or a \code{vector}.
 #' @param value An object of a similar or simpler class than 'x'.
 #' @param name
 #' See \link[base]{Extract} for further details.
@@ -137,6 +138,9 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 #'   flq['0',]
 #'   flq[,'1991']
 #'   flq[,as.character(1991:1995),,'1']
+#'
+#' # Dimensions of length one can be drop
+#'   flq[1, drop=TRUE]
 #'
 #' # Replacing part of the object
 #'   flq['0',,,1]<-0

@@ -1,0 +1,150 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>bubbles. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Method Bubbles plot</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="comment"># S4 method for formula,FLQuant</span>
+<span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="argument">bub.scale</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">2.5</span><span class="keyword">,</span>
+  <span class="argument">col</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"blue"</span><span class="keyword">,</span> <span class="string">"red"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,data.frame</span>
+<span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="argument">bub.scale</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">2.5</span><span class="keyword">,</span>
+  <span class="argument">col</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"blue"</span><span class="keyword">,</span> <span class="string">"red"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLCohort</span>
+<span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="argument">bub.scale</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">2.5</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLQuants</span>
+<span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="argument">bub.scale</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">2.5</span><span class="keyword">,</span>
+  <span class="argument">bub.col</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/grDevices/topics/gray'>gray</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="number">0.1</span><span class="keyword">,</span> <span class="number">0.1</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>This method plots three dimensional data such as matrices by age and year or
+age-class, very common in fisheries. The area of each bubble is proportional
+to the corresponding value in the matrix. Note that <code>bubbles</code> accepts
+an argument <code>bub.scale</code> to control the relative size of the bubbles.
+Positive and negative values have separate colours.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>bubbles(x, data)</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span>
+<span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">age</span><span class="keyword">~</span><span class="symbol">year</span><span class="keyword">,</span> <span class="argument">data</span><span class="argument">=</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<p><img src='bubbles-2.png' alt='' width='540' height='400' /></p>
+<div class='input'><span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">age</span><span class="keyword">~</span><span class="symbol">year</span><span class="keyword">,</span> <span class="argument">data</span><span class="argument">=</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">bub.scale</span><span class="argument">=</span><span class="number">5</span><span class="keyword">)</span></div>
+<p><img src='bubbles-4.png' alt='' width='540' height='400' /></p>
+<div class='input'><span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">age</span><span class="keyword">~</span><span class="symbol">cohort</span><span class="keyword">,</span> <span class="argument">data</span><span class="argument">=</span><span class="functioncall"><a href='FLCohort.html'>FLCohort</a></span><span class="keyword">(</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">bub.scale</span><span class="argument">=</span><span class="number">5</span><span class="keyword">)</span></div>
+<p><img src='bubbles-6.png' alt='' width='540' height='400' /></p>
+<div class='input'>
+<span class="symbol">qt01</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/Log'>log</a></span><span class="keyword">(</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">+</span><span class="number">1</span><span class="keyword">)</span>
+<span class="symbol">qt02</span> <span class="assignement">&lt;-</span> <span class="symbol">qt01</span><span class="keyword">+</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/length'>length</a></span><span class="keyword">(</span><span class="symbol">qt01</span><span class="keyword">)</span><span class="keyword">)</span>
+<span class="symbol">flqs</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuants.html'>FLQuants</a></span><span class="keyword">(</span><span class="argument">qt01</span><span class="argument">=</span><span class="symbol">qt01</span><span class="keyword">,</span> <span class="argument">qt02</span><span class="argument">=</span><span class="symbol">qt02</span><span class="keyword">)</span>
+<span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">age</span><span class="keyword">~</span><span class="symbol">year</span><span class="keyword">|</span><span class="symbol">qname</span><span class="keyword">,</span> <span class="argument">data</span><span class="argument">=</span><span class="symbol">flqs</span><span class="keyword">,</span> <span class="argument">bub.scale</span><span class="argument">=</span><span class="number">1</span><span class="keyword">)</span></div>
+<p><img src='bubbles-8.png' alt='' width='540' height='400' /></p>
+<div class='input'>
+<span class="symbol">qt03</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">100</span><span class="keyword">)</span><span class="keyword">,</span><span class="argument">dimnames</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="argument">age</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/character'>as.character</a></span><span class="keyword">(</span><span class="number">1</span><span class="keyword">:</span><span class="number">10</span><span class="keyword">)</span><span class="keyword">,</span>
+  <span class="argument">year</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/character'>as.character</a></span><span class="keyword">(</span><span class="number">1</span><span class="keyword">:</span><span class="number">10</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">)</span>
+<span class="functioncall"><a href='bubbles.html'>bubbles</a></span><span class="keyword">(</span><span class="symbol">age</span><span class="keyword">~</span><span class="symbol">year</span><span class="keyword">,</span> <span class="argument">data</span><span class="argument">=</span><span class="symbol">qt03</span><span class="keyword">,</span> <span class="argument">bub.scale</span><span class="argument">=</span><span class="number">7</span><span class="keyword">,</span> <span class="argument">col</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"black"</span><span class="keyword">,</span><span class="string">"red"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">pch</span><span class="argument">=</span><span class="number">16</span><span class="keyword">)</span></div>
+<p><img src='bubbles-10.png' alt='' width='540' height='400' /></p>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>bubbles</li><li>bubbles,formula,FLCohort-method</li><li>bubbles,formula,FLQuant-method</li><li>bubbles,formula,FLQuants-method</li><li>bubbles,formula,data.frame-method</li><li>bubbles-methods</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='http://www.rdocumentation.org/packages/lattice/topics/Lattice'>lattice</a>, <code><a href='FLQuant.html'>FLQuant</a></code>,
+<code><a href='FLQuants.html'>FLQuants</a></code>,<code><a href='FLCohort.html'>FLCohort</a></code></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

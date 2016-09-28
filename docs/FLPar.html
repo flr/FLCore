@@ -1,0 +1,170 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>FLPar. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Class FLPar</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='FLPar.html'>FLPar</a></span><span class="keyword">(</span><span class="symbol">object</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>A class for storing parameters of a model.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>The <code>FLPar</code> class is based on the array class which can store
+Monte Carlo samples and the names of the relevant parameter vectors.</p>
+  
+      <p>Methods for this class include subsetting and replacement as for the
+<code><a href='FLQuant.html'>FLQuant</a></code> class. There are methods for extracting
+statistics of the sample (mean, median etc.) and for plotting the parameter
+samples.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+      
+      <p><dl>
+<dt>.Data</dt><dd>Describe slot. <code>array</code>.</dd></p>
+  
+      <p><dt>units</dt><dd>Units of measurement. <code>character</code>.</dd>
+ </dl></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="functioncall"><a href='FLPar.html'>FLPar</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">4</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">params</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">'a'</span><span class="keyword">,</span><span class="string">'b'</span><span class="keyword">,</span><span class="string">'c'</span><span class="keyword">,</span><span class="string">'sigma2'</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLPar&quot;
+params
+       a        b        c   sigma2 
+ 0.47637  0.18592 -1.32472  1.17237 
+units:  NA NA NA NA 
+</div>
+<div class='input'>
+<span class="functioncall"><a href='FLPar.html'>FLPar</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">20</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">dimnames</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="argument">params</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">'a'</span><span class="keyword">,</span><span class="string">'b'</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">year</span><span class="argument">=</span><span class="number">1990</span><span class="keyword">:</span><span class="number">1999</span><span class="keyword">,</span> <span class="argument">iter</span><span class="argument">=</span><span class="number">1</span><span class="keyword">)</span><span class="keyword">,</span>
+  <span class="argument">units</span><span class="argument">=</span><span class="string">'NA'</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLPar&quot;
+      year
+params 1990      1991      1992      1993      1994      1995      1996     
+     a  0.231493 -0.535320 -1.302672  0.999655 -0.086034 -0.929122  0.526414
+     b  0.483072  1.378136  0.634858 -0.337749 -1.718818  0.813676  1.011957
+      year
+params 1997      1998      1999     
+     a  0.831380 -0.661257 -0.539368
+     b  0.415134  0.548811 -0.171318
+units:  NA 
+</div>
+<div class='input'>
+<span class="comment"># with iters</span>
+  <span class="functioncall"><a href='FLPar.html'>FLPar</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">80</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">params</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">'a'</span><span class="keyword">,</span> <span class="string">'b'</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">iter</span><span class="argument">=</span><span class="number">1</span><span class="keyword">:</span><span class="number">40</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLPar&quot;
+iters:  40 
+
+params
+               a                b 
+-0.086247(0.881)  0.029380(0.790) 
+units:  NA NA 
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>FLPar</li><li>FLPar,FLPar-method</li><li>FLPar,array-method</li><li>FLPar,missing-method</li><li>FLPar,vector-method</li><li>FLPar-class</li><li>FLPar-methods</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>[</a>, [&lt;-, <a href='http://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a>,
+<a href='http://www.rdocumentation.org/packages/lattice/topics/histogram'>densityplot</a>, <a href='http://www.rdocumentation.org/packages/lattice/topics/histogram'>histogram</a>, <a href='iter.html'>iter</a>,
+iter&lt;-, <a href='http://www.rdocumentation.org/packages/base/topics/mean'>mean</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/median'>median</a>,
+<a href='http://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>, <a href='http://www.rdocumentation.org/packages/lattice/topics/splom'>splom</a>, <a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a>,
+units,FLPar-method, units&lt;-,FLPar,character-method,
+<a href='http://www.rdocumentation.org/packages/stats/topics/cor'>var</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

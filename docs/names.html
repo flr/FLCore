@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>names. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Method names</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="comment"># S4 method for FLArray</span>
+<span class="functioncall"><a href='names.html'>names</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for FLPar</span>
+<span class="functioncall"><a href='names.html'>names</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for FLPar,character</span>
+<span class="functioncall"><a href='names.html'>names</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span> <span class="assignement">&lt;-</span> <span class="symbol">value</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>The <code>names</code> method returns the names of the dimnames of an object. For
+some classes, the names attribute can be modified directly using names&lt;-.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>names(x) names&lt;-(x, value)</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="comment"># FLQuant</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span>
+<span class="functioncall"><a href='names.html'>names</a></span><span class="keyword">(</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>[1] &quot;age&quot;    &quot;year&quot;   &quot;unit&quot;   &quot;season&quot; &quot;area&quot;   &quot;iter&quot;  
+</div>
+<div class='input'>
+<span class="comment"># Contrast this with</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames</a></span><span class="keyword">(</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>$age
+ [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;
+
+$year
+ [1] &quot;1957&quot; &quot;1958&quot; &quot;1959&quot; &quot;1960&quot; &quot;1961&quot; &quot;1962&quot; &quot;1963&quot; &quot;1964&quot; &quot;1965&quot; &quot;1966&quot;
+[11] &quot;1967&quot; &quot;1968&quot; &quot;1969&quot; &quot;1970&quot; &quot;1971&quot; &quot;1972&quot; &quot;1973&quot; &quot;1974&quot; &quot;1975&quot; &quot;1976&quot;
+[21] &quot;1977&quot; &quot;1978&quot; &quot;1979&quot; &quot;1980&quot; &quot;1981&quot; &quot;1982&quot; &quot;1983&quot; &quot;1984&quot; &quot;1985&quot; &quot;1986&quot;
+[31] &quot;1987&quot; &quot;1988&quot; &quot;1989&quot; &quot;1990&quot; &quot;1991&quot; &quot;1992&quot; &quot;1993&quot; &quot;1994&quot; &quot;1995&quot; &quot;1996&quot;
+[41] &quot;1997&quot; &quot;1998&quot; &quot;1999&quot; &quot;2000&quot; &quot;2001&quot; &quot;2002&quot; &quot;2003&quot; &quot;2004&quot; &quot;2005&quot; &quot;2006&quot;
+[51] &quot;2007&quot; &quot;2008&quot;
+
+$unit
+[1] &quot;unique&quot;
+
+$season
+[1] &quot;all&quot;
+
+$area
+[1] &quot;unique&quot;
+
+$iter
+[1] &quot;1&quot;
+
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>names</li><li>names,FLArray-method</li><li>names,FLPar-method</li><li>names&amp;lt;-,FLPar,character-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/names'>names</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

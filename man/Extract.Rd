@@ -25,7 +25,8 @@
 \item{i, j, k, l, m, n, ...}{indices specifying elements to extract or replace.}
 
 \item{drop}{If 'TRUE' the result is coerced to the lowest possible dimension, and so
-might chmnage class (e.g. drop='TRUE' on an \code{FLQuant} might return an \code{array}.}
+might change class (e.g. drop='TRUE' on an \code{FLQuant} might return an
+\code{array} of less dimensions, a \code{matrix} or a \code{vector}.}
 
 \item{value}{An object of a similar or simpler class than 'x'.}
 
@@ -68,6 +69,9 @@ flq <- FLQuant(rnorm(200), dimnames=list(age=0:4, year=1991:2000,
   flq['0',]
   flq[,'1991']
   flq[,as.character(1991:1995),,'1']
+
+# Dimensions of length one can be drop
+  flq[1, drop=TRUE]
 
 # Replacing part of the object
   flq['0',,,1]<-0

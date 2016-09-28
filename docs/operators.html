@@ -1,0 +1,255 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>%+%. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>FLQuant arithmetic operators</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><div>x %+% y</div>
+<div>x %-% y</div>
+<div>x %^% y</div>
+<div># S4 method for FLQuant,FLQuant
+%*%(x, y)</div>
+<div># S4 method for FLQuant,FLQuant
+%/%(e1, e2)</div>
+<div># S4 method for FLQuant,FLQuant
+%+%(x, y)</div>
+<div># S4 method for FLQuant,FLQuant
+%-%(x, y)</div>
+<div># S4 method for FLQuant,FLQuant
+%^%(x, y)</div>
+<div># S4 method for FLPar,FLQuant
+%*%(x, y)</div>
+<div># S4 method for FLPar,FLQuant
+%/%(e1, e2)</div>
+<div># S4 method for FLPar,FLQuant
+%+%(x, y)</div>
+<div># S4 method for FLPar,FLQuant
+%-%(x, y)</div>
+<div># S4 method for FLPar,FLQuant
+%^%(x, y)</div>
+<div># S4 method for FLQuant,FLPar
+%*%(x, y)</div>
+<div># S4 method for FLQuant,FLPar
+%/%(e1, e2)</div>
+<div># S4 method for FLQuant,FLPar
+%+%(x, y)</div>
+<div># S4 method for FLQuant,FLPar
+%-%(x, y)</div>
+<div># S4 method for FLQuant,FLPar
+%^%(x, y)</div>
+<div># S4 method for FLPar,FLPar
+%*%(x, y)</div>
+<div># S4 method for FLPar,FLPar
+%+%(x, y)</div>
+<div># S4 method for FLPar,FLPar
+%-%(x, y)</div>
+<div># S4 method for FLPar,FLPar
+%/%(e1, e2)</div>
+<div># S4 method for FLPar,FLPar
+%^%(x, y)</div></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Arithmetic operations between two <a href='FLQuant.html'>FLQuant</a> objects using the
+standars operators (`+`, `-`, `*`, `/`, `^`, see <a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a>) need all dimensions in
+both objects to match. This requirement is relaxed by using the percent
+version of those four: `</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>If any of the objects is of length one in a dimensions where the other is
+longer, the dimensions will be extended and the element-by-element operation
+then conducted. Dimensions and dimnames of the output will be those of the
+larger object. See the examples to observe their behaviour.</p>
+  
+      <p>Please note that this behjaviour is present on the <a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a> methods for
+<a href='FLArray.html'>FLArray</a>-derived classes but only on the 6th, `iter`, dimension.</p>
+  
+      <p>The original use of the `
+for <a href='FLQuant.html'>FLQuant</a> objects, but can be applied to the <a href='http://www.rdocumentation.org/packages/base/topics/array'>array</a>
+inside them, as in the example below.</p>
+  
+      <p>Methods for operations between an <a href='FLQuant.html'>FLQuant</a> and an
+<a href='FLPar.html'>FLPar</a> object will match dimensions by names of dimnames,
+regardless of position.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>x</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="symbol">a</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">2</span><span class="keyword">,</span> <span class="argument">dim</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="number">3</span><span class="keyword">,</span><span class="number">3</span><span class="keyword">,</span><span class="number">2</span><span class="keyword">)</span><span class="keyword">)</span>
+<span class="symbol">b</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">3</span><span class="keyword">,</span> <span class="argument">dim</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="number">3</span><span class="keyword">,</span><span class="number">3</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">)</span><span class="keyword">)</span>
+
+<span class="comment"># This should fail</span>
+<span class="comment">## Not run:  a * b </span>
+
+<span class="symbol">a</span> <span class="keyword">%*%</span> <span class="symbol">b</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = 1, season = all, area = unique
+
+     year
+quant 1 2 3
+    1 6 6 6
+    2 6 6 6
+    3 6 6 6
+
+, , unit = 2, season = all, area = unique
+
+     year
+quant 1 2 3
+    1 6 6 6
+    2 6 6 6
+    3 6 6 6
+
+units:  NA 
+</div>
+<div class='input'><span class="symbol">a</span> <span class="keyword">%+%</span> <span class="symbol">b</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = 1, season = all, area = unique
+
+     year
+quant 1 2 3
+    1 5 5 5
+    2 5 5 5
+    3 5 5 5
+
+, , unit = 2, season = all, area = unique
+
+     year
+quant 1 2 3
+    1 5 5 5
+    2 5 5 5
+    3 5 5 5
+
+units:  NA 
+</div>
+<div class='input'><span class="comment"># To use base's %*% vector product, apply it to a matrix from @.Data</span>
+<span class="symbol">b</span><span class="keyword">@</span><span class="slot">.Data</span><span class="keyword">[</span><span class="keyword">,</span><span class="keyword">,</span><span class="keyword">,</span><span class="keyword">,</span><span class="keyword">,</span><span class="keyword">]</span> <span class="keyword">%*%</span> <span class="number">1</span><span class="keyword">:</span><span class="number">3</span></div>
+<div class='output'>     
+quant [,1]
+    1   18
+    2   18
+    3   18
+</div>
+<div class='input'><span class="comment"># or</span>
+<span class="symbol">b</span><span class="keyword">[</span><span class="keyword">,</span><span class="keyword">,</span><span class="argument">drop</span><span class="argument">=</span><span class="number">TRUE</span><span class="keyword">]</span> <span class="keyword">%*%</span> <span class="number">1</span><span class="keyword">:</span><span class="number">3</span></div>
+<div class='output'>     
+quant [,1]
+    1   18
+    2   18
+    3   18
+</div>
+<div class='input'>
+<span class="comment"># FLPar vs. FLQuant works by dimnames' names</span>
+<span class="symbol">flp</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLPar.html'>FLPar</a></span><span class="keyword">(</span><span class="number">2</span><span class="keyword">,</span> <span class="argument">dimnames</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="argument">params</span><span class="argument">=</span><span class="string">'a'</span><span class="keyword">,</span> <span class="argument">year</span><span class="argument">=</span><span class="number">2000</span><span class="keyword">:</span><span class="number">2005</span><span class="keyword">,</span> <span class="argument">iter</span><span class="argument">=</span><span class="number">1</span><span class="keyword">)</span><span class="keyword">)</span>
+<span class="symbol">flq</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="number">3</span><span class="keyword">,</span> <span class="argument">dimnames</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="argument">year</span><span class="argument">=</span><span class="number">2000</span><span class="keyword">:</span><span class="number">2005</span><span class="keyword">)</span><span class="keyword">)</span>
+<span class="symbol">flp</span> <span class="keyword">%*%</span> <span class="symbol">flq</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1 2 3 4 5 6
+  all 6 6 6 6 6 6
+
+units:  NA 
+</div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>%*%,FLPar,FLPar-method</li><li>%*%,FLPar,FLQuant-method</li><li>%*%,FLQuant,FLPar-method</li><li>%+%</li><li>%+%,FLPar,FLPar-method</li><li>%+%,FLPar,FLQuant-method</li><li>%+%,FLQuant,FLPar-method</li><li>%+%,FLQuant,FLQuant-method</li><li>%-%</li><li>%-%,FLPar,FLPar-method</li><li>%-%,FLPar,FLQuant-method</li><li>%-%,FLQuant,FLPar-method</li><li>%-%,FLQuant,FLQuant-method</li><li>%/%,FLPar,FLPar-method</li><li>%/%,FLPar,FLQuant-method</li><li>%/%,FLQuant,FLPar-method</li><li>%/%,FLQuant,FLQuant-method</li><li>%^%</li><li>%^%,FLPar,FLPar-method</li><li>%^%,FLPar,FLQuant-method</li><li>%^%,FLQuant,FLPar-method</li><li>%^%,FLQuant,FLQuant-method</li><li>operators</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><code><a href='FLQuant.html'>FLQuant</a></code>, <code><a href='http://www.rdocumentation.org/packages/base/topics/matmult'>matmult</a></code></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

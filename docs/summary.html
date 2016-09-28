@@ -1,0 +1,189 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>summary. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Method summary</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="comment"># S4 method for FLArray</span>
+<span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="symbol">object</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Outputs a general summary of the structure and content of the object. The
+particular output obtained depends on the class of the argument object.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>summary(object)</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="symbol">flq</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Lognormal'>rlnorm</a></span><span class="keyword">(</span><span class="number">90</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">dim</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="number">3</span><span class="keyword">,</span><span class="number">10</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'kg'</span><span class="keyword">)</span>
+<span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="symbol">flq</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot; with:
+dim  :  3 10 1 1 1 1 
+quant:  quant 
+units:  kg 
+
+Min    :  0.2615994 
+1st Qu.:  0.5572711 
+Mean   :  1.856233 
+Median :  1.058361 
+3rd Qu.:  1.967966 
+Max    :  10.27299 
+NAs    :  0 %
+</div>
+<div class='input'>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span>
+<span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLStock&quot;
+
+Name: Plaice in IV 
+Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+	1	10	10	1957	2008	2	6	
+Quant: age 
+
+catch         : [ 1 52 1 1 1 1 ], units =  t 
+catch.n       : [ 10 52 1 1 1 1 ], units =  10^3 
+catch.wt      : [ 10 52 1 1 1 1 ], units =  kg 
+discards      : [ 1 52 1 1 1 1 ], units =  t 
+discards.n    : [ 10 52 1 1 1 1 ], units =  10^3 
+discards.wt   : [ 10 52 1 1 1 1 ], units =  kg 
+landings      : [ 1 52 1 1 1 1 ], units =  t 
+landings.n    : [ 10 52 1 1 1 1 ], units =  10^3 
+landings.wt   : [ 10 52 1 1 1 1 ], units =  kg 
+stock         : [ 1 52 1 1 1 1 ], units =  t 
+stock.n       : [ 10 52 1 1 1 1 ], units =  10^3 
+stock.wt      : [ 10 52 1 1 1 1 ], units =  kg 
+m             : [ 10 52 1 1 1 1 ], units =  m 
+mat           : [ 10 52 1 1 1 1 ], units =  NA 
+harvest       : [ 10 52 1 1 1 1 ], units =  f 
+harvest.spwn  : [ 10 52 1 1 1 1 ], units =  NA 
+m.spwn        : [ 10 52 1 1 1 1 ], units =  NA 
+</div>
+<div class='input'>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">nsher</span><span class="keyword">)</span>
+<span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="symbol">nsher</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLSR&quot;
+
+Name:  
+Description:  
+Range:	 min	minyear	max	maxyear 
+	0	1960	0	2004	
+Quant: age 
+
+rec           : [ 1 45 1 1 1 1 ], units =  10^3 
+ssb           : [ 1 45 1 1 1 1 ], units =  t*10^3 
+residuals     : [ 1 45 1 1 1 1 ], units =  NA 
+fitted        : [ 1 45 1 1 1 1 ], units =  10^3 
+
+Model: 	rec ~ a * ssb * exp(-b * ssb)
+&lt;environment: 0xd26d128&gt;
+Parameters: 
+    params
+iter     a        b
+   1 119.4 0.009451
+
+Log-likelihood:  15.862(0) 
+Variance-covariance:    
+              a            b
+  a 255.3388181 1.808870e-02
+  b   0.0180887 1.992659e-06
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>summary</li><li>summary,FLArray-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>
