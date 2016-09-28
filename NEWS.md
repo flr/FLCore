@@ -66,6 +66,7 @@
 - as(data.frame, 'FLPar') transposed objects without need
 - [<- FLlst now respects names when list elements are added
 - rbind(FLPar) should work better now
+- predictModel@model slot now has by default an emptyenv()
 
 ## UTILITIES
 
