@@ -1,5 +1,5 @@
 .travis.yml
-gh-pages/
+docs/
 man-roxygen/
 Makefile
 .git/
