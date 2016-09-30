@@ -373,6 +373,9 @@ diag(uomTable['/',uoms,uoms]) <- 'NA'
 # NA /*+- NA = NA
 uomTable[,'NA', 'NA'] <- 'NA'
 
+# t / kg = 1000
+uomTable['/','t','kg'] <- '1000'
+
 # kg * 1000 = t
 uomTable['*', 'kg', c('1000', '1e3', '10^3')] <- 't'
 uomTable['*', c('1000', '1e3', '10^3'), 'kg'] <- 't'
