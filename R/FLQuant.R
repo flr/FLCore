@@ -626,9 +626,23 @@ setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x,c(1,2,3,5,6), function(x, NA.RM=na.rm){
-    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
-  }))
+ 
+  # output, 1 season
+  res <- x[,,,1]
+  dimnames(res)$season <- "all"
+  
+  # DROP dimnames
+  dimnames(x) <- NULL
+  # PERMUTATE to season first
+  x <- aperm(x, c(4,1,2,3,5,6))
+
+  # SUM across dim 1
+  res[] <- colSums(x, dims=1, na.rm=TRUE)
+
+  idx <- colSums(is.na(x), dims=1) == dim(x)[1]
+  res[idx] <- NA
+
+  return(res)
 })
 
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
