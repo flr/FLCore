@@ -205,6 +205,7 @@ exportMethods(
   "desc<-",
   "details",
   "details<-",
+  "dim",
   "dimnames<-",
   "dims",
   "dimMeans",

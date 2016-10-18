@@ -15,6 +15,7 @@
 - New catch.sel method for FLStock, computed as proportion across ages of harvest
 - predictMosdel class for use in FLBiol
 - A set of aliases for the class creators is now available. Should be used only when working interactively.
+- Added dim method to FLQuant and FLStock, ensures an unnamed vector is returned
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
@@ -41,6 +42,7 @@
 - mean.lifespan renamed as meanLifespan to avoid S3 conflict
 - uom() returns kg for 1 * kg
 - expand() now stops if new dimnames do not contain old ones and these were of length greater than 1
+- seasonSums is now based on colSums and aperm, 75 times faster
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
