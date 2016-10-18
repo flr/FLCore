@@ -891,12 +891,12 @@ setMethod('combine', signature(x='FLStock', y='FLStock'),
     if(!all.equal(dimnames(m(x))[1:5], dimnames(m(y))[1:5]))
       warning("dimnames of x and y differ")
 
-    itx <- dx[!idi]
-    ity <- dy[!idi]
+    itx <- dim(x)[6]
+    ity <- dim(y)[6]
 
     res <- propagate(x[,,,,,1], sum(itx + ity))
 
-		res[,,,,,2:itx] <- x
+		res[,,,,,1:itx] <- x
 		res[,,,,,(itx+1):(itx+ity)] <- y
     return(res)
   }
@@ -930,5 +930,12 @@ setMethod("sr", signature(object="FLStock"),
 setMethod("catch.sel", signature(object="FLStock"),
   function(object) {
     return(harvest(object) %/% apply(harvest(object), 2:6, max))
+  }
+) # }}}
+
+# dim {{{
+setMethod("dim", signature(x="FLStock"),
+  function(x) {
+    return(dim(x@m))
   }
 ) # }}}
