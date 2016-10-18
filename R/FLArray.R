@@ -776,3 +776,10 @@ setMethod("median", signature(x="FLArray"),
     return(median(c(x), na.rm=na.rm))
   }
 )   # }}}
+
+# dim
+setMethod("dim", signature(x="FLArray"),
+  function(x) {
+    return(unname(dim(x@.Data)))
+  }
+)
