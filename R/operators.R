@@ -84,11 +84,7 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
     dni[di > de1] <- dimnames(e2)[di > de1]
 
 		# units
-		if(identical(units(e1), units(e2))) {
-			units <- units(e1)
-		} else {
-			units <- uom('/', units(e1), units(e2))
-		}
+		units <- uom('/', units(e1), units(e2))
     
 		return(FLQuant(re1 / re2, dimnames=dni, units=units))
   }
@@ -479,7 +475,12 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLPar"),
     re2 <- array(e2@.Data, dim=di)
 
     # expansion done in %/%(FLQuant, FLQuant)
-    return(e1 %/% FLQuant(re2))
+    res <- e1 %/% FLQuant(re2)
+		
+    # units
+    units(res) <- uom('/', units(e1), units(e2))
+
+    return(res)
   }
 ) # }}}
 

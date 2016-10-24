@@ -152,9 +152,12 @@ setMethod('[', signature(x='FLPar'),
 			if(drop) {
 				return(do.call('[', c(list(x=x@.Data), dx, list(drop=TRUE))))
 			}
-    res <- new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=FALSE))),
-      units=units(x)[i])
-    
+    res <- new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=FALSE))))
+    if(!missing(i))
+      units(res) <- units(x)[ifelse(is.numeric(i), i, match(i, dimnames(x)$params))]
+    else
+      units(res) <- units(x)
+
     # Add attributes not in standard object   
     if(length(attrs) > 0) {
       for(i in names(attrs)) {
