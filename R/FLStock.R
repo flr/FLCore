@@ -877,19 +877,21 @@ setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
 
 # combine {{{
 setMethod('combine', signature(x='FLStock', y='FLStock'),
-  function(x, y) {
+  function(x, y, check=FALSE) {
 
-    dx <- dims(x)
-	  dy <- dims(y)
-		idi <- names(dx)!="iter"
+    if(check) {
+      dx <- dims(x)
+	    dy <- dims(y)
+		  idi <- names(dx)!="iter"
 
-    # COMPARE dims(x)[-'iter')]
-    if(!all.equal(dx[idi], dy[idi]))
-      stop("Object dimensions must match")
+      # COMPARE dims(x)[-'iter')]
+      if(!all.equal(dx[idi], dy[idi]))
+        stop("Object dimensions must match")
 
-    #
-    if(!all.equal(dimnames(m(x))[1:5], dimnames(m(y))[1:5]))
-      warning("dimnames of x and y differ")
+      #
+      if(!all.equal(dimnames(m(x))[1:5], dimnames(m(y))[1:5]))
+        warning("dimnames of x and y differ")
+    }
 
     itx <- dim(x)[6]
     ity <- dim(y)[6]
