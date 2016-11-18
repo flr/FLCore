@@ -171,14 +171,14 @@ uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
 #' FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
 
 uom <- function(op, u1, u2) {
-
-	u <- c(u1, u2)
 	
-	# max length of string, max(nchar(FLCore:::uoms))
+  u <- sprintf("%s", c(u1, u2))
+	
+  # max length of string, max(nchar(FLCore:::uoms))
 	if(any(nchar(u) > 10))
 		return(sprintf("%s %s %s", u1, op, u2))
 
-	# ""
+	# FIND empty strings
 	if(!all(nzchar(u)))
 		return(sprintf("%s %s %s", u1, op, u2))
 	
