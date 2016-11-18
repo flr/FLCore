@@ -69,6 +69,7 @@
 - [<- FLlst now respects names when list elements are added
 - rbind(FLPar) should work better now
 - predictModel@model slot now has by default an emptyenv()
+- uom is now safer to non-strings by using sprintf() for conversion
 
 ## UTILITIES
 
