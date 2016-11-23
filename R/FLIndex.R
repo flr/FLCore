@@ -18,7 +18,7 @@ setMethod('FLIndex', signature(object='FLQuant'),
     object[] <- NA
 		units(object) <- 'NA'
     qobject <- quantSums(object)
-
+    
     dims <- dims(object)
 
     res <- new("FLIndex",
@@ -43,9 +43,8 @@ setMethod('FLIndex', signature(object='missing'),
     args <- list(...)
 
     # if no FLQuant argument given, then use empty FLQuant
-    slots <- lapply(args, class)
-    slots <- names(slots)[slots == 'FLQuant']
-    if(length(slots) == 0)
+    slots <- unlist(lapply(args, is, 'FLQuant'))
+    if(!any(slots))
       object <- FLQuant()
     else
     {
