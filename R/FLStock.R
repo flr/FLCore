@@ -7,11 +7,12 @@
 
 # FLStock()   {{{
 setMethod('FLStock', signature(object='FLQuant'),
-  function(object, plusgroup=dims(object)$max, ...)
-  {
+  function(object, plusgroup=dims(object)$max, ...) {
+
     args <- list(...)
 
     # empty object
+    object <- FLQuant(object)
     object[] <- NA
     units(object) <- 'NA'
     qobject <- quantSums(object)
@@ -46,18 +47,21 @@ setMethod('FLStock', signature(object='missing'),
     args <- list(...)
 
     # if no FLQuant argument given, then use empty FLQuant
-    argNms<- lapply(args, class)
-    slots <- names(argNms)[argNms == 'FLQuant']
 
-    flqs  <- names(argNms)[argNms == 'FLQuants']
-    if(length(flqs) != 0)
+    slots <- unlist(lapply(args, is, 'FLQuant'))
+    slots <- names(slots)[slots]
+    
+    flqs <- unlist(lapply(args, is, 'FLQuants'))
+    flqs <- names(flqs)[flqs]
+
+    if(length(flqs) != 0) {
        for (i in args[[flqs]])
           for (j in names(i))
              object <- i[[j]]
-
-    if(length(slots) == 0)
+    }
+    if(length(slots) == 0) {
       object <- FLQuant()
-    else{
+    } else{
       qslots <- slots[!slots %in% c('catch','stock','landings','discards')]
       if(length(qslots) > 0)
         object <- args[[qslots[1]]]
