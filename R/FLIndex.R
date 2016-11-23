@@ -2,8 +2,7 @@
 # FLCore/R/FLIndex.R
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: FLIndex.R 1778 2012-11-23 08:43:57Z imosqueira $
+# Maintainer: Iago Mosqueira, EC JRC D02
 
 ## Accesors {{{
 invisible(createFLAccesors("FLIndex", exclude=c('name', 'desc', 'range', 'effort'))) # }}}
@@ -44,7 +43,8 @@ setMethod('FLIndex', signature(object='missing'),
 
     # if no FLQuant argument given, then use empty FLQuant
     slots <- unlist(lapply(args, is, 'FLQuant'))
-    if(!any(slots))
+    slots <- names(slots)[slots]
+    if(length(slots) == 0)
       object <- FLQuant()
     else
     {
