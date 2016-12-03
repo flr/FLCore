@@ -1291,6 +1291,13 @@ setMethod("tsp", signature(x="FLQuant"),
   }
 ) # }}}
 
+# $ {{{
+setMethod("$", signature(x="FLQuant"),           
+  function(x, name) {
+    return(x[name,])
+  }
+) # }}}
+
 # NOT EXPORTED
 # filldimnames       {{{
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {
