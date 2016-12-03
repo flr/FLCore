@@ -267,72 +267,65 @@ setMethod('summary', signature(object='FLlst'),
 
 # plot(FLStocks) {{{
 setMethod('plot', signature(x='FLStocks', y='missing'),
-	function(x, key=list(lines=TRUE, points=FALSE), ...)
-	{
-		foo <- function(x) {
-	  	if(units(harvest(x)) == 'f')
-				har <- fbar(x)
-			else
-				har <- quantSums(harvest(x))
+    function(x, ...){
+        foo <- function(x) {
+        if(units(harvest(x)) == 'f')
+            har <- fbar(x)
+        else
+            har <- quantSums(harvest(x))
+          return(as.data.frame(FLQuants(catch=catch(x), ssb=ssb(x), rec=rec(x), harvest=har)))
+        }
+    dfs <- lapply(x, foo)
+    args <- list(...)
 
-	  	return(as.data.frame(FLQuants(catch=catch(x), ssb=ssb(x),
-				rec=rec(x),harvest=har)))
-		}
+    # element names
+    names <- names(x)
+    names[names == ""]  <- seq(length(dfs))[names == ""]
+    for(i in seq(length(dfs))) dfs[[i]] <- cbind(dfs[[i]], stock=names[i])
+    dfs <- Reduce(rbind, dfs)
 
-	dfs <- lapply(x, foo)
+    # to set up ylims later, if needed
+    yl <- with(dfs, tapply(data, qname, max, na.rm=TRUE))*1.2
 
-  # element names
-  names <- names(x)
-	names[names == ""]  <- seq(length(dfs))[names == ""]
+    # default options
+    options <- list(ylab="", xlab="", scales=list(y=list(relation="free")))
+    options$par.settings=list(
+        superpose.line=list(col=rainbow(length(x)), lwd=2),
+        superpose.symbol=list(col=rainbow(length(x)), pch=19, cex=0.6),
+        strip.background=list(col="gray85")
+    )
+    options$data <- dfs
 
-	for(i in seq(length(dfs)))
-		dfs[[i]] <- cbind(dfs[[i]], stock=names[i])
-
-	dfs <- Reduce(rbind, dfs)
-
-  # default options
-  options <- list(scales=list(y=list(relation='free')), ylab="",
-		xlab="", par.settings=list(superpose.line=list(col=rainbow(length(x)), lwd=2),
-		superpose.symbol=list(col=rainbow(length(x)), pch=19, cex=0.6),
-		strip.background=list(col="gray85")), cex=0.6)
-
-  args <- list(...)
-  options[names(args)] <- args
-
-  # key
-  if(key == TRUE)
-    options$auto.key <- list(points=FALSE, lines=TRUE, space="right")
-  else if (!missing(key) && is(key, 'list'))
-    options$key <- key
-
-  if(length(levels(dfs$iter)) == 1)
-    do.call(xyplot, c(options, list(x=data~year|qname, data=dfs, groups=expression(stock),
-      panel=function(x, y, groups, subscripts, ...)
-      {
-        panel.xyplot(x, y, type=c('g','l'), groups=groups, subscripts=subscripts, ...)
-        idx <- x==max(x)
-        panel.xyplot(x[idx], y[idx], type='p', groups=groups,
-          subscripts=subscripts[idx], ...)
-      })))
-  else
-  {
-  do.call(xyplot, c(options, list(x=data~year|qname, data=dfs, groups=expression(stock),
-      panel=panel.superpose, panel.groups=function(x, y, group.number, ...)
-      {
-        # median
-        do.call(panel.xyplot, c(list(unique(x), tapply(y, list(x), median, na.rm=TRUE),
-          col=options$col[group.number]), type=c('g','l'), lwd=2))
-        # lowq
-        do.call(panel.xyplot, c(list(unique(x), tapply(y, list(x), quantile, 0.05,
-          na.rm=TRUE), col=options$col[group.number]), type='l', lty=2, lwd=1, alpha=0.5))
-        # uppq
-        do.call(panel.xyplot, c(list(unique(x), tapply(y, list(x), quantile, 0.95,
-          na.rm=TRUE), col=options$col[group.number]), type='l', lty=2, lwd=1, alpha=0.5))
-      })))
-
-  }
-     }
-) # }}}
+    if(length(levels(dfs$iter)) == 1){
+        options$panel <- function(x, y, groups, subscripts, ...){
+            panel.xyplot(x, y, type=c('g','l'), groups=groups, subscripts=subscripts, ...)
+            idx <- x==max(x)
+            panel.xyplot(x[idx], y[idx], type='p', groups=groups, subscripts=subscripts[idx], ...)
+        }
+        options$x <- data~year|qname
+        options$groups <- expression(stock)
+        # key
+        options[names(args)] <- args
+        if(isTRUE(options$auto.key)) options$auto.key <- list(points=FALSE, lines=TRUE, space="right")
+        do.call("xyplot", options)
+    } else {
+        options$panel <- function(x, y, subscripts, iter=dfs$iter, ...){
+            panel.polygon(x=c(unique(x), rev(unique(x))), y=c(tapply(y, x, quantile, 0.95, na.rm=TRUE), rev(tapply(y, x, quantile, 0.05, na.rm=TRUE))), col="gray75", border="gray75")
+            panel.xyplot(unique(x), tapply(y, x, median, na.rm=TRUE), type= 'l', col=1, ...)
+        }
+        options$prepanel <- function(x, y, subscripts, ...){
+            lst <- prepanel.default.xyplot(x,y)
+            lst$ylim <- c(0,1.1*max(dfs[dfs$qname==dfs[subscripts[1],"qname"],"data"]))
+            lst
+        }
+        options$x <- data~year|stock*qname
+        options$key <- simpleKey(c("median", "90% CI"), points=FALSE, lines=TRUE, space="right")
+        options$key$lines$col <- c("black", "gray75")
+        options$layout <- c(length(x),4)
+        args[names(options)] <- options
+        if(is(latticeExtra::useOuterStrips, "function")) latticeExtra::useOuterStrips(do.call("xyplot", args)) else do.call("xyplot", args)
+    }
+}) # }}}
 
 # range {{{
 setMethod("range", "FLlst",
