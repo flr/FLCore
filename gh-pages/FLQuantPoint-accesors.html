@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLQuantPoint-accesors. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method lowq</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>These are the accesor and replacement methods for the various elements stored in an 
+  <code>FLQuantPoint</code> object along the sixth dimension.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>lowq(x) 
+ lowq<-(x,value) 
+ mean(x) 
+ mean<-(x,value) 
+ median(x,na.rm) 
+ median<-(x,value) 
+ uppq(x) 
+ uppq<-(x,value) 
+ var(x,y,na.rm,use) 
+ var<-(x,value)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt>signature(x=FLQuantPoint) :</dt><dd>Returns the given <em>iter</em></dd></p>
+  
+      <p><dt>signature(x=FLQuantPoint, value=FLQuant) :</dt><dd>Replaces the given <em>iter</em> with the 
+  <em>value</em> FLQuant</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(2000), dim=c(10,20,1,1,1,200))
+flqp &lt;- FLQuantPoint(flq)
+mean(flqp)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1           2           3           4           5           6           7          
+   1   0.14298538 -0.12432861 -0.55643877 -0.27775155 -0.39368822 -0.11825263  0.69472447
+   2  -0.02105982 -0.86772550  0.09283533 -0.19661992 -0.01839872 -0.13928318  0.43100262
+   3  -0.08085341 -0.49051261  0.52809603 -0.35278403  0.36000862  0.07848478 -0.01330982
+   4  -0.76154726  0.40216644  0.07461114 -0.31718584  0.03614786 -0.11814863  0.34126972
+   5  -0.39369318 -0.36703102  0.29868665  0.02127400  0.29602188  0.66183956  0.13908774
+   6  -0.31596806  0.01852360  0.24585411  0.28456620  0.25696701  0.33086149  0.58596965
+   7  -0.13493131  0.63746588 -0.51191558 -0.24073373  0.03192404 -0.45711171  0.12310605
+   8   0.02200015  0.31749324  0.31204751 -0.09488184  0.33320929 -0.00981098  0.38933936
+   9   0.44403756  0.50634075 -0.35607199  0.39830575  0.22721508 -0.08372155 -0.43980144
+   10 -0.56113033 -0.07378096 -0.34705629 -0.31124155 -0.19006178  0.42978903  0.33916539
+     year
+quant 8           9           10          11          12          13          14         
+   1  -0.53928528 -0.15542071 -0.04770511 -0.35410349  0.01400597 -0.02621581  0.02095557
+   2  -0.07363129 -0.37589718  0.38985378  0.24203730 -0.06956616  0.44203143  0.77762643
+   3   0.15565976 -0.00083347 -0.34881188  0.56752211  0.10718931 -0.00336686 -0.11880595
+   4  -0.29178549  0.17396931  0.09327019  0.54874281  0.01593520 -0.05354587  0.15505631
+   5  -0.20415734 -0.25468010 -0.53268451  0.22971920 -0.27909219  0.47455287 -0.21612630
+   6  -0.04464896 -0.01152466 -0.30552116 -0.23204491  0.09077603  0.34137273  0.07537484
+   7  -0.26829084 -0.28175923 -0.09549469 -0.07268864  0.04157062 -0.11859564  0.80204961
+   8   0.72718662  0.78559097 -0.08845434 -0.24167647 -0.27033456  0.01329654  0.38559069
+   9   0.54982964 -0.48832615 -0.49415627 -0.03488972 -0.08870807  0.23017012 -0.16979255
+   10 -0.20137506  0.40844021 -0.26138598  0.14378108 -0.21616483  0.09949133 -0.33294555
+     year
+quant 15          16          17          18          19          20         
+   1  -0.13985473 -0.51643503 -0.55856867 -0.09356659  0.19747865  0.01446347
+   2   0.38892513  0.10617976  0.37511837 -0.17346884 -0.29479813  0.18424757
+   3  -0.17390462 -0.32365802  0.00035347  0.34395706 -0.16820773 -0.01572790
+   4   0.09362811  0.66309709  0.20807073 -0.18394405 -0.28237503 -0.02984770
+   5   0.09992673 -0.31633974  0.51661675 -0.72646810 -0.08096364  0.41193728
+   6   0.24147575 -0.51800320 -0.30072348  0.48845140  0.14763188  0.01084027
+   7   0.25980047 -0.31270835 -0.06322164  1.05502373  0.29919120 -0.20390435
+   8  -0.15560667 -0.07958686 -0.29191010 -0.79048385 -0.55017553 -0.43857245
+   9  -0.09468369  0.07434171 -0.31407807 -0.12409820 -0.18591462 -0.23766525
+   10  0.31022426 -0.21292043  0.12621335  0.01941293 -0.18444060 -0.25965368
+
+units:  NA 
+</div>
+<div class='input'>mean(flqp) &lt;- FLQuant(rnorm(200, 10, 3), dim=c(10,20))
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLQuantPoint-accesors</li><li>lowq</li><li>lowq-methods</li><li>lowq,FLQuantPoint-method</li><li>lowq&lt;-</li><li>lowq&lt;--methods</li><li>lowq&lt;-,FLQuantPoint-method</li><li>mean,FLQuantPoint-method</li><li>mean&lt;-</li><li>mean&lt;--methods</li><li>mean&lt;-,FLQuantPoint-method</li><li>median,FLQuantPoint,missing-method</li><li>median,FLQuantPoint-method</li><li>median&lt;-</li><li>median&lt;--methods</li><li>median&lt;-,FLQuantPoint-method</li><li>uppq</li><li>uppq-methods</li><li>uppq,FLQuantPoint-method</li><li>uppq&lt;-</li><li>uppq&lt;--methods</li><li>uppq&lt;-,FLQuantPoint-method</li><li>var,FLQuantPoint-method</li><li>var,FLQuantPoint,missing,missing,missing-method</li><li>var&lt;-</li><li>var&lt;--methods</li><li>var&lt;-,FLQuantPoint-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='FLComp.html'>FLComp</a> 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

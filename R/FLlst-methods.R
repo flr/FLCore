@@ -318,10 +318,20 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
             lst$ylim <- c(0,1.1*max(dfs[dfs$qname==dfs[subscripts[1],"qname"],"data"]))
             lst
         }
+#        options$axis <- function(side, ...) { browser()
+#			if(side %in% c("left", "right")) {
+#		    	if (panel.number() %% 2 == which(c("right","left")==side)-1) {
+#		        	panel.axis(side = side, outside =TRUE)
+#		    	}
+#			} else {
+#        		axis.default(side = side, ...)
+#    		}
+#		}
         options$x <- data~year|stock*qname
-        options$key <- simpleKey(c("median", "90% CI"), points=FALSE, lines=TRUE, space="right")
+        options$key <- simpleKey(c("median", "90% CI"), points=FALSE, lines=TRUE, space="top", columns=2)
         options$key$lines$col <- c("black", "gray75")
         options$layout <- c(length(x),4)
+	    options$scales <- list(y=list(relation="free", alternating=2))
         args[names(options)] <- options
         if(is(latticeExtra::useOuterStrips, "function")) latticeExtra::useOuterStrips(do.call("xyplot", args)) else do.call("xyplot", args)
     }

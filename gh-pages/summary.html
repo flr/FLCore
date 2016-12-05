@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>summary. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method summary</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Outputs a general summary of the structure and content of the object. The particular
+  output obtined depends on the class of the argument object.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>summary(object)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt> signature(object=FLQuant) :</dt><dd>Returns dimensions, quant, units and distribution of data, including percentage of NAs</dd></p>
+  
+      <p><dt> signature(object=FLQuantPoint) :</dt><dd>Returns dimensions, quant, units and distribution of data</dd></p>
+  
+      <p><dt> signature(object=FLComp) :</dt><dd>Outputs name, desc, quant and dimensions of each slot</dd></p>
+  
+      <p><dt> signature(object=FLQuants) :</dt><dd>Returns dimensions, quant, units and distribution of data, including percentage of NAs for each element in the list</dd></p>
+  
+      <p><dt> signature(object=FLPar) :</dt><dd>Returns the values stored, or tehir basic statistics</dd></p>
+  
+      <p><dt> signature(object=FLModel) :</dt><dd>Returns the name, desc and content of model-related slots</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+summary(ple4)
+</div>
+<div class='output'>An object of class &quot;FLStock&quot;
+
+Name: Plaice in IV 
+Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+	1	10	10	1957	2008	2	6	
+Quant: age 
+
+catch         : [ 1 52 1 1 1 1 ], units =  t 
+catch.n       : [ 10 52 1 1 1 1 ], units =  10^3 
+catch.wt      : [ 10 52 1 1 1 1 ], units =  kg 
+discards      : [ 1 52 1 1 1 1 ], units =  t 
+discards.n    : [ 10 52 1 1 1 1 ], units =  10^3 
+discards.wt   : [ 10 52 1 1 1 1 ], units =  kg 
+landings      : [ 1 52 1 1 1 1 ], units =  t 
+landings.n    : [ 10 52 1 1 1 1 ], units =  10^3 
+landings.wt   : [ 10 52 1 1 1 1 ], units =  kg 
+stock         : [ 1 52 1 1 1 1 ], units =  t 
+stock.n       : [ 10 52 1 1 1 1 ], units =  10^3 
+stock.wt      : [ 10 52 1 1 1 1 ], units =  kg 
+m             : [ 10 52 1 1 1 1 ], units =  m 
+mat           : [ 10 52 1 1 1 1 ], units =  NA 
+harvest       : [ 10 52 1 1 1 1 ], units =  f 
+harvest.spwn  : [ 10 52 1 1 1 1 ], units =  NA 
+m.spwn        : [ 10 52 1 1 1 1 ], units =  NA 
+</div>
+<div class='input'>
+data(nsher)
+summary(nsher)
+</div>
+<div class='output'>An object of class &quot;FLSR&quot;
+
+Name:  
+Description:  
+Range:	 min	minyear	max	maxyear 
+	0	1960	0	2004	
+Quant: age 
+
+rec           : [ 1 45 1 1 1 1 ], units =  10^3 
+ssb           : [ 1 45 1 1 1 1 ], units =  t*10^3 
+residuals     : [ 1 45 1 1 1 1 ], units =  NA 
+fitted        : [ 1 45 1 1 1 1 ], units =  10^3 
+
+Model: 	rec ~ a * ssb * exp(-b * ssb)
+&lt;environment: 0x8e97140&gt;
+Parameters: 
+    params
+iter     a        b
+   1 119.4 0.009451
+
+Log-likelihood:  15.862(0) 
+Variance-covariance:    
+            a         b
+  a 255.33882 1.809e-02
+  b   0.01809 1.993e-06
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>summary,FLQuant-method</li><li>summary,FLQuantPoint-method</li><li>summary,FLComp-method</li><li>summary,FLQuants-method</li><li>summary,FLPar-method</li><li>summary,FLModel-method</li><li>summary,FLArray-method</li><li>summary,FLlst-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <a href='http://www.inside-r.org/r-doc/base/summary'>summary</a>
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

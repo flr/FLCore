@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>iter. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Select or modify iterations of an FLR object</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>To extract or modify a subset of the iterations contained in an FLR object, the 
+  <code>iter</code> and <code>iter<-</code> methods can be used.</p>
+  
+      <p>In complex with various <code>FLQuant</code> slots, the <code>iter</code> method checks whether
+  individual slots contain more than one iteration, i.e. <code>dims(object)[6] > 1</code>. If
+  a particular slot contains a single iteration, that is returned, otherwise the chosen
+  one is selected. This is in contrast with the subset operator <code>[</code>, which does not
+  carry out this check.</p>
+  
+      <p>For objects of class <code><a href='FLModel-class.html'>FLModel</a></code>, iters are extracted for slots of classes
+  <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>iter(object) 
+ iter<-(object,value)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt> signature(object=FLQuant) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(object=FLComp) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(object=FLQuants) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(object=FLPar) :</dt><dd>Describe method</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(800), dim=c(4,10,2), iter=10)
+iter(flq, 2)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = 1, season = all, area = unique
+
+     year
+quant 1         2         3         4         5         6         7         8        
+    1  0.956698  0.889348  1.479543  1.170625  0.405015 -0.426407  0.842865  0.568660
+    2 -1.749690 -0.725349 -0.008280  0.621710  2.542159 -2.545598 -0.237642  0.285535
+    3 -2.403947 -0.149914 -2.650419  0.045391 -0.214800 -0.538596  0.544076  1.437226
+    4 -0.481200 -1.686535 -0.361844 -0.168777  0.949952  0.629202  0.785832  1.474768
+     year
+quant 9         10       
+    1 -0.834402 -1.120318
+    2 -0.183535  2.706575
+    3 -0.194400 -0.730648
+    4  0.057721  0.134341
+
+, , unit = 2, season = all, area = unique
+
+     year
+quant 1         2         3         4         5         6         7         8        
+    1  0.944796  0.593174 -0.252256 -0.035527  1.033255  1.611057  0.308069  0.021862
+    2 -1.009372 -0.887707 -1.472206  1.200627 -2.302231 -0.035955  0.111957 -0.963740
+    3 -1.082614 -0.307524  1.891439 -1.293501 -0.217875 -1.721278 -1.327765  1.605239
+    4  0.086551 -0.049081  0.700487 -1.169637 -0.724480  0.526454  1.135352  0.301470
+     year
+quant 9         10       
+    1 -0.860789  0.847628
+    2  0.266047 -1.076462
+    3  1.583540 -0.611293
+    4 -0.776801 -1.071697
+
+units:  NA 
+</div>
+<div class='input'>
+fls &lt;- FLStock(catch.n=flq, m=FLQuant(0.2, dim=c(4,10,2)))
+fls2 &lt;- iter(fls, 2)
+summary(fls2)
+</div>
+<div class='output'>An object of class &quot;FLStock&quot;
+
+Name:  
+Description:  
+Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+	1	4	4	1	10	1	4	
+Quant: quant 
+
+catch         : [ 1 10 2 1 1 1 ], units =  NA 
+catch.n       : [ 4 10 2 1 1 1 ], units =  NA 
+catch.wt      : [ 4 10 2 1 1 1 ], units =  NA 
+discards      : [ 1 10 2 1 1 1 ], units =  NA 
+discards.n    : [ 4 10 2 1 1 1 ], units =  NA 
+discards.wt   : [ 4 10 2 1 1 1 ], units =  NA 
+landings      : [ 1 10 2 1 1 1 ], units =  NA 
+landings.n    : [ 4 10 2 1 1 1 ], units =  NA 
+landings.wt   : [ 4 10 2 1 1 1 ], units =  NA 
+stock         : [ 1 10 2 1 1 1 ], units =  NA 
+stock.n       : [ 4 10 2 1 1 1 ], units =  NA 
+stock.wt      : [ 4 10 2 1 1 1 ], units =  NA 
+m             : [ 4 10 2 1 1 1 ], units =  NA 
+mat           : [ 4 10 2 1 1 1 ], units =  prop 
+harvest       : [ 4 10 2 1 1 1 ], units =  NA 
+harvest.spwn  : [ 4 10 2 1 1 1 ], units =  prop 
+m.spwn        : [ 4 10 2 1 1 1 ], units =  prop 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>iter</li><li>iter-methods</li><li>iter,FLQuant,ANY-method</li><li>iter,FLArray-method</li><li>iter,vector-method</li><li>iter,FLComp-method</li><li>iter,FLModel-method</li><li>iter,FLQuants-method</li><li>iter,FLPar-method</li><li>iter,logLik-method</li><li>iter&lt;-</li><li>iter&lt;--methods</li><li>iter&lt;-,FLQuant,FLQuant-method</li><li>iter&lt;-,FLCohort,FLCohort-method</li><li>iter&lt;-,FLComp,FLComp-method</li><li>iter&lt;-,FLPar,FLPar-method</li><li>iter&lt;-,FLPar,numeric-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     FLComp, FLQuant 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

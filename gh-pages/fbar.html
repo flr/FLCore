@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>fbar. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Calculates mean harvest rate or fishing mortality</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>fbar(object, ...)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>object</dt>
+      <dd>An FLStock or FLBiol object</dd>
+      <dt>...</dt>
+      <dd>Any extra arguments, currently unused</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>The mean harvest rate of fishing mortality</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The average fishing mortality for the years between <em>minfbar</em> and <em>maxfbar</em>,
+  as found in the <code>range</code> slot, is returned.</p>
+  
+    </div>
+
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+An object of class <code>FLQuant</code>
+</dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+fbar(ple4)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+age   1957    1958    1959    1960    1961    1962    1963    1964    1965    1966   
+  all 0.26857 0.32106 0.36734 0.36796 0.34756 0.39012 0.42276 0.46878 0.38796 0.39896
+     year
+age   1967    1968    1969    1970    1971    1972    1973    1974    1975    1976   
+  all 0.42923 0.33621 0.34457 0.47965 0.38206 0.41158 0.46551 0.49072 0.56113 0.41641
+     year
+age   1977    1978    1979    1980    1981    1982    1983    1984    1985    1986   
+  all 0.51007 0.46862 0.67312 0.55555 0.53705 0.59912 0.58934 0.58159 0.52695 0.65386
+     year
+age   1987    1988    1989    1990    1991    1992    1993    1994    1995    1996   
+  all 0.69596 0.67530 0.61895 0.59361 0.71195 0.69443 0.64752 0.63741 0.67444 0.72301
+     year
+age   1997    1998    1999    2000    2001    2002    2003    2004    2005    2006   
+  all 0.87588 0.84233 0.77264 0.55795 0.87567 0.69763 0.76597 0.64015 0.62343 0.54764
+     year
+age   2007    2008   
+  all 0.46392 0.35631
+
+units:  f 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>fbar</li><li>fbar-methods</li><li>fbar,FLStock-method</li><li>fbar,FLBiol-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    
+    <h2>Author</h2>
+    FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

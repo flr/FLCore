@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>quantile. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method quantile</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Quantiles for <code>FLQuant</code> objects can be obtained with this method. 
+  Default quantiles returned are <code>seq(0, 1, 0.25)</code>, but they can be specified using
+  the <code>probs</code> argument. The returned <code>FLQuant</code> object uses the 
+  sixth dimension (<em>iter</em>) to store the requested quantiles, with appropriate 
+  dimnames.</p>
+  
+      <p>For objects of class <code>FLQuantPoint</code>, quantile is merely an accessor
+  for two elements of the sixth dimension, <code>lowq</code> and <code>uppq</code>. You could 
+  use the <code><a href='FLQuantPoint-accesors.html'>lowq</a></code> and <code><a href='FLQuantPoint-accesors.html'>uppq</a></code> methods instead.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>quantile(x, ...)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt> signature(x=FLQuant) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(x=FLQuantPoint) :</dt><dd>Describe method</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'># Normally distributed FLQuant, with log-normal random mean and fixed sd of 20
+flq &lt;- rnorm(100, FLQuant(rlnorm(20), dim=c(2,10)), 20)
+
+# obtains all standard quantiles (0, 0.25, 0.5, 0.75 and 1)
+quantile(flq)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+iters:  5 
+
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1              2              3              4              5             
+    1 -1.88949(26.4)  0.37329(27.6) 11.35774(24.6) -2.09494(19.2)  2.35221(22.2)
+    2  0.52801(23.2)  2.57583(23.8)  1.94339(23.2)  1.23131(20.0)  1.70318(22.4)
+     year
+quant 6              7              8              9              10            
+    1  4.62082(24.7)  0.50753(21.9) -1.77140(21.0) -2.24263(20.8)  1.95315(17.9)
+    2  4.33945(21.6) -2.66094(22.0)  1.16856(18.3)  4.12289(21.3) -2.55129(21.9)
+
+units:  NA 
+</div>
+<div class='input'># select one of them
+quantile(flq)[,,,,,1]
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1       2       3       4       5       6       7       8       9       10     
+    1 -49.612 -56.462 -31.681 -52.795 -62.978 -54.282 -59.076 -40.488 -60.497 -39.311
+    2 -57.212 -43.391 -64.382 -43.904 -61.944 -40.651 -50.214 -53.711 -43.185 -47.929
+
+units:  NA 
+</div>
+<div class='input'># calculates the 0.05 quantile only
+quantile(flq, 0.05)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1       2       3       4       5       6       7       8       9       10     
+    1 -25.940 -37.181 -14.673 -26.301 -39.740 -34.165 -33.583 -30.105 -30.542 -27.934
+    2 -28.687 -28.624 -33.380 -29.813 -27.809 -32.891 -37.870 -31.524 -29.463 -29.194
+
+units:  NA 
+</div>
+<div class='input'>
+# creates an FLQuantPoint from previous FLQuant
+flp &lt;- FLQuantPoint(flq)
+# return each of the two quantiles (025 and 0.75)
+quantile(flp, 0.25)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1        2        3        4        5        6        7        8        9       
+    1 -13.5009 -18.2091  -2.3836 -14.4014 -12.6411 -10.3560 -12.8131 -14.3071 -14.4981
+    2 -15.1354 -12.5567 -13.6844 -12.0050 -13.4048 -10.2078 -14.0469 -10.7628 -10.2449
+     year
+quant 10      
+    1  -8.8156
+    2 -12.7849
+
+units:  NA 
+</div>
+<div class='input'>quantile(flp, 0.75)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1      2      3      4      5      6      7      8      9      10    
+    1 15.906 13.096 27.926 10.887 13.165 21.251 15.302 12.414 11.779 14.039
+    2 12.053 18.603 15.914 14.724 11.537 17.763 12.172 13.521 16.763 12.194
+
+units:  NA 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>quantile,FLQuant-method</li><li>quantile,FLQuantPoint-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <a href='http://www.inside-r.org/r-doc/stats/quantile'>quantile</a>, FLQuant, FLQuantPoint
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>asOld. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Old S3 coercion methods</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>These methods convert or coerce an object of a given class into another class. They 
+  follow the S3 syntax for coercion methods and are being slowly substituted by 
+  <code>as()</code> (see <code><a href='http://www.inside-r.org/r-doc/methods/as'>coerce</a></code>.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p><dl>
+    <dt>as.FLBiol(object)</dt><dd>Convert to an <code>FLBiol</code></dd></p>
+  
+      <p><dt>as.FLIndex(object)</dt><dd>Convert to an <code>FLIndex</code></dd></p>
+  
+      <p><dt>as.FLSR(object)</dt><dd>Convert to an <code>FLSR</code></dd></p>
+  
+      <p><dt>as.FLQuant(x)</dt><dd>Convert to an <code>FLQuant</code></dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt> signature(object=FLBiol) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(object=FLStock) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(object=FLStock) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(object=FLBiol) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(x=array) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(x=matrix) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(x=FLQuant) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(x=vector) :</dt><dd>Describe method</dd></p>
+  
+      <p><dt> signature(x=data.frame) :</dt><dd>Describe method</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+is(ple4)
+</div>
+<div class='output'>[1] &quot;FLStock&quot; &quot;FLS&quot;     &quot;FLComp&quot; 
+</div>
+<div class='input'>is(as.FLBiol(ple4))
+</div>
+<div class='output'>[1] &quot;FLBiol&quot; &quot;FLComp&quot;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>as.FLBiol</li><li>as.FLBiol-methods</li><li>as.FLBiol,FLBiol-method</li><li>as.FLBiol,FLStock-method</li><li>as.FLIndex</li><li>as.FLIndex-methods</li><li>as.FLStock</li><li>as.FLSR</li><li>as.FLSR-methods</li><li>as.FLSR,FLStock-method</li><li>as.FLSR,FLBiol-method</li><li>as.FLQuant</li><li>as.FLQuant-methods</li><li>as.FLQuant,array-method</li><li>as.FLQuant,matrix-method</li><li>as.FLQuant,FLQuant-method</li><li>as.FLQuant,vector-method</li><li>as.FLQuant,data.frame-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='FLComp.html'>FLComp</a> 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>coerce. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Method coerce</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Coercion methods for various sets of classes are generated using the
+  <code><a href='http://www.inside-r.org/r-doc/methods/as'>coerce</a></code> function. Users should call the corresponding generated 
+  <code>as()</code> method, with arguments equal to the object to coerce and the name of the 
+  class to convert to.</p>
+  
+      <p>Coercion combinations work by transferring or transforming relevant slots from the 
+  original object and placing them in a new object of the target class. The descriptions 
+  below document how slots for each pair of classes are transfered or transformed. In all 
+  cases the <code>name</code> and <code>desc</code> slots are simply copied accross.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>coerce(from, to, strict)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt>from=FLBiol, to=FLStock:</dt><dd><code>n</code> to <code>stock.n</code>, <code>wt</code> to <code>stock.wt</code>,
+  <code>m</code> to <code>m</code>,<code>fec</code> to <code>mat</code>,<code>spwn</code> to <code>m.spwn</code></dd></p>
+  
+      <p><dt>from=FLStock, to=FLBiol:</dt><dd><code>stock.n</code> to <code>n</code>, <code>stock.wt</code> to <code>wt</code>,
+  <code>m</code> to <code>m</code>,<code>mat</code> to <code>fec</code>,<code>m.spwn</code> to <code>spwn</code></dd></p>
+  
+      <p><code>catch.wt</code>, <code>catch</code> to <code>catch</code>, <code>landings.n</code> to <code>landings.n</code>, 
+ <code>landings.wt</code> to <code>landings.wt</code>, <code>landings</code> to <code>landings</code>, 
+ <code>discards.n</code> to <code>discards.n</code>, <code>discards.wt</code> to <code>discards.wt</code>,
+ <code>discards</code> to <code>discards</code>, <code>name</code> to <code>name</code>
+<dt>from=FLQuant,to=FLCohort</dt><dd>An <code>FLCohort</code> object is created from  
+  the year-structured data in an <code>FLQuant</code>. See <code><a href='FLCohort-class.html'>FLCohort</a></code> 
+  for a description of the exact procedure.</dd></p>
+  
+      <p><dt>from=FLCohort,to=FLQuant</dt><dd>The previous calculation is reversed and an 
+  <code>FLQuant</code> is returned.</dd></p>
+  
+      <p><dt>from=FLlst,to=list</dt><dd>An standard R <code><a href='http://www.inside-r.org/r-doc/base/list'>list</a></code> object is created from an
+  <code>FLlst</code> by dropping the extra attributes.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+flb &lt;- as(ple4, &#39;FLBiol&#39;)</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>coerce,FLlst,list-method</li><li>coerce,NULL,FLStock-method</li><li>coerce,NULL,FLIndex-method</li><li>coerce,NULL,FLBiol-method</li><li>coerce,NULL,FLQuant-method</li><li>coerce,FLPar,numeric-method</li><li>coerce,FLPar,list-method</li><li>coerce,FLPar,FLQuant-method</li><li>coerce,FLQuant,FLPar-method</li><li>coerce,FLCohort,FLQuant-method</li><li>coerce,FLQuant,FLCohort-method</li><li>coerce,FLBiol,FLStock-method</li><li>coerce,FLBiol,FLIndex-method</li><li>coerce,FLStock,FLBiol-method</li><li>coerce,FLStock,FLIndex-method</li><li>coerce,FLComp,FLQuants-method</li><li>coerce,data.frame,FLComp-method</li><li>coerce,data.frame,FLQuant-method</li><li>coerce,data.frame,FLStock-method</li><li>coerce,data.frame,FLIndex-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='FLComp.html'>FLComp</a> 
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

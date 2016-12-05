@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>trim. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Trim FLR objects using named dimensions</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Subsetting of FLR objects can be carried out using the dimension names by using 
+  <code>trim</code>. A number of dimension names and selected dimensions are passed to the
+  method and those are used to subset the input object.</p>
+  
+      <p>Exceptions are made for those classes where certain slots might differ in one or
+  more dimensions. If trim is applied on an FLQuant object of length 1 in its first
+  dimension and with dimension name equal to 'all', values to trim on specified for 
+  that dimension will be ignored. For example, <code><a href='FLStock.html'>FLStock</a></code> objects
+  contain slots with length=1 on their first dimension. Specifying values to trim along
+  over the first dimension will have no effect on those slots (<code>catch</code>,  
+  <code>landings</code>, <code>discards</code>, and <code>stock</code>). Calculations might need to be 
+  carried out to recalculate those slots if their quant-structured counterparts are 
+  modified along the first dimension.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>trim(x)</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt> signature(x=FLQuant) :</dt><dd>Trims along the specified dimensions.</dd></p>
+  
+      <p><dt> signature(x=FLComp) :</dt><dd>Trims along the specified dimensions.</dd></p>
+  
+      <p><dt> signature(x=FLStock) :</dt><dd>Trims along the specified dimensions, but ignores the <em>quant</em> (first) dimension for those slots where it is always of length=1.</dd></p>
+  
+      <p><dt> signature(x=FLCohort) :</dt><dd>Trims along the specified dimensions.</dd></p>
+  
+      <p><dt> signature(x=FLIndex) :</dt><dd>Trims along the specified dimensions, but ignores the <em>quant</em> (first) dimension for thoe slots where it is of length=1.</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+
+# This is equivalent to window(catch(ple4), start=1990, end=1995)
+trim(catch(ple4), year=1990:1995)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+     year
+age   1990   1991   1992   1993   1994   1995  
+  all 228734 229607 183284 152242 134392 120316
+
+units:  t 
+</div>
+<div class='input'>
+trim(catch.n(ple4), year=1990:1995, age=1:2)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+   year
+age 1990   1991   1992   1993   1994   1995  
+  1 146864 184587 142165  99832  63516 126614
+  2 311831 344841 263573 208032 140851 119251
+
+units:  10^3 
+</div>
+<div class='input'>
+# Now on an FLStock
+summary(trim(ple4), year=1990:1995)
+</div>
+<div class='output'>An object of class &quot;FLStock&quot;
+
+Name: Plaice in IV 
+Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+	1	10	10	1957	2008	2	6	
+Quant: age 
+
+catch         : [ 1 52 1 1 1 1 ], units =  t 
+catch.n       : [ 10 52 1 1 1 1 ], units =  10^3 
+catch.wt      : [ 10 52 1 1 1 1 ], units =  kg 
+discards      : [ 1 52 1 1 1 1 ], units =  t 
+discards.n    : [ 10 52 1 1 1 1 ], units =  10^3 
+discards.wt   : [ 10 52 1 1 1 1 ], units =  kg 
+landings      : [ 1 52 1 1 1 1 ], units =  t 
+landings.n    : [ 10 52 1 1 1 1 ], units =  10^3 
+landings.wt   : [ 10 52 1 1 1 1 ], units =  kg 
+stock         : [ 1 52 1 1 1 1 ], units =  t 
+stock.n       : [ 10 52 1 1 1 1 ], units =  10^3 
+stock.wt      : [ 10 52 1 1 1 1 ], units =  kg 
+m             : [ 10 52 1 1 1 1 ], units =  m 
+mat           : [ 10 52 1 1 1 1 ], units =  NA 
+harvest       : [ 10 52 1 1 1 1 ], units =  f 
+harvest.spwn  : [ 10 52 1 1 1 1 ], units =  NA 
+m.spwn        : [ 10 52 1 1 1 1 ], units =  NA 
+</div>
+<div class='input'>
+# If &#39;age&#39; is trimmed in ple4, catch, landings and discards need to be recalculated
+shpl4 &lt;- trim(ple4, age=1:4)
+landings(shpl4) &lt;- computeLandings(shpl4)
+discards(shpl4) &lt;- computeDiscards(shpl4)
+catch(shpl4) &lt;- computeCatch(shpl4)
+
+summary(shpl4)
+</div>
+<div class='output'>An object of class &quot;FLStock&quot;
+
+Name: Plaice in IV 
+Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+	1	4	NA	1957	2008	2	4	
+Quant: age 
+
+catch         : [ 1 52 1 1 1 1 ], units =  10^3 kg 
+catch.n       : [ 4 52 1 1 1 1 ], units =  10^3 
+catch.wt      : [ 4 52 1 1 1 1 ], units =  kg 
+discards      : [ 1 52 1 1 1 1 ], units =  10^3 kg 
+discards.n    : [ 4 52 1 1 1 1 ], units =  10^3 
+discards.wt   : [ 4 52 1 1 1 1 ], units =  kg 
+landings      : [ 1 52 1 1 1 1 ], units =  10^3 * kg 
+landings.n    : [ 4 52 1 1 1 1 ], units =  10^3 
+landings.wt   : [ 4 52 1 1 1 1 ], units =  kg 
+stock         : [ 1 52 1 1 1 1 ], units =  t 
+stock.n       : [ 4 52 1 1 1 1 ], units =  10^3 
+stock.wt      : [ 4 52 1 1 1 1 ], units =  kg 
+m             : [ 4 52 1 1 1 1 ], units =  m 
+mat           : [ 4 52 1 1 1 1 ], units =  NA 
+harvest       : [ 4 52 1 1 1 1 ], units =  f 
+harvest.spwn  : [ 4 52 1 1 1 1 ], units =  NA 
+m.spwn        : [ 4 52 1 1 1 1 ], units =  NA 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>trim</li><li>trim-methods</li><li>trim,FLArray-method</li><li>trim,FLQuant-method</li><li>trim,FLComp-method</li><li>trim,FLStock-method</li><li>trim,FLCohort-method</li><li>trim,FLIndex-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     FLQuant,  FLStock, FLCohort, 
+  FLIndex
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
