@@ -45,6 +45,7 @@
 - expand() now stops if new dimnames do not contain old ones and these were of length greater than 1
 - seasonSums is now based on colSums and aperm, 75 times faster
 - new lattice-based plot(FLStocks)
+- Added dimensions line to summary(FLComp)
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
