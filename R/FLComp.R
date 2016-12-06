@@ -10,10 +10,11 @@ setMethod("summary", signature(object="FLComp"),
 
 		cat("An object of class \"", class(object), "\"\n\n", sep="")
 		cat("Name:", object@name, "\n")
-		cat("Description:", object@desc, "\n")
-		cat("Range:\t", paste(sub('plusgroup', 'pgroup', names(object@range)),
-      collapse="\t"), "\n")
-		cat("", object@range, "\n", sep="\t")
+		
+    desc <- ifelse(nchar(object@desc) > getOption("width"),
+      paste(substr(object@desc, 1, getOption("width") - 6), "[...]"),
+      object@desc) 
+		cat("Description:", desc, "\n")
 
     # character slots
 		cnames <- getSlotNamesClass(object, 'character')
@@ -27,7 +28,17 @@ setMethod("summary", signature(object="FLComp"),
 
     # FLArray slots
 		qnames <- getSlotNamesClass(object, 'FLArray')
-		cat("Quant:", quant(slot(object, qnames[1])), "\n\n")
+    dms <- dims(object)
+    # Quant
+		cat("Quant:", dms$quant, "\n")
+    # Dims
+		cat("Dims: ", quant(slot(object, qnames[1])), "\tyear\tunit\tseason\tarea\titer\n")
+		cat("", dms[[dms$quant]], dim(slot(object, qnames[1]))[-c(1,6)],
+      dms$iter, "\n\n", sep="\t")
+		# Range
+    cat("Range: ", paste(sub('plusgroup', 'pgroup', names(object@range)),
+      collapse="\t"), "\n")
+		cat("", object@range, "\n\n", sep="\t")
 
 		for (s in qnames) {
 			#if (sum(!complete.cases(slot(object, s))) == length(slot(object,s)))
