@@ -310,6 +310,7 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         do.call("xyplot", options)
     } else {
         options$panel <- function(x, y, subscripts, iter=dfs$iter, ...){
+            panel.grid()
             panel.polygon(x=c(unique(x), rev(unique(x))), y=c(tapply(y, x, quantile, 0.95, na.rm=TRUE), rev(tapply(y, x, quantile, 0.05, na.rm=TRUE))), col="gray75", border="gray75")
             panel.xyplot(unique(x), tapply(y, x, median, na.rm=TRUE), type= 'l', col=1, ...)
         }
@@ -318,7 +319,7 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
             lst$ylim <- c(0,1.1*max(dfs[dfs$qname==dfs[subscripts[1],"qname"],"data"]))
             lst
         }
-#        options$axis <- function(side, ...) { browser()
+#        options$axis <- function(side, ...) {
 #			if(side %in% c("left", "right")) {
 #		    	if (panel.number() %% 2 == which(c("right","left")==side)-1) {
 #		        	panel.axis(side = side, outside =TRUE)
@@ -331,7 +332,8 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         options$key <- simpleKey(c("median", "90% CI"), points=FALSE, lines=TRUE, space="top", columns=2)
         options$key$lines$col <- c("black", "gray75")
         options$layout <- c(length(x),4)
-	    options$scales <- list(y=list(relation="free", alternating=2))
+	    options$scales <- list(y=list(relation="free"))
+#	    options$axis <- function(...) axis.default(side="right", ...)
         args[names(options)] <- options
         if(is(latticeExtra::useOuterStrips, "function")) latticeExtra::useOuterStrips(do.call("xyplot", args)) else do.call("xyplot", args)
     }
