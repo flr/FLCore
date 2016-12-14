@@ -73,6 +73,7 @@
 - rbind(FLPar) should work better now
 - predictModel@model slot now has by default an emptyenv()
 - uom is now safer to non-strings by using sprintf() for conversion
+- Quick fix for readIndicesAdapt dimensions
 
 ## UTILITIES
 
