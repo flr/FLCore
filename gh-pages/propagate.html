@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>propagate. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Extend an FLQuant along the iter dimension</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>FLR objects with a single iteration (length of 1 in the sixth dimension) can be
+  extended using the <code>propagate</code> method. The <code>type</code> argument
+  selects whether the new iterations are filled with the content of the first iteration 
+  (<code>type='all'</code>) or left empty (<code>type='first'</code>).</p>
+  
+      <p>For objects of class <code>FLPar</code>, propagate will extend the object along
+  the last dimension, <code>iter</code>. The fill.iter argument defaults to FALSE, in
+  contrast with FLQuant. Objects do not need to have iter=1 to be extended, but only
+  if fill.iter=FALSE.</p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+
+      <p>propagate(object)</p>
+  
+    </div>
+
+    <div class="Arguments">
+      <h2>Arguments</h2>
+
+      <p><dl>
+    <dt>object :</dt><dd>An FLR object to extend.</dd></p>
+  
+      <p><dt>fill.iter :</dt><dd>Copy the first iteration along the new ones ('TRUE'), the default,
+    or leave them empty ('FALSE').</dd></p>
+  
+      <p><dt>iter :</dt><dd>Number of iterations.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt>signature(object=FLQuant) :</dt><dd>Extends object along the <code>iter</code> dimension</dd></p>
+  
+      <p><dt>signature(object=FLPar) :</dt><dd>Extends object along the <code>iter</code> dimension</dd></p>
+  
+      <p><dt>signature(object=FLComp) :</dt><dd>Extends all <code>FLQuant</code> slots in the
+  object along the <code>iter</code> dimension</dd></p>
+  
+      <p><dt>signature(object=FLPar) :</dt><dd>Extends object along the <code>iter</code> dimension</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>flq &lt;- FLQuant(rnorm(50), dim=c(5,10))
+propagate(flq, 10)
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+iters:  10 
+
+, , unit = unique, season = all, area = unique
+
+     year
+quant 1             2             3             4             5             6            
+    1 -1.2304497(0) -0.1797485(0)  1.1923671(0) -2.0433330(0) -0.1784393(0) -0.1287709(0)
+    2  1.2213548(0)  2.8955785(0) -2.3681238(0)  0.3439422(0) -0.3848288(0)  0.0057617(0)
+    3 -0.0322886(0)  0.3035256(0)  0.9310721(0)  0.0263496(0) -1.0065157(0) -1.0312175(0)
+    4 -0.3731203(0)  0.2841049(0)  0.3435411(0) -0.0868157(0)  0.1284781(0)  0.9228455(0)
+    5 -0.0530964(0) -0.9441145(0) -0.2245811(0) -0.3125025(0) -0.9777645(0)  0.0188311(0)
+     year
+quant 7             8             9             10           
+    1  0.5496992(0) -0.1672637(0) -0.2614475(0)  1.2136221(0)
+    2 -0.0494480(0)  0.0423682(0) -1.2436347(0)  0.4150203(0)
+    3 -0.4914139(0)  1.8256894(0)  0.7433986(0)  0.4183025(0)
+    4  0.0338344(0) -1.1991374(0)  0.3833389(0) -1.0623366(0)
+    5  1.0316726(0)  0.1434046(0) -0.5727659(0)  0.9569530(0)
+
+units:  NA 
+</div>
+<div class='input'># Look at the %NA in summary
+summary(propagate(flq, 10, fill.iter=FALSE))
+</div>
+<div class='output'>An object of class &quot;FLQuant&quot; with:
+dim  :  5 10 1 1 1 10 
+quant:  quant 
+units:  NA 
+
+Min    :  -2.368 
+1st Qu.:  -0.3819 
+Mean   :  -0.004562 
+Median :  -0.01326 
+3rd Qu.:  0.4071 
+Max    :  2.896 
+NAs    :  90 %
+</div>
+<div class='input'>
+flp &lt;- FLPar(1:10, params=letters[1:10])
+propagate(flp, 10)
+</div>
+<div class='output'>An object of class &quot;FLPar&quot;
+iters:  10 
+
+params
+    a     b     c     d     e     f     g     h     i     j 
+ 1(0)  2(0)  3(0)  4(0)  5(0)  6(0)  7(0)  8(0)  9(0) 10(0) 
+units:  NA 
+</div>
+<div class='input'>propagate(flp, 10, fill.iter=TRUE)
+</div>
+<div class='output'>An object of class &quot;FLPar&quot;
+iters:  10 
+
+params
+    a     b     c     d     e     f     g     h     i     j 
+ 1(0)  2(0)  3(0)  4(0)  5(0)  6(0)  7(0)  8(0)  9(0) 10(0) 
+units:  NA 
+</div>
+<div class='input'>
+flp &lt;- FLPar(1:15, params=letters[1:5], iter=3)
+propagate(flp, 10)
+</div>
+<div class='output'>An object of class &quot;FLPar&quot;
+iters:  10 
+
+params
+       a        b        c        d        e 
+ 6(7.41)  7(7.41)  8(7.41)  9(7.41) 10(7.41) 
+units:  NA 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>propagate</li><li>propagate-methods</li><li>propagate,FLQuant-method</li><li>propagate,FLComp-method</li><li>propagate,FLCohort-method</li><li>propagate,FLPar-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <a href='FLComp.html'>FLComp</a>
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

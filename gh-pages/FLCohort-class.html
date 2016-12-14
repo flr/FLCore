@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLCohort. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Class FLCohort</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>This class represents cohorts in columns. It simply shifts the typical matrix representation where cohorts are found on the diagonals, into a matrix where cohorts are found in columns. It is very usefull for all analysis that want to make use of cohorts instead of years.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+
+      <p><dl>
+<dt>.Data</dt><dd>Internal S4 data representation. <code>array</code>.</dd></p>
+  
+      <p><dt>units</dt><dd>The data units in some understandable metric. <code>character</code></dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+
+    <div class="Extends">
+      <h2>Extends</h2>
+
+      <p><dl>
+FLArray
+array
+</dl></p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+
+      <p><dl>
+<dt></dt><dd>The <code>FLCohort(object)</code> constructor method allows simple creation of new FLCatch with the methods described below.
+</dd></p>
+  
+      <p><dt> signature(object=FLQuant) :</dt><dd>Creates a FLCohort object from a FLQuant object. It simply shifts the matrix so that cohorts instead of years are located in the columns (second dimensions) of the array.</dd></p>
+  
+      <p><dt> signature(object=array) :</dt><dd>Creates a FLCohort object from an array.</dd></p>
+  
+      <p><dt> signature(object=missing) :</dt><dd>Creates a empty FLCohort object.</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt><a href='http://www.inside-r.org/r-doc/base/Extract'>[</a>(base) :</dt><dd>Subset method</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLCohort,i=ANY,j=ANY,drop=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/as.data.frame'>as.data.frame</a>(base) :</dt><dd>Coerce to data.frame.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLCohort,row.names=ANY,optional=ANY) </code></dd></p>
+  
+      <p><dt><a href='bubbles.html'>bubbles</a>(FLCore) :</dt><dd>Bubbles plot.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=formula,data=FLCohort) </code></dd></p>
+  
+      <p><dt><a href='ccplot.html'>ccplot</a>(FLCore) :</dt><dd>Catch curves plot.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=formula,data=FLCohort) </code></dd></p>
+  
+      <p><dt><a href='flc2flq.html'>flc2flq</a>(FLCore) :</dt><dd>Coerce to FLQuant (deprecated).</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing) </code></dd></p>
+  
+      <p><dt><a href='FLCohort-class.html'>FLCohort</a>(FLCore) :</dt><dd>Creator method based on FLQuant objects.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=FLQuant) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/graphics/plot'>plot</a>(graphics) :</dt><dd>Simple plot</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLCohort,y=ANY) </code></dd></p>
+  
+      <p><dt><a href='quant.html'>quant</a>(FLCore) :</dt><dd>Extract the quant dimension definition.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing) </code></dd></p>
+  
+      <p><dt><a href='trim.html'>trim</a>(FLCore) :</dt><dd>Subset based on limiting dimnames.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(object=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/difftime'>units</a>(base) :</dt><dd>Extract the information about data units.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=missing) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/base/difftime'>units<-</a>(base) :</dt><dd>Replace data units information.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=FLCohort,value=character) </code></dd></p>
+  
+      <p><dt><a href='http://www.inside-r.org/r-doc/lattice/xyplot'>xyplot</a>(lattice) :</dt><dd>Lattice's xyplot method.</dd></p>
+  
+      <p><dt></dt><dd><code> signature(x=formula,data=FLCohort) </code></dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+flq &lt;- catch.n(ple4)
+flc &lt;- FLCohort(flq)
+plot(trim(flc, cohort=1960:2000))
+</div>
+<p><img src='FLCohort-class-2.png' alt='' width='540' height='400' /></p></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLCohort-class</li><li>FLCohort</li><li>FLCohort-methods</li><li>FLCohort,FLQuant-method</li><li>FLCohort,FLCohort-method</li><li>FLCohort,array-method</li><li>FLCohort,missing-method</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+     <a href='http://www.inside-r.org/r-doc/base/Extract'>[</a>, as.data.frame, <a href='bubbles.html'>bubbles</a>, <a href='ccplot.html'>ccplot</a>, <a href='FLCohort-class.html'>FLCohort,FLQuant-method</a>, <a href='flc2flq.html'>flc2flq</a>, <a href='http://www.inside-r.org/r-doc/graphics/plot'>plot</a>, <a href='quant.html'>quant</a>, <a href='trim.html'>trim</a>, units, <a href='units.html'>units<-,FLCohort,character-method</a>, <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>xyplot</a>, <a href='http://www.inside-r.org/r-doc/base/array'>array</a>
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

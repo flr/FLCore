@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLStocks. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Class FLStocks</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p><code>FLStocks</code> is a class that extends <code>list</code> through <code>FLlst</code> but implements a set of features that give a little bit more structure to list objects. The elements of <code>FLStocks</code> must all be of class <code>FLStock</code>. It implements a lock mechanism that, when turned on, does not allow the user to increase or decrease the object length.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+
+      <p><dl>
+<dt>.Data</dt><dd>The data. <code>list</code>.</dd></p>
+  
+      <p><dt>names</dt><dd>Names of the list elements. <code>character</code>.</dd></p>
+  
+      <p><dt>desc</dt><dd>Description of the object. <code>character</code>.</dd></p>
+  
+      <p><dt>lock</dt><dd>Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. <code>logical</code>.</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+
+    <div class="Extends">
+      <h2>Extends</h2>
+
+      <p><dl>
+FLlst
+list
+vector
+</dl></p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+
+      <p><dl>
+<dt></dt><dd>The <code>FLStocks(object)</code> constructor method allows simple creation of new FLStocks with the methods described below.
+</dd></p>
+  
+      <p><dt> signature(object=ANY) :</dt><dd>Returns an FLStocks object with the given named elements</dd></p>
+  
+      <p><dt> signature(object=missing) :</dt><dd>Returns an FLStocks object</dd></p>
+  
+      <p><dt> signature(object=list) :</dt><dd>Returns an FLStocks object with the provided list as its core</dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+
+      <p><dl>
+<dt><a href='http://www.inside-r.org/r-doc/graphics/plot'>plot</a>(graphics):</dt><dd>Default plot for FLStocks. Different lines for each stock object are shown in panel panels, corresponding to <em>rec</em>, <em>ssb</em>, 
+<em>catch</em> and <em>harvest</em>. A <em>key</em> argument turns off (FALSE, default) or on (TRUE) a figure key. A new key can also be provided (see <em>key</em> entry in <code><a href='http://www.inside-r.org/r-doc/lattice/xyplot'>xyplot</a></code>.</dd></p>
+  
+      <p><dt></dt><dd><code>signature(x=FLStocks,y=missing)</code></dd></p>
+  
+      <p></dl></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(ple4)
+fls &lt;- FLStocks(sa=ple4, sb=window(ple4, end=1980))
+summary(fls)
+</div>
+<div class='output'>An object of class &quot;FLStocks&quot;
+
+Elements: sa sb 
+
+Name: Plaice in IV 
+	Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+	Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+		1	10	10	1957	2008	2	6	
+	Quant: age 
+	dim: 10 52 1 1 1 
+Name: Plaice in IV 
+	Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+	Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+		1	10	10	1957	1980	2	6	
+	Quant: age 
+	dim: 10 24 1 1 1 
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLStocks-class</li><li>FLStocks</li><li>FLStocks-methods</li><li>FLStocks,ANY-method</li><li>FLStocks,missing-method</li><li>FLStocks,list-method</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <a href='http://www.inside-r.org/r-doc/graphics/plot'>plot</a>, <a href='FLlst-class.html'>FLlst</a>, <a href='http://www.inside-r.org/r-doc/base/list'>list</a>
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

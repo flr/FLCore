@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>SRModels. FLCore 2.5.20140814</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="The FLR Team">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.5.20140814</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Stock-Recruitment models</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>bevholt() bevholt.ar1() bevholt.c.a() bevholt.c.b()
+	bevholt.d()
+	bevholt.ndc()
+	bevholt.sv()
+	geomean()
+	logl.ar1(rho, sigma2, obs, hat)
+	ricker()
+	ricker.ar1()
+	ricker.c.a()
+	ricker.c.b()
+	ricker.d()
+	ricker.sv()
+	segreg()
+	shepherd()
+	shepherd.ar1()
+	shepherd.d()
+	shepherd.d.ar1()
+	shepherd.ndc()
+	shepherd.ndc.ar1()
+	sv2ab(steepness, vbiomass, spr0, model)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>rho</dt>
+      <dd>Autoregression</dd>
+      <dt>sigma2</dt>
+      <dd>Autoregression</dd>
+      <dt>obs</dt>
+      <dd>Observed values</dd>
+      <dt>hat</dt>
+      <dd>estimated values</dd>
+      <dt>steepness</dt>
+      <dd>Steepness.</dd>
+      <dt>vbiomass</dt>
+      <dd>Virgin biomass.</dd>
+      <dt>spr0</dt>
+      <dd>Spawners per recruit at F=0, see <code><a href='spr0.html'>spr0</a></code>.</dd>
+      <dt>model</dt>
+      <dd>character vector with model name, either 'bevholt' or 'ricker'.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>A range of stock-recruitment (SR) models commonly used in fisheries science are
+  provided in FLCore.</p>
+  
+      <p>Each method is defined as a function returning a list with one or more elements as
+  follows:
+  <ul>
+<li>modelFormula for the model, using the slot names (<em>rec</em> and <em>ssb</em>) to 
+  refer to the usual inputs.
+  </li>
+<li>loglFunction to calculate the loglikelihood of the given model when estimated
+    through MLE (See <code><a href='fmle.html'>fmle</a></code>).
+  </li>
+<li>initialFunction to provide initial values for all parameters to be minimization
+    algorithms called by <code><a href='fmle.html'>fmle</a></code> or <code><a href='http://www.inside-r.org/packages/cran/stats/docs/nls'>nls</a></code>. If required, this function also have 
+    two attributes, <code><a href='limits.html'>lower</a></code> and <code><a href='limits.html'>upper</a></code>, that give lower and upper limits for 
+    the parameter values, respectively. This is used by some of the methods defined in
+    <code><a href='http://www.inside-r.org/packages/cran/stats/docs/optim'>optim</a></code>, like <code>"L-BFGS-B"</code>.
+  The <em>model<-</em> method for <code>FLModel</code> can then be called with 
+  <em>value</em> being a list thus described, the name of the function returning such a 
+  list, or the function itself. See the examples below.</li>
+</ul></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p></p>
+  
+      <p>Several functions to fit commonly used SR models are available. They all use
+    maximum likelihood to estimate the parameters and except the autoregressive models, 
+    all use a normal log distribution for the residuals. Apart from the model equation 
+    parameters the variance of the log-residuals is also estimated.</p>
+  
+      <p><ul>
+<li>bevholt:Beverton \& Holt stock-recruitment model fit:
+      <pre class = 'eq'>R = alpha*S / (beta + S)</pre>
+      'a' is the maximum recruitment (asymptotically) and 'b' is the
+      stock level needed to produce the half of maximum recruitment
+      <code class = 'eq'>a/2</code>. (a, b >0).</p>
+  
+      <p></li>
+<li>geomean:Constant Recruitment model fit, equal to the historical
+      geometric mean recruitment.
+      <pre class = 'eq'>R = (R_1*R_2*...*R_n)^(1/n) = exp(mean(log(R_1) + ... +
+      log(R_n)))</pre></p>
+  
+      <p></li>
+<li>ricker:Ricker stock-recruitment model fit:
+      <pre class = 'eq'>R = a*S*exp(-b*S)</pre>                        
+      'a' is related to productivity and 'b' to density dependence.         
+      'a' is the recruit per stock unit at small stock levels. (a, b > 0).</p>
+  
+      <p></li>
+<li>segreg:Segmented regression stock-recruitment model fit:
+      <pre class = 'eq'> R = ifelse(S <= b, a*S, a*b)</pre>
+      'a' is the slope of the recruitment for stock levels below 'b',
+      and <code class = 'eq'>a*b</code> is the mean recruitment for stock levels above 'b'. (a, b > 0).</p>
+  
+      <p></li>
+<li>shepherd:Sheperd stock-recruitment model fit:
+      <pre class = 'eq'> R = a * S/(1 + (S/b)^c)</pre>
+    Generalized Beverton \& Holt and Ricker models with one covariate. The covariate
+    can be used for example to account for an enviromental factor that influences the
+    recruitment dynamics. In the equations 'c' is the shape parameter and 'X' is the
+    covariate.</p>
+  
+      <p></li>
+<li>bevholt.c.a:Beverton \& Holt stock-recruitment model with one covariate in
+      the numerator.
+      <pre class = 'eq'>R = a*(1 - c*X)*S / (b + S)</pre></p>
+  
+      <p></li>
+<li>bevholt.c.b:Beverton \& Holt stock-recruitment model with one covariate
+      in thedenominator.
+      <pre class = 'eq'>R = a*S / (b*(1 - c*X) + S)</pre></p>
+  
+      <p></li>
+<li>ricker.c.a:Ricker stock-recruitment model with one multiplicative covariate. 
+            <pre class = 'eq'>R = a*(1-c*X)*S*e^{-b*S}</pre></p>
+  
+      <p></li>
+<li>ricker.c.b:Ricker stock-recruitment model with one covariate in the exponent. 
+            <pre class = 'eq'>R = a*S*e^{-b*(1-c*X)*S}</pre></p>
+  
+      <p>Depensatory models for Beverton and Holt, Ricker and Shepherd models:</p>
+  
+      <p></li>
+<li>bevholt.d:Depensatory Beverton \& Holt stock-recruitment model
+        <pre class = 'eq'>R = a*S^c / (b + S^c)</pre>
+        0< a, b, c < 'Inf'.</p>
+  
+      <p></li>
+<li>bevholt.ndc:Depensatory Beverton \& Holt stock-recruitment model
+        <pre class = 'eq'>R = a*S^(1 + c) / (b + S^(1 + c))</pre>
+        0< a, b< 'Inf' and -0.5 < c < 0.5.</p>
+  
+      <p></li>
+<li>ricker.d:Depensatory Ricker stock-recruitment model. 
+         <pre class = 'eq'>R = a*S^c*e^{-b*S}</pre></p>
+  
+      <p></li>
+<li>shepherd.d:Depensatory Shepherd stock-recruitment model. 
+        <pre class = 'eq'> R = a * S^2/(1 + (S /b)^c)</pre></p>
+  
+      <p></li>
+<li>shepherd.ndc:Depensatory Shepherd stock-recruitment model. 
+        <pre class = 'eq'> R = a * (S - d)/(1 + ((S - d)
+        /b)^c)</pre>
+   </li>
+</ul></p>
+  
+      <p>Beverton and Holt and Ricker stock recruitment models parameterized for steepness and virgin biomass:</p>
+  
+      <p><ul>
+<li>bevholt.sv:Fits Beverton and Holt stock-recruitment model parameterised for
+      steepness and virgin biomass.
+      <pre class = 'eq'>a = vbiomass*4*steepness/(spr0*(5*steepness-1.0))</pre>
+      <pre class = 'eq'>b = a*spr0*(1.0
+      /steepness - 1.0)/4.0</pre></p>
+  
+      <p></li>
+<li>ricker.sv:Fits a ricker stock-recruitment model parameterized for steepness
+      and virgin biomass.
+      <pre class = 'eq'>a = exp(b*vbiomass)/spr0</pre>
+      <pre class = 'eq'>b = log(5*steepness)
+      /(vbiomass*0.8)</pre>
+    </li>
+</ul></p>
+  
+      <p>Models fitted using autoregressive residuals of first order:</p>
+  
+      <p><ul>
+<li>bevholt.ar1, ricker.ar1, shepherd.ar1, shepherd.d.ar1,
+      shepherd.ndc.ar1:Beverton and Holt, Ricker  and Shepherd stock-recruitment models 
+      with autoregressive normal log residuals of first order. In the model fit the 
+      corresponding stock-recruitment model is combined with an autoregressive normal log
+      likelihood of first order for the residuals. If <code class = 'eq'>R_t</code> i
+      the observed recruitment and <code class = 'eq'>Rest_t</code>  is the predicted recruitment,
+      an autoregressive model of first order is fitted to the log-residuals,
+      <code class = 'eq'>x_t = log(R_t/Rest_t)</code>.
+      <pre class = 'eq'>x_t = rho*x_t-1 + e</pre>
+      Where 'e' follows a normal distribution with mean 0,
+      <code class = 'eq'>e ~ N(0, sigma_ar^2)</code>. 
+    </li>
+</ul></p>
+  
+      <p>Some additional useful functions:</p>
+  
+      <p><ul>
+<li>Bevholt.SV, Ricker.SV:Returns the predicted values using Beverton and Holt 
+        or Ricker stock recruitment model parameterized for steepness and virgin biomass. 
+        The function calculates the 'a' and 'b' parameters of the original 
+        parameterization for these models for a given steepness and virgin biomass values
+        using 'sv2ab' function. This then uses the original parameterization to calculate 
+        the predicted recruiment.</p>
+  
+      <p></li>
+<li>sv2ab:Calculates 'a' and 'b' parameters for Beverton and Holt stock
+        recruitment models from the corresponding steepness, virgin biomass and spr0 
+        parameters, (spr0 = spawning at recruit at F= 0.0parameters).</p>
+  
+      <p>Beverton and Holt:
+          <pre class = 'eq'>a = vbiomass*4*steepness/(spr0*(5*steepness-1))</pre>
+          <pre class = 'eq'>b = a*spr0*(1/steepness - 1)/4</pre></p>
+  
+      <p>Ricker:
+          <pre class = 'eq'>a = exp(b*vbiomass)/spr0</pre>
+          <pre class = 'eq'>b = \frac{\log(5 \cdot steepness)}{0.8 \cdot vbiomass}</pre>
+          b = log(5*steepness)/(vbiomass*0.8)</p>
+  
+      <p></li>
+<li>ab2sv:Calculates steepness and virgin biomass parameters for Beverton and
+        Holt or Ricker stock-recruitment relationship from the corresponding 'a', 'b' 
+        and spr0 parameters.</p>
+  
+      <p>Beverton and Holt:
+        <pre class = 'eq'>steepness = \frac{a \cdot spr0}{4 \cdot b + a \cdot spr0}</pre>
+        steepness = a*spr0/(4*b+a*spr0)
+        <pre class = 'eq'>vbiomass = (spr0*a*(5*steepness - 1))/(4*steepness)</pre></p>
+  
+      <p>Ricker:
+        <pre class = 'eq'>steepness = 0.2 e^{0.8 \cdot b \cdot vbiomass}</pre>
+        steepness = 0.2*exp(b*vbiomass*0.8)
+        <pre class = 'eq'>vbiomass = log(spr0*a)/b</pre></p>
+  
+      <p></li>
+<li>logl.ar1:Log-Likelihood of autoregressive residuals time series of first
+        order. If <code class = 'eq'>Y_t</code> is the observed time series and <code class = 'eq'>Yest_t</code>
+       is the predicted time series using certain model, the loglikelihood of the
+       residuals (<code class = 'eq'>X_t = Y_t - Yest_t</code>) is calculated using
+       the autoregressive model parameters <code class = 'eq'>sigma2</code>  and <code class = 'eq'>rho</code>.
+    </li>
+</ul></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+      
+      <p>Beverton, R.J.H. and Holt, S.J. (1957) On the dynamics of exploited
+        fish populations. MAFF Fish. Invest., Ser: II 19, 533.</p>
+  
+      <p>Needle, C.L. Recruitment models: diagnosis and prognosis.   
+        Reviews in Fish Biology and Fisheries 11: 95-111, 2002.</p>
+  
+      <p>Ricker, W.E. (1954) Stock and recruitment. J. Fish. Res. Bd Can. 11, 559-623.</p>
+  
+      <p>Shepherd, J.G. (1982) A versatile new stock-recruitment relationship
+        for fisheries and the construction of sustainable yield curves.
+        J. Cons. Int. Explor. Mer 40, 67-75.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'># inspect the output of one of the model functions
+bevholt()
+</div>
+<div class='output'>$logl
+function (a, b, rec, ssb) 
+loglAR1(log(rec), log(a * ssb/(b + ssb)))
+&lt;environment: 0x6692a78&gt;
+
+$model
+rec ~ a * ssb/(b + ssb)
+&lt;environment: 0x6692a78&gt;
+
+$initial
+function (rec, ssb) 
+{
+    a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))
+    b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
+    return(FLPar(a = a, b = a/b))
+}
+&lt;environment: 0x6692a78&gt;
+attr(,&quot;lower&quot;)
+[1] -Inf -Inf
+attr(,&quot;upper&quot;)
+[1] Inf Inf
+
+</div>
+<div class='input'>names(bevholt())
+</div>
+<div class='output'>[1] &quot;logl&quot;    &quot;model&quot;   &quot;initial&quot;
+</div>
+<div class='input'>bevholt()$logl
+</div>
+<div class='output'>function(a, b, rec, ssb)
+      loglAR1(log(rec), log(a*ssb/(b+ssb)))
+&lt;environment: 0x6704160&gt;
+</div>
+<div class='input'>
+# once an FLSR model is in the workspace ...
+data(nsher)
+
+# the three model-definition slots can be modified
+# at once by calling &#39;model&lt;-&#39; with
+# (1) a list
+model(nsher) &lt;- bevholt()
+
+# (2) a function returning such a list
+model(nsher) &lt;- bevholt
+
+# or (3) the name of such a function
+model(nsher) &lt;- &#39;bevholt&#39;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>SRModels</li><li>ab2sv</li><li>bevholt</li><li>bevholt.ar1</li><li>bevholt.c.a</li><li>bevholt.c.b</li><li>bevholt.d</li><li>bevholt.ndc</li><li>bevholt.sv</li><li>Bevholt.SV</li><li>geomean</li><li>logl.ar1</li><li>ricker</li><li>ricker.ar1</li><li>ricker.c.a</li><li>ricker.c.b</li><li>ricker.d</li><li>ricker.sv</li><li>Ricker.SV</li><li>segreg</li><li>shepherd</li><li>shepherd.ar1</li><li>shepherd.d</li><li>shepherd.d.ar1</li><li>shepherd.ndc</li><li>shepherd.ndc.ar1</li><li>sv2ab</li>
+    </ul>
+    <ul>
+      <li>models</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+    FLSR, FLModel
+
+    
+    <h2>Author</h2>
+    The FLR Team
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

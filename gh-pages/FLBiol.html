@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLBiol. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Class FLBiol</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>A class for modelling age / length or biomass structured populations.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The <code>FLBiol</code> class is a representation of a biological fish population.
+This includes information on abundances, natural mortlity and fecundity.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+
+      <p><dl>
+    <dt>n</dt><dd>Numbers in the population. <code>FLQuant</code>.</dd></p>
+  
+      <p><dt>m</dt><dd>Mortality rate of the population. <code>FLQuant</code>.</dd></p>
+  
+      <p><dt>wt</dt><dd>Mean weight of an individual. <code>FLQuant</code>.</dd></p>
+  
+      <p><dt>fec</dt><dd>Fecundity/maturity/per capita birth rate. <code>FLQuant</code>.</dd></p>
+  
+      <p><dt>spwn</dt><dd>Proportion of mortality before spawning/birth. <code>FLQuant</code>.</dd></p>
+  
+      <p><dt>name</dt><dd>Name of the object. <code>character</code>.</dd></p>
+  
+      <p><dt>desc</dt><dd>Brief description of the object. <code>character</code>.</dd></p>
+  
+      <p><dt>range</dt><dd>Named numeric vector describing the range of the object. <code>numeric</code>.</dd>
+ </dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Accesors">
+      <h2>Accesors</h2>
+
+      <p></p>
+  
+      <p>All slots in the class have accessor and replacement methods defined that
+allow retrieving and substituting individual slots.</p>
+  
+      <p>The values passed for replacement need to be of the class of that slot.
+A numeric vector can also be used when replacing FLQuant slots, and the
+vector will be used to substitute the values in the slot, but not its other
+attributes.</p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+
+      <p></p>
+  
+      <p>A construction method exists for this class that can take named arguments for
+any of its slots. All slots are then created to match the requirements of the
+class validity. If an unnamed <code>FLQuant</code> object is provided, this is used
+for sizing but not stored in any slot.</p>
+  
+    </div>
+
+    <div class="Validity">
+      <h2>Validity</h2>
+
+      <p><dl>
+    <dt>Dimensions</dt><dd>All FLQuant slots must have iters equal to 1 or 'n'.</dd></p>
+  
+      <p><dt>Iters</dt><dd>The dimname for iter[1] should be '1'.</dd></p>
+  
+      <p><dt>Dimnames</dt><dd>The name of the quant dimension must be the same for all FLQuant slots.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+# An FLBiol example dataset
+data(ple4.biol)
+
+summary(ple4.biol)
+</div>
+<div class='output'>An object of class &quot;FLBiol&quot;
+
+Name: Plaice in IV 
+Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+Range:	 min	max	pgroup	minyear	maxyear 
+	1	10	10	1957	2008	
+Quant: age 
+
+n             : [ 10 52 1 1 1 1 ], units =  10^3 
+mat           : [ 10 52 1 1 1 1 ], units =  NA 
+m             : [ 10 52 1 1 1 1 ], units =  m 
+wt            : [ 10 52 1 1 1 1 ], units =  kg 
+fec           : [ 10 52 1 1 1 1 ], units =  10^3 
+spwn          : [ 10 52 1 1 1 1 ], units =  NA 
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLBiol</li><li>FLBiol,FLQuant-method</li><li>FLBiol,missing-method</li><li>FLBiol-class</li><li>FLBiol-methods</li><li>desc,FLBiol-method</li><li>desc&lt;-,FLBiol,character-method</li><li>fec,FLBiol-method</li><li>fec&lt;-,FLBiol,FLQuant-method</li><li>m,FLBiol-method</li><li>m&lt;-,FLBiol,FLQuant-method</li><li>n,FLBiol-method</li><li>n&lt;-,FLBiol,FLQuant-method</li><li>name,FLBiol-method</li><li>name&lt;-,FLBiol,character-method</li><li>range,FLBiol-method</li><li>range&lt;-,FLBiol,numeric-method</li><li>spwn,FLBiol-method</li><li>spwn&lt;-,FLBiol,FLQuant-method</li><li>wt,FLBiol-method</li><li>wt&lt;-,FLBiol,FLQuant-method</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<a href='asOld.html'>as.FLBiol</a>, <a href='asOld.html'>as.FLSR</a>, <a href='http://www.inside-r.org/r-doc/methods/as'>coerce</a>, <a href='http://www.inside-r.org/r-doc/graphics/plot'>plot</a>, <a href='ssb.html'>ssb</a> catch.n,FLBiol-method
+
+    
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

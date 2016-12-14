@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLQuants. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Class FLQuants</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p><code>FLQuants</code> is a <code>list</code> of <code>FLQuant</code> objects.
+It is very similar to the standard <code>list</code> class.
+It implements a lock mechanism that, when turned on, does
+not allow the user to increase or decrease the object length.
+The elements of <code>FLQuants</code> must all be of class  <code>FLQuant</code>.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+
+      <p><dl>
+    <dt>.Data</dt><dd>The data. <code>list</code>.</dd></p>
+  
+      <p><dt>names</dt><dd>Names of the list elements. <code>character</code>.</dd></p>
+  
+      <p><dt>desc</dt><dd>Description of the object. <code>character</code>.</dd></p>
+  
+      <p><dt>lock</dt><dd>Lock mechanism, if turned on the length of the list can not be modified by adding or removing elements. <code>logical</code>.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Accesors">
+      <h2>Accesors</h2>
+
+      <p></p>
+  
+      <p>Elements in the list can be accessed using '[' and '[['</p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+
+      <p></p>
+  
+      <p>A constructor method exists for this class that can take named arguments for
+any of the list elements.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLQuants</li><li>FLQuants,ANY-method</li><li>FLQuants,FLQuants-method</li><li>FLQuants,list-method</li><li>FLQuants,missing-method</li><li>FLQuants-class</li><li>FLQuants-methods</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<a href='http://www.inside-r.org/r-doc/base/Arithmetic'>*</a>, <a href='http://www.inside-r.org/r-doc/methods/S4groupGeneric'>Arith</a>, <a href='http://www.inside-r.org/r-doc/base/as.data.frame'>as.data.frame</a>,
+<a href='bubbles.html'>bubbles</a>, catch<-, <a href='iter.html'>iter</a>, <a href='http://www.inside-r.org/r-doc/stats/model.frame'>model.frame</a>,
+<a href='http://www.inside-r.org/r-doc/methods/show'>show</a>, <a href='http://www.inside-r.org/r-doc/base/summary'>summary</a>, <a href='http://www.inside-r.org/r-doc/lattice/xyplot'>xyplot</a>,
+<a href='FLlst-class.html'>FLlst</a>, <a href='http://www.inside-r.org/r-doc/base/list'>list</a>
+
+    
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>FLStockLen. FLCore 2.6.0.20160316</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">FLCore 2.6.0.20160316</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Class FLStockLen</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>A class for modelling a length structured fish stock.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The <code>FLStockLen</code> object contains a length based representation of a fish stock
+This includes information on removals (i.e. catches, landings and discards),
+maturity, natural mortality and the results of an analytical assessment (i.e.
+estimates of abundance and removal rates).</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+
+      <p></p>
+  
+      <p><dl>
+    <dt>halfwidth</dt><dd>The middle of the length bins (<code>numeric</code>).</dd></p>
+  
+      <p><dt>catch</dt><dd>Total catch weight (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>catch.n</dt><dd>Catch numbers (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>catch.wt</dt><dd>Mean catch weights (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>discards</dt><dd>Total discards weight (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>discards.n</dt><dd>Discard numbers (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>discards.wt</dt><dd>Mean discard weights (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>landings</dt><dd>Total landings weight (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>landings.n</dt><dd>Landing numbers (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>landings.wt</dt><dd>Landing weights (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>stock</dt><dd>Total stock weight (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>stock.n</dt><dd>Stock numbers (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>stock.wt</dt><dd>Mean stock weights (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>m</dt><dd>Natural mortality (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>mat</dt><dd>Proportion mature (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>harvest</dt><dd>Harvest rate or fishing mortality. The units of the FLQuant should be set to 'harvest' or 'f' accordingly (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>harvest.spwn</dt><dd>Proportion of harvest/fishing mortality before spawning (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>m.spwn</dt><dd>Proportion of natural mortality before spawning (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>name</dt><dd>Name of the stock (<code>character</code>).</dd></p>
+  
+      <p><dt>desc</dt><dd>Description of stock (<code>character</code>).</dd></p>
+  
+      <p><dt>range</dt><dd>Named numeric vector containing the quant and year ranges, the plusgroup and the quant range that the average fishing mortality is calculated over (<code>numeric</code>).</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Accesors">
+      <h2>Accesors</h2>
+
+      <p></p>
+  
+      <p>All slots in the class have accessor and replacement methods defined that
+allow retrieving and substituting individual slots.</p>
+  
+      <p>The values passed for replacement need to be of the class of that slot.
+A numeric vector can also be used when replacing FLQuant slots, and the
+vector will be used to substitute the values in the slot, but not its other
+attributes.</p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+
+      <p></p>
+  
+      <p>A construction method exists for this class that can take named arguments for
+any of its slots. All slots are then created to match the requirements of the
+class validity. If an unnamed <code>FLQuant</code> object is provided, this is used
+for sizing but not stored in any slot.</p>
+  
+    </div>
+
+    <div class="Validity">
+      <h2>Validity</h2>
+
+      <p><dl>
+    <dt>Dimensions</dt><dd>All FLQuant slots must have iters equal to 1 or 'n'.</dd></p>
+  
+      <p><dt>Iters</dt><dd>The dimname for iter[1] should be '1'.</dd></p>
+  
+      <p><dt>Dimnames</dt><dd>The name of the quant dimension must be the same for all FLQuant slots.</dd></p>
+  
+      <p><dt>Totals</dt><dd>The length of the quant dimension for the totals slots (catch, landings and discards) must be equal to 1.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>FLStockLen</li><li>FLStockLen,FLQuant-method</li><li>FLStockLen,missing-method</li><li>FLStockLen-class</li><li>FLStockLen-methods</li><li>catch,FLStockLen-method</li><li>catch.n,FLStockLen-method</li><li>catch.n&lt;-,FLStockLen,FLQuant-method</li><li>catch.wt,FLStockLen-method</li><li>catch.wt&lt;-,FLStockLen,FLQuant-method</li><li>catch&lt;-,FLStockLen,FLQuant-method</li><li>desc,FLStockLen-method</li><li>desc&lt;-,FLStockLen,character-method</li><li>discards,FLStockLen-method</li><li>discards.n,FLStockLen-method</li><li>discards.n&lt;-,FLStockLen,FLQuant-method</li><li>discards.wt,FLStockLen-method</li><li>discards.wt&lt;-,FLStockLen,FLQuant-method</li><li>discards&lt;-,FLStockLen,FLQuant-method</li><li>halfwidth,FLStockLen-method</li><li>halfwidth&lt;-,FLStockLen,numeric-method</li><li>harvest,FLStockLen-method</li><li>harvest.spwn,FLStockLen-method</li><li>harvest.spwn&lt;-,FLStockLen,FLQuant-method</li><li>harvest&lt;-,FLStockLen,FLQuant-method</li><li>landings,FLStockLen-method</li><li>landings.n,FLStockLen-method</li><li>landings.n&lt;-,FLStockLen,FLQuant-method</li><li>landings.wt,FLStockLen-method</li><li>landings.wt&lt;-,FLStockLen,FLQuant-method</li><li>landings&lt;-,FLStockLen,FLQuant-method</li><li>m,FLStockLen-method</li><li>m.spwn,FLStockLen-method</li><li>m.spwn&lt;-,FLStockLen,FLQuant-method</li><li>m&lt;-,FLStockLen,FLQuant-method</li><li>mat,FLStockLen-method</li><li>mat&lt;-,FLStockLen,FLQuant-method</li><li>name,FLStockLen-method</li><li>name&lt;-,FLStockLen,character-method</li><li>range,FLStockLen-method</li><li>range&lt;-,FLStockLen,numeric-method</li><li>stock,FLStockLen-method</li><li>stock.n,FLStockLen-method</li><li>stock.n&lt;-,FLStockLen,FLQuant-method</li><li>stock.wt,FLStockLen-method</li><li>stock.wt&lt;-,FLStockLen,FLQuant-method</li><li>stock&lt;-,FLStockLen,FLQuant-method</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<a href='http://www.inside-r.org/r-doc/base/Extract'>[</a>, <a href='http://www.inside-r.org/r-doc/base/Extract'>[<-</a>, <a href='asOld.html'>as.FLBiol</a>, <a href='asOld.html'>as.FLSR</a>,
+<a href='computeCatch.html'>computeCatch</a>, <a href='computeCatch.html'>computeDiscards</a>, <a href='computeCatch.html'>computeLandings</a>, <a href='http://www.inside-r.org/r-doc/graphics/plot'>plot</a>, <a href='ssb.html'>ssb</a>,
+<a href='ssbpurec.html'>ssbpurec</a>, <a href='trim.html'>trim</a>, <a href='FLComp.html'>FLComp</a>
+
+    
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
