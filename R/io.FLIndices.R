@@ -277,9 +277,7 @@ readIndicesAdapt <- function(file.,na.strings="NA") {
     for (i in 1:NIndex) {
         l.[[i]]<-FLIndex(FLQuant(NA,dimnames=list(age=range["min"]:range["max"],year=range["minyear"]:range["maxyear"])))
 		}
-    return(
-           FLCore:::set.index(smry.,index.,p.,l.,range)
-           )
+    return(set.index(smry.,index.,p.,l.,range))
 }
 
 ## readIndicesCSA
