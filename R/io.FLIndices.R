@@ -278,8 +278,8 @@ readIndicesAdapt <- function(file.,na.strings="NA") {
         l.[[i]]<-FLIndex(FLQuant(NA,dimnames=list(age=range["min"]:range["max"],year=range["minyear"]:range["maxyear"])))
 		}
     return(
-					 set.index(smry.,index.,p.,l.,range)
-					 )
+           FLCore:::set.index(smry.,index.,p.,l.,range)
+           )
 }
 
 ## readIndicesCSA
@@ -473,13 +473,13 @@ set.index <- function(smry.,index.,p.,l.,range) {
                 l.[[i]]@type<-c(l.[[i]]@type,"Butterworth")  
             names(l.[[i]]@type)<-c("type")
 
-            l.[[i]]@index <- FLQuant(array(index.[index.[,1]==i,3],
+            l.[[i]] <- FLIndex(index=FLQuant(array(index.[index.[,1]==i,3],
                 dim=c(1,yr.range[[i]][2]-yr.range[[i]][1]+1),
-                dimnames=list(age="all",year=(index.[index.[,1]==i,2]))))
+                dimnames=list(age="all",year=(index.[index.[,1]==i,2])))))
 
 		#	l.[[i]]@catch.wt <- FLQuant(l.[[i]]@index)
 		#	l.[[i]]@catch.n  <- FLQuant(l.[[i]]@index)
-		#	l.[[i]]@sel.pattern      <- FLQuant(l.[[i]]@index)
+		#	l.[[i]]@sel.pattern <- FLQuant(l.[[i]]@index)
 
             l.[[i]]@effort <- FLQuant(array(1,
                 dim=c(1,yr.range[[i]][2]-yr.range[[i]][1]+1),
