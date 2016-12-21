@@ -17,26 +17,26 @@
 \alias{flss}
 \title{Short aliases for most FLCore classes construction methods}
 \usage{
-flq(...)
-flqp(...)
-flqd(...)
-flc(...)
-flp(...)
-fls(...)
-flsl(...)
-fli(...)
-flib(...)
-flsr(...)
-flqs(...)
-flcs(...)
-flss(...)
-flis(...)
-flps(...)
-flb(...)
-flbs(...)
-flms(...)
-flmss(...)
-pm(...)
+flq(object, ...)
+flqp(object, ...)
+flqd(object, var, ...)
+flc(object, ...)
+flp(object, ...)
+fls(object, ...)
+flsl(object, ...)
+fli(object, ...)
+flib(object, ...)
+flsr(model, ...)
+flqs(object, ...)
+flcs(object, ...)
+flss(object, ...)
+flis(object, ...)
+flps(object, ...)
+flb(object, ...)
+flbs(object, ...)
+flms(object, ...)
+flmss(object, ...)
+pm(object, ...)
 }
 \value{
 An object of the requested class
@@ -83,10 +83,12 @@ flq <- flc(1:10, units="kg")
 The FLR Team
 }
 \seealso{
-\link{FLQuant}, \link{FLQuantPoint}, \link{FLQuantDistr}, \link{FLCohort}, \link{FLPar},
-\link{FLStock}, \link{FLStockLen}, \link{FLIndex}, \link{FLIndexBiomass}, \link{FLSR},
-\link{FLQuants}, \link{FLCohorts}, \link{FLStocks}, \link{FLIndices}, \link{FLPars}, 
-\link{FLBiol}, \link{FLBiols}, \link{FLModelSim}, \link{FLModelSims}, \link{predictModel}
+\link{FLQuant}, \link{FLQuantPoint}, \link{FLQuantDistr},
+\link{FLCohort}, \link{FLPar}, \link{FLStock}, \link{FLStockLen},
+\link{FLIndex}, \link{FLIndexBiomass}, \link{FLSR}, \link{FLQuants},
+\link{FLCohorts}, \link{FLStocks}, \link{FLIndices}, \link{FLPars}, 
+\link{FLBiol}, \link{FLBiols}, \link{FLModelSim}, \link{FLModelSims},
+\link{predictModel}
 }
 \keyword{methods}
 
