@@ -255,58 +255,6 @@ setMethod('summary', signature(object='FLPar'),
   }
 )   # }}}
 
-# plots {{{
-
-# plot
-setMethod("plot", signature(x="FLPar", y="missing"),
-  function(x, y="missing", ...) {
-    # get dimensions to condition on (skip iter)
-    condnames <- names(dimnames(x))[names(dimnames(x)) != 'iter']
-    cond <- paste(condnames, collapse="+")
-    if(cond != "") cond <- paste("|", cond)
-      formula <- formula(paste("~data", cond))
-    # set strip to show conditioning dimensions names
-    strip <- strip.custom(var.name=condnames, strip.names=c(TRUE,TRUE))
-
-    do.call('densityplot', list(x=formula, data=as.data.frame(x, row.names='row'),
-      ylab="", xlab="", scales=list(y=list(draw=FALSE), relation='free'), col='black'))
-  }
-)
-
-# densityplot
-if (!isGeneric("densityplot")) {
-  setGeneric("densityplot", useAsDefault = densityplot)
-}
-setMethod("densityplot", signature("formula", "FLPar"), function(x, data, ...){
-  lst <- substitute(list(...))
-  lst <- as.list(lst)[-1]
-  lst$data <- as.data.frame(data, row.names='row')
-  lst$x <- x
-  do.call("densityplot", lst)
-})
-
-# histogram
-setMethod("histogram", signature("formula", "FLPar"), function(x, data, ...){
-  lst <- substitute(list(...))
-  lst <- as.list(lst)[-1]
-  data <- as.data.frame(data)
-  lst$data <- data.frame(param=rep(names(data), each=nrow(data)),
-    data=as.vector(unlist(c(data))))
-  lst$x <- x
-  do.call("histogram", lst)
-})
-
-# splom
-if (!isGeneric("splom")) {
-  setGeneric("splom", useAsDefault = splom)
-}
-
-setMethod("splom", signature("FLPar", "missing"),
-  function(x, data, ...){
-    splom(as.data.frame(x))
-  }
-)   # }}}
-
 # units        {{{
 setMethod("units", signature(x="FLPar"),
   function(x)
@@ -463,6 +411,8 @@ setMethod("dims", signature(obj="FLPar"),
 )   # }}}
 
 # names         {{{
+#' @rdname names
+#' @aliases names,FLPar-method
 setMethod("names", signature(x="FLPar"),
   function(x)
     names(dimnames(x))
@@ -470,9 +420,8 @@ setMethod("names", signature(x="FLPar"),
 # }}}
 
 # names<-         {{{
-if (!isGeneric("names<-"))
-  setGeneric("names<-")
-
+#' @rdname names
+#' @aliases names<-,FLPar,character-method
 setMethod("names<-", signature(x="FLPar", value="character"),
   function(x, value)
   {

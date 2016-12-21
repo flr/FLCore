@@ -1,0 +1,201 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>show. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Method show</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="comment"># S4 method for FLArray</span>
+<span class="functioncall"><a href='show.html'>show</a></span><span class="keyword">(</span><span class="symbol">object</span><span class="keyword">)</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Standard display of an object contents in an interactive session. Objects of
+class <code><a href='FLQuant.html'>FLQuant</a></code> with length &gt; 1 along the sixth dimension
+(<em>iter</em>) are output in a summarised form, as <code>median(mad)</code>, where
+mad is the median absolute deviation. See <code><a href='http://www.rdocumentation.org/packages/stats/topics/mad'>mad</a></code>.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>The same format is used for objects of class <code><a href='FLPar.html'>FLPar</a></code> with
+length &gt; 1 on the last dimension (<em>iter</em>).</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>show(object)</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="comment"># no 'iter'</span>
+  <span class="symbol">flq</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">80</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">dim</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="number">4</span><span class="keyword">,</span><span class="number">20</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">quant</span><span class="argument">=</span><span class="string">'age'</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'kg'</span><span class="keyword">)</span>
+  <span class="symbol">flq</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+   year
+age 1          2          3          4          5          6         
+  1  1.7107347  1.6890421 -1.2320528 -1.0713005  0.1598333 -0.2788052
+  2  1.0818325 -0.3088327  1.3668096 -0.2415736 -1.3764010  1.3239398
+  3  0.4816399  1.3051733  1.1624438 -0.2129905  2.8034198 -0.6728176
+  4  0.2986779 -1.8455352 -1.8784739 -2.0600328  0.5859310 -0.8757588
+   year
+age 7          8          9          10         11         12        
+  1  0.8058549  0.4910919  1.4548478 -1.0687396 -0.5920325  0.6927434
+  2  0.1818426  1.4054670 -2.4728017  0.2485942 -0.5127169 -0.5592794
+  3  0.1906407  1.5678740  0.9494104  0.0087216  1.6006151  0.0855997
+  4 -0.5528425 -0.4543415 -1.3699782 -0.0134129  0.0122653 -1.3190884
+   year
+age 13         14         15         16         17         18        
+  1  0.0504650 -1.2297777  0.3290518 -0.5617825  0.4519208  0.4013079
+  2 -0.4561743 -0.3361049 -1.0157586  0.8571496 -0.3331017 -0.9536048
+  3  0.1984053 -0.4228592 -0.0574091  0.1605772 -1.7412438  0.4143226
+  4  0.4638367 -0.5129392  1.0334341  1.4474257  0.0312717 -0.7416205
+   year
+age 19         20        
+  1 -0.7645804 -0.9646186
+  2 -0.5801996 -0.0301683
+  3 -1.3796681  2.2492242
+  4  1.4602868 -0.8601541
+
+units:  kg 
+</div>
+<div class='input'>
+<span class="comment"># with 'iter'</span>
+  <span class="symbol">flq</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">800</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">dim</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="number">4</span><span class="keyword">,</span><span class="number">20</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">,</span><span class="number">10</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">quant</span><span class="argument">=</span><span class="string">'age'</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'kg'</span><span class="keyword">)</span>
+  <span class="symbol">flq</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+iters:  10 
+
+, , unit = unique, season = all, area = unique
+
+   year
+age 1                 2                 3                 4                
+  1 -0.2813507(0.839) -0.0122614(1.293)  0.2868668(0.930)  0.5722015(0.844)
+  2  0.2457713(0.552)  0.2766602(0.657)  0.2291091(0.337)  0.0160693(1.241)
+  3  0.3434944(0.867)  0.4434178(0.898)  0.3636921(0.467)  0.3090718(0.598)
+  4 -0.0943708(1.081)  0.3112263(0.546) -0.3902902(0.463)  0.3519026(0.807)
+   year
+age 5                 6                 7                 8                
+  1  0.1325904(0.933)  0.2496214(0.878) -0.3236594(0.930)  0.2818203(0.845)
+  2  0.2952405(0.975) -0.5565622(1.169)  0.4688073(0.982) -0.3502609(1.205)
+  3 -0.0733706(0.734)  0.1377822(0.468)  0.5148941(1.379)  0.1730433(0.553)
+  4  0.1813252(0.200) -0.3837379(0.982)  0.6253074(1.368) -0.0580490(1.459)
+   year
+age 9                 10                11                12               
+  1 -0.0719935(0.660) -0.3312671(1.044)  0.0871817(1.187)  0.3434138(0.529)
+  2  0.3988765(1.046)  0.0023172(0.345)  0.4692642(1.045)  0.2974606(1.466)
+  3  0.6598014(1.483) -0.0670067(0.833)  0.0257732(0.724) -0.2458399(0.711)
+  4 -0.1275144(1.208) -0.2936771(0.664)  0.0846874(0.737) -0.3007748(1.282)
+   year
+age 13                14                15                16               
+  1 -0.0662944(0.861) -0.2169032(0.617) -0.0133682(1.323)  0.5247960(0.957)
+  2 -0.0444874(0.644)  0.3072787(0.314) -0.4586382(0.544) -0.6792492(0.722)
+  3  0.1469054(0.951)  0.3230443(1.468) -0.3824736(1.281)  0.2053726(0.564)
+  4  0.4881452(0.875)  0.3919451(0.573)  0.1193747(1.174) -0.0565361(0.735)
+   year
+age 17                18                19                20               
+  1  0.1081572(0.604)  0.5741923(0.768) -0.3649358(0.403) -0.0743102(0.600)
+  2  0.3628086(0.881)  0.0903149(0.902) -0.1851682(1.559) -0.4023801(0.764)
+  3 -0.0354174(0.797) -0.4428682(0.877) -0.6884036(0.636)  0.3128164(1.372)
+  4  0.1439167(0.864) -0.3202839(1.150)  0.3535367(1.279)  0.2866680(0.740)
+
+units:  kg 
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>show</li><li>show,FLArray-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='FLComp.html'>FLComp</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

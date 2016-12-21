@@ -1,0 +1,207 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>units. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Method units</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="comment"># S4 method for FLArray</span>
+<span class="functioncall"><a href='units.html'>units</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">)</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p><code>units</code> attribute for FLQuant and FLArray-derived objects</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>Objects of <code>FLArray</code>-based classes (e.g. <code><a href='FLQuant.html'>FLQuant</a></code>) contain a
+<code>units</code> attribute of class <code>character</code>. This should be used to store
+the corresponding units of measurement.  This attribute can be directly accessed
+and modified using the <code>units</code> and <code>units&lt;-</code> methods.</p>
+  
+      <p>For complex objects, <code>units</code> will return a named list containing the
+attributes of all <code>FLQuant</code> slots. <code>units</code> of a complex object can
+be modified for all slots or a subset of them, by passing a named list with
+the new values. See examples below.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>units(x)</p>
+  
+      <p>units&lt;-(x,value)</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="symbol">flq</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">100</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">dim</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="number">5</span><span class="keyword">,</span><span class="number">20</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">units</span><span class="argument">=</span><span class="string">'kg'</span><span class="keyword">)</span>
+<span class="functioncall"><a href='units.html'>units</a></span><span class="keyword">(</span><span class="symbol">flq</span><span class="keyword">)</span></div>
+<div class='output'>[1] &quot;kg&quot;
+</div>
+<div class='input'><span class="functioncall"><a href='units.html'>units</a></span><span class="keyword">(</span><span class="symbol">flq</span><span class="keyword">)</span> <span class="assignement">&lt;-</span> <span class="string">'t'</span>
+<span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="symbol">flq</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot; with:
+dim  :  5 20 1 1 1 1 
+quant:  quant 
+units:  t 
+
+Min    :  -2.389518 
+1st Qu.:  -0.7663159 
+Mean   :  -0.07689697 
+Median :  -0.0530851 
+3rd Qu.:  0.6380964 
+Max    :  2.450107 
+NAs    :  0 %
+</div>
+<div class='input'>
+<span class="comment"># units for a complex object</span>
+  <span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span>
+  <span class="functioncall"><a href='units.html'>units</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span></div>
+<div class='output'>$catch
+[1] &quot;t&quot;
+
+$catch.n
+[1] &quot;10^3&quot;
+
+$catch.wt
+[1] &quot;kg&quot;
+
+$discards
+[1] &quot;t&quot;
+
+$discards.n
+[1] &quot;10^3&quot;
+
+$discards.wt
+[1] &quot;kg&quot;
+
+$landings
+[1] &quot;t&quot;
+
+$landings.n
+[1] &quot;10^3&quot;
+
+$landings.wt
+[1] &quot;kg&quot;
+
+$stock
+[1] &quot;t&quot;
+
+$stock.n
+[1] &quot;10^3&quot;
+
+$stock.wt
+[1] &quot;kg&quot;
+
+$m
+[1] &quot;m&quot;
+
+$mat
+[1] &quot;NA&quot;
+
+$harvest
+[1] &quot;f&quot;
+
+$harvest.spwn
+[1] &quot;NA&quot;
+
+$m.spwn
+[1] &quot;NA&quot;
+
+</div>
+<div class='input'>  <span class="functioncall"><a href='units.html'>units</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="argument">harvest</span><span class="argument">=</span><span class="string">'hr'</span><span class="keyword">)</span></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>units</li><li>units,FLArray-method</li><li>units&amp;lt;-,FLArray,character-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='FLQuant.html'>FLQuant</a>, <a href='FLPar.html'>FLPar</a>, <a href='FLCohort.html'>FLCohort</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

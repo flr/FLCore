@@ -2,9 +2,21 @@
 # FLCore/R/FLAccesors.R
 
 # Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Maintainer: Iago Mosqueira, EC JRC
 
-# createFLAccesors {{{
+# createFLAccesors    {{{
+
+#' Create accesor methods for a given class
+#' 
+#' This function creates a complete set of standard S4 class accessors and
+#' replacers. Not intended for direct use.
+#'
+#' @param class name of the class
+#' @param exclude Slot names to exclude
+#' @param include Slot names to include
+#' @author The FLR Team
+#' @keywords methods
+#'
 createFLAccesors <- function(class, exclude=character(1), include=missing) {
   
   object <- class
@@ -54,6 +66,21 @@ createFLAccesors <- function(class, exclude=character(1), include=missing) {
 }  # }}}
 
 # getSlotNamesClass {{{
+
+#' Names of slots of a given class
+#' 
+#' This function returns the names, as a character vector, of the slots in an
+#' S4 object that are of the class specified by the 'class' argument. Comparison
+#' is done using is(), so class inheritance is matched.
+#'
+#' @param object An S4 object to check slots from.
+#' @param class The name of the class to match, 'character'.
+#' @author The FLR Team
+#' @keywords methods
+#' @examples
+#' data(ple4)
+#' getSlotNamesClass(ple4, 'FLQuant')
+#' 
 getSlotNamesClass <- function(object, class)
 {
     slots <- names(getClass(class(object))@slots)

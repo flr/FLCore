@@ -1,0 +1,212 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>lattice. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Lattice methods</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="comment"># S4 method for formula,FLQuant</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLCohort</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLQuants</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLComp</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLQuant</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>bwplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLComp</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>bwplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLQuant</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>dotplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLComp</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>dotplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLQuant</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>barchart</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLComp</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>barchart</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLQuant</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>stripplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLComp</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>stripplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLQuant</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/histogram'>histogram</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLComp</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/histogram'>histogram</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLQuants</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/histogram'>histogram</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for formula,FLPar</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/histogram'>densityplot</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">data</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Implementation of Trellis graphics in FLR</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>Plot methods in the <code><a href='http://www.rdocumentation.org/packages/lattice/topics/Lattice'>lattice</a></code> package are available for
+an object of classes <code>FLQuant</code>, <code>FLQuants</code> or those derived from
+<code>FLComp</code>.</p>
+  
+      <p>See the help page in <code><a href='http://www.rdocumentation.org/packages/lattice/topics/Lattice'>lattice</a></code> for a full description
+of each plot method and all possible arguments.</p>
+  
+      <p>Plot methods from lattice are called by passing a <a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a>
+obtained by converting the FLR objects using as.data.frame. For details on
+this transformation, see as.data.frame-FLCore.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p></p>
+  
+      <p>barchart(x, data, ...)</p>
+  
+      <p>bwplot(x, data, ...)</p>
+  
+      <p>densityplot(x, data, ...)</p>
+  
+      <p>dotplot(x, data, ...)</p>
+  
+      <p>histogram(x, data, ...)</p>
+  
+      <p>stripplot(x, data, ...)</p>
+  
+      <p>xyplot(x, data, ...)</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span>
+<span class="comment"># xyplot on FLQuant</span>
+  <span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a></span><span class="keyword">(</span><span class="symbol">data</span><span class="keyword">~</span><span class="symbol">year</span><span class="keyword">|</span><span class="symbol">age</span><span class="keyword">,</span> <span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">[</span><span class="keyword">,</span> <span class="number">1</span><span class="keyword">:</span><span class="number">20</span><span class="keyword">]</span><span class="keyword">)</span></div>
+<p><img src='lattice-2.png' alt='' width='540' height='400' /></p>
+<div class='input'>  <span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a></span><span class="keyword">(</span><span class="symbol">data</span><span class="keyword">~</span><span class="symbol">year</span><span class="keyword">|</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/factor'>as.factor</a></span><span class="keyword">(</span><span class="symbol">age</span><span class="keyword">)</span><span class="keyword">,</span> <span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">[</span><span class="keyword">,</span> <span class="number">1</span><span class="keyword">:</span><span class="number">20</span><span class="keyword">]</span><span class="keyword">,</span> <span class="argument">type</span><span class="argument">=</span><span class="string">'b'</span><span class="keyword">,</span> <span class="argument">pch</span><span class="argument">=</span><span class="number">19</span><span class="keyword">,</span>
+    <span class="argument">cex</span><span class="argument">=</span><span class="number">0.5</span><span class="keyword">)</span></div>
+<p><img src='lattice-4.png' alt='' width='540' height='400' /></p>
+<div class='input'>
+<span class="comment"># bwplot on FLQuant with iter...</span>
+  <span class="symbol">flq</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">100</span><span class="keyword">,</span> <span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">[</span><span class="keyword">,</span> <span class="number">1</span><span class="keyword">:</span><span class="number">20</span><span class="keyword">]</span><span class="keyword">,</span> <span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">[</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">:</span><span class="number">20</span><span class="keyword">]</span><span class="keyword">)</span>
+  <span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>bwplot</a></span><span class="keyword">(</span><span class="symbol">data</span><span class="keyword">~</span><span class="symbol">year</span><span class="keyword">|</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/factor'>as.factor</a></span><span class="keyword">(</span><span class="symbol">age</span><span class="keyword">)</span><span class="keyword">,</span> <span class="symbol">flq</span><span class="keyword">)</span></div>
+<p><img src='lattice-6.png' alt='' width='540' height='400' /></p>
+<div class='input'><span class="comment"># ...now with same style modifications</span>
+  <span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>bwplot</a></span><span class="keyword">(</span><span class="symbol">data</span><span class="keyword">~</span><span class="symbol">year</span><span class="keyword">|</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/factor'>as.factor</a></span><span class="keyword">(</span><span class="symbol">age</span><span class="keyword">)</span><span class="keyword">,</span> <span class="symbol">flq</span><span class="keyword">,</span> <span class="argument">scales</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="argument">relation</span><span class="argument">=</span><span class="string">'free'</span><span class="keyword">,</span>
+    <span class="argument">x</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="argument">at</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span><span class="keyword">(</span><span class="number">1</span><span class="keyword">,</span> <span class="number">20</span><span class="keyword">,</span> <span class="argument">by</span><span class="argument">=</span><span class="number">5</span><span class="keyword">)</span><span class="keyword">,</span>
+    <span class="argument">labels</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames</a></span><span class="keyword">(</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">[</span><span class="keyword">,</span><span class="number">1</span><span class="keyword">:</span><span class="number">20</span><span class="keyword">]</span><span class="keyword">)</span><span class="keyword">$</span><span class="symbol">year</span><span class="keyword">[</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span><span class="keyword">(</span><span class="number">1</span><span class="keyword">,</span> <span class="number">20</span><span class="keyword">,</span> <span class="argument">by</span><span class="argument">=</span><span class="number">5</span><span class="keyword">)</span><span class="keyword">]</span><span class="keyword">)</span><span class="keyword">)</span><span class="keyword">,</span>
+    <span class="argument">cex</span><span class="argument">=</span><span class="number">0.5</span><span class="keyword">,</span> <span class="argument">strip</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/lattice/topics/strip.default'>strip.custom</a></span><span class="keyword">(</span><span class="argument">strip.names</span><span class="argument">=</span><span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">strip.levels</span><span class="argument">=</span><span class="number">TRUE</span><span class="keyword">,</span>
+    <span class="argument">var.name</span><span class="argument">=</span><span class="string">'age'</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<p><img src='lattice-8.png' alt='' width='540' height='400' /></p>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>barchart,formula,FLComp-method</li><li>barchart,formula,FLQuant-method</li><li>bwplot,formula,FLComp-method</li><li>bwplot,formula,FLQuant-method</li><li>densityplot,formula,FLPar-method</li><li>dotplot,formula,FLComp-method</li><li>dotplot,formula,FLQuant-method</li><li>histogram,formula,FLComp-method</li><li>histogram,formula,FLQuant-method</li><li>histogram,formula,FLQuants-method</li><li>lattice</li><li>lattice-FLCore</li><li>stripplot,formula,FLComp-method</li><li>stripplot,formula,FLQuant-method</li><li>xyplot,formula,FLCohort-method</li><li>xyplot,formula,FLComp-method</li><li>xyplot,formula,FLQuant-method</li><li>xyplot,formula,FLQuants-method</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a>, <a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>barchart</a>,
+<a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>bwplot</a>, <a href='http://www.rdocumentation.org/packages/lattice/topics/histogram'>densityplot</a>,
+<a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>dotplot</a>, <a href='http://www.rdocumentation.org/packages/lattice/topics/histogram'>histogram</a>,
+<a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>stripplot</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

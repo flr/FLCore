@@ -1,0 +1,263 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>trim. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>Method trim</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='trim.html'>trim</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for FLArray</span>
+<span class="functioncall"><a href='trim.html'>trim</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for FLComp</span>
+<span class="functioncall"><a href='trim.html'>trim</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="comment"># S4 method for FLS</span>
+<span class="functioncall"><a href='trim.html'>trim</a></span><span class="keyword">(</span><span class="symbol">x</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+        
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>Trim FLR objects using named dimensions</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+      
+      <p>Subsetting of FLR objects can be carried out with dimension names by using
+<code>trim</code>. A number of dimension names and selected dimensions are passed
+to the method and those are used to subset the input object.</p>
+  
+      <p>Exceptions are made for those classes where certain slots might differ in
+one or more dimensions. If trim is applied to an FLQuant object of length 1
+in its first dimension and with dimension name equal to &#39;all&#39;, values to
+<code>trim</code> specified for that dimension will be ignored. For example,
+<code><a href='FLStock.html'>FLStock</a></code> objects contain slots with length=1 in their first
+dimension. Specifying values to trim over the first dimension will have no
+effect on those slots (<code>catch</code>, <code>landings</code>, <code>discards</code>, and
+<code>stock</code>). Calculations might need to be carried out to recalculate
+those slots (e.g. using <code>computeCatch</code>, <code>computeLandings</code>,
+<code>computeDiscards</code> and <code>computeStock</code>) if their quant-structured
+counterparts are modified along the first dimension.</p>
+  
+    </div>
+
+    <div class="Generic function">
+      <h2>Generic function</h2>
+      
+      <p>trim(x)</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="symbol">flq</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuant.html'>FLQuant</a></span><span class="keyword">(</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span><span class="keyword">(</span><span class="number">90</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">dimnames</span><span class="argument">=</span><span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span><span class="keyword">(</span><span class="argument">age</span><span class="argument">=</span><span class="number">1</span><span class="keyword">:</span><span class="number">10</span><span class="keyword">,</span> <span class="argument">year</span><span class="argument">=</span><span class="number">2000</span><span class="keyword">:</span><span class="number">2016</span><span class="keyword">)</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='trim.html'>trim</a></span><span class="keyword">(</span><span class="symbol">flq</span><span class="keyword">,</span> <span class="argument">year</span><span class="argument">=</span><span class="number">2000</span><span class="keyword">:</span><span class="number">2005</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+    year
+age  2000       2001       2002       2003       2004       2005      
+  1   1.6775833  0.3770582 -1.4072286  0.2351519  0.8443291  1.1302717
+  2  -1.3685009 -0.0973352  0.7194053  0.4150593  0.4433656  0.6990665
+  3  -0.7753723  0.0038041  0.6376153  0.5292026  1.0194906 -0.2811122
+  4   1.4341643 -0.4683431  1.5123181  0.4353894 -1.5460196  0.8852282
+  5   0.4050211  0.4920413  0.7469603  1.8176279 -0.1399166  0.6348306
+  6  -0.8583361 -0.7655286  0.1693351  1.0773451 -0.2837148  0.6582525
+  7   1.4673819 -0.2554141  0.0802835 -1.5137773  0.0910590 -0.7564825
+  8   0.1386111  1.5864970  0.7183611  1.5737699  2.0771505  0.3401653
+  9  -1.0751954 -1.4470170  0.4450702  1.5855725 -1.6204500  0.5573284
+  10 -1.1812208 -1.2743144 -0.6018665  0.1476690  1.2684646 -0.8745539
+
+units:  NA 
+</div>
+<div class='input'><span class="comment"># which is equivalent to</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/stats/topics/window'>window</a></span><span class="keyword">(</span><span class="symbol">flq</span><span class="keyword">,</span> <span class="argument">start</span><span class="argument">=</span><span class="number">2000</span><span class="keyword">,</span> <span class="argument">end</span><span class="argument">=</span><span class="number">2005</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+    year
+age  2000       2001       2002       2003       2004       2005      
+  1   1.6775833  0.3770582 -1.4072286  0.2351519  0.8443291  1.1302717
+  2  -1.3685009 -0.0973352  0.7194053  0.4150593  0.4433656  0.6990665
+  3  -0.7753723  0.0038041  0.6376153  0.5292026  1.0194906 -0.2811122
+  4   1.4341643 -0.4683431  1.5123181  0.4353894 -1.5460196  0.8852282
+  5   0.4050211  0.4920413  0.7469603  1.8176279 -0.1399166  0.6348306
+  6  -0.8583361 -0.7655286  0.1693351  1.0773451 -0.2837148  0.6582525
+  7   1.4673819 -0.2554141  0.0802835 -1.5137773  0.0910590 -0.7564825
+  8   0.1386111  1.5864970  0.7183611  1.5737699  2.0771505  0.3401653
+  9  -1.0751954 -1.4470170  0.4450702  1.5855725 -1.6204500  0.5573284
+  10 -1.1812208 -1.2743144 -0.6018665  0.1476690  1.2684646 -0.8745539
+
+units:  NA 
+</div>
+<div class='input'>
+<span class="functioncall"><a href='trim.html'>trim</a></span><span class="keyword">(</span><span class="symbol">flq</span><span class="keyword">,</span> <span class="argument">year</span><span class="argument">=</span><span class="number">2000</span><span class="keyword">:</span><span class="number">2005</span><span class="keyword">,</span> <span class="argument">age</span><span class="argument">=</span><span class="number">1</span><span class="keyword">:</span><span class="number">2</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLQuant&quot;
+, , unit = unique, season = all, area = unique
+
+   year
+age 2000      2001      2002      2003      2004      2005     
+  1  1.677583  0.377058 -1.407229  0.235152  0.844329  1.130272
+  2 -1.368501 -0.097335  0.719405  0.415059  0.443366  0.699066
+
+units:  NA 
+</div>
+<div class='input'>
+
+<span class="comment"># Now on an FLStock</span>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span>
+<span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="functioncall"><a href='trim.html'>trim</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">,</span> <span class="argument">year</span><span class="argument">=</span><span class="number">1990</span><span class="keyword">:</span><span class="number">1995</span><span class="keyword">)</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLStock&quot;
+
+Name: Plaice in IV 
+Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+	1	10	10	1990	1995	2	6	
+Quant: age 
+
+catch         : [ 1 6 1 1 1 1 ], units =  t 
+catch.n       : [ 10 6 1 1 1 1 ], units =  10^3 
+catch.wt      : [ 10 6 1 1 1 1 ], units =  kg 
+discards      : [ 1 6 1 1 1 1 ], units =  t 
+discards.n    : [ 10 6 1 1 1 1 ], units =  10^3 
+discards.wt   : [ 10 6 1 1 1 1 ], units =  kg 
+landings      : [ 1 6 1 1 1 1 ], units =  t 
+landings.n    : [ 10 6 1 1 1 1 ], units =  10^3 
+landings.wt   : [ 10 6 1 1 1 1 ], units =  kg 
+stock         : [ 1 6 1 1 1 1 ], units =  t 
+stock.n       : [ 10 6 1 1 1 1 ], units =  10^3 
+stock.wt      : [ 10 6 1 1 1 1 ], units =  kg 
+m             : [ 10 6 1 1 1 1 ], units =  m 
+mat           : [ 10 6 1 1 1 1 ], units =  NA 
+harvest       : [ 10 6 1 1 1 1 ], units =  f 
+harvest.spwn  : [ 10 6 1 1 1 1 ], units =  NA 
+m.spwn        : [ 10 6 1 1 1 1 ], units =  NA 
+</div>
+<div class='input'>
+<span class="comment"># If 'age' is trimmed in ple4, catch, landings and discards need to be</span>
+<span class="comment"># recalculated</span>
+  <span class="symbol">shpl4</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='trim.html'>trim</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">,</span> <span class="argument">age</span><span class="argument">=</span><span class="number">1</span><span class="keyword">:</span><span class="number">4</span><span class="keyword">)</span>
+  <span class="functioncall">landings</span><span class="keyword">(</span><span class="symbol">shpl4</span><span class="keyword">)</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='compute.html'>computeLandings</a></span><span class="keyword">(</span><span class="symbol">shpl4</span><span class="keyword">)</span>
+  <span class="functioncall">discards</span><span class="keyword">(</span><span class="symbol">shpl4</span><span class="keyword">)</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='compute.html'>computeDiscards</a></span><span class="keyword">(</span><span class="symbol">shpl4</span><span class="keyword">)</span>
+  <span class="functioncall"><a href='http://www.rdocumentation.org/packages/FLSAM/topics/accessors'>catch</a></span><span class="keyword">(</span><span class="symbol">shpl4</span><span class="keyword">)</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='compute.html'>computeCatch</a></span><span class="keyword">(</span><span class="symbol">shpl4</span><span class="keyword">)</span>
+  <span class="functioncall"><a href='summary.html'>summary</a></span><span class="keyword">(</span><span class="symbol">shpl4</span><span class="keyword">)</span></div>
+<div class='output'>An object of class &quot;FLStock&quot;
+
+Name: Plaice in IV 
+Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSSK\2009\stock\ple-nsea\final runs\index.txt ).  Tue Jun 16 06:32:20 2009 + FLAssess:  
+Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+	1	4	NA	1957	2008	2	4	
+Quant: age 
+
+catch         : [ 1 52 1 1 1 1 ], units =  10^3 kg 
+catch.n       : [ 4 52 1 1 1 1 ], units =  10^3 
+catch.wt      : [ 4 52 1 1 1 1 ], units =  kg 
+discards      : [ 1 52 1 1 1 1 ], units =  10^3 kg 
+discards.n    : [ 4 52 1 1 1 1 ], units =  10^3 
+discards.wt   : [ 4 52 1 1 1 1 ], units =  kg 
+landings      : [ 1 52 1 1 1 1 ], units =  10^3 * kg 
+landings.n    : [ 4 52 1 1 1 1 ], units =  10^3 
+landings.wt   : [ 4 52 1 1 1 1 ], units =  kg 
+stock         : [ 1 52 1 1 1 1 ], units =  t 
+stock.n       : [ 4 52 1 1 1 1 ], units =  10^3 
+stock.wt      : [ 4 52 1 1 1 1 ], units =  kg 
+m             : [ 4 52 1 1 1 1 ], units =  m 
+mat           : [ 4 52 1 1 1 1 ], units =  NA 
+harvest       : [ 4 52 1 1 1 1 ], units =  f 
+harvest.spwn  : [ 4 52 1 1 1 1 ], units =  NA 
+m.spwn        : [ 4 52 1 1 1 1 ], units =  NA 
+</div>
+<div class='input'></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>trim</li><li>trim,FLArray-method</li><li>trim,FLComp-method</li><li>trim,FLS-method</li><li>trim-methods</li>
+    </ul>
+    <ul>
+      <li>methods</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='FLQuant.html'>FLQuant</a>, <a href='FLStock.html'>FLStock</a>,
+<a href='FLCohort.html'>FLCohort</a>, <a href='FLIndex.html'>FLIndex</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

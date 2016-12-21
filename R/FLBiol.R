@@ -5,6 +5,7 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # class FLBiol {{{
+
 #' Class FLBiol
 #'
 #' A class for modelling age / length or biomass structured populations.
@@ -13,7 +14,8 @@
 #' This includes information on abundances, natural mortality and fecundity.
 #'
 #' @name FLBiol
-#' @template FLBiol-aliases
+#' @aliases FLBiol-class n,FLBiol-method m,FLBiol-method wt,FLBiol-method fec,FLBiol-method spwn,FLBiol-method name,FLBiol-method desc,FLBiol-method range,FLBiol-method n<-,FLBiol,FLQuant-method m<-,FLBiol,FLQuant-method wt<-,FLBiol,FLQuant-method fec<-,FLBiol,FLQuant-method spwn<-,FLBiol,FLQuant-method name<-,FLBiol,character-method desc<-,FLBiol,character-method range<-,FLBiol,numeric-method FLBiol-class
+#' FLBiolcpp-class
 #' @docType class
 #' @section Slots: \describe{
 #'   \item{n}{Numbers in the population. \code{FLQuant}.}
@@ -28,6 +30,7 @@
 #'   \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
 #' @template Accessors
 #' @template Constructors
+#' @param plusgroup Plusgroup age, to be stored in range
 #' @section Validity: \describe{
 #'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
 #'     \item{Iters}{The dimname for iter[1] should be '1'.}
@@ -385,6 +388,8 @@ setMethod("summary", signature(object="FLBiol"),
 ) # }}}
 
 # FLBiol()   {{{
+#' @rdname FLBiol
+#' @aliases FLBiol,missing-method FLBiol,FLQuant-method FLBiolcpp-class
 setMethod('FLBiol', signature(object='FLQuant'),
   function(object, plusgroup=dims(object)$max, ...)
   {
@@ -440,26 +445,46 @@ setMethod('FLBiol', signature(object='missing'),
 ) # }}}
 
 # FLBiols {{{
-vFLSs <- function(object){
+
+#' Class FLBiols
+#' 
+#' A list of \code{FLBiol} objects.
+#'
+#' @name FLBiols
+#' @aliases FLBiols-class 
+#' @docType class
+#' @section Slots: \describe{
+#'   \item{.Data}{Internal S4 data representation, of class \code{list}.}
+#'   \item{desc}{As textual description of the object contents}
+#'   \item{lock}{Can the object be extended/trimmed? \code{TRUE} or \code{FALSE}.}
+#'   \item{names}{A character vector for the element names} }
+#' @template FLlst-constructors
+#' @author The FLR Team
+#' @seealso \code{\link{FLlst}}, \code{\link[base]{list}},
+#'   \code{\link[base]{vector}}
+#' @keywords classes
+#'
+setClass("FLBiols", contains="FLComps",
+  validity=function(object){
 
   # All items are FLBiol
   if(!all(unlist(lapply(object, is, 'FLBiol'))))
       return("Components must be FLBiol")
 
   return(TRUE)
-}
-
-# class
-setClass("FLBiols", contains="FLComps",
-  validity=vFLSs
+  }
 )
 
 # constructor
+#' @rdname FLBiols
+#' @aliases FLBiols,FLBiol-method
 setMethod("FLBiols", signature(object="FLBiol"), function(object, ...) {
     lst <- c(object, list(...))
     FLBiols(lst)
 })
 
+#' @rdname FLBiols
+#' @aliases FLBiols,missing-method
 setMethod("FLBiols", signature(object="missing"),
   function(...) {
     # empty
@@ -475,6 +500,8 @@ setMethod("FLBiols", signature(object="missing"),
   }
 )
 
+#' @rdname FLBiols
+#' @aliases FLBiols,list-method
 setMethod("FLBiols", signature(object="list"),
   function(object, ...) {
 
@@ -554,54 +581,17 @@ setMethod("meanLifespan", signature(x="FLBiol"),
   }
 )# }}}
 
-# plot {{{
-setMethod("plot", signature(x="FLBiol", y="missing"),
-  function(x, y, ...)
-  {
-    data <- as.data.frame(FLQuants(ssb=ssb(x), recruitment=n(x)[1,]))
-
-     if(length(levels(data$iter)) > 1)
-     pfun <- function(x, y, ...)
-      {
-        args <- list(...)
-        # median
-        do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, median), lwd=2, lty=1,
-          type='l'), args[!names(args) %in% c('lwd', 'lty', 'type')]))
-        # lowq
-        do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, quantile, 0.025), lwd=1,
-        lty=2, type='l'), args[!names(args) %in% c('lwd', 'lty', 'type')]))
-        # uppq
-        do.call(panel.xyplot, c(list(x=unique(x), y=tapply(y, x, quantile, 0.975), lwd=1,
-        lty=2, type='l'), args[!names(args) %in% c('lwd', 'lty', 'type')]))
-      }
-    else
-    pfun <- function(x, y, ...)
-    {
-      panel.xyplot(x, y, ...)
-      args <- list(...)
-      args <- args[!names(args) %in% c('type', 'pch')]
-      do.call(panel.xyplot, c(args, list(x=x[length(x)], y=y[length(y)], pch=19)))
-    }
-
-    options <- list(aspect='xy', type='l', col='black', pch=19, cex=0.5, lwd=2,
-      scales=list(relation='free'), ylab='', xlab='', panel=pfun)
-    args <- list(...)
-    for(i in names(args))
-      options[i] <- args[i]
-
-    condnames <- names(dimnames(x@n)[c(3:5)][dim(x@n)[c(3:5)]!=1])
-    cond <- paste(condnames, collapse="+")
-    if(cond != "")
-      cond <- paste("|qname*", cond)
-    else
-      cond <- paste("|qname")
-    formula <- formula(paste("data~year", cond))
-    do.call(xyplot, c(options, list(x=formula, data=data)))
-
-  }
-) # }}}
-
 # ssb  {{{
+#' @rdname ssb
+#' @details
+#' For an object of class \code{\link{FLBiol}}, the calculation of SSB is as
+#' follows:
+#' \deqn{SSB_{a,y} = \sum\nolimits_{a} N_{a,y} \cdot W_{a,y} \cdot e^{-S_{a,y} \cdot M_{a,y}}}{SSB_ay = sum_a N_ay * W_ay * exp(-S_ay * M_ay)}
+#' where \eqn{S_{a,y}}{S_ay} is the fraction of natural mortality before spawning (\code{spwn}). The method for this class does not correct the estimate, based on abundnaces at the
+#' start of the time period, for fishing mortality ocurring between that time and
+#' spawning, as the class holds no information on fishing mortality.
+
+#' @aliases ssb-FLBiol,method
 setMethod("ssb", signature(object="FLBiol"),
   function(object, ...)
   {

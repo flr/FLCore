@@ -9,17 +9,16 @@ GITVERS=$(shell (date -d `git log -1 --date=short --pretty=format:"%ad"` +%Y%m%d
 R_FILES := $(wildcard $(PKGSRC)/R/*.R)
 HELP_FILES := $(wildcard $(PKGSRC)/man/*.Rd)
 
-all: NEWS README.md roxygen build
+all: NEWS README.md roxygen build docs
 
 README.md: DESCRIPTION
 	sed -i 's/Version: *\([^ ]*\)/Version: $(PKGVERS)/' README.md
 	sed -i 's/Date: *\([^ ]*\)/Date: $(PKGDATE)/' README.md
 
-gh-pages: $(HELP_FILES) README.md
+docs: $(HELP_FILES) README.md
 	R --vanilla --silent -e "library(staticdocs);" \
-  -e "build_site('../$(PKGNAME)/', site_path='gh-pages', launch=FALSE)"; \
+  -e "build_site('../$(PKGNAME)/', launch=FALSE)"; \
 	rm -rf Rplots.pdf  
-	git subtree push --prefix gh-pages origin gh-pages
 
 NEWS: NEWS.md
 	sed -e 's/^-/-/' -e 's/^## *//' -e 's/^#//' <NEWS.md | fmt -80 -s > NEWS

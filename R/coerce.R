@@ -1,8 +1,8 @@
 # coerce - Various coercion methods for FLCore classes
 # FLCore/R/coerce.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # TO data.frame {{{
 setAs('FLArray', 'data.frame',

@@ -3,13 +3,18 @@
 \docType{class}
 \name{FLI}
 \alias{FLI}
+\alias{FLI-class}
 \title{Class FLI}
+\arguments{
+\item{object}{FLQuant object used for sizing}
+
+\item{...}{Other objects to be assigned by name to the class slots}
+}
 \description{
 A VIRTUAL class that holds data and parameters related to abundance indices.
 }
 \section{Slots}{
  \describe{
-    \item{type}{Type of index (\code{character}).}
     \item{distribution}{Statistical distribution of the index values (\code{character}).}
     \item{index}{Index values (\code{FLQuant}).}
     \item{index.var}{Variance of the index (\code{FLQuant}).}

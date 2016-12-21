@@ -61,14 +61,20 @@
 #' @author The FLR Team
 #' @seealso \code{\link{FLQuants}} \code{\link{FLPar}} \code{\link{FLBiol}}
 #' @keywords classes
-#' @examples
-#'
 setClass('predictModel',
 	contains='FLQuants',
 	representation(params='FLPar', model='formula'),
     prototype(FLQuants(), params=FLPar(), model=as.formula("~NA", env=emptyenv()))) # }}}
 
 # predictModel() {{{
+
+#' @rdname predictModel
+#' @aliases predictModel,FLQuants-method
+#' @examples
+#' 
+#' fec <- FLQuants(fec=FLQuant(rlnorm(10, 20, 5), dimnames=list(year=2000:2009),
+#'   units='1'))
+#' predictModel(fec, model=~fec)
 setMethod('predictModel', signature(object='FLQuants'),
 	function(object, model=~NA, params=FLPar()) {
 
@@ -79,6 +85,11 @@ setMethod('predictModel', signature(object='FLQuants'),
 	}
 )
 
+#' @rdname predictModel
+#' @aliases predictModel,missing-method
+#' @examples
+#'
+#' predictModel(model=rec~a*ssb, params=FLPar(a=1.234))
 setMethod('predictModel', signature(object='missing'),
 	function(object, ...) {
 

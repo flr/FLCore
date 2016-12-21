@@ -174,6 +174,10 @@ setMethod('qapply', signature(X='FLComp', FUN='function'),
 )   # }}}
 
 # trim     {{{
+
+#' @rdname trim
+#' @aliases trim,FLComp-method
+
 setMethod("trim", signature("FLComp"),
 	function(x, ...)
 	{
@@ -387,76 +391,6 @@ setMethod("dims", signature(obj="FLComp"),
     return(res)
   }
 ) # }}}
-
-# lattice plots	{{{
-# xyplot
-setMethod("xyplot", signature("formula", "FLComp"),
-	function(x, data, ...){
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("xyplot", lst)
-})
-
-# bwplot
-setMethod("bwplot", signature("formula", "FLComp"),
-
-	function(x, data, ...){
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-	lst$x <- x
-	do.call("bwplot", lst)
-
-})
-
-# dotplot
-setMethod("dotplot", signature("formula", "FLComp"), function(x, data, ...){
-
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-	lst$x <- x
-	do.call("dotplot", lst)
-
-})
-
-# barchart
-setMethod("barchart", signature("formula", "FLComp"), function(x, data, ...){
-
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("barchart", lst)
-
-})
-
-# stripplot
-setMethod("stripplot", signature("formula", "FLComp"), function(x, data, ...){
-
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-    lst$data$year <- as.factor(lst$data$year)
-	lst$x <- x
-	do.call("stripplot", lst)
-
-})
-
-# histogram
-setMethod("histogram", signature("formula", "FLComp"), function(x, data, ...){
-
-	lst <- substitute(list(...))
-	lst <- as.list(lst)[-1]
-    lst$data <- as.data.frame(data)
-	lst$x <- x
-	do.call("histogram", lst)
-
-})  # }}}
 
 # model.frame {{{
 setMethod('model.frame', signature(formula='FLComp'),

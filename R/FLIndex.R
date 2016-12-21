@@ -4,10 +4,13 @@
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC D02
 
-## Accesors {{{
+# Accesors {{{
 invisible(createFLAccesors("FLIndex", exclude=c('name', 'desc', 'range', 'effort'))) # }}}
 
-# FLIndex()   {{{
+# FLIndex   {{{
+
+#' @rdname FLIndex
+#' @aliases FLIndex,FLQuant-method
 setMethod('FLIndex', signature(object='FLQuant'),
   function(object, plusgroup=dims(object)$max, ...)
   {
@@ -36,6 +39,8 @@ setMethod('FLIndex', signature(object='FLQuant'),
   }
 )
 
+#' @rdname FLIndex
+#' @aliases FLIndex,missing-method
 setMethod('FLIndex', signature(object='missing'),
   function(...)
   {
@@ -58,30 +63,10 @@ setMethod('FLIndex', signature(object='missing'),
   }
 ) # }}}
 
-## is.FLIndex	{{{
+# is.FLIndex	{{{
 is.FLIndex <- function(x)
     return(inherits(x, "FLIndex"))
 # }}}
-
-# plot (FLIndex) {{{
-# Author: Mark Payne, DIFRES
-setMethod("plot", signature(x="FLIndex",y="missing"),
-  function(x, type=c("splom"), ...)
-  {
-    # The body of the plot method
-    validObject(x)
-		type <- type[1]
-
-	  res <- switch(type,
-		  "splom" = plotinternal(x=x, ... ),
-		  "ts" = plotts(x=x, ... ),
-		  "pairwise"=pairwiseConsistency(idx=x,...),
-		  "internal"=plotInternalConsistency(idx=x,...),
-		  cat("type must be 'splom', 'ts', 'pairwise' or 'internal'!\n"))
-	  # Return result invisibly
-	  invisible(res)
-    }
-)	# }}}
 
 # plotinternal  {{{
 plotinternal <- function(x, ... )

@@ -1,11 +1,14 @@
 /* Syntax highlighting ---------------------------------------------------- */
 
 pre .input {
-  border-left: 3px solid #ccc;
-  padding-left: 0.5em;
+  /*border-left: 3px solid #ccc;*/
+  /*padding-left: 0.5em;*/
 }
+
 pre .output {
-  background-color: #eee;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  background-color: #fff;
+  border: 1px solid #ccc;
 }
 
 .number {color:rgb(21,20,181);}

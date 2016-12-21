@@ -520,6 +520,28 @@ setMethod('predict', signature(object='character'),
 ) # }}}
 
 # AIC & BIC   {{{
+
+#' Method AIC
+#' 
+#' Akaike's information criterion (AIC) method
+#' A method to calculate Akaike's 'An Information Criterion' (AIC) of an
+#' \link{FLModel} object from the value of the obtained log-likelihood stored
+#' in its \code{logLik} slot.
+#' @name AIC
+#' @rdname AIC
+#' @aliases AIC,FLModel,numeric-method AIC,FLModel,missing-method
+#' @docType methods
+#' @section Generic function: AIC(object, k)
+#' @param object an FLModel object
+#' @param k the penalty per parameter to be used; the default 'k = 2' is the classical AIC.
+#' @author The FLR Team
+#' @seealso \link[stats]{AIC}, \link[stats]{logLik}, \link{FLModel}
+#' @keywords methods
+#' @examples
+#' 
+#' data(nsher)
+#' AIC(nsher)
+#' 
 setMethod('AIC', signature(object='FLModel', k='numeric'),
   function(object, k=2)
     return(AIC(object@logLik, k))
@@ -530,15 +552,34 @@ setMethod('AIC', signature(object='FLModel', k='missing'),
     return(AIC(object@logLik))
 )
 
+#' Method BIC
+#' Bayesian information criterion (BIC) method
+#' 
+#' A method to calculate the Bayesian information criterion (BIC), also known
+#' as Schwarz's Bayesian criterion of an \link{FLModel} object from the value
+#' of the obtained log-likelihood stored in its \code{logLik} slot.
+#' @name BIC
+#' @aliases BIC,FLModel-method
+#' @docType methods
+#' @section Generic function: BIC(object)
+#' @param object a fitted FLModel object for which there exists a 'logLik' method to
+#' extract the corresponding log-likelihood.
+#' @author The FLR Team
+#' @seealso \link[stats]{AIC}, \link[stats]{BIC}, \link{FLModel},
+#' \link[stats]{logLik}
+#' @keywords methods
+#' @examples
+#' 
+#' data(nsher)
+#' BIC(nsher)
+#' 
+
 setMethod('BIC', signature(object='FLModel'),
   function(object)
     return(BIC(object@logLik))
 )  # }}}
 
 # nls   {{{
-if (!isGeneric("nls"))
-  setGeneric('nls', useAsDefault = nls)
-
 setMethod('nls',
   signature(formula='FLModel', data='missing',  start='ANY',
     control='ANY',  algorithm='ANY',  trace='ANY',  subset='ANY',
@@ -748,8 +789,6 @@ setReplaceMethod('model', signature(object='FLModel', value='formula'),
 ) # }}}
 
 # update  {{{
-if (!isGeneric("update"))
-  setGeneric('update', useAsDefault = update)
 setMethod('update', signature(object='FLModel'),
   function(object, ...)
   {
@@ -765,8 +804,6 @@ setMethod('update', signature(object='FLModel'),
 ) # }}}
 
 # lm  {{{
-if (!isGeneric("lm"))
-  setGeneric('lm', useAsDefault = lm)
 setMethod('lm', signature(formula='FLModel', data = "missing", subset = "missing",
   weights = "missing", na.action = "missing", method = "missing", model = "missing",
   x = "missing", y = "missing", qr = "missing", singular.ok = "missing",

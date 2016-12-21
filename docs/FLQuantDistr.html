@@ -1,0 +1,231 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+<title>FLQuantDistr. FLCore 2.6.0.20160427</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+The FLR Team
+">
+
+<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- from staticdocs -->
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+ 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+        <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">      
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>   
+                <div><a href="index.html" class="navbar-brand">FLCore 2.6.0.20160427</a></div>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="reference.html">Reference</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            
+        </header>
+        <h1>A class for samples of a probability distribution</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-9">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='FLQuantDistr.html'>FLQuantDistr</a></span><span class="keyword">(</span><span class="symbol">object</span><span class="keyword">,</span> <span class="symbol">var</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>object</dt>
+      <dd>Input numeric object</dd>
+      <dt>...</dt>
+      <dd>Additonal arguments</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+      
+      <p>This extended FLQuant class holds both a measure of central tendendy (mean,
+median) and of dispersion (tipically variance), to be later used to generate,
+for example, random numbers with those mean and variances.</p>
+  
+    </div>
+
+    <div class="Slots">
+      <h2>Slots</h2>
+      
+      <p></p>
+  
+      <p><dl>
+    <dt>.Data</dt><dd>Unnamed slot for storing the mean (or other measure of
+      expectation) (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>var</dt><dd>Variance, or other measure of dispersion, (<code>FLQuant</code>).</dd></p>
+  
+      <p><dt>distr</dt><dd>Name of the probability distribution, see Details
+      (<code>character</code>).</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Validity">
+      <h2>Validity</h2>
+      
+      <p></p>
+  
+      <p><dl>
+    <dt>slot dims</dt><dd>.Data and var slots must have the same dimensions.</dd></p>
+  
+      <p><dt>slot dimnames</dt><dd>.Data and var slots must have the same dimnames.</dd></p>
+  
+      <p></dl></p>
+  
+      <p>You can inspect the class validity function by using
+   <code>getValidity(getClassDef(&#39;FLQuantDistr&#39;))</code></p>
+  
+    </div>
+
+    <div class="Accessors">
+      <h2>Accessors</h2>
+      
+      <p></p>
+  
+      <p>All slots in the class have accessor and replacement methods defined that
+allow retrieving and substituting individual slots.</p>
+  
+      <p>The values passed for replacement need to be of the class of that slot.
+A numeric vector can also be used when replacing FLQuant slots, and the
+vector will be used to substitute the values in the slot, but not its other
+attributes.</p>
+  
+      <p>The contents of the unnamed slot (.Data) can be accessed through the
+<code>e()</code> method, see Example below.</p>
+  
+    </div>
+
+    <div class="Constructor">
+      <h2>Constructor</h2>
+      
+      <p></p>
+  
+      <p>A construction method exists for this class that can take named arguments for
+any of its slots. All slots are then created to match the requirements of the
+class validity. If an unnamed <code>FLQuant</code> object is provided, this is used
+for the .Data slot.</p>
+  
+    </div>
+
+    <div class="Methods">
+      <h2>Methods</h2>
+      
+      <p></p>
+  
+      <p>Methods exist for various calculations based on values stored in the class:</p>
+  
+      <p><dl>
+    <dt>Arith</dt><dd>.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+
+    <div class="Arithmetic">
+      <h2>Arithmetic</h2>
+      
+      <p></p>
+  
+      <p>The methods under the <em>Arith</em> group have been defined for objects of
+this class, both for operations between two <code>FLQuantDistr</code> objects and
+with objects of class <code>FLQuant</code> (<code>FLArray</code>) as follows:</p>
+  
+      <p><dl>
+    <dt>+, FLQuantDistr,FLArray</dt><dd>.</dd></p>
+  
+      <p><dt>-, FLQuantDistr,FLArray</dt><dd>.</dd></p>
+  
+      <p><dt>*, FLQuantDistr,FLArray</dt><dd>.</dd></p>
+  
+      <p><dt>/, FLQuantDistr,FLArray</dt><dd>.</dd></p>
+  
+      <p><dt>+, FLQuantDistr,FLQuantDistr</dt><dd>.</dd></p>
+  
+      <p><dt>-, FLQuantDistr,FLQuantDistr</dt><dd>.</dd></p>
+  
+      <p><dt>*, FLQuantDistr,FLQuantDistr</dt><dd>.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class="functioncall"><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span>
+<span class="symbol">fqd</span> <span class="assignement">&lt;-</span> <span class="functioncall"><a href='FLQuantDistr.html'>FLQuantDistr</a></span><span class="keyword">(</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">var</span><span class="argument">=</span><span class="functioncall">catch.n</span><span class="keyword">(</span><span class="symbol">ple4</span><span class="keyword">)</span> <span class="keyword">*</span> <span class="number">10</span><span class="keyword">,</span> <span class="argument">distr</span><span class="argument">=</span><span class="string">'norm'</span><span class="keyword">)</span></div></pre>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <!-- <ul>
+      <li>FLQuantDistr</li><li>FLQuantDistr-class</li><li>FLQuantDistr-methods</li>
+    </ul>
+    <ul>
+      <li>classes</li>
+    </ul> -->
+      
+    <h2>See also</h2>
+    <p><a href='FLQuant.html'>FLQuant</a></p>
+
+    
+
+    <h2>Author</h2>
+    
+The FLR Team
+
+    
+  </div>
+</div>     
+        <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+        </footer>                  
+   </div>  
+
+  </body>
+</html>

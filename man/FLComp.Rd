@@ -22,7 +22,7 @@ constructed.
  \describe{
    \item{name}{A character vector for the object name.}
    \item{desc}{A textual description of the object contents.}
-   \item{range}{A named numeric vector with various values of quant and year ranges, plusgroup, fishing mortality ranges, etc.}
+   \item{range}{A named numeric vector with various values of quant and year ranges, plusgroup, fishing mortality ranges, etc. Elements are specific to each child class.}
 }
 }
 \author{

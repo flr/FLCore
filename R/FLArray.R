@@ -1,10 +1,47 @@
-# FLArray-class - Base class for FLQuant and FLCohort
+# FLArray- Base class for FLQuant and FLCohort
+# FLCore/R/FLarray.R
 
 # Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: FLArray.R 1779 2012-11-23 09:39:31Z imosqueira $
+# Maintainer: Iago Mosqueira, EC JRC
 
 # units {{{
+
+#' Method units
+#'
+#' \code{units} attribute for FLQuant and FLArray-derived objects
+#' 
+#' Objects of \code{FLArray}-based classes (e.g. \code{\link{FLQuant}}) contain a
+#' \code{units} attribute of class \code{character}. This should be used to store
+#' the corresponding units of measurement.  This attribute can be directly accessed
+#' and modified using the \code{units} and \code{units<-} methods.
+#' 
+#' For complex objects, \code{units} will return a named list containing the
+#' attributes of all \code{FLQuant} slots. \code{units} of a complex object can
+#' be modified for all slots or a subset of them, by passing a named list with
+#' the new values. See examples below.
+#'
+#' @name units
+#' @aliases units,FLArray-method units<-,FLArray,character-method
+#' @docType methods
+#' @section Generic function: units(x)
+#' 
+#' units<-(x,value)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLQuant}, \linkS4class{FLPar}, \linkS4class{FLCohort}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(100), dim=c(5,20), units='kg')
+#' units(flq)
+#' units(flq) <- 't'
+#' summary(flq)
+#' 
+#' # units for a complex object
+#'   data(ple4)
+#'   units(ple4)
+#'   units(ple4) <- list(harvest='hr')
+#'
+
 setMethod("units", signature(x="FLArray"),
   function(x)
     return(x@units)
@@ -18,15 +55,28 @@ setMethod("units<-", signature(x="FLArray", value="character"),
   }
 ) # }}}
 
-# quant        {{{
+# quant, quant<-        {{{
+
+#' @rdname quant
+#' @aliases quant,FLArray-method
+#' @examples
+#' 
+#' # quant is 'quant' by default
+#'   quant(FLQuant())
+#'
+#' flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age')
+#' quant(flq)
+#' quant(flq) <- 'length'
+#' summary(flq)
+#'
 setMethod("quant", signature(object="FLArray"),
   function(object)
   {
     return(names(dimnames(object))[1])
   }
-) # }}}
-
-# quant<-      {{{
+)
+#' @rdname quant
+#' @aliases quant<-,FLArray,character-method
 setMethod("quant<-", signature(object="FLArray", value='character'),
   function(object, value)
   {
@@ -37,7 +87,64 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
   }
 ) # }}}
 
-# "["             {{{
+#  [             {{{
+#' Extract
+#'
+#' Extract or replace parts of an FLR Object
+#' 
+#' Operators acting on FLQuant, FLCohort, FLPar, FLComp, and derived classes to
+#' extract or replace sections of an object.
+#' 
+#' Please note the differences between referencing sections of an object by
+#' position using values of class \code{numeric}, or by using dimnames of class
+#' \code{character}. See examples below.
+#' 
+#' All classes that are derived from \code{FLComp} (for example, \code{FLStock}
+#' and \code{FLBiol}) can be subset along the six dimensions of their
+#' \code{FLQuant} slots.
+#' 
+#' Classes that are derived from \code{FLlst} (for example, \code{FLStocks} and
+#' \code{FLBiols}) can be subset in a similar way to ordinary list objects.
+#'
+#' @name Extract
+#' @rdname Extract
+#' @aliases [,FLArray,ANY,ANY,ANY-method
+#' @docType methods
+#' @section Generic function: \describe{ \item{}{[x,i,j,drop]}
+#' \item{}{[<-(x,i,j,value)} \item{}{[[<-(x,i,j,value)}
+#' \item{}{\$<-(x,name,value)} }
+#' @param x object from which to extract or replace element(s)
+#' @param i,j,k,l,m,n,... indices specifying elements to extract or replace.
+#' @param drop If 'TRUE' the result is coerced to the lowest possible dimension, and so
+#' might change class (e.g. drop='TRUE' on an \code{FLQuant} might return an
+#' \code{array} of less dimensions, a \code{matrix} or a \code{vector}.
+#' @param value An object of a similar or simpler class than 'x'.
+#' @param name
+#' See \link[base]{Extract} for further details.
+#' @author The FLR Team
+#' @seealso \link[base]{Extract}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(200), dimnames=list(age=0:4, year=1991:2000,
+#'   season=1:4))
+#'
+#' # Extracting by position...
+#'   flq[1,]
+#'   flq[,1:5]
+#'   flq[1:2,,,c(1,3)]
+#'
+#' # ...by dimnames
+#'   flq['0',]
+#'   flq[,'1991']
+#'   flq[,as.character(1991:1995),,'1']
+#'
+#' # Dimensions of length one can be drop
+#'   flq[1, drop=TRUE]
+#'
+#' # Replacing part of the object
+#'   flq['0',,,1]<-0
+#'
 setMethod("[", signature(x="FLArray"),
     function(x, i, j, k, l, m, n, ..., drop=FALSE)
     {
@@ -65,6 +172,8 @@ setMethod("[", signature(x="FLArray"),
   }
 )
 
+#' @rdname Extract
+#' @aliases [,FLArray,array,missing,missing-method
 setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
   function(x, i)
   {
@@ -83,6 +192,8 @@ setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
 )   # }}}
 
 # "[<-"            {{{
+#' @rdname Extract
+#' @aliases `[<-,FLArray,ANY,ANY,ANY-method`
 setMethod("[<-", signature(x="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -113,9 +224,10 @@ setMethod("[<-", signature(x="FLArray"),
 
      return(x)
   }
-)   # }}}
+) 
 
-# "[<-"            {{{
+#' @rdname Extract
+#' @aliases `[<-,FLArray,ANY,ANY,FLArray-method`
 setMethod("[<-", signature(x="FLArray", value="FLArray"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -166,6 +278,27 @@ setMethod("[<-", signature(x="FLArray", value="FLArray"),
 )   # }}}
 
 # names         {{{
+
+#' Method names
+#' 
+#' The \code{names} method returns the names of the dimnames of an object. For
+#' some classes, the names attribute can be modified directly using names<-.
+#'
+#' @name names
+#' @aliases names,FLArray-method
+#' @docType methods
+#' @section Generic function: names(x) names<-(x, value)
+#' @author The FLR Team
+#' @seealso \link[base]{names}
+#' @keywords methods
+#' @examples
+#' # FLQuant
+#' data(ple4)
+#' names(catch.n(ple4))
+#'
+#' # Contrast this with
+#' dimnames(catch.n(ple4))
+#'
 setMethod("names", signature(x="FLArray"),
   function(x)
     names(dimnames(x))
@@ -173,6 +306,25 @@ setMethod("names", signature(x="FLArray"),
 # }}}
 
 # iter     {{{
+
+#' @rdname iter
+#' @aliases iter,FLArray-method iter,FLQuant,ANY-method iter,FLCohort,ANY-method
+#' @examples
+#'
+#' # For an FLQuant
+#'   flq <- FLQuant(rnorm(800), dim=c(4,10,2), iter=10)
+#'   iter(flq, 2)
+#'
+#' # For the more complex FLStock object
+#'   fls <- FLStock(catch.n=flq, m=FLQuant(0.2, dim=c(4,10,2)))
+#'   summary(fls)
+#'
+#'   # Extraction using iter...
+#'     fls2 <- iter(fls, 2)
+#'     summary(fls2)
+#'   # ...in contrast to using [ which returns an error
+#'     \dontrun{fls[,,,,,2]}
+#' 
 setMethod("iter", signature(obj="FLArray"),
   function(obj, iter) {
     if(dims(obj)$iter == 1)
@@ -180,9 +332,45 @@ setMethod("iter", signature(obj="FLArray"),
     else
       return(obj[,,,,,iter])
   }
+)   
+
+#' @rdname iter
+#' @aliases iter,vector-method
+setMethod("iter", signature(obj="vector"),
+	function(obj, iter) {
+    if(length(obj)== 1)
+      return(obj)
+    else
+      return(obj[iter])
+	}
 )   # }}}
 
 # summary          {{{
+
+#' Method summary
+#' 
+#' Outputs a general summary of the structure and content of the object. The
+#' particular output obtained depends on the class of the argument object.
+#'
+#' @name summary
+#' @aliases summary,FLArray-method
+#' @docType methods
+#' @section Generic function: summary(object)
+#' @author The FLR Team
+#' @seealso \link[base]{summary}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
+#' summary(flq)
+#'
+#' data(ple4)
+#' summary(ple4)
+#' 
+#' data(nsher)
+#' summary(nsher)
+#'
+
 setMethod("summary", signature(object="FLArray"),
   function(object, ...)
   {
@@ -215,6 +403,36 @@ setMethod("summary", signature(object="FLArray"),
 )   # }}}
 
 # show     {{{
+
+#' Method show
+#' 
+#' Standard display of an object contents in an interactive session. Objects of
+#' class \code{\linkS4class{FLQuant}} with length > 1 along the sixth dimension
+#' (\emph{iter}) are output in a summarised form, as \code{median(mad)}, where
+#' mad is the median absolute deviation. See \code{\link[stats]{mad}}.
+#' 
+#' The same format is used for objects of class \code{\linkS4class{FLPar}} with
+#' length > 1 on the last dimension (\emph{iter}).
+#'
+#' @name show
+#' @aliases show,FLArray-method
+#' @aliases show,FLQuants-method show,FLPar-method
+#' @docType methods
+#' @section Generic function: show(object)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#' 
+#' # no 'iter'
+#'   flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age', units='kg')
+#'   flq
+#' 
+#' # with 'iter'
+#'   flq <- FLQuant(rnorm(800), dim=c(4,20,1,1,1,10), quant='age', units='kg')
+#'   flq
+#'
+
 setMethod("show", signature(object="FLArray"),
   function(object){
     cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
@@ -234,6 +452,20 @@ setMethod("show", signature(object="FLArray"),
 )   # }}}
 
 # trim {{{
+
+#' @rdname trim
+#' @aliases trim,FLArray-method
+#' @examples
+#' 
+#' flq <- FLQuant(rnorm(90), dimnames=list(age=1:10, year=2000:2016))
+#' 
+#' trim(flq, year=2000:2005)
+#' # which is equivalent to
+#' window(flq, start=2000, end=2005)
+#'
+#' trim(flq, year=2000:2005, age=1:2)
+#' 
+
 setMethod('trim', signature(x='FLArray'),
   function(x, ...)
   {

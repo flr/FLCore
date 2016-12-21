@@ -1,36 +1,41 @@
 # FLModelSim.R - A class for models used in simulation
 # FLCore/R/FLModelSim.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Copyright 2003-2013 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: FLR Team
 
 # FLModelSim {{{
-# validity
-validFLMS <- function(object){
 
-	pars <- object@params
-	frm <- object@model
-	vc <- object@vcov
-	# check vcov has the same names
-	dnms <- dimnames(vc)
-	v1 <- all.equal(dnms[[1]], dnms[[2]])
-
-	# check that the params and the model have the same params names
-	dps <- dimnames(pars)$params
-	if(any(dps != ""))
-		v2 <- dimnames(pars)$params %in% all.vars(frm)
-	else
-		v2 <- TRUE
-
-	# check that the params and the vcov have the same params names
-	if(is.null(dnms[[1]])) v3 <- TRUE else v3 <- dnms[[1]] %in% dimnames(pars)$params
-
-	if(sum(!c(v1, v2, v3))>0)
-		return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
-
-	return(TRUE)
-}
-
+#' Class FLModelSim
+#'
+#' A virtual class for statistical simulation models
+#'
+#' The \code{FLModelSim} class provides a virtual class that developers of various
+#' statistical models can use to implement classes that allow those models to
+#' be tested, fitted and presented.
+#' 
+#' Slots in this class attempt to map all the usual outputs for a modelling
+#' exercise, together with the standard inputs. Input data are stored in slots
+#' created by a specified class that is based on \code{FLModelSim}. See for example
+#' \code{\linkS4class{FLSR}} for a class used for stock-recruitment models.
+#' 
+#' Various fitting algorithms, similar to those present in the basic R packages,
+#' are currently available for \code{FLModelSim}, including \code{\link{fmle}},
+#' \code{\link{nls-FLCore}} and \code{\link[stats]{glm}}.
+#' 
+#' @name FLModelSim
+#' @aliases FLModelSim-class FLModelSim FLModelSim-methods FLModelSim,formula-method
+#' FLModelSim,missing-method FLModelSim,character-method FLModelSim,function-method
+#' @docType class
+#' @section Slots: \describe{
+#' \item{params}{Estimated parameter values. \code{FLPar}.}
+#' \item{distr}{\code{character}}
+#' \item{vcov}{\code{array}}
+#' \item{model}{\code{formula}}}
+#' @author The FLR Team
+#' @seealso \link[stats]{AIC}, \link[stats]{BIC}, \link{fmle},
+#' \link[stats]{nls}
+#' @keywords classes
 
 setClass("FLModelSim",
 	representation(
@@ -43,12 +48,42 @@ setClass("FLModelSim",
 		params = new("FLPar"),
 		vcov = new("array"),
 		distr = "norm"),
-	validity=validFLMS
-) # }}}
+	validity=function(object){
 
-# FLModelSim() {{{
-setGeneric("FLModelSim", function(object, ...)
-	standardGeneric("FLModelSim"))
+    	pars <- object@params
+    	frm <- object@model
+    	vc <- object@vcov
+    
+      # check vcov has the same names
+    	dnms <- dimnames(vc)
+    	v1 <- all.equal(dnms[[1]], dnms[[2]])
+
+    	# check that the params and the model have the same params names
+    	dps <- dimnames(pars)$params
+    	if(any(dps != ""))
+		    v2 <- dimnames(pars)$params %in% all.vars(frm)
+    	else
+		    v2 <- TRUE
+
+    	# check that the params and the vcov have the same params names
+    	if(is.null(dnms[[1]]))
+        v3 <- TRUE
+      else 
+        v3 <- dnms[[1]] %in% dimnames(pars)$params
+
+    	if(sum(!c(v1, v2, v3))>0)
+		    return("Object is not valid. Check that the names of the parameters in the params matrix and the vcov match the names of the formula parameters.")
+
+  	return(TRUE)
+  }
+) 
+
+invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "distr")))  # }}}
+
+# FLModelSim {{{
+
+#' @rdname FLModelSim
+#' @aliases FLModelSim,missing-method
 
 setMethod("FLModelSim", signature(object="missing"),
   function(...) {
@@ -64,9 +99,7 @@ setMethod("FLModelSim", signature(object="missing"),
       do.call("new", args)
 	  }
   }
-)
-
-invisible(createFLAccesors("FLModelSim", include=c("model", "params", "vcov", "distr")))  # }}}
+) # }}}
 
 # mvrnorm {{{
 setMethod("mvrnorm", signature(n="numeric", mu="FLModelSim", Sigma="missing",

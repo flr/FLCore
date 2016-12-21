@@ -1,13 +1,18 @@
-# FLStockLen.R - Methods for the FLStockLen class
-# FLStockLen.R
+# FLStockLen.R - FLStockLen and methods
+# FLCore/R/FLStockLen.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
-# Soundtrack:
-# Notes:
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
+# FLStockLen   {{{
 
-# FLStockLen()   {{{
+#' @rdname FLStockLen
+#' @aliases FLStockLen,FLQuant-method
+#' @examples
+#'
+#' stkl <- FLStockLen(m=FLQuant(0.2, dimnames=list(len=seq(5, 50, by=2), year=2015:2020)))
+#' summary(stkl)
+
 setMethod("FLStockLen", signature(object="FLQuant"),
   function(object, ...)
   {
@@ -26,7 +31,7 @@ setMethod("FLStockLen", signature(object="FLQuant"),
 			halfwidth <- as.numeric(NA)
 		else {
 			hwd <-  (lens[-1] - lens[-length(lens)]) / 2
-			if(hwd[1] == unique(hwd))
+			if(all(hwd[1] == unique(hwd)))
 			halfwidth <- hwd[1]
 		else
 			halfwidth <- hwd
@@ -51,6 +56,15 @@ setMethod("FLStockLen", signature(object="FLQuant"),
 			stop("Invalid object created, check input FLQuant(s)")
   }
 )
+
+#' @rdname FLStockLen
+#' @aliases FLStockLen,missing-method
+#' @examples
+#'
+#' # Unnamed FLQuant used for sizing
+#' stkl <- FLStockLen(FLQuant(0.2, dimnames=list(len=seq(5, 50, by=2), year=2015:2020)))
+#' summary(stkl)
+#' m(stkl)
 
 setMethod("FLStockLen", signature(object="missing"),
   function(...)

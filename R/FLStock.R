@@ -1,11 +1,12 @@
 # FLStock.R - FLStock class and methods
 # FLCore/R/FLStock.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
-# Notes:
+# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # FLStock()   {{{
+#' @rdname FLStock
+#' @aliases FLStock,FLQuant-method FLStock,missing-method
 setMethod('FLStock', signature(object='FLQuant'),
   function(object, plusgroup=dims(object)$max, ...) {
 
@@ -84,109 +85,6 @@ setMethod('FLStock', signature(object='FLQuants'),
 # is.FLStock	{{{
 is.FLStock <- function(x)
 	return(inherits(x, "FLStock"))	# }}}
-
-# plot  {{{
-setMethod("plot", signature(x="FLStock", y="missing"),
-	function(x, auto.key=TRUE, ...)
-  {
-    # create data.frame with catch/landings+discards/discards
-    obj <- as.data.frame(FLQuants(catch=apply(catch(x), c(1,2,6), sum),
-      landings=apply(landings(x), c(1,2,6), sum)))
-    obj$panel <- 'catch'
-
-    # ssb
-    obj <- rbind(obj, data.frame(as.data.frame(FLQuants(ssb=apply(ssb(x), c(1,2,6),
-      sum))), panel='SSB'))
-
-    # harvest
-    if(units(harvest(x)) == "f")
-      obj <- rbind(obj, data.frame(as.data.frame(FLQuants(harvest=apply(fbar(x),
-        c(1,2,6), sum))), panel='harvest'))
-    else if(units(harvest(x)) == "harvest")
-      obj <- rbind(obj, data.frame(as.data.frame(FLQuants(harvest=apply(
-        quantSums(harvest(x)), c(1,2,6), sum))), panel='harvest'))
-
-    # and rec
-    obj <- rbind(obj[,-1], data.frame(as.data.frame(FLQuants(rec=apply(rec(x),
-      c(1,2,6), sum))), panel='recruits')[,-1])
-
-    # default options
-    options <- list(scales=list(relation='free'), ylab="", xlab="",
-      main=ifelse(length(name(x)) > 0, name(x), ""), col='black', lwd=2, cex=0.6,
-      box.width=1)
-    args <- list(...)
-    options[names(args)] <- args
-
-    # pfun
-    pfun <- function(x, y, groups, subscripts, iter=obj$iter, ...)
-    {
-      # catch/landings/discards
-      if(panel.number() == 1)
-      {
-        idx <- groups == 'catch'
-        if(length(levels(iter)) > 1)
-        {
-          # median
-          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-          panel.xyplot(unique(x[idx]),
-            tapply(y[idx], x[idx], median, na.rm=TRUE), type= 'l', ...)
-          # 95% quantile
-          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-          panel.xyplot(unique(x[idx]),
-            tapply(y[idx], x[idx], quantile, 0.95, na.rm=TRUE), type= 'l', lwd=1, lty=2,
-            col='grey50')
-          # 5% quantile
-          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-          panel.xyplot(unique(x[idx]),
-            tapply(y[idx], x[idx], quantile, 0.05, na.rm=TRUE), type= 'l', lwd=1, lty=2,
-            col='grey50')
-          # landings bars
-          idx <- groups == 'landings'
-          #panel.barchart(x[idx][iter[idx] == levels(iter[idx])[1]],
-          panel.barchart(unique(x[idx]),
-            tapply(y[idx], x[idx], median), horizontal=FALSE, col=rgb(0.1, 0.1, 0, 0.1),
-            box.width=options$box.width, lwd=0, origin=0)
-        }
-        else
-        {
-          panel.xyplot(x[idx], y[idx], type= 'l', ...)
-          panel.xyplot(x[idx][x==max(x)], y[idx][x==max(x)], type='p', ...)
-          # landings & discards bars
-          idx <- groups == 'landings'
-          panel.barchart(x[idx], y[idx], horizontal=FALSE, col=rgb(0.1, 0.1, 0, 0.1),
-            box.width=options$box.width, lwd=0, origin=0)
-        }
-        # key
-        draw.key(list(text=list(lab='catch'),
-          lines=list(lwd=c(2)),
-          text=list(lab='landings'),
-          rectangles=list(col=rgb(0.1, 0.1, 0, 0.1))),
-          vp = viewport(x = unit(0.5, "npc"), y = unit(0.95, "npc")), draw=TRUE)
-      }
-      else
-      {
-        if(length(levels(iter)) > 1)
-        {
-          # median
-          panel.xyplot(unique(x), tapply(y, x, median, na.rm=TRUE), type= 'l', ...)
-          # 95% quantile
-          panel.xyplot(unique(x), tapply(y, x, quantile, 0.95, na.rm=TRUE), type= 'l',
-            lwd=1, lty=2, col='grey50')
-          # 5% quantile
-          panel.xyplot(unique(x), tapply(y, x, quantile, 0.05, na.rm=TRUE), type= 'l',
-            lwd=1, lty=2, col='grey50')
-        }
-        else
-        {
-          panel.xyplot(x, y, type='l', ...)
-          panel.xyplot(x[x==max(x)], y[x==max(x)], type='p', ...)
-        }
-      }
-    }
-    do.call(xyplot, c(list(x=data ~ year|panel, data=obj, panel=pfun,
-      groups=expression(qname)), options))
-	}
-)	# }}}
 
 # setPlusGroup function	{{{
 #  changes the level of the plus group of the stock object
@@ -397,6 +295,39 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 )# }}}
 
 # ssb		{{{
+
+#' @rdname ssb
+#' @aliases ssb-FLStock,method
+#' @details
+#' For an object of class \code{\link{FLStock}}, the calculation of SSB depends
+#' on the value of the 'units' attribute in the \code{harvest} slot. If this is
+#' in terms of fishing mortality (\code{units(harvest(object)) == 'f'}), and
+#' assuming an object structured by age, then SSB is calculated as
+#' \deqn{SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot e^{-(F_{a,y} \cdot Hs_{a,y} + M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} }{SSB_y = sum_a(N_ay * exp(-(F_ay * Hs_ay + M_ay * Ms_ay)) * W_ay * T_ay)}
+#' where \eqn{N_{a,y}}{N_ay} is the abundance in numbers (\code{stock.n}) by
+#' age (a) and year (y), \eqn{F_{a,y}}{F_ay} is the fishing mortality (\code{harvest}), 
+#' \eqn{Hs_{a,y}}{Hs_ay} is the proportion of fishing mortality before spawning
+#' (\code{harvest.spwn}),
+#' \eqn{M_{a,y}}{M_ay} is the natural mortality (\code{m}), 
+#' \eqn{Ms_{a,y}}{Ms_ay} is the proportion of natural mortality before spawning
+#' (\code{m.spwn}),
+#' \eqn{W_{a,y}}{W_ay} is the mean weight at age in the stock (\code{m}), and
+#' \eqn{T_{a,y}}{T_ay} is the proportion mature at age in the stock (\code{mat}).
+#' For \code{\link{FLStock}} objects with other dimensions (\code{area},
+#' \code{unit}), the calculation is carried out along those dimensions too. To
+#' obtain a global value please use the corresponding summing method.
+#'
+#' If the harvest slot contains estimates in terms of harvest rates
+#' (\code{units(harvest(object)) == "hr"}), SSB will be computed as
+#' \deqn{SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot (1 - H_{a,y} \cdot Hs_{a,y}) \cdot e^{-(M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} }{SSB_y = sum_a(N_ay * (1 - H_ay * Hs_ay) * exp(-(M_ay * Ms_ay)) * W_ay * T_ay)}
+#' where \eqn{H_{a,y}}{H_ay} is the harvest rate (proportion of catch in weight
+#' over total biomass).
+#'
+#' @seealso \code{\link{areaSums}}
+#' @examples
+#'
+#' data(ple4)
+#' ssb(ple4)
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
 
