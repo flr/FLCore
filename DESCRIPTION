@@ -20,6 +20,7 @@ Imports:
     Matrix,
     grid,
     stats,
+    stats4,
     graphics
 License: GPL (>= 2)
 Repository: flr
@@ -59,7 +60,6 @@ Collate:
     'FLlst-methods.R'
     'getPlural.R'
     'io.FLIndices.R'
-    'FLGrowth.R'
     'SRmodels.R'
     'coerce.R'
     'PlotDiagnostics.R'
@@ -68,6 +68,8 @@ Collate:
     'zzz.R'
     'io.Adapt.R'
     'io.VPA2Box.R'
+    'data.R'
+    'plot.R'
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues

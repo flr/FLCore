@@ -11,6 +11,7 @@ importFrom("stats4",
   "BIC")
 importFrom("stats",
   "AIC",
+  "as.formula",
   "coef",
   "coefficients",
   "complete.cases",

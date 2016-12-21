@@ -18,7 +18,7 @@ The result of evaluating the model, usually an `FLQuant`
 Models in objects of the \link{predictModel} class can make use of slots and
 methods of the FLR class in which it is contained as a slot. This function can
 be used by methods wishing to evaluate a single `predictModel` slot in the
-context of the class it isd part of.
+context of the class it is part of.
 }
 \author{
 The FLR Team
