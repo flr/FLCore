@@ -419,7 +419,7 @@ setMethod("range", "FLComp",
   }
 )
 
-setReplaceMethod("range", "FLComp",
+setReplaceMethod("range", signature(x="FLComp", i="ANY", value="numeric"),
   function(x, i, value)
   {
     slot(x, 'range')[i] <- value

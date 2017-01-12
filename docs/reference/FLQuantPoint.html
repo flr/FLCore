@@ -78,7 +78,13 @@ object with multiple iterations along its sixth dimension using a number of
 descriptive statistics.</p>
     
 
-    <pre><span class='fu'>FLQuantPoint</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>FLQuantPoint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for missing</span>
+<span class='fu'>FLQuantPoint</span>(<span class='no'>...</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)
+
+<span class='co'># S4 method for FLQuant</span>
+<span class='fu'>FLQuantPoint</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -145,11 +151,11 @@ original <code>FLQuant</code> using <code><a href='http://www.rdocumentation.org
 #&gt; quant:  quant 
 #&gt; units:  NA 
 #&gt; 
-#&gt; 1st Qu.:  -0.6225 
-#&gt; Mean   :  0.01312 
-#&gt; Median :  -0.009051 
-#&gt; Var    :  0.8702 
-#&gt; 3rd Qu.:  0.6437 </div><div class='input'><span class='fu'>mean</span>(<span class='no'>flqp</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+#&gt; 1st Qu.:  -0.62247 
+#&gt; Mean   :  0.0131187 
+#&gt; Median :  -0.009051291 
+#&gt; Var    :  0.870239 
+#&gt; 3rd Qu.:  0.6437253 </div><div class='input'><span class='fu'>mean</span>(<span class='no'>flqp</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year

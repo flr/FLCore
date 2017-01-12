@@ -10,35 +10,50 @@
 \alias{catch,FLStockLen-method}
 \alias{catch.n,FLStockLen-method}
 \alias{catch.n<-,FLStockLen,FLQuant-method}
+\alias{catch.n<-,FLStockLen,numeric-method}
 \alias{catch.wt,FLStockLen-method}
 \alias{catch.wt<-,FLStockLen,FLQuant-method}
+\alias{catch.wt<-,FLStockLen,numeric-method}
 \alias{catch<-,FLStockLen,FLQuant-method}
+\alias{catch<-,FLStockLen,numeric-method}
 \alias{desc,FLStockLen-method}
 \alias{desc<-,FLStockLen,character-method}
 \alias{discards,FLStockLen-method}
 \alias{discards.n,FLStockLen-method}
 \alias{discards.n<-,FLStockLen,FLQuant-method}
+\alias{discards.n<-,FLStockLen,numeric-method}
 \alias{discards.wt,FLStockLen-method}
 \alias{discards.wt<-,FLStockLen,FLQuant-method}
+\alias{discards.wt<-,FLStockLen,numeric-method}
 \alias{discards<-,FLStockLen,FLQuant-method}
+\alias{discards<-,FLStockLen,numeric-method}
 \alias{halfwidth,FLStockLen-method}
-\alias{halfwidth<-,FLStockLen,numeric-method}
+\alias{halfwidth<-,FLStockLen,-method}
 \alias{harvest,FLStockLen-method}
 \alias{harvest.spwn,FLStockLen-method}
 \alias{harvest.spwn<-,FLStockLen,FLQuant-method}
+\alias{harvest.spwn<-,FLStockLen,numeric-method}
 \alias{harvest<-,FLStockLen,FLQuant-method}
+\alias{harvest<-,FLStockLen,character-method}
+\alias{harvest<-,FLStockLen,numeric-method}
 \alias{landings,FLStockLen-method}
 \alias{landings.n,FLStockLen-method}
 \alias{landings.n<-,FLStockLen,FLQuant-method}
+\alias{landings.n<-,FLStockLen,numeric-method}
 \alias{landings.wt,FLStockLen-method}
 \alias{landings.wt<-,FLStockLen,FLQuant-method}
+\alias{landings.wt<-,FLStockLen,numeric-method}
 \alias{landings<-,FLStockLen,FLQuant-method}
+\alias{landings<-,FLStockLen,numeric-method}
 \alias{m,FLStockLen-method}
 \alias{m.spwn,FLStockLen-method}
 \alias{m.spwn<-,FLStockLen,FLQuant-method}
+\alias{m.spwn<-,FLStockLen,numeric-method}
 \alias{m<-,FLStockLen,FLQuant-method}
+\alias{m<-,FLStockLen,numeric-method}
 \alias{mat,FLStockLen-method}
 \alias{mat<-,FLStockLen,FLQuant-method}
+\alias{mat<-,FLStockLen,numeric-method}
 \alias{name,FLStockLen-method}
 \alias{name<-,FLStockLen,character-method}
 \alias{range,FLStockLen-method}
@@ -46,9 +61,12 @@
 \alias{stock,FLStockLen-method}
 \alias{stock.n,FLStockLen-method}
 \alias{stock.n<-,FLStockLen,FLQuant-method}
+\alias{stock.n<-,FLStockLen,numeric-method}
 \alias{stock.wt,FLStockLen-method}
 \alias{stock.wt<-,FLStockLen,FLQuant-method}
+\alias{stock.wt<-,FLStockLen,numeric-method}
 \alias{stock<-,FLStockLen,FLQuant-method}
+\alias{stock<-,FLStockLen,numeric-method}
 \title{Class FLStockLen}
 \usage{
 FLStockLen(object, ...)
@@ -95,6 +113,11 @@ assessment (i.e. estimates of abundance and removal rates).
  \item{range}{Named numeric vector containing the quant and year ranges,
   the plusgroup and the quant range that the average fishing mortality should
   be calculated over (\code{numeric}).} }
+}
+
+\section{Accessors}{
+
+Accessor methods for the slots of this class exist.
 }
 \examples{
 

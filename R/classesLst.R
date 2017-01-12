@@ -379,8 +379,7 @@ setMethod("FLStocks", signature(object="list"),
 #' not allow the user to increase or decrease the object length.
 #'
 #' @name FLIndices
-#' @aliases FLIndices-class FLIndices FLIndices-methods FLIndices,ANY-method
-#' FLIndices,missing-method FLIndices,list-method
+#' @aliases FLIndices-class
 #' @docType class
 #' @section Slots: \describe{ \item{.Data}{The data. \code{list}.}
 #' \item{names}{Names of the list elements. \code{character}.}
@@ -408,11 +407,15 @@ setClass("FLIndices", contains="FLComps",
 )
 
 # constructor
+#' @rdname FLIndices
+#' @aliases FLIndices,FLI-method
 setMethod("FLIndices", signature(object="FLI"), function(object, ...) {
     lst <- c(object, list(...))
     FLIndices(lst)
 })
 
+#' @rdname FLIndices
+#' @aliases FLIndices,missing-method
 setMethod("FLIndices", signature(object="missing"),
   function(...) {
     # empty
@@ -428,6 +431,8 @@ setMethod("FLIndices", signature(object="missing"),
   }
 )
 
+#' @rdname FLIndices
+#' @aliases FLIndices,list-method
 setMethod("FLIndices", signature(object="list"),
   function(object, ...) {
 

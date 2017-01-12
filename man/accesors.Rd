@@ -2,6 +2,12 @@
 % Please edit documentation in R/genericMethods.R
 \name{accessors}
 \alias{accessors}
+\alias{catch}
+\alias{catch.n}
+\alias{catch.n<-}
+\alias{catch.q}
+\alias{catch.q<-}
+\alias{catch.wt}
 \title{Accesor and replacement methods for FLCore classes}
 \usage{
 range(x, i) <- value

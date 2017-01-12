@@ -206,22 +206,20 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #'
 #' @name accessors
 #' @rdname accesors
-#' @alias catch catch.n catch.n catch.n<- catch.n<- catch.q catch.q<- catch.wt
-#' @alias catch.wt catch.wt<- catch.wt<- catch<- desc desc<- details details<-
-#' @alias discards discards.n discards.n<- discards.sel discards.sel<- discards.wt
-#' @alias discards.wt<- discards<- distr distr<- distribution distribution<-
-#' @alias effort effort<- fec fec<- fitted fitted<- gr gr<- harvest harvest.spwn
-#' @alias harvest.spwn<- harvest<- hessian hessian<- index index.q index.q<-
-#' @alias index.var index.var<- index<- initial initial<- landings landings.n
-#' @alias landings.n<- landings.sel landings.sel<- landings.wt landings.wt<-
-#' @alias landings<- logLik logLik<- logerror logerror<- logl logl<- m m m.spwn
-#' @alias m.spwn<- m<- m<- mat mat<- model model<- n n<- name name<- params
-#' @alias params<- range<- rec rec.obs rec<- residuals residuals<- sel.pattern
-#' @alias sel.pattern<- spwn spwn<- stock stock.n stock.n<- stock.wt stock.wt<-
-#' @alias stock<- type type<- units<- vcov vcov<- wt wt<- 
+#' @aliases catch catch.n catch.n catch.n<- catch.n<- catch.q catch.q<- catch.wt
+#' @aliases catch.wt catch.wt<- catch.wt<- catch<- desc desc<- details details<-
+#' @aliases discards discards.n discards.n<- discards.sel discards.sel<- discards.wt
+#' @aliases discards.wt<- discards<- distr distr<- distribution distribution<-
+#' @aliases effort effort<- fec fec<- fitted fitted<- gr gr<- harvest harvest.spwn
+#' @aliases harvest.spwn<- harvest<- hessian hessian<- index index.q index.q<-
+#' @aliases index.var index.var<- index<- initial initial<- landings landings.n
+#' @aliases landings.n<- landings.sel landings.sel<- landings.wt landings.wt<-
+#' @aliases landings<- logLik logLik<- logerror logerror<- logl logl<- m m m.spwn
+#' @aliases m.spwn<- m<- m<- mat mat<- model model<- n n<- name name<- params
+#' @aliases params<- range<- rec rec.obs rec<- residuals residuals<- sel.pattern
+#' @aliases sel.pattern<- spwn spwn<- stock stock.n stock.n<- stock.wt stock.wt<-
+#' @aliases stock<- type type<- units<- vcov vcov<- wt wt<- 
 #'
-#' @genericMethods
-#' 
 #' @author The FLR Team
 #' @seealso \code{\link{FLQuant}}, \code{\link{FLStock}}, \code{\link{FLIndex}},
 #' \code{\link{FLBiol}}, \code{\link{predictModel}}
@@ -602,8 +600,6 @@ setGeneric("upper<-", function(object, ..., value)
 #' @rdname ssb
 #' @aliases ssb ssb-methods
 #'
-#' @genericMethods
-#' 
 #' @author The FLR Team
 #' @seealso \link{FLComp}
 #' @keywords methods

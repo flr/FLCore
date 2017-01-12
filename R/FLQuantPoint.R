@@ -7,7 +7,8 @@
 
 # FLQuantPoint()	{{{
 
-# FLQuantPoint(FLQuant())
+#' @rdname FLQuantPoint
+#' @aliases FLQuantPoint,missing-method
 setMethod("FLQuantPoint", signature(object="missing"),
   function(..., units='NA') {
 
@@ -36,6 +37,9 @@ setMethod("FLQuantPoint", signature(object="missing"),
     return(res)
   }
 )
+
+#' @rdname FLQuantPoint
+#' @aliases FLQuantPoint,FLQuant-method
 setMethod("FLQuantPoint", signature(object="FLQuant"),
   function(object, ..., units='NA') {
 
@@ -43,11 +47,11 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
     res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
       iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))), units=units))
 
-    # load values
+        # load values
         res[,,,,,'mean'] <- apply(object, 1:5, mean, na.rm=TRUE)
         res[,,,,,'median'] <- apply(object, 1:5, median, na.rm=TRUE)
         res[,,,,,'var'] <- apply(object, 1:5, var, NULL, na.rm=TRUE)
-		# quantile free or 0.05 & 0.95
+		    # quantile free or 0.05 & 0.95
         res[,,,,,'lowq'] <- quantile(object, 0.25, na.rm=TRUE)
         res[,,,,,'uppq'] <-quantile(object, 0.75, na.rm=TRUE)
 

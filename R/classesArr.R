@@ -250,8 +250,8 @@ setClass("FLQuantPoint",
 #' for example, random numbers with those mean and variances.
 #'
 #' @name FLQuantDistr
-#' @rdname FLQuantDistr
 #' @docType class
+#' @rdname FLQuantDistr
 #' @aliases FLQuantDistr-class
 #'
 #' @section Slots:
@@ -324,7 +324,8 @@ setClass("FLQuantPoint",
 setClass("FLQuantDistr",
     representation("FLQuant", var="FLQuant", distr="character"),
 	prototype(new("FLQuant"), var=new("FLQuant"), distr="norm"),
-# VALIDITY
+  
+  # VALIDITY
 	validity=function(object) {
 
 	# .Data & var have same dims
