@@ -10,6 +10,9 @@
 invisible(createFLAccesors("FLIndexBiomass", exclude=c('name', 'desc', 'range', 'effort'))) # }}}
 
 # FLIndexBiomass()   {{{
+
+#' @rdname FLIndexBiomass
+#' @aliases FLIndexBiomass,FLQuant-method
 setMethod('FLIndexBiomass', signature(object='FLQuant'),
   function(object, plusgroup=dims(object)$max, ...)
   {
@@ -37,6 +40,8 @@ setMethod('FLIndexBiomass', signature(object='FLQuant'),
   }
 )
 
+#' @rdname FLIndexBiomass
+#' @aliases FLIndexBiomass,missing-method
 setMethod('FLIndexBiomass', signature(object='missing'),
   function(...)
   {

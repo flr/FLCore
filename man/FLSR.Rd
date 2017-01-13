@@ -7,9 +7,58 @@
 \alias{FLSR,missing-method}
 \alias{FLSR-class}
 \alias{FLSR-methods}
+\alias{covar,FLSR-method}
+\alias{covar<-,FLSR,FLQuants-method}
+\alias{desc,FLSR-method}
+\alias{desc<-,FLSR,character-method}
+\alias{details,FLSR-method}
+\alias{details<-,FLSR,list-method}
+\alias{distribution,FLSR-method}
+\alias{distribution<-,FLSR,character-method}
+\alias{distribution<-,FLSR,factor-method}
+\alias{fitted,FLSR-method}
+\alias{fitted<-,FLSR,FLArray-method}
+\alias{fitted<-,FLSR,numeric-method}
+\alias{gr,FLSR-method}
+\alias{gr<-,FLSR,function-method}
+\alias{hessian,FLSR-method}
+\alias{hessian<-,FLSR,array-method}
+\alias{initial,FLSR-method}
+\alias{initial<-,FLSR,function-method}
+\alias{logLik,FLSR-method}
+\alias{logLik<-,FLSR,logLik-method}
+\alias{logLik<-,FLSR,numeric-method}
+\alias{logl,FLSR-method}
+\alias{logl<-,FLSR,function-method}
+\alias{model,FLSR-method}
+\alias{model<-,FLSR,character-method}
+\alias{model<-,FLSR,formula-method}
+\alias{model<-,FLSR,function-method}
+\alias{model<-,FLSR,list-method}
+\alias{name,FLSR-method}
+\alias{name<-,FLSR,character-method}
+\alias{params,FLSR-method}
+\alias{params<-,FLSR,FLPar-method}
+\alias{range,FLSR-method}
+\alias{range<-,FLSR,numeric-method}
+\alias{rec,FLSR-method}
+\alias{rec<-,FLSR,FLQuant-method}
+\alias{rec<-,FLSR,numeric-method}
+\alias{residuals,FLSR-method}
+\alias{residuals<-,FLSR,FLArray-method}
+\alias{residuals<-,FLSR,numeric-method}
+\alias{ssb,FLSR-method}
+\alias{ssb<-,FLSR,FLQuant-method}
+\alias{ssb<-,FLSR,numeric-method}
+\alias{vcov,FLSR-method}
+\alias{vcov<-,FLSR,array-method}
 \title{Class FLSR}
 \usage{
 FLSR(model, ...)
+
+\S4method{FLSR}{ANY}(model, ...)
+
+\S4method{FLSR}{missing}(model, ...)
 }
 \description{
 Class for stock-recruitment models.

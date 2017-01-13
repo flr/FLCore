@@ -114,11 +114,6 @@ assessment (i.e. estimates of abundance and removal rates).
   the plusgroup and the quant range that the average fishing mortality should
   be calculated over (\code{numeric}).} }
 }
-
-\section{Accessors}{
-
-Accessor methods for the slots of this class exist.
-}
 \examples{
 
 stkl <- FLStockLen(m=FLQuant(0.2, dimnames=list(len=seq(5, 50, by=2), year=2015:2020)))

@@ -12,6 +12,9 @@ setAs("NULL", "FLQuant", function(from) FLQuant())
 # }}}
 
 # replacement, [[<-, $, [<- {{{
+
+#' @rdname Extract
+#' @aliases [[<-,FLlst,ANY,missing,ANY-method
 setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
 	{
@@ -37,6 +40,8 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	}
 )
 
+#' @rdname Extract
+#' @aliases $<-,FLlst,ANY-method
 setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 	function(x, name, value)
 	{
@@ -64,6 +69,8 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 			stop("Invalid object, classes do not match.")
 })
 
+#' @rdname Extract
+#' @aliases [<-,FLlst,ANY,missing,ANY-method
 setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	function(x, i, j, value)
 	{
@@ -87,15 +94,16 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 	}
 ) # }}}
 
-# subset, [ {{{
-
-
-setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"), function(x,i,j,drop){
-	lst <- as(x, "list")
-  # names dropped!
-  names(lst) <- names(x)
-	lst <- lst[i]
-	new(is(x), lst)
+# [ {{{
+#' @rdname Extract
+#' @aliases [,FLlst,ANY,missing,ANY-method
+setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
+  function(x,i,j,drop){
+	  lst <- as(x, "list")
+    # names dropped!
+    names(lst) <- names(x)
+	  lst <- lst[i]
+	  new(is(x), lst)
 })  # }}}
 
 # lapply  {{{

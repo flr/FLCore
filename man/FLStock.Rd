@@ -4,6 +4,7 @@
 \name{FLStock}
 \alias{FLStock}
 \alias{FLStock,FLQuant-method}
+\alias{FLStock,FLQuants-method}
 \alias{FLStock,missing-method}
 \alias{FLStock-class}
 \alias{FLStock-methods}
@@ -71,6 +72,10 @@
 FLStock(object, ...)
 
 \S4method{FLStock}{FLQuant}(object, plusgroup = dims(object)$max, ...)
+
+\S4method{FLStock}{missing}(object, ...)
+
+\S4method{FLStock}{FLQuants}(object, ...)
 }
 \arguments{
 \item{object}{FLQuant object used for sizing}
@@ -119,7 +124,7 @@ of abundance and removal rates) .
   be calculated over (\code{numeric}).} }
 }
 
-\section{Accesors}{
+\section{Accessors}{
 
 All slots in the class have accessor and replacement methods defined that
 allow retrieving and substituting individual slots.

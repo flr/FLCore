@@ -5,8 +5,9 @@
 # Maintainer: Iago Mosqueira, EC JRC
 
 # FLStock()   {{{
+
 #' @rdname FLStock
-#' @aliases FLStock,FLQuant-method FLStock,missing-method
+#' @aliases FLStock,FLQuant-method
 setMethod('FLStock', signature(object='FLQuant'),
   function(object, plusgroup=dims(object)$max, ...) {
 
@@ -42,6 +43,8 @@ setMethod('FLStock', signature(object='FLQuant'),
   }
 )
 
+#' @rdname FLStock
+#' @aliases FLStock,missing-method
 setMethod('FLStock', signature(object='missing'),
   function(...)
   {
@@ -74,6 +77,8 @@ setMethod('FLStock', signature(object='missing'),
   }
 )
 
+#' @rdname FLStock
+#' @aliases FLStock,FLQuants-method
 setMethod('FLStock', signature(object='FLQuants'),
   function(object, ...)
   {
@@ -473,6 +478,8 @@ setMethod("ssbpurec",signature(object="FLStock"),
 )# }}}
 
 # '['       {{{
+#' @rdname Extract
+#' @aliases [,FLStock,ANY,ANY,ANY-method
 setMethod('[', signature(x='FLStock'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE)
   {
@@ -517,6 +524,8 @@ setMethod('[', signature(x='FLStock'),
 )   # }}}
 
 # "[<-"            {{{
+#' @rdname Extract
+#' @aliases [<-,FLStock,ANY,ANY,FLStock-method
 setMethod("[<-", signature(x="FLStock", value="FLStock"),
 	function(x, i, j, k, l, m, n, ..., value) {
     if (missing(i))

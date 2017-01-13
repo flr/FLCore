@@ -199,6 +199,8 @@ setMethod("-",
 ) # }}}
 
 ## "["             {{{
+#' @rdname Extract
+#' @aliases [,FLQuantDistr,ANY,ANY,ANY-method
 setMethod("[", signature(x="FLQuantDistr"),
     function(x, i, j, k, l, m, n) {
 	  	
@@ -227,6 +229,8 @@ setMethod("[", signature(x="FLQuantDistr"),
 	}
 ) 
 
+#' @rdname Extract
+#' @aliases [,FLQuantDistr,array,missing,missing-method
 setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing"),
   function(x, i)
   {

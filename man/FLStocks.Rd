@@ -4,6 +4,7 @@
 \name{FLStocks}
 \alias{FLStocks}
 \alias{FLStocks,ANY-method}
+\alias{FLStocks,FLStock-method}
 \alias{FLStocks,list-method}
 \alias{FLStocks,missing-method}
 \alias{FLStocks-class}
@@ -11,6 +12,12 @@
 \title{Class FLStocks}
 \usage{
 FLStocks(object, ...)
+
+\S4method{FLStocks}{FLStock}(object, ...)
+
+\S4method{FLStocks}{missing}(object, ...)
+
+\S4method{FLStocks}{list}(object, ...)
 }
 \arguments{
 \item{object}{unnamed object to be added to the list}

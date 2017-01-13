@@ -430,8 +430,6 @@ setClass("FLStock",
 #'  \item{range}{Named numeric vector containing the quant and year ranges,
 #'   the plusgroup and the quant range that the average fishing mortality should
 #'   be calculated over (\code{numeric}).} }
-#' @section Accessors:
-#' Accessor methods for the slots of this class have been defined.
 #' @author The FLR Team
 #' @seealso \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
 #' \link{computeCatch}, \link{computeDiscards}, \link{computeLandings},
@@ -627,19 +625,21 @@ setClass("FLI",
 #' indices.
 #'
 #' @name FLIndex
-#' @aliases FLIndex-class catch.n,FLIndex-method
-#' catch.n<-,FLIndex,FLQuant-method catch.wt,FLIndex-method
-#' catch.wt<-,FLIndex,FLQuant-method desc,FLIndex-method
-#' desc<-,FLIndex,character-method distribution,FLIndex-method
-#' distribution<-,FLIndex,character-method effort,FLIndex-method
-#' effort<-,FLIndex,FLQuant-method index,FLIndex-method index.q,FLIndex-method
-#' index.q<-,FLIndex,FLQuant-method index.var,FLIndex-method
-#' index.var<-,FLIndex,FLQuant-method index<-,FLIndex,FLQuant-method
-#' name,FLIndex-method name<-,FLIndex,character-method range,FLIndex-method
-#' range<-,FLIndex,numeric-method sel.pattern,FLIndex-method
-#' sel.pattern<-,FLIndex,FLQuant-method type,FLIndex-method
-#' type<-,FLIndex,character-method
 #' @docType class
+#' @aliases FLIndex-class catch.n,FLIndex-method catch.wt,FLIndex-method
+#' desc,FLIndex-method distribution,FLIndex-method effort,FLIndex-method
+#' index,FLIndex-method index.q,FLIndex-method index.var,FLIndex-method
+#' name,FLIndex-method range,FLIndex-method sel.pattern,FLIndex-method
+#' type,FLIndex-method
+#' catch.n<-,FLIndex,FLQuant-method catch.n<-,FLIndex,numeric-method
+#' catch.wt<-,FLIndex,FLQuant-method catch.wt<-,FLIndex,numeric-method
+#' desc<-,FLIndex,character-method distribution<-,FLIndex,character-method
+#' effort<-,FLIndex,FLQuant-method index<-,FLIndex,FLQuant-method
+#' index<-,FLIndex,numeric-method index.q<-,FLIndex,FLQuant-method
+#' index.q<-,FLIndex,numeric-method index.var<-,FLIndex,FLQuant-method
+#' index.var<-,FLIndex,numeric-method name<-,FLIndex,character-method
+#' range<-,FLIndex,numeric-method sel.pattern<-,FLIndex,FLQuant-method
+#' sel.pattern<-,FLIndex,numeric-method type<-,FLIndex,character-method
 #' @section Slots: \describe{ \item{type}{Type of index (\code{character}).}
 #' \item{distribution}{Statistical distribution of the index values
 #' (\code{character}).} \item{index}{Index values (\code{FLQuant}).}
@@ -706,20 +706,30 @@ setClass("FLIndex",
 #' biomass indices.
 #'
 #' @name FLIndexBiomass
-#' @aliases FLIndexBiomass-class FLIndexBiomass,FLQuant-method FLIndexBiomass,missing-method
-#' FLIndexBiomass-methods FLIndexBiomassBiomass catch.n,FLIndexBiomass-method
-#' catch.n<-,FLIndexBiomass,FLQuant-method catch.wt,FLIndexBiomass-method
-#' catch.wt<-,FLIndexBiomass,FLQuant-method desc,FLIndexBiomass-method
-#' desc<-,FLIndexBiomass,character-method distribution,FLIndexBiomass-method
-#' distribution<-,FLIndexBiomass,character-method effort,FLIndexBiomass-method
-#' effort<-,FLIndexBiomass,FLQuant-method index,FLIndexBiomass-method index.q,FLIndexBiomass-method
-#' index.q<-,FLIndexBiomass,FLQuant-method index.var,FLIndexBiomass-method
-#' index.var<-,FLIndexBiomass,FLQuant-method index<-,FLIndexBiomass,FLQuant-method
-#' name,FLIndexBiomass-method name<-,FLIndexBiomass,character-method range,FLIndexBiomass-method
-#' range<-,FLIndexBiomass,numeric-method sel.pattern,FLIndexBiomass-method
-#' sel.pattern<-,FLIndexBiomass,FLQuant-method type,FLIndexBiomass-method
-#' type<-,FLIndexBiomass,character-method
 #' @docType class
+#' @aliases FLIndexBiomass-class catch.n,FLIndexBiomass-method catch.wt,FLIndexBiomass-method
+#' desc,FLIndexBiomass-method distribution,FLIndexBiomass-method
+#' effort,FLIndexBiomass-method index,FLIndexBiomass-method
+#' index.q,FLIndexBiomass-method index.var,FLIndexBiomass-method
+#' name,FLIndexBiomass-method range,FLIndexBiomass-method
+#' sel.pattern,FLIndexBiomass-method
+#' catch.n<-,FLIndexBiomass,FLQuant-method
+#' catch.n<-,FLIndexBiomass,numeric-method
+#' catch.wt<-,FLIndexBiomass,FLQuant-method
+#' catch.wt<-,FLIndexBiomass,numeric-method
+#' desc<-,FLIndexBiomass,character-method
+#' distribution<-,FLIndexBiomass,character-method
+#' effort<-,FLIndexBiomass,FLQuant-method
+#' index<-,FLIndexBiomass,FLQuant-method
+#' index<-,FLIndexBiomass,numeric-method
+#' index.q<-,FLIndexBiomass,FLQuant-method
+#' index.q<-,FLIndexBiomass,numeric-method
+#' index.var<-,FLIndexBiomass,FLQuant-method
+#' index.var<-,FLIndexBiomass,numeric-method
+#' name<-,FLIndexBiomass,character-method
+#' range<-,FLIndexBiomass,numeric-method
+#' sel.pattern<-,FLIndexBiomass,FLQuant-method
+#' sel.pattern<-,FLIndexBiomass,numeric-method
 #' @section Slots: \describe{ \item{distribution}{Statistical distribution of
 #' the index values (\code{character}).} \item{index}{Index values
 #' (\code{FLQuant}).} \item{index.var}{Variance of the index (\code{FLQuant}).}

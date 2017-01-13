@@ -3,9 +3,24 @@
 \docType{class}
 \name{FLModelSims}
 \alias{FLModelSims}
+\alias{FLModelSims,ANY-method}
+\alias{FLModelSims,FLModelSims-method}
+\alias{FLModelSims,list-method}
+\alias{FLModelSims,missing-method}
 \alias{FLModelSims-class}
 \alias{FLModelSims-methods}
 \title{Class FLModelSims}
+\usage{
+FLModelSims(object, ...)
+
+\S4method{FLModelSims}{ANY}(object, ...)
+
+\S4method{FLModelSims}{missing}(object, ...)
+
+\S4method{FLModelSims}{list}(object)
+
+\S4method{FLModelSims}{FLModelSims}(object)
+}
 \arguments{
 \item{object}{unnamed object to be added to the list}
 
