@@ -11,17 +11,17 @@ setAs('FLArray', 'data.frame',
     # to avoid warnings when NA have to be added
     options(warn=-1)
     dnames <- dimnames(from)
-        if(!any(is.na(suppressWarnings(as.numeric(dnames[[1]])))))
-            quant <- as.numeric(dimnames(from)[[1]])
-        else
-            quant <- factor(dnames[[1]], levels=dnames[[1]])
-    df <- data.frame(expand.grid(quant=quant,
-      year=as.numeric(dnames[[2]]),
-      unit=factor(dnames[[3]], levels=dnames[[3]]),
-      season=factor(dnames[[4]], levels=dnames[[4]]),
-      area=factor(dnames[[5]], levels=dnames[[5]]),
-      iter=factor(dnames[[6]], levels=dnames[[6]])),
-      data=as.vector(from))
+
+    # CONVERT to factors
+    dnames <- lapply(dnames, factor)
+
+    # TURN quant to numeric, if possible
+    if(!any(is.na(suppressWarnings(as.numeric(dnames[[1]])))))
+      dnames[[1]] <- as.numeric(dnames[[1]])
+
+    df <- data.frame(do.call(expand.grid, dnames),
+      data=c(from))
+
     names(df)[1:2] <- names(dnames)[1:2]
     attributes(df)$units <- units(from)
     options(warn=0)
