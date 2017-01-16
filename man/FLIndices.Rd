@@ -3,7 +3,7 @@
 \docType{class}
 \name{FLIndices}
 \alias{FLIndices}
-\alias{FLIndices,ANY-method}
+\alias{FLIndices,FLI-method}
 \alias{FLIndices,list-method}
 \alias{FLIndices,missing-method}
 \alias{FLIndices-class}
@@ -11,6 +11,12 @@
 \title{Class FLIndices}
 \usage{
 FLIndices(object, ...)
+
+\S4method{FLIndices}{FLI}(object, ...)
+
+\S4method{FLIndices}{missing}(object, ...)
+
+\S4method{FLIndices}{list}(object, ...)
 }
 \arguments{
 \item{object}{unnamed object to be added to the list}

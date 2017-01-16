@@ -9,8 +9,10 @@
 \alias{FLIndex-methods}
 \alias{catch.n,FLIndex-method}
 \alias{catch.n<-,FLIndex,FLQuant-method}
+\alias{catch.n<-,FLIndex,numeric-method}
 \alias{catch.wt,FLIndex-method}
 \alias{catch.wt<-,FLIndex,FLQuant-method}
+\alias{catch.wt<-,FLIndex,numeric-method}
 \alias{desc,FLIndex-method}
 \alias{desc<-,FLIndex,character-method}
 \alias{distribution,FLIndex-method}
@@ -20,15 +22,19 @@
 \alias{index,FLIndex-method}
 \alias{index.q,FLIndex-method}
 \alias{index.q<-,FLIndex,FLQuant-method}
+\alias{index.q<-,FLIndex,numeric-method}
 \alias{index.var,FLIndex-method}
 \alias{index.var<-,FLIndex,FLQuant-method}
+\alias{index.var<-,FLIndex,numeric-method}
 \alias{index<-,FLIndex,FLQuant-method}
+\alias{index<-,FLIndex,numeric-method}
 \alias{name,FLIndex-method}
 \alias{name<-,FLIndex,character-method}
 \alias{range,FLIndex-method}
 \alias{range<-,FLIndex,numeric-method}
 \alias{sel.pattern,FLIndex-method}
 \alias{sel.pattern<-,FLIndex,FLQuant-method}
+\alias{sel.pattern<-,FLIndex,numeric-method}
 \alias{type,FLIndex-method}
 \alias{type<-,FLIndex,character-method}
 \title{Class FLIndex}

@@ -130,6 +130,8 @@ setMethod('FLPar', signature('FLPar'),
 ) # }}}
 
 # '['   {{{
+#' @rdname Extract
+#' @aliases [,FLPar,ANY,ANY,ANY-method
 setMethod('[', signature(x='FLPar'),
   function(x, i, j, k, l, m, n, ..., drop=FALSE) {
 
@@ -168,13 +170,17 @@ setMethod('[', signature(x='FLPar'),
   }
 )
 
-setMethod('[', signature(x='FLPar', i='array'),
-  function(x, i, ..., drop=FALSE) {
+#' @rdname Extract
+#' @aliases [,FLPar,array,missing,missing-method
+setMethod('[', signature(x='FLPar', i='array', j='missing', drop='missing'),
+  function(x, i) {
     return(x@.Data[i])
   }
 ) # }}}
 
 # "[<-"     {{{
+#' @rdname Extract
+#' @aliases [<-,FLPar,ANY,ANY,ANY-method
 setMethod("[<-", signature(x="FLPar", value="ANY"),
   function(x, i, j, k, l, m, n, ..., value)
   {
@@ -863,6 +869,8 @@ setMethod("model.frame", signature(formula="FLPar"),
 ) # }}}
 
 # $ {{{
+#' @rdname Extract
+#' @aliases $,FLPar-method
 setMethod('$', signature(x='FLPar'),
   function(x, name) {
     return(x[name,])

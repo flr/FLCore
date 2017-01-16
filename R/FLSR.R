@@ -17,7 +17,26 @@
 #' formulation implemented for each of them.
 #'
 #' @name FLSR
-#' @aliases FLSR-class FLSR FLSR-methods FLSR,ANY-method FLSR,missing-method
+#' @aliases FLSR-class covar,FLSR-method desc,FLSR-method details,FLSR-method
+#' distribution,FLSR-method fitted,FLSR-method gr,FLSR-method
+#' hessian,FLSR-method initial,FLSR-method logl,FLSR-method
+#' logLik,FLSR-method model,FLSR-method name,FLSR-method
+#' params,FLSR-method range,FLSR-method rec,FLSR-method
+#' residuals,FLSR-method ssb,FLSR-method vcov,FLSR-method
+#' covar<-,FLSR,FLQuants-method desc<-,FLSR,character-method
+#' details<-,FLSR,list-method distribution<-,FLSR,character-method
+#' distribution<-,FLSR,factor-method fitted<-,FLSR,FLArray-method
+#' fitted<-,FLSR,numeric-method gr<-,FLSR,function-method
+#' hessian<-,FLSR,array-method initial<-,FLSR,function-method
+#' logl<-,FLSR,function-method logLik<-,FLSR,logLik-method
+#' logLik<-,FLSR,numeric-method model<-,FLSR,character-method
+#' model<-,FLSR,formula-method model<-,FLSR,function-method
+#' model<-,FLSR,list-method name<-,FLSR,character-method
+#' params<-,FLSR,FLPar-method range<-,FLSR,numeric-method
+#' rec<-,FLSR,FLQuant-method rec<-,FLSR,numeric-method
+#' residuals<-,FLSR,FLArray-method residuals<-,FLSR,numeric-method
+#' ssb<-,FLSR,FLQuant-method ssb<-,FLSR,numeric-method
+#' vcov<-,FLSR,array-method
 #' @docType class
 #' @section Slots: \describe{
 #'     \item{name}{Name of the object (\code{character}).}
@@ -129,6 +148,8 @@ setClass('FLSR',
 invisible(createFLAccesors("FLSR", include=c('rec', 'ssb', 'covar'))) # }}}
 
 # FLSR()	{{{
+#' @rdname FLSR
+#' @aliases FLSR,ANY-method
 setMethod('FLSR', signature(model='ANY'),
   function(model, ...)
   {
@@ -164,6 +185,8 @@ setMethod('FLSR', signature(model='ANY'),
     return(res)
   }
 )
+#' @rdname FLSR
+#' @aliases FLSR,missing-method
 setMethod('FLSR', signature(model='missing'),
 	function(...)
 		return(FLSR(formula(NULL), ...))) # }}}
@@ -383,12 +406,15 @@ setClass("FLSRs", contains="FLComps",
   }
 )
 
-# constructor
+#' @rdname FLSRs
+#' @aliases FLSRs,FLSR-method
 setMethod("FLSRs", signature(object="FLSR"), function(object, ...) {
     lst <- c(object, list(...))
     FLSRs(lst)
 })
 
+#' @rdname FLSRs
+#' @aliases FLSRs,missing-method
 setMethod("FLSRs", signature(object="missing"),
   function(...) {
     # empty
@@ -404,6 +430,8 @@ setMethod("FLSRs", signature(object="missing"),
   }
 )
 
+#' @rdname FLSRs
+#' @aliases FLSRs,list-method
 setMethod("FLSRs", signature(object="list"),
   function(object, ...) {
 

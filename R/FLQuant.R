@@ -493,6 +493,9 @@ setMethod('yearTotals', signature(x='FLQuant'),
 ) # }}}
 
 # sums         {{{
+
+#' @rdname dimSummaries
+#' @aliases quantSums,FLQuant-method
 setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
   res <- colSums(x, na.rm=na.rm)
@@ -509,18 +512,24 @@ setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
     quant=quant(x), units=units(x)))
 })
 
+#' @rdname dimSummaries
+#' @aliases yearSums,FLQuant-method
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
 })
 
+#' @rdname dimSummaries
+#' @aliases unitSums,FLQuant-method
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
 })
 
+#' @rdname dimSummaries
+#' @aliases seasonSums,FLQuant-method
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
  
   # output, 1 season
@@ -541,6 +550,8 @@ setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(res)
 })
 
+#' @rdname dimSummaries
+#' @aliases areaSums,FLQuant-method
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -1187,6 +1198,8 @@ setMethod("tsp", signature(x="FLQuant"),
 ) # }}}
 
 # $ {{{
+#' @rdname Extract
+#' @aliases $,FLQuant-method
 setMethod("$", signature(x="FLQuant"),           
   function(x, name) {
     return(x[name,])

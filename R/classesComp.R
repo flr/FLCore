@@ -178,34 +178,46 @@ invisible(createFLAccesors("FLS", exclude=c('name', 'desc', 'range', 'harvest'))
 # FLStock			{{{
 
 #' Class FLStock
-#' 
+#'
 #' A class for modelling a fish stock.
-#' 
+#'
 #' The \code{FLStock} object contains a representation of a fish stock as
 #' constructed for the purposes of scientific analysis and advice. This includes
 #' information on removals (i.e. catches, landings and discards), maturity,
 #' natural mortality and the results of an analytical assessment (i.e. estimates
-#' of abundance and removal rates).
-#' 
+#' of abundance and removal rates) .
+#'
 #' @name FLStock
 #' @aliases FLStock-class catch,FLStock-method catch.n,FLStock-method
-#' catch.n<-,FLStock,FLQuant-method catch.wt,FLStock-method
-#' catch.wt<-,FLStock,FLQuant-method catch<-,FLStock,FLQuant-method
-#' desc,FLStock-method desc<-,FLStock,character-method discards,FLStock-method
-#' discards.n,FLStock-method discards.n<-,FLStock,FLQuant-method
-#' discards.wt,FLStock-method discards.wt<-,FLStock,FLQuant-method
-#' discards<-,FLStock,FLQuant-method harvest,FLStock-method
-#' harvest.spwn,FLStock-method harvest.spwn<-,FLStock,FLQuant-method
-#' harvest<-,FLStock,FLQuant-method landings,FLStock-method
-#' landings.n,FLStock-method landings.n<-,FLStock,FLQuant-method
-#' landings.wt,FLStock-method landings.wt<-,FLStock,FLQuant-method
-#' landings<-,FLStock,FLQuant-method m,FLStock-method m.spwn,FLStock-method
-#' m.spwn<-,FLStock,FLQuant-method m<-,FLStock,FLQuant-method
-#' mat,FLStock-method mat<-,FLStock,FLQuant-method name,FLStock-method
-#' name<-,FLStock,character-method range,FLStock-method
-#' range<-,FLStock,numeric-method stock,FLStock-method stock.n,FLStock-method
-#' stock.n<-,FLStock,FLQuant-method stock.wt,FLStock-method
-#' stock.wt<-,FLStock,FLQuant-method stock<-,FLStock,FLQuant-method
+#' catch.wt,FLStock-method desc,FLStock-method discards,FLStock-method
+#' discards.n,FLStock-method discards.wt,FLStock-method
+#' harvest,FLStock-method harvest.spwn,FLStock-method
+#' landings,FLStock-method landings.n,FLStock-method
+#' landings.wt,FLStock-method mat,FLStock-method m,FLStock-method
+#' m.spwn,FLStock-method name,FLStock-method range,FLStock-method
+#' stock,FLStock-method stock.n,FLStock-method stock.wt,FLStock-method
+#' catch<-,FLStock,FLQuant-method catch<-,FLStock,numeric-method
+#' catch<-,FLStock,FLQuants-method catch.n<-,FLStock,FLQuant-method
+#' catch.n<-,FLStock,numeric-method catch.wt<-,FLStock,FLQuant-method
+#' catch.wt<-,FLStock,numeric-method desc<-,FLStock,character-method
+#' discards<-,FLStock,FLQuant-method discards<-,FLStock,numeric-method
+#' discards.n<-,FLStock,FLQuant-method discards.n<-,FLStock,numeric-method
+#' discards.wt<-,FLStock,FLQuant-method
+#' discards.wt<-,FLStock,numeric-method harvest<-,FLStock,character-method
+#' harvest<-,FLStock,FLQuant-method harvest<-,FLStock,numeric-method
+#' harvest.spwn<-,FLStock,FLQuant-method
+#' harvest.spwn<-,FLStock,numeric-method landings<-,FLStock,FLQuant-method
+#' landings<-,FLStock,numeric-method landings.n<-,FLStock,FLQuant-method
+#' landings.n<-,FLStock,numeric-method
+#' landings.wt<-,FLStock,FLQuant-method
+#' landings.wt<-,FLStock,numeric-method mat<-,FLStock,FLQuant-method
+#' mat<-,FLStock,numeric-method m<-,FLStock,FLQuant-method
+#' m<-,FLStock,numeric-method m.spwn<-,FLStock,FLQuant-method
+#' m.spwn<-,FLStock,numeric-method name<-,FLStock,character-method
+#' range<-,FLStock,numeric-method stock<-,FLStock,FLQuant-method
+#' stock<-,FLStock,numeric-method stock.n<-,FLStock,FLQuant-method
+#' stock.n<-,FLStock,numeric-method stock.wt<-,FLStock,FLQuant-method
+#' stock.wt<-,FLStock,numeric-method
 #' @docType class
 #' @section Slots:
 #' \describe{
@@ -251,14 +263,14 @@ invisible(createFLAccesors("FLS", exclude=c('name', 'desc', 'range', 'harvest'))
 #' \link{FLComp}
 #' @keywords classes
 #' @examples
-#' 
+#'
 #' data(ple4)
 #' summary(ple4)
 #'
 #' # get the landings slot and assign values to it
 #'   landings(ple4)
 #'   landings(ple4) <- apply(landings.n(ple4)*landings.wt(ple4),2,sum)
-#' 
+#'
 #' # perform similar calculation as the preceding apply function
 #'   discards(ple4) <- computeDiscards(ple4)
 #'   catch(ple4) <- computeCatch(ple4)
@@ -341,39 +353,55 @@ setClass("FLStock",
 # FLStockLen      {{{
 
 #' Class FLStockLen
-#' 
+#'
 #' A class for modelling a length-structured fish stock.
-#' 
+#'
 #' The \code{FLStockLen} object contains a length based representation of a
 #' fish stock. This includes information on removals (i.e. catches, landings and
 #' discards), maturity, natural mortality and the results of an analytical
 #' assessment (i.e. estimates of abundance and removal rates).
-#' 
+#'
 #' @name FLStockLen
-#' @rdname FLStockLen
-#' @aliases FLStockLen-class catch,FLStockLen-method
-#' catch.n,FLStockLen-method catch.n<-,FLStockLen,FLQuant-method
-#' catch.wt,FLStockLen-method catch.wt<-,FLStockLen,FLQuant-method
-#' catch<-,FLStockLen,FLQuant-method desc,FLStockLen-method
-#' desc<-,FLStockLen,character-method discards,FLStockLen-method
-#' discards.n,FLStockLen-method discards.n<-,FLStockLen,FLQuant-method
-#' discards.wt,FLStockLen-method discards.wt<-,FLStockLen,FLQuant-method
-#' discards<-,FLStockLen,FLQuant-method halfwidth,FLStockLen-method
-#' halfwidth<-,FLStockLen,numeric-method harvest,FLStockLen-method
-#' harvest.spwn,FLStockLen-method harvest.spwn<-,FLStockLen,FLQuant-method
-#' harvest<-,FLStockLen,FLQuant-method landings,FLStockLen-method
-#' landings.n,FLStockLen-method landings.n<-,FLStockLen,FLQuant-method
-#' landings.wt,FLStockLen-method landings.wt<-,FLStockLen,FLQuant-method
-#' landings<-,FLStockLen,FLQuant-method m,FLStockLen-method
-#' m.spwn,FLStockLen-method m.spwn<-,FLStockLen,FLQuant-method
-#' m<-,FLStockLen,FLQuant-method mat,FLStockLen-method
-#' mat<-,FLStockLen,FLQuant-method name,FLStockLen-method
-#' name<-,FLStockLen,character-method range,FLStockLen-method
-#' range<-,FLStockLen,numeric-method stock,FLStockLen-method
-#' stock.n,FLStockLen-method stock.n<-,FLStockLen,FLQuant-method
-#' stock.wt,FLStockLen-method stock.wt<-,FLStockLen,FLQuant-method
-#' stock<-,FLStockLen,FLQuant-method
 #' @docType class
+#' @rdname FLStockLen
+#' @aliases FLStockLen-class catch,FLStockLen-method catch.n,FLStockLen-method
+#' catch.wt,FLStockLen-method desc,FLStockLen-method
+#' discards,FLStockLen-method discards.n,FLStockLen-method
+#' discards.wt,FLStockLen-method halfwidth,FLStockLen-method
+#' harvest,FLStockLen-method harvest.spwn,FLStockLen-method
+#' landings,FLStockLen-method landings.n,FLStockLen-method
+#' landings.wt,FLStockLen-method mat,FLStockLen-method m,FLStockLen-method
+#' m.spwn,FLStockLen-method name,FLStockLen-method range,FLStockLen-method
+#' stock,FLStockLen-method stock.n,FLStockLen-method
+#' stock.wt,FLStockLen-method
+#' catch<-,FLStockLen,FLQuant-method catch<-,FLStockLen,numeric-method
+#' catch.n<-,FLStockLen,FLQuant-method catch.n<-,FLStockLen,numeric-method
+#' catch.wt<-,FLStockLen,FLQuant-method
+#' catch.wt<-,FLStockLen,numeric-method desc<-,FLStockLen,character-method
+#' discards<-,FLStockLen,FLQuant-method
+#' discards<-,FLStockLen,numeric-method
+#' discards.n<-,FLStockLen,FLQuant-method
+#' discards.n<-,FLStockLen,numeric-method
+#' discards.wt<-,FLStockLen,FLQuant-method
+#' discards.wt<-,FLStockLen,numeric-method halfwidth<-,FLStockLen,-method
+#' harvest<-,FLStockLen,character-method
+#' harvest<-,FLStockLen,FLQuant-method harvest<-,FLStockLen,numeric-method
+#' harvest.spwn<-,FLStockLen,FLQuant-method
+#' harvest.spwn<-,FLStockLen,numeric-method
+#' landings<-,FLStockLen,FLQuant-method
+#' landings<-,FLStockLen,numeric-method
+#' landings.n<-,FLStockLen,FLQuant-method
+#' landings.n<-,FLStockLen,numeric-method
+#' landings.wt<-,FLStockLen,FLQuant-method
+#' landings.wt<-,FLStockLen,numeric-method mat<-,FLStockLen,FLQuant-method
+#' mat<-,FLStockLen,numeric-method m<-,FLStockLen,FLQuant-method
+#' m<-,FLStockLen,numeric-method m.spwn<-,FLStockLen,FLQuant-method
+#' m.spwn<-,FLStockLen,numeric-method name<-,FLStockLen,character-method
+#' range<-,FLStockLen,numeric-method stock<-,FLStockLen,FLQuant-method
+#' stock<-,FLStockLen,numeric-method stock.n<-,FLStockLen,FLQuant-method
+#' stock.n<-,FLStockLen,numeric-method
+#' stock.wt<-,FLStockLen,FLQuant-method
+#' stock.wt<-,FLStockLen,numeric-method
 #' @section Slots:
 #' \describe{
 #'  \item{halfwidth}{The middle of the length bins (\code{numeric}).}
@@ -592,24 +620,26 @@ setClass("FLI",
 #' Class FLIndex
 #'
 #' A class for modelling abundance indices.
-#' 
+#'
 #' The \code{FLIndex} object holds data and parameters related to abundance
 #' indices.
 #'
 #' @name FLIndex
-#' @aliases FLIndex-class catch.n,FLIndex-method
-#' catch.n<-,FLIndex,FLQuant-method catch.wt,FLIndex-method
-#' catch.wt<-,FLIndex,FLQuant-method desc,FLIndex-method
-#' desc<-,FLIndex,character-method distribution,FLIndex-method
-#' distribution<-,FLIndex,character-method effort,FLIndex-method
-#' effort<-,FLIndex,FLQuant-method index,FLIndex-method index.q,FLIndex-method
-#' index.q<-,FLIndex,FLQuant-method index.var,FLIndex-method
-#' index.var<-,FLIndex,FLQuant-method index<-,FLIndex,FLQuant-method
-#' name,FLIndex-method name<-,FLIndex,character-method range,FLIndex-method
-#' range<-,FLIndex,numeric-method sel.pattern,FLIndex-method
-#' sel.pattern<-,FLIndex,FLQuant-method type,FLIndex-method
-#' type<-,FLIndex,character-method
 #' @docType class
+#' @aliases FLIndex-class catch.n,FLIndex-method catch.wt,FLIndex-method
+#' desc,FLIndex-method distribution,FLIndex-method effort,FLIndex-method
+#' index,FLIndex-method index.q,FLIndex-method index.var,FLIndex-method
+#' name,FLIndex-method range,FLIndex-method sel.pattern,FLIndex-method
+#' type,FLIndex-method
+#' catch.n<-,FLIndex,FLQuant-method catch.n<-,FLIndex,numeric-method
+#' catch.wt<-,FLIndex,FLQuant-method catch.wt<-,FLIndex,numeric-method
+#' desc<-,FLIndex,character-method distribution<-,FLIndex,character-method
+#' effort<-,FLIndex,FLQuant-method index<-,FLIndex,FLQuant-method
+#' index<-,FLIndex,numeric-method index.q<-,FLIndex,FLQuant-method
+#' index.q<-,FLIndex,numeric-method index.var<-,FLIndex,FLQuant-method
+#' index.var<-,FLIndex,numeric-method name<-,FLIndex,character-method
+#' range<-,FLIndex,numeric-method sel.pattern<-,FLIndex,FLQuant-method
+#' sel.pattern<-,FLIndex,numeric-method type<-,FLIndex,character-method
 #' @section Slots: \describe{ \item{type}{Type of index (\code{character}).}
 #' \item{distribution}{Statistical distribution of the index values
 #' (\code{character}).} \item{index}{Index values (\code{FLQuant}).}
@@ -676,20 +706,30 @@ setClass("FLIndex",
 #' biomass indices.
 #'
 #' @name FLIndexBiomass
-#' @aliases FLIndexBiomass-class FLIndexBiomass,FLQuant-method FLIndexBiomass,missing-method
-#' FLIndexBiomass-methods FLIndexBiomassBiomass catch.n,FLIndexBiomass-method
-#' catch.n<-,FLIndexBiomass,FLQuant-method catch.wt,FLIndexBiomass-method
-#' catch.wt<-,FLIndexBiomass,FLQuant-method desc,FLIndexBiomass-method
-#' desc<-,FLIndexBiomass,character-method distribution,FLIndexBiomass-method
-#' distribution<-,FLIndexBiomass,character-method effort,FLIndexBiomass-method
-#' effort<-,FLIndexBiomass,FLQuant-method index,FLIndexBiomass-method index.q,FLIndexBiomass-method
-#' index.q<-,FLIndexBiomass,FLQuant-method index.var,FLIndexBiomass-method
-#' index.var<-,FLIndexBiomass,FLQuant-method index<-,FLIndexBiomass,FLQuant-method
-#' name,FLIndexBiomass-method name<-,FLIndexBiomass,character-method range,FLIndexBiomass-method
-#' range<-,FLIndexBiomass,numeric-method sel.pattern,FLIndexBiomass-method
-#' sel.pattern<-,FLIndexBiomass,FLQuant-method type,FLIndexBiomass-method
-#' type<-,FLIndexBiomass,character-method
 #' @docType class
+#' @aliases FLIndexBiomass-class catch.n,FLIndexBiomass-method catch.wt,FLIndexBiomass-method
+#' desc,FLIndexBiomass-method distribution,FLIndexBiomass-method
+#' effort,FLIndexBiomass-method index,FLIndexBiomass-method
+#' index.q,FLIndexBiomass-method index.var,FLIndexBiomass-method
+#' name,FLIndexBiomass-method range,FLIndexBiomass-method
+#' sel.pattern,FLIndexBiomass-method
+#' catch.n<-,FLIndexBiomass,FLQuant-method
+#' catch.n<-,FLIndexBiomass,numeric-method
+#' catch.wt<-,FLIndexBiomass,FLQuant-method
+#' catch.wt<-,FLIndexBiomass,numeric-method
+#' desc<-,FLIndexBiomass,character-method
+#' distribution<-,FLIndexBiomass,character-method
+#' effort<-,FLIndexBiomass,FLQuant-method
+#' index<-,FLIndexBiomass,FLQuant-method
+#' index<-,FLIndexBiomass,numeric-method
+#' index.q<-,FLIndexBiomass,FLQuant-method
+#' index.q<-,FLIndexBiomass,numeric-method
+#' index.var<-,FLIndexBiomass,FLQuant-method
+#' index.var<-,FLIndexBiomass,numeric-method
+#' name<-,FLIndexBiomass,character-method
+#' range<-,FLIndexBiomass,numeric-method
+#' sel.pattern<-,FLIndexBiomass,FLQuant-method
+#' sel.pattern<-,FLIndexBiomass,numeric-method
 #' @section Slots: \describe{ \item{distribution}{Statistical distribution of
 #' the index values (\code{character}).} \item{index}{Index values
 #' (\code{FLQuant}).} \item{index.var}{Variance of the index (\code{FLQuant}).}
@@ -766,16 +806,16 @@ setClass("FLIndexBiomass",
 #' The \code{FLModel} class provides a virtual class that developers of various
 #' statistical models can use to implement classes that allow those models to
 #' be tested, fitted and presented.
-#' 
+#'
 #' Slots in this class attempt to map all the usual outputs for a modelling
 #' exercise, together with the standard inputs. Input data are stored in slots
 #' created by a specified class that is based on \code{FLModel}. See for example
 #' \code{\linkS4class{FLSR}} for a class used for stock-recruitment models.
-#' 
+#'
 #' Various fitting algorithms, similar to those present in the basic R packages,
 #' are currently available for \code{FLModel}, including \code{\link{fmle}},
 #' \code{\link{nls-FLCore}} and \code{\link[stats]{glm}}.
-#' 
+#'
 #' @name FLModel
 #' @aliases FLModel-class FLModel FLModel-methods FLModel,formula-method
 #' FLModel,missing-method FLModel,character-method FLModel,function-method
@@ -785,33 +825,33 @@ setClass("FLIndexBiomass",
 #'   \item{desc}{Description of the object, \code{character}.}
 #'   \item{range}{Range, \code{numeric}.}
 #'   \item{distribution}{Associated error probability dfistribution, \code{factor}.}
-#'   \item{fitted}{Estimated values, \code{FLQuant}.} 
-#'   \item{residuals}{Residuals obtained from the model fit, \code{FLQuant}.} 
+#'   \item{fitted}{Estimated values, \code{FLQuant}.}
+#'   \item{residuals}{Residuals obtained from the model fit, \code{FLQuant}.}
 #'   \item{model}{Model formula, \code{formula}.}
-#'   \item{gr}{Function returning the gradient of the likelihood, \code{function}.} 
+#'   \item{gr}{Function returning the gradient of the likelihood, \code{function}.}
 #'   \item{logl}{Log-likelihood function. \code{function}.}
 #'   \item{initial}{Function returning initial parameter values for the
 #'     optimizer, as an object of class \code{FLPar}, \code{function}.}
-#'   \item{params}{Estimated parameter values, \code{FLPar}.} 
-#'   \item{logLik}{Value of the log-likelihood, \code{logLik}.} 
-#'   \item{vcov}{Variance-covariance matrix, \code{array}.} 
-#'   \item{hessian}{Hessian matrix obtained from the parameter fitting, \code{array}.} 
+#'   \item{params}{Estimated parameter values, \code{FLPar}.}
+#'   \item{logLik}{Value of the log-likelihood, \code{logLik}.}
+#'   \item{vcov}{Variance-covariance matrix, \code{array}.}
+#'   \item{hessian}{Hessian matrix obtained from the parameter fitting, \code{array}.}
 #'   \item{details}{extra information on the model fit procedure, \code{list}.} }
 #' @author The FLR Team
 #' @seealso \link[stats]{AIC}, \link[stats]{BIC}, \link{fmle},
 #' \link[stats]{nls}, \link{FLComp}
 #' @keywords classes
 #' @examples
-#' 
+#'
 #' # Normally, FLModel objects won't be created if "class" is not set
 #'   summary(FLModel(length~width*alpha))
-#' 
+#'
 #' # Objects of FLModel-based classes use their own constructor,
 #' # which internally calls FLModel
 #'   fsr <- FLModel(rec~ssb*a, class='FLSR')
 #'   is(fsr)
 #'   summary(fsr)
-#' 
+#'
 #' # An example constructor method for an FLModel-based class
 #'   # Create class FLGrowth with a single new slot, 'mass'
 #'     setClass('FLGrowth', representation('FLModel', mass='FLArray'))
@@ -859,9 +899,9 @@ setClass('FLModel',
     	if(class(slot(object, i)) != class)
       	return(paste('FLQuant/FLCohort slots in object should all be of the same class: ',
         	i))
-	  
+	
 		return(TRUE)
 		}
 )
-invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution'))) 
+invisible(createFLAccesors("FLModel", exclude=c('name', 'desc', 'range', 'params', 'distribution')))
 # }}}

@@ -223,6 +223,8 @@ setMethod("units<-", signature(x="FLComp", value="list"),
 ) # }}}
 
 # '['       {{{
+#' @rdname Extract
+#' @aliases [,FLComp,ANY,ANY,ANY-method
 setMethod('[', signature(x='FLComp'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE) {
 
@@ -261,6 +263,8 @@ setMethod('[', signature(x='FLComp'),
 )   # }}}
 
 # "[<-"            {{{
+#' @rdname Extract
+#' @aliases [<-,FLComp,ANY,ANY,ANY-method
 setMethod("[<-", signature(x="FLComp"),
 	function(x, i, j, k, l, m, n, ..., value="missing")
   {
@@ -419,7 +423,7 @@ setMethod("range", "FLComp",
   }
 )
 
-setReplaceMethod("range", "FLComp",
+setReplaceMethod("range", signature(x="FLComp", i="ANY", value="numeric"),
   function(x, i, value)
   {
     slot(x, 'range')[i] <- value

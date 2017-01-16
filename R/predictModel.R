@@ -154,6 +154,8 @@ setMethod('summary', signature(object='predictModel'),
 ) # }}}
 
 # [, [[<- {{{
+#' @rdname Extract
+#' @aliases [,predictModel,ANY,missing,ANY-method
 setMethod('[', signature(x="predictModel", i="ANY", j="missing"),
 	function(x, i) {
 		x@.Data <- x@.Data[i]

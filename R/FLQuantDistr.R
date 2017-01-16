@@ -5,6 +5,8 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 ## FLQuantDistr()	{{{
+#' @rdname FLQuantDistr
+#' @aliases FLQuantDistr,ANY,ANY-method
 setMethod("FLQuantDistr", signature(object="ANY", var="ANY"),
 	function(object, var, ...) {
 
@@ -17,6 +19,8 @@ setMethod("FLQuantDistr", signature(object="ANY", var="ANY"),
 	}
 )
 
+#' @rdname FLQuantDistr
+#' @aliases FLQuantDistr,FLQuant,FLQuant-method
 setMethod("FLQuantDistr", signature(object="FLQuant", var="FLQuant"),
   function(object, var, units=object@units, distr='norm') {
 		return(new('FLQuantDistr', object, var=var, units=units, distr=distr))
@@ -195,6 +199,8 @@ setMethod("-",
 ) # }}}
 
 ## "["             {{{
+#' @rdname Extract
+#' @aliases [,FLQuantDistr,ANY,ANY,ANY-method
 setMethod("[", signature(x="FLQuantDistr"),
     function(x, i, j, k, l, m, n) {
 	  	
@@ -223,6 +229,8 @@ setMethod("[", signature(x="FLQuantDistr"),
 	}
 ) 
 
+#' @rdname Extract
+#' @aliases [,FLQuantDistr,array,missing,missing-method
 setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing"),
   function(x, i)
   {

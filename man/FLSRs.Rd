@@ -4,6 +4,7 @@
 \name{FLSRs}
 \alias{FLSRs}
 \alias{FLSRs,ANY-method}
+\alias{FLSRs,FLSR-method}
 \alias{FLSRs,list-method}
 \alias{FLSRs,missing-method}
 \alias{FLSRs-class}
@@ -15,6 +16,12 @@ objects. The elements of \code{FLSRs} must all be of class
 not allow the user to increase or decrease the object length.}
 \usage{
 FLSRs(object, ...)
+
+\S4method{FLSRs}{FLSR}(object, ...)
+
+\S4method{FLSRs}{missing}(object, ...)
+
+\S4method{FLSRs}{list}(object, ...)
 }
 \description{
 \code{FLSRS} is a class that extends \code{list} through \code{FLlst} but

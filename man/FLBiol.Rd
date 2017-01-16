@@ -58,7 +58,7 @@ This includes information on abundances, natural mortality and fecundity.
   \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
 }
 
-\section{Accesors}{
+\section{Accessors}{
 
 All slots in the class have accessor and replacement methods defined that
 allow retrieving and substituting individual slots.

@@ -29,7 +29,7 @@ A VIRTUAL class that holds data and parameters related to abundance indices.
 }
 }
 
-\section{Accesors}{
+\section{Accessors}{
 
 All slots in the class have accessor and replacement methods defined that
 allow retrieving and substituting individual slots.

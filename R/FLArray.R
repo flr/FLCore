@@ -88,6 +88,7 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 ) # }}}
 
 #  [             {{{
+
 #' Extract
 #'
 #' Extract or replace parts of an FLR Object
@@ -105,6 +106,10 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 #' 
 #' Classes that are derived from \code{FLlst} (for example, \code{FLStocks} and
 #' \code{FLBiols}) can be subset in a similar way to ordinary list objects.
+#'
+#' '$' for the \code{FLPar} and \code{FLQuant} classes operate only along the first
+#' dimension ('params' or 'quant'), and are provided to be used specially in
+#' formulas.
 #'
 #' @name Extract
 #' @rdname Extract

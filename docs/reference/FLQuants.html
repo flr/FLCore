@@ -132,7 +132,7 @@ any of the list elements.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># Compute various FLStock indicators</span>
   <span class='fu'>data</span>(<span class='no'>ple4</span>)
-  <span class='no'>fqs</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuants</span>(<span class='kw'>ssb</span><span class='kw'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span>(<span class='no'>ple4</span>), <span class='kw'>catch</span><span class='kw'>=</span><span class='fu'>catch</span>(<span class='no'>ple4</span>), <span class='kw'>rec</span><span class='kw'>=</span><span class='fu'>rec</span>(<span class='no'>ple4</span>),
+  <span class='no'>fqs</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuants</span>(<span class='kw'>ssb</span><span class='kw'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span>(<span class='no'>ple4</span>), <span class='kw'>catch</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>), <span class='kw'>rec</span><span class='kw'>=</span><span class='fu'>rec</span>(<span class='no'>ple4</span>),
     <span class='kw'>f</span><span class='kw'>=</span><span class='fu'>fbar</span>(<span class='no'>ple4</span>))
   <span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>fqs</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuants&quot;
 #&gt; 
@@ -143,34 +143,34 @@ any of the list elements.</p>
 #&gt; 	quant:  age 
 #&gt; 	units:  t 
 #&gt; 
-#&gt; 	Min    :  151508 
-#&gt; 	1st Qu.:  210594 
-#&gt; 	Mean   :  286916 
-#&gt; 	Median :  296973 
-#&gt; 	3rd Qu.:  345179 
-#&gt; 	Max    :  445855 
+#&gt; 	Min    :  151508.1 
+#&gt; 	1st Qu.:  210593.7 
+#&gt; 	Mean   :  286916.5 
+#&gt; 	Median :  296973.2 
+#&gt; 	3rd Qu.:  345178.7 
+#&gt; 	Max    :  445854.9 
 #&gt; 	NAs    :  0 %
 #&gt; Name: catch 
 #&gt; 	dim  :  1 52 1 1 1 1 
 #&gt; 	quant:  age 
 #&gt; 	units:  t 
 #&gt; 
-#&gt; 	Min    :  78423 
-#&gt; 	1st Qu.:  126077 
+#&gt; 	Min    :  78422.95 
+#&gt; 	1st Qu.:  126077.3 
 #&gt; 	Mean   :  165127 
-#&gt; 	Median :  151975 
-#&gt; 	3rd Qu.:  182755 
-#&gt; 	Max    :  342985 
+#&gt; 	Median :  151975.4 
+#&gt; 	3rd Qu.:  182754.8 
+#&gt; 	Max    :  342985.1 
 #&gt; 	NAs    :  0 %
 #&gt; Name: rec 
 #&gt; 	dim  :  1 52 1 1 1 1 
 #&gt; 	quant:  age 
 #&gt; 	units:  10^3 
 #&gt; 
-#&gt; 	Min    :  366633 
-#&gt; 	1st Qu.:  678921 
+#&gt; 	Min    :  366632.6 
+#&gt; 	1st Qu.:  678921.2 
 #&gt; 	Mean   :  1039494 
-#&gt; 	Median :  864131 
+#&gt; 	Median :  864130.6 
 #&gt; 	3rd Qu.:  1165278 
 #&gt; 	Max    :  4732214 
 #&gt; 	NAs    :  0 %
@@ -179,12 +179,12 @@ any of the list elements.</p>
 #&gt; 	quant:  age 
 #&gt; 	units:  f 
 #&gt; 
-#&gt; 	Min    :  0.2686 
-#&gt; 	1st Qu.:  0.4152 
-#&gt; 	Mean   :  0.547 
-#&gt; 	Median :  0.5516 
-#&gt; 	3rd Qu.:  0.6587 
-#&gt; 	Max    :  0.8759 
+#&gt; 	Min    :  0.2685746 
+#&gt; 	1st Qu.:  0.4152039 
+#&gt; 	Mean   :  0.5470289 
+#&gt; 	Median :  0.5515977 
+#&gt; 	3rd Qu.:  0.6586751 
+#&gt; 	Max    :  0.8758763 
 #&gt; 	NAs    :  0 %</div><div class='input'>  <span class='fu'>xyplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='no'>qname</span>, <span class='no'>fqs</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'b'</span>, <span class='kw'>scales</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>relation</span><span class='kw'>=</span><span class='st'>'free'</span>))</div><img src='FLQuants-4.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>
   </div>

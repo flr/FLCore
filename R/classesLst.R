@@ -310,17 +310,19 @@ setClass("FLStocks", contains="FLComps",
       return("Components must be FLStock")
 
 	return(TRUE)
-}
-
+  }
 )
 
-# constructor
+#' @rdname FLStocks
+#' @aliases FLStocks,FLStock-method
 setMethod("FLStocks", signature(object="FLStock"), function(object, ...) {
     args <- list(...)
     lst <- c(list(object), args)
     FLStocks(lst)
 })
 
+#' @rdname FLStocks
+#' @aliases FLStocks,missing-method
 setMethod("FLStocks", signature(object="missing"),
   function(...) {
     # empty
@@ -336,6 +338,8 @@ setMethod("FLStocks", signature(object="missing"),
   }
 )
 
+#' @rdname FLStocks
+#' @aliases FLStocks,list-method
 setMethod("FLStocks", signature(object="list"),
   function(object, ...) {
 
@@ -379,8 +383,7 @@ setMethod("FLStocks", signature(object="list"),
 #' not allow the user to increase or decrease the object length.
 #'
 #' @name FLIndices
-#' @aliases FLIndices-class FLIndices FLIndices-methods FLIndices,ANY-method
-#' FLIndices,missing-method FLIndices,list-method
+#' @aliases FLIndices-class
 #' @docType class
 #' @section Slots: \describe{ \item{.Data}{The data. \code{list}.}
 #' \item{names}{Names of the list elements. \code{character}.}
@@ -407,12 +410,15 @@ setClass("FLIndices", contains="FLComps",
 	}
 )
 
-# constructor
+#' @rdname FLIndices
+#' @aliases FLIndices,FLI-method
 setMethod("FLIndices", signature(object="FLI"), function(object, ...) {
     lst <- c(object, list(...))
     FLIndices(lst)
 })
 
+#' @rdname FLIndices
+#' @aliases FLIndices,missing-method
 setMethod("FLIndices", signature(object="missing"),
   function(...) {
     # empty
@@ -428,6 +434,8 @@ setMethod("FLIndices", signature(object="missing"),
   }
 )
 
+#' @rdname FLIndices
+#' @aliases FLIndices,list-method
 setMethod("FLIndices", signature(object="list"),
   function(object, ...) {
 
@@ -557,12 +565,15 @@ setClass("FLModelSims", contains="FLlst",
   }
 )
 
-# constructor
+#' @rdname FLModelSims
+#' @aliases FLModelSims
 setGeneric("FLModelSims", function(object, ...){
 	standardGeneric("FLModelSims")
 	}
 )
 
+#' @rdname FLModelSims
+#' @aliases FLModelSims,ANY-method
 setMethod("FLModelSims", signature(object="ANY"), function(object, ...){
 	lst1 <- list(...)
 	nlst <- length(lst1)
@@ -573,6 +584,8 @@ setMethod("FLModelSims", signature(object="ANY"), function(object, ...){
 	new("FLModelSims", lst)
 })
 
+#' @rdname FLModelSims
+#' @aliases FLModelSims,missing-method
 setMethod("FLModelSims", "missing", function(...){
 	if(missing(...)){
 		new("FLModelSims")
@@ -582,10 +595,14 @@ setMethod("FLModelSims", "missing", function(...){
 	}
 })
 
+#' @rdname FLModelSims
+#' @aliases FLModelSims,list-method
 setMethod("FLModelSims", "list", function(object){
 	new("FLModelSims", object)
 })
 
+#' @rdname FLModelSims
+#' @aliases FLModelSims,FLModelSims-method
 setMethod("FLModelSims", "FLModelSims", function(object){
 	return(object)
 }) # }}}

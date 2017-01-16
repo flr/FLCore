@@ -301,7 +301,6 @@ exportMethods(
   "iterMedians",
   "iterVars",
   "iters",
-  "iterSums",
   "jacknife",
   "jackknife",
   "jackSummary",

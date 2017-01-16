@@ -14,7 +14,9 @@ setMethod(computeCatch, signature("FLI"), function(object){
 })  # }}}
 
 # '['       {{{
-setMethod('[', signature(x='FLI'),
+#' @rdname Extract
+#' @aliases [,FLI,ANY,ANY,ANY-method
+setMethod('[', signature(x='FLI', i='ANY', j='ANY', drop='ANY'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE)
   {
 		qnames <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant"])
