@@ -1229,3 +1229,26 @@ setGeneric("as.FLIndex", function(object, ...)
 # as.FLSR
 setGeneric("as.FLSR", function(object, ...)
   standardGeneric("as.FLSR"))
+
+# GENERICS for methods shared by FLFBRP, FLFleet & FLFishery
+
+# vcost
+setGeneric("vcost", function(object, ...)
+  standardGeneric("vcost"))
+setGeneric("vcost<-", function(object, ..., value)
+  standardGeneric("vcost<-"))
+
+# fcost
+setGeneric("fcost", function(object, ...)
+  standardGeneric("fcost"))
+setGeneric("fcost<-", function(object, ..., value)
+  standardGeneric("fcost<-"))
+
+# price
+setGeneric("price", function(object, ...)
+  standardGeneric("price"))
+setGeneric("price<-", function(object, ..., value)
+  standardGeneric("price<-"))
+
+# revenue
+setGeneric("revenue", function(object, ...) standardGeneric("revenue"))
