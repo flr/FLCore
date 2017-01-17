@@ -12,17 +12,20 @@ setAs('FLArray', 'data.frame',
     options(warn=-1)
     dnames <- dimnames(from)
 
-    # CONVERT to factors
-    dnames <- lapply(dnames, factor)
-
+    # CONVERT year/cohort and iter dnames to numeric
+    dnames[[2]] <- as.numeric(dnames[[2]])
+    dnames[["iter"]] <- as.numeric(dnames[["iter"]])
+    
     # TURN quant to numeric, if possible
     if(!any(is.na(suppressWarnings(as.numeric(dnames[[1]])))))
       dnames[[1]] <- as.numeric(dnames[[1]])
 
-    df <- data.frame(do.call(expand.grid, dnames),
+    # CONVERT dim[c(1,3:5)] to numeric or factors
+    dnames[c(3:5)] <- lapply(dnames[c(3:5)], as.factor)
+
+    df <- data.frame(do.call(expand.grid, list(dnames, stringsAsFactors = FALSE)),
       data=c(from))
 
-    names(df)[1:2] <- names(dnames)[1:2]
     attributes(df)$units <- units(from)
     options(warn=0)
     return(df)
