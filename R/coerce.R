@@ -14,14 +14,14 @@ setAs('FLArray', 'data.frame',
 
     # CONVERT year/cohort and iter dnames to numeric
     dnames[[2]] <- as.numeric(dnames[[2]])
-    dnames[["iter"]] <- as.numeric(dnames[["iter"]])
+    # dnames[["iter"]] <- as.numeric(dnames[["iter"]])
     
     # TURN quant to numeric, if possible
     if(!any(is.na(suppressWarnings(as.numeric(dnames[[1]])))))
       dnames[[1]] <- as.numeric(dnames[[1]])
 
-    # CONVERT dim[c(1,3:5)] to numeric or factors
-    dnames[c(3:5)] <- lapply(dnames[c(3:5)], as.factor)
+    # CONVERT dim[c(1,3:6)] to factors
+    dnames[c(3:6)] <- lapply(dnames[c(3:6)], as.factor)
 
     df <- data.frame(do.call(expand.grid, list(dnames, stringsAsFactors = FALSE)),
       data=c(from))
