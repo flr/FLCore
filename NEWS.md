@@ -46,6 +46,7 @@
 - seasonSums is now based on colSums and aperm, 75 times faster
 - new lattice-based plot(FLStocks)
 - Added dimensions line to summary(FLComp)
+- Defining fwd generic here so it can be used by mpb and Flash(er)
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
