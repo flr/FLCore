@@ -1251,4 +1251,9 @@ setGeneric("price<-", function(object, ..., value)
   standardGeneric("price<-"))
 
 # revenue
-setGeneric("revenue", function(object, ...) standardGeneric("revenue"))
+setGeneric("revenue", function(object, ...)
+  standardGeneric("revenue"))
+
+# fwd
+setGeneric("fwd", function(object, ctrl, ...)
+  standardGeneric("fwd"))

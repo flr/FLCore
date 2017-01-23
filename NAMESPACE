@@ -276,6 +276,7 @@ exportMethods(
   "FLStock",
   "FLStockLen",
   "FLStocks",
+  "fwd",
   "getPlural",
   "gr",
   "gr<-",
