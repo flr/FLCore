@@ -107,8 +107,8 @@ setAs('FLBiol', 'FLStock',
   function(from)
   {
     FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
-      name=from@name, desc=from@desc, mat=from@mat,
-      m.spwn=from@spwn,harvest.spwn=from@spwn, range=from@range)
+      name=from@name, desc=from@desc, mat=mat(from),
+      m.spwn=from@spwn, harvest.spwn=from@spwn, range=from@range)
   }
 )
 

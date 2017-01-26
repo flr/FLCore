@@ -67,9 +67,10 @@ setClass("FLBiol",
     spwn     = FLQuant()),
   validity = function(object) {
 
+    #TODO: 1 or N
     # dim[1] of spwn is of length 1
-    if(dim(object@spwn)[1] != 1)
-      return(paste0("First dimension '", names(object@spwn)[1], "' of @spwn can only be of length 1"))
+    # if(dim(object@spwn)[1] != 1)
+    #  return(paste0("First dimension '", names(object@spwn)[1], "' of @spwn can only be of length 1"))
 
     return(TRUE)
   }
@@ -350,10 +351,7 @@ setMethod('tep', signature(object='FLBiol'),
 	function(object) {
 		return(quantSums(n(object) %*% wt(object) %*% fec(object)))
 	}
-)
-
-
-# }}}
+) # }}}
 
 # summary {{{
 setMethod("summary", signature(object="FLBiol"),
