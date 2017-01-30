@@ -47,6 +47,7 @@
 - new lattice-based plot(FLStocks)
 - Added dimensions line to summary(FLComp)
 - Defining fwd generic here so it can be used by mpb and Flash(er)
+- Validity for FLlst is now more flexible to accomodate children classes like FLIndexBiomass
 
 ## BUG FIXES
 - iterMeans(FLQuant) was not operating along the 6th dim
