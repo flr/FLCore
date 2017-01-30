@@ -44,9 +44,9 @@ setClass("FLlst", contains="list",
   representation(names="character", desc="character", lock="logical"),
 	prototype(lock=FALSE), validity=function(object){
 
-    # ALL elements are of the same class
-    if(length(unique(lapply(object, is))) > 1)
-      return("Elements must be of the same class")
+    # TODO ALL elements are of the same class
+#    if(length(unique(lapply(object, is))) > 1)
+#      return("Elements must be of the same class")
 
     # ALL elements in the list are validObjects themselves
     if(!all(unlist(lapply(object, validObject))))
@@ -305,8 +305,8 @@ setClass("FLComps", contains=c("FLlst"),
 setClass("FLStocks", contains="FLComps",
 	validity=function(object){
 
-  # All items are FLStock
-  if(!all(unlist(lapply(object, is, 'FLStock'))))
+  # All items are FLSt(tock)
+  if(!all(unlist(lapply(object, inherits, 'FLS'))))
       return("Components must be FLStock")
 
 	return(TRUE)
