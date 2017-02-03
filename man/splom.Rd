@@ -18,6 +18,7 @@ of each plot and all possible arguments.
 \section{Generic function}{
  splom(x,data)
 }
+
 \examples{
 
 flp <- FLPar(c(t(mvrnorm(500, mu=c(0, 120, 0.01, 20),
@@ -27,11 +28,10 @@ flp <- FLPar(c(t(mvrnorm(500, mu=c(0, 120, 0.01, 20),
 splom(flp)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[lattice]{splom}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

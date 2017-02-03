@@ -3,12 +3,14 @@
 \docType{class}
 \name{FLPars}
 \alias{FLPars}
-\alias{FLPars,ANY-method}
-\alias{FLPars,FLPars-method}
-\alias{FLPars,list-method}
-\alias{FLPars,missing-method}
+\alias{FLPars-methods}
+\alias{FLPars}
 \alias{FLPars-class}
 \alias{FLPars-methods}
+\alias{FLPars,ANY-method}
+\alias{FLPars,missing-method}
+\alias{FLPars,list-method}
+\alias{FLPars,FLPars-method}
 \title{Class FLPars}
 \usage{
 FLPars(object, ...)
@@ -42,11 +44,11 @@ A list of \code{FLPar} objects.
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \link{FLlst}, \link[base]{list}, \link[base]{vector}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

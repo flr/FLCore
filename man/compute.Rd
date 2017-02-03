@@ -3,25 +3,26 @@
 \docType{methods}
 \name{compute}
 \alias{compute}
-\alias{computeCatch}
-\alias{computeCatch,FLS-method}
-\alias{computeCatch,FLStock-method}
-\alias{computeCatch,FLStockLen-method}
-\alias{computeCatch-methods}
-\alias{computeDiscards}
-\alias{computeDiscards,FLS-method}
-\alias{computeDiscards,FLStock-method}
-\alias{computeDiscards-methods}
 \alias{computeLandings}
+\alias{computeLandings-methods}
+\alias{computeDiscards}
+\alias{computeDiscards-methods}
+\alias{computeCatch}
+\alias{computeLandings}
+\alias{computeCatch-methods}
+\alias{computeStock}
+\alias{computeStock-methods}
 \alias{computeLandings,FLS-method}
 \alias{computeLandings,FLStock-method}
 \alias{computeLandings,FLStockLen-method}
-\alias{computeLandings-methods}
-\alias{computeStock}
+\alias{computeDiscards,FLS-method}
+\alias{computeDiscards,FLStock-method}
+\alias{computeCatch,FLS-method}
+\alias{computeCatch,FLStock-method}
+\alias{computeCatch,FLStockLen-method}
 \alias{computeStock,FLS-method}
 \alias{computeStock,FLStock-method}
 \alias{computeStock,FLStockLen-method}
-\alias{computeStock-methods}
 \title{Methods to compute quantities}
 \usage{
 computeLandings(object, ...)
@@ -74,6 +75,7 @@ computeDiscards(object, ...)
 
 computeStock(object, ...)
 }
+
 \examples{
 
 data(ple4)
@@ -85,11 +87,10 @@ catch.n(ple4) <- computeCatch(ple4, slot="n")
 catch(ple4) <- computeCatch(ple4, slot="all")
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{FLComp}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

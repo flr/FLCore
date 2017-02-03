@@ -3,8 +3,8 @@
 \docType{methods}
 \name{jacknife}
 \alias{jacknife}
-\alias{jacknife,FLQuant-method}
 \alias{jacknife-methods}
+\alias{jacknife,FLQuant-method}
 \title{Method jacknife}
 \usage{
 \S4method{jackknife}{FLQuant}(object, dim = "year", rm.na = TRUE)
@@ -25,6 +25,7 @@ elements in the original object.
 \section{Generic function}{
  jacknife(object, ...)
 }
+
 \examples{
 
 flq <- FLQuant(1:8)
@@ -36,11 +37,10 @@ iters(flj)
 (mean(iter(yearVars(flj),2:9))-c(iter(yearVars(flj),1)))*7
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \code{\link{FLQuant}}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

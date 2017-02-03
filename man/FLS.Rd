@@ -44,14 +44,14 @@ constructed.
   the plusgroup and the quant range that the average fishing mortality should
   be calculated over (\code{numeric}).} }
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame},
 \link{iter}, \link{propagate}, \link{qapply}, \link[base]{summary},
 \link[base]{transform}, \link{trim}, \link{units,FLComp-method},
 \link{units<-,FLComp,list-method}, \link[stats]{window}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

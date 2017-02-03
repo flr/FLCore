@@ -2,12 +2,12 @@
 % Please edit documentation in R/data.R
 \name{datasets}
 \alias{datasets}
-\alias{nsher}
 \alias{ple4}
+\alias{ple4sex}
 \alias{ple4.biol}
 \alias{ple4.index}
 \alias{ple4.indices}
-\alias{ple4sex}
+\alias{nsher}
 \title{FLCore datasets}
 \description{
 Example datasets for the classes defined in FLCore.
@@ -51,4 +51,3 @@ ICES.
 \linkS4class{FLStock}, \linkS4class{FLIndex}, \linkS4class{FLBiol}
 }
 \keyword{datasets}
-

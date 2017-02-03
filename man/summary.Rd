@@ -15,6 +15,7 @@ particular output obtained depends on the class of the argument object.
 \section{Generic function}{
  summary(object)
 }
+
 \examples{
 
 flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
@@ -27,11 +28,10 @@ data(nsher)
 summary(nsher)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[base]{summary}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

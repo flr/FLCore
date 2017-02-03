@@ -28,6 +28,7 @@ the new values. See examples below.
 
 units<-(x,value)
 }
+
 \examples{
 
 flq <- FLQuant(rnorm(100), dim=c(5,20), units='kg')
@@ -41,11 +42,10 @@ summary(flq)
   units(ple4) <- list(harvest='hr')
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \linkS4class{FLQuant}, \linkS4class{FLPar}, \linkS4class{FLCohort}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

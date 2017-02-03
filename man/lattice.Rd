@@ -2,24 +2,24 @@
 % Please edit documentation in R/plot.R
 \docType{methods}
 \name{lattice}
-\alias{barchart,formula,FLComp-method}
-\alias{barchart,formula,FLQuant-method}
-\alias{bwplot,formula,FLComp-method}
-\alias{bwplot,formula,FLQuant-method}
-\alias{densityplot,formula,FLPar-method}
-\alias{dotplot,formula,FLComp-method}
-\alias{dotplot,formula,FLQuant-method}
-\alias{histogram,formula,FLComp-method}
-\alias{histogram,formula,FLQuant-method}
-\alias{histogram,formula,FLQuants-method}
 \alias{lattice}
 \alias{lattice-FLCore}
-\alias{stripplot,formula,FLComp-method}
-\alias{stripplot,formula,FLQuant-method}
-\alias{xyplot,formula,FLCohort-method}
-\alias{xyplot,formula,FLComp-method}
 \alias{xyplot,formula,FLQuant-method}
+\alias{xyplot,formula,FLCohort-method}
 \alias{xyplot,formula,FLQuants-method}
+\alias{xyplot,formula,FLComp-method}
+\alias{bwplot,formula,FLQuant-method}
+\alias{bwplot,formula,FLComp-method}
+\alias{dotplot,formula,FLQuant-method}
+\alias{dotplot,formula,FLComp-method}
+\alias{barchart,formula,FLQuant-method}
+\alias{barchart,formula,FLComp-method}
+\alias{stripplot,formula,FLQuant-method}
+\alias{stripplot,formula,FLComp-method}
+\alias{histogram,formula,FLQuant-method}
+\alias{histogram,formula,FLComp-method}
+\alias{histogram,formula,FLQuants-method}
+\alias{densityplot,formula,FLPar-method}
 \title{Lattice methods}
 \usage{
 \S4method{xyplot}{formula,FLQuant}(x, data, ...)
@@ -85,6 +85,7 @@ stripplot(x, data, ...)
 
 xyplot(x, data, ...)
 }
+
 \examples{
 
 data(ple4)
@@ -104,14 +105,13 @@ data(ple4)
     var.name='age'))
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[lattice]{xyplot}, \link[lattice]{barchart},
 \link[lattice]{bwplot}, \link[lattice]{densityplot},
 \link[lattice]{dotplot}, \link[lattice]{histogram},
 \link[lattice]{stripplot}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

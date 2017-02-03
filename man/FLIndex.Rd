@@ -3,40 +3,41 @@
 \docType{class}
 \name{FLIndex}
 \alias{FLIndex}
-\alias{FLIndex,FLQuant-method}
-\alias{FLIndex,missing-method}
-\alias{FLIndex-class}
 \alias{FLIndex-methods}
+\alias{FLIndex}
+\alias{FLIndex-class}
 \alias{catch.n,FLIndex-method}
-\alias{catch.n<-,FLIndex,FLQuant-method}
-\alias{catch.n<-,FLIndex,numeric-method}
 \alias{catch.wt,FLIndex-method}
-\alias{catch.wt<-,FLIndex,FLQuant-method}
-\alias{catch.wt<-,FLIndex,numeric-method}
 \alias{desc,FLIndex-method}
-\alias{desc<-,FLIndex,character-method}
 \alias{distribution,FLIndex-method}
-\alias{distribution<-,FLIndex,character-method}
 \alias{effort,FLIndex-method}
-\alias{effort<-,FLIndex,FLQuant-method}
 \alias{index,FLIndex-method}
 \alias{index.q,FLIndex-method}
-\alias{index.q<-,FLIndex,FLQuant-method}
-\alias{index.q<-,FLIndex,numeric-method}
 \alias{index.var,FLIndex-method}
-\alias{index.var<-,FLIndex,FLQuant-method}
-\alias{index.var<-,FLIndex,numeric-method}
+\alias{name,FLIndex-method}
+\alias{range,FLIndex-method}
+\alias{sel.pattern,FLIndex-method}
+\alias{type,FLIndex-method}
+\alias{catch.n<-,FLIndex,FLQuant-method}
+\alias{catch.n<-,FLIndex,numeric-method}
+\alias{catch.wt<-,FLIndex,FLQuant-method}
+\alias{catch.wt<-,FLIndex,numeric-method}
+\alias{desc<-,FLIndex,character-method}
+\alias{distribution<-,FLIndex,character-method}
+\alias{effort<-,FLIndex,FLQuant-method}
 \alias{index<-,FLIndex,FLQuant-method}
 \alias{index<-,FLIndex,numeric-method}
-\alias{name,FLIndex-method}
+\alias{index.q<-,FLIndex,FLQuant-method}
+\alias{index.q<-,FLIndex,numeric-method}
+\alias{index.var<-,FLIndex,FLQuant-method}
+\alias{index.var<-,FLIndex,numeric-method}
 \alias{name<-,FLIndex,character-method}
-\alias{range,FLIndex-method}
 \alias{range<-,FLIndex,numeric-method}
-\alias{sel.pattern,FLIndex-method}
 \alias{sel.pattern<-,FLIndex,FLQuant-method}
 \alias{sel.pattern<-,FLIndex,numeric-method}
-\alias{type,FLIndex-method}
 \alias{type<-,FLIndex,character-method}
+\alias{FLIndex,FLQuant-method}
+\alias{FLIndex,missing-method}
 \title{Class FLIndex}
 \usage{
 FLIndex(object, ...)
@@ -67,6 +68,7 @@ object (\code{character}).} \item{range}{Named numeric vector containing the
 quant and year ranges, the plusgroup, and the period of the year, expressed
 as proportions of a year, that corresponds to the index (\code{numeric}).} }
 }
+
 \examples{
 
 # Create an FLIndex object.
@@ -82,13 +84,12 @@ index(fli)
     index(fli2) <- index(fli2)*exp(rnorm(1, index(fli2)-index(fli2), 0.1))
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{computeCatch}, \link{dims}, \link{iter},
 \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
 \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

@@ -3,8 +3,8 @@
 \docType{methods}
 \name{dims}
 \alias{dims}
-\alias{dims,FLQuant-method}
 \alias{dims-methods}
+\alias{dims,FLQuant-method}
 \title{Method dims}
 \usage{
 dims(obj, ...)
@@ -44,6 +44,7 @@ the result list.
 \section{Generic function}{
  dims(obj)
 }
+
 \examples{
 
 flq <- FLQuant(rnorm(96), dim=c(3,8,1,4), quant='age')
@@ -56,11 +57,10 @@ dims(flq)
   dims(flq)[[quant(flq)]]
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \code{\link[base]{dimnames}}, \code{\link{FLQuant}}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

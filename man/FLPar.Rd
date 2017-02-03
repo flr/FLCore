@@ -3,12 +3,14 @@
 \docType{class}
 \name{FLPar}
 \alias{FLPar}
-\alias{FLPar,FLPar-method}
+\alias{FLPar-methods}
+\alias{FLPar}
+\alias{FLPar-class}
+\alias{FLPar-methods}
 \alias{FLPar,array-method}
 \alias{FLPar,missing-method}
 \alias{FLPar,vector-method}
-\alias{FLPar-class}
-\alias{FLPar-methods}
+\alias{FLPar,FLPar-method}
 \title{Class FLPar}
 \usage{
 FLPar(object, ...)
@@ -29,6 +31,7 @@ samples.
  \describe{ \item{.Data}{Describe slot. \code{array}.}
 \item{units}{Units of measurement. \code{character}.} }
 }
+
 \examples{
 
 FLPar(rnorm(4), params=c('a','b','c','sigma2'))
@@ -40,9 +43,6 @@ FLPar(rnorm(20), dimnames=list(params=c('a','b'), year=1990:1999, iter=1),
   FLPar(rnorm(80), params=c('a', 'b'), iter=1:40)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame},
 \link[lattice]{densityplot}, \link[lattice]{histogram}, \link{iter},
@@ -51,5 +51,7 @@ The FLR Team
 \link{units,FLPar-method}, \link{units<-,FLPar,character-method},
 \link[stats]{var}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

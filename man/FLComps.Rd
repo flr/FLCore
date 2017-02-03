@@ -34,11 +34,11 @@ of this class can be constructed.
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \link{FLlst}, \link{FLComp}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

@@ -3,8 +3,8 @@
 \docType{methods}
 \name{AIC}
 \alias{AIC}
-\alias{AIC,FLModel,missing-method}
 \alias{AIC,FLModel,numeric-method}
+\alias{AIC,FLModel,missing-method}
 \title{Method AIC}
 \usage{
 \S4method{AIC}{FLModel,numeric}(object, k = 2)
@@ -23,17 +23,17 @@ in its \code{logLik} slot.
 \section{Generic function}{
  AIC(object, k)
 }
+
 \examples{
 
 data(nsher)
 AIC(nsher)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[stats]{AIC}, \link[stats]{logLik}, \link{FLModel}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

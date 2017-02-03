@@ -3,12 +3,14 @@
 \docType{class}
 \name{FLModel}
 \alias{FLModel}
-\alias{FLModel,character-method}
-\alias{FLModel,formula-method}
-\alias{FLModel,function-method}
-\alias{FLModel,missing-method}
+\alias{FLModel-methods}
+\alias{FLModel}
 \alias{FLModel-class}
 \alias{FLModel-methods}
+\alias{FLModel,formula-method}
+\alias{FLModel,missing-method}
+\alias{FLModel,character-method}
+\alias{FLModel,function-method}
 \title{Class FLModel}
 \usage{
 FLModel(model, ...)
@@ -49,6 +51,7 @@ are currently available for \code{FLModel}, including \code{\link{fmle}},
   \item{hessian}{Hessian matrix obtained from the parameter fitting, \code{array}.}
   \item{details}{extra information on the model fit procedure, \code{list}.} }
 }
+
 \examples{
 
 # Normally, FLModel objects won't be created if "class" is not set
@@ -76,12 +79,11 @@ are currently available for \code{FLModel}, including \code{\link{fmle}},
       function(object) return(slot(object, 'mass')))
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[stats]{AIC}, \link[stats]{BIC}, \link{fmle},
 \link[stats]{nls}, \link{FLComp}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

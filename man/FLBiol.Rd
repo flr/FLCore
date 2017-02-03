@@ -3,27 +3,29 @@
 \docType{class}
 \name{FLBiol}
 \alias{FLBiol}
+\alias{FLBiol-methods}
+\alias{FLBiol}
+\alias{FLBiol-class}
+\alias{n,FLBiol-method}
+\alias{m,FLBiol-method}
+\alias{wt,FLBiol-method}
+\alias{fec,FLBiol-method}
+\alias{spwn,FLBiol-method}
+\alias{name,FLBiol-method}
+\alias{desc,FLBiol-method}
+\alias{range,FLBiol-method}
+\alias{n<-,FLBiol,FLQuant-method}
+\alias{m<-,FLBiol,FLQuant-method}
+\alias{wt<-,FLBiol,FLQuant-method}
+\alias{fec<-,FLBiol,FLQuant-method}
+\alias{spwn<-,FLBiol,FLQuant-method}
+\alias{name<-,FLBiol,character-method}
+\alias{desc<-,FLBiol,character-method}
+\alias{range<-,FLBiol,numeric-method}
+\alias{FLBiolcpp-class}
 \alias{FLBiol,FLQuant-method}
 \alias{FLBiol,missing-method}
-\alias{FLBiol-class}
-\alias{FLBiol-methods}
 \alias{FLBiolcpp-class}
-\alias{desc,FLBiol-method}
-\alias{desc<-,FLBiol,character-method}
-\alias{fec,FLBiol-method}
-\alias{fec<-,FLBiol,FLQuant-method}
-\alias{m,FLBiol-method}
-\alias{m<-,FLBiol,FLQuant-method}
-\alias{n,FLBiol-method}
-\alias{n<-,FLBiol,FLQuant-method}
-\alias{name,FLBiol-method}
-\alias{name<-,FLBiol,character-method}
-\alias{range,FLBiol-method}
-\alias{range<-,FLBiol,numeric-method}
-\alias{spwn,FLBiol-method}
-\alias{spwn<-,FLBiol,FLQuant-method}
-\alias{wt,FLBiol-method}
-\alias{wt<-,FLBiol,FLQuant-method}
 \title{Class FLBiol}
 \usage{
 FLBiol(object, ...)
@@ -84,6 +86,7 @@ for sizing but not stored in any slot.
     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
 }
 }
+
 \examples{
 
 # An FLBiol example dataset
@@ -92,11 +95,10 @@ data(ple4.biol)
 summary(ple4.biol)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{as.FLBiol}, \link{as.FLSR}, \link[methods]{coerce}, \link[graphics]{plot}, \link{ssb} \link{catch.n,FLBiol-method}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

@@ -3,8 +3,8 @@
 \docType{methods}
 \name{quant}
 \alias{quant}
-\alias{quant,FLArray-method}
 \alias{quant-methods}
+\alias{quant,FLArray-method}
 \alias{quant<-,FLArray,character-method}
 \title{Method quant}
 \usage{
@@ -21,6 +21,7 @@ of any FLArray-based class, like \code{\link{FLQuant}} or \code{\link{FLCohort}}
 \section{Generic function}{
  quant(object) quant<-(object,value)
 }
+
 \examples{
 
 # quant is 'quant' by default
@@ -41,11 +42,10 @@ quant(flq) <- 'length'
 summary(flq)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \linkS4class{FLQuant}, \linkS4class{FLCohort}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

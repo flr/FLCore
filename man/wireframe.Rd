@@ -30,4 +30,3 @@ data(ple4)
 wireframe(data~age+year, data=harvest(ple4))
 
 }
-

@@ -3,13 +3,15 @@
 \docType{class}
 \name{FLCohort}
 \alias{FLCohort}
-\alias{FLCohort,FLCohort-method}
-\alias{FLCohort,FLQuant-method}
-\alias{FLCohort,array-method}
-\alias{FLCohort,missing-method}
-\alias{FLCohort,vector-method}
+\alias{FLCohort-methods}
+\alias{FLCohort}
 \alias{FLCohort-class}
 \alias{FLCohort-methods}
+\alias{FLCohort,FLQuant-method}
+\alias{FLCohort,FLCohort-method}
+\alias{FLCohort,array-method}
+\alias{FLCohort,vector-method}
+\alias{FLCohort,missing-method}
 \title{Class FLCohort}
 \usage{
 FLCohort(object, ...)
@@ -52,6 +54,7 @@ analysis that want to make use of cohorts instead of years.
 Objects of this class are generally constructed from an \linkS4class{FLQuant}
   object.
 }
+
 \examples{
 
 data(ple4)
@@ -60,9 +63,6 @@ flc <- FLCohort(flq)
 plot(trim(flc, cohort=1960:2000))
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{[}, \link{as.data.frame}, \link{bubbles}, \link{ccplot},
 \link{FLCohort,FLQuant-method}, \link{flc2flq}, \link[graphics]{plot},
@@ -70,5 +70,7 @@ The FLR Team
 \link{units<-,FLCohort,character-method}, \link[lattice]{xyplot},
 \link[base]{array}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

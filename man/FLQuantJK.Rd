@@ -58,6 +58,7 @@ All methods defined for the \linkS4class{FLQuant} class are available, but
 they will operate only on the jackknifed (\code{.Data}) slot. Please use
 \code{orig()} to apply them to the original object stored in the class.
 }
+
 \examples{
 
 data(ple4)
@@ -66,11 +67,10 @@ fjk <- jackknife(stock(ple4))
 dim(fjk)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{FLQuant}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

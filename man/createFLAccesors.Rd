@@ -21,4 +21,3 @@ replacers. Not intended for direct use.
 The FLR Team
 }
 \keyword{methods}
-

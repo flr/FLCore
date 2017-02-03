@@ -3,11 +3,12 @@
 \docType{class}
 \name{FLIndices}
 \alias{FLIndices}
-\alias{FLIndices,FLI-method}
-\alias{FLIndices,list-method}
-\alias{FLIndices,missing-method}
-\alias{FLIndices-class}
 \alias{FLIndices-methods}
+\alias{FLIndices}
+\alias{FLIndices-class}
+\alias{FLIndices,FLI-method}
+\alias{FLIndices,missing-method}
+\alias{FLIndices,list-method}
 \title{Class FLIndices}
 \usage{
 FLIndices(object, ...)
@@ -43,17 +44,17 @@ or removing elements. \code{logical}.} }
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
+
 \examples{
 
 data(ple4.index)
 flis <- FLIndices(INDa=ple4.index, INDb=window(ple4.index, end=2000))
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \linkS4class{FLlst}, \link[base]{list}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

@@ -25,14 +25,14 @@ constructed.
    \item{range}{A named numeric vector with various values of quant and year ranges, plusgroup, fishing mortality ranges, etc. Elements are specific to each child class.}
 }
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame},
 \link{iter}, \link{propagate}, \link{qapply}, \link[base]{summary},
 \link[base]{transform}, \link{trim}, \link{units,FLComp-method},
 \link{units<-,FLComp,list-method}, \link[stats]{window}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

@@ -2,29 +2,29 @@
 % Please edit documentation in R/genericMethods.R, R/operators.R
 \docType{methods}
 \name{\%+\%}
-\alias{\%*\%,FLPar,FLPar-method}
-\alias{\%*\%,FLPar,FLQuant-method}
-\alias{\%*\%,FLQuant,FLPar-method}
 \alias{\%+\%}
-\alias{\%+\%,FLPar,FLPar-method}
-\alias{\%+\%,FLPar,FLQuant-method}
-\alias{\%+\%,FLQuant,FLPar-method}
-\alias{\%+\%,FLQuant,FLQuant-method}
 \alias{\%-\%}
-\alias{\%-\%,FLPar,FLPar-method}
-\alias{\%-\%,FLPar,FLQuant-method}
-\alias{\%-\%,FLQuant,FLPar-method}
-\alias{\%-\%,FLQuant,FLQuant-method}
-\alias{\%/\%,FLPar,FLPar-method}
-\alias{\%/\%,FLPar,FLQuant-method}
-\alias{\%/\%,FLQuant,FLPar-method}
-\alias{\%/\%,FLQuant,FLQuant-method}
 \alias{\%^\%}
-\alias{\%^\%,FLPar,FLPar-method}
-\alias{\%^\%,FLPar,FLQuant-method}
-\alias{\%^\%,FLQuant,FLPar-method}
-\alias{\%^\%,FLQuant,FLQuant-method}
 \alias{operators}
+\alias{\%/\%,FLQuant,FLQuant-method}
+\alias{\%+\%,FLQuant,FLQuant-method}
+\alias{\%-\%,FLQuant,FLQuant-method}
+\alias{\%^\%,FLQuant,FLQuant-method}
+\alias{\%*\%,FLPar,FLQuant-method}
+\alias{\%/\%,FLPar,FLQuant-method}
+\alias{\%+\%,FLPar,FLQuant-method}
+\alias{\%-\%,FLPar,FLQuant-method}
+\alias{\%^\%,FLPar,FLQuant-method}
+\alias{\%*\%,FLQuant,FLPar-method}
+\alias{\%/\%,FLQuant,FLPar-method}
+\alias{\%+\%,FLQuant,FLPar-method}
+\alias{\%-\%,FLQuant,FLPar-method}
+\alias{\%^\%,FLQuant,FLPar-method}
+\alias{\%*\%,FLPar,FLPar-method}
+\alias{\%+\%,FLPar,FLPar-method}
+\alias{\%-\%,FLPar,FLPar-method}
+\alias{\%/\%,FLPar,FLPar-method}
+\alias{\%^\%,FLPar,FLPar-method}
 \title{FLQuant arithmetic operators}
 \usage{
 x \%+\% y
@@ -99,6 +99,7 @@ regardless of position.
 \section{Generic function}{
  x %+% y, x %-% y, x %*% y, e1 %/% e2, x %^% y
 }
+
 \examples{
 
 a <- FLQuant(2, dim=c(3,3,2))
@@ -119,11 +120,10 @@ flp <- FLPar(2, dimnames=list(params='a', year=2000:2005, iter=1))
 flq <- FLQuant(3, dimnames=list(year=2000:2005))
 flp \%*\% flq
 }
-\author{
-The FLR Team
-}
 \seealso{
 \code{\linkS4class{FLQuant}}, \code{\link[base]{matmult}}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

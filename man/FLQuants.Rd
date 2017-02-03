@@ -3,13 +3,14 @@
 \docType{class}
 \name{FLQuants}
 \alias{FLQuants}
+\alias{FLQuants-methods}
+\alias{FLQuants}
+\alias{FLQuants-class}
 \alias{FLQuants,ANY-method}
 \alias{FLQuants,FLComp-method}
-\alias{FLQuants,FLQuants-method}
-\alias{FLQuants,list-method}
 \alias{FLQuants,missing-method}
-\alias{FLQuants-class}
-\alias{FLQuants-methods}
+\alias{FLQuants,list-method}
+\alias{FLQuants,FLQuants-method}
 \title{Class FLQuants}
 \usage{
 FLQuants(object, ...)
@@ -49,6 +50,7 @@ or removing elements. \code{logical}.} }
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
+
 \examples{
 
 # Compute various FLStock indicators
@@ -59,14 +61,13 @@ any of the list elements.
   xyplot(data~year|qname, fqs, type='b', scales=list(relation='free'))
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame},
 \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame},
 \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
 \link{FLlst}, \link[base]{list}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

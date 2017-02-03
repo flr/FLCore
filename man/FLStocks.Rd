@@ -3,12 +3,16 @@
 \docType{class}
 \name{FLStocks}
 \alias{FLStocks}
-\alias{FLStocks,ANY-method}
-\alias{FLStocks,FLStock-method}
-\alias{FLStocks,list-method}
-\alias{FLStocks,missing-method}
+\alias{FLStocks-methods}
+\alias{FLStocks}
 \alias{FLStocks-class}
 \alias{FLStocks-methods}
+\alias{FLStocks,ANY-method}
+\alias{FLStocks,missing-method}
+\alias{FLStocks,list-method}
+\alias{FLStocks,FLStock-method}
+\alias{FLStocks,missing-method}
+\alias{FLStocks,list-method}
 \title{Class FLStocks}
 \usage{
 FLStocks(object, ...)
@@ -44,6 +48,7 @@ or removing elements. \code{logical}.} }
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
+
 \examples{
 
 data(ple4)
@@ -51,11 +56,10 @@ fls <- FLStocks(sa=ple4, sb=window(ple4, end=1980))
 summary(fls)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[graphics]{plot}, \link{FLlst}, \link[base]{list}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

@@ -3,12 +3,15 @@
 \docType{class}
 \name{FLSRs}
 \alias{FLSRs}
-\alias{FLSRs,ANY-method}
-\alias{FLSRs,FLSR-method}
-\alias{FLSRs,list-method}
-\alias{FLSRs,missing-method}
-\alias{FLSRs-class}
 \alias{FLSRs-methods}
+\alias{FLSRs}
+\alias{FLSRs-class}
+\alias{FLSRs,ANY-method}
+\alias{FLSRs,missing-method}
+\alias{FLSRs,list-method}
+\alias{FLSRs,FLSR-method}
+\alias{FLSRs,missing-method}
+\alias{FLSRs,list-method}
 \title{\code{FLSRS} is a class that extends \code{list} through \code{FLlst} but
 implements a set of features that give a little bit more structure to list
 objects. The elements of \code{FLSRs} must all be of class
@@ -37,6 +40,7 @@ not allow the user to increase or decrease the object length.
 mechanism, if turned on the length of the list can not be modified by adding
 or removing elements. \code{logical}.} }
 }
+
 \examples{
 
 data(nsher)
@@ -47,11 +51,10 @@ fls <- FLSRs(Ricker=nsher, BevHolt=bnsher)
 summary(fls)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{FLlst}, \link[base]{list}, \link{FLSR}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

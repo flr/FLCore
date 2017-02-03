@@ -55,13 +55,13 @@ for sizing but not stored in any slot.
     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
 }
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \link{computeCatch}, \link{dims},
 \link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
 \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

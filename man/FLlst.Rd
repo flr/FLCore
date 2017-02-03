@@ -3,11 +3,13 @@
 \docType{class}
 \name{FLlst}
 \alias{FLlst}
-\alias{FLlst,ANY-method}
-\alias{FLlst,list-method}
-\alias{FLlst,missing-method}
+\alias{FLlst-methods}
+\alias{FLlst}
 \alias{FLlst-class}
 \alias{FLlst-methods}
+\alias{FLlst,ANY-method}
+\alias{FLlst,missing-method}
+\alias{FLlst,list-method}
 \title{Class FLlst}
 \usage{
 FLlst(object, ...)
@@ -38,6 +40,7 @@ or decrease the object length.
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
+
 \examples{
 
 fll01 <- new("FLlst", list(a=1:10, b=10:20))
@@ -49,13 +52,12 @@ names(fll05) <- names(fll01)
 names(fll01)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[base]{[}, \link[base]{[<-}, \link[base]{[[<-},
 \link[base]{$<-}, \link[methods]{coerce}, \link[base]{lapply},
 \link[stats]{window}, \link[base]{list}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

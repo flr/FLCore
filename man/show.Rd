@@ -21,6 +21,7 @@ length > 1 on the last dimension (\emph{iter}).
 \section{Generic function}{
  show(object)
 }
+
 \examples{
 
 # no 'iter'
@@ -32,11 +33,10 @@ length > 1 on the last dimension (\emph{iter}).
   flq
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{FLComp}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

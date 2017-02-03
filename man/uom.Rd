@@ -46,6 +46,7 @@ The following units of measurement are recognized by the 'Arith' operators
    \item{Other}{'NA'}
 }
 }
+
 \examples{
 
 # Conversion between weights
@@ -54,11 +55,10 @@ FLQuant(1, units='kg') * FLQuant(1000, units='1')
 # Conversion between mortalities
 FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
 }
-\author{
-The FLR Team
-}
 \seealso{
 \code{\linkS4class{FLQuant}} \code{\link{units,FLArray-method}}
 }
+\author{
+The FLR Team
+}
 \keyword{function}
-

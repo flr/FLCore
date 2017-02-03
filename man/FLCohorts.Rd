@@ -3,12 +3,14 @@
 \docType{class}
 \name{FLCohorts}
 \alias{FLCohorts}
-\alias{FLCohorts,ANY-method}
-\alias{FLCohorts,FLCohorts-method}
-\alias{FLCohorts,list-method}
-\alias{FLCohorts,missing-method}
+\alias{FLCohorts-methods}
+\alias{FLCohorts}
 \alias{FLCohorts-class}
 \alias{FLCohorts-methods}
+\alias{FLCohorts,ANY-method}
+\alias{FLCohorts,missing-method}
+\alias{FLCohorts,list-method}
+\alias{FLCohorts,FLCohorts-method}
 \title{Class FLCohorts}
 \usage{
 FLCohorts(object, ...)
@@ -38,14 +40,14 @@ or removing elements. \code{logical}} }
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \link[base]{*}, \link[methods]{Arith}, \link[base]{as.data.frame},
 \link{bubbles}, \link{catch<-}, \link{iter}, \link[stats]{model.frame},
 \link[methods]{show}, \link[base]{summary}, \link[lattice]{xyplot},
 \link{FLlst}, \link[base]{list}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

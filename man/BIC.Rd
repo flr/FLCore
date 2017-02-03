@@ -21,18 +21,18 @@ of the obtained log-likelihood stored in its \code{logLik} slot.
 \section{Generic function}{
  BIC(object)
 }
+
 \examples{
 
 data(nsher)
 BIC(nsher)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[stats]{AIC}, \link[stats]{BIC}, \link{FLModel},
 \link[stats]{logLik}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

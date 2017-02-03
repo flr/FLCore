@@ -3,11 +3,11 @@
 \docType{methods}
 \name{bubbles}
 \alias{bubbles}
-\alias{bubbles,formula,FLCohort-method}
-\alias{bubbles,formula,FLQuant-method}
-\alias{bubbles,formula,FLQuants-method}
-\alias{bubbles,formula,data.frame-method}
 \alias{bubbles-methods}
+\alias{bubbles,formula,FLQuant-method}
+\alias{bubbles,formula,data.frame-method}
+\alias{bubbles,formula,FLCohort-method}
+\alias{bubbles,formula,FLQuants-method}
 \title{Method Bubbles plot}
 \usage{
 \S4method{bubbles}{formula,FLQuant}(x, data, bub.scale = 2.5,
@@ -31,6 +31,7 @@ Positive and negative values have separate colours.
 \section{Generic function}{
  bubbles(x, data)
 }
+
 \examples{
 
 data(ple4)
@@ -48,12 +49,11 @@ qt03 <- FLQuant(rnorm(100),dimnames=list(age=as.character(1:10),
 bubbles(age~year, data=qt03, bub.scale=7, col=c("black","red"), pch=16)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[lattice]{lattice}, \code{\linkS4class{FLQuant}},
 \code{\linkS4class{FLQuants}},\code{\linkS4class{FLCohort}}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

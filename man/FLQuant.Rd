@@ -3,13 +3,16 @@
 \docType{class}
 \name{FLQuant}
 \alias{FLQuant}
-\alias{FLQuant,FLQuant-method}
-\alias{FLQuant,array-method}
-\alias{FLQuant,matrix-method}
-\alias{FLQuant,missing-method}
-\alias{FLQuant,vector-method}
+\alias{FLQuant-methods}
+\alias{FLQuant}
 \alias{FLQuant-class}
 \alias{FLQuant-methods}
+\alias{FLQuant,FLQuant-method}
+\alias{FLQuant,missing-method}
+\alias{FLQuant,vector-method}
+\alias{FLQuant,array-method}
+\alias{FLQuant,matrix-method}
+\alias{FLQuant,FLQuant-method}
 \title{FLQuant class for numerical data}
 \usage{
 FLQuant(object, ...)
@@ -100,6 +103,7 @@ measurement relevant to the data.
     \item{dimnames:}{A \code{\link[base]{list}} object providing the dimnames of the array. Only those different from the default ones need to be specified.}
     \item{quant:}{The name of the first dimension, if different from 'quant', as a \code{\link[base]{character}} string.} }
 }
+
 \examples{
 
 # creating a new FLQuant
@@ -142,11 +146,10 @@ FLQuant(matrix(rnorm(12), nrow=3, ncol=3))
 
 FLQuant(FLQuant(array(rnorm(9), dim=c(3,3,3)), units='kg'), units='t')
 }
-\author{
-The FLR Team
-}
 \seealso{
 \code{\linkS4class{FLQuant}}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

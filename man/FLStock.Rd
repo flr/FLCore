@@ -3,70 +3,71 @@
 \docType{class}
 \name{FLStock}
 \alias{FLStock}
-\alias{FLStock,FLQuant-method}
-\alias{FLStock,FLQuants-method}
-\alias{FLStock,missing-method}
-\alias{FLStock-class}
 \alias{FLStock-methods}
+\alias{FLStock}
+\alias{FLStock-class}
 \alias{catch,FLStock-method}
 \alias{catch.n,FLStock-method}
-\alias{catch.n<-,FLStock,FLQuant-method}
-\alias{catch.n<-,FLStock,numeric-method}
 \alias{catch.wt,FLStock-method}
-\alias{catch.wt<-,FLStock,FLQuant-method}
-\alias{catch.wt<-,FLStock,numeric-method}
-\alias{catch<-,FLStock,FLQuant-method}
-\alias{catch<-,FLStock,FLQuants-method}
-\alias{catch<-,FLStock,numeric-method}
 \alias{desc,FLStock-method}
-\alias{desc<-,FLStock,character-method}
 \alias{discards,FLStock-method}
 \alias{discards.n,FLStock-method}
-\alias{discards.n<-,FLStock,FLQuant-method}
-\alias{discards.n<-,FLStock,numeric-method}
 \alias{discards.wt,FLStock-method}
-\alias{discards.wt<-,FLStock,FLQuant-method}
-\alias{discards.wt<-,FLStock,numeric-method}
-\alias{discards<-,FLStock,FLQuant-method}
-\alias{discards<-,FLStock,numeric-method}
 \alias{harvest,FLStock-method}
 \alias{harvest.spwn,FLStock-method}
-\alias{harvest.spwn<-,FLStock,FLQuant-method}
-\alias{harvest.spwn<-,FLStock,numeric-method}
-\alias{harvest<-,FLStock,FLQuant-method}
-\alias{harvest<-,FLStock,character-method}
-\alias{harvest<-,FLStock,numeric-method}
 \alias{landings,FLStock-method}
 \alias{landings.n,FLStock-method}
-\alias{landings.n<-,FLStock,FLQuant-method}
-\alias{landings.n<-,FLStock,numeric-method}
 \alias{landings.wt,FLStock-method}
-\alias{landings.wt<-,FLStock,FLQuant-method}
-\alias{landings.wt<-,FLStock,numeric-method}
-\alias{landings<-,FLStock,FLQuant-method}
-\alias{landings<-,FLStock,numeric-method}
+\alias{mat,FLStock-method}
 \alias{m,FLStock-method}
 \alias{m.spwn,FLStock-method}
-\alias{m.spwn<-,FLStock,FLQuant-method}
-\alias{m.spwn<-,FLStock,numeric-method}
-\alias{m<-,FLStock,FLQuant-method}
-\alias{m<-,FLStock,numeric-method}
-\alias{mat,FLStock-method}
-\alias{mat<-,FLStock,FLQuant-method}
-\alias{mat<-,FLStock,numeric-method}
 \alias{name,FLStock-method}
-\alias{name<-,FLStock,character-method}
 \alias{range,FLStock-method}
-\alias{range<-,FLStock,numeric-method}
 \alias{stock,FLStock-method}
 \alias{stock.n,FLStock-method}
-\alias{stock.n<-,FLStock,FLQuant-method}
-\alias{stock.n<-,FLStock,numeric-method}
 \alias{stock.wt,FLStock-method}
-\alias{stock.wt<-,FLStock,FLQuant-method}
-\alias{stock.wt<-,FLStock,numeric-method}
+\alias{catch<-,FLStock,FLQuant-method}
+\alias{catch<-,FLStock,numeric-method}
+\alias{catch<-,FLStock,FLQuants-method}
+\alias{catch.n<-,FLStock,FLQuant-method}
+\alias{catch.n<-,FLStock,numeric-method}
+\alias{catch.wt<-,FLStock,FLQuant-method}
+\alias{catch.wt<-,FLStock,numeric-method}
+\alias{desc<-,FLStock,character-method}
+\alias{discards<-,FLStock,FLQuant-method}
+\alias{discards<-,FLStock,numeric-method}
+\alias{discards.n<-,FLStock,FLQuant-method}
+\alias{discards.n<-,FLStock,numeric-method}
+\alias{discards.wt<-,FLStock,FLQuant-method}
+\alias{discards.wt<-,FLStock,numeric-method}
+\alias{harvest<-,FLStock,character-method}
+\alias{harvest<-,FLStock,FLQuant-method}
+\alias{harvest<-,FLStock,numeric-method}
+\alias{harvest.spwn<-,FLStock,FLQuant-method}
+\alias{harvest.spwn<-,FLStock,numeric-method}
+\alias{landings<-,FLStock,FLQuant-method}
+\alias{landings<-,FLStock,numeric-method}
+\alias{landings.n<-,FLStock,FLQuant-method}
+\alias{landings.n<-,FLStock,numeric-method}
+\alias{landings.wt<-,FLStock,FLQuant-method}
+\alias{landings.wt<-,FLStock,numeric-method}
+\alias{mat<-,FLStock,FLQuant-method}
+\alias{mat<-,FLStock,numeric-method}
+\alias{m<-,FLStock,FLQuant-method}
+\alias{m<-,FLStock,numeric-method}
+\alias{m.spwn<-,FLStock,FLQuant-method}
+\alias{m.spwn<-,FLStock,numeric-method}
+\alias{name<-,FLStock,character-method}
+\alias{range<-,FLStock,numeric-method}
 \alias{stock<-,FLStock,FLQuant-method}
 \alias{stock<-,FLStock,numeric-method}
+\alias{stock.n<-,FLStock,FLQuant-method}
+\alias{stock.n<-,FLStock,numeric-method}
+\alias{stock.wt<-,FLStock,FLQuant-method}
+\alias{stock.wt<-,FLStock,numeric-method}
+\alias{FLStock,FLQuant-method}
+\alias{FLStock,missing-method}
+\alias{FLStock,FLQuants-method}
 \title{Class FLStock}
 \usage{
 FLStock(object, ...)
@@ -142,6 +143,7 @@ any of its slots. All slots are then created to match the requirements of the
 class validity. If an unnamed \code{FLQuant} object is provided, this is used
 for sizing but not stored in any slot.
 }
+
 \examples{
 
 data(ple4)
@@ -174,9 +176,6 @@ summary(ple4)
   flsr <- as.FLSR(ple4)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[base]{[}, \link[base]{[<-}, \link{as.FLBiol}, \link{as.FLSR},
 \link{catch}, \link{catch<-}, \link{catch.n}, \link{catch.n<-},
@@ -190,5 +189,7 @@ The FLR Team
 \link{ssbpurec}, \link{stock}, \link{stock.n}, \link{stock.wt}, \link{trim},
 \link{FLComp}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

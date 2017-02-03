@@ -3,12 +3,15 @@
 \docType{class}
 \name{FLModelSim}
 \alias{FLModelSim}
-\alias{FLModelSim,character-method}
-\alias{FLModelSim,formula-method}
-\alias{FLModelSim,function-method}
-\alias{FLModelSim,missing-method}
+\alias{FLModelSim-methods}
+\alias{FLModelSim}
 \alias{FLModelSim-class}
 \alias{FLModelSim-methods}
+\alias{FLModelSim,formula-method}
+\alias{FLModelSim,missing-method}
+\alias{FLModelSim,character-method}
+\alias{FLModelSim,function-method}
+\alias{FLModelSim,missing-method}
 \title{Class FLModelSim}
 \usage{
 FLModelSim(object, ...)
@@ -39,12 +42,12 @@ are currently available for \code{FLModelSim}, including \code{\link{fmle}},
 \item{vcov}{\code{array}}
 \item{model}{\code{formula}}}
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \link[stats]{AIC}, \link[stats]{BIC}, \link{fmle},
 \link[stats]{nls}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

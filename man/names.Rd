@@ -21,6 +21,7 @@ some classes, the names attribute can be modified directly using names<-.
 \section{Generic function}{
  names(x) names<-(x, value)
 }
+
 \examples{
 # FLQuant
 data(ple4)
@@ -30,11 +31,10 @@ names(catch.n(ple4))
 dimnames(catch.n(ple4))
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[base]{names}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

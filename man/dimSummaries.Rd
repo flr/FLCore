@@ -2,35 +2,36 @@
 % Please edit documentation in R/genericMethods.R, R/FLQuant.R
 \docType{methods}
 \name{dimSummaries}
-\alias{areaMeans}
-\alias{areaSums}
-\alias{areaSums,FLQuant-method}
-\alias{areaVars}
-\alias{dimMeans}
 \alias{dimSummaries}
-\alias{dimSums}
-\alias{dimVars}
-\alias{iterCVs}
-\alias{iterMeans}
-\alias{iterMedians}
-\alias{iterVars}
-\alias{quantMeans}
 \alias{quantSums}
-\alias{quantSums,FLQuant-method}
 \alias{quantSums-methods}
-\alias{quantVars}
-\alias{seasonMeans}
-\alias{seasonSums}
-\alias{seasonSums,FLQuant-method}
-\alias{seasonVars}
-\alias{unitMeans}
-\alias{unitSums}
-\alias{unitSums,FLQuant-method}
-\alias{unitVars}
-\alias{yearMeans}
+\alias{quantSums,FLQuant-method}
 \alias{yearSums}
-\alias{yearSums,FLQuant-method}
+\alias{unitSums}
+\alias{seasonSums}
+\alias{areaSums}
+\alias{dimSums}
+\alias{quantMeans}
+\alias{yearMeans}
+\alias{unitMeans}
+\alias{seasonMeans}
+\alias{areaMeans}
+\alias{iterMeans}
+\alias{dimMeans}
+\alias{quantVars}
 \alias{yearVars}
+\alias{unitVars}
+\alias{seasonVars}
+\alias{areaVars}
+\alias{iterVars}
+\alias{dimVars}
+\alias{iterMedians}
+\alias{iterCVs}
+\alias{quantSums,FLQuant-method}
+\alias{yearSums,FLQuant-method}
+\alias{unitSums,FLQuant-method}
+\alias{seasonSums,FLQuant-method}
+\alias{areaSums,FLQuant-method}
 \title{Summaries by dimension}
 \usage{
 quantSums(x, ...)
@@ -124,6 +125,7 @@ areaSums(x), areaMeans(x), areaVars(x)
 iterMeans(x), iterVars(x), iterMedians(x)
 dimSums(x), dimMeans(x), dimVars(x)
 }
+
 \examples{
 
  flq <- FLQuant(rnorm(4000), dim=c(5,10,2,2,2,10), quant='age')
@@ -133,12 +135,11 @@ dimSums(x), dimMeans(x), dimVars(x)
  iterMeans(flq)
  dim(quantSums(flq))
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{FLQuant}, \link[base]{sum}, \link[base]{mean},
 \link[stats]{var}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

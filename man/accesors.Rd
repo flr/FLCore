@@ -69,12 +69,11 @@ m(ple4) <- 0.4^(seq(1, 2, length=10))
 getMethod('catch', 'FLS')
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \code{\link{FLQuant}}, \code{\link{FLStock}}, \code{\link{FLIndex}},
 \code{\link{FLBiol}}, \code{\link{predictModel}}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

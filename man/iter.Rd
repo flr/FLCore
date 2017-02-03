@@ -3,11 +3,11 @@
 \docType{methods}
 \name{iter}
 \alias{iter}
-\alias{iter,FLArray-method}
-\alias{iter,FLCohort,ANY-method}
-\alias{iter,FLQuant,ANY-method}
-\alias{iter,vector-method}
 \alias{iter-methods}
+\alias{iter,FLArray-method}
+\alias{iter,FLQuant,ANY-method}
+\alias{iter,FLCohort,ANY-method}
+\alias{iter,vector-method}
 \title{Methods iter}
 \usage{
 iter(obj, ...)
@@ -36,6 +36,7 @@ classes \code{FLQuant}, \code{FLCohort} and \code{FLPar}.
 \section{Generic function}{
  iter(object) iter<-(object,value)
 }
+
 \examples{
 
 # For an FLQuant
@@ -53,11 +54,10 @@ classes \code{FLQuant}, \code{FLCohort} and \code{FLPar}.
     \dontrun{fls[,,,,,2]}
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \linkS4class{FLComp}, \linkS4class{FLQuant}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

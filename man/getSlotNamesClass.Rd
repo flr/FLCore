@@ -25,4 +25,3 @@ getSlotNamesClass(ple4, 'FLQuant')
 The FLR Team
 }
 \keyword{methods}
-

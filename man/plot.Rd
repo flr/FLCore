@@ -3,17 +3,23 @@
 \docType{methods}
 \name{plot}
 \alias{plot}
+\alias{plot,FLQuant,missing-method}
+\alias{plot,FLQuantPoint,missing-method}
+\alias{plot,FLPar,missing-method}
+\alias{plot,FLStock,missing-method}
+\alias{plot,FLStocks,missing-method}
+\alias{plot,FLStocks,FLPar-method}
 \alias{plot,FLBiol,missing-method}
 \alias{plot,FLCohort,missing-method}
 \alias{plot,FLIndex,missing-method}
 \alias{plot,FLIndices,missing-method}
-\alias{plot,FLPar,missing-method}
-\alias{plot,FLQuant,missing-method}
-\alias{plot,FLQuantPoint,missing-method}
 \alias{plot,FLSR,missing-method}
+\alias{plot,FLQuant,missing-method}
 \alias{plot,FLStock,missing-method}
-\alias{plot,FLStocks,FLPar-method}
-\alias{plot,FLStocks,missing-method}
+\alias{plot,FLBiol,missing-method}
+\alias{plot,FLIndex,missing-method}
+\alias{plot,FLSR,missing-method}
+\alias{plot,FLPar,missing-method}
 \title{Method plot}
 \usage{
 \S4method{plot}{FLQuant,missing}(x, xlab = "year", ylab = paste("data (",
@@ -44,6 +50,7 @@ overloaded \code{\link[lattice]{lattice}} methods, for example
 \section{Generic function}{
  plot(x,y)
 }
+
 \examples{
 
 data(ple4)
@@ -74,11 +81,10 @@ fpa <- FLPar(a=rnorm(100, 1, 20), b=rlnorm(100, 0.5, 0.2))
 plot(fpa)
 
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link[graphics]{plot}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

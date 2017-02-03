@@ -3,12 +3,13 @@
 \docType{class}
 \name{FLModelSims}
 \alias{FLModelSims}
-\alias{FLModelSims,ANY-method}
-\alias{FLModelSims,FLModelSims-method}
-\alias{FLModelSims,list-method}
-\alias{FLModelSims,missing-method}
 \alias{FLModelSims-class}
 \alias{FLModelSims-methods}
+\alias{FLModelSims}
+\alias{FLModelSims,ANY-method}
+\alias{FLModelSims,missing-method}
+\alias{FLModelSims,list-method}
+\alias{FLModelSims,FLModelSims-method}
 \title{Class FLModelSims}
 \usage{
 FLModelSims(object, ...)
@@ -43,11 +44,11 @@ A list of \code{\linkS4class{FLModelSim}} objects.
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \link{FLlst}, \link[base]{list}, \link[base]{vector}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

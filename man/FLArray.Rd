@@ -21,11 +21,11 @@ FLCore, as it is used only for method inheritance.
 \item{Content:}{Array must be of class \code{numeric}}
 }
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \code{\linkS4class{FLQuant}}, \code{\linkS4class{FLCohort}}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-

@@ -2,18 +2,18 @@
 % Please edit documentation in R/aliases.R
 \name{aliases}
 \alias{aliases}
-\alias{flc}
-\alias{flcs}
-\alias{fli}
-\alias{flib}
-\alias{flp}
 \alias{flq}
-\alias{flqd}
 \alias{flqp}
-\alias{flqs}
+\alias{flqd}
+\alias{flc}
+\alias{flp}
 \alias{fls}
 \alias{flsl}
+\alias{fli}
+\alias{flib}
 \alias{flsr}
+\alias{flqs}
+\alias{flcs}
 \alias{flss}
 \title{Short aliases for most FLCore classes construction methods}
 \usage{
@@ -79,9 +79,6 @@ The aliases' equivalences are as follows:
 
 flq <- flc(1:10, units="kg")
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{FLQuant}, \link{FLQuantPoint}, \link{FLQuantDistr},
 \link{FLCohort}, \link{FLPar}, \link{FLStock}, \link{FLStockLen},
@@ -90,5 +87,7 @@ The FLR Team
 \link{FLBiol}, \link{FLBiols}, \link{FLModelSim}, \link{FLModelSims},
 \link{predictModel}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

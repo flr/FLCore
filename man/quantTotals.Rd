@@ -23,6 +23,7 @@ selected dimension.
 
 yearTotals(x)
 }
+
 \examples{
 
 flq <- FLQuant(rlnorm(100), dim=c(10,10))
@@ -34,11 +35,10 @@ quantTotals(flq)
 # or year
   flq / yearTotals(flq)
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{FLQuant}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

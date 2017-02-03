@@ -3,11 +3,11 @@
 \docType{methods}
 \name{ssb}
 \alias{ssb}
-\alias{ssb,FLBiol-method}
-\alias{ssb,FLStock-method}
-\alias{ssb-FLBiol,method}
-\alias{ssb-FLStock,method}
 \alias{ssb-methods}
+\alias{ssb,FLStock-method}
+\alias{ssb-FLStock,method}
+\alias{ssb,FLBiol-method}
+\alias{ssb-FLBiol,method}
 \title{Calculate or return the Spawning Stock Biomass}
 \usage{
 ssb(object, ...)
@@ -67,13 +67,12 @@ spawning, as the class holds no information on fishing mortality.
 data(ple4)
 ssb(ple4)
 }
-\author{
-The FLR Team
-}
 \seealso{
 \link{FLComp}
 
 \code{\link{areaSums}}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}
-

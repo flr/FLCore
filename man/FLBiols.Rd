@@ -3,11 +3,12 @@
 \docType{class}
 \name{FLBiols}
 \alias{FLBiols}
-\alias{FLBiols,FLBiol-method}
-\alias{FLBiols,list-method}
-\alias{FLBiols,missing-method}
-\alias{FLBiols-class}
 \alias{FLBiols-methods}
+\alias{FLBiols}
+\alias{FLBiols-class}
+\alias{FLBiols,FLBiol-method}
+\alias{FLBiols,missing-method}
+\alias{FLBiols,list-method}
 \title{Class FLBiols}
 \usage{
 FLBiols(object, ...)
@@ -39,12 +40,12 @@ A list of \code{FLBiol} objects.
 A constructor method exists for this class that can take named arguments for
 any of the list elements.
 }
-\author{
-The FLR Team
-}
+
 \seealso{
 \code{\link{FLlst}}, \code{\link[base]{list}},
   \code{\link[base]{vector}}
 }
+\author{
+The FLR Team
+}
 \keyword{classes}
-
