@@ -3,7 +3,6 @@
 
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: FLQuants-methods.R 933 2011-05-03 12:32:03Z imosqueira $
 
 # summary {{{
 setMethod('summary', signature(object='FLQuants'),
@@ -179,18 +178,3 @@ setMethod('combine', signature(x='FLQuants', y='missing'),
     return(res)
   }
 ) # }}}
-
-# Sums(FLQuants)	{{{
-setMethod('Sums', signature(object='FLQuants'),
-	function(object, na.rm=FALSE, ...) {
-		if(length(object) == 1)
-			return(object)
-		eval(parse(text=paste('object[[', paste(seq(length(object)),
-			collapse=']] + object[['), ']]', sep='')))
-	}
-)
-setMethod('Products', signature(object='FLQuants'),
-	function(object, na.rm=FALSE, ...)
-		eval(parse(text=paste('object[[', paste(seq(length(object)),
-			collapse=']] * object[['), ']]', sep='')))
-)	# }}}
