@@ -24,7 +24,7 @@ NEWS: NEWS.md
 	sed 's/^# / /' NEWS.md > NEWS
 	sed -i 's/^##//' NEWS
 
-docs: $(HELP_FILES) README.md
+docs: $(HELP_FILES) README.md _pkgdown.yml
 	R --vanilla --silent -e "options(repos='http://cran.r-project.org'); pkgdown::build_site(preview=FALSE)"
 
 roxygen: $(R_FILES)

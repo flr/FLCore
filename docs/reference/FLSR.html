@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -49,15 +49,24 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="http://github.com/flr/FLCore">
+    <span class="fa fa-github fa-lg"></span>
+     
+    Source
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../articles/index.html">Articles</a>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="http://flr-project.org/">FLR</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -128,30 +137,30 @@ formulation implemented for each of them.</p>
   <span class='co'># Create an  FLSR object using the existing SR models.</span>
   <span class='no'>sr2</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'ricker'</span>)
   <span class='no'>sr2</span>@<span class='kw'>model</span></div><div class='output co'>#&gt; rec ~ a * ssb * exp(-b * ssb)
-#&gt; &lt;environment: 0xbabaa78&gt;</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
+#&gt; &lt;environment: 0xb52aef0&gt;</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
 #&gt; 		# The function to provide initial values
 #&gt;     res  &lt;-coefficients(lm(log(c(rec)/c(ssb))~c(ssb)))
 #&gt;     return(FLPar(a=max(exp(res[1])), b=-max(res[2])))}
-#&gt; &lt;environment: 0xbabaa78&gt;
+#&gt; &lt;environment: 0xb52aef0&gt;
 #&gt; attr(,&quot;lower&quot;)
 #&gt; [1] -Inf -Inf
 #&gt; attr(,&quot;upper&quot;)
 #&gt; [1] Inf Inf</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))
-#&gt; &lt;environment: 0xbabaa78&gt;</div><div class='input'>
+#&gt; &lt;environment: 0xb52aef0&gt;</div><div class='input'>
   <span class='no'>sr3</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'bevholt'</span>)
   <span class='no'>sr3</span>@<span class='kw'>model</span></div><div class='output co'>#&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0xb9529f0&gt;</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
+#&gt; &lt;environment: 0xacbc330&gt;</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
 #&gt;     a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))
 #&gt;     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #&gt;     return(FLPar(a = a, b = a/b))}
-#&gt; &lt;environment: 0xb9529f0&gt;
+#&gt; &lt;environment: 0xacbc330&gt;
 #&gt; attr(,&quot;lower&quot;)
 #&gt; [1] -Inf -Inf
 #&gt; attr(,&quot;upper&quot;)
 #&gt; [1] Inf Inf</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;environment: 0xb9529f0&gt;</div><div class='input'>
+#&gt; &lt;environment: 0xacbc330&gt;</div><div class='input'>
   <span class='co'># Create an FLSR using a function.</span>
   <span class='no'>mysr1</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(){
     <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='no'>rec</span> ~ <span class='no'>a</span>*<span class='no'>ssb</span>^<span class='no'>b</span>
@@ -268,7 +277,7 @@ formulation implemented for each of them.</p>
 #&gt; fitted        : [ 1 45 1 1 1 1 ], units =  10^3 
 #&gt; 
 #&gt; Model: 	rec ~ a * ssb * exp(-b * ssb)
-#&gt; &lt;environment: 0x9d1c518&gt;
+#&gt; &lt;environment: 0xaef53a8&gt;
 #&gt; Parameters: 
 #&gt;     params
 #&gt; iter     a        b

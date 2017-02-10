@@ -1,0 +1,25 @@
+templates:
+  params:
+    bootswatch: yeti
+navbar:
+  right:
+  - text: FLR
+    href: http://flr-project.org/
+  left:
+  - text: Source
+    href: http://github.com/flr/FLCore
+    icon: fa-github fa-lg
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    href: articles/index.html
+  - text: News
+    href: news/index.html
+
+# reference:
+#   - title: "Classes"
+#     desc: "S4 classes"
+#     contents: 
+#       - FLQuant
+#       - FLStock
+#       - FLIndex
