@@ -15,11 +15,3 @@ navbar:
     href: articles/index.html
   - text: News
     href: news/index.html
-
-# reference:
-#   - title: "Classes"
-#     desc: "S4 classes"
-#     contents: 
-#       - FLQuant
-#       - FLStock
-#       - FLIndex

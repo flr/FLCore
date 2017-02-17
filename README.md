@@ -3,7 +3,7 @@
 - Version: 2.6.0.20170214
 - Date: 2017-02-14
 - Author: FLR Team and various contributors.
-- Maintainer: Iago Mosqueira <iago.mosqueira AT ec.europa.eu>
+- Maintainer: Iago Mosqueira <iago.mosqueira@ec.europa.eu>
 - Repository: <https://github.com/flr/FLCore/>
 - Bug reports: <https://github.com/flr/FLCore/issues>
 
@@ -37,4 +37,4 @@ You are welcome to:
 
 - Submit suggestions and bug-reports at: <https://github.com/flr/FLCore/issues>
 - Send a pull request on: <https://github.com/flr/FLCore/>
-- Compose a friendly e-mail to: <flrteam AT flr-project.org>
+- Compose a friendly e-mail to: <flrteam@flr-project.org>
