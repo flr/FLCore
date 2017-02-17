@@ -77,6 +77,7 @@
 - predictModel@model slot now has by default an emptyenv()
 - uom is now safer to non-strings by using sprintf() for conversion
 - Quick fix for readIndicesAdapt dimensions
+- apply(FLArray) did not return an FLQuant if function did not change the dimensions of the object
 
 ## UTILITIES
 
