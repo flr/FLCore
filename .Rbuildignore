@@ -4,3 +4,4 @@ man-roxygen/
 Makefile
 .git/
 ^appveyor\.yml$
+_pkgdown.yml
