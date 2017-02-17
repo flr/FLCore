@@ -18,7 +18,10 @@ or download from the [FLCore releases page](https://github.com/flr/FLCore/releas
 
 ## Documentation
 - [Help pages](http://flr-project.org/FLCore)
-- Vignette
+
+## Bibliography
+
+- Kell, L. T., I. Mosqueira, P. Grosjean, J-M. Fromentin, D. Garcia, R. Hillary, E. Jardim, S. Mardle, M. A. Pastoors, J. J. Poos, F. Scott, R. D. Scott. 2007. FLR: an open-source framework for the evaluation and development of management strategies. *ICES J Mar Sci*, 64 (4): 640-646. doi: [10.1093/icesjms/fsm012](https://doi.org/10.1093/icesjms/fsm012)
 
 ## Build Status
 [![Travis Build Status](https://travis-ci.org/flr/FLCore.svg?branch=master)](https://travis-ci.org/flr/FLCore)
