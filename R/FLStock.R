@@ -885,3 +885,30 @@ setMethod("dim", signature(x="FLStock"),
     return(dim(x@m))
   }
 ) # }}}
+
+# metrics {{{
+
+# metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
+# metrics(ple4, metrics=function(x) FLQuants(SSB=ssb(x), REC=rec(x),
+#  F=fbar(x), SSBREC=ssb(x) / rec(x)))
+# metrics(ple4)
+
+setMethod("metrics", signature(object="FLStock", metrics="list"),
+  function(object, metrics) {
+    return(lapply(metrics, function(x) do.call(x, list(object))))
+  }
+)
+
+setMethod("metrics", signature(object="FLStock", metrics="function"),
+  function(object, metrics) {
+    return(do.call(metrics, list(object)))
+  }
+)
+
+setMethod("metrics", signature(object="FLStock", metrics="missing"),
+  function(object) {
+    return(metrics(object=object,
+      function(y) FLQuants(Rec=rec(y), SSB=ssb(y), Catch=catch(y), Harvest=fbar(y))))
+  }
+)
+# }}}

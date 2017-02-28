@@ -340,6 +340,7 @@ exportMethods(
   "mean",
   "mean<-",
   "meanLifespan",
+  "metrics",
   "mcf",
   "median",
   "median<-",
