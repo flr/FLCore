@@ -17,6 +17,7 @@
 - A set of aliases for the class creators is now available. Should be used only when working interactively.
 - Added dim method to FLQuant and FLStock, ensures an unnamed vector is returned
 - Added $ method for FLQuant, operates along 'quant' dimension
+- New method metrics to compute from list or function
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
