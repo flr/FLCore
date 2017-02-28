@@ -21,7 +21,8 @@ Imports:
     grid,
     stats,
     stats4,
-    graphics
+    graphics,
+    latticeExtra
 License: GPL (>= 2)
 Repository: flr
 Collate:
