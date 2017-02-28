@@ -1255,5 +1255,9 @@ setGeneric("revenue", function(object, ...)
   standardGeneric("revenue"))
 
 # fwd
-setGeneric("fwd", function(biols, fisheries, control, ...)
+setGeneric("fwd", function(object, fishery, control, ...)
   standardGeneric("fwd"))
+
+# metrics
+setGeneric("metrics", function(object, metrics, ...)
+  standardGeneric("metrics"))
