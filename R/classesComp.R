@@ -236,7 +236,7 @@ invisible(createFLAccesors("FLS", exclude=c('name', 'desc', 'range', 'harvest'))
 #'  \item{m}{Natural mortality (\code{FLQuant}).}
 #'  \item{mat}{Proportion mature (\code{FLQuant}).}
 #'  \item{harvest}{Harvest rate or fishing mortality. The units of this slot
-#'   should be set to 'harvest' or 'f' accordingly (\code{FLQuant}).}
+#'   should be set to 'hr' or 'f' accordingly (\code{FLQuant}).}
 #'  \item{harvest.spwn}{Proportion of harvest/fishing mortality before
 #'   spawning (\code{FLQuant}).}
 #'  \item{m.spwn}{Proportion of natural mortality before spawning
