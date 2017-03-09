@@ -239,7 +239,7 @@ setAs('FLBiol', 'FLBiolcpp',
         mat = mat(from),
         fec = fec(from),
         spwn = spwn(from),
-        srmodel = from@sr@model,
+        srmodel = SRModelName(from@sr@model),
         srparams = from@sr@params)
   }
 ) # }}}
