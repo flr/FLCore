@@ -1261,3 +1261,14 @@ setGeneric("fwd", function(object, fishery, control, ...)
 # metrics
 setGeneric("metrics", function(object, metrics, ...)
   standardGeneric("metrics"))
+
+# srparams, srmodel for FLBiolcpp
+setGeneric("srmodel", function(object, ...)
+  standardGeneric("srmodel"))
+setGeneric("srmodel<-", function(object, ..., value)
+  standardGeneric("srmodel<-"))
+
+setGeneric("srparams", function(object, ...)
+  standardGeneric("srparams"))
+setGeneric("srparams<-", function(object, ..., value)
+  standardGeneric("srparams<-"))

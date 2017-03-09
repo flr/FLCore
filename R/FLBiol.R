@@ -87,7 +87,9 @@ setClass("FLBiolcpp",
     wt       ="FLQuant",
     mat      ="FLQuant",
     fec      ="FLQuant",
-    spwn     ="FLQuant"),
+    spwn     ="FLQuant",
+    srmodel = "character",
+    srparams = "FLQuant"),
   prototype=prototype(
     range    = unlist(list(min=NA, max=NA, plusgroup=NA, minyear=1, maxyear=1)),
     n        = FLQuant(),
@@ -95,7 +97,9 @@ setClass("FLBiolcpp",
     wt       = FLQuant(),
     mat      = FLQuant(),
     fec      = FLQuant(),
-    spwn     = FLQuant())
+    spwn     = FLQuant(),
+    srmodel = character(1),
+    srparams = FLQuant())
 ) 
 
 invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # }}}
