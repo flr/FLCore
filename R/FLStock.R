@@ -888,14 +888,22 @@ setMethod("dim", signature(x="FLStock"),
 
 # metrics {{{
 
-# metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
-# metrics(ple4, metrics=function(x) FLQuants(SSB=ssb(x), REC=rec(x),
-#  F=fbar(x), SSBREC=ssb(x) / rec(x)))
-# metrics(ple4)
+#' @examples
+#' # missing
+#' metrics(ple4)
+#' # metrics = function
+#' metrics(ple4, metrics=function(x) FLQuants(SSB=ssb(x), REC=rec(x),
+#'   F=fbar(x), SSBREC=ssb(x) / rec(x)))
+#' # metrics = formula
+#' metrics(ple4, metrics=SSB~ssb)
+#' metrics(ple4, metrics=~ssb)
+#' # metrics = list
+#' metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
+#' metrics(ple4, metrics=list(SSB=~ssb, REC=rec, F=fbar))
 
 setMethod("metrics", signature(object="FLStock", metrics="list"),
   function(object, metrics) {
-    return(lapply(metrics, function(x) do.call(x, list(object))))
+    return(lapply(metrics, function(x) do.call("metrics", list(object=object, metrics=x))))
   }
 )
 
@@ -905,10 +913,19 @@ setMethod("metrics", signature(object="FLStock", metrics="function"),
   }
 )
 
+setMethod("metrics", signature(object="FLStock", metrics="formula"),
+  function(object, metrics) {
+    browser()
+    if(is(metrics[[length(metrics)]], "name"))
+          return(do.call(as.character(metrics[[length(metrics)]]), list(object)))
+        else
+          return(eval(metrics[[length(metrics)]], list(object)))
+  }
+)
+
 setMethod("metrics", signature(object="FLStock", metrics="missing"),
   function(object) {
-    return(metrics(object=object,
-      function(y) FLQuants(Rec=rec(y), SSB=ssb(y), Catch=catch(y), Harvest=fbar(y))))
+    return(metrics(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
   }
 )
 # }}}
