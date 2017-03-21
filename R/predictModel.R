@@ -185,8 +185,8 @@ setMethod('show', signature(object='predictModel'),
 #' be used by methods wishing to evaluate a single `predictModel` slot in the
 #' context of the class it is part of.
 #'
-#' @param object The FLR S4 object holding the `predictModel` slot.
-#' @param slot The name of the slot to be evaluated, as a character.
+#' @param object The FLR S4 over whicvh the predictModel evaluation should take place
+#' @param slot The predictModel object to be evaluated
 #'
 #' @return The result of evaluating the model, usually an `FLQuant`
 #'
@@ -199,9 +199,7 @@ setMethod('show', signature(object='predictModel'),
 #' @keywords utilities
 evalPredictModel <- function(object, slot) {
 
-  # EXTRACT slot
-  slot <- slot(object, slot)
-
+  # EVALUATING list
   lis <- list()
 
   # EXTRACT expression to evaluate
