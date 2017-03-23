@@ -923,9 +923,16 @@ setMethod("metrics", signature(object="FLStock", metrics="formula"),
   }
 )
 
+# TODO missing to parse ... rather that assume default
 setMethod("metrics", signature(object="FLStock", metrics="missing"),
-  function(object) {
-    return(metrics(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
+  function(object, ...) {
+    
+    dots <- list(...)
+    if(length(dots) > 0) {
+      metrics(object=object, metrics=dots)
+    }
+    else {
+      return(metrics(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
+    }
   }
-)
-# }}}
+) # }}}
