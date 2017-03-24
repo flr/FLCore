@@ -32,8 +32,12 @@ setMethod('FLIndex', signature(object='FLQuant'),
       
 
     # Load given slots
-  	for(i in names(args))
-			slot(res, i) <- args[[i]]
+  	for(i in names(args)) {
+      if(i == "range")
+        slot(res, i)[names(args[[i]])] <- args[[i]]
+      else
+  			slot(res, i) <- args[[i]]
+    }
 
     return(res)
   }
