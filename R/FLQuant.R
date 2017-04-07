@@ -1068,7 +1068,7 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
 # ifelse {{{
 setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),
   function(test, yes, no) {
-
+browser()
     #
     uts <- units(test)
     dmns <- dimnames(test)
@@ -1085,6 +1085,7 @@ setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),
 
 setMethod("ifelse", signature(test="ANY", yes="ANY", no="FLQuant"),
   function(test, yes, no) {
+browser()
     
       #
     uts <- units(no)
@@ -1102,6 +1103,7 @@ setMethod("ifelse", signature(test="ANY", yes="ANY", no="FLQuant"),
 
 setMethod("ifelse", signature(test="ANY", yes="FLQuant", no="ANY"),
   function(test, yes, no) {
+browser()
     
       #
     uts <- units(yes)

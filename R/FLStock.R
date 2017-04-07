@@ -901,38 +901,44 @@ setMethod("dim", signature(x="FLStock"),
 #' metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
 #' metrics(ple4, metrics=list(SSB=~ssb, REC=rec, F=fbar))
 
-setMethod("metrics", signature(object="FLStock", metrics="list"),
+setMethod("metrics", signature(object="FLComp", metrics="list"),
   function(object, metrics) {
-    return(lapply(metrics, function(x) do.call("metrics", list(object=object, metrics=x))))
+    return(FLQuants(lapply(metrics, function(x)
+      # CALL each function
+      do.call("metrics", list(object=object, metrics=x)))))
   }
 )
 
-setMethod("metrics", signature(object="FLStock", metrics="function"),
+setMethod("metrics", signature(object="FLComp", metrics="function"),
   function(object, metrics) {
+    # CALL function
     return(do.call(metrics, list(object)))
   }
 )
 
-setMethod("metrics", signature(object="FLStock", metrics="formula"),
+setMethod("metrics", signature(object="FLComp", metrics="formula"),
   function(object, metrics) {
-    browser()
     if(is(metrics[[length(metrics)]], "name"))
+        # CALL function
           return(do.call(as.character(metrics[[length(metrics)]]), list(object)))
         else
+          # EVAL formula
           return(eval(metrics[[length(metrics)]], list(object)))
   }
 )
 
-# TODO missing to parse ... rather that assume default
 setMethod("metrics", signature(object="FLStock", metrics="missing"),
   function(object, ...) {
     
     dots <- list(...)
+    foo <- selectMethod('metrics', c(object='FLStock', metrics='list'))
+
     if(length(dots) > 0) {
-      metrics(object=object, metrics=dots)
+      return(foo(object=object, metrics=dots))
     }
     else {
-      return(metrics(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
+      return(foo(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
     }
   }
 ) # }}}
+
