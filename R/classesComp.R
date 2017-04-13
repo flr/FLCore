@@ -78,6 +78,78 @@ setClass("FLComp",
 invisible(createFLAccesors('FLComp', include=c('name', 'desc')))
 #  }}}
 
+# FLCompPM   {{{
+
+#' Class FLCompPM
+#'
+#' A virtual class that forms the basis for FLR classes conatining slots of
+#' class \code{\linkS4class{predictModel}}. No objects of this class can be
+#' constructed.
+#'
+#' @section Validity: \describe{
+#'     \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+#'     \item{Iters}{The dimname for iter[1] should be '1'.}
+#'     \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+#' }
+#'
+#' @name FLCompPM
+#' @aliases FLCompPM FLCompPM-class
+#' @docType class
+#' @section Slots: \describe{
+#'    \item{name}{A character vector for the object name.}
+#'    \item{desc}{A textual description of the object contents.}
+#'    \item{range}{A named numeric vector with various values of quant and year ranges, plusgroup, fishing mortality ranges, etc. Elements are specific to each child class.}
+#' }
+#' @author The FLR Team
+#' @seealso \link[base]{[}, \link[base]{[<-}, \link[base]{as.data.frame},
+#' \link{iter}, \link{propagate}, \link{qapply}, \link[base]{summary},
+#' \link[base]{transform}, \link{trim}, \link{units,FLComp-method},
+#' \link{units<-,FLComp,list-method}, \link[stats]{window}
+#' @keywords classes
+setClass("FLCompPM",
+  representation(
+    "FLComp",
+    "VIRTUAL"),
+  prototype(
+    name=character(1),
+    desc=character(0),
+    range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))),
+  validity=function(object){
+
+  # range must be named ...
+  nms <- names(range(object))
+  # with non/empty strings
+  if(any(nchar(nms) == 0))
+    return("names in range cannot be empty")
+
+  # Any FLArray?
+  slots <- getSlots(class(object))
+
+  if(any("FLArray" %in% slots) | any("FLQuant" %in% slots)) {
+
+    # FLQuant slots must have either 1 or n iter
+    dims <- unlist(qapply(object, function(x) dims(x)$iter))
+    test <- dims != max(dims) & dims != 1
+    if (any(test))
+      stop(paste("All slots must have iters equal to 1 or 'n': error in",
+        paste(names(test[!test]), collapse=', ')))
+
+    # and dimname for iter[1] should be '1'
+    dimnms <- qapply(object, function(x) dimnames(x)$iter)
+    test <- unlist(dimnms[dims == 1])
+    if(!all(test==test))
+      stop(paste("Incorrect names on the iter dimension in ",
+        paste(names(test[!test]), collapse=', ')))
+  }
+
+  return(TRUE)
+}
+
+  )
+
+invisible(createFLAccesors('FLCompPM', include=c('name', 'desc')))
+#  }}}
+
 # FLS      {{{
 
 #' Class FLS

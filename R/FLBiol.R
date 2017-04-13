@@ -48,7 +48,7 @@
 #'
 setClass("FLBiol",
   representation(
-    "FLComp",
+    "FLCompPM",
     n        ="FLQuant",
     m        ="FLQuant",
     wt       ="FLQuant",
