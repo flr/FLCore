@@ -73,6 +73,13 @@ setMethod("dims", signature(obj="FLI"),
     }
 )    # }}}
 
+# dim {{{
+setMethod("dim", signature(x="FLI"),
+  function(x) {
+    return(dim(x@sel.pattern))
+  }
+) # }}}
+
 ## trim     {{{
 setMethod("trim", signature("FLI"), function(x, ...){
 

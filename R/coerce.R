@@ -347,13 +347,13 @@ setAs('FLComp', 'FLQuants',
 setAs('data.frame', 'FLQuants',
   function(from)
   {
-    qns <- as.character(unique(from[,'qname']))
+    qns <- as.character(unique(from$qname))
 
     res <- vector(mode='list', length=length(qns))
     names(res) <- qns
 
     for(i in qns)
-      res[[i]] <- as.FLQuant(from[from$qname == i, !names(from) %in% 'qname'])
+      res[[i]] <- as(from[from$qname == i, !names(from) %in% 'qname'], 'FLQuant')
 
     return(FLQuants(res))
   }

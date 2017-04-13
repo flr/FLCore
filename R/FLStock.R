@@ -903,7 +903,7 @@ setMethod("dim", signature(x="FLStock"),
 
 setMethod("metrics", signature(object="FLStock", metrics="list"),
   function(object, metrics) {
-    return(lapply(metrics, function(x) do.call("metrics", list(object=object, metrics=x))))
+    return(FLQuants(lapply(metrics, function(x) do.call("metrics", list(object=object, metrics=x)))))
   }
 )
 
@@ -915,7 +915,6 @@ setMethod("metrics", signature(object="FLStock", metrics="function"),
 
 setMethod("metrics", signature(object="FLStock", metrics="formula"),
   function(object, metrics) {
-    browser()
     if(is(metrics[[length(metrics)]], "name"))
           return(do.call(as.character(metrics[[length(metrics)]]), list(object)))
         else
@@ -923,13 +922,13 @@ setMethod("metrics", signature(object="FLStock", metrics="formula"),
   }
 )
 
-# TODO missing to parse ... rather that assume default
+# TODO missing to parse ...
 setMethod("metrics", signature(object="FLStock", metrics="missing"),
   function(object, ...) {
     
     dots <- list(...)
     if(length(dots) > 0) {
-      metrics(object=object, metrics=dots)
+      do.call(metrics, list(object=object, metrics=dots))
     }
     else {
       return(metrics(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
