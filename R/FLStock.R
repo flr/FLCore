@@ -927,6 +927,7 @@ setMethod("metrics", signature(object="FLComp", metrics="formula"),
   }
 )
 
+# FLS
 setMethod("metrics", signature(object="FLStock", metrics="missing"),
   function(object, ...) {
     
@@ -941,4 +942,3 @@ setMethod("metrics", signature(object="FLStock", metrics="missing"),
     }
   }
 ) # }}}
-
