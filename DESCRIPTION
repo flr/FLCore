@@ -47,6 +47,7 @@ Collate:
     'FLIndexBiomass.R'
     'FLQuants.R'
     'predictModel.R'
+    'FLCompPM.R'
     'FLBiol.R'
     'FLModel.R'
     'FLModelDeriv.R'

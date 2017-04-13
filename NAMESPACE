@@ -136,14 +136,14 @@ export(
   "writeFLStock")
 exportClasses(
   "FLArray",
-  "FLComp",
-  "FLComps",
   "FLBiol",
   "FLBiolcpp",
   "FLBiols",
   "FLCohort",
   "FLCohorts",
   "FLComp",
+  "FLCompPM",
+  "FLComps",
   "FLI",
   "FLIndex",
   "FLIndexBiomass",
