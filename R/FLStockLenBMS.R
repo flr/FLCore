@@ -172,7 +172,3 @@ setMethod("hr", signature(object="FLStockLenBMS", alive="missing"),
   function(object) {
     return(hr(object, 0))
   })
-
-
-
-
