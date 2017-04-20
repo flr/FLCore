@@ -157,7 +157,7 @@ setGeneric("hr", function(object, alive, ...)
 
 setMethod("hr", signature(object="FLStockLenBMS", alive="FLQuant"),
   function(object, alive) {
-    res <- ((discards.n(object) * alive) + landings.n(object) + bms.n(object)) / stock.n(object)
+    res <- ((discards.n(object) %*% alive) + landings.n(object) + bms.n(object)) / stock.n(object)
     units(res) <- "hr"
     return(res)
   })
