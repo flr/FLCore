@@ -166,3 +166,13 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
   }
 
   return(x)}) # }}}
+
+# catch<- FLQuants		{{{
+setMethod("catch<-", signature(object="FLS", value="FLQuants"),
+	function(object, value) {
+		catch(object)    <- value[['catch']]
+		catch.n(object)  <- value[['catch.n']]
+		catch.wt(object) <- value[['catch.wt']]
+		return(object)
+	}
+) # }}}

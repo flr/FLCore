@@ -164,6 +164,7 @@ exportClasses(
   "FLS",
   "FLStock",
   "FLStockLen",
+  "FLStockLenBMS",
   "FLStocks",
   "predictModel")
 exportMethods(
@@ -280,6 +281,7 @@ exportMethods(
   "FLSRs",
   "FLStock",
   "FLStockLen",
+  "FLStockLenBMS",
   "FLStocks",
   "fwd",
   "getPlural",
@@ -293,6 +295,7 @@ exportMethods(
   "hessian",
   "hessian<-",
   "histogram",
+  "hr",
   "ifelse",
   "index",
   "index<-",
