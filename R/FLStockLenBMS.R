@@ -152,14 +152,27 @@ setMethod("computeCatch", signature(object="FLStockLenBMS"),
 )  # }}}
 
 # hr
-setGeneric("hr", function(object, ...)
+setGeneric("hr", function(object, alive, ...)
   standardGeneric("hr"))
 
-setMethod("hr", signature(object="FLStockLenBMS"),
-  function(object, alive=0) {
-    res <- catch.n(object) / stock.n(object)
+setMethod("hr", signature(object="FLStockLenBMS", alive="FLQuant"),
+  function(object, alive) {
+    res <- ((discards.n(object) * alive) + landings.n(object) + bms.n(object)) / stock.n(object)
     units(res) <- "hr"
     return(res)
   })
+
+setMethod("hr", signature(object="FLStockLenBMS", alive="numeric"),
+  function(object, alive) {
+    alive <- FLQuant(alive, dimnames=dimnames(discards.n(object)), units="NA")
+    return(hr(object, alive))
+  })
+
+setMethod("hr", signature(object="FLStockLenBMS", alive="missing"),
+  function(object) {
+    return(hr(object, 0))
+  })
+
+
 
 
