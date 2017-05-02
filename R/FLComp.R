@@ -92,7 +92,7 @@ setMethod("iter", signature(obj="FLComp"),
 	  function(obj, iter) {
 
 		# copy the iterate into the new slots
-		names. <- c(getSlotNamesClass(obj, 'FLArray'),getSlotNamesClass(obj, 'FLPar'))
+		names. <- c(getSlotNamesClass(obj, 'FLArray'), getSlotNamesClass(obj, 'FLPar'))
 		for(s. in names.)
 		{
 			if(dims(slot(obj, s.))$iter == 1)
