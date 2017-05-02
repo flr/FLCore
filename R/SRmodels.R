@@ -422,6 +422,7 @@ SRModelName <- function(model){
       "rec"                               = "mean",
 			"FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"a\"]%*%ssb%/%(FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"b\"]%+%ssb)" = "bevholtSV",
       'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "rickerSV",
+      "(4*s*R0*ssb)/(v*(1-s)+ssb*(5*s-1))" = "bevholtss3",
       NULL))} # }}}
 
 # SRNameCode {{{
