@@ -240,7 +240,7 @@ setAs('FLBiol', 'FLBiolcpp',
         fec = fec(from),
         spwn = spwn(from),
         srmodel = SRModelName(from@rec@model),
-        srparams = FLQuant(from@rec@params))
+        srparams = as(from@rec@params, "FLQuant"))
   }
 ) # }}}
 
