@@ -139,8 +139,18 @@ setReplaceMethod('params', signature(object='predictModel', value='FLPar'),
 
 # predict(predictModel) {{{
 setMethod('predict', signature(object='predictModel'),
-	function(object) {
-		return(eval(object@model[[length(object@model)]], c(object, as(object@params, 'list'))))
+	function(object, ...) {
+    
+    args <- c(object, as(object@params, 'list'))
+
+    extra <- list(...)
+    
+    if(length(extra) > 0) {
+      for(i in names(extra))
+        args[[i]] <- extra[[i]]
+    }
+
+		return(eval(object@model[[length(object@model)]], args))
 	}
 ) # }}}
 

@@ -943,3 +943,29 @@ setMethod("metrics", signature(object="FLStock", metrics="missing"),
     }
   }
 ) # }}}
+
+# vb = vulnerable biomass {{{
+
+setMethod("vb", signature(x="FLStock", sel="missing"),
+  function(x) {
+    
+    har <- harvest(x)
+    minx <- apply(har, 2:6, min)
+    maxx <- apply(har, 2:6, max)
+    vn <- stock.n(x) * ((har %-% minx) %/% (maxx-minx))
+    vb <- quantSums(vn * stock.wt(x))
+    
+    return(vb)
+  }
+)
+
+setMethod("vb", signature(x="FLStock", sel="FLQuant"),
+  function(x, sel) {
+    
+    vb <- quantSums(stock.n(x) * sel * stock.wt(x))
+    
+    return(vb)
+  }
+)
+
+# }}}
