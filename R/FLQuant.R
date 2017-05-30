@@ -100,6 +100,7 @@ function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA", iter=
   # both provided
   else {
     dim <- c(dim, rep(1,6))[1:6]
+    dimnames <- filldimnames(dimnames, dim=dim)
     if(!missing(iter)) {
       dim[6] <- iter
       dimnames <- filldimnames(dimnames, dim=dim, iter=iter)
