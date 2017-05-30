@@ -72,8 +72,12 @@ setMethod('FLModel', signature(model='formula'),
     }
 
     # params
-    params <- getFLPar(res, formula=model)
-    res@params <- params
+    if("params" %in% names(args)) {
+      res@params <- args[["params"]]
+    } else {
+      params <- getFLPar(res, formula=model)
+      res@params <- params
+    }
 
     # logLik is created, as is a virtual class
     loglik <- as.numeric(NA)
@@ -83,7 +87,7 @@ setMethod('FLModel', signature(model='formula'),
     if(validObject(res))
       return(res)
     else
-      stop()
+      stop("Object is not valid, please check input elements")
   }
 ) # }}}
 
