@@ -456,6 +456,7 @@ exportMethods(
   "uppq<-",
   "var",
   "var<-",
+  "vb",
   "vcost",
   "vcost<-",
   "vcov",

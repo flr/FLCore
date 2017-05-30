@@ -18,6 +18,7 @@
 - Added dim method to FLQuant and FLStock, ensures an unnamed vector is returned
 - Added $ method for FLQuant, operates along 'quant' dimension
 - New method metrics to compute from list or function
+- Added vb method for vulnerable biomass
 
 ## USER-VISIBLE CHANGES
 - model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim
