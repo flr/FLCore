@@ -518,3 +518,44 @@ ibind <- function(...) {
   }
   return(res)
 } # }}}
+
+# metrics {{{
+
+#' @examples
+#' # missing
+#' metrics(ple4)
+#' # metrics = function
+#' metrics(ple4, metrics=function(x) FLQuants(SSB=ssb(x), REC=rec(x),
+#'   F=fbar(x), SSBREC=ssb(x) / rec(x)))
+#' # metrics = formula
+#' metrics(ple4, metrics=SSB~ssb)
+#' metrics(ple4, metrics=~ssb)
+#' # metrics = list
+#' metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
+#' metrics(ple4, metrics=list(SSB=~ssb, REC=rec, F=fbar))
+
+setMethod("metrics", signature(object="FLComp", metrics="list"),
+  function(object, metrics) {
+    return(FLQuants(lapply(metrics, function(x)
+      # CALL each function
+      do.call("metrics", list(object=object, metrics=x)))))
+  }
+)
+
+setMethod("metrics", signature(object="FLComp", metrics="function"),
+  function(object, metrics) {
+    # CALL function
+    return(do.call(metrics, list(object)))
+  }
+)
+
+setMethod("metrics", signature(object="FLComp", metrics="formula"),
+  function(object, metrics) {
+    if(is(metrics[[length(metrics)]], "name"))
+        # CALL function
+          return(do.call(as.character(metrics[[length(metrics)]]), list(object)))
+        else
+          # EVAL formula
+          return(eval(metrics[[length(metrics)]], list(object)))
+  }
+) # }}}

@@ -196,7 +196,7 @@ setMethod("[", signature(x="FLArray", i="array", j="missing", drop="missing"),
   }
 )   # }}}
 
-# "[<-"            {{{
+# [<-            {{{
 #' @rdname Extract
 #' @aliases `[<-,FLArray,ANY,ANY,ANY-method`
 setMethod("[<-", signature(x="FLArray"),
@@ -824,9 +824,9 @@ setMethod("median", signature(x="FLArray"),
   }
 )   # }}}
 
-# dim
+# dim {{{
 setMethod("dim", signature(x="FLArray"),
   function(x) {
     return(unname(dim(x@.Data)))
   }
-)
+) # }}}

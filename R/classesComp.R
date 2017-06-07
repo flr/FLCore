@@ -20,6 +20,9 @@
 #'
 #' @name FLComp
 #' @aliases FLComp FLComp-class
+#' @aliases name,FLComp-method name<-,FLComp,character-method
+#' @aliases desc,FLComp-method desc<-,FLComp,character-method
+#' @aliases range,FLComp-method range<-,FLComp,numeric-method
 #' @docType class
 #' @section Slots: \describe{
 #'    \item{name}{A character vector for the object name.}

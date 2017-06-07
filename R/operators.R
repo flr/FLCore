@@ -4,7 +4,7 @@
 # Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 
-#' FLQuant arithmetic operators
+#' FLQuant arithmetic operators that extend objects
 #'
 #' Arithmetic operations between two \linkS4class{FLQuant} objects using the
 #' standars operators (`+`, `-`, `*`, `/`, `^`, see \link{Arith}) need all dimensions in
@@ -58,7 +58,7 @@
 # %*% {{{
 
 #' @rdname operators
-#' @aliases `%*%`,FLQuant,FLQuant-method
+#' @aliases %*%,FLQuant,FLQuant-method
 setMethod("%*%", signature(x="FLQuant", y="FLQuant"),
 	function(x, y) {
 
@@ -871,3 +871,18 @@ matchDimnames <- function(dnp, dnq) {
 
   return(sx)
 } # }}}
+
+# FLQuants, FLPar
+
+# %/% {{{
+
+#' @rdname operators
+#' @aliases /,FLQuants,FLPar-method
+setMethod("/", signature(e1="FLQuants", e2="FLPar"),
+	function(e1, e2) {
+
+    res <- lapply(names(e1), function(x) e1[[x]] / e2[x,])
+    names(res) <- names(e1)
+    return(FLQuants(res))
+  }
+) # }}}

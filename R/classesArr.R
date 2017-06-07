@@ -184,6 +184,12 @@ setClass("FLQuant",
 #' @name FLQuantPoint
 #' @aliases FLQuantPoint-class FLQuantPoint FLQuantPoint-methods
 #' @aliases FLQuantPoint,FLQuant-method
+#' @aliases mean,FLQuantPoint-method mean<-,FLQuantPoint,FLQuant-method
+#' @aliases median,FLQuantPoint-method median<-,FLQuantPoint,FLQuant-method
+#' @aliases var,FLQuantPoint-method var<-,FLQuantPoint,FLQuant-method
+#' @aliases lowq,FLQuantPoint-method lowq<-,FLQuantPoint,FLQuant-method
+#' @aliases uppq,FLQuantPoint-method uppq<-,FLQuantPoint,FLQuant-method
+#' @aliases quantile,FLQuantPoint-method
 #' @docType class
 #' @section Slots: \describe{
 #'  \item{.Data}{The main array holding the computed statistics. \code{array}.}
@@ -195,6 +201,7 @@ setClass("FLQuant",
 #'  \item{var,var<-:}{'var' element on 6th dimension, variance.}
 #'  \item{lowq,lowq<-:}{'lowq' element on 6th dimension, lower quantile (0.25 by default).}
 #'  \item{uppq,uppq<-:}{'uppq' element on 6th dimension, upper quantile (0.75 by default).}
+#'  \item{quantile:}{returns the 'lowq' or 'uppq' iter, depending on the value of 'probs' (0.25 or 0.75).}
 #' }
 #' @section Constructor:
 #'  Inputs can be of class:

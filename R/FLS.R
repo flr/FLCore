@@ -166,3 +166,24 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
   }
 
   return(x)}) # }}}
+
+# metrics {{{
+
+#' @examples
+#' metrics(ple4)
+
+# FLS
+setMethod("metrics", signature(object="FLS", metrics="missing"),
+  function(object, ...) {
+    
+    dots <- list(...)
+    foo <- selectMethod("metrics", c(object="FLStock", metrics="list"))
+
+    if(length(dots) > 0) {
+      return(foo(object=object, metrics=dots))
+    }
+    else {
+      return(foo(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
+    }
+  }
+) # }}}

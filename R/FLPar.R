@@ -129,7 +129,7 @@ setMethod('FLPar', signature('FLPar'),
   }
 ) # }}}
 
-# '['   {{{
+# [   {{{
 #' @rdname Extract
 #' @aliases [,FLPar,ANY,ANY,ANY-method
 setMethod('[', signature(x='FLPar'),
@@ -178,7 +178,7 @@ setMethod('[', signature(x='FLPar', i='array', j='missing', drop='missing'),
   }
 ) # }}}
 
-# "[<-"     {{{
+# [<-     {{{
 #' @rdname Extract
 #' @aliases [<-,FLPar,ANY,ANY,ANY-method
 setMethod("[<-", signature(x="FLPar", value="ANY"),
@@ -876,4 +876,3 @@ setMethod('$', signature(x='FLPar'),
     return(x[name,])
   }
 ) # }}}
-
