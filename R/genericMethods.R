@@ -1055,7 +1055,7 @@ setGeneric("yearTotals", function(x, ...)
 #' unitSums(x), unitMeans(x), unitVars(x)
 #' seasonSums(x), seasonMeans(x), seasonVars(x)
 #' areaSums(x), areaMeans(x), areaVars(x)
-#' iterMeans(x), iterVars(x), iterMedians(x)
+#' iterMeans(x), iterVars(x), iterMedians(x), iterSums(x)
 #' dimSums(x), dimMeans(x), dimVars(x)
 #' @param x An object.
 #' @param na.rm Should NAs be removed before calculation? Defaults to TRUE.
@@ -1108,6 +1108,9 @@ setGeneric("areaMeans", function(x, ...) standardGeneric("areaMeans"))
 #' @rdname dimSummaries
 #' @aliases iterMeans
 setGeneric("iterMeans", function(x, ...) standardGeneric("iterMeans"))
+#' @rdname dimSummaries
+#' @aliases iterSums
+setGeneric("iterSums", function(x, ...) standardGeneric("iterSums"))
 #' @rdname dimSummaries
 #' @aliases dimMeans
 setGeneric("dimMeans", function(x, ...) standardGeneric("dimMeans"))
