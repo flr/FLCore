@@ -120,7 +120,7 @@ setMethod("FLQuantJK", signature(object="ANY", orig="ANY"),
 # FLParJK {{{
 setMethod("FLParJK", signature(object="ANY", orig="ANY"),
   function(object, orig) {
-    return(new("FLQuantJK", object, orig=orig))
+    return(new("FLParJK", object, orig=orig))
   }) # }}}
 
 # orig {{{
