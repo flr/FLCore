@@ -1,7 +1,7 @@
 Package: FLCore
 Title: Core Package of FLR, Fisheries Modelling in R
-Version: 2.6.1.9005
-Date: 2017-06-07
+Version: 2.6.1.9006
+Date: 2017-06-08
 Authors@R: c(
   person("Iago", "Mosqueira", email = "iago.mosqueira@ec.europa.eu", role = "cre"),
   person("Laurence T.", "Kell", email = "laurie.kell@iccat.int", role = "aut"),
