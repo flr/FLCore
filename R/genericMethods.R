@@ -1281,3 +1281,7 @@ setGeneric("vb", function(x, sel, ...) standardGeneric("vb"))
 setGeneric("bias", function(x) standardGeneric("bias"))
 
 setGeneric("corrected", function(x) standardGeneric("corrected"))
+
+setGeneric("FLQuantJK", function(object, orig) standardGeneric("FLQuantJK"))
+
+setGeneric("FLParJK", function(object, orig) standardGeneric("FLParJK"))

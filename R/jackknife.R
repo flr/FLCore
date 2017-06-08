@@ -111,6 +111,18 @@ setMethod('jackknife', signature(object='FLQuants'),
   }
 ) # }}}
 
+# FLQuantJK {{{
+setMethod("FLQuantJK", signature(object="ANY", orig="ANY"),
+  function(object, orig) {
+    return(new("FLQuantJK", object, orig=orig))
+  }) # }}}
+
+# FLParJK {{{
+setMethod("FLParJK", signature(object="ANY", orig="ANY"),
+  function(object, orig) {
+    return(new("FLQuantJK", object, orig=orig))
+  }) # }}}
+
 # orig {{{
 setMethod("orig", signature(object="FLQuantJK"),
   function(object) {
