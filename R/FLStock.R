@@ -400,16 +400,6 @@ sop <- function(stock, slot="catch") {
 		slot(stock, paste(slot, ".wt", sep=""))) / slot(stock, slot))
 }	# }}}
 
-# catch<- FLQuants		{{{
-setMethod("catch<-", signature(object="FLStock", value="FLQuants"),
-	function(object, value) {
-		catch(object)    <- value[['catch']]
-		catch.n(object)  <- value[['catch.n']]
-		catch.wt(object) <- value[['catch.wt']]
-		return(object)
-	}
-) # }}}
-
 # ssbpurec  {{{
 setMethod("ssbpurec",signature(object="FLStock"),
 	function(object, start = "missing", end = "missing", type = "non-param", recs = "missing", spwns = "missing", plusgroup = TRUE, ...) {
