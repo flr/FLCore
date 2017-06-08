@@ -64,7 +64,7 @@ Collate:
     'SRmodels.R'
     'coerce.R'
     'PlotDiagnostics.R'
-    'FLQuantJK.R'
+    'jackknife.R'
     'aliases.R'
     'zzz.R'
     'io.Adapt.R'

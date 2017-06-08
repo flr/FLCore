@@ -1,16 +1,16 @@
-# FLQuantJK.R - FLQuantJK class and methods
-# FLCore/R/FLQuantJK.R
+# jackknife.R - FLQuantJK and FLParJK class and methods
+# FLCore/R/jackknife.R
 
-# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2017 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC
 
 # jackknife  {{{
 
-#' Method jacknife
+#' Method jackknife
 #'
-#' Jacknife resampling
+#' Jackknife resampling
 #' 
-#' The \code{jacknife} method sets up objects ready for jacknifing, i.e. to
+#' The \code{jackknife} method sets up objects ready for jackknifing, i.e. to
 #' systematically recompute a given statistic leaving out one observation at a
 #' time. From this new set of "observations" for the statistic, estimates for
 #' the bias and variance of the statstic can be calculated.
@@ -19,22 +19,18 @@
 #' the resulting object will have one more \code{iter} than the number of
 #' elements in the original object.
 #' 
-#' @name jacknife
-#' @aliases jacknife jacknife-methods jacknife,FLQuant-method
+#' @name jackknife
+#' @aliases jackknife jackknife-methods jackknife,FLQuant-method
 #' @docType methods
-#' @section Generic function: jacknife(object, ...)
+#' @section Generic function: jackknife(object, ...)
 #' @author The FLR Team
 #' @seealso \code{\link{FLQuant}}
 #' @keywords methods
 #' @examples
 #' 
 #' flq <- FLQuant(1:8)
-#' flj <- jacknife(flq)
+#' flj <- jackknife(flq)
 #' iters(flj)
-#'
-#' # Calculate the bias of the mean and variance estimators
-#' (mean(iter(yearMeans(flj),2:9))-c(iter(yearMeans(flj),1)))*7
-#' (mean(iter(yearVars(flj),2:9))-c(iter(yearVars(flj),1)))*7
 #'
 
 setMethod('jackknife', signature(object='FLQuant'),
@@ -84,13 +80,13 @@ setMethod('jackknife', signature(object='FLQuant'),
 )
 
 setMethod('jackknife', signature(object='FLQuants'),
-  function(object, dim='year') {
+  function(object, ...) {
 
     # GET dims
     lens <- unlist(lapply(object, function(x) prod(dim(x))))
 
     # JK each element
-    res <- lapply(object, jackknife)
+    res <- lapply(object, jackknife, ...)
 
     # ADD copies of orig as length of other elements
     for(i in seq(lens)) {
@@ -122,6 +118,12 @@ setMethod("orig", signature(object="FLQuantJK"),
   }
 )
 
+setMethod("orig", signature(object="FLParJK"),
+  function(object) {
+    return(object@orig)
+  }
+)
+
 setMethod("orig", signature(object="FLQuants"),
   function(object) {
     return(lapply(object,
@@ -134,30 +136,50 @@ setMethod("orig", signature(object="FLQuants"),
   }
 ) # }}}
 
-# apply 
+# apply {{{
 setMethod("apply", signature(X="FLQuantJK", MARGIN="numeric", FUN="function"),
   function(X, MARGIN, FUN, ...) {
-    X <- new('FLQuant', X@.Data, units=units(X))
-    return(apply(X, MARGIN, FUN, ...))
+    return(apply(new('FLQuant', X@.Data, units=units(X)), MARGIN, FUN, ...))
   })
 
+setMethod("apply", signature(X="FLParJK", MARGIN="numeric", FUN="function"),
+  function(X, MARGIN, FUN, ...) {
+    return(apply(new('FLPar', X@.Data, units=units(X)), MARGIN, FUN, ...))
+  }) # }}}
 
-# bias
+# bias {{{
 setMethod("bias", signature(x="FLQuantJK"),
   function(x) {
       return((dim(x)[6] - 1) * (iterMeans(x) - orig(x)))
-  })
+  }) 
 
-# var
+setMethod("bias", signature(x="FLParJK"),
+  function(x) {
+    return((dim(x)[length(dim(x))] - 1) * (iterMeans(FLPar(x@.Data)) - orig(x)))
+  }) # }}}
+
+# var {{{
 setMethod("var", signature(x="FLQuantJK"),
   function(x) {
     ns <- dim(x)[6]
     ((ns - 1) / ns) * iterSums((orig(x) - x)^2)
-  })
+  }) 
 
-# corrected
+setMethod("var", signature(x="FLParJK"),
+  function(x) {
+    ns <- dim(x)[length(dim(x))]
+    ((ns - 1) / ns) * iterSums((apply(x, length(dim(x)), function(y) y -orig(x)))^2)
+  }) # }}}
+
+# corrected {{{
 setMethod("corrected", signature(x="FLQuantJK"),
   function(x) {
-    dim(x)[6] * orig(x) - (dim(x)[6]-1) * iterMeans(x) 
-})
+    return(dim(x)[6] * orig(x) - (dim(x)[6]-1) * iterMeans(x))
+  }) 
 
+setMethod("corrected", signature(x="FLParJK"),
+  function(x) {
+    return(dim(x)[length(dim(x))] * orig(x) - (dim(x)[length(dim(x))]-1) * iterMeans(x))
+  }) 
+
+# }}}

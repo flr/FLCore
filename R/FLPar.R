@@ -308,6 +308,13 @@ setMethod("iterVars", "FLPar",
     apply(x, dim[-length(dim)], var, na.rm=na.rm)
   }
 )
+setMethod("iterSums", "FLPar",
+  function(x, na.rm=TRUE) {
+    dim <- seq(length=length(dim(x)))
+    apply(x, dim[-length(dim)], sum, na.rm=na.rm)
+  }
+)
+
 # }}}
 
 # coerce  {{{

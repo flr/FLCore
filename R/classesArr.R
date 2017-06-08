@@ -522,3 +522,26 @@ setClass('FLPar', representation('array', units='character'),
 		return(TRUE)
 	}
 ) # }}}
+
+# FLParJK {{{
+
+#' Class FLParJK
+#' 
+#' A class for storing parameters of a jackknifed model fit.
+#'
+#' @name FLParJK
+#' @aliases FLParJK-class FLParJK
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{Describe slot. \code{array}.}
+#' \item{units}{Units of measurement. \code{character}.} \item{orig}{\code{array}}}
+#' @author The FLR Team
+#' @seealso \link[FLCore]{FLPar}
+#' @keywords classes
+
+setClass("FLParJK",
+	representation("FLPar", orig="FLPar"),
+  prototype(new("FLPar"), orig=new("FLPar")),
+	validity=function(object) {
+		return(TRUE)
+	}
+) # }}}
