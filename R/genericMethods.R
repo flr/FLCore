@@ -1277,3 +1277,7 @@ setGeneric("srparams<-", function(object, ..., value)
   standardGeneric("srparams<-"))
 
 setGeneric("vb", function(x, sel, ...) standardGeneric("vb"))
+
+setGeneric("bias", function(x) standardGeneric("bias"))
+
+setGeneric("corrected", function(x) standardGeneric("corrected"))

@@ -356,12 +356,12 @@ setMethod('fmle',
         object@logLik[it] <- -out$value
         attr(object@logLik, 'nobs') <- length(data[[1]])
 
-        # fitted & residuals
-        iter(fitted(object), it) <- predict(iter(object, it))
-        iter(residuals(object), it) <- iter(slot(object,
-          as.list(object@model)[[2]]),it) - iter(fitted(object), it)
       }
     }
+ 
+    fitted(object) <- predict(object)
+    residuals(object) <- slot(object, as.character(object@model[[2]])) - fitted(object)
+
     # force dimnames[1:5] in 'fitted' and 'residuals' to match
     dimnames(fitted(object))[1:5] <- dimnames(do.call(as.character(
       as.list(object@model)[2]), list(object)))[1:5]

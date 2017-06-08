@@ -411,8 +411,8 @@ setClass("FLQuantJK",
   prototype(new("FLQuant"), orig=new("FLQuant")),
   validity=function(object) {
 
-    if(!all.equal(dimnames(object@.Data)[1:5], dimnames(object@orig)[1:5]))
-      return("Original and jackknifed object must share dimnames[1-5]")
+#    if(!all.equal(dimnames(object@.Data)[1:5], dimnames(object@orig)[1:5]))
+#     return("Original and jackknifed object must share dimnames[1-5]")
 
     return(TRUE)
   }

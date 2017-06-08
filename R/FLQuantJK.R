@@ -38,7 +38,7 @@
 #'
 
 setMethod('jackknife', signature(object='FLQuant'),
-  function(object, dim='year', rm.na=TRUE) {
+  function(object, dim='year', na.rm=TRUE) {
 
     # tests
       # object must have no iters
@@ -77,8 +77,40 @@ setMethod('jackknife', signature(object='FLQuant'),
         flag=seq(dims(x)$iter)[c(!is.na(object))]
         return(x[,,,,,flag])}
     
-    if (rm.na)  res=jk.NA(res,object)
+    if (na.rm)  res=jk.NA(res,object)
  
+    return(res)
+  }
+)
+
+setMethod('jackknife', signature(object='FLQuants'),
+  function(object, dim='year') {
+
+    # GET dims
+    lens <- unlist(lapply(object, function(x) prod(dim(x))))
+
+    # JK each element
+    res <- lapply(object, jackknife)
+
+    # ADD copies of orig as length of other elements
+    for(i in seq(lens)) {
+
+      # before
+      if(i > 1) {
+        before <- propagate(object[[i]], sum(lens[seq(0, i-1)]))
+        res[[i]] <- combine(before, res[[i]])
+      }
+
+      # after
+      if(i < length(lens)) {
+        after <- propagate(object[[i]], sum(lens[-seq(1, i)]))
+        res[[i]] <- combine(res[[i]], after)
+      }
+
+      # CREATE FLQuantJK(s)
+      res[[i]] <- new("FLQuantJK", res[[i]], orig=object[[i]])
+    }
+
     return(res)
   }
 ) # }}}
@@ -88,4 +120,44 @@ setMethod("orig", signature(object="FLQuantJK"),
   function(object) {
     return(object@orig)
   }
+)
+
+setMethod("orig", signature(object="FLQuants"),
+  function(object) {
+    return(lapply(object,
+      function(x)
+        if(is(x, "FLQuantJK"))
+          orig(x)
+        else
+          x
+      ))
+  }
 ) # }}}
+
+# apply 
+setMethod("apply", signature(X="FLQuantJK", MARGIN="numeric", FUN="function"),
+  function(X, MARGIN, FUN, ...) {
+    X <- new('FLQuant', X@.Data, units=units(X))
+    return(apply(X, MARGIN, FUN, ...))
+  })
+
+
+# bias
+setMethod("bias", signature(x="FLQuantJK"),
+  function(x) {
+      return((dim(x)[6] - 1) * (iterMeans(x) - orig(x)))
+  })
+
+# var
+setMethod("var", signature(x="FLQuantJK"),
+  function(x) {
+    ns <- dim(x)[6]
+    ((ns - 1) / ns) * iterSums((orig(x) - x)^2)
+  })
+
+# corrected
+setMethod("corrected", signature(x="FLQuantJK"),
+  function(x) {
+    dim(x)[6] * orig(x) - (dim(x)[6]-1) * iterMeans(x) 
+})
+

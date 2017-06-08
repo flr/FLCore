@@ -893,9 +893,9 @@ setClass('FLModel',
 		{
 	  # All FLArray slots are of the same exact class
   	flarr <- getSlotNamesClass(object, 'FLArray')
-	  class <- class(slot(object, flarr[1]))
+	  class <- class(slot(object, 'fitted'))
   	for(i in flarr[-1])
-    	if(class(slot(object, i)) != class)
+    	if(!is(slot(object, i), class))
       	return(paste('FLQuant/FLCohort slots in object should all be of the same class: ',
         	i))
 	
