@@ -14,6 +14,7 @@ setGeneric("as.data.frame", useAsDefault = as.data.frame)
 setGeneric("barchart", useAsDefault = lattice::barchart)
 setGeneric("bwplot", useAsDefault = lattice::bwplot)
 setGeneric("coef", useAsDefault = coef)
+setGeneric("cov", useAsDefault = cov)
 setGeneric("densityplot", useAsDefault = densityplot)
 setGeneric("dotplot", useAsDefault = dotplot)
 setGeneric("expand", useAsDefault=Matrix::expand)
@@ -51,6 +52,7 @@ setGeneric("tsp", useAsDefault=tsp)
 setGeneric("units", useAsDefault=units)
 setGeneric("update", useAsDefault = update)
 setGeneric("var", useAsDefault = var)
+setGeneric("vcov", useAsDefault = vcov)
 setGeneric("window", useAsDefault = window)
 setGeneric("wireframe", useAsDefault=wireframe)
 setGeneric("xyplot", useAsDefault = xyplot) # }}}
@@ -218,7 +220,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #' @aliases m.spwn<- m<- m<- mat mat<- model model<- n n<- name name<- params
 #' @aliases params<- range<- rec rec.obs rec<- residuals residuals<- sel.pattern
 #' @aliases sel.pattern<- spwn spwn<- stock stock.n stock.n<- stock.wt stock.wt<-
-#' @aliases stock<- type type<- units<- vcov vcov<- wt wt<- 
+#' @aliases stock<- type type<- units<- vcov<- wt wt<- 
 #'
 #' @author The FLR Team
 #' @seealso \code{\link{FLQuant}}, \code{\link{FLStock}}, \code{\link{FLIndex}},
@@ -434,8 +436,6 @@ setGeneric('logLik<-', function(object, ..., value)
 		standardGeneric('logLik<-'))
 
 # vcov
-setGeneric('vcov', function(object, ...)
-		standardGeneric('vcov'))
 setGeneric('vcov<-', function(object, ..., value)
 		standardGeneric('vcov<-'))
 

@@ -111,6 +111,34 @@ setMethod('jackknife', signature(object='FLQuants'),
   }
 ) # }}}
 
+setMethod("jackknife", signature(object="FLModel"),
+  function(object) {
+
+    # CHECK inputs are JK
+
+    # RUN fit on JK
+    res <- fmle(object)
+
+    # RUN fit on orig
+    ori <- object
+    rec(ori) <- orig(rec(ori))
+    ori <- fmle(ori)
+
+    # SET FLParJK @params
+    params(res) <- FLParJK(params(res), orig=params(ori))
+
+    # SET fitted
+    fitted <- FLQuantJK(fitted(res), orig=fitted(ori))
+
+    # SET residuals
+
+    # SET vcov
+
+  }
+)
+
+
+
 # FLQuantJK {{{
 setMethod("FLQuantJK", signature(object="ANY", orig="ANY"),
   function(object, orig) {
@@ -160,6 +188,7 @@ setMethod("apply", signature(X="FLParJK", MARGIN="numeric", FUN="function"),
   }) # }}}
 
 # bias {{{
+# $ \widehat{Bias}_{(\theta)} = (n - 1)((\frac{1}{n}\sum\limits_{i=1}^n\hat{\theta}_{(i)})-\hat{\theta}) $
 setMethod("bias", signature(x="FLQuantJK"),
   function(x) {
       return((dim(x)[6] - 1) * (iterMeans(x) - orig(x)))
@@ -171,19 +200,21 @@ setMethod("bias", signature(x="FLParJK"),
   }) # }}}
 
 # var {{{
+# $ var = \frac{n-1}{n}\sum\limits_{i=1}^n (\bar{x}_i - (\frac{1}{n} \sum\limits_{i}^n \bar{x}_i))^2 $
 setMethod("var", signature(x="FLQuantJK"),
   function(x) {
     ns <- dim(x)[6]
-    ((ns - 1) / ns) * iterSums((orig(x) - x)^2)
+    return(((ns - 1) / ns) * iterSums((x - iterMeans(x))^2))
   }) 
 
 setMethod("var", signature(x="FLParJK"),
   function(x) {
     ns <- dim(x)[length(dim(x))]
-    ((ns - 1) / ns) * iterSums((apply(x, length(dim(x)), function(y) y -orig(x)))^2)
+    return(((ns - 1) / ns) * iterSums((x - propagate(iterMeans(x), ns)) ^ 2))
   }) # }}}
 
 # corrected {{{
+# $ \hat{\theta}_{jack} = n\hat{\theta} - (n - 1)\hat{\theta}_{(.)} $
 setMethod("corrected", signature(x="FLQuantJK"),
   function(x) {
     return(dim(x)[6] * orig(x) - (dim(x)[6]-1) * iterMeans(x))
@@ -195,3 +226,16 @@ setMethod("corrected", signature(x="FLParJK"),
   }) 
 
 # }}}
+
+# cov {{{
+setMethod("cov", signature(x="FLParJK", y="missing"),
+  function(x) {
+    ns <- dim(x)[length(dim(x))]
+    return(FLPar(cov(model.frame(x)[, dimnames(x)[[1]]]) * (ns - 1) * (ns - 1) / ns))
+  }) # }}}
+
+# cor {{{
+setMethod("cor", signature(x="FLParJK", y="missing"),
+  function(x) {
+    return(FLPar(cor(cov(x)[drop=TRUE])))
+  }) # }}}
