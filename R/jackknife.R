@@ -109,7 +109,7 @@ setMethod('jackknife', signature(object='FLQuants'),
 
     return(res)
   }
-) # }}}
+)
 
 setMethod("jackknife", signature(object="FLModel"),
   function(object) {
@@ -135,9 +135,7 @@ setMethod("jackknife", signature(object="FLModel"),
     # SET vcov
 
   }
-)
-
-
+) # }}}
 
 # FLQuantJK {{{
 setMethod("FLQuantJK", signature(object="ANY", orig="ANY"),
@@ -238,4 +236,12 @@ setMethod("cov", signature(x="FLParJK", y="missing"),
 setMethod("cor", signature(x="FLParJK", y="missing"),
   function(x) {
     return(FLPar(cor(cov(x)[drop=TRUE])))
+  }) # }}}
+
+# window {{{
+setMethod("window", signature(x="FLQuantJK"),
+  function(x, ...) {
+    new("FLQuantJK",
+      window(FLQuant(x@.Data), ...),
+      orig=window(orig(x), ...), units=units(x))
   }) # }}}
