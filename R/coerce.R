@@ -216,11 +216,20 @@ setAs('FLStock', 'FLIndex',
 # TO FLBiol  {{{
 setAs('FLStock', 'FLBiol',
   function(from) {
-    FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m, spwn=from@m.spwn[1,],
+    out <- FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m, spwn=from@m.spwn[1,],
       mat=new("predictModel", FLQuants(mat=from@mat), model=~mat),
       fec=new('predictModel', FLQuants(fec=from@mat), model=~fec),
       rec = new('predictModel', FLQuants(rec=from@stock.n[1,]), model=~rec),
       name=from@name, desc=from@desc, range=from@range)
+    # Empty desc and name slots are a frequent issue with FLasher, i.e. character(0)
+    # So check if empty and if fill with something
+    if (identical(character(0), name(out))){
+        name(out) <- ""
+    }
+    if (identical(character(0), desc(out))){
+        desc(out) <- ""
+    }
+    return(out)
   }
 ) # }}}
 
