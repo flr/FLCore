@@ -184,6 +184,12 @@ setClass("FLQuant",
 #' @name FLQuantPoint
 #' @aliases FLQuantPoint-class FLQuantPoint FLQuantPoint-methods
 #' @aliases FLQuantPoint,FLQuant-method
+#' @aliases mean,FLQuantPoint-method mean<-,FLQuantPoint,FLQuant-method
+#' @aliases median,FLQuantPoint-method median<-,FLQuantPoint,FLQuant-method
+#' @aliases var,FLQuantPoint-method var<-,FLQuantPoint,FLQuant-method
+#' @aliases lowq,FLQuantPoint-method lowq<-,FLQuantPoint,FLQuant-method
+#' @aliases uppq,FLQuantPoint-method uppq<-,FLQuantPoint,FLQuant-method
+#' @aliases quantile,FLQuantPoint-method
 #' @docType class
 #' @section Slots: \describe{
 #'  \item{.Data}{The main array holding the computed statistics. \code{array}.}
@@ -195,6 +201,7 @@ setClass("FLQuant",
 #'  \item{var,var<-:}{'var' element on 6th dimension, variance.}
 #'  \item{lowq,lowq<-:}{'lowq' element on 6th dimension, lower quantile (0.25 by default).}
 #'  \item{uppq,uppq<-:}{'uppq' element on 6th dimension, upper quantile (0.75 by default).}
+#'  \item{quantile:}{returns the 'lowq' or 'uppq' iter, depending on the value of 'probs' (0.25 or 0.75).}
 #' }
 #' @section Constructor:
 #'  Inputs can be of class:
@@ -404,8 +411,8 @@ setClass("FLQuantJK",
   prototype(new("FLQuant"), orig=new("FLQuant")),
   validity=function(object) {
 
-    if(!all.equal(dimnames(object@.Data)[1:5], dimnames(object@orig)[1:5]))
-      return("Original and jackknifed object must share dimnames[1-5]")
+#    if(!all.equal(dimnames(object@.Data)[1:5], dimnames(object@orig)[1:5]))
+#     return("Original and jackknifed object must share dimnames[1-5]")
 
     return(TRUE)
   }
@@ -512,6 +519,29 @@ setClass('FLPar', representation('array', units='character'),
 	  # if(names(dimnames(object))[1] != "param")
   	#   return("last dimension must be named 'param'")
 
+		return(TRUE)
+	}
+) # }}}
+
+# FLParJK {{{
+
+#' Class FLParJK
+#' 
+#' A class for storing parameters of a jackknifed model fit.
+#'
+#' @name FLParJK
+#' @aliases FLParJK-class FLParJK
+#' @docType class
+#' @section Slots: \describe{ \item{.Data}{Describe slot. \code{array}.}
+#' \item{units}{Units of measurement. \code{character}.} \item{orig}{\code{array}}}
+#' @author The FLR Team
+#' @seealso \link[FLCore]{FLPar}
+#' @keywords classes
+
+setClass("FLParJK",
+	representation("FLPar", orig="FLPar"),
+  prototype(new("FLPar"), orig=new("FLPar")),
+	validity=function(object) {
 		return(TRUE)
 	}
 ) # }}}

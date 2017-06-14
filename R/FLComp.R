@@ -503,18 +503,43 @@ setMethod("vecage", "FLComp", function(object){
 	rng[1]:rng[2]
 }) # }}}
 
-# ibind {{{
-ibind <- function(...) {
+# metrics {{{
 
-  args <- list(...)
+#' @examples
+#' # missing
+#' metrics(ple4)
+#' # metrics = function
+#' metrics(ple4, metrics=function(x) FLQuants(SSB=ssb(x), REC=rec(x),
+#'   F=fbar(x), SSBREC=ssb(x) / rec(x)))
+#' # metrics = formula
+#' metrics(ple4, metrics=SSB~ssb)
+#' metrics(ple4, metrics=~ssb)
+#' # metrics = list
+#' metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
+#' metrics(ple4, metrics=list(SSB=~ssb, REC=rec, F=fbar))
 
-  its <- length(args)
-
-  res <- propagate(args[[1]], its)
-
-  if(its > 1) {
-    for(i in seq(2, its))
-      res[,,,,,i] <- args[[i]]
+setMethod("metrics", signature(object="FLComp", metrics="list"),
+  function(object, metrics) {
+    return(FLQuants(lapply(metrics, function(x)
+      # CALL each function
+      do.call("metrics", list(object=object, metrics=x)))))
   }
-  return(res)
-} # }}}
+)
+
+setMethod("metrics", signature(object="FLComp", metrics="function"),
+  function(object, metrics) {
+    # CALL function
+    return(do.call(metrics, list(object)))
+  }
+)
+
+setMethod("metrics", signature(object="FLComp", metrics="formula"),
+  function(object, metrics) {
+    if(is(metrics[[length(metrics)]], "name"))
+        # CALL function
+          return(do.call(as.character(metrics[[length(metrics)]]), list(object)))
+        else
+          # EVAL formula
+          return(eval(metrics[[length(metrics)]], list(object)))
+  }
+) # }}}

@@ -7,9 +7,9 @@
 evalPredictModel(object, slot)
 }
 \arguments{
-\item{object}{The FLR S4 object holding the `predictModel` slot.}
+\item{object}{The FLR S4 over whicvh the predictModel evaluation should take place}
 
-\item{slot}{The name of the slot to be evaluated, as a character.}
+\item{slot}{The predictModel object to be evaluated}
 }
 \value{
 The result of evaluating the model, usually an `FLQuant`

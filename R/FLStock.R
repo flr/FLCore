@@ -400,16 +400,6 @@ sop <- function(stock, slot="catch") {
 		slot(stock, paste(slot, ".wt", sep=""))) / slot(stock, slot))
 }	# }}}
 
-# catch<- FLQuants		{{{
-setMethod("catch<-", signature(object="FLStock", value="FLQuants"),
-	function(object, value) {
-		catch(object)    <- value[['catch']]
-		catch.n(object)  <- value[['catch.n']]
-		catch.wt(object) <- value[['catch.wt']]
-		return(object)
-	}
-) # }}}
-
 # ssbpurec  {{{
 setMethod("ssbpurec",signature(object="FLStock"),
 	function(object, start = "missing", end = "missing", type = "non-param", recs = "missing", spwns = "missing", plusgroup = TRUE, ...) {
@@ -883,64 +873,6 @@ setMethod("catch.sel", signature(object="FLStock"),
 setMethod("dim", signature(x="FLStock"),
   function(x) {
     return(dim(x@m))
-  }
-) # }}}
-
-# metrics {{{
-
-#' @examples
-#' # missing
-#' metrics(ple4)
-#' # metrics = function
-#' metrics(ple4, metrics=function(x) FLQuants(SSB=ssb(x), REC=rec(x),
-#'   F=fbar(x), SSBREC=ssb(x) / rec(x)))
-#' # metrics = formula
-#' metrics(ple4, metrics=SSB~ssb)
-#' metrics(ple4, metrics=~ssb)
-#' # metrics = list
-#' metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
-#' metrics(ple4, metrics=list(SSB=~ssb, REC=rec, F=fbar))
-
-setMethod("metrics", signature(object="FLComp", metrics="list"),
-  function(object, metrics) {
-    return(FLQuants(lapply(metrics, function(x)
-      # CALL each function
-      do.call("metrics", list(object=object, metrics=x)))))
-  }
-)
-
-setMethod("metrics", signature(object="FLComp", metrics="function"),
-  function(object, metrics) {
-    # CALL function
-    return(do.call(metrics, list(object)))
-  }
-)
-
-setMethod("metrics", signature(object="FLComp", metrics="formula"),
-  function(object, metrics) {
-    if(is(metrics[[length(metrics)]], "name"))
-        # CALL function
-          return(do.call(as.character(metrics[[length(metrics)]]), list(object)))
-        else
-          # EVAL formula
-          return(eval(metrics[[length(metrics)]], list(object)))
-  }
-)
-
-# FLS
-setMethod("metrics", signature(object="FLStock", metrics="missing"),
-  function(object, ...) {
-    
-    dots <- list(...)
-    foo <- selectMethod('metrics', c(object='FLStock', metrics='list'))
-
-    if(length(dots) > 0) {
-      do.call(metrics, list(object=object, metrics=dots))
-      return(foo(object=object, metrics=dots))
-    }
-    else {
-      return(foo(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
-    }
   }
 ) # }}}
 

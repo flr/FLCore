@@ -129,7 +129,7 @@ setMethod('FLPar', signature('FLPar'),
   }
 ) # }}}
 
-# '['   {{{
+# [   {{{
 #' @rdname Extract
 #' @aliases [,FLPar,ANY,ANY,ANY-method
 setMethod('[', signature(x='FLPar'),
@@ -178,7 +178,7 @@ setMethod('[', signature(x='FLPar', i='array', j='missing', drop='missing'),
   }
 ) # }}}
 
-# "[<-"     {{{
+# [<-     {{{
 #' @rdname Extract
 #' @aliases [<-,FLPar,ANY,ANY,ANY-method
 setMethod("[<-", signature(x="FLPar", value="ANY"),
@@ -308,6 +308,13 @@ setMethod("iterVars", "FLPar",
     apply(x, dim[-length(dim)], var, na.rm=na.rm)
   }
 )
+setMethod("iterSums", "FLPar",
+  function(x, na.rm=TRUE) {
+    dim <- seq(length=length(dim(x)))
+    apply(x, dim[-length(dim)], sum, na.rm=na.rm)
+  }
+)
+
 # }}}
 
 # coerce  {{{
@@ -876,4 +883,3 @@ setMethod('$', signature(x='FLPar'),
     return(x[name,])
   }
 ) # }}}
-

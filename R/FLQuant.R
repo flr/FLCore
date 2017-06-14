@@ -557,7 +557,17 @@ setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
   }))
-}) # }}}
+})
+
+#' @rdname dimSummaries
+#' @aliases iterSums,FLQuant-method
+setMethod('iterSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
+  return(apply(x,1:5, function(x, NA.RM=na.rm){
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+  }))
+})
+
+# }}}
 
 # means         {{{
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
@@ -952,47 +962,6 @@ setMethod('sweep', signature(x='FLQuant'),
   {
     res <- callNextMethod()
     FLQuant(res, units=units(x))
-  }
-) # }}}
-
-# jacknife  {{{
-setMethod('jacknife', signature(object='FLQuant'),
-  function(object, na.rm=TRUE) {
-
-    # drop NAs if na.rm=TRUE
-    if(na.rm)
-      object <- object[!is.na(object)]
-
-    # get dimensions
-    dmo <- dim(object)
-
-    # propagate
-    res <- propagate(object, prod(dmo) + 1)
-
-    # create array with 1 at each location by iter
-    idx <- array(c(TRUE, rep(NA, prod(dmo[-6]))), dim=c(dmo[-6], prod(dmo)))
-    res[,,,,,-1][idx] <- NA
-
-    return(res)
-  }
-) # }}}
-
-# jackSummary {{{
-setMethod("jackSummary", signature(object="FLQuant"),
-  function(object, ...) {
-
-   n <- dims(object)$iter - 1
-
-   mn <- iter(object,  1)
-   u <- iter(object, -1)
-   mnU <- apply(u, 1:5, mean)
-
-   SS <- apply(sweep(u, 1:5, mnU,"-")^2, 1:5, sum)
-
-   bias <- (n - 1) * (mnU - mn)
-   se <- sqrt(((n-1)/n)*SS)
-
-   return(list(jack.mean=mn, jack.se=se, jack.bias=bias))
   }
 ) # }}}
 

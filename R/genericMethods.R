@@ -14,6 +14,7 @@ setGeneric("as.data.frame", useAsDefault = as.data.frame)
 setGeneric("barchart", useAsDefault = lattice::barchart)
 setGeneric("bwplot", useAsDefault = lattice::bwplot)
 setGeneric("coef", useAsDefault = coef)
+setGeneric("cov", useAsDefault = cov)
 setGeneric("densityplot", useAsDefault = densityplot)
 setGeneric("dotplot", useAsDefault = dotplot)
 setGeneric("expand", useAsDefault=Matrix::expand)
@@ -51,6 +52,7 @@ setGeneric("tsp", useAsDefault=tsp)
 setGeneric("units", useAsDefault=units)
 setGeneric("update", useAsDefault = update)
 setGeneric("var", useAsDefault = var)
+setGeneric("vcov", useAsDefault = vcov)
 setGeneric("window", useAsDefault = window)
 setGeneric("wireframe", useAsDefault=wireframe)
 setGeneric("xyplot", useAsDefault = xyplot) # }}}
@@ -218,7 +220,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #' @aliases m.spwn<- m<- m<- mat mat<- model model<- n n<- name name<- params
 #' @aliases params<- range<- rec rec.obs rec<- residuals residuals<- sel.pattern
 #' @aliases sel.pattern<- spwn spwn<- stock stock.n stock.n<- stock.wt stock.wt<-
-#' @aliases stock<- type type<- units<- vcov vcov<- wt wt<- 
+#' @aliases stock<- type type<- units<- vcov<- wt wt<- 
 #'
 #' @author The FLR Team
 #' @seealso \code{\link{FLQuant}}, \code{\link{FLStock}}, \code{\link{FLIndex}},
@@ -434,8 +436,6 @@ setGeneric('logLik<-', function(object, ..., value)
 		standardGeneric('logLik<-'))
 
 # vcov
-setGeneric('vcov', function(object, ...)
-		standardGeneric('vcov'))
 setGeneric('vcov<-', function(object, ..., value)
 		standardGeneric('vcov<-'))
 
@@ -1055,7 +1055,7 @@ setGeneric("yearTotals", function(x, ...)
 #' unitSums(x), unitMeans(x), unitVars(x)
 #' seasonSums(x), seasonMeans(x), seasonVars(x)
 #' areaSums(x), areaMeans(x), areaVars(x)
-#' iterMeans(x), iterVars(x), iterMedians(x)
+#' iterMeans(x), iterVars(x), iterMedians(x), iterSums(x)
 #' dimSums(x), dimMeans(x), dimVars(x)
 #' @param x An object.
 #' @param na.rm Should NAs be removed before calculation? Defaults to TRUE.
@@ -1108,6 +1108,9 @@ setGeneric("areaMeans", function(x, ...) standardGeneric("areaMeans"))
 #' @rdname dimSummaries
 #' @aliases iterMeans
 setGeneric("iterMeans", function(x, ...) standardGeneric("iterMeans"))
+#' @rdname dimSummaries
+#' @aliases iterSums
+setGeneric("iterSums", function(x, ...) standardGeneric("iterSums"))
 #' @rdname dimSummaries
 #' @aliases dimMeans
 setGeneric("dimMeans", function(x, ...) standardGeneric("dimMeans"))
@@ -1274,3 +1277,11 @@ setGeneric("srparams<-", function(object, ..., value)
   standardGeneric("srparams<-"))
 
 setGeneric("vb", function(x, sel, ...) standardGeneric("vb"))
+
+setGeneric("bias", function(x) standardGeneric("bias"))
+
+setGeneric("corrected", function(x) standardGeneric("corrected"))
+
+setGeneric("FLQuantJK", function(object, orig) standardGeneric("FLQuantJK"))
+
+setGeneric("FLParJK", function(object, orig) standardGeneric("FLParJK"))
