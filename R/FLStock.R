@@ -901,3 +901,21 @@ setMethod("vb", signature(x="FLStock", sel="FLQuant"),
 )
 
 # }}}
+
+# dimnames {{{
+setMethod("dimnames", signature(x="FLStock"),
+  function(x) {
+
+    # GET dimnames from m
+    dns <- dimnames(m(x))
+
+    # FIND slot with max iter
+    its <- qapply(x, function(x) dimnames(x)$iter)
+    len <- unlist(lapply(its, length))
+    slt <- names(which(len == max(len)))
+ 
+    dns$iter <- its[[slt]]
+
+    return(dns)
+  }
+) # }}}

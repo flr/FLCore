@@ -427,7 +427,10 @@ setReplaceMethod("range", signature(x="FLComp", i="ANY", value="numeric"),
   function(x, i, value)
   {
     slot(x, 'range')[i] <- value
-    return(x)
+    if(validObject(x))
+      return(x)
+    else
+      stop("Object not valid")
   }
 ) # }}}
 

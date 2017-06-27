@@ -173,6 +173,16 @@ setClass("FLS",
   ),
   validity=function(object) {
 
+    ran <- range(object)
+    dms <- dims(object)
+    # CHECK minfbar, maxfbar and plusgroup match object dimensions
+    if(ran["minfbar"] < dms$min)
+      return("minfbar is lower than first age")
+    if(ran["maxfbar"] > dms$max)
+      return("maxfbar is higher than last age")
+    if(ran["plusgroup"] > dms$max)
+      return("plusgroup is highet than last age")
+
   return(TRUE)}
 )
 
