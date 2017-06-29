@@ -175,10 +175,12 @@ setClass("FLS",
 
     ran <- range(object)
     dms <- dims(object)
+
     # CHECK minfbar, maxfbar and plusgroup match object dimensions
-    if(ran["minfbar"] < dms$min)
+
+    if(!is.na(dms$min) & ran["minfbar"] < dms$min)
       return("minfbar is lower than first age")
-    if(ran["maxfbar"] > dms$max)
+    if(!is.na(dms$max) &ran["maxfbar"] > dms$max)
       return("maxfbar is higher than last age")
     if(!is.na(ran["plusgroup"]) & ran["plusgroup"] > dms$max)
       return("plusgroup is higher than last age")
