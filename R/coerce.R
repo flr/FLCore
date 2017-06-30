@@ -43,8 +43,7 @@ setAs('FLPar', 'data.frame',
 
 # TO FLQuant {{{
 setAs("data.frame", "FLQuant",
-  function(from)
-  {
+  function(from) {
     # get data.frame names and compare
     names(from) <- tolower(names(from))
     validnames <-c("year","unit","season","area","iter","data")
@@ -90,17 +89,15 @@ setAs("data.frame", "FLQuant",
 
     # fill up missing years
     if(length(dimnames(flq)[['year']]) != length(as.character(seq(dims(flq)$minyear,
-      dims(flq)$maxyear))))
-    {
+      dims(flq)$maxyear)))) {
       res <- FLQuant(dimnames=c(dimnames(flq)[1], list(year=seq(dims(flq)$minyear,
         dims(flq)$maxyear)), dimnames(flq)[3:6]))
       res[,dimnames(flq)[['year']],] <- flq
       flq <- res
     }
-return(flq)
+  return(flq)
   }
-)
-# }}}
+) # }}}
 
 # TO FLStock {{{
 setAs('FLBiol', 'FLStock',
@@ -113,18 +110,24 @@ setAs('FLBiol', 'FLStock',
 )
 
 setAs('data.frame', 'FLStock',
-  function(from)
-  {
-        slots <- as.character(unique(from$slot))
-        lst <- vector(length=length(slots), mode='list')
-        names(lst) <- slots
+  function(from) {
+    slots <- as.character(unique(from$slot))
+    lst <- vector(length=length(slots), mode='list')
+    names(lst) <- slots
 
-        for(i in slots) {
-            lst[[i]] <- as.FLQuant(subset(from, slot==i, select=-slot))
-        }
+    cnms <- colnames(from)
 
-        return(do.call('FLStock', lst))
+    if(is(from, "data.table")) {
+      for(i in slots) {
+        lst[[i]] <- as(from[slot == i, !"slot"], "FLQuant")
+      }
+    } else {
+      for(i in slots) {
+        lst[[i]] <- as.FLQuant(subset(from, slot==i, select=-slot))
+      }
     }
+    return(do.call('FLStock', lst))
+  }
 )
 
 setMethod('as.FLStock', signature(object='data.frame'),
