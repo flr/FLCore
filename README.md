@@ -1,6 +1,6 @@
 
 # FLCore
-- Version: 2.6.2.9003
+- Version: 2.6.3
 - Date: 2017-07-05
 - Author: FLR Team and various contributors.
 - Maintainer: Iago Mosqueira <iago.mosqueira@ec.europa.eu>
