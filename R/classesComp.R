@@ -175,15 +175,10 @@ setClass("FLS",
 
     ran <- range(object)
     dms <- dims(object)
-
-    # CHECK minfbar, maxfbar and plusgroup match object dimensions
-
-    if(!is.na(dms$min) & ran["minfbar"] < dms$min)
-      return("minfbar is lower than first age")
-    if(!is.na(dms$max) &ran["maxfbar"] > dms$max)
-      return("maxfbar is higher than last age")
-    if(!is.na(ran["plusgroup"]) & ran["plusgroup"] > dms$max)
-      return("plusgroup is higher than last age")
+    
+    # CHECK year range
+	  if(any(range(object, c("minyear", "maxyear")) != dms[c("minyear", "maxyear")]))
+      return('Years in range do not match object dimensions')
 
   return(TRUE)}
 )
@@ -355,12 +350,17 @@ setClass("FLStock",
 		if(dim(slot(object, i))[1] != 1)
 			return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
 	}
-	# check range
-	dim <- dim(object@catch.n)
-	dimnm <- dimnames(object@catch.n)
-	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-		as.numeric(dimnm$year[dim[2]]))))
-		return('Range does not match object dimensions')
+	
+    ran <- range(object)
+    dms <- dims(object)
+
+    # CHECK minfbar, maxfbar and plusgroup match object dimensions
+    if(!is.na(dms$min) & ran["minfbar"] < dms$min)
+      return("minfbar is lower than first age")
+    if(!is.na(dms$max) &ran["maxfbar"] > dms$max)
+      return("maxfbar is higher than last age")
+    if(!is.na(ran["plusgroup"]) & ran["plusgroup"] > dms$max)
+      return("plusgroup is higher than last age")
 
 	return(TRUE)}
 ) # }}}
