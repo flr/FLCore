@@ -26,7 +26,7 @@ setMethod("FLStockLen", signature(object="FLQuant"),
     dims <- dims(object)
 
 		# midpoint
-		lens <- as.numeric(dimnames(object)[[1]])
+		lens <- suppressWarnings(as.numeric(dimnames(object)[[1]]))
 		if(all(is.na(lens)))
 			halfwidth <- as.numeric(NA)
 		else {
