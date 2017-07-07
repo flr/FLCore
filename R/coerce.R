@@ -117,14 +117,8 @@ setAs('data.frame', 'FLStock',
 
     cnms <- colnames(from)
 
-    if(is(from, "data.table")) {
-      for(i in slots) {
-        lst[[i]] <- as(from[slot == i, !"slot"], "FLQuant")
-      }
-    } else {
-      for(i in slots) {
-        lst[[i]] <- as.FLQuant(subset(from, slot==i, select=-slot))
-      }
+    for(i in slots) {
+      lst[[i]] <- as.FLQuant(subset(from, slot==i, select=-slot))
     }
     return(do.call('FLStock', lst))
   }
