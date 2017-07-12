@@ -37,44 +37,53 @@ setMethod('jackknife', signature(object='FLQuant'),
   function(object, dim='year', na.rm=TRUE) {
 
     # tests
-      # object must have no iters
-      if(dim(object)[6] > 1)
-        stop("object cannot already contain iters: dim(object)[6] > 1")
+    # object must have no iters
+    if(dim(object)[6] > 1)
+      stop("object cannot already contain iters: dim(object)[6] > 1")
+  
+    # only one dim
+    if(length(dim) > 1)
+      stop(paste("Objects can only be jackknifed along 1 dimension:"), dim)
 
-      # only one dim
-      if(length(dim) > 1)
-        stop(paste("Objects can only be jackknifed along 1 dimension:"), dim)
-
-      # dim cannot be 'iter'
-      if(dim == 6 | dim =='iter')
-        stop("iter dimension cannot be jackknifed")
+    # dim cannot be 'iter'
+    if(dim == 6 | dim =='iter')
+      stop("iter dimension cannot be jackknifed")
 
     # match dim name
     if(is.character(dim))
       dim <- seq(1:6)[names(object) %in% dim]
 
-    # propagate
-    res <- propagate(object, dim(object)[dim])
+    # FIND NAs along dim
+    nas <- apply(object, dim, function(x) sum(is.na(x)))
+    nas <- list(c(!nas == prod(dim(object)[-dim])))
+    names(nas) <- c("i", "j", "k", "l", "m")[dim]
+    
+    res <- propagate(object, sum(nas[[1]]))
+    dres <- dim(do.call("[", c(list(x=res), nas)))
   
-    # permutaion vector, place dim one before last
+    # permutation vector, place dim one before last
     perms <- rep(5, 5)
     perms[-dim] <- 1:4
 
     # create array with 1 at each location by iter
-    idx <- aperm(array(c(rep(T, prod(dim(object)[-dim])), rep(F, prod(dim(res)[-6]))),
-        dim=c(dim(object)[seq(1:5)[-dim]], dim(object)[dim], dim(object)[dim])),
+    idx <- aperm(array(c(rep(TRUE, prod(dres[-c(dim, 6)])),
+      rep(FALSE, prod(dres[-6]))), dim=dres[c(seq(1, 6)[-dim], dim)]),
       c(perms, 6))
-
-    res[idx] <- NA
+ 
+    # ASSIGN idx to corresponding dims in res   
+    if(dim==1)
+      res[nas[[1]], ][idx] <- NA
+    if(dim==2)
+      res[,nas[[1]], ][idx] <- NA
+    if(dim==3)
+      res[,,nas[[1]], ][idx] <- NA
+    if(dim==4)
+      res[,,,nas[[1]], ][idx] <- NA
+    if(dim==5)
+      res[,,,,nas[[1]], ][idx] <- NA
 
     res <- new("FLQuantJK", res, orig=object)
 
-    jk.NA=function(x,object){
-        flag=seq(dims(x)$iter)[c(!is.na(object))]
-        return(x[,,,,,flag])}
-    
-    if (na.rm)  res=jk.NA(res,object)
- 
     return(res)
   }
 )
@@ -112,27 +121,28 @@ setMethod('jackknife', signature(object='FLQuants'),
 )
 
 setMethod("jackknife", signature(object="FLModel"),
-  function(object) {
+  function(object, slot) {
+    
+    # RUN fit on orig
+    ori <- fmle(object)
 
     # CHECK inputs are JK
+    slot(object, slot) <- jackknife(slot(object, slot))
 
     # RUN fit on JK
     res <- fmle(object)
-
-    # RUN fit on orig
-    ori <- object
-    rec(ori) <- orig(rec(ori))
-    ori <- fmle(ori)
 
     # SET FLParJK @params
     params(res) <- FLParJK(params(res), orig=params(ori))
 
     # SET fitted
-    fitted <- FLQuantJK(fitted(res), orig=fitted(ori))
+    fitted(res) <- FLQuantJK(fitted(res), orig=fitted(ori))
 
     # SET residuals
 
     # SET vcov
+
+    return(res)
 
   }
 ) # }}}
