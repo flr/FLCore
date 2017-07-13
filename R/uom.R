@@ -12,13 +12,19 @@ uoms <- c(
 	'1','10','100','1000','10000','100000','1000000','10000000','100000000', '1000000000',
 	'10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8', '10^9',
 	'1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8', '1e9',
-	'kg', 't', 'm', 'f', 'z', 'hr', 'NA')
+	'kg', 't', 'm', 'f', 'z', 'hr', 'NA', '', 'EUR', 'USD', 'd', 'h', 'boat')
+puoms <- seq(length(uoms))
+# numeric units
 nums <- c(1:30)
+# non-numeric units
 nnums <- seq(max(nums) + 1, length(uoms))
-snums <- c(1,2,3,4,25,26,27,28,29,30)
+# prefered versions of numeric units
+snums <- c(1, 2, 3, 4, 25, 26, 27, 28, 29, 30)
+# no unit (nu)
+nu <- which(uoms == "")
 
-# NC: not computable; NA: unitless
-uomTable <- array('NC', dimnames=list(op=c('*', '/', '+', '-'), e1=uoms, e2=uoms), dim=c(4, length(uoms), length(uoms)))
+# NA: not available or unitless
+uomTable <- array('NA', dimnames=list(op=c('*', '/', '+', '-'), e1=uoms, e2=uoms), dim=c(4, length(uoms), length(uoms)))
 
 # N +- N = N
 diag(uomTable['+',nums,nums]) <- rep(uoms[snums], 3)
@@ -57,14 +63,17 @@ uomTable['*', c(6, 16, 26), nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 
 uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 6, 16, 26, 7, 17, 27, 8, 18, 28, 9, 19, 29, 10, 20, 30)], c(6, 16, 26)] <-
 	rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], 9)
 
-# U / U = NA
-diag(uomTable['/',uoms,uoms]) <- 'NA'
+# U / U = ""
+diag(uomTable['/', puoms, puoms]) <- ""
 
 # U / 1 = U
-uomTable['/',uoms,1] <- uoms
+uomTable['/', puoms, c('1', '10^0', '1e0')] <- uoms[puoms]
 
 # NA /*+- NA = NA
 uomTable[,'NA', 'NA'] <- 'NA'
+
+# "" /*+- "" = ""
+uomTable[,nu, nu] <- ""
 
 # kg * 1000 = t
 uomTable['*', 'kg', c('1000', '1e3', '10^3')] <- 't'
@@ -100,11 +109,11 @@ uomTable['*', 'kg', c('100000000', '1e8', '10^8')] <- 't*1e5'
 uomTable['*', c('1000000000', '1e9', '10^9'), 'kg'] <- 't*1e6'
 uomTable['*', c('1000000000', '1e9', '10^9'), 'kg'] <- 't*1e6'
 
-# U */ NA = U
-uomTable[c('*','/'), 'NA', nums] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*','/'), nums, 'NA'] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*','/'), nnums, 'NA'] <- rep(uoms[nnums], each=2)
-uomTable[c('*','/'), 'NA', nnums] <- rep(uoms[nnums], each=2)
+# U */ "" = U
+uomTable[c('*','/'), nu, nums] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*','/'), nums, nu] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*','/'), nnums, nu] <- rep(uoms[nnums], each=2)
+uomTable[c('*','/'), nu, nnums] <- rep(uoms[nnums], each=2)
 
 # z, m, f = 1/timestep
 uomTable['+', 'f', 'm'] <- 'z'
@@ -178,13 +187,23 @@ uom <- function(op, u1, u2) {
 	
   u <- sprintf("%s", c(u1, u2))
 	
+  # PARSE and SOLVE divisions
+  div <- grep("/", u[2])
+  if(any(div) & op == "*") {
+    idx <- unlist(gregexpr(pattern = "/", u[2]))
+    u2s <- gsub(" ", "", substr(u[2], idx[length(idx)] + 1, nchar(u[2])))
+    res <- gsub("[[:space:]]*$", "", substr(u[2], 1, idx[length(idx)] - 1))
+    if(grepl(u[1], u[2]) & u[1] == u2s)
+      return(res)
+  }
+
   # max length of string, max(nchar(FLCore:::uoms))
 	if(any(nchar(u) > 10))
 		return(sprintf("%s %s %s", u1, op, u2))
 
 	# FIND empty strings
-	if(!all(nzchar(u)))
-		return(sprintf("%s %s %s", u1, op, u2))
+	# if(!all(nzchar(u)))
+	# 	return(sprintf("%s %s %s", u1, op, u2))
 	
 	idx <- match(u, uoms)
 
@@ -195,13 +214,8 @@ uom <- function(op, u1, u2) {
 	# use uomTable
 	res <- uomTable[op, idx[1], idx[2]]
 	
-	# incompatible units ('NA')
-#	 if(res == 'NC') {
-#			warning('incompatible units of measurements in FLQuant objects: ',
-#			sprintf("%s %s %s", u1, op, u2))
-		
-#		return(sprintf("%s %s %s", u1, op, u2))
-#	}
 	return(res)
 }
+
+uom <- compiler::cmpfun(uom)
 # }}}

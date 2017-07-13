@@ -183,13 +183,13 @@ setClass("FLQuant",
 #' 
 #' @name FLQuantPoint
 #' @aliases FLQuantPoint-class FLQuantPoint FLQuantPoint-methods
-#' @aliases FLQuantPoint,FLQuant-method
-#' @aliases mean,FLQuantPoint-method mean<-,FLQuantPoint,FLQuant-method
-#' @aliases median,FLQuantPoint-method median<-,FLQuantPoint,FLQuant-method
-#' @aliases var,FLQuantPoint-method var<-,FLQuantPoint,FLQuant-method
-#' @aliases lowq,FLQuantPoint-method lowq<-,FLQuantPoint,FLQuant-method
-#' @aliases uppq,FLQuantPoint-method uppq<-,FLQuantPoint,FLQuant-method
-#' @aliases quantile,FLQuantPoint-method
+#' FLQuantPoint,FLQuant-method
+#' mean,FLQuantPoint-method mean<-,FLQuantPoint,FLQuant-method
+#' median,FLQuantPoint-method median<-,FLQuantPoint,FLQuant-method
+#' var,FLQuantPoint-method var<-,FLQuantPoint,FLQuant-method
+#' lowq,FLQuantPoint-method lowq<-,FLQuantPoint,FLQuant-method
+#' uppq,FLQuantPoint-method uppq<-,FLQuantPoint,FLQuant-method
+#' quantile,FLQuantPoint-method
 #' @docType class
 #' @section Slots: \describe{
 #'  \item{.Data}{The main array holding the computed statistics. \code{array}.}
@@ -260,7 +260,6 @@ setClass("FLQuantPoint",
 #' @docType class
 #' @rdname FLQuantDistr
 #' @aliases FLQuantDistr-class
-#'
 #' @section Slots:
 #'     \describe{
 #'     \item{.Data}{Unnamed slot for storing the mean (or other measure of

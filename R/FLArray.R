@@ -592,12 +592,9 @@ setMethod("Arith",
         dimnames=dimnames(e1), dim=dim(e1))
     
     # units
-    if(identical(units(e1), units(e2))) {
-      units <- units(e1)
-    } else {
-      op <- as.character(get('.Generic'))
-      units <- uom(op, units(e1), units(e2))
-    }
+    op <- as.character(get('.Generic'))
+    units <- uom(op, units(e1), units(e2))
+    
     return(new(class(e1), e, units=units))
   }
 )   # }}}
@@ -800,23 +797,6 @@ setMethod('subset', signature(x='FLArray'),
   }
 ) # }}}
 
-# log & exp {{{
-setMethod('log', signature(x='FLArray'),
-  function(x, ...) {
-    x@.Data <- log(x@.Data, ...)
-    units(x) <- 'NA'
-    return(x)
-  }
-)
-
-setMethod('exp', signature(x='FLArray'),
-  function(x) {
-    x@.Data <- exp(x@.Data)
-    units(x) <- 'NA'
-    return(x)
-  }
-) # }}}
-
 # median        {{{
 setMethod("median", signature(x="FLArray"),
   function(x, na.rm=TRUE){
@@ -830,3 +810,20 @@ setMethod("dim", signature(x="FLArray"),
     return(unname(dim(x@.Data)))
   }
 ) # }}}
+
+# exp
+setMethod("exp", signature(x="FLQuant"),
+  function(x) {
+    res <- callNextMethod()
+    units(res) <- ""
+    return(res)
+  })
+
+# log
+setMethod("log", signature(x="FLQuant"),
+  function(x, ...) {
+    res <- callNextMethod()
+    units(res) <- ""
+    return(res)
+  })
+

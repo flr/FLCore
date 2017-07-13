@@ -165,11 +165,11 @@ setClass("FLS",
     stock     = FLQuant(),
     stock.n   = FLQuant(),
     stock.wt = FLQuant(),
-    m     = FLQuant(units='m'),
-    mat     = FLQuant(units='prop'),
-    harvest   = FLQuant(units='f'),
-    harvest.spwn = FLQuant(units='prop'),
-    m.spwn   = FLQuant(units='prop')
+    m     = FLQuant(units="m"),
+    mat     = FLQuant(units=""),
+    harvest   = FLQuant(units="f"),
+    harvest.spwn = FLQuant(units=""),
+    m.spwn   = FLQuant(units="")
   ),
   validity=function(object) {
 
@@ -820,8 +820,12 @@ setClass("FLIndexBiomass",
 #'
 #' Slots in this class attempt to map all the usual outputs for a modelling
 #' exercise, together with the standard inputs. Input data are stored in slots
-#' created by a specified class that is based on \code{FLModel}. See for example
+#' created by a specified class based on \code{FLModel}. See for example
 #' \code{\linkS4class{FLSR}} for a class used for stock-recruitment models.
+#'
+#' The \code{initial} slot contains a function used to obtain initial values for
+#' the numerical solver. It can also contain two attributes, \code{upper} and
+#' \code{lower} that limit the sarch area for each parameter.
 #'
 #' Various fitting algorithms, similar to those present in the basic R packages,
 #' are currently available for \code{FLModel}, including \code{\link{fmle}},

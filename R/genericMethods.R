@@ -171,7 +171,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 
 # -- ACCESSORS {{{
 
-#' Accesor and replacement methods for FLCore classes
+#' accessor and replacement methods for FLCore classes
 #'
 #' All S4 classes defined in FLCore have methods for accessing and replacing any
 #' of their slots. These methods are named as the slot, and will return the
@@ -179,7 +179,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #' value.
 #'
 #' Accessors and replacement methods, with some exception, are created at build
-#' time by calls to the \code{createFLAccessors} function. An accesor method is
+#' time by calls to the \code{createFLAccessors} function. An accessor method is
 #' created for each slot, with simply calls \code{slot()} on the relevant slot
 #' name. For slots of class \code{\link{FLQuant}}, or \code{FLArray}-based, two
 #' methods are created: one if \code{value} is of class \code{FLQuant}, and
@@ -207,20 +207,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #'   object, for the replacement one.
 #'
 #' @name accessors
-#' @rdname accesors
-#' @aliases catch catch.n catch.n catch.n<- catch.n<- catch.q catch.q<- catch.wt
-#' @aliases catch.wt catch.wt<- catch.wt<- catch<- desc desc<- details details<-
-#' @aliases discards discards.n discards.n<- discards.sel discards.sel<- discards.wt
-#' @aliases discards.wt<- discards<- distr distr<- distribution distribution<-
-#' @aliases effort effort<- fec fec<- fitted fitted<- gr gr<- harvest harvest.spwn
-#' @aliases harvest.spwn<- harvest<- hessian hessian<- index index.q index.q<-
-#' @aliases index.var index.var<- index<- initial initial<- landings landings.n
-#' @aliases landings.n<- landings.sel landings.sel<- landings.wt landings.wt<-
-#' @aliases landings<- logLik logLik<- logerror logerror<- logl logl<- m m m.spwn
-#' @aliases m.spwn<- m<- m<- mat mat<- model model<- n n<- name name<- params
-#' @aliases params<- range<- rec rec.obs rec<- residuals residuals<- sel.pattern
-#' @aliases sel.pattern<- spwn spwn<- stock stock.n stock.n<- stock.wt stock.wt<-
-#' @aliases stock<- type type<- units<- vcov<- wt wt<- 
+#' @rdname accessors
 #'
 #' @author The FLR Team
 #' @seealso \code{\link{FLQuant}}, \code{\link{FLStock}}, \code{\link{FLIndex}},
@@ -245,259 +232,361 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #' getMethod('catch', 'FLS')
 #'
 
-# range<-
-setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
-
-# units<-
-setGeneric("units<-", function(x, value) standardGeneric("units<-"))
+# name, name<-
+#' @rdname accessors
+#' @aliases name, name<- name, name<-<-
+setGeneric('name', function(object, ...) standardGeneric('name'))
+setGeneric('name<-', function(object, ..., value) standardGeneric('name<-'))
 
 # desc
+#' @rdname accessors
+#' @aliases desc desc<-
 setGeneric('desc', function(object, ...) standardGeneric('desc'))
 setGeneric('desc<-', function(object, ..., value) standardGeneric('desc<-'))
 
+# range<-
+#' @rdname accessors
+#' @aliases range<-
+setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
+
+# units<-
+#' @rdname accessors
+#' @aliases units<-
+setGeneric("units<-", function(x, value) standardGeneric("units<-"))
+
 # catch
+#' @rdname accessors
+#' @aliases catch catch<-
 setGeneric('catch', function(object, ...) standardGeneric('catch'))
 setGeneric('catch<-', function(object, ..., value) standardGeneric('catch<-'))
 
 # catch.n
+#' @rdname accessors
+#' @aliases desc desc<-
 setGeneric('catch.n', function(object, ...) standardGeneric('catch.n'))
 setGeneric('catch.n<-', function(object, ..., value) standardGeneric('catch.n<-'))
 
 # catch.wt
+#' @rdname accessors
+#' @aliases catch.wt catch.wt<-
 setGeneric('catch.wt', function(object, ...) standardGeneric('catch.wt'))
 setGeneric('catch.wt<-', function(object, ..., value) standardGeneric('catch.wt<-'))
 
 # discards
+#' @rdname accessors
+#' @aliases discards discards<-
 setGeneric('discards', function(object, ...) standardGeneric('discards'))
 setGeneric('discards<-', function(object, ..., value) standardGeneric('discards<-'))
 
 # discards.n
+#' @rdname accessors
+#' @aliases discards.n discards.n<-
 setGeneric('discards.n', function(object, ...) standardGeneric('discards.n'))
 setGeneric('discards.n<-', function(object, ..., value) standardGeneric('discards.n<-'))
 
 # discards.wt
+#' @rdname accessors
+#' @aliases discards.wt discards.wt<-
 setGeneric('discards.wt', function(object, ...) standardGeneric('discards.wt'))
 setGeneric('discards.wt<-', function(object, ..., value) standardGeneric('discards.wt<-'))
 
 # landings
+#' @rdname accessors
+#' @aliases landings landings<-
 setGeneric('landings', function(object, ...) standardGeneric('landings'))
 setGeneric('landings<-', function(object, ..., value) standardGeneric('landings<-'))
 
 # landings.n
+#' @rdname accessors
+#' @aliases landings.n landings.n<-
 setGeneric('landings.n', function(object, ...) standardGeneric('landings.n'))
 setGeneric('landings.n<-', function(object, ..., value) standardGeneric('landings.n<-'))
 
 # landings.wt
+#' @rdname accessors
+#' @aliases landings.wt landings.wt<-
 setGeneric('landings.wt', function(object, ...) standardGeneric('landings.wt'))
 setGeneric('landings.wt<-', function(object, ..., value) standardGeneric('landings.wt<-'))
 
 # m
+#' @rdname accessors
+#' @aliases m m<-
 setGeneric('m', function(object, ...) standardGeneric('m'))
 setGeneric('m<-', function(object, ..., value) standardGeneric('m<-'))
 
-# name, name<-
-setGeneric('name', function(object, ...) standardGeneric('name'))
-setGeneric('name<-', function(object, ..., value) standardGeneric('name<-'))
-
 # stock
+#' @rdname accessors
+#' @aliases stock stock<-
 setGeneric('stock', function(object, ...) standardGeneric('stock'))
 setGeneric('stock<-', function(object, ..., value) standardGeneric('stock<-'))
 
 # stock.n
+#' @rdname accessors
+#' @aliases stock.n stock.n<-
 setGeneric('stock.n', function(object, ...) standardGeneric('stock.n'))
 setGeneric('stock.n<-', function(object, ..., value) standardGeneric('stock.n<-'))
 
 # stock.wt
+#' @rdname accessors
+#' @aliases stock.wt stock.wt<-
 setGeneric('stock.wt', function(object, ...) standardGeneric('stock.wt'))
 setGeneric('stock.wt<-', function(object, ..., value) standardGeneric('stock.wt<-'))
 
 # m.spwn
+#' @rdname accessors
+#' @aliases m.spwn m.spwn<-
 setGeneric('m.spwn', function(object, ...) standardGeneric('m.spwn'))
 setGeneric('m.spwn<-', function(object, ..., value) standardGeneric('m.spwn<-'))
 
 # harvest
+#' @rdname accessors
+#' @aliases harvest harvest<-
 setGeneric('harvest', function(object, catch, ...) standardGeneric('harvest'))
 setGeneric('harvest<-', function(object, ..., value) standardGeneric('harvest<-'))
 
 # harvest.spwn
+#' @rdname accessors
+#' @aliases harvest.spwn harvest.spwn<-
 setGeneric('harvest.spwn', function(object, ...) standardGeneric('harvest.spwn'))
 setGeneric('harvest.spwn<-', function(object, ..., value) standardGeneric('harvest.spwn<-'))
 
 # mat
+#' @rdname accessors
+#' @aliases mat mat<-
 setGeneric('mat', function(object, ...) standardGeneric('mat'))
 setGeneric('mat<-', function(object, ..., value) standardGeneric('mat<-'))
 
 # n
+#' @rdname accessors
+#' @aliases n n<-
 setGeneric('n', function(object, ...) standardGeneric('n'))
 setGeneric('n<-', function(object, ..., value) standardGeneric('n<-'))
 
 # m
+#' @rdname accessors
+#' @aliases m m<-
 setGeneric('m', function(object, ...) standardGeneric('m'))
 setGeneric('m<-', function(object, ..., value) standardGeneric('m<-'))
 
 # wt
+#' @rdname accessors
+#' @aliases wt wt<-
 setGeneric('wt', function(object, ...) standardGeneric('wt'))
 setGeneric('wt<-', function(object, ..., value) standardGeneric('wt<-'))
 
 # fec
+#' @rdname accessors
+#' @aliases fec fec<-
 setGeneric('fec', function(object, ...) standardGeneric('fec'))
 setGeneric('fec<-', function(object, ..., value) standardGeneric('fec<-'))
 
 # spwn
+#' @rdname accessors
+#' @aliases spwn spwn<-
 setGeneric('spwn', function(object, ...) standardGeneric('spwn'))
 setGeneric('spwn<-', function(object, ..., value) standardGeneric('spwn<-'))
 
 # effort
+#' @rdname accessors
+#' @aliases effort effort<-
 setGeneric("effort", function(object, metier, ...) standardGeneric("effort"))
 setGeneric("effort<-", function(object, ..., value) standardGeneric("effort<-"))
 
 # type
-setGeneric('type', function(object, ...)
-		standardGeneric('type'))
-setGeneric('type<-', function(object, ..., value)
-		standardGeneric('type<-'))
+#' @rdname accessors
+#' @aliases type type<-
+setGeneric('type', function(object, ...) standardGeneric('type'))
+setGeneric('type<-', function(object, ..., value) standardGeneric('type<-'))
 
 # distr
-setGeneric('distr', function(object, ...)
-		standardGeneric('distr'))
-setGeneric('distr<-', function(object, ..., value)
-		standardGeneric('distr<-'))
+#' @rdname accessors
+#' @aliases distr distr<-
+setGeneric('distr', function(object, ...) standardGeneric('distr'))
+setGeneric('distr<-', function(object, ..., value) standardGeneric('distr<-'))
 
 # distribution
+#' @rdname accessors
+#' @aliases distribution distribution<-
 setGeneric('distribution', function(object, ...)
 		standardGeneric('distribution'))
 setGeneric('distribution<-', function(object, ..., value)
 		standardGeneric('distribution<-'))
 
 # index
+#' @rdname accessors
+#' @aliases index index<-
 setGeneric('index', function(object, ...)
 		standardGeneric('index'))
 setGeneric('index<-', function(object, ..., value)
 		standardGeneric('index<-'))
 
 # index.var
+#' @rdname accessors
+#' @aliases index.var index.var<-
 setGeneric('index.var', function(object, ...)
 		standardGeneric('index.var'))
 setGeneric('index.var<-', function(object, ..., value)
 		standardGeneric('index.var<-'))
 
 # catch.n
+#' @rdname accessors
+#' @aliases catch.n catch.n<-
 setGeneric('catch.n', function(object, ...)
 		standardGeneric('catch.n'))
 setGeneric('catch.n<-', function(object, ..., value)
 		standardGeneric('catch.n<-'))
 
 # catch.wt
+#' @rdname accessors
+#' @aliases catch.wt catch.wt<-
 setGeneric('catch.wt', function(object, ...)
 		standardGeneric('catch.wt'))
 setGeneric('catch.wt<-', function(object, ..., value)
 		standardGeneric('catch.wt<-'))
 
 # sel.pattern
+#' @rdname accessors
+#' @aliases sel.pattern sel.pattern<-
 setGeneric('sel.pattern', function(object, ...)
 		standardGeneric('sel.pattern'))
 setGeneric('sel.pattern<-', function(object, ..., value)
 		standardGeneric('sel.pattern<-'))
 
 # index.q
+#' @rdname accessors
+#' @aliases index.q index.q<-
 setGeneric('index.q', function(object, ...)
 		standardGeneric('index.q'))
 setGeneric('index.q<-', function(object, ..., value)
 		standardGeneric('index.q<-'))
 
 # model
+#' @rdname accessors
+#' @aliases model model<-
 setGeneric('model', function(object, ...)
 		standardGeneric('model'))
 setGeneric('model<-', function(object, ..., value)
 		standardGeneric('model<-'))
 
 # logl
+#' @rdname accessors
+#' @aliases logl logl<-
 setGeneric('logl', function(object, ...)
 		standardGeneric('logl'))
 setGeneric('logl<-', function(object, ..., value)
 		standardGeneric('logl<-'))
 
 # gr
+#' @rdname accessors
+#' @aliases gr gr<-
 setGeneric('gr', function(object, ...)
 		standardGeneric('gr'))
 setGeneric('gr<-', function(object, ..., value)
 		standardGeneric('gr<-'))
 
 # initial
+#' @rdname accessors
+#' @aliases initial initial<-
 setGeneric('initial', function(object, ...)
 		standardGeneric('initial'))
 setGeneric('initial<-', function(object, ..., value)
 		standardGeneric('initial<-'))
 
 # logLik
+#' @rdname accessors
+#' @aliases logLik logLik<-
 setGeneric('logLik', function(object, ...)
 		standardGeneric('logLik'))
 setGeneric('logLik<-', function(object, ..., value)
 		standardGeneric('logLik<-'))
 
 # vcov
+#' @rdname accessors
+#' @aliases vcov vcov<-
 setGeneric('vcov<-', function(object, ..., value)
 		standardGeneric('vcov<-'))
 
 # hessian
+#' @rdname accessors
+#' @aliases hessian hessian<-
 setGeneric('hessian', function(object, ...)
 		standardGeneric('hessian'))
 setGeneric('hessian<-', function(object, ..., value)
 		standardGeneric('hessian<-'))
 
 # logerror
+#' @rdname accessors
+#' @aliases logerror logerror<-
 setGeneric('logerror', function(object, ...)
 		standardGeneric('logerror'))
 setGeneric('logerror<-', function(object, ..., value)
 		standardGeneric('logerror<-'))
 
 # details
+#' @rdname accessors
+#' @aliases details details<-
 setGeneric('details', function(object, ...)
 		standardGeneric('details'))
 setGeneric('details<-', function(object, ..., value)
 		standardGeneric('details<-'))
 
 # residuals
+#' @rdname accessors
+#' @aliases residuals residuals<-
 setGeneric('residuals', function(object, ...)
 		standardGeneric('residuals'))
 setGeneric('residuals<-', function(object, ..., value)
 		standardGeneric('residuals<-'))
 
 # fitted
+#' @rdname accessors
+#' @aliases fitted fitted<-
 setGeneric('fitted', function(object, ...)
 		standardGeneric('fitted'))
 setGeneric('fitted<-', function(object, ..., value)
 		standardGeneric('fitted<-'))
 
 # rec
+#' @rdname accessors
+#' @aliases rec rec<-
 setGeneric('rec', function(object, ...)
 		standardGeneric('rec'))
 setGeneric('rec<-', function(object, ..., value)
 		standardGeneric('rec<-'))
 
 # rec.obs
+#' @rdname accessors
+#' @aliases rec.obs rec.obs<-
 setGeneric('rec.obs', function(object, ...)
 		standardGeneric('rec.obs'))
 
 # catch.q
+#' @rdname accessors
+#' @aliases catch.q catch.q<-
 setGeneric('catch.q', function(object, ...)
 		standardGeneric('catch.q'))
 setGeneric('catch.q<-', function(object, ..., value)
 		standardGeneric('catch.q<-'))
 
 # discards.sel
+#' @rdname accessors
+#' @aliases discards.sel discards.sel<-
 setGeneric('discards.sel', function(object, ...)
 		standardGeneric('discards.sel'))
 setGeneric('discards.sel<-', function(object, ..., value)
 		standardGeneric('discards.sel<-'))
 
 # landings.sel
+#' @rdname accessors
+#' @aliases landings.sel landings.sel<-
 setGeneric('landings.sel', function(object, ...)
 		standardGeneric('landings.sel'))
 setGeneric('landings.sel<-', function(object, ..., value)
 		standardGeneric('landings.sel<-'))
 
 # params, params<-
+#' @rdname accessors
+#' @aliases params, params<- params, params<-<-
 setGeneric("params", function(object, ...)
   standardGeneric("params"))
 setGeneric("params<-", function(object, value)

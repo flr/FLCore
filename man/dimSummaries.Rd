@@ -17,6 +17,7 @@
 \alias{seasonMeans}
 \alias{areaMeans}
 \alias{iterMeans}
+\alias{iterSums}
 \alias{dimMeans}
 \alias{quantVars}
 \alias{yearVars}
@@ -32,6 +33,7 @@
 \alias{unitSums,FLQuant-method}
 \alias{seasonSums,FLQuant-method}
 \alias{areaSums,FLQuant-method}
+\alias{iterSums,FLQuant-method}
 \title{Summaries by dimension}
 \usage{
 quantSums(x, ...)
@@ -57,6 +59,8 @@ seasonMeans(x, ...)
 areaMeans(x, ...)
 
 iterMeans(x, ...)
+
+iterSums(x, ...)
 
 dimMeans(x, ...)
 
@@ -87,6 +91,8 @@ iterCVs(x, ...)
 \S4method{seasonSums}{FLQuant}(x, na.rm = TRUE)
 
 \S4method{areaSums}{FLQuant}(x, na.rm = TRUE)
+
+\S4method{iterSums}{FLQuant}(x, na.rm = TRUE)
 }
 \arguments{
 \item{x}{An object.}
@@ -122,7 +128,7 @@ yearSums(x), yearMeans(x), yearVars(x)
 unitSums(x), unitMeans(x), unitVars(x)
 seasonSums(x), seasonMeans(x), seasonVars(x)
 areaSums(x), areaMeans(x), areaVars(x)
-iterMeans(x), iterVars(x), iterMedians(x)
+iterMeans(x), iterVars(x), iterMedians(x), iterSums(x)
 dimSums(x), dimMeans(x), dimVars(x)
 }
 
