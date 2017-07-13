@@ -132,6 +132,7 @@ export(
   "svModel",
   "svPars",
   "uom",
+  "uomUnits",
   "writeADMB",
   "writeFLStock")
 exportClasses(

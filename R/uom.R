@@ -26,11 +26,18 @@ nu <- which(uoms == "")
 # NA: not available or unitless
 uomTable <- array('NA', dimnames=list(op=c('*', '/', '+', '-'), e1=uoms, e2=uoms), dim=c(4, length(uoms), length(uoms)))
 
+#
+for(i in seq(length(uoms))) {
+  uomTable['+', i, -i] <- paste(uoms[i], '+', uoms[-i])
+  uomTable['-', i, -i] <- paste(uoms[i], '+', uoms[-i])
+}
+
 # N +- N = N
 diag(uomTable['+',nums,nums]) <- rep(uoms[snums], 3)
 diag(uomTable['-',nums,nums]) <- rep(uoms[snums], 3)
 diag(uomTable['+',nnums,nnums]) <- uoms[nnums]
 diag(uomTable['-',nnums,nnums]) <- uoms[nnums]
+
 
 # 1 * N = N
 uomTable['*', c('1', '1e0', '10^0'), nums] <- rep(rep(uoms[snums], 3), each=3)
@@ -84,30 +91,30 @@ uomTable['/', 't', c('1000', '1e3', '10^3')] <- 'kg'
 uomTable['/', 't', c('1000', '1e3', '10^3')] <- 'kg'
 
 # kg * 100 = kg*100
-uomTable['*', 'kg', c('100', '1e2', '10^2')] <- 'kg*100'
-uomTable['*', c('100', '1e2', '10^2'), 'kg'] <- 'kg*100'
+uomTable['*', 'kg', c('100', '1e2', '10^2')] <- 'kg * 100'
+uomTable['*', c('100', '1e2', '10^2'), 'kg'] <- 'kg * 100'
 
 # kg * 10 = kg*10
-uomTable['*', 'kg', c('10', '1e1', '10^1')] <- 'kg*10'
-uomTable['*', c('10', '1e1', '10^1'), 'kg'] <- 'kg*10'
+uomTable['*', 'kg', c('10', '1e1', '10^1')] <- 'kg * 10'
+uomTable['*', c('10', '1e1', '10^1'), 'kg'] <- 'kg * 10'
 
 # kg * 1 = kg
 uomTable['*', 'kg', c('1', '1e0', '10^0')] <- 'kg'
 uomTable['*', c('1', '1e0', '10^0'), 'kg'] <- 'kg'
 
 # kg * Numbers = t * Numbers/1000
-uomTable['*', 'kg', c('10000', '1e4', '10^4')] <- 't*10'
-uomTable['*', c('10000', '1e4', '10^4'), 'kg'] <- 't*10'
-uomTable['*', 'kg', c('100000', '1e5', '10^5')] <- 't*100'
-uomTable['*', c('100000', '1e5', '10^5'), 'kg'] <- 't*100'
-uomTable['*', 'kg', c('1000000', '1e6', '10^6')] <- 't*1000'
-uomTable['*', c('1000000', '1e6', '10^6'), 'kg'] <- 't*1000'
-uomTable['*', 'kg', c('10000000', '1e7', '10^7')] <- 't*1e4'
-uomTable['*', c('10000000', '1e7', '10^7'), 'kg'] <- 't*1e4'
-uomTable['*', 'kg', c('100000000', '1e8', '10^8')] <- 't*1e5'
-uomTable['*', 'kg', c('100000000', '1e8', '10^8')] <- 't*1e5'
-uomTable['*', c('1000000000', '1e9', '10^9'), 'kg'] <- 't*1e6'
-uomTable['*', c('1000000000', '1e9', '10^9'), 'kg'] <- 't*1e6'
+uomTable['*', 'kg', c('10000', '1e4', '10^4')] <- 't * 10'
+uomTable['*', c('10000', '1e4', '10^4'), 'kg'] <- 't * 10'
+uomTable['*', 'kg', c('100000', '1e5', '10^5')] <- 't * 100'
+uomTable['*', c('100000', '1e5', '10^5'), 'kg'] <- 't * 100'
+uomTable['*', 'kg', c('1000000', '1e6', '10^6')] <- 't * 1000'
+uomTable['*', c('1000000', '1e6', '10^6'), 'kg'] <- 't * 1000'
+uomTable['*', 'kg', c('10000000', '1e7', '10^7')] <- 't * 1e4'
+uomTable['*', c('10000000', '1e7', '10^7'), 'kg'] <- 't * 1e4'
+uomTable['*', 'kg', c('100000000', '1e8', '10^8')] <- 't * 1e5'
+uomTable['*', 'kg', c('100000000', '1e8', '10^8')] <- 't * 1e5'
+uomTable['*', c('1000000000', '1e9', '10^9'), 'kg'] <- 't * 1e6'
+uomTable['*', c('1000000000', '1e9', '10^9'), 'kg'] <- 't * 1e6'
 
 # U */ "" = U
 uomTable[c('*','/'), nu, nums] <- rep(rep(uoms[snums], each=2), 3)
@@ -186,31 +193,39 @@ uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
 uom <- function(op, u1, u2) {
 	
   u <- sprintf("%s", c(u1, u2))
-	
-  # PARSE and SOLVE divisions
-  div <- grep("/", u[2])
-  if(any(div) & op == "*") {
+	idx <- match(u, uoms)
+
+  # PARSE and SOLVE if '/' in u and op = '*'
+  if(any(grepl("/", u)) && op == "*") {
+
+    u <- u[order(unlist(lapply(gregexpr(pattern = "/", u), length)))]
+
+    # FIND position of '/'
     idx <- unlist(gregexpr(pattern = "/", u[2]))
-    u2s <- gsub(" ", "", substr(u[2], idx[length(idx)] + 1, nchar(u[2])))
-    res <- gsub("[[:space:]]*$", "", substr(u[2], 1, idx[length(idx)] - 1))
-    if(grepl(u[1], u[2]) & u[1] == u2s)
+    # DROP spaces on right hand side
+    u2s <- gsub(" ", "", substr(u[2], idx[1] + 1, nchar(u[2])))
+    # DROP them on left hand side
+    res <- gsub("[[:space:]]*$", "", substr(u[2], 1, idx[1] - 1))
+    # IF u2 is in u1 AND right hand side equal u1,
+    if(grepl(u[1], u[2]) & gsub(" ", "", u[1]) == u2s)
+      # RETURN left hand side
       return(res)
   }
 
-  # max length of string, max(nchar(FLCore:::uoms))
-	if(any(nchar(u) > 10))
-		return(sprintf("%s %s %s", u1, op, u2))
+  # PARSE and SOLVE number products
+  if(grepl("*", u, fixed=TRUE) && op == "*") {
+    us <- unlist(lapply(u, function(x) gsub("[[:space:]]", "",
+      unlist(strsplit(x, "*", fixed=TRUE)))))
 
-	# FIND empty strings
-	# if(!all(nzchar(u)))
-	# 	return(sprintf("%s %s %s", u1, op, u2))
+    idx <- us %in% uoms[nums]
+    val <- prod(as.numeric(us[idx]))
+    return(uom(op, as.character(val), us[!idx]))
+  }
 	
-	idx <- match(u, uoms)
-
-	# undefined unit
+  # undefined unit
 	if(any(is.na(idx)))
 		return(sprintf("%s %s %s", u1, op, u2))
-
+	
 	# use uomTable
 	res <- uomTable[op, idx[1], idx[2]]
 	
@@ -219,3 +234,12 @@ uom <- function(op, u1, u2) {
 
 uom <- compiler::cmpfun(uom)
 # }}}
+
+# uomUnits {{{
+uomUnits <- function(u=missing) {
+
+  if(missing(u))
+    return(dimnames(uomTable)$e1)
+  
+  return(u %in% dimnames(uomTable)$e1)
+} # }}}
