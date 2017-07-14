@@ -3,9 +3,14 @@
 \docType{methods}
 \name{\%+\%}
 \alias{\%+\%}
+\alias{\%}
+\alias{\%+\%-methods}
 \alias{\%-\%}
+\alias{\%-\%-methods}
 \alias{\%^\%}
+\alias{\%^\%-methods}
 \alias{operators}
+\alias{\%*\%,FLQuant,FLQuant-method}
 \alias{\%/\%,FLQuant,FLQuant-method}
 \alias{\%+\%,FLQuant,FLQuant-method}
 \alias{\%-\%,FLQuant,FLQuant-method}

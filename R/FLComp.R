@@ -508,7 +508,10 @@ setMethod("vecage", "FLComp", function(object){
 
 # metrics {{{
 
+#' @rdname metrics
 #' @examples
+#'
+#' data(ple4)
 #' # missing
 #' metrics(ple4)
 #' # metrics = function

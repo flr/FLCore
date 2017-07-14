@@ -14,6 +14,7 @@ setGeneric("as.data.frame", useAsDefault = as.data.frame)
 setGeneric("barchart", useAsDefault = lattice::barchart)
 setGeneric("bwplot", useAsDefault = lattice::bwplot)
 setGeneric("coef", useAsDefault = coef)
+setGeneric("cor", useAsDefault = cov)
 setGeneric("cov", useAsDefault = cov)
 setGeneric("densityplot", useAsDefault = densityplot)
 setGeneric("dotplot", useAsDefault = dotplot)
@@ -1017,19 +1018,19 @@ setGeneric("catchSel", function(object, ...){
 
 # %+%
 #' @rdname operators
-#' @aliases %+%
+#' @aliases %+% % %+%-methods
 setGeneric("%+%", function(x, y)
   standardGeneric("%+%"))
 
 # %-%
 #' @rdname operators
-#' @aliases %-%
+#' @aliases %-% %-%-methods
 setGeneric("%-%", function(x, y)
   standardGeneric("%-%"))
 
 # %^%
 #' @rdname operators
-#' @aliases %^%
+#' @aliases %^% %^%-methods
 setGeneric("%^%", function(x, y)
   standardGeneric("%^%"))
 
@@ -1350,9 +1351,29 @@ setGeneric("revenue", function(object, ...)
 setGeneric("fwd", function(object, fishery, control, ...)
   standardGeneric("fwd"))
 
-# metrics
+# metrics {{{
+
+#' Extract simply-defined metrics from compex objects
+#'
+#' Time series summaries of complex objects are commonly needed, for example for
+#' plotting the inputs and outputs of a class like \code{\link{FLStock}}. These
+#' methods allow for simple specification of those metrics by means of function
+#' calls and formulas.
+#'
+#' @param object A complex **FLR** object from which to extract time series metrics.
+#'
+#' @return An object, generally of class \code{\link{FLQuants}}.
+#'
+#' @name metrics
+#' @rdname metrics
+#' @aliases metrics metrics-methods
+#'
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @md
 setGeneric("metrics", function(object, metrics, ...)
-  standardGeneric("metrics"))
+  standardGeneric("metrics")) # }}}
 
 # srparams, srmodel for FLBiolcpp
 setGeneric("srmodel", function(object, ...)

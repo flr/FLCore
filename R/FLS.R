@@ -169,15 +169,14 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
 
 # metrics {{{
 
-#' @examples
-#' metrics(ple4)
+#' @rdname metrics
 
 # FLS
 setMethod("metrics", signature(object="FLS", metrics="missing"),
   function(object, ...) {
     
     dots <- list(...)
-    foo <- selectMethod("metrics", c(object="FLStock", metrics="list"))
+    foo <- selectMethod("metrics", c(object="FLS", metrics="list"))
 
     if(length(dots) > 0) {
       return(foo(object=object, metrics=dots))

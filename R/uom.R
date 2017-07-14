@@ -163,20 +163,10 @@ uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
 #' @param op The arithmetic operator to be used, one of '+', '-', '*' or '/'
 #' @param u1 The units of measurement string of the first object
 #' @param u2 The units of measurement string of the second object
-#' @return a string with the corresponding units of measurement, a string such as '10 *100' when not compatible
-#' 
-#' @section Recognized Units:
-#' The following units of measurement are recognized by the 'Arith' operators
-#' (+, -, * /).
-#' \describe{
-#'    \item{Weight}{'kg', 't'}
-#'    \item{Numbers}{1 - 100000000, 1e0 - 1e8, 10^0 - 10^8}
-#'    \item{Mortality}{'m', 'f', 'z', 'hr'}
-#'    \item{Other}{'NA'}
-#' }
-#'
+#' @return \code{uom} returns a string with the corresponding units of measurement, or a character vector, showing the operation carried out, when units are not known to \code{uom} or not compatible, e.g. "100 * d".
 #' @name uom
 #' @aliases uom
+#' @rdname uom
 #' @docType methods
 #' @author The FLR Team
 #' @seealso \code{\linkS4class{FLQuant}} \code{\link{units,FLArray-method}}
@@ -235,10 +225,22 @@ uom <- compiler::cmpfun(uom)
 # }}}
 
 # uomUnits {{{
-uomUnits <- function(u=missing) {
 
-  if(missing(u))
+#' @rdname uom
+#' @aliases uomUnits
+#' @details The list of units known to \code{uom} is stored internally but can be queried by calling \code{uomUnits()} with no arguments. If a character vector is provided, a logical is returned telling whether the string is included or not in that table.
+#' @param unit A character vector for one or more units to be compared with those known to \code{uom}.
+#' @return \code{uomUnits} returns TRUE or FALSE if \code{unit} is given, otherwise a character vector with all units known to \code{uom}.
+#' @examples
+#'
+#' # Check if units are known
+#' uomUnits('kg')
+#' uomUnits('kell')
+
+uomUnits <- function(unit=missing) {
+
+  if(missing(unit))
     return(dimnames(uomTable)$e1)
   
-  return(u %in% dimnames(uomTable)$e1)
+  return(unit %in% dimnames(uomTable)$e1)
 } # }}}

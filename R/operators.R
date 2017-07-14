@@ -53,6 +53,7 @@
 #' flp <- FLPar(2, dimnames=list(params='a', year=2000:2005, iter=1))
 #' flq <- FLQuant(3, dimnames=list(year=2000:2005))
 #' flp %*% flq
+NULL
 
 # FLQuant, FLQuant {{{
 # %*% {{{
