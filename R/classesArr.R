@@ -531,16 +531,37 @@ setClass('FLPar', representation('array', units='character'),
 #' @name FLParJK
 #' @aliases FLParJK-class FLParJK
 #' @docType class
-#' @section Slots: \describe{ \item{.Data}{Describe slot. \code{array}.}
-#' \item{units}{Units of measurement. \code{character}.} \item{orig}{\code{array}}}
+#' @md
+#' @slot .Data Jackknifed object, `FLPar`.
+#' @slot units units of measurement, `character`.
+#' @slot orig original object being jackknifed, `FLPar`.
+#' @section Validity:
+#' You can inspect the class validity function by using
+#' `getValidity(getClassDef('FLParJK'))`
+#' @section Accessors:
+#' All slots in the class have accessor and replacement methods defined that
+#' allow retrieving and substituting individual slots.
+#'
+#' The values passed for replacement need to be of the class of that slot.
+#' A numeric vector can also be used when replacing FLQuant slots, and the
+#' vector will be used to substitute the values in the slot, but not its other
+#' attributes.
+#' @section Constructor:
+#' Objects of this class are commonly created by calling the [jackknife()] method
+#' A construction method exists for this class that can take named arguments for
+#' any of its slots. All slots are then created to match the requirements of the
+#' class validity.
 #' @author The FLR Team
-#' @seealso \link[FLCore]{FLPar}
+#' @seealso [`FLPar`]
 #' @keywords classes
 
 setClass("FLParJK",
 	representation("FLPar", orig="FLPar"),
   prototype(new("FLPar"), orig=new("FLPar")),
 	validity=function(object) {
+    # dimnames of .Data and origin [1-5] must match
+    if(!all.equal(dimnames(object@.Data)[1:5], dimnames(object@orig)[1:5]))
+      return("dimnames of .Data and origin [1-5] must match")
 		return(TRUE)
 	}
 ) # }}}

@@ -357,7 +357,7 @@ setMethod("iter", signature(obj="vector"),
 #' Outputs a general summary of the structure and content of the object. The
 #' particular output obtained depends on the class of the argument object.
 #'
-#' @name summary
+#' @rdname summary-methods
 #' @aliases summary,FLArray-method
 #' @docType methods
 #' @section Generic function: summary(object)
@@ -375,7 +375,6 @@ setMethod("iter", signature(obj="vector"),
 #' data(nsher)
 #' summary(nsher)
 #'
-
 setMethod("summary", signature(object="FLArray"),
   function(object, ...)
   {
@@ -554,6 +553,34 @@ setMethod('expand', signature(x='FLArray'),
 ) # }}}
 
 # Arith    {{{
+
+#' Arithmetic operators for FLCore classes
+#' 
+#' Overloaded arithmetic operators for FLCore classes
+#'
+#' These methods apply the standard arithmetic operators included in the
+#' \code{\link[methods]{Arith}} group ("+", "-", "*", "^", "%%", "%/%", and
+#' "/"), so that they return an object of the appropriate class.
+#'
+#' When the operation involves objects of two classes (e.g. [`FLPar`] and [`FLQuant`]),
+#' the class is the returned object is that of the more complexs object, in this
+#' case [`FLQuant`].
+#'
+#' @rdname Arith-methods
+#' @md
+#' @author The FLR Team
+#' @seealso [methods::Arith] [base::Arithmetic]
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
+#' flp <- FLPar(a=99)
+#'
+#' # FLQuant and numeric
+#' flq * 25
+#' # Two FLQuant objects
+#' flq + flq
+#'
 setMethod("Arith", #  "+", "-", "*", "^", "%%", "%/%", "/"
   signature(e1 = "numeric", e2 = "FLArray"),
   function(e1, e2)
@@ -561,6 +588,8 @@ setMethod("Arith", #  "+", "-", "*", "^", "%%", "%/%", "/"
     return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
   }
 )
+
+#' @rdname Arith-methods
 setMethod("Arith",
   signature(e1 = "FLArray", e2 = "numeric"),
   function(e1, e2)
@@ -568,6 +597,8 @@ setMethod("Arith",
     return(new(class(e1), callGeneric(e1@.Data, e2), units=units(e1)))
   }
 )
+
+#' @rdname Arith-methods
 setMethod("Arith",
   signature(e1 = "FLArray", e2 = "FLArray"),
   function(e1, e2)
@@ -649,6 +680,26 @@ setMethod("scale", signature(x="FLArray", center="missing", scale="missing"),
 ) # }}}
 
 # sweep {{{
+
+#' Method sweep for FLCore classes
+#' 
+#' Use R's sweep method on FLCore classes
+#'
+#' These methods call base R \code{\link[base]{sweep}} method on **FLCore** classes and then ensure
+#' that the returned object is of same class.
+#'
+#' @rdname sweep-methods
+#' @docType methods
+#' @section Generic function: sweep(x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)
+#' @author The FLR Team
+#' @seealso \link[base]{sweep}
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
+#' # Get ratio of max value by year
+#' sweep(flq, 2, apply(flq, 2, max), "/")
+
 setMethod('sweep', signature(x='FLArray'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
   {
@@ -694,6 +745,35 @@ setMethod("qmin", signature(x="FLArray"),
 # }}}
 
 # apply {{{
+
+#' apply method fpor FLCore classes
+#'
+#' Applies a function over the margins of an array-based FLCore class
+#' 
+#' These methods call R's [base::apply] on an [FLArray] the standard arithmetic operators included in the
+#' \code{\link[methods]{Arith}} group ("+", "-", "*", `"^", "%%", "%/%", and
+#' "/"), so that they return an object of the appropriate class.
+#'
+#' When the operation involves objects of two classes (e.g. [`FLPar`] and [`FLQuant`]),
+#' the class is the returned object is that of the more complexs object, in this
+#' case [`FLQuant`].
+#'
+#' @rdname Arith-methods
+#' @md
+#' @author The FLR Team
+#' @seealso [methods::Arith] [base::Arithmetic]
+#' @keywords methods
+#' @examples
+#' 
+#' flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
+#' flp <- FLPar(a=99)
+#'
+#' # FLQuant and numeric
+#' flq * 25
+#' # Two FLQuant objects
+#' flq + flq
+#'
+
 setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
   function(X, MARGIN, FUN, ...) {
 

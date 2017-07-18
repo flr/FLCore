@@ -952,19 +952,6 @@ return(res)
 }
 )# }}}
 
-# sweep {{{
-if (!isGeneric("sweep"))
-setGeneric("sweep", function (x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)
-standardGeneric("sweep"))
-
-setMethod('sweep', signature(x='FLQuant'),
-  function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
-  {
-    res <- callNextMethod()
-    FLQuant(res, units=units(x))
-  }
-) # }}}
-
 # as.data.frame(FLQuant) {{{
 setMethod("as.data.frame", signature(x="FLQuant", row.names="missing",
   optional="missing"),

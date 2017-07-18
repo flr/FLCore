@@ -5,6 +5,8 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # summary {{{
+#' @rdname summary-methods
+#' @aliases summary,FLQuants-methods
 setMethod('summary', signature(object='FLQuants'),
   function(object)
   {

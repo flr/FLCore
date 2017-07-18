@@ -5,9 +5,15 @@
 \alias{jackknife}
 \alias{jackknife-methods}
 \alias{jackknife,FLQuant-method}
+\alias{jackknife,FLQuants-method}
+\alias{jackknife,FLModel-method}
 \title{Method jackknife}
 \usage{
 \S4method{jackknife}{FLQuant}(object, dim = "year", na.rm = TRUE)
+
+\S4method{jackknife}{FLQuants}(object, ...)
+
+\S4method{jackknife}{FLModel}(object, slot)
 }
 \description{
 Jackknife resampling
@@ -19,8 +25,8 @@ time. From this new set of "observations" for the statistic, estimates for
 the bias and variance of the statstic can be calculated.
 
 Input objects cannot have length > 1 along the \code{iter} dimension, and
-the resulting object will have one more \code{iter} than the number of
-elements in the original object.
+the main slot in the resulting object will have as many \code{iter}s as the
+number of elements in the original object that are not \code{NA}.
 }
 \section{Generic function}{
  jackknife(object, ...)
@@ -34,7 +40,7 @@ iters(flj)
 
 }
 \seealso{
-\code{\link{FLQuant}}
+\code{\link{FLQuantJK}} \code{\link{FLParJK}}
 }
 \author{
 The FLR Team

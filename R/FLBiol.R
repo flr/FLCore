@@ -358,6 +358,8 @@ setMethod('tep', signature(object='FLBiol'),
 ) # }}}
 
 # summary {{{
+#' @rdname summary-methods
+#' @aliases summary,FLBiol-method
 setMethod("summary", signature(object="FLBiol"),
   function(object) {
 

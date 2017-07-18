@@ -664,6 +664,8 @@ setMethod('nls',
 )   # }}}
 
 # summary  {{{
+#' @rdname summary-methods
+#' @aliases summary,FLModel-method
 setMethod('summary', signature(object='FLModel'),
   function(object, ...)
   {

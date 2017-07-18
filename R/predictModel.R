@@ -155,6 +155,8 @@ setMethod('predict', signature(object='predictModel'),
 ) # }}}
 
 # summary {{{
+#' @rdname summary-methods
+#' @aliases summary,predictModel-method
 setMethod('summary', signature(object='predictModel'),
 	function(object) {
 		summary(object)

@@ -16,15 +16,15 @@
 #' the bias and variance of the statstic can be calculated.
 #' 
 #' Input objects cannot have length > 1 along the \code{iter} dimension, and
-#' the resulting object will have one more \code{iter} than the number of
-#' elements in the original object.
+#' the main slot in the resulting object will have as many \code{iter}s as the
+#' number of elements in the original object that are not \code{NA}.
 #' 
 #' @name jackknife
 #' @aliases jackknife jackknife-methods jackknife,FLQuant-method
 #' @docType methods
 #' @section Generic function: jackknife(object, ...)
 #' @author The FLR Team
-#' @seealso \code{\link{FLQuant}}
+#' @seealso \code{\link{FLQuantJK}} \code{\link{FLParJK}}
 #' @keywords methods
 #' @examples
 #' 
@@ -88,6 +88,7 @@ setMethod('jackknife', signature(object='FLQuant'),
   }
 )
 
+#' @rdname jackknife
 setMethod('jackknife', signature(object='FLQuants'),
   function(object, ...) {
 
@@ -120,6 +121,7 @@ setMethod('jackknife', signature(object='FLQuants'),
   }
 )
 
+#' @rdname jackknife
 setMethod("jackknife", signature(object="FLModel"),
   function(object, slot) {
     
@@ -148,30 +150,38 @@ setMethod("jackknife", signature(object="FLModel"),
 ) # }}}
 
 # FLQuantJK {{{
+
+#' @rdname FLQuantJK
 setMethod("FLQuantJK", signature(object="ANY", orig="ANY"),
   function(object, orig) {
     return(new("FLQuantJK", object, orig=orig))
   }) # }}}
 
 # FLParJK {{{
+
+#' @rdname FLParJK
 setMethod("FLParJK", signature(object="ANY", orig="ANY"),
   function(object, orig) {
     return(new("FLParJK", object, orig=orig))
   }) # }}}
 
 # orig {{{
+
+#' @rdname FLQuantJK
 setMethod("orig", signature(object="FLQuantJK"),
   function(object) {
     return(object@orig)
   }
 )
 
+#' @rdname FLParJK
 setMethod("orig", signature(object="FLParJK"),
   function(object) {
     return(object@orig)
   }
 )
 
+#' @rdname FLQuantJK
 setMethod("orig", signature(object="FLQuants"),
   function(object) {
     return(lapply(object,
@@ -255,3 +265,24 @@ setMethod("window", signature(x="FLQuantJK"),
       window(FLQuant(x@.Data), ...),
       orig=window(orig(x), ...), units=units(x))
   }) # }}}
+
+# jackSummary {{{
+setMethod("jackSummary", signature(object="FLParJK"),
+  function(object, ...) {
+
+   nms <-names(dimnames(object))
+   idx <-seq(length(nms))[nms != 'iter']
+   n <-dims(object)$iter - 1
+   
+   mn <-iter(object,  1)
+   u <-iter(object, -1)
+   mnU <-apply(u, idx, mean)   
+
+   SS <-apply(sweep(u, idx, mnU,"-")^2, idx, sum)
+
+   bias <- (n - 1) * (mnU - mn)
+   se <- sqrt(((n-1)/n)*SS)
+
+   return(list(hat=mn, mean=mnU, se=se, bias=bias))
+  }
+) # }}}

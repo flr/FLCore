@@ -16,7 +16,7 @@
 #' then conducted. Dimensions and dimnames of the output will be those of the
 #' larger object. See the examples to observe their behaviour.
 #'
-#' Please note that this behjaviour is present on the \link{Arith} methods for
+#' Please note that this behaviour is present on the \link{Arith} methods for
 #' \linkS4class{FLArray}-derived classes but only on the 6th, `iter`, dimension.
 #'
 #' The original use of the `%*%` operator, as vector product, is not available

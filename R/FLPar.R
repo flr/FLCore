@@ -251,6 +251,8 @@ setMethod("iter<-", signature(object="FLPar", value="numeric"),
 # }}}
 
 # summary   {{{
+#' @rdname summary-methods
+#' @aliases summary,FLPar-method
 setMethod('summary', signature(object='FLPar'),
   function(object, ...) {
     cat("An object of class \"", class(object), "\"\n\n", sep="")
@@ -480,6 +482,8 @@ setMethod("print", signature(x="FLPar"),
 ) # }}}
 
 # Arith    {{{
+
+#' @rdname Arith-methods
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
   signature(e1 = "FLPar", e2 = "FLPar"),
   function(e1, e2)
@@ -488,6 +492,10 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
   }
 )
 
+#' @rdname Arith-methods
+#' @examples
+#' # FLQuant and FLPar
+#' flq / flp
 setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
   function(e1, e2) {
     # objects dims
@@ -523,6 +531,7 @@ setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
   }
 )
 
+#' @rdname Arith-methods
 setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
   function(e1, e2) {
     # objects dims
@@ -619,6 +628,7 @@ setMethod('sv', signature(x='FLPar', model='formula'),
   })# }}}
 
 # sweep {{{
+#' @rdname sweep-methods
 setMethod('sweep', signature(x='FLPar'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
   {
@@ -633,27 +643,6 @@ setMethod('apply', signature(X='FLPar'),
   {
     res <- callNextMethod()
     do.call(class(X), list(res, units=units(X)))
-  }
-) # }}}
-
-# jackSummary {{{
-setMethod("jackSummary", signature(object="FLPar"),
-  function(object, ...) {
-
-   nms <-names(dimnames(object))
-   idx <-seq(length(nms))[nms != 'iter']
-   n <-dims(object)$iter - 1
-   
-   mn <-iter(object,  1)
-   u <-iter(object, -1)
-   mnU <-apply(u, idx, mean)   
-
-   SS <-apply(sweep(u, idx, mnU,"-")^2, idx, sum)
-
-   bias <- (n - 1) * (mnU - mn)
-   se <- sqrt(((n-1)/n)*SS)
-
-   return(list(hat=mn, mean=mnU, se=se, bias=bias))
   }
 ) # }}}
 

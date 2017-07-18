@@ -179,6 +179,8 @@ setMethod('model.frame', signature(formula='FLlst'),
 )	# }}}
 
 # summary {{{
+#' @rdname summary-methods
+#' @aliases summary,FLlst-methods
 setMethod('summary', signature(object='FLlst'),
   function(object)
   {
