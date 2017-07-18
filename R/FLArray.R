@@ -155,7 +155,15 @@ setMethod("[", signature(x="FLArray"),
     {
       if(length(list(...)) > 0)
         stop(paste(class(x), 'objects only have 6 dimensions'))
+   
+      # INTERPRET i as vector of elements
+      if(!missing(i) && missing(j) && missing(k) && missing(l) &&
+        missing(m) && missing(n) && drop) {
+        return(x@.Data[i, drop=TRUE])
+      }
+
       dx <- dim(x)
+      
       if (missing(i))
         i  <-  seq(1, dx[1])
       if (missing(j))
@@ -210,7 +218,9 @@ setMethod("[<-", signature(x="FLArray"),
     x@.Data[i] <- value
       return(x)
     }
+    
     dx <- dim(x)
+
     if (missing(i))
       i  <-  seq(1, dx[1])
     if (missing(j))
@@ -224,10 +234,9 @@ setMethod("[<-", signature(x="FLArray"),
     if (missing(n))
       n  <-  seq(1, dx[6])
 
-    #
     x@.Data[i,j,k,l,m,n] <- value
 
-     return(x)
+    return(x)
   }
 ) 
 
@@ -746,7 +755,7 @@ setMethod("qmin", signature(x="FLArray"),
 
 # apply {{{
 
-#' apply method fpor FLCore classes
+#' apply method for FLCore classes
 #'
 #' Applies a function over the margins of an array-based FLCore class
 #' 
@@ -758,10 +767,10 @@ setMethod("qmin", signature(x="FLArray"),
 #' the class is the returned object is that of the more complexs object, in this
 #' case [`FLQuant`].
 #'
-#' @rdname Arith-methods
+#' @rdname apply-methods
 #' @md
 #' @author The FLR Team
-#' @seealso [methods::Arith] [base::Arithmetic]
+#' @seealso [base::apply]
 #' @keywords methods
 #' @examples
 #' 

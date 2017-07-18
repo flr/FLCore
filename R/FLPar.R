@@ -290,6 +290,8 @@ setMethod("as.data.frame", signature(x="FLPar"),
 )   # }}}
 
 # iterMedians, Means & Vars {{{
+
+#' @rdname dimSummaries
 setMethod("iterMeans", "FLPar",
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
@@ -297,6 +299,7 @@ setMethod("iterMeans", "FLPar",
   }
 )
 
+#' @rdname dimSummaries
 setMethod("iterMedians", "FLPar",
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
@@ -304,12 +307,15 @@ setMethod("iterMedians", "FLPar",
   }
 )
 
+#' @rdname dimSummaries
 setMethod("iterVars", "FLPar",
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
     apply(x, dim[-length(dim)], var, na.rm=na.rm)
   }
 )
+
+#' @rdname dimSummaries
 setMethod("iterSums", "FLPar",
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
@@ -638,6 +644,7 @@ setMethod('sweep', signature(x='FLPar'),
 ) # }}}
 
 # apply {{{
+#' @rdname apply-methods
 setMethod('apply', signature(X='FLPar'),
   function(X, MARGIN, FUN, ...)
   {

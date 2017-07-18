@@ -5,7 +5,6 @@
 \alias{Arith,numeric,FLArray-method}
 \alias{Arith,FLArray,numeric-method}
 \alias{Arith,FLArray,FLArray-method}
-\alias{apply,FLArray,numeric,function-method}
 \alias{Arith,FLPar,FLPar-method}
 \alias{Arith,FLArray,FLPar-method}
 \alias{Arith,FLPar,FLArray-method}
@@ -17,8 +16,6 @@
 
 \S4method{Arith}{FLArray,FLArray}(e1, e2)
 
-\S4method{apply}{FLArray,numeric,`function`}(X, MARGIN, FUN, ...)
-
 \S4method{Arith}{FLPar,FLPar}(e1, e2)
 
 \S4method{Arith}{FLArray,FLPar}(e1, e2)
@@ -27,20 +24,10 @@
 }
 \description{
 Overloaded arithmetic operators for FLCore classes
-
-Applies a function over the margins of an array-based FLCore class
 }
 \details{
 These methods apply the standard arithmetic operators included in the
 \code{\link[methods]{Arith}} group ("+", "-", "*", "^", "%%", "%/%", and
-"/"), so that they return an object of the appropriate class.
-
-When the operation involves objects of two classes (e.g. \code{\link{FLPar}} and \code{\link{FLQuant}}),
-the class is the returned object is that of the more complexs object, in this
-case \code{\link{FLQuant}}.
-
-These methods call R's \link[base:apply]{base::apply} on an \link{FLArray} the standard arithmetic operators included in the
-\code{\link[methods]{Arith}} group ("+", "-", "*", `"^", "%%", "%/%", and
 "/"), so that they return an object of the appropriate class.
 
 When the operation involves objects of two classes (e.g. \code{\link{FLPar}} and \code{\link{FLQuant}}),
@@ -57,26 +44,13 @@ flq * 25
 # Two FLQuant objects
 flq + flq
 
-
-flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
-flp <- FLPar(a=99)
-
-# FLQuant and numeric
-flq * 25
-# Two FLQuant objects
-flq + flq
-
 # FLQuant and FLPar
 flq / flp
 }
 \seealso{
 \link[methods:Arith]{methods::Arith} \link[base:Arithmetic]{base::Arithmetic}
-
-\link[methods:Arith]{methods::Arith} \link[base:Arithmetic]{base::Arithmetic}
 }
 \author{
-The FLR Team
-
 The FLR Team
 }
 \keyword{methods}

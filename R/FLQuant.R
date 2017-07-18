@@ -496,7 +496,6 @@ setMethod('yearTotals', signature(x='FLQuant'),
 # sums         {{{
 
 #' @rdname dimSummaries
-#' @aliases quantSums,FLQuant-method
 setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
   res <- colSums(x, na.rm=na.rm)
@@ -514,7 +513,6 @@ setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 #' @rdname dimSummaries
-#' @aliases yearSums,FLQuant-method
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -522,7 +520,6 @@ setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 #' @rdname dimSummaries
-#' @aliases unitSums,FLQuant-method
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -530,7 +527,6 @@ setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 #' @rdname dimSummaries
-#' @aliases seasonSums,FLQuant-method
 setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
  
   # output, 1 season
@@ -552,7 +548,6 @@ setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 #' @rdname dimSummaries
-#' @aliases areaSums,FLQuant-method
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -560,7 +555,6 @@ setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 })
 
 #' @rdname dimSummaries
-#' @aliases iterSums,FLQuant-method
 setMethod('iterSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,1:5, function(x, NA.RM=na.rm){
     z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -570,6 +564,7 @@ setMethod('iterSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 # }}}
 
 # means         {{{
+#' @rdname dimSummaries
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   res <- colMeans(x, na.rm=na.rm)
   dim(res) <- c(1, dim(res))
@@ -577,57 +572,70 @@ setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
     units=units(x)))
 })
 
+#' @rdname dimSummaries
 setMethod('yearMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1,3:6), mean, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:2,4:6), mean, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:3,5,6), mean, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:4,6), mean, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), mean, na.rm=na.rm))
 }) # }}}
 
 # medians {{{
+#' @rdname dimSummaries
 setMethod('iterMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), median, na.rm=na.rm))
 }) # }}}
 
 # vars         {{{
+#' @rdname dimSummaries
 setMethod('quantVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, 2:6, var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('yearVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1,3:6), var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('unitVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:2,4:6), var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('seasonVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:3,5:6), var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('areaVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:4,6), var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('iterVars', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), var, na.rm=na.rm))
 }) # }}}
 
 # CVs {{{
+#' @rdname dimSummaries
 setMethod('iterCVs', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(sqrt(iterVars(x))/iterMeans(x))
 }) # }}}

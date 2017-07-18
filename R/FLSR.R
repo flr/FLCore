@@ -225,57 +225,6 @@ setMethod("as.FLSR", signature(object="FLStock"),
     validObject(sr)
     return(sr)
    }
-)
-setMethod("as.FLSR", signature(object="FLBiol"),
-    function(object, rec.age = "missing", ...)
-	{
-        validObject(object)
-
-        # recruitment delay set using minage
-        # from the FLStock object
-        if(missing(rec.age))
-            rec.age <- dims(n(object))$min
-        else{
-            if(rec.age < dims(n(object))$min)
-                stop("Supplied recruitment age less than minimum age class")
-        }
-
-        if (all(is.na(slot(object, "n"))) || all(is.na(slot(object, "wt"))) ||
-            all(is.na(slot(object, "fec"))) || all(is.na(slot(object, "spwn"))))
-            stop("biol must have 'n', 'wt', 'm', 'fec' and 'spwn'")
-
-        args <- list(...)
-        slots <- names(args)[ifelse(length(which(names(args) == "rec.age"))>0,
-            -which(names(args) == "rec.age"), 1:length(args))]
-
-        # calculate ssb and create FLSR object incorporating rec.age
-        rec <- dimSums(object@n[as.character(rec.age),])
-
-        ssb <- apply(slot(object, "n") * exp(- slot(object, "m")*slot(object, "spwn"))*
-            slot(object, "wt")*slot(object, "fec"), 2:5, sum)
-
-        # now alter the stock and recruitment
-        # vectors to factor in the recruitement age
-
-        if((dim(rec)[2]-1) <= rec.age)
-            stop("FLBiol recruitment data set too short")
-
-        rec <- rec[,(1+rec.age):dim(rec)[2],,,]
-        ssb <- ssb[,1:(dim(ssb)[2] - rec.age),,,]
-
-        # create the FLSR object
-        sr <- FLSR(rec = rec,ssb = ssb, name = object@name,
-            desc = "'rec' and 'ssb' slots obtained from a 'FLBiol' object", ...)
-
-        slot(sr, "fitted") <- FLQuant(dimnames = dimnames(slot(sr, "rec")))
-        slot(sr, "residuals") <- FLQuant(dimnames = dimnames(slot(sr, "rec")))
-
-        units(slot(sr, "rec")) <- units(slot(object, "n"))
-	      units(slot(sr, "ssb")) <- units(slot(object, "wt"))
-        units(slot(sr, "fitted")) <- units(slot(sr, "rec"))
-
-        return(sr)
-   }
 ) # }}}
 
 # lowess  {{{

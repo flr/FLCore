@@ -1118,19 +1118,25 @@ setGeneric("yearTotals", function(x, ...)
 #' 
 #' Methods to compute various summary calculations (sum, mean, variance) over
 #' selected dimensions of objects from any array-based classes
-#' (e.g. \code{FLQuant}, \code{FLPar}). These methods return an object of the
-#' same dimensions as the input but with of length one in the dimension chosen
+#' (e.g. \code{FLQuant}). These methods return an object of the
+#' same dimensions as the input but with length one in the dimension chosen
 #' to operate along.
 #'
 #' This set of methods computes three different summaries (sum, mean and
 #' variance) of an \code{FLQuant} object along each of the six dimensions
-#' (quant, year, unit, season, area, or iter). Medians can also be computed
-#' along the sixth dimension, \code{iter}.
+#' (quant, year, unit, season, area, or iter). Medians and CVs can also be
+#' computed along the sixth dimension, \code{iter}.
 #' 
-#' These methods simply encapsulate a call to \code{\link[base]{apply}} with
-#' the corresponding dimensions and function.
+#' These methods encapsulate a call to \code{\link[base]{apply}} with
+#' the corresponding dimensions and function: \code{\link[base]{mean}}, 
+#' \code{\link[stats]{median}}, \code{\link[stats]{var}}, and
+#' \code{\link[base]{sum}}, while \code{iterCVs} are computed as
+#' \code{sqrt(iterVars) / iterMeans}.
+#'
+#' In contrast with R standard behaviour, the sum of a dimension where all
+#' elements are \code{NA} will be \code{NA} and not 0. See example below.
 #' 
-#' Methods along the iter dimension are also defined for objects of class
+#' Methods working along the iter dimension are also defined for objects of class
 #' \code{FLPar}.
 #' 
 #' Methods to operate over the first dimension refer to it as the \code{quant}
@@ -1155,87 +1161,75 @@ setGeneric("yearTotals", function(x, ...)
 #' @keywords methods
 #' @examples
 #' 
-#'  flq <- FLQuant(rnorm(4000), dim=c(5,10,2,2,2,10), quant='age')
-#'  quantSums(flq)
-#'  quantMeans(flq)
-#'  yearSums(flq)
-#'  iterMeans(flq)
-#'  dim(quantSums(flq))
+#' flq <- FLQuant(rnorm(4000), dim=c(5,10,2,2,2,10), quant='age')
+#'
+#' quantSums(flq)
+#' quantMeans(flq)
+#' yearSums(flq)
+#' iterMeans(flq)
+#' dim(quantSums(flq))
+#'
+#' # NA dims stay as NA when summed along
+#' x <- FLQuant(c(NA, NA, NA, rnorm(6)), dim=c(3, 3))
+#' quantSums(x)
+#' # although in fact a sum of no elements (as na.rm=TRUE) is zero
+#' apply(x, 2:6, sum, na.rm=TRUE)
 
 #' @rdname dimSummaries
-#' @aliases quantSums
 setGeneric("quantSums", function(x, ...) standardGeneric("quantSums"))
 #' @rdname dimSummaries
-#' @aliases yearSums
 setGeneric("yearSums", function(x, ...) standardGeneric("yearSums"))
 #' @rdname dimSummaries
-#' @aliases unitSums
 setGeneric("unitSums", function(x, ...) standardGeneric("unitSums"))
 #' @rdname dimSummaries
-#' @aliases seasonSums
 setGeneric("seasonSums", function(x, ...) standardGeneric("seasonSums"))
 #' @rdname dimSummaries
-#' @aliases areaSums
 setGeneric("areaSums", function(x, ...) standardGeneric("areaSums"))
 #' @rdname dimSummaries
-#' @aliases dimSums
-setGeneric("dimSums", function(x, ...) standardGeneric("dimSums"))
-#' @rdname dimSummaries
-#' @aliases quantMeans
-setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
-#' @rdname dimSummaries
-#' @aliases yearMeans
-setGeneric("yearMeans", function(x, ...) standardGeneric("yearMeans"))
-#' @rdname dimSummaries
-#' @aliases unitMeans
-setGeneric("unitMeans", function(x, ...) standardGeneric("unitMeans"))
-#' @rdname dimSummaries
-#' @aliases seasonMeans
-setGeneric("seasonMeans", function(x, ...) standardGeneric("seasonMeans"))
-#' @rdname dimSummaries
-#' @aliases areaMeans
-setGeneric("areaMeans", function(x, ...) standardGeneric("areaMeans"))
-#' @rdname dimSummaries
-#' @aliases iterMeans
-setGeneric("iterMeans", function(x, ...) standardGeneric("iterMeans"))
-#' @rdname dimSummaries
-#' @aliases iterSums
 setGeneric("iterSums", function(x, ...) standardGeneric("iterSums"))
 #' @rdname dimSummaries
-#' @aliases dimMeans
-setGeneric("dimMeans", function(x, ...) standardGeneric("dimMeans"))
+setGeneric("dimSums", function(x, ...) standardGeneric("dimSums"))
+
 #' @rdname dimSummaries
-#' @aliases quantVars
+setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
+#' @rdname dimSummaries
+setGeneric("yearMeans", function(x, ...) standardGeneric("yearMeans"))
+#' @rdname dimSummaries
+setGeneric("unitMeans", function(x, ...) standardGeneric("unitMeans"))
+#' @rdname dimSummaries
+setGeneric("seasonMeans", function(x, ...) standardGeneric("seasonMeans"))
+#' @rdname dimSummaries
+setGeneric("areaMeans", function(x, ...) standardGeneric("areaMeans"))
+#' @rdname dimSummaries
+setGeneric("iterMeans", function(x, ...) standardGeneric("iterMeans"))
+#' @rdname dimSummaries
+setGeneric("dimMeans", function(x, ...) standardGeneric("dimMeans"))
+
+#' @rdname dimSummaries
 setGeneric("quantVars", function(x, ...) standardGeneric("quantVars"))
 #' @rdname dimSummaries
-#' @aliases yearVars
 setGeneric("yearVars", function(x, ...) standardGeneric("yearVars"))
 #' @rdname dimSummaries
-#' @aliases unitVars
 setGeneric("unitVars", function(x, ...) standardGeneric("unitVars"))
 #' @rdname dimSummaries
-#' @aliases seasonVars
 setGeneric("seasonVars", function(x, ...) standardGeneric("seasonVars"))
 #' @rdname dimSummaries
-#' @aliases areaVars
 setGeneric("areaVars", function(x, ...) standardGeneric("areaVars"))
 #' @rdname dimSummaries
-#' @aliases iterVars
 setGeneric("iterVars", function(x, ...) standardGeneric("iterVars"))
 #' @rdname dimSummaries
-#' @aliases dimVars
 setGeneric("dimVars", function(x, ...) standardGeneric("dimVars"))
+
 #' @rdname dimSummaries
-#' @aliases iterMedians
 setGeneric("iterMedians", function(x, ...) standardGeneric("iterMedians"))
 #' @rdname dimSummaries
-#' @aliases iterCVs
 setGeneric("iterCVs", function(x, ...) standardGeneric("iterCVs"))
 # }}}
 
-# Z
+# z
 setGeneric("z", function(object, ...)
     standardGeneric("z"))
+
 # breaks
 setGeneric("breaks", function(object, ...) standardGeneric("breaks"))
 

@@ -195,23 +195,52 @@ setMethod("orig", signature(object="FLQuants"),
 ) # }}}
 
 # apply {{{
+#' @rdname apply-methods
 setMethod("apply", signature(X="FLQuantJK", MARGIN="numeric", FUN="function"),
   function(X, MARGIN, FUN, ...) {
     return(apply(new('FLQuant', X@.Data, units=units(X)), MARGIN, FUN, ...))
   })
 
+#' @rdname apply-methods
 setMethod("apply", signature(X="FLParJK", MARGIN="numeric", FUN="function"),
   function(X, MARGIN, FUN, ...) {
     return(apply(new('FLPar', X@.Data, units=units(X)), MARGIN, FUN, ...))
   }) # }}}
 
 # bias {{{
-# $ \widehat{Bias}_{(\theta)} = (n - 1)((\frac{1}{n}\sum\limits_{i=1}^n\hat{\theta}_{(i)})-\hat{\theta}) $
+
+#' Bias of estimates through jackknife
+#'
+#' Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend
+#' odio ac rutrum luctus. Aenean placerat porttitor commodo. Pellentesque eget porta
+#' libero. Pellentesque molestie mi sed orci feugiat, non mollis enim tristique. 
+#'
+#' Details: Aliquam sagittis feugiat felis eget consequat. Praesent eleifend dolor massa, 
+#' vitae faucibus justo lacinia a. Cras sed erat et magna pharetra bibendum quis in 
+#' mi. Sed sodales mollis arcu, sit amet venenatis lorem fringilla vel. Vivamus vitae 
+#' ipsum sem. Donec malesuada purus at libero bibendum accumsan. Donec ipsum sapien, 
+#' feugiat blandit arcu in, dapibus dictum felis. 
+#'
+#' \deqn{\widehat{Bias}_{(\theta)} = (n - 1)((\frac{1}{n}\sum\limits_{i=1}^n\hat{\theta}_{(i)})-\hat{\theta})}{}
+#'
+#' @param x An object holding estimates obtained through jackknife
+#'
+#' @return A value for the mean bias
+#'
+#' @name bias
+#' @rdname bias
+#' @md
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords classes
+#' @examples
+#'
 setMethod("bias", signature(x="FLQuantJK"),
   function(x) {
       return((dim(x)[6] - 1) * (iterMeans(x) - orig(x)))
   }) 
 
+#' @rdname bias
 setMethod("bias", signature(x="FLParJK"),
   function(x) {
     return((dim(x)[length(dim(x))] - 1) * (iterMeans(FLPar(x@.Data)) - orig(x)))
@@ -270,19 +299,19 @@ setMethod("window", signature(x="FLQuantJK"),
 setMethod("jackSummary", signature(object="FLParJK"),
   function(object, ...) {
 
-   nms <-names(dimnames(object))
-   idx <-seq(length(nms))[nms != 'iter']
-   n <-dims(object)$iter - 1
+    nms <-names(dimnames(object))
+    idx <-seq(length(nms))[nms != 'iter']
+    n <-dims(object)$iter - 1
    
-   mn <-iter(object,  1)
-   u <-iter(object, -1)
-   mnU <-apply(u, idx, mean)   
+    mn <-iter(object,  1)
+    u <-iter(object, -1)
+    mnU <-apply(u, idx, mean)   
 
-   SS <-apply(sweep(u, idx, mnU,"-")^2, idx, sum)
+    SS <-apply(sweep(u, idx, mnU,"-")^2, idx, sum)
 
-   bias <- (n - 1) * (mnU - mn)
-   se <- sqrt(((n-1)/n)*SS)
+    bias <- (n - 1) * (mnU - mn)
+    se <- sqrt(((n-1)/n)*SS)
 
-   return(list(hat=mn, mean=mnU, se=se, bias=bias))
+    return(list(hat=mn, mean=mnU, se=se, bias=bias))
   }
 ) # }}}
