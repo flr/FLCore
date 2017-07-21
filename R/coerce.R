@@ -195,7 +195,7 @@ setAs('data.frame', 'FLStock',
 )
 
 setMethod('as.FLStock', signature(object='data.frame'),
-    function(object, units=missing) {
+    function(object, units=missing, ...) {
 
         res <- as(object, 'FLStock')
 
@@ -204,6 +204,12 @@ setMethod('as.FLStock', signature(object='data.frame'),
             warning("units in FLStock slots not specified")
         else
             units(res) <- units
+
+        # args
+        args <- list(...)
+        if(length(args) > 0)
+          for(i in names(args))
+            slot(res, i) <- args[[i]]
 
         return(res)
     }
