@@ -200,8 +200,6 @@ setMethod("as.FLSR", signature(object="FLStock"),
       stop("Supplied recruitment age less than minimum age class")
 
     args <- list(...)
-    slots <- names(args)[ifelse(length(which(names(args) == "rec.age"))>0,
-		  -which(names(args) == "rec.age"), 1:length(args))]
 
     # calculate ssb and create FLSR object incorprating rec.age
     rec <- object@stock.n[as.character(rec.age),]
