@@ -428,7 +428,7 @@ setMethod("range", "FLComp",
 setReplaceMethod("range", signature(x="FLComp", i="missing", value="numeric"),
   function(x, value)
   {
-    slot(x, 'range') <- value
+    slot(x, 'range')[names(value)] <- value
       return(x)
   }
 )
