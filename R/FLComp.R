@@ -425,6 +425,14 @@ setMethod("range", "FLComp",
   }
 )
 
+setReplaceMethod("range", signature(x="FLComp", i="missing", value="numeric"),
+  function(x, value)
+  {
+    slot(x, 'range') <- value
+      return(x)
+  }
+)
+
 setReplaceMethod("range", signature(x="FLComp", i="ANY", value="numeric"),
   function(x, i, value)
   {
