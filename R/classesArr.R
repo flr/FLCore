@@ -558,10 +558,10 @@ setClass('FLPar', representation('array', units='character'),
 setClass("FLParJK",
 	representation("FLPar", orig="FLPar"),
   prototype(new("FLPar"), orig=new("FLPar")),
-	validity=function(object) {
-    # dimnames of .Data and origin [1-5] must match
-    if(!all.equal(dimnames(object@.Data)[1:5], dimnames(object@orig)[1:5]))
-      return("dimnames of .Data and origin [1-5] must match")
+	validity=function(object) {browser()
+    # dimnames of .Data and origin, but 'iter', must mjatch
+    if(!all.equal(dimnames(object@.Data)[ - length(dim(object))],
+      dimnames(object@orig)[ - length(dim(object))]))
+      return("dimnames of .Data and origin must match")
 		return(TRUE)
-	}
-) # }}}
+	}) # }}}
