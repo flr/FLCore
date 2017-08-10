@@ -416,8 +416,7 @@ setMethod('model.frame', signature(formula='FLComp'),
 
 # range {{{
 setMethod("range", "FLComp",
-  function(x, i='missing', ..., na.rm = FALSE)
-  {
+  function(x, i='missing', ..., na.rm = FALSE) {
     if(missing(i))
       slot(x, 'range')
     else
@@ -426,16 +425,14 @@ setMethod("range", "FLComp",
 )
 
 setReplaceMethod("range", signature(x="FLComp", i="missing", value="numeric"),
-  function(x, value)
-  {
+  function(x, value) {
     slot(x, 'range')[names(value)] <- value
       return(x)
   }
 )
 
 setReplaceMethod("range", signature(x="FLComp", i="ANY", value="numeric"),
-  function(x, i, value)
-  {
+  function(x, i, value) {
     slot(x, 'range')[i] <- value
     if(validObject(x))
       return(x)
