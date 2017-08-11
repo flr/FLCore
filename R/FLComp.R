@@ -1,7 +1,7 @@
 # FLComp - Basic VIRTUAL class for all FLQuant-based classes
 # FLCore/R/FLComp.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2017 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # summary		{{{
@@ -264,7 +264,7 @@ setMethod('[', signature(x='FLComp'),
     }
 )   # }}}
 
-# "[<-"            {{{
+# '[<-'            {{{
 #' @rdname Extract
 #' @aliases [<-,FLComp,ANY,ANY,ANY-method
 setMethod("[<-", signature(x="FLComp"),
@@ -372,11 +372,10 @@ setMethod("dims", signature(obj="FLComp"),
 			for(p in pnames)
 				iter <- max(iter, length(dimnames(slot(obj, p))$iter))
 
-    # Hack for FLBRP
-    # TODO Fix for FLstock
+    # Hack for FLBRP, drop fbar slot
     dnames <- dnames[!names(dnames) %in% 'fbar']
     quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
-      function(x) x[1] == max(dims[,1])))][[1]]
+      function(x) x[1] == max(dims[,1])))][[2]]
     res <- list(
       quant = quant(slot(obj, qnames[1])),
       quants = max(dims[,1]),

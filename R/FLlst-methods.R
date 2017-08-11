@@ -206,7 +206,7 @@ setMethod('summary', signature(object='FLlst'),
 
 # range {{{
 setMethod("range", "FLlst",
-  function(x, i='missing', ..., na.rm = FALSE)
+  function(x, i = "missing", ..., na.rm = FALSE)
   {
     range <- matrix(unlist(lapply(x, function(x) range(x))), nrow=length(x), byrow=TRUE,
       dimnames=list(1:length(x), names(range(x[[1]]))))
