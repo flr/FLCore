@@ -1,4 +1,18 @@
-# CHANGES IN FLCore VERSION 2.6
+# FLCore 2.6.4
+
+## NEW FEATURES
+
+## USER-VISIBLE CHANGES
+
+## BUG FIXES
+
+## UTILITIES
+
+## DOCUMENTATION
+
+## DEPRECATED & DEFUNCT
+
+# FLCore 2.6.3
 
 ## NEW FEATURES
 - FLModelSim and FLModelSims new classes

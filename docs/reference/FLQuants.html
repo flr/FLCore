@@ -144,9 +144,9 @@ any of the list elements.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># Compute various FLStock indicators</span>
   <span class='fu'>data</span>(<span class='no'>ple4</span>)
-  <span class='no'>fqs</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuants</span>(<span class='kw'>ssb</span><span class='kw'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span>(<span class='no'>ple4</span>), <span class='kw'>catch</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>), <span class='kw'>rec</span><span class='kw'>=</span><span class='fu'>rec</span>(<span class='no'>ple4</span>),
+  <span class='no'>fqs</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuants</span>(<span class='kw'>ssb</span><span class='kw'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span>(<span class='no'>ple4</span>), <span class='kw'>catch</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>), <span class='kw'>rec</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>rec</a></span>(<span class='no'>ple4</span>),
     <span class='kw'>f</span><span class='kw'>=</span><span class='fu'>fbar</span>(<span class='no'>ple4</span>))
-  <span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>fqs</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuants&quot;
+  <span class='fu'>summary</span>(<span class='no'>fqs</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuants&quot;
 #&gt; 
 #&gt; Elements: ssb catch rec f 
 #&gt; 

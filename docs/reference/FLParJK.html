@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A class for model prediction — predictModel • FLCore</title>
+<title>Class FLParJK — FLParJK • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,45 +81,33 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A class for model prediction</h1>
+    <h1>Class FLParJK</h1>
     </div>
 
     
-    <p>Object of the predictModel class are used in various FLR classes to allow
-flexible modelling of the dynamics of different biological and technological
-processes.</p>
+    <p>A class for storing parameters of a jackknifed model fit.</p>
     
 
-    <pre><span class='co'># S4 method for FLQuants</span>
-<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='kw'>model</span> <span class='kw'>=</span> ~<span class='fl'>NA</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>())
+    <pre><span class='co'># S4 method for ANY</span>
+<span class='fu'>FLParJK</span>(<span class='no'>object</span>, <span class='no'>orig</span>)
 
-<span class='co'># S4 method for missing</span>
-<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S4 method for FLParJK</span>
+<span class='fu'>orig</span>(<span class='no'>object</span>)</pre>
         
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The dependency of life history processes, such as maturity and fecundity, to biological
-and environmental factors, can be represented in objects of this class via a simple model
-(represented by a `formula`) and the corresponding paramaters (`FLPar`) and inputs
-(`FLQuants`).</p>
-    
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
     <p></p>
     <p><dl class='dl-horizontal'>
-    <dt>.Data</dt><dd>Inputs to the model not found in enclosing class (<code>FLQuants</code>).</dd>
-    <dt>model</dt><dd>Model representation (<code>formula</code>).</dd>
-    <dt>params</dt><dd>Model paramaters (<code>FLPar</code>).</dd>
+<dt><code>.Data</code></dt><dd>Jackknifed object, <code>FLPar</code>.</dd></p>
+    <p><dt><code>units</code></dt><dd>units of measurement, <code>character</code>.</dd></p>
+    <p><dt><code>orig</code></dt><dd>original object being jackknifed, <code>FLPar</code>.</dd>
 </dl></p>
     
     <h2 class="hasAnchor" id="validity"><a class="anchor" href="#validity"></a>Validity</h2>
 
     <p></p>
-    <p><dl class='dl-horizontal'>
-    <dt>VALIDITY</dt><dd>Neque porro quisquam est qui dolorem ipsum.</dd>
-</dl></p>
     <p>You can inspect the class validity function by using
-   <code>getValidity(getClassDef(&#39;predictModel&#39;))</code></p>
+<code>getValidity(getClassDef(&#39;FLParJK&#39;))</code></p>
     
     <h2 class="hasAnchor" id="accessors"><a class="anchor" href="#accessors"></a>Accessors</h2>
 
@@ -134,68 +122,21 @@ attributes.</p>
     <h2 class="hasAnchor" id="constructor"><a class="anchor" href="#constructor"></a>Constructor</h2>
 
     <p></p>
-    <p>A construction method exists for this class that can take named arguments for
+    <p>Objects of this class are commonly created by calling the <code><a href='jackknife.html'>jackknife()</a></code> method
+A construction method exists for this class that can take named arguments for
 any of its slots. All slots are then created to match the requirements of the
 class validity.</p>
     
-    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
-
-    <p></p>
-    <p>Methods exist for various calculations based on values stored in the class:</p>
-    <p><dl class='dl-horizontal'>
-    <dt>METHOD</dt><dd>Neque porro quisquam est qui dolorem ipsum.</dd>
-</dl></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='FLQuants.html'>FLQuants</a></code> <code><a href='FLPar.html'>FLPar</a></code> <code><a href='FLBiol.html'>FLBiol</a></code></p>
+    <p><code><a href='FLPar.html'>FLPar</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>fec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuants.html'>FLQuants</a></span>(<span class='kw'>fec</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>10</span>, <span class='fl'>20</span>, <span class='fl'>5</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2009</span>),
-  <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'1'</span>))
-<span class='fu'>predictModel</span>(<span class='no'>fec</span>, <span class='kw'>model</span><span class='kw'>=</span>~<span class='no'>fec</span>)</div><div class='output co'>#&gt; $ fec 
-#&gt; An object of class &quot;FLQuant&quot;
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 2000       2001       2002       2003       2004       2005      
-#&gt;   all 5.2978e+11 3.8010e+12 8.7733e+06 2.0957e+10 1.0912e+06 1.9170e+07
-#&gt;      year
-#&gt; quant 2006       2007       2008       2009      
-#&gt;   all 4.8526e+06 5.7229e+08 1.8240e+07 1.6967e+05
-#&gt; 
-#&gt; units:  1 
-#&gt; 
-#&gt; model:  
-#&gt; ~fec
-#&gt; &lt;environment: 0x89a3f40&gt;
-#&gt; 
-#&gt; params:  
-#&gt; An object of class &quot;FLPar&quot;
-#&gt; params
-#&gt;    
-#&gt; NA 
-#&gt; units:  NA </div><div class='input'>
-<span class='fu'>predictModel</span>(<span class='kw'>model</span><span class='kw'>=</span><span class='no'>rec</span>~<span class='no'>a</span>*<span class='no'>ssb</span>, <span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1.234</span>))</div><div class='output co'>#&gt; An object of class &quot;FLQuants&quot;: EMPTY
-#&gt; model:  
-#&gt; rec ~ a * ssb
-#&gt; &lt;environment: 0x89a3f40&gt;
-#&gt; 
-#&gt; params:  
-#&gt; An object of class &quot;FLPar&quot;
-#&gt; params
-#&gt;     a 
-#&gt; 1.234 
-#&gt; units:  NA </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
-      <li><a href="#details">Details</a></li>
-
       <li><a href="#slots">Slots</a></li>
 
       <li><a href="#validity">Validity</a></li>
@@ -204,12 +145,8 @@ class validity.</p>
 
       <li><a href="#constructor">Constructor</a></li>
 
-      <li><a href="#methods">Methods</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
     <h2>Author</h2>
     

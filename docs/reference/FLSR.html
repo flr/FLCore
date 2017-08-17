@@ -100,7 +100,7 @@
 
     <p>A series of commonly-used stock-recruitment models are already available,
 including the corresponding likelihood functions and calculation of initial
-values. See <code>SRModels</code> for more details and the exact
+values. See <code><a href='SRModels.html'>SRModels</a></code> for more details and the exact
 formulation implemented for each of them.</p>
     
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
@@ -140,30 +140,30 @@ formulation implemented for each of them.</p>
   <span class='co'># Create an  FLSR object using the existing SR models.</span>
   <span class='no'>sr2</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'ricker'</span>)
   <span class='no'>sr2</span>@<span class='kw'>model</span></div><div class='output co'>#&gt; rec ~ a * ssb * exp(-b * ssb)
-#&gt; &lt;environment: 0x967b6c8&gt;</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
-#&gt; 		# The function to provide initial values
+#&gt; &lt;environment: 0xe031620&gt;</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
+#&gt; \t\t# The function to provide initial values
 #&gt;     res  &lt;-coefficients(lm(log(c(rec)/c(ssb))~c(ssb)))
 #&gt;     return(FLPar(a=max(exp(res[1])), b=-max(res[2])))}
-#&gt; &lt;environment: 0x967b6c8&gt;
+#&gt; &lt;environment: 0xe031620&gt;
 #&gt; attr(,&quot;lower&quot;)
 #&gt; [1] -Inf -Inf
 #&gt; attr(,&quot;upper&quot;)
 #&gt; [1] Inf Inf</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))
-#&gt; &lt;environment: 0x967b6c8&gt;</div><div class='input'>
+#&gt; &lt;environment: 0xe031620&gt;</div><div class='input'>
   <span class='no'>sr3</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'bevholt'</span>)
   <span class='no'>sr3</span>@<span class='kw'>model</span></div><div class='output co'>#&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x8a81670&gt;</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
+#&gt; &lt;environment: 0xe963a58&gt;</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
 #&gt;     a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))
 #&gt;     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #&gt;     return(FLPar(a = a, b = a/b))}
-#&gt; &lt;environment: 0x8a81670&gt;
+#&gt; &lt;environment: 0xe963a58&gt;
 #&gt; attr(,&quot;lower&quot;)
 #&gt; [1] -Inf -Inf
 #&gt; attr(,&quot;upper&quot;)
 #&gt; [1] Inf Inf</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;environment: 0x8a81670&gt;</div><div class='input'>
+#&gt; &lt;environment: 0xe963a58&gt;</div><div class='input'>
   <span class='co'># Create an FLSR using a function.</span>
   <span class='no'>mysr1</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(){
     <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='no'>rec</span> ~ <span class='no'>a</span>*<span class='no'>ssb</span>^<span class='no'>b</span>
@@ -194,76 +194,77 @@ formulation implemented for each of them.</p>
   <span class='no'>sr5</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>mysr2</span>, <span class='kw'>ssb</span> <span class='kw'>=</span> <span class='no'>ssb</span>, <span class='kw'>rec</span> <span class='kw'>=</span> <span class='no'>rec</span>)
 
   <span class='no'>sr5.mle</span> <span class='kw'>&lt;-</span> <span class='fu'>fmle</span>(<span class='no'>sr5</span>)</div><div class='output co'>#&gt;   Nelder-Mead direct search function minimizer
-#&gt; function value for initial parameters = 287118.862535
-#&gt;   Scaled convergence tolerance is 0.0042784
-#&gt; Stepsize computed as 11245.294930
-#&gt; BUILD              4 36303211874985.773438 241591.568169
-#&gt; LO-REDUCTION       6 8291475355292.950195 241591.568169
-#&gt; HI-REDUCTION       8 2102619137486.605957 241591.568169
-#&gt; HI-REDUCTION      10 529289281999.094604 241591.568169
-#&gt; HI-REDUCTION      12 132698378274.013077 241591.568169
-#&gt; HI-REDUCTION      14 33180247888.713406 241591.568169
-#&gt; HI-REDUCTION      16 8275043265.687049 241591.568169
-#&gt; HI-REDUCTION      18 2055985461.625910 241591.568169
-#&gt; HI-REDUCTION      20 507361299.486644 241591.568169
-#&gt; HI-REDUCTION      22 123590775.237639 241591.568169
-#&gt; HI-REDUCTION      24 29380357.936456 241591.568169
-#&gt; HI-REDUCTION      26 6698794.579449 241591.568169
-#&gt; HI-REDUCTION      28 1464541.118838 241591.568169
-#&gt; HI-REDUCTION      30 394280.658740 241591.568169
-#&gt; REFLECTION        32 374123.563165 212283.707912
-#&gt; HI-REDUCTION      34 287118.862535 212283.707912
-#&gt; LO-REDUCTION      36 241591.568169 193649.947895
-#&gt; HI-REDUCTION      38 213899.378920 169104.079869
-#&gt; EXTENSION         40 212283.707912 120039.054779
-#&gt; LO-REDUCTION      42 193649.947895 120039.054779
-#&gt; LO-REDUCTION      44 169104.079869 120039.054779
-#&gt; EXTENSION         46 137508.028300 65524.387781
-#&gt; LO-REDUCTION      48 130678.219944 65524.387781
-#&gt; LO-REDUCTION      50 120039.054779 65524.387781
-#&gt; EXTENSION         52 83654.120667 24511.542451
-#&gt; LO-REDUCTION      54 75305.523083 24511.542451
-#&gt; EXTENSION         56 65524.387781 10029.946000
-#&gt; REFLECTION        58 32155.975983 2066.974505
-#&gt; REFLECTION        60 24511.542451 212.296826
-#&gt; LO-REDUCTION      62 10029.946000 212.296826
-#&gt; LO-REDUCTION      64 4160.815995 212.296826
-#&gt; LO-REDUCTION      66 2066.974505 212.296826
-#&gt; LO-REDUCTION      68 578.891873 212.296826
-#&gt; HI-REDUCTION      70 433.371823 157.347746
-#&gt; HI-REDUCTION      72 241.892821 113.182537
-#&gt; HI-REDUCTION      74 212.296826 98.789785
-#&gt; LO-REDUCTION      76 157.347746 98.789785
-#&gt; HI-REDUCTION      78 113.182537 84.115474
-#&gt; HI-REDUCTION      80 104.798128 79.297501
-#&gt; LO-REDUCTION      82 98.789785 77.083938
-#&gt; LO-REDUCTION      84 84.115474 71.293499
-#&gt; LO-REDUCTION      86 79.297501 71.293499
-#&gt; HI-REDUCTION      88 77.083938 71.293499
-#&gt; HI-REDUCTION      90 72.886390 71.293499
-#&gt; HI-REDUCTION      92 72.154430 70.937511
-#&gt; HI-REDUCTION      94 71.418874 70.702583
-#&gt; HI-REDUCTION      96 71.293499 70.564525
-#&gt; HI-REDUCTION      98 70.937511 70.451306
-#&gt; HI-REDUCTION     100 70.702583 70.451306
-#&gt; HI-REDUCTION     102 70.564525 70.451306
-#&gt; HI-REDUCTION     104 70.523229 70.416579
-#&gt; HI-REDUCTION     106 70.460432 70.410889
-#&gt; HI-REDUCTION     108 70.451306 70.394380
-#&gt; HI-REDUCTION     110 70.416579 70.380024
-#&gt; LO-REDUCTION     112 70.410889 70.380024
-#&gt; REFLECTION       114 70.394380 70.379238
-#&gt; HI-REDUCTION     116 70.388135 70.376602
-#&gt; HI-REDUCTION     118 70.380024 70.373830
-#&gt; LO-REDUCTION     120 70.379238 70.373830
+#&gt; function value for initial parameters = 349893.904305
+#&gt;   Scaled convergence tolerance is 0.00521383
+#&gt; Stepsize computed as 12557.496732
+#&gt; BUILD              4 55170133343738.812500 288398.015430
+#&gt; LO-REDUCTION       6 12459360327477.355469 288398.015430
+#&gt; HI-REDUCTION       8 3164998231696.320312 288398.015430
+#&gt; HI-REDUCTION      10 797415015345.800537 288398.015430
+#&gt; HI-REDUCTION      12 200004028731.880310 288398.015430
+#&gt; HI-REDUCTION      14 50017802213.222160 288398.015430
+#&gt; HI-REDUCTION      16 12474145848.289600 288398.015430
+#&gt; HI-REDUCTION      18 3098648949.687170 288398.015430
+#&gt; HI-REDUCTION      20 764245712.710911 288398.015430
+#&gt; HI-REDUCTION      22 185914232.171628 288398.015430
+#&gt; HI-REDUCTION      24 44032820.624477 288398.015430
+#&gt; HI-REDUCTION      26 9921550.369810 288398.015430
+#&gt; HI-REDUCTION      28 2074318.543296 288398.015430
+#&gt; HI-REDUCTION      30 486537.291238 288398.015430
+#&gt; REFLECTION        32 452934.023748 236387.694152
+#&gt; HI-REDUCTION      34 349893.904305 226690.013670
+#&gt; LO-REDUCTION      36 288398.015430 208016.271560
+#&gt; HI-REDUCTION      38 236387.694152 175145.249642
+#&gt; LO-REDUCTION      40 226690.013670 175145.249642
+#&gt; EXTENSION         42 208016.271560 149528.967490
+#&gt; HI-REDUCTION      44 187655.119360 149528.967490
+#&gt; EXTENSION         46 175145.249642 124043.552584
+#&gt; EXTENSION         48 167599.625752 85451.402822
+#&gt; LO-REDUCTION      50 149528.967490 85451.402822
+#&gt; EXTENSION         52 124043.552584 60584.001312
+#&gt; EXTENSION         54 121318.054285 45104.448830
+#&gt; EXTENSION         56 85451.402822 8695.558247
+#&gt; LO-REDUCTION      58 60584.001312 8695.558247
+#&gt; EXTENSION         60 45104.448830 3374.562279
+#&gt; LO-REDUCTION      62 19191.633189 2021.980379
+#&gt; LO-REDUCTION      64 8695.558247 234.110541
+#&gt; HI-REDUCTION      66 3374.562279 234.110541
+#&gt; LO-REDUCTION      68 2021.980379 234.110541
+#&gt; LO-REDUCTION      70 1661.597188 234.110541
+#&gt; LO-REDUCTION      72 679.208238 178.520564
+#&gt; LO-REDUCTION      74 398.465536 178.520564
+#&gt; HI-REDUCTION      76 234.110541 91.386608
+#&gt; LO-REDUCTION      78 191.339622 90.639986
+#&gt; HI-REDUCTION      80 178.520564 90.639986
+#&gt; LO-REDUCTION      82 95.694193 88.740478
+#&gt; HI-REDUCTION      84 91.386608 73.215279
+#&gt; LO-REDUCTION      86 90.639986 73.215279
+#&gt; HI-REDUCTION      88 88.740478 73.215279
+#&gt; HI-REDUCTION      90 74.608858 73.215279
+#&gt; HI-REDUCTION      92 74.050432 72.153989
+#&gt; HI-REDUCTION      94 73.776584 71.794139
+#&gt; LO-REDUCTION      96 73.215279 71.794139
+#&gt; LO-REDUCTION      98 72.153989 71.794139
+#&gt; HI-REDUCTION     100 71.955043 71.677937
+#&gt; HI-REDUCTION     102 71.835189 71.677937
+#&gt; LO-REDUCTION     104 71.794139 71.670961
+#&gt; HI-REDUCTION     106 71.711526 71.657414
+#&gt; REFLECTION       108 71.677937 71.645888
+#&gt; LO-REDUCTION     110 71.670961 71.629866
+#&gt; LO-REDUCTION     112 71.657414 71.620555
+#&gt; LO-REDUCTION     114 71.645888 71.620555
+#&gt; HI-REDUCTION     116 71.629866 71.620063
+#&gt; HI-REDUCTION     118 71.622576 71.615699
+#&gt; HI-REDUCTION     120 71.620555 71.615169
+#&gt; HI-REDUCTION     122 71.620063 71.614136
 #&gt; Exiting from Nelder Mead minimizer
-#&gt;     122 function evaluations used</div><div class='input'>  <span class='no'>sr5.nls</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>sr5</span>)
+#&gt;     124 function evaluations used</div><div class='input'>  <span class='no'>sr5.nls</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>sr5</span>)
 
 <span class='co'># NS Herring stock-recruitment dataset</span>
 <span class='fu'>data</span>(<span class='no'>nsher</span>)
 
 <span class='co'># already fitted with a Ricker SR model</span>
-<span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>nsher</span>)</div><div class='output co'>#&gt; An object of class &quot;FLSR&quot;
+<span class='fu'>summary</span>(<span class='no'>nsher</span>)</div><div class='output co'>#&gt; An object of class &quot;FLSR&quot;
 #&gt; 
 #&gt; Name:  
 #&gt; Description:  
@@ -280,7 +281,7 @@ formulation implemented for each of them.</p>
 #&gt; fitted        : [ 1 45 1 1 1 1 ], units =  10^3 
 #&gt; 
 #&gt; Model: 	rec ~ a * ssb * exp(-b * ssb)
-#&gt; &lt;environment: 0x65ef460&gt;
+#&gt; &lt;environment: 0xafc0818&gt;
 #&gt; Parameters: 
 #&gt;     params
 #&gt; iter     a        b
@@ -293,7 +294,7 @@ formulation implemented for each of them.</p>
 #&gt;   b   0.0180887 1.992659e-06</div><div class='input'>
 <span class='fu'><a href='plot.html'>plot</a></span>(<span class='no'>nsher</span>)</div><img src='FLSR-18.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># change model</span>
-<span class='fu'>model</span>(<span class='no'>nsher</span>) <span class='kw'>&lt;-</span> <span class='fu'>bevholt</span>()
+<span class='fu'><a href='accessors.html'>model</a></span>(<span class='no'>nsher</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='SRModels.html'>bevholt</a></span>()
 
 <span class='co'># fit through MLE</span>
 <span class='no'>nsher</span> <span class='kw'>&lt;-</span> <span class='fu'>fmle</span>(<span class='no'>nsher</span>)</div><div class='output co'>#&gt;   Nelder-Mead direct search function minimizer

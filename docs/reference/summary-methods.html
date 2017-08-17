@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FLCore datasets — datasets • FLCore</title>
+<title>Method summary — summary,FLArray-method • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,54 +81,65 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>FLCore datasets</h1>
+    <h1>Method summary</h1>
     </div>
 
     
-    <p>Example datasets for the classes defined in FLCore.</p>
+    <p>Outputs a general summary of the structure and content of the object. The
+particular output obtained depends on the class of the argument object.</p>
     
 
+    <pre><span class='co'># S4 method for FLArray</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for FLQuantPoint</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for FLPar</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for FLComp</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for FLQuants</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for predictModel</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for FLBiol</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>)
+
+<span class='co'># S4 method for FLModel</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for FLlst</span>
+<span class='fu'>summary</span>(<span class='no'>object</span>)</pre>
         
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
 
-    <p><ul>
-<li><code>ple4</code>, <code><a href='FLStock.html'>FLStock</a></code>A dataset for North Sea (ICES Area IV)
-     plaice. Catch, landings, discards, natural mortality, weight-at-age and maturity,
-     together with the VPA estimated abundances and fishing mortalities.
-</li>
-<li><code>ple4sex</code>, <code><a href='FLStock.html'>FLStock</a></code>A dataset of North Sea (ICES
-     Area IV) plaice disaggregated by sex. Catch, yield, landings, discards,
-     natural mortality, weight-at-age and maturity, together with the VPA
-     estimated abundances and fishing mortalities.
-</li>
-<li>ple4.index, <code><a href='FLIndex.html'>FLIndex</a></code>A dataset of North Sea (ICES Area IV) plaice
-     survey catch per unit effort, index and index variance.
-</li>
-<li>ple4.indices, <code><a href='FLIndices.html'>FLIndices</a></code>A dataset of three North Sea (ICES Area IV)
-     plaice survey catch per unit effort series. Index and index variance.
-</li>
-<li>ple4.biol, <code><a href='FLBiol.html'>FLBiol</a></code>A dataset of the North Sea plaice population.
-     Numbers, natural mortality, mass and fecundity-at-age.
-</li>
-<li>nsher , <code><a href='FLSR.html'>FLSR</a></code>Stock and recruit data and fitted relationship for
-     autumn spawning North Sea herring.
-</li>
-</ul></p>
-    <p>Datasets can be loaded by issuing the <code>data</code> command, like in
-<code>data(ple4)</code>.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>ICES.</p>
+    <p>summary(object)</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='FLStock.html'>FLStock</a>, <a href='FLSR.html'>FLSR</a>, <a href='FLIndex.html'>FLIndex</a>,
-<a href='FLStock.html'>FLStock</a>, <a href='FLIndex.html'>FLIndex</a>, <a href='FLBiol.html'>FLBiol</a></p>
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
+#&gt; dim  :  3 10 1 1 1 1 
+#&gt; quant:  quant 
+#&gt; units:  kg 
+#&gt; 
+#&gt; Min    :  0.251928 
+#&gt; 1st Qu.:  0.7543378 
+#&gt; Mean   :  1.368079 
+#&gt; Median :  1.022335 
+#&gt; 3rd Qu.:  1.564917 
+#&gt; Max    :  4.024292 
+#&gt; NAs    :  0 %</div><div class='input'>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
 <span class='fu'>summary</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
 #&gt; 
@@ -159,21 +170,50 @@
 #&gt; harvest.spwn  : [ 10 52 1 1 1 1 ], units =   
 #&gt; m.spwn        : [ 10 52 1 1 1 1 ], units =   </div><div class='input'>
 <span class='fu'>data</span>(<span class='no'>nsher</span>)
-<span class='fu'>is</span>(<span class='no'>nsher</span>)</div><div class='output co'>#&gt; [1] &quot;FLSR&quot;    &quot;FLModel&quot; &quot;FLComp&quot; </div><div class='input'>
+<span class='fu'>summary</span>(<span class='no'>nsher</span>)</div><div class='output co'>#&gt; An object of class &quot;FLSR&quot;
+#&gt; 
+#&gt; Name:  
+#&gt; Description:  
+#&gt; Quant: age 
+#&gt; Dims:  age 	year	unit	season	area	iter
+#&gt; 	1	45	1	1	1	1	
+#&gt; 
+#&gt; Range:  min	minyear	max	maxyear 
+#&gt; 	0	1960	0	2004	
+#&gt; 
+#&gt; rec           : [ 1 45 1 1 1 1 ], units =  10^3 
+#&gt; ssb           : [ 1 45 1 1 1 1 ], units =  t*10^3 
+#&gt; residuals     : [ 1 45 1 1 1 1 ], units =  NA 
+#&gt; fitted        : [ 1 45 1 1 1 1 ], units =  10^3 
+#&gt; 
+#&gt; Model: 	rec ~ a * ssb * exp(-b * ssb)
+#&gt; &lt;environment: 0x9415960&gt;
+#&gt; Parameters: 
+#&gt;     params
+#&gt; iter     a        b
+#&gt;    1 119.4 0.009451
+#&gt; 
+#&gt; Log-likelihood:  15.862(0) 
+#&gt; Variance-covariance:    
+#&gt;               a            b
+#&gt;   a 255.3388181 1.808870e-02
+#&gt;   b   0.0180887 1.992659e-06</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
+      <li><a href="#generic-function">Generic function</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+The FLR Team
 
   </div>
 </div>

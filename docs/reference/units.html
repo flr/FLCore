@@ -116,17 +116,17 @@ the new values. See examples below.</p>
     <pre class="examples"><div class='input'>
 <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>100</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>5</span>,<span class='fl'>20</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
 <span class='fu'>units</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; [1] &quot;kg&quot;</div><div class='input'><span class='fu'>units</span>(<span class='no'>flq</span>) <span class='kw'>&lt;-</span> <span class='st'>'t'</span>
-<span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
+<span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
 #&gt; dim  :  5 20 1 1 1 1 
 #&gt; quant:  quant 
 #&gt; units:  t 
 #&gt; 
-#&gt; Min    :  -2.64636 
-#&gt; 1st Qu.:  -0.7967364 
-#&gt; Mean   :  -0.07161099 
-#&gt; Median :  -0.05848675 
-#&gt; 3rd Qu.:  0.7429609 
-#&gt; Max    :  1.851823 
+#&gt; Min    :  -3.055447 
+#&gt; 1st Qu.:  -0.6755399 
+#&gt; Mean   :  0.02763819 
+#&gt; Median :  0.09507502 
+#&gt; 3rd Qu.:  0.6946924 
+#&gt; Max    :  3.076675 
 #&gt; NAs    :  0 %</div><div class='input'>
 <span class='co'># units for a complex object</span>
   <span class='fu'>data</span>(<span class='no'>ple4</span>)
@@ -170,16 +170,16 @@ the new values. See examples below.</p>
 #&gt; [1] &quot;m&quot;
 #&gt; 
 #&gt; $mat
-#&gt; [1] &quot;NA&quot;
+#&gt; [1] &quot;&quot;
 #&gt; 
 #&gt; $harvest
 #&gt; [1] &quot;f&quot;
 #&gt; 
 #&gt; $harvest.spwn
-#&gt; [1] &quot;NA&quot;
+#&gt; [1] &quot;&quot;
 #&gt; 
 #&gt; $m.spwn
-#&gt; [1] &quot;NA&quot;
+#&gt; [1] &quot;&quot;
 #&gt; </div><div class='input'>  <span class='fu'>units</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>harvest</span><span class='kw'>=</span><span class='st'>'hr'</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

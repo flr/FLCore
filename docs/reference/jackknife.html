@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Method wireframe — wireframe • FLCore</title>
+<title>Method jackknife — jackknife • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,52 +81,89 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Method wireframe</h1>
+    <h1>Method jackknife</h1>
     </div>
 
     
-    <p>3D plot for FLQuant objects</p>
+    <p>Jackknife resampling</p>
     
 
-    <pre><span class='co'># S4 method for formula,FLQuant</span>
-<span class='fu'>wireframe</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>a <code>formula</code> formula for lattice</dd>
-      <dt>data</dt>
-      <dd>a <code>FLQuant</code> object with the values</dd>
-      <dt>...</dt>
-      <dd>Additional argument list to be passed to <code>wireframe</code></dd>
-    </dl>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre><span class='co'># S4 method for FLQuant</span>
+<span class='fu'>jackknife</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-    <p>a <code>wireframe</code> plot</p>
-    
+<span class='co'># S4 method for FLQuants</span>
+<span class='fu'>jackknife</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for FLModel</span>
+<span class='fu'>jackknife</span>(<span class='no'>object</span>, <span class='no'>slot</span>)</pre>
+        
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Method to plot 3D representations of FLQuant objects</p>
+    <p>The <code>jackknife</code> method sets up objects ready for jackknifing, i.e. to
+systematically recompute a given statistic leaving out one observation at a
+time. From this new set of &quot;observations&quot; for the statistic, estimates for
+the bias and variance of the statstic can be calculated.</p>
+    <p>Input objects cannot have length &gt; 1 along the <code>iter</code> dimension, and
+the main slot in the resulting object will have as many <code>iter</code>s as the
+number of elements in the original object that are not <code>NA</code>.</p>
+    
+    <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
+
+    <p>jackknife(object, ...)</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code><a href='FLQuantJK.html'>FLQuantJK</a></code> <code><a href='FLParJK.html'>FLParJK</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='fu'>wireframe</span>(<span class='no'>data</span>~<span class='no'>age</span>+<span class='no'>year</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>harvest</a></span>(<span class='no'>ple4</span>))</div><img src='wireframe-2.png' alt='' width='540' height='400' /><div class='input'>
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>1</span>:<span class='fl'>8</span>)
+<span class='no'>flj</span> <span class='kw'>&lt;-</span> <span class='fu'>jackknife</span>(<span class='no'>flq</span>)
+<span class='fu'>iters</span>(<span class='no'>flj</span>)</div><div class='output co'>#&gt; -- iter:  1 
+#&gt;  1  2  3  4  5  6  7  8 
+#&gt; NA  2  3  4  5  6  7  8 
+#&gt; -- iter:  2 
+#&gt;  1  2  3  4  5  6  7  8 
+#&gt;  1 NA  3  4  5  6  7  8 
+#&gt; -- iter:  3 
+#&gt;  1  2  3  4  5  6  7  8 
+#&gt;  1  2 NA  4  5  6  7  8 
+#&gt; -- iter:  4 
+#&gt;  1  2  3  4  5  6  7  8 
+#&gt;  1  2  3 NA  5  6  7  8 
+#&gt; -- iter:  5 
+#&gt;  1  2  3  4  5  6  7  8 
+#&gt;  1  2  3  4 NA  6  7  8 
+#&gt; -- iter:  6 
+#&gt;  1  2  3  4  5  6  7  8 
+#&gt;  1  2  3  4  5 NA  7  8 
+#&gt; -- iter:  7 
+#&gt;  1  2  3  4  5  6  7  8 
+#&gt;  1  2  3  4  5  6 NA  8 
+#&gt; -- iter:  8 
+#&gt;  1  2  3  4  5  6  7  8 
+#&gt;  1  2  3  4  5  6  7 NA 
+#&gt; 
+#&gt; units:  NA </div><div class='output co'>#&gt; NULL</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#generic-function">Generic function</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+The FLR Team
 
   </div>
 </div>

@@ -22,7 +22,7 @@ NEWS: NEWS.md
 	sed -i 's/^##//' NEWS
 
 docs: $(HELP_FILES) README.md NEWS
-R --vanilla --silent -e "options(repos='http://cran.r-project.org'); pkgdown::build_site(preview=FALSE)"
+	R --vanilla --silent -e "options(repos='http://cran.r-project.org'); pkgdown::build_site(preview=FALSE)"
 
 roxygen: $(R_FILES)
 	R --vanilla --silent -e "library(devtools);" \

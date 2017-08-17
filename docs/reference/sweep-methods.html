@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Method wireframe — wireframe • FLCore</title>
+<title>Method sweep for FLCore classes — sweep,FLArray-method • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,52 +81,71 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Method wireframe</h1>
+    <h1>Method sweep for FLCore classes</h1>
     </div>
 
     
-    <p>3D plot for FLQuant objects</p>
+    <p>Use R&#39;s sweep method on FLCore classes</p>
     
 
-    <pre><span class='co'># S4 method for formula,FLQuant</span>
-<span class='fu'>wireframe</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>a <code>formula</code> formula for lattice</dd>
-      <dt>data</dt>
-      <dd>a <code>FLQuant</code> object with the values</dd>
-      <dt>...</dt>
-      <dd>Additional argument list to be passed to <code>wireframe</code></dd>
-    </dl>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre><span class='co'># S4 method for FLArray</span>
+<span class='fu'>sweep</span>(<span class='no'>x</span>, <span class='no'>MARGIN</span>, <span class='no'>STATS</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>check.margin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>)
 
-    <p>a <code>wireframe</code> plot</p>
-    
+<span class='co'># S4 method for FLPar</span>
+<span class='fu'>sweep</span>(<span class='no'>x</span>, <span class='no'>MARGIN</span>, <span class='no'>STATS</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>check.margin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>)</pre>
+        
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Method to plot 3D representations of FLQuant objects</p>
+    <p>These methods call base R <code><a href='http://www.rdocumentation.org/packages/base/topics/sweep'>sweep</a></code> method on **FLCore** classes and then ensure
+that the returned object is of same class.</p>
+    
+    <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
+
+    <p>sweep(x, MARGIN, STATS, FUN = &quot;-&quot;, check.margin = TRUE, ...)</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><a href='http://www.rdocumentation.org/packages/base/topics/sweep'>sweep</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='fu'>wireframe</span>(<span class='no'>data</span>~<span class='no'>age</span>+<span class='no'>year</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>harvest</a></span>(<span class='no'>ple4</span>))</div><img src='wireframe-2.png' alt='' width='540' height='400' /><div class='input'>
-</div></pre>
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='co'># Get ratio of max value by year</span>
+<span class='fu'>sweep</span>(<span class='no'>flq</span>, <span class='fl'>2</span>, <span class='fu'>apply</span>(<span class='no'>flq</span>, <span class='fl'>2</span>, <span class='no'>max</span>), <span class='st'>"/"</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1        2        3        4        5        6        7        8       
+#&gt;     1 1.000000 0.100070 0.698939 0.455343 0.144608 0.699713 0.098621 0.682368
+#&gt;     2 0.974665 1.000000 0.573980 0.799384 0.184175 0.390755 1.000000 1.000000
+#&gt;     3 0.836174 0.122749 1.000000 1.000000 1.000000 1.000000 0.089668 0.601876
+#&gt;      year
+#&gt; quant 9        10      
+#&gt;     1 0.280207 1.000000
+#&gt;     2 0.207013 0.246812
+#&gt;     3 1.000000 0.155917
+#&gt; 
+#&gt; units:  kg </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#generic-function">Generic function</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+The FLR Team
 
   </div>
 </div>

@@ -191,7 +191,7 @@ measurement relevant to the data.</p>
 <span class='co'># creating a new FLQuant</span>
 <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>()
 <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>5</span>))
-<span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
+<span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
 #&gt; dim  :  2 5 1 1 1 1 
 #&gt; quant:  quant 
 #&gt; units:  NA 
@@ -210,26 +210,33 @@ measurement relevant to the data.</p>
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;     1 -0.092772  1.445473  0.221201  0.525546  0.459598 -0.844589 -0.725044
-#&gt;     2  1.023817 -1.258828 -0.278402  1.764552 -0.661153 -0.258028  0.868543
-#&gt;     3 -1.576787 -0.577397 -1.463988 -0.972438 -1.027690  0.344122  0.947642
-#&gt;     4  1.669879 -0.595780  0.677554 -1.583894  0.091978  0.538290 -0.826667
-#&gt;     5 -0.145275  1.083615  0.366964  0.834184  0.967048 -0.596445 -1.354066
+#&gt; quant 1           2           3           4           5           6          
+#&gt;     1 -0.09759913  0.03385795 -0.34697735  0.07546089  0.00022515  0.41279583
+#&gt;     2 -1.34077176 -0.10124021 -0.40206005 -1.01172412  0.70737719  0.89783748
+#&gt;     3 -0.65968621 -0.17492788 -0.87673003 -1.84725883 -0.35324956  0.11997326
+#&gt;     4 -0.77464869  0.09793209  0.64986191  1.20733404  1.56941408  0.18144384
+#&gt;     5 -0.81763367  0.96478402 -0.27614698 -0.64430835 -0.05793168 -1.53252693
 #&gt;      year
-#&gt; quant 8         9         10        11        12        13        14       
-#&gt;     1  0.924751  0.148290  1.206252 -1.065798 -1.399885  0.710331  0.447978
-#&gt;     2  1.822570  1.016289  0.033277 -0.478458  0.106829  0.038487  0.288735
-#&gt;     3  1.794405  1.531375 -1.584124 -0.913402  2.222755 -0.675175  1.169406
-#&gt;     4  0.034389  1.113287 -1.761026  1.120044  1.187469 -1.243953 -1.430572
-#&gt;     5 -0.319734 -1.312837  0.941257  0.971330 -0.912343 -1.848053  0.048007
+#&gt; quant 7           8           9           10          11          12         
+#&gt;     1 -1.17305884  0.02343790 -1.51420855 -1.94021080  0.28379146  1.24843870
+#&gt;     2 -0.82370233  0.98962205  1.53697087  0.42362898  0.37337917 -0.57210924
+#&gt;     3  0.31957268 -0.14387529 -1.44070376 -0.60929599  0.81612460  0.12532604
+#&gt;     4 -1.25481646 -0.04808570  0.80601268  2.54580273 -1.33797275 -0.04864494
+#&gt;     5  0.44097360  0.80776815 -0.50777011 -0.35288909  1.26575394  1.18643611
 #&gt;      year
-#&gt; quant 15        16        17        18        19        20       
-#&gt;     1 -0.666362  0.394101 -2.302648  0.115161 -0.388346  0.832984
-#&gt;     2  0.962805 -0.335807  2.184632 -0.019897  0.648893 -0.211850
-#&gt;     3  0.374049  2.107975  0.345491  0.269888 -0.315528  1.289266
-#&gt;     4 -0.706696  1.490755  0.748670 -0.075844 -0.878512  0.222935
-#&gt;     5  0.227061 -1.871049 -1.313981 -1.782220  0.237660 -1.004668
+#&gt; quant 13          14          15          16          17          18         
+#&gt;     1  0.36940320 -2.09196167  0.85668320 -0.46295569 -0.47572218  0.80701112
+#&gt;     2 -0.21414982  1.04769919 -0.42253445  1.66358440 -0.00704921  0.36574108
+#&gt;     3 -0.26829917 -1.47275512 -0.15219072  0.49326963 -0.34229241 -1.43304667
+#&gt;     4 -0.71380138  0.46051308 -0.92231246  0.08994991 -0.42039371  0.60090140
+#&gt;     5 -0.68456441 -0.38747189 -0.36732726 -0.81485449  1.64897034  3.24787056
+#&gt;      year
+#&gt; quant 19          20         
+#&gt;     1  0.55156101 -2.53281805
+#&gt;     2 -1.64090284  0.01762553
+#&gt;     3  2.33558807  1.23371490
+#&gt;     4 -0.73127905  0.88657488
+#&gt;     5  1.36629957  2.83374243
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='fu'>FLQuant</span>(<span class='fu'>array</span>(<span class='fu'>rnorm</span>(<span class='fl'>100</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>10</span>)))</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
@@ -239,11 +246,11 @@ measurement relevant to the data.</p>
 #&gt; 
 #&gt;      year
 #&gt; quant 1                2               
-#&gt;     1 -0.056997(0.740)  0.476534(0.749)
-#&gt;     2 -0.422790(1.457)  0.881322(1.358)
-#&gt;     3 -0.101047(0.847) -0.177117(1.035)
-#&gt;     4 -0.690716(0.899) -0.266299(1.331)
-#&gt;     5 -0.157227(0.748)  0.359952(0.581)
+#&gt;     1 -0.039355(0.629)  0.194100(0.722)
+#&gt;     2 -0.428783(1.082)  0.101764(1.231)
+#&gt;     3 -0.085489(0.716) -0.591867(0.996)
+#&gt;     4  0.310887(0.313) -0.210617(1.374)
+#&gt;     5 -0.102796(1.117)  0.053326(0.787)
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='fu'>FLQuant</span>(<span class='fu'>array</span>(<span class='fu'>rnorm</span>(<span class='fl'>100</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>5</span>,<span class='fl'>2</span>)), <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
 #&gt; iters:  10 
@@ -252,47 +259,47 @@ measurement relevant to the data.</p>
 #&gt; 
 #&gt;      year
 #&gt; quant 1           2          
-#&gt;     1  0.21633(0) -0.63222(0)
-#&gt;     2  0.71510(0)  1.68916(0)
-#&gt;     3  1.06164(0) -0.86799(0)
-#&gt;     4  1.47147(0)  0.12349(0)
-#&gt;     5 -1.05683(0)  0.25592(0)
+#&gt;     1  2.21724(0)  0.49877(0)
+#&gt;     2 -0.88905(0) -0.27022(0)
+#&gt;     3  0.63178(0)  0.56386(0)
+#&gt;     4  0.14597(0) -1.24337(0)
+#&gt;     5 -0.19392(0) -0.92556(0)
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># working with FLQuant objects</span>
 <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>200</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2008</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'diff'</span>)
-<span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
+<span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
 #&gt; dim  :  5 9 1 1 1 1 
 #&gt; quant:  age 
 #&gt; units:  diff 
 #&gt; 
-#&gt; Min    :  -2.793575 
-#&gt; 1st Qu.:  -0.7740384 
-#&gt; Mean   :  -0.2044232 
-#&gt; Median :  -0.1012402 
-#&gt; 3rd Qu.:  0.2976621 
-#&gt; Max    :  1.707144 
+#&gt; Min    :  -1.878808 
+#&gt; 1st Qu.:  -0.5374196 
+#&gt; Mean   :  0.08551339 
+#&gt; Median :  0.1154739 
+#&gt; 3rd Qu.:  0.5852024 
+#&gt; Max    :  2.897842 
 #&gt; NAs    :  0 %</div><div class='input'>
 <span class='no'>flq</span>[<span class='fl'>1</span>,]</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 2000      2001      2002      2003      2004      2005      2006     
-#&gt;   1 -0.547607 -2.793575  0.018819 -0.952007 -0.659686 -0.174928 -0.876730
+#&gt; age 2000     2001     2002     2003     2004     2005     2006     2007    
+#&gt;   1 -0.89735  0.80777 -1.66396 -1.14947  0.13043  1.98825 -0.15134  0.37558
 #&gt;    year
-#&gt; age 2007      2008     
-#&gt;   1 -1.847259 -0.353250
+#&gt; age 2008    
+#&gt;   1 -1.87881
 #&gt; 
 #&gt; units:  diff </div><div class='input'><span class='no'>flq</span>[,<span class='fl'>1</span>]</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 2000    
-#&gt;   1 -0.54761
-#&gt;   2  0.37001
-#&gt;   3 -1.04390
-#&gt;   4 -0.70360
-#&gt;   5 -0.77404
+#&gt;   1 -0.89735
+#&gt;   2  0.35406
+#&gt;   3  0.27970
+#&gt;   4  0.72876
+#&gt;   5 -1.76617
 #&gt; 
 #&gt; units:  diff </div><div class='input'><span class='no'>flq</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 
@@ -306,7 +313,7 @@ measurement relevant to the data.</p>
 #&gt; quant 1 
 #&gt;   all NA
 #&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'><a href='summary.html'>summary</a></span>(<span class='fu'>FLQuant</span>())</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
+#&gt; units:  NA </div><div class='input'><span class='fu'>summary</span>(<span class='fu'>FLQuant</span>())</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
 #&gt; dim  :  1 1 1 1 1 1 
 #&gt; quant:  quant 
 #&gt; units:  NA 
@@ -331,35 +338,35 @@ measurement relevant to the data.</p>
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3       
-#&gt;     1 -0.71351  0.24176 -2.06006
-#&gt;     2  0.32696  0.20303  0.50640
-#&gt;     3  0.36402  1.30006 -1.31457
+#&gt;     1  0.20778  2.79912  1.20468
+#&gt;     2  0.41199  2.03572 -1.24331
+#&gt;     3  0.76601 -1.58763 -0.56330
 #&gt; 
 #&gt; , , unit = 2, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3       
-#&gt;     1 -0.71351  0.24176 -2.06006
-#&gt;     2  0.32696  0.20303  0.50640
-#&gt;     3  0.36402  1.30006 -1.31457
+#&gt;     1  0.20778  2.79912  1.20468
+#&gt;     2  0.41199  2.03572 -1.24331
+#&gt;     3  0.76601 -1.58763 -0.56330
 #&gt; 
 #&gt; , , unit = 3, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3       
-#&gt;     1 -0.71351  0.24176 -2.06006
-#&gt;     2  0.32696  0.20303  0.50640
-#&gt;     3  0.36402  1.30006 -1.31457
+#&gt;     1  0.20778  2.79912  1.20468
+#&gt;     2  0.41199  2.03572 -1.24331
+#&gt;     3  0.76601 -1.58763 -0.56330
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='fu'>FLQuant</span>(<span class='fu'>matrix</span>(<span class='fu'>rnorm</span>(<span class='fl'>12</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>3</span>))</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
-#&gt; quant 1           2           3          
-#&gt;     1 -0.36427823 -0.01537570 -1.85355271
-#&gt;     2 -0.42356489 -1.20669984 -0.28042133
-#&gt;     3  0.50667745  0.00050018 -1.22778056
+#&gt; quant 1        2        3       
+#&gt;     1  1.42237 -0.20667  0.87701
+#&gt;     2 -1.08799 -0.84428 -0.57689
+#&gt;     3 -0.72995 -1.56370  2.23512
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='fu'>FLQuant</span>(<span class='fu'>FLQuant</span>(<span class='fu'>array</span>(<span class='fu'>rnorm</span>(<span class='fl'>9</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>)), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'t'</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
@@ -367,25 +374,25 @@ measurement relevant to the data.</p>
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3       
-#&gt;     1  0.14597 -0.27022 -0.92556
-#&gt;     2 -0.19392  0.56386  1.49562
-#&gt;     3  0.49877 -1.24337  2.55794
+#&gt;     1 -0.47414  1.80797  0.51680
+#&gt;     2  1.19356 -0.33682  3.14759
+#&gt;     3  0.38314 -1.14515  0.37924
 #&gt; 
 #&gt; , , unit = 2, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3       
-#&gt;     1  0.14597 -0.27022 -0.92556
-#&gt;     2 -0.19392  0.56386  1.49562
-#&gt;     3  0.49877 -1.24337  2.55794
+#&gt;     1 -0.47414  1.80797  0.51680
+#&gt;     2  1.19356 -0.33682  3.14759
+#&gt;     3  0.38314 -1.14515  0.37924
 #&gt; 
 #&gt; , , unit = 3, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3       
-#&gt;     1  0.14597 -0.27022 -0.92556
-#&gt;     2 -0.19392  0.56386  1.49562
-#&gt;     3  0.49877 -1.24337  2.55794
+#&gt;     1 -0.47414  1.80797  0.51680
+#&gt;     2  1.19356 -0.33682  3.14759
+#&gt;     3  0.38314 -1.14515  0.37924
 #&gt; 
 #&gt; units:  t </div></pre>
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Method wireframe — wireframe • FLCore</title>
+<title>Bias of estimates through jackknife — bias • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,39 +81,47 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Method wireframe</h1>
+    <h1>Bias of estimates through jackknife</h1>
     </div>
 
     
-    <p>3D plot for FLQuant objects</p>
+    <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend
+odio ac rutrum luctus. Aenean placerat porttitor commodo. Pellentesque eget porta
+libero. Pellentesque molestie mi sed orci feugiat, non mollis enim tristique.</p>
     
 
-    <pre><span class='co'># S4 method for formula,FLQuant</span>
-<span class='fu'>wireframe</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='co'># S4 method for FLQuantJK</span>
+<span class='fu'>bias</span>(<span class='no'>x</span>)
+
+<span class='co'># S4 method for FLParJK</span>
+<span class='fu'>bias</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>a <code>formula</code> formula for lattice</dd>
-      <dt>data</dt>
-      <dd>a <code>FLQuant</code> object with the values</dd>
-      <dt>...</dt>
-      <dd>Additional argument list to be passed to <code>wireframe</code></dd>
+      <dd>An object holding estimates obtained through jackknife</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>wireframe</code> plot</p>
+    <p>A value for the mean bias</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Method to plot 3D representations of FLQuant objects</p>
+    <p>Details: Aliquam sagittis feugiat felis eget consequat. Praesent eleifend dolor massa,
+vitae faucibus justo lacinia a. Cras sed erat et magna pharetra bibendum quis in
+mi. Sed sodales mollis arcu, sit amet venenatis lorem fringilla vel. Vivamus vitae
+ipsum sem. Donec malesuada purus at libero bibendum accumsan. Donec ipsum sapien,
+feugiat blandit arcu in, dapibus dictum felis.</p>
+    <p>$$\widehat{Bias}_{(\theta)} = (n - 1)((\frac{1}{n}\sum\limits_{i=1}^n\hat{\theta}_{(i)})-\hat{\theta})$$</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><a href='FLComp.html'>FLComp</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='fu'>wireframe</span>(<span class='no'>data</span>~<span class='no'>age</span>+<span class='no'>year</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>harvest</a></span>(<span class='no'>ple4</span>))</div><img src='wireframe-2.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -124,9 +132,15 @@
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    
+The FLR Team
 
   </div>
 </div>

@@ -126,37 +126,37 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 #&gt; , , unit = 1, season = all, area = unique
 #&gt; 
 #&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;     1  0.090530 -0.079086 -1.149473  0.812626  0.920418 -0.253411  0.115474
-#&gt;     2  0.951428 -0.231611  2.287377  0.130429 -0.154438  1.417268  0.564436
-#&gt;     3 -1.497427  0.477244  2.897842  0.466637  1.988254  0.426489 -0.292125
-#&gt;     4 -1.663960 -1.334249 -0.430304 -1.053646 -0.089527 -0.151338  0.585202
+#&gt; quant 1          2          3          4          5          6         
+#&gt;     1 -0.0641408 -0.3378123 -0.7833894  0.7958809 -0.2795572 -0.6975664
+#&gt;     2  1.0926157  0.7412681  0.4876565 -0.9671092  0.1622208 -0.9527497
+#&gt;     3 -0.4956306  1.2272077 -1.7749319  0.5022352 -0.9734513 -0.6268597
+#&gt;     4  1.6344379  0.7826195  0.9487915  0.4144040 -1.6465950 -0.4579909
 #&gt;      year
-#&gt; quant 8         9         10       
-#&gt;     1  0.375576 -0.872512 -0.651046
-#&gt;     2  1.086023 -1.878808  1.189476
-#&gt;     3  0.400441 -0.144040  0.316996
-#&gt;     4  0.258793 -0.537420  0.465542
+#&gt; quant 7          8          9          10        
+#&gt;     1 -1.2194915 -0.1235022  1.1524004  0.8300625
+#&gt;     2 -0.7114728  0.4461416  0.7887216  1.0889992
+#&gt;     3  0.5594322 -0.1720984 -1.7274023 -0.5767736
+#&gt;     4  0.3844827 -0.2249316  0.7258366  1.9040604
 #&gt; 
 #&gt; , , unit = 2, season = all, area = unique
 #&gt; 
 #&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;     1 -0.110086  1.009875 -0.959959  0.171714  0.967551  1.194909  1.257798
-#&gt;     2  0.384122 -0.047082 -0.859461 -0.936854  1.391292 -0.963873 -0.523927
-#&gt;     3  0.608537 -1.020705  0.357915  0.089443 -0.266533  0.445499  0.058783
-#&gt;     4  0.137924 -0.207448  0.877584  0.276962  0.828046  0.301788  0.110979
+#&gt; quant 1          2          3          4          5          6         
+#&gt;     1 -1.1585791  1.6818400  0.0044290 -2.0075693  0.5394229 -0.7948017
+#&gt;     2 -0.0644959  0.4358620 -0.3978058 -0.9298264  0.0656113  1.7062082
+#&gt;     3  0.8676666  0.0947744  0.5577010 -1.2657260 -0.0168055 -1.1733722
+#&gt;     4 -1.2017537 -0.7428298 -0.0045107  1.3749404  0.5529106  0.5330614
 #&gt;      year
-#&gt; quant 8         9         10       
-#&gt;     1  1.803635 -1.781715 -0.232663
-#&gt;     2 -0.544628 -0.889818 -0.663944
-#&gt;     3  0.038323  0.752724  0.274931
-#&gt;     4 -0.282182 -0.855544 -0.153608
+#&gt; quant 7          8          9          10        
+#&gt;     1  0.0799231  0.0169757 -0.3163076  1.0406833
+#&gt;     2 -0.5707623 -1.8807513  0.3324398 -0.4743604
+#&gt;     3 -0.1720857 -0.7003778 -0.5962478 -0.0744894
+#&gt;     4  0.7972824 -0.8474453 -0.7896512 -0.9912388
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># For the more complex FLStock object</span>
   <span class='no'>fls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLStock.html'>FLStock</a></span>(<span class='kw'>catch.n</span><span class='kw'>=</span><span class='no'>flq</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>0.2</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span>)))
-  <span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>fls</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
+  <span class='fu'>summary</span>(<span class='no'>fls</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
 #&gt; 
 #&gt; Name:  
 #&gt; Description:  
@@ -186,7 +186,7 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 #&gt; m.spwn        : [ 4 10 2 1 1 10 ], units =  prop </div><div class='input'>
   <span class='co'># Extraction using iter...</span>
     <span class='no'>fls2</span> <span class='kw'>&lt;-</span> <span class='fu'>iter</span>(<span class='no'>fls</span>, <span class='fl'>2</span>)
-    <span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>fls2</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
+    <span class='fu'>summary</span>(<span class='no'>fls2</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
 #&gt; 
 #&gt; Name:  
 #&gt; Description:  
