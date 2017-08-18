@@ -336,22 +336,25 @@ setAs('data.frame', 'FLPar',
 
     # ... or wide
     } else {
+
       # iter names from df
-      if("iter" %in% colnames(from))
-        iters <- from$iter
-      # or from rownames, if present
-      else
-        iters <- "1"
+      if(!"iter" %in% colnames(from))
+        from$iter <- "1"
 
       # param named columns
-      pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
+      pnames <- colnames(from)[!colnames(from) %in% c("data")]
 
-      pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
-      pnames <- lapply(pnames, as.character)
+      dmns <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
+      dmns <- lapply(dmns, as.character)
 
-      dmns <- c(pnames, list(iter=unique(iters)))
+      idx <- match(pnames,
+        c("params", pnames[!pnames %in% c("params", "iter")], "iter"))
 
-      return(FLPar(from$data[order(from$iter)], dimnames=dmns, units="NA"))
+      dmns <- dmns[idx]
+
+      x <- from$data[do.call(order, as.list(from[, rev(names(dmns))]))]
+
+      return(FLPar(x, dimnames=dmns, units="NA"))
     }
   }
 )
