@@ -342,7 +342,7 @@ setAs('data.frame', 'FLPar',
         iters <- from$iter
       # or from rownames, if present
       else
-        iters <- rownames(from, do.NULL=TRUE, prefix="")
+        iters <- "1"
 
       # param named columns
       pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
