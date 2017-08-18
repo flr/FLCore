@@ -200,13 +200,12 @@ setMethod('as.FLStock', signature(object='data.frame'),
         res <- as(object, 'FLStock')
 
         # units
-        if(missing(units))
-            warning("units in FLStock slots not specified")
-        else
+        if(!missing(units))
             units(res) <- units
 
         # args
         args <- list(...)
+
         if(length(args) > 0)
           for(i in names(args))
             slot(res, i) <- args[[i]]
@@ -352,7 +351,7 @@ setAs('data.frame', 'FLPar',
 
       dmns <- c(pnames, list(iter=unique(iters)))
 
-      return(FLPar(from$data, dimnames=dmns, units="NA"))
+      return(FLPar(from$data[order(from$iter)], dimnames=dmns, units="NA"))
     }
   }
 )
