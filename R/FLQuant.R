@@ -326,12 +326,23 @@ setAs("vector", "FLQuant", function(from)
 
 # as.FLQuant(data.frame){{{
 setMethod("as.FLQuant", signature(x="data.frame"),
-function(x, ...)
+function(x, units="missing", ...)
   {
 
     # get data.frame names and compare
     names(x) <- tolower(names(x))
-    validnames <-c("year","unit","season","area","iter","data")
+
+    # extract units if set
+    if("units" %in% names(x)) {
+      if(missing(units)) {
+          units <- unique(as.character(x$units))
+      }
+        if(length(units) > 1)
+          stop("Two or more units of measurement set in 'units' column")
+      x$units <- NULL
+    }
+
+    validnames <-c("year", "unit", "season", "area", "iter", "data")
 
     indices <- match(validnames, names(x))
     indices <- indices[!is.na(indices)]
@@ -357,7 +368,7 @@ function(x, ...)
       season=rep('all',n), area=rep('unique',n), iter=rep(1,n), stringsAsFactors=FALSE)
     names(em)[names(em)=="quant"] <- qname
 
-    x[,!names(x)%in%'data'] <- as.data.frame(x[,!names(x)%in%'data'],
+    x[, !names(x) %in% c("data")] <- as.data.frame(x[,!names(x) %in% c("data")],
       stringsAsFactors=FALSE)
     em[names(x)] <- x
 
@@ -376,7 +387,9 @@ function(x, ...)
     flq <- FLQuant(flq, ...)
 
     # units
-    if(!is.null(attr(x, 'units')))
+    if(exists("units"))
+      units(flq) <- units
+    else if(!is.null(attr(x, 'units')))
       units(flq) <- attr(x, 'units')
 
     # fill up missing years
@@ -963,14 +976,15 @@ return(res)
 # as.data.frame(FLQuant) {{{
 setMethod("as.data.frame", signature(x="FLQuant", row.names="missing",
   optional="missing"),
-    function(x, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE) {
+    function(x, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE, units=FALSE) {
         as.data.frame(x, row.names=NULL, cohort=cohort, timestep=timestep,
-            date=date, drop=drop)
+            date=date, drop=drop, units=units)
     }
 )
 setMethod("as.data.frame", signature(x="FLQuant", row.names="ANY",
   optional="missing"),
-function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE) {
+function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
+  units=FALSE) {
 
     res <- callNextMethod(x)
 
@@ -998,6 +1012,11 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE) {
     if(drop) {
       idx <- names(x)[dim(x) == 1]
       res <- res[, !colnames(res) %in% idx]
+    }
+
+    # create units column
+    if(units) {
+      res$units <- units(x)
     }
 
     return(res)

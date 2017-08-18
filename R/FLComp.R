@@ -297,14 +297,14 @@ setMethod("[<-", signature(x="FLComp"),
 
 # as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLComp", row.names="missing", optional="missing"),
-	function(x, row.names, optional, drop=FALSE, cohort=FALSE)
+	function(x, row.names, optional, drop=FALSE, cohort=FALSE, units=FALSE)
 	{
     qnames <- getSlotNamesClass(x, 'FLArray')
     quant <- quant(slot(x, qnames[1]))
 	  df   <- data.frame()
     for(s in qnames)
 		{
-      sdf <- as.data.frame(slot(x, s), cohort=cohort)
+      sdf <- as.data.frame(slot(x, s), cohort=cohort, units=units)
       sdf[[quant]] <- as.character(sdf[[quant]])
       dfq <- cbind(slot=s, sdf)
 
