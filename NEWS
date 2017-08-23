@@ -6,6 +6,8 @@
 
  BUG FIXES
 
+- coerce of data.frame to FLPar deals rightly with multiple params and no iters in wide format.
+
  UTILITIES
 
  DOCUMENTATION
