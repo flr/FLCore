@@ -2,6 +2,8 @@
 
 ## NEW FEATURES
 
+- `:=` operator to modify on thed fly the content of an FLQuant/FLArray. Object structure can be reused with contents being changed, e.g. FLQuant(2, dim=c(3,10)) := 0 will return the object with zeros.
+
 ## USER-VISIBLE CHANGES
 
 ## BUG FIXES
