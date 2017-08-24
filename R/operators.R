@@ -887,3 +887,12 @@ setMethod("/", signature(e1="FLQuants", e2="FLPar"),
     return(FLQuants(res))
   }
 ) # }}}
+
+# := {{{
+setMethod(":=", signature(object="FLArray", value="numeric"),
+  function(object, value) {
+
+    object[] <- value
+    return(object)
+  }
+) # }}}
