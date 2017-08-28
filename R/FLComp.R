@@ -374,8 +374,11 @@ setMethod("dims", signature(obj="FLComp"),
 
     # Hack for FLBRP, drop fbar slot
     dnames <- dnames[!names(dnames) %in% 'fbar']
-    quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
-      function(x) x[1] == max(dims[,1])))][[2]]
+    if(is(obj, "FLFishery"))
+      quants <- list(hperiod=1:2)
+    else
+      quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
+        function(x) x[1] == max(dims[,1])))][[2]]
     res <- list(
       quant = quant(slot(obj, qnames[1])),
       quants = max(dims[,1]),
