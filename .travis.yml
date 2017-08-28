@@ -19,10 +19,8 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-branches:
-  only:
-  - master
+    
+all_branches: true
 
 deploy:
   provider: releases
@@ -31,8 +29,8 @@ deploy:
   skip_cleanup: true
   file_glob: true
   file: FLCore_*.t*gz
-  all_branches: true
   on:
+    branch: master
     repo: flr/FLCore
     r: release
     tags: true
