@@ -14,7 +14,7 @@ setMethod('FLStock', signature(object='FLQuant'),
     args <- list(...)
 
     # empty object
-    object <- FLQuant(object)
+    object <- iter(FLQuant(object), 1)
     object[] <- NA
     units(object) <- 'NA'
     qobject <- quantSums(object)
