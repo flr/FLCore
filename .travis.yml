@@ -30,8 +30,8 @@ deploy:
   provider: releases
   api_key:
     secure: hd/AVHdIxPFEYvx66wCgXHfm0mFr/SGgiwRks8q9vSVHZwTrKoOyutt80p5lbPLSOaLIb818ZBAaxYuaKACoxZWblS/Rm+VfR3q/ct+y5Mx9EUQItuHTWbD/Y7wwcoa9myvh45U72ubve+UWbBjJUDNYrGrlX/OaJcIMu8QfGx4=
-  file: FLCore_*.t*gz
+  file: FLCore_2.6.4.tgz
   on:
-    tags: true
     repo: flr/FLCore
     r: release
+    tags: true
