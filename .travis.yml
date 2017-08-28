@@ -1,29 +1,27 @@
-# .travis.yml for R projects.
-#
-# https://travis-ci.org/flr/FLCore
-
 warnings_are_errors: false
-
 language: r
-
 matrix:
   include:
-    - os: linux
-      r: release
-    - os: linux
-      r: devel
-    - os: osx
-      r: release
-
+  - os: linux
+    r: release
+  - os: linux
+    r: devel
+  - os: osx
+    r: release
 sudo: false
-
 cache: packages
-
 notifications:
   email:
     on_success: change
     on_failure: change
-
 branches:
   only:
-    - master
+  - master
+deploy:
+  provider: releases
+  api_key:
+    secure: hd/AVHdIxPFEYvx66wCgXHfm0mFr/SGgiwRks8q9vSVHZwTrKoOyutt80p5lbPLSOaLIb818ZBAaxYuaKACoxZWblS/Rm+VfR3q/ct+y5Mx9EUQItuHTWbD/Y7wwcoa9myvh45U72ubve+UWbBjJUDNYrGrlX/OaJcIMu8QfGx4=
+  file: FLCore*.tgz
+  file: FLCore*.tar.gz
+  on:
+    repo: flr/FLCore
