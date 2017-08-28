@@ -1391,3 +1391,5 @@ setGeneric("FLQuantJK", function(object, orig) standardGeneric("FLQuantJK"))
 setGeneric("FLParJK", function(object, orig) standardGeneric("FLParJK"))
 
 setGeneric(":=", function(object, value,...) standardGeneric(":="))
+
+setGeneric("%=%", function(object, value,...) standardGeneric("%=%"))

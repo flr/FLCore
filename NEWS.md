@@ -1,24 +1,9 @@
 # FLCore 2.6.4
 
 ## NEW FEATURES
-
-- `:=` operator to modify on thed fly the content of an FLQuant/FLArray. Object structure can be reused with contents being changed, e.g. FLQuant(2, dim=c(3,10)) := 0 will return the object with zeros.
-
-## USER-VISIBLE CHANGES
-
-## BUG FIXES
-
-- coerce of data.frame to FLPar deals rightly with multiple params and no iters in wide format.
-
-## UTILITIES
-
-## DOCUMENTATION
-
-## DEPRECATED & DEFUNCT
-
-# FLCore 2.6.3
-
-## NEW FEATURES
+- `%=%` operator to modify on thed fly the content of an FLQuant/FLArray. Object
+  structure can be reused with contents being changed, e.g.
+  FLQuant(2, dim=c(3,10)) %=% 0 will return the object with zeros.
 - FLModelSim and FLModelSims new classes
 - [<- FLArray now accepts an input FLQuant and keeps the structure, still recyling as appropriate.
 - New FLStockLen class for length-based stock data and results.
@@ -71,6 +56,7 @@
 - Dropped redundant Sums and Products methods for FLQuants, use Reduce("+", ...) instead
 
 ## BUG FIXES
+- coerce of data.frame to FLPar deals rightly with multiple params and no iters in wide format.
 - iterMeans(FLQuant) was not operating along the 6th dim
 - coerce from FLPar to data.frame now works as expected
 - Added check for range names to FLComp class validity. Elements must be named with non-empty strings and contain, at least, min, max, minyear and maxyear
@@ -99,9 +85,9 @@
 - Quick fix for readIndicesAdapt dimensions
 - apply(FLArray) did not return an FLQuant if function did not change the dimensions of the object
 
-## UTILITIES
-
 ## DOCUMENTATION
+
+- All of the documentation has been converted to roxygen2.
 
 ## DEPRECATED & DEFUNCT
 - FLFleet, FLMetier and FLCatch classes (plus their plurals) and methods have been moved to the FLFleet package

@@ -889,7 +889,7 @@ setMethod("/", signature(e1="FLQuants", e2="FLPar"),
 ) # }}}
 
 # := {{{
-setMethod(":=", signature(object="FLArray", value="numeric"),
+setMethod("%=%", signature(object="FLArray", value="numeric"),
   function(object, value) {
 
     object[] <- value

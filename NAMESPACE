@@ -169,7 +169,6 @@ exportClasses(
   "FLStocks",
   "predictModel")
 exportMethods(
-  ":=",
   "$",
   "+",
   "%*%",
@@ -177,6 +176,7 @@ exportMethods(
   "%/%",
   "%-%",
   "%^%",
+  "%=%",
   "[",
   "[<-",
   "ab",
