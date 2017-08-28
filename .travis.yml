@@ -20,9 +20,7 @@ notifications:
     on_success: change
     on_failure: change
 
-branches:
-  only:
-  - master
+all_branches: true
 
 deploy:
   skip_cleanup: true
