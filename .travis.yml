@@ -6,8 +6,6 @@ matrix:
   include:
   - os: linux
     r: release
-  - os: linux
-    r: devel
   - os: osx
     r: release
 
@@ -32,5 +30,4 @@ deploy:
   on:
     branch: master
     repo: flr/FLCore
-    r: release
     tags: true
