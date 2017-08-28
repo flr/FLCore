@@ -32,6 +32,10 @@ feugiat blandit arcu in, dapibus dictum felis.
 }
 \examples{
 
+flq <- FLQuant(1:8)
+flj <- jackknife(flq)
+bias(flj)
+
 }
 \seealso{
 \link{FLComp}

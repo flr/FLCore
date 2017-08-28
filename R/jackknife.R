@@ -235,6 +235,10 @@ setMethod("apply", signature(X="FLParJK", MARGIN="numeric", FUN="function"),
 #' @keywords classes
 #' @examples
 #'
+#' flq <- FLQuant(1:8)
+#' flj <- jackknife(flq)
+#' bias(flj)
+#'
 setMethod("bias", signature(x="FLQuantJK"),
   function(x) {
       return((dim(x)[6] - 1) * (iterMeans(x) - orig(x)))
