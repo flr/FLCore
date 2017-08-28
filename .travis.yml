@@ -20,7 +20,9 @@ notifications:
     on_success: change
     on_failure: change
 
-all_branches: true
+branches:
+  only:
+  - master
 
 deploy:
   skip_cleanup: true
@@ -30,5 +32,6 @@ deploy:
     secure: hd/AVHdIxPFEYvx66wCgXHfm0mFr/SGgiwRks8q9vSVHZwTrKoOyutt80p5lbPLSOaLIb818ZBAaxYuaKACoxZWblS/Rm+VfR3q/ct+y5Mx9EUQItuHTWbD/Y7wwcoa9myvh45U72ubve+UWbBjJUDNYrGrlX/OaJcIMu8QfGx4=
   file: FLCore_*.t*gz
   on:
+    tags: true
     repo: flr/FLCore
     r: release
