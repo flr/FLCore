@@ -5,7 +5,6 @@
 - Ernesto JARDIM
 - Laurence KELL
 - Iago MOSQUEIRA
+- Jose DE OLIVEIRA
 - Finlay SCOTT
 - Robert SCOTT
-- Jose DE OLIVEIRA
-
