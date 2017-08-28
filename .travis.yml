@@ -1,5 +1,7 @@
 warnings_are_errors: false
+
 language: r
+
 matrix:
   include:
   - os: linux
@@ -8,15 +10,20 @@ matrix:
     r: devel
   - os: osx
     r: release
+
 sudo: false
+
 cache: packages
+
 notifications:
   email:
     on_success: change
     on_failure: change
+
 branches:
   only:
   - master
+
 deploy:
   provider: releases
   api_key:

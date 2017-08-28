@@ -5,3 +5,4 @@ Makefile
 .git/
 ^appveyor\.yml$
 _pkgdown.yml
+CONTRIBUTORS.md
