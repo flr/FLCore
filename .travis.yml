@@ -26,7 +26,7 @@ deploy:
     secure: hd/AVHdIxPFEYvx66wCgXHfm0mFr/SGgiwRks8q9vSVHZwTrKoOyutt80p5lbPLSOaLIb818ZBAaxYuaKACoxZWblS/Rm+VfR3q/ct+y5Mx9EUQItuHTWbD/Y7wwcoa9myvh45U72ubve+UWbBjJUDNYrGrlX/OaJcIMu8QfGx4=
   skip_cleanup: true
   file_glob: true
-  file: FLCore_*.t*gz
+  file: FLCore_*.tgz
   on:
     os: osx
     branch: master
