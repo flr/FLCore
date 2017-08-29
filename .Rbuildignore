@@ -1,8 +1,8 @@
-.travis.yml
-docs/
-man-roxygen/
+^.travis.yml$
+appveyor.yml
+NEWS.md
+gh-pages/
 Makefile
 .git/
-^appveyor\.yml$
 _pkgdown.yml
 CONTRIBUTORS.md

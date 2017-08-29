@@ -28,6 +28,7 @@ deploy:
   file_glob: true
   file: FLCore_*.t*gz
   on:
+    os: osx
     branch: master
     repo: flr/FLCore
     tags: true
