@@ -81,6 +81,12 @@ uomTable[,'NA', 'NA'] <- 'NA'
 # "" /*+- "" = ""
 uomTable[,nu, nu] <- ""
 
+# U */ "" = U
+uomTable[c('/', '*'), puoms, nu] <- uoms
+
+# "" */ U = U
+uomTable[c('/', '*'), nu, puoms] <- uoms
+
 # kg * 1000 = t
 uomTable['*', 'kg', c('1000', '1e3', '10^3')] <- 't'
 uomTable['*', c('1000', '1e3', '10^3'), 'kg'] <- 't'
