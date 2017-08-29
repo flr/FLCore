@@ -11,7 +11,7 @@ HELP_FILES := $(wildcard $(PKGSRC)/man/*.Rd)
 
 all: build
 
-.PHONY: all
+.PHONY: all release roxygen
 
 README.md: DESCRIPTION
 	sed -i 's/Version: *\([^ ]*\)/Version: $(PKGVERS)/' README.md
@@ -24,14 +24,18 @@ NEWS: NEWS.md
 docs: $(HELP_FILES) README.md NEWS
 	R --vanilla --silent -e "options(repos='http://cran.r-project.org'); pkgdown::build_site(preview=FALSE)"
 
-roxygen: $(R_FILES)
+roxygen: $(HELP_FILES)
+
+$(HELP_FILES): $(R_FILES)
 	R --vanilla --silent -e "library(devtools);" \
 		-e "document(roclets='rd')"
 
 update:
 	sed -i 's/Date: *\([^ ]*\)/Date: $(GITDATE)/' DESCRIPTION
 
-build: README.md NEWS
+release: build docs
+
+build:
 	cd ..;\
 	R CMD build $(PKGSRC) --compact-vignettes
 
