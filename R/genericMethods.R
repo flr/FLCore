@@ -1393,3 +1393,45 @@ setGeneric("FLParJK", function(object, orig) standardGeneric("FLParJK"))
 setGeneric(":=", function(object, value,...) standardGeneric(":="))
 
 setGeneric("%=%", function(object, value,...) standardGeneric("%=%"))
+
+# msy {{{
+
+#' msy: A series of methods to extract or compute MSY-based reference points
+#'
+#' Reference points based on equilibirum calculations of Maximum Sustainable
+#' Yield (MSY) are computed by various FLR packages. The methods' generics are
+#' defined here for convenience. Please refer to the help pages of particular
+#' methods for further details
+#'
+#' @details The four methods are meant to provide the following estimates:
+#'   * `msy` Maximum Sustainable Yield (MSY)
+#'   * `fmsy` Fishing mortality level expected to produce on average MSY
+#'   * `bmsy` Total biomass that should produce MSY
+#'   * `sbmsy` Spawning biomass that should produce MSY
+#'
+#' @param x An input object from which to extract or compute a reference point
+#'
+#' @return A value fo the reference point, 'FLPar'
+#'
+#' @name msy
+#' @rdname msy-methods
+#' @aliases msy msy-methods
+#' @md
+#'
+#' @author The FLR Team
+#' @seealso \link{FLPar}
+#' @keywords classes
+
+setGeneric("msy", function(x) standardGeneric("msy"))
+
+#' @rdname msy-methods
+#' @aliases bmsy bmsy-methods
+setGeneric("bmsy", function(x) standardGeneric("bmsy"))
+
+#' @rdname msy-methods
+#' @aliases sbmsy sbmsy-methods
+setGeneric("sbmsy", function(x) standardGeneric("sbmsy"))
+
+#' @rdname msy-methods
+#' @aliases fmsy fmsy-methods
+setGeneric("fmsy", function(x) standardGeneric("fmsy")) # }}}
