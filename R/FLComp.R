@@ -35,7 +35,7 @@ setMethod("summary", signature(object="FLComp"),
 		cat("Quant:", dms$quant, "\n")
     # Dims
 		cat("Dims: ", quant(slot(object, qnames[1])), "\tyear\tunit\tseason\tarea\titer\n")
-		cat("", dms[[dms$quant]], dim(slot(object, qnames[1]))[-c(1,6)],
+		cat("", dms[[2]], dim(slot(object, qnames[1]))[-c(1,6)],
       dms$iter, "\n\n", sep="\t")
 		# Range
     cat("Range: ", paste(sub('plusgroup', 'pgroup', names(object@range)),
@@ -375,7 +375,7 @@ setMethod("dims", signature(obj="FLComp"),
     # Hack for FLBRP, drop fbar slot
     dnames <- dnames[!names(dnames) %in% 'fbar']
     if(is(obj, "FLFishery"))
-      quants <- list(hperiod=1:2)
+      quants <- c(hperiod=1:2)
     else
       quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
         function(x) x[1] == max(dims[,1])))][[2]]
