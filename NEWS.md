@@ -1,3 +1,9 @@
+# FLCore 2.6.5
+
+## NEW FEATURES
+
+- Added reduced version to print(FLPar, reduced=TRUE) to reuse in summary methods
+ 
 # FLCore 2.6.4
 
 ## NEW FEATURES
