@@ -1317,7 +1317,7 @@ setGeneric("as.FLIndex", function(object, ...)
 setGeneric("as.FLSR", function(object, ...)
   standardGeneric("as.FLSR"))
 
-# GENERICS for methods shared by FLFBRP, FLFleet & FLFishery
+# GENERICS for methods shared by multiple packages
 
 # vcost
 setGeneric("vcost", function(object, ...)
@@ -1330,6 +1330,18 @@ setGeneric("fcost", function(object, ...)
   standardGeneric("fcost"))
 setGeneric("fcost<-", function(object, ..., value)
   standardGeneric("fcost<-"))
+
+# cost
+setGeneric("cost", function(object, ...)
+  standardGeneric("cost"))
+
+# ccost
+setGeneric("ccost", function(object, ...)
+  standardGeneric("ccost"))
+
+# profit
+setGeneric("profit", function(object, ...)
+  standardGeneric("profit"))
 
 # price
 setGeneric("price", function(object, ...)
