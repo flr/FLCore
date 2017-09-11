@@ -266,3 +266,11 @@ setMethod("window", signature(x="predictModel"),
     return(x)
   }
 ) # }}}
+
+# trim {{{
+setMethod("trim", signature(x="predictModel"),
+  function(x, ...) {
+    x@.Data <- lapply(FLQuants(x@.Data), trim, ...)
+    return(x)
+  }
+) # }}}
