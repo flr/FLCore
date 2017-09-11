@@ -37,14 +37,15 @@ setMethod("computeCatch", signature(object="FLS"),
       res <- landings.n(object) + discards.n(object)
     }
     else if(slot == "wt") {
-      res <- (landings.wt(object) * landings.n(object) +
-        discards.wt(object) * discards.n(object)) /
-        (landings.n(object) + discards.n(object))
+    # 0 to 1e-16
+      res <- (landings.wt(object) * (landings.n(object) + 1e-16) +
+        discards.wt(object) * (discards.n(object) + 1e-16)) /
+        ((landings.n(object) + discards.n(object)) + 1e-16)
     }
     else if (slot == "all") {
       ctch.n     <-computeCatch(object, slot="n")
       ctch.wt    <-computeCatch(object, slot="wt")
-      ctch       <-quantSums(ctch.n*ctch.wt, na.rm=na.rm)
+      ctch       <-quantSums(ctch.n * ctch.wt, na.rm=na.rm)
 
       res <- FLQuants(catch.wt=ctch.wt,
         catch.n =ctch.n,

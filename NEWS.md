@@ -8,7 +8,8 @@
 
 - Add tiny value to landings and discards to ensure no division by zero in
   computeCatch.
-
+- Added reduced version to print(FLPar, reduced=TRUE) to reuse in summary methods
+ 
 # FLCore 2.6.4
 
 ## NEW FEATURES
