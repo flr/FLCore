@@ -1447,3 +1447,5 @@ setGeneric("sbmsy", function(x) standardGeneric("sbmsy"))
 #' @rdname msy-methods
 #' @aliases fmsy fmsy-methods
 setGeneric("fmsy", function(x) standardGeneric("fmsy")) # }}}
+
+setGeneric(".data", function(x) standardGeneric(".data"))

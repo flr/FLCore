@@ -137,6 +137,12 @@ setReplaceMethod('params', signature(object='predictModel', value='FLPar'),
 	}
 ) # }}}
 
+# .data
+setMethod(".data", signature(x="predictModel"),
+  function(x) {
+    return(FLQuants(x@.Data))
+  } ) # }}}
+
 # predict(predictModel) {{{
 setMethod('predict', signature(object='predictModel'),
 	function(object, ...) {
