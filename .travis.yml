@@ -9,6 +9,10 @@ matrix:
   - os: osx
     r: release
 
+branches:
+  only:
+  - master
+
 sudo: false
 
 cache: packages
@@ -18,8 +22,6 @@ notifications:
     on_success: change
     on_failure: change
     
-all_branches: true
-
 deploy:
   provider: releases
   api_key:
