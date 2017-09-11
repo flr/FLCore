@@ -39,7 +39,8 @@
 #' quantSums(cpue(ple4))
 #'
 #' \dontrun{
-#' plot(FLQuants(om=stock(ple4), cpue=quantSums(cpue(ple4))))
+#' plot(FLQuants(om=stock(ple4), cpue=quantSums(cpue(ple4)),
+#'   hr=quantSums(cpue(ple4, effort="hr"))))
 #' }
 
 setGeneric("cpue", function(object, ...) standardGeneric("cpue"))
@@ -53,7 +54,7 @@ setMethod('cpue',   signature(object='FLStock'),
 
     # EFFORT from F or HR
     if (effort[1] == "hr")
-      E <- catch(object) %/% stock.n(object)
+      E <- catch(object) / stock(object)
     else  
       E <- fbar(object)
     
@@ -140,7 +141,8 @@ biased <- function(object, bias=0.02){
   return(object) * bias(object, bias=bias)
 } # }}}
 
-# rnoise {{{
+# rnoise, rlnoise {{{
+
 #' @title Random noise with different frequencies
 #' 
 #' @description A noise generator
@@ -152,7 +154,7 @@ biased <- function(object, bias=0.02){
 #' @param burn gets rid of 1st values i series
 #' @param trunc get rid of values > abs(trunc)
 #' @param what returns time series for year, cohort or age"
-#' @param ... anyl
+#' @param ... any
 #' @aliases rnoise rnoise-method rnoise,numeric,FLQuant-method rnoise,numeric,missing-method
 #' @aliases rlnoise rlnoise-method rlnoise,numeric,FLQuant-method rlnoise,numeric,missing-method
 #' 
@@ -204,7 +206,8 @@ biased <- function(object, bias=0.02){
 #' }
 
 setMethod("rnoise", signature(n='numeric', len="FLQuant"),
-  function(n=n, len=len, sd=1, b=0, burn=0, trunc=0, what=c("year","cohort","age"), seed=NA) {
+  function(n=n, len=len, sd=1, b=0, burn=0, trunc=0,
+    what=c("year","cohort","age"), seed=NA) {
  
     # CHECK and ADJUST len dims
     if(!dim(len)[6] %in% c(1, n))
@@ -229,11 +232,13 @@ setMethod("rnoise", signature(n='numeric', len="FLQuant"),
         leng <- prod(dim(len)[-6])
         # MATRIX with n rows and recycled sd and d
         res[] <- apply(matrix(c(sd, b), ncol=2, nrow=n), 1,
-          function(x) noiseFn(len=leng, sd=x[1], b=x[2], burn=burn, trunc=trunc, seed=seed))
+          function(x) noiseFn(len=leng, sd=x[1], b=x[2], burn=burn, trunc=trunc,
+            seed=seed))
       },
       "age" = {
         res <- apply(len, c(2:6),
-          function(x) noiseFn(len=length(x), sd=sd, b=b, burn=burn, trunc=trunc, seed=seed))
+          function(x) noiseFn(len=length(x), sd=sd, b=b, burn=burn, trunc=trunc, 
+            seed=seed))
         res <- as.FLQuant(res, dimnames=dimnames(len))
       }
     )
@@ -248,8 +253,10 @@ setMethod("rnoise", signature(n='numeric', len="missing"),
 )
 
 setMethod("rlnoise", signature(n='numeric', len="FLQuant"),
-  function(n=n, len=len, sd=1, b=0, burn=0, trunc=0, what=c("year", "cohort", "age"), seed=NA) {
-    return(exp(rnoise(n=n, len=len, sd=sd, b=b, burn=burn, trunc=trunc, what=what[1], seed=seed)))
+  function(n=n, len=len, sd=1, b=0, burn=0, trunc=0,
+    what=c("year", "cohort", "age"), seed=NA) {
+    return(exp(rnoise(n=n, len=len, sd=sd, b=b, burn=burn, trunc=trunc,
+      what=what[1], seed=seed)))
   }
 ) # }}}
 
