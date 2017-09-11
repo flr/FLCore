@@ -558,9 +558,13 @@ setMethod('qapply', signature(X='FLBiol', FUN='function'),
 		if(!missing(exclude))
       slots <- slots[!slots %in% exclude]
 
-		for (i in slots)
-      res <- do.call(paste0(i, "<-"), list(object=res,
-        value=do.call(FUN, list(slot(X,i), ...))))
+    if(is(res, 'FLBiol'))
+  		for (i in slots)
+        res <- do.call(paste0(i, "<-"), list(object=res,
+          value=do.call(FUN, list(slot(X,i), ...))))
+    else
+  		for (i in slots)
+        res[[i]] <- do.call(FUN, list(slot(X,i), ...))
 
 		return(res)
 	}

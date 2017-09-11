@@ -258,3 +258,11 @@ setMethod("dims", signature(obj="predictModel"),
   
   }
 )# }}}
+
+# window {{{
+setMethod("window", signature(x="predictModel"),
+  function(x, ...) {
+    x@.Data <- window(FLQuants(x@.Data), ...)
+    return(x)
+  }
+) # }}}

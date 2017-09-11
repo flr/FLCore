@@ -8,4 +8,10 @@
 # Notes:
 
 data(ple4)
-model <- new("predictModel", FLQuants(ssb=ssb(ple4)), model=~ssb * a / b, params=FLPar(a=20, b=5))
+
+# EXAMPLE mobject
+model <- new("predictModel", FLQuants(ssb=ssb(ple4)),
+  model=~ssb * a / b, params=FLPar(a=20, b=5))
+
+# window
+window(model, end=2000)
