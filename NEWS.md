@@ -3,6 +3,7 @@
 ## NEW FEATURES
 
 - New harvest method for stock.n, catch.n and m, by minimizing diff in catch.
+- survey and cpue methods to generate observations from an operating model
 
 ## BUG FIXES
 

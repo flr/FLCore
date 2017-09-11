@@ -7,8 +7,6 @@ importFrom("MASS",
   "mvrnorm")
 importFrom("Matrix",
   "expand")
-importFrom("latticeExtra",
-  "useOuterStrips")
 importFrom("stats4",
   "BIC")
 importFrom("stats",

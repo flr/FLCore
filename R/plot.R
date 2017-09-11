@@ -778,7 +778,8 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         options$layout <- c(length(x),4)
 	    options$scales <- list(y=list(relation="free"))
         args[names(options)] <- options
-        if(is(latticeExtra::useOuterStrips, "function")) latticeExtra::useOuterStrips(do.call("xyplot", args)) else do.call("xyplot", args)
+#        if(is(latticeExtra::useOuterStrips, "function")) latticeExtra::useOuterStrips(do.call("xyplot", args)) else 
+          do.call("xyplot", args)
     }
 })
 

@@ -1,7 +1,7 @@
 Package: FLCore
 Title: Core Package of FLR, Fisheries Modelling in R
-Version: 2.6.4.9003
-Date: 2017-09-07
+Version: 2.6.4.9004
+Date: 2017-09-11
 Authors@R: c(
   person("Iago", "Mosqueira", email = "iago.mosqueira@ec.europa.eu", role = "cre"),
   person("Laurence T.", "Kell", email = "laurie.kell@iccat.int", role = "aut"),
@@ -21,8 +21,7 @@ Imports:
     grid,
     stats,
     stats4,
-    graphics,
-    latticeExtra
+    graphics
 License: GPL (>= 2)
 Repository: flr
 Collate:
@@ -71,6 +70,7 @@ Collate:
     'io.VPA2Box.R'
     'data.R'
     'plot.R'
+    'survey.R'
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues
