@@ -249,3 +249,12 @@ evalPredictModel <- function(object, slot) {
   # RETURN
   return(eval(slot@model[[length(slot@model)]], lis))
 } # }}}
+
+# dims {{{
+setMethod("dims", signature(obj="predictModel"),
+  function(obj) {
+
+    dims(predict(obj))
+  
+  }
+)# }}}

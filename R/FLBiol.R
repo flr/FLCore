@@ -545,6 +545,27 @@ setMethod("rec.obs", signature(object="FLBiol"),
   }
 ) # }}}
 
+# qapply		{{{
+setMethod('qapply', signature(X='FLBiol', FUN='function'),
+	function(X, FUN, ..., exclude=missing) {
+
+    res <- callNextMethod()
+		
+    FUN <- match.fun(FUN)
+		
+    slots <- getSlotNamesClass(X, 'predictModel')
+
+		if(!missing(exclude))
+      slots <- slots[!slots %in% exclude]
+
+		for (i in slots)
+      res <- do.call(paste0(i, "<-"), list(object=res,
+        value=do.call(FUN, list(slot(X,i), ...))))
+
+		return(res)
+	}
+)   # }}}
+
 # ---
 
 # meanLifespan {{{
