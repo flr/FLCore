@@ -1,3 +1,14 @@
+# FLCore 2.6.5
+
+## NEW FEATURES
+
+- New harvest method for stock.n, catch.n and m, by minimizing diff in catch.
+
+## BUG FIXES
+
+- Add tiny value to landings and discards to ensure no division by zero in
+  computeCatch.
+
 # FLCore 2.6.4
 
 ## NEW FEATURES
