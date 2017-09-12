@@ -514,4 +514,5 @@ export(
   "flbs",
   "flms",
   "flmss",
+  "knit_print.FLQuant",
   "pm")
