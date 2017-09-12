@@ -4,6 +4,8 @@
 
 - New harvest method for stock.n, catch.n and m, by minimizing diff in catch.
 - survey and cpue methods to generate observations from an operating model
+- knit_print.FLQuant method for the printr package, better printing of FLQuant
+  objects in knitr documents
 
 ## BUG FIXES
 
