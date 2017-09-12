@@ -70,7 +70,7 @@ Collate:
     'io.VPA2Box.R'
     'data.R'
     'plot.R'
-    'survey.R'
+    'oem.R'
 LazyLoad: Yes
 LazyData: No
 BugReports: https://github.com/flr/FLCore/issues

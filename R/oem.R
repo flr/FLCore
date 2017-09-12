@@ -1,5 +1,5 @@
-# survey.R - DESC
-# FLCore/R/survey.R
+# oem.R - DESC
+# FLCore/R/oem.R
 
 # Copyright European Union, 2017
 # Author: Iago Mosqueira (EC JRC) <iago.mosqueira@ec.europa.eu>
@@ -49,7 +49,7 @@ setGeneric("cpue", function(object, ...) standardGeneric("cpue"))
 #' @aliases cpue,FLStock-method
 
 setMethod('cpue',   signature(object='FLStock'),
-  function(object, sel=harvest(object), effort = units(harvest(object)),
+  function(object, f=harvest(object), effort = units(harvest(object)),
     mass = TRUE) {
 
     # EFFORT from F or HR
@@ -58,7 +58,7 @@ setMethod('cpue',   signature(object='FLStock'),
     else  
       E <- fbar(object)
     
-    cpue <- (catch.n(object) %*% sel) %/% E
+    cpue <- (catch.n(object) %*% f) %/% E
 
     if (mass)
       cpue <- cpue * catch.wt(object)
@@ -96,7 +96,10 @@ setMethod('cpue',   signature(object='FLStock'),
 #' @keywords classes
 #' @examples
 #'
-#' data(ple4)
+#' \dontrun{
+#' plot(FLQuants(om=stock(ple4), survey=quantSums(survey(ple4) * stock.wt(ple4)),
+#'  cpue=quantSums(cpue(ple4)), hr=quantSums(cpue(ple4, effort="hr"))))
+#' }
 
 setGeneric("survey", function(object, ...) standardGeneric("survey"))
 
@@ -109,7 +112,7 @@ setMethod("survey",   signature(object="FLStock"),
     # timing MUST BE 0 - 1
     timing <- pmax(pmin(timing, 1.0), 0.0)
 
-    # CORRECT abundnaces for timing
+    # CORRECT abundances for timing
     stock.n <- stock.n(object) * exp(-(harvest(object) * timing - m(object) * timing))
  
     # APPLY survey selectivity
