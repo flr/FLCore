@@ -162,28 +162,28 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 #&gt; Description:  
 #&gt; Quant: quant 
 #&gt; Dims:  quant 	year	unit	season	area	iter
-#&gt; 	quant	10	2	1	1	10	
+#&gt; 	4	10	2	1	1	10	
 #&gt; 
 #&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
 #&gt; 	1	4	4	1	10	1	4	
 #&gt; 
-#&gt; catch         : [ 1 10 2 1 1 10 ], units =  NA 
+#&gt; catch         : [ 1 10 2 1 1 1 ], units =  NA 
 #&gt; catch.n       : [ 4 10 2 1 1 10 ], units =  NA 
-#&gt; catch.wt      : [ 4 10 2 1 1 10 ], units =  NA 
-#&gt; discards      : [ 1 10 2 1 1 10 ], units =  NA 
-#&gt; discards.n    : [ 4 10 2 1 1 10 ], units =  NA 
-#&gt; discards.wt   : [ 4 10 2 1 1 10 ], units =  NA 
-#&gt; landings      : [ 1 10 2 1 1 10 ], units =  NA 
-#&gt; landings.n    : [ 4 10 2 1 1 10 ], units =  NA 
-#&gt; landings.wt   : [ 4 10 2 1 1 10 ], units =  NA 
-#&gt; stock         : [ 1 10 2 1 1 10 ], units =  NA 
-#&gt; stock.n       : [ 4 10 2 1 1 10 ], units =  NA 
-#&gt; stock.wt      : [ 4 10 2 1 1 10 ], units =  NA 
+#&gt; catch.wt      : [ 4 10 2 1 1 1 ], units =  NA 
+#&gt; discards      : [ 1 10 2 1 1 1 ], units =  NA 
+#&gt; discards.n    : [ 4 10 2 1 1 1 ], units =  NA 
+#&gt; discards.wt   : [ 4 10 2 1 1 1 ], units =  NA 
+#&gt; landings      : [ 1 10 2 1 1 1 ], units =  NA 
+#&gt; landings.n    : [ 4 10 2 1 1 1 ], units =  NA 
+#&gt; landings.wt   : [ 4 10 2 1 1 1 ], units =  NA 
+#&gt; stock         : [ 1 10 2 1 1 1 ], units =  NA 
+#&gt; stock.n       : [ 4 10 2 1 1 1 ], units =  NA 
+#&gt; stock.wt      : [ 4 10 2 1 1 1 ], units =  NA 
 #&gt; m             : [ 4 10 2 1 1 1 ], units =  NA 
-#&gt; mat           : [ 4 10 2 1 1 10 ], units =  prop 
-#&gt; harvest       : [ 4 10 2 1 1 10 ], units =  NA 
-#&gt; harvest.spwn  : [ 4 10 2 1 1 10 ], units =  prop 
-#&gt; m.spwn        : [ 4 10 2 1 1 10 ], units =  prop </div><div class='input'>
+#&gt; mat           : [ 4 10 2 1 1 1 ], units =   
+#&gt; harvest       : [ 4 10 2 1 1 1 ], units =  NA 
+#&gt; harvest.spwn  : [ 4 10 2 1 1 1 ], units =   
+#&gt; m.spwn        : [ 4 10 2 1 1 1 ], units =   </div><div class='input'>
   <span class='co'># Extraction using iter...</span>
     <span class='no'>fls2</span> <span class='kw'>&lt;-</span> <span class='fu'>iter</span>(<span class='no'>fls</span>, <span class='fl'>2</span>)
     <span class='fu'>summary</span>(<span class='no'>fls2</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
@@ -192,7 +192,7 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 #&gt; Description:  
 #&gt; Quant: quant 
 #&gt; Dims:  quant 	year	unit	season	area	iter
-#&gt; 	quant	10	2	1	1	1	
+#&gt; 	4	10	2	1	1	1	
 #&gt; 
 #&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
 #&gt; 	1	4	4	1	10	1	4	
@@ -210,10 +210,10 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 #&gt; stock.n       : [ 4 10 2 1 1 1 ], units =  NA 
 #&gt; stock.wt      : [ 4 10 2 1 1 1 ], units =  NA 
 #&gt; m             : [ 4 10 2 1 1 1 ], units =  NA 
-#&gt; mat           : [ 4 10 2 1 1 1 ], units =  prop 
+#&gt; mat           : [ 4 10 2 1 1 1 ], units =   
 #&gt; harvest       : [ 4 10 2 1 1 1 ], units =  NA 
-#&gt; harvest.spwn  : [ 4 10 2 1 1 1 ], units =  prop 
-#&gt; m.spwn        : [ 4 10 2 1 1 1 ], units =  prop </div><div class='input'>  <span class='co'># ...in contrast to using [ which returns an error</span>
+#&gt; harvest.spwn  : [ 4 10 2 1 1 1 ], units =   
+#&gt; m.spwn        : [ 4 10 2 1 1 1 ], units =   </div><div class='input'>  <span class='co'># ...in contrast to using [ which returns an error</span>
     <span class='co'>## Not run: fls[,,,,,2]</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

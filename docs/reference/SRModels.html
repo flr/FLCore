@@ -158,12 +158,12 @@ Explor. Mer 40, 67-75.</p>
   <span class='fu'>bevholt</span>()</div><div class='output co'>#&gt; $logl
 #&gt; function (a, b, rec, ssb) 
 #&gt; loglAR1(log(rec), log(a * ssb/(b + ssb)))
-#&gt; &lt;bytecode: 0xca42a38&gt;
-#&gt; &lt;environment: 0x1185b018&gt;
+#&gt; &lt;bytecode: 0x1046d068&gt;
+#&gt; &lt;environment: 0xb9fd090&gt;
 #&gt; 
 #&gt; $model
 #&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x1185b018&gt;
+#&gt; &lt;environment: 0xb9fd090&gt;
 #&gt; 
 #&gt; $initial
 #&gt; function (rec, ssb) 
@@ -172,16 +172,16 @@ Explor. Mer 40, 67-75.</p>
 #&gt;     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #&gt;     return(FLPar(a = a, b = a/b))
 #&gt; }
-#&gt; &lt;bytecode: 0xf2a2a58&gt;
-#&gt; &lt;environment: 0x1185b018&gt;
+#&gt; &lt;bytecode: 0xf13cb28&gt;
+#&gt; &lt;environment: 0xb9fd090&gt;
 #&gt; attr(,&quot;lower&quot;)
 #&gt; [1] -Inf -Inf
 #&gt; attr(,&quot;upper&quot;)
 #&gt; [1] Inf Inf
 #&gt; </div><div class='input'>  <span class='fu'><a href='names.html'>names</a></span>(<span class='fu'>bevholt</span>())</div><div class='output co'>#&gt; [1] &quot;logl&quot;    &quot;model&quot;   &quot;initial&quot;</div><div class='input'>  <span class='fu'>bevholt</span>()$<span class='no'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;bytecode: 0xca42a38&gt;
-#&gt; &lt;environment: 0xf840548&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x1046d068&gt;
+#&gt; &lt;environment: 0x9fe7b38&gt;</div><div class='input'>
 <span class='co'># once an FLSR model is in the workspace ...</span>
   <span class='fu'>data</span>(<span class='no'>nsher</span>)
 

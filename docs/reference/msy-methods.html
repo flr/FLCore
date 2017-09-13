@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bias of estimates through jackknife — bias • FLCore</title>
+<title>msy: A series of methods to extract or compute MSY-based reference points — msy • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,63 +81,53 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bias of estimates through jackknife</h1>
+    <h1>msy: A series of methods to extract or compute MSY-based reference points</h1>
     </div>
 
     
-    <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend
-odio ac rutrum luctus. Aenean placerat porttitor commodo. Pellentesque eget porta
-libero. Pellentesque molestie mi sed orci feugiat, non mollis enim tristique.</p>
+    <p>Reference points based on equilibirum calculations of Maximum Sustainable
+Yield (MSY) are computed by various FLR packages. The methods&#39; generics are
+defined here for convenience. Please refer to the help pages of particular
+methods for further details</p>
     
 
-    <pre><span class='co'># S4 method for FLQuantJK</span>
-<span class='fu'>bias</span>(<span class='no'>x</span>)
+    <pre><span class='fu'>msy</span>(<span class='no'>x</span>)
 
-<span class='co'># S4 method for FLParJK</span>
-<span class='fu'>bias</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>bmsy</span>(<span class='no'>x</span>)
+
+<span class='fu'>sbmsy</span>(<span class='no'>x</span>)
+
+<span class='fu'>fmsy</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
-      <dd>An object holding estimates obtained through jackknife</dd>
+      <dd>An input object from which to extract or compute a reference point</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A value for the mean bias</p>
+    <p>A value fo the reference point, &#39;FLPar&#39;</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Details: Aliquam sagittis feugiat felis eget consequat. Praesent eleifend dolor massa,
-vitae faucibus justo lacinia a. Cras sed erat et magna pharetra bibendum quis in
-mi. Sed sodales mollis arcu, sit amet venenatis lorem fringilla vel. Vivamus vitae
-ipsum sem. Donec malesuada purus at libero bibendum accumsan. Donec ipsum sapien,
-feugiat blandit arcu in, dapibus dictum felis.</p>
-    <p>$$\widehat{Bias}_{(\theta)} = (n - 1)((\frac{1}{n}\sum\limits_{i=1}^n\hat{\theta}_{(i)})-\hat{\theta})$$</p>
+    <p>The four methods are meant to provide the following estimates:
+<ul>
+<li> <code>msy</code> Maximum Sustainable Yield (MSY)
+</li>
+<li> <code>fmsy</code> Fishing mortality level expected to produce on average MSY
+</li>
+<li> <code>bmsy</code> Total biomass that should produce MSY
+</li>
+<li> <code>sbmsy</code> Spawning biomass that should produce MSY
+</li>
+</ul></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='FLComp.html'>FLComp</a></p>
+    <p><a href='FLPar.html'>FLPar</a></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>1</span>:<span class='fl'>8</span>)
-<span class='no'>flj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='jackknife.html'>jackknife</a></span>(<span class='no'>flq</span>)
-<span class='fu'>bias</span>(<span class='no'>flj</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
-#&gt; iters:  8 
-#&gt; 
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;   all 1.0200(0) 1.0404(0) 1.0612(0) 1.0824(0) 1.1041(0) 1.1262(0) 1.1487(0)
-#&gt;      year
-#&gt; quant 8        
-#&gt;   all 1.1717(0)
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -149,9 +139,7 @@ feugiat blandit arcu in, dapibus dictum felis.</p>
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
     <h2>Author</h2>
     

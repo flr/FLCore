@@ -86,41 +86,36 @@
     </div>
 
     <div class="contents">
-    <div id="flcore-2-6-4" class="section level1">
+    <div id="flcore-2-6-5" class="section level1">
 <h1 class="hasAnchor">
-<a href="#flcore-2-6-4" class="anchor"> </a>FLCore 2.6.4</h1>
+<a href="#flcore-2-6-5" class="anchor"> </a>FLCore 2.6.5</h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"> </a>NEW FEATURES</h2>
-</div>
-<div id="user-visible-changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#user-visible-changes" class="anchor"> </a>USER-VISIBLE CHANGES</h2>
+<ul>
+<li>New harvest method for stock.n, catch.n and m, by minimizing diff in catch.</li>
+<li>survey and cpue methods to generate observations from an operating model</li>
+<li>knit_print.FLQuant method for the printr package, better printing of FLQuant objects in knitr documents</li>
+</ul>
 </div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"> </a>BUG FIXES</h2>
-</div>
-<div id="utilities" class="section level2">
-<h2 class="hasAnchor">
-<a href="#utilities" class="anchor"> </a>UTILITIES</h2>
-</div>
-<div id="documentation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#documentation" class="anchor"> </a>DOCUMENTATION</h2>
-</div>
-<div id="deprecated-defunct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#deprecated-defunct" class="anchor"> </a>DEPRECATED &amp; DEFUNCT</h2>
+<ul>
+<li>Add tiny value to landings and discards to ensure no division by zero in computeCatch.</li>
+<li>Added reduced version to print(FLPar, reduced=TRUE) to reuse in summary methods</li>
+</ul>
 </div>
 </div>
-    <div id="flcore-2-6-3" class="section level1">
+    <div id="flcore-2-6-4" class="section level1">
 <h1 class="hasAnchor">
-<a href="#flcore-2-6-3" class="anchor"> </a>FLCore 2.6.3</h1>
+<a href="#flcore-2-6-4" class="anchor"> </a>FLCore 2.6.4</h1>
 <div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features-1" class="anchor"> </a>NEW FEATURES</h2>
 <ul>
+<li>
+<code>%=%</code> operator to modify on thed fly the content of an FLQuant/FLArray. Object structure can be reused with contents being changed, e.g. FLQuant(2, dim=c(3,10)) %=% 0 will return the object with zeros.</li>
 <li>FLModelSim and FLModelSims new classes</li>
 <li>[&lt;- FLArray now accepts an input FLQuant and keeps the structure, still recyling as appropriate.</li>
 <li>New FLStockLen class for length-based stock data and results.</li>
@@ -140,9 +135,9 @@
 <li>Added vb method for vulnerable biomass</li>
 </ul>
 </div>
-<div id="user-visible-changes-1" class="section level2">
+<div id="user-visible-changes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-1" class="anchor"> </a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes" class="anchor"> </a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim</li>
 <li>computeLogLik method added to FLModel. Will return a logLik object calculated with the data and params in the object</li>
@@ -180,6 +175,7 @@
 <h2 class="hasAnchor">
 <a href="#bug-fixes-1" class="anchor"> </a>BUG FIXES</h2>
 <ul>
+<li>coerce of data.frame to FLPar deals rightly with multiple params and no iters in wide format.</li>
 <li>iterMeans(FLQuant) was not operating along the 6th dim</li>
 <li>coerce from FLPar to data.frame now works as expected</li>
 <li>Added check for range names to FLComp class validity. Elements must be named with non-empty strings and contain, at least, min, max, minyear and maxyear</li>
@@ -210,17 +206,16 @@
 <li>apply(FLArray) did not return an FLQuant if function did not change the dimensions of the object</li>
 </ul>
 </div>
-<div id="utilities-1" class="section level2">
+<div id="documentation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#utilities-1" class="anchor"> </a>UTILITIES</h2>
+<a href="#documentation" class="anchor"> </a>DOCUMENTATION</h2>
+<ul>
+<li>All of the documentation has been converted to roxygen2.</li>
+</ul>
 </div>
-<div id="documentation-1" class="section level2">
+<div id="deprecated-defunct" class="section level2">
 <h2 class="hasAnchor">
-<a href="#documentation-1" class="anchor"> </a>DOCUMENTATION</h2>
-</div>
-<div id="deprecated-defunct-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#deprecated-defunct-1" class="anchor"> </a>DEPRECATED &amp; DEFUNCT</h2>
+<a href="#deprecated-defunct" class="anchor"> </a>DEPRECATED &amp; DEFUNCT</h2>
 <ul>
 <li>FLFleet, FLMetier and FLCatch classes (plus their plurals) and methods have been moved to the FLFleet package</li>
 </ul>
@@ -233,8 +228,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#flcore-2-6-5">2.6.5</a></li>
         <li><a href="#flcore-2-6-4">2.6.4</a></li>
-        <li><a href="#flcore-2-6-3">2.6.3</a></li>
       </ul>
     </div>
   </div>
