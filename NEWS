@@ -9,6 +9,8 @@
 
  USER-VISIBLE CHANGES
 
+- FLStock creator uses empty object for sizing, keeps iters but drops them if
+  object(s) are named.
 
  BUG FIXES
 
