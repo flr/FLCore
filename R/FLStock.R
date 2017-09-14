@@ -14,7 +14,7 @@ setMethod('FLStock', signature(object='FLQuant'),
     args <- list(...)
 
     # empty object
-    object <- iter(FLQuant(object), 1)
+    # object <- iter(FLQuant(object), 1)
     object[] <- NA
     units(object) <- 'NA'
     qobject <- quantSums(object)
@@ -63,6 +63,7 @@ setMethod('FLStock', signature(object='missing'),
           for (j in names(i))
              object <- i[[j]]
     }
+
     if(length(slots) == 0) {
       object <- FLQuant()
     } else{
@@ -73,7 +74,7 @@ setMethod('FLStock', signature(object='missing'),
         object <- args[[slots[1]]]
     }
 
-    return(FLStock(object, ...))
+    return(FLStock(iter(object, 1), ...))
   }
 )
 

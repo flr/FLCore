@@ -7,6 +7,9 @@
 - knit_print.FLQuant method for the printr package, better printing of FLQuant
   objects in knitr documents
 
+## USER-VISIBLE CHANGES
+
+
 ## BUG FIXES
 
 - Add tiny value to landings and discards to ensure no division by zero in
