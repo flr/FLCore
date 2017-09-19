@@ -3,12 +3,12 @@ warnings_are_errors: false
 
 language: r
 
-matrix:
-  include:
-  - os: linux
-    r: release
-  - os: osx
-    r: release
+os:
+  - linux
+  - osx
+
+r:
+  - release
 
 branches:
   only:
