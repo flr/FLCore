@@ -1,3 +1,4 @@
+#
 warnings_are_errors: false
 
 language: r
@@ -29,6 +30,7 @@ deploy:
   skip_cleanup: true
   file_glob: true
   file: FLCore_*.tgz
+  file: FLCore_*.tar.gz
   on:
     os: osx
     branch: master
