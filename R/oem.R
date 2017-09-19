@@ -227,7 +227,7 @@ setMethod("rnoise", signature(n='numeric', len="FLQuant"),
         object <- as(len, "FLCohort")
         res <- apply(object, c(2:6), function(x)
           t(noiseFn(len=length(x), sd=sd, b=b, burn=burn, trunc=trunc, seed=seed)))
-        res <- array(res, unlist(laply(dimnames(object), length)),
+        res <- array(res, unlist(lapply(dimnames(object), length)),
           dimnames=dimnames(object))
         res <- as(FLCohort(res), "FLQuant")
       },
