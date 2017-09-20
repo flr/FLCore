@@ -1,3 +1,13 @@
+# FLCore 2.6.6
+
+## NEW FEATURES
+
+- window(FLStocks) method to apply same window call across all elements
+- combine(FLStocks) method collapses all elements into a single FLStock object
+  with as many iters as elements in the list, must all have 1 iter.
+
+## USER-VISIBLE CHANGES
+
 # FLCore 2.6.5
 
 ## NEW FEATURES
