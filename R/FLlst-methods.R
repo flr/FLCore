@@ -283,3 +283,21 @@ setMethod("collapse", signature(x='FLlst'),
 	  return(res)
   }
 ) # }}}
+
+# combine {{{
+setMethod("combine", signature(x="FLStocks", y="missing"),
+  function(x) {
+
+    res <- propagate(x[[1]], length(x))
+    for(i in seq(2, length(x)))
+      res[,,,,,i] <- x[[i]]
+    return(res)
+  }
+) # }}}
+
+# window {{{
+setMethod("window", signature(x="FLStocks"),
+  function(x, ... ) {
+    lapply(x, function(y) do.call("window", c(list(y), list(...))))
+  }
+) # }}}
