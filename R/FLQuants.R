@@ -179,4 +179,13 @@ setMethod('combine', signature(x='FLQuants', y='missing'),
 
     return(res)
   }
+) 
+
+setMethod('combine', signature(x='FLQuants', y='FLQuants'),
+  function(x, y) {
+
+    res <- lapply(names(x), function(a) combine(x[[a]], y[[a]]))
+
+    return(res)
+  }
 ) # }}}

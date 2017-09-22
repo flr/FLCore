@@ -435,6 +435,11 @@ setReplaceMethod("range", signature(x="FLComp", i="missing", value="numeric"),
 
 setReplaceMethod("range", signature(x="FLComp", i="ANY", value="numeric"),
   function(x, i, value) {
+
+    # HACK for "pgroup", as displayed by summary()
+    if(any(i == "pgroup"))
+      i[i == "pgroup"] <- "plusgroup"
+
     slot(x, 'range')[i] <- value
     if(validObject(x))
       return(x)
