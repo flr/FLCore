@@ -9,7 +9,7 @@ You can report bugs at the issue page on each package github repository. For *FL
 
 <https://github.com/flr/FLCore/issues/>
 
-Or you can drop us a line at `flr-team@flr-project.org`.
+Or you can drop us a line at `flrteam@flr-project.org`.
 
 ## Comment on the documentation
 
