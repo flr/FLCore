@@ -18,5 +18,5 @@
 - Jan Jaap POOS
 - Finlay SCOTT
 - Robert SCOTT
-- Alexander TIDD
+- Alex TIDD
 - Clara ULRICH
