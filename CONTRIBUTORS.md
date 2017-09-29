@@ -1,4 +1,4 @@
-# CONTRIBUTORS to FLCore, in alphabetical order
+# CONTRIBUTORS to FLCore
 
 - Santiago CERVINO
 - Dorleta GARCIA
