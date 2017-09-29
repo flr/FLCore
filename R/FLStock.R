@@ -697,7 +697,7 @@ setMethod('expand', signature(x='FLStock'),
   }
 ) # }}}
 
-# dimnames {{{
+# dimnames<- {{{
 setMethod('dimnames<-', signature(x='FLStock', value='list'),
   function(x, value)
   {
@@ -710,17 +710,17 @@ setMethod('dimnames<-', signature(x='FLStock', value='list'),
     vnames <- names(value)
     if('year' %in% vnames)
       range(x, c('minyear','maxyear')) <- value[['year']][c(1, length(value[['year']]))]
-    if(dims(x)$quant %in% vnames)
-      range(x, c('min','max')) <- value[[dims(x)$quant]][c(1,
-        length(value[[dims(x)$quant]]))]
+    if(dims(x)$quant %in% vnames) {
+      range(x, c('min','max', 'plusgroup')) <- suppressWarnings(as.numeric(
+        value[[dims(x)$quant]][c(1, rep(length(value[[dims(x)$quant]])),2)]))
+    }
 
     value <- value[names(value) != dims(x)$quant]
-    if(length(value) > 0)
-    {
+
+    if(length(value) > 0) {
       for (i in aslots)
         dimnames(slot(x, i)) <- value
     }
-
     return(x)
   }
 ) # }}}
