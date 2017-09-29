@@ -9,6 +9,10 @@
 
  USER-VISIBLE CHANGES
 
+ BUG FIXES
+
+- dimnames<- for FLStock with no ages failed when changing age name #42
+
  FLCore 2.6.5
 
  NEW FEATURES

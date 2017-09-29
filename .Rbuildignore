@@ -7,3 +7,4 @@ Makefile
 .git/
 _pkgdown.yml
 CONTRIBUTORS.md
+CONTRIBUTING.md
