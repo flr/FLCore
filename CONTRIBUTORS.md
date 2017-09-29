@@ -1,15 +1,22 @@
 # CONTRIBUTORS to FLCore
 
+- Manuela AZEVEDO
 - Santiago CERVINO
+- Jean Marc FROMENTIN
 - Dorleta GARCIA
 - Philippe GROSJEAN
+- Katell HAMON
 - Richard HILLARY
 - Ernesto JARDIM
-- Katell HAMON
 - Laurence KELL
+- Simon MARDLE
+- Colin MILLAR
 - Iago MOSQUEIRA
+- Alberto MURTA
 - Jose DE OLIVEIRA
+- Martin PASTOORS
 - Jan Jaap POOS
 - Finlay SCOTT
 - Robert SCOTT
+- Alexander TIDD
 - Clara ULRICH
