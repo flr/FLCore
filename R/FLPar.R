@@ -400,8 +400,14 @@ setAs('FLPar', 'FLQuant',
 
 # propagate {{{
 setMethod("propagate", signature(object="FLPar"),
-  function(object, iter, fill.iter=TRUE)
-  {
+  function(object, iter, fill.iter=TRUE) {
+
+    # RETURN object if iter == iters
+    dob <- dim(object)
+
+    if(iter == dob[length(dob)])
+      return(object)
+
     # dimnames of input object
     dnames <- dimnames(object)
     dnames$iter <- seq(iter)

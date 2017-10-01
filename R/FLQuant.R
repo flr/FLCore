@@ -693,8 +693,9 @@ return(object)
 
 # propagate {{{
 setMethod("propagate", signature(object="FLQuant"),
-  function(object, iter, fill.iter=TRUE)
-  {
+  function(object, iter, fill.iter=TRUE) {
+    
+    # RETURN object if iter == iters
     dob <- dim(object)
 
     if(iter == dob[6])
