@@ -9,6 +9,8 @@
 
  USER-VISIBLE CHANGES
 
+- propagate(FLPar) to return object if iter == iters #45
+
  BUG FIXES
 
 - dimnames<- for FLStock with no ages failed when changing age name #42
