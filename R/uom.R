@@ -193,18 +193,23 @@ uom <- function(op, u1, u2) {
   # PARSE and SOLVE if '/' in u and op = '*'
   if(any(grepl("/", u)) && op == "*") {
 
-    u <- u[order(unlist(lapply(gregexpr(pattern = "/", u), length)))]
+    # u <- u[order(unlist(lapply(gregexpr(pattern = "/", u), length)))]
+    pos <- grep(pattern = "/", u)
 
-    # FIND position of '/'
-    idx <- unlist(gregexpr(pattern = "/", u[2]))
-    # DROP spaces on right hand side
-    u2s <- gsub(" ", "", substr(u[2], idx[1] + 1, nchar(u[2])))
-    # DROP them on left hand side
-    res <- gsub("[[:space:]]*$", "", substr(u[2], 1, idx[1] - 1))
-    # IF u2 is in u1 AND right hand side equal u1,
-    if(grepl(u[1], u[2]) & gsub(" ", "", u[1]) == u2s)
-      # RETURN left hand side
-      return(res)
+    # CAN only handle "/" in one side
+    if(length(pos) == 1) {
+
+      # FIND position of '/'
+      idx <- rev(unlist(gregexpr(pattern = "/", u[pos])))[1]
+      # EXTRACT denominator
+      den <- gsub(" ", "", substr(u[pos], idx[1] + 1, nchar(u[pos])))
+      # EXTRACT numerator
+      num <- gsub("[[:space:]]*$", "", substr(u[pos], 1, idx[1] - 1))
+      # IF u2 is in u1 AND right hand side equal u1,
+      if(den == u[-pos])
+        # RETURN left hand side
+        return(num)
+    }
   }
 
   # PARSE and SOLVE number products

@@ -14,6 +14,7 @@
 ## BUG FIXES
 
 - dimnames<- for FLStock with no ages failed when changing age name #42
+- uom can now handle better products with units containing divisions
 
 # FLCore 2.6.5
 
