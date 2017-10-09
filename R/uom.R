@@ -187,39 +187,37 @@ uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
 
 uom <- function(op, u1, u2) {
 	
-  u <- sprintf("%s", c(u1, u2))
+  # REMOVE trailing and leading spaces and ENSURE string
+  u <- sprintf("%s", gsub(" ", "", c(u1, u2)))
 	idx <- match(u, uoms)
 
   # PARSE and SOLVE if '/' in u and op = '*'
   if(any(grepl("/", u)) && op == "*") {
+    
+    # FIND u with more parenthesis
+    mtcs <- lengths(regmatches(u, gregexpr("/", u)))
+    pos <- which(mtcs == max(mtcs))
 
-    # u <- u[order(unlist(lapply(gregexpr(pattern = "/", u), length)))]
-    pos <- grep(pattern = "/", u)
-
-    # CAN only handle "/" in one side
-    if(length(pos) == 1) {
-
-      # FIND position of '/'
-      idx <- rev(unlist(gregexpr(pattern = "/", u[pos])))[1]
-      # EXTRACT denominator
-      den <- gsub(" ", "", substr(u[pos], idx[1] + 1, nchar(u[pos])))
-      # EXTRACT numerator
-      num <- gsub("[[:space:]]*$", "", substr(u[pos], 1, idx[1] - 1))
-      # IF u2 is in u1 AND right hand side equal u1,
-      if(den == u[-pos])
-        # RETURN left hand side
-        return(num)
-    }
+    # FIND position of '/'
+    sla <- unlist(gregexpr(pattern = "/", u[pos]))[mtcs[pos] - mtcs[-pos]]
+    # EXTRACT denominator
+    den <- gsub(" ", "", substr(u[pos], sla[1] + 1, nchar(u[pos])))
+    # EXTRACT numerator
+    num <- gsub("[[:space:]]*$", "", substr(u[pos], 1, sla[1] - 1))
+    # IF u2 is in u1 AND right hand side equal u1,
+    if(identical(den, u[-pos]))
+      # RETURN left hand side
+      return(num)
   }
 
   # PARSE and SOLVE number products
   if(grepl("*", u, fixed=TRUE) && op == "*") {
     us <- unlist(lapply(u, function(x) gsub("[[:space:]]", "",
       unlist(strsplit(x, "*", fixed=TRUE)))))
-
-    idx <- us %in% uoms[nums]
-    val <- prod(as.numeric(us[idx]))
-    return(uom(op, as.character(val), us[!idx]))
+    idp <- us %in% uoms[nums]
+    # FIX for as.numeric not handling 10^*
+    val <- prod(as.numeric(uom('+', us[idp], us[idp])))
+    return(uom(op, as.character(val), us[!idp]))
   }
 	
   # undefined unit
