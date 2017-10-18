@@ -44,7 +44,7 @@ setClass("FLComp",
   prototype(
     name=character(1),
     desc=character(0),
-    range  = unlist(list(min=0, max=0, plusgroup=NA, minyear=1, maxyear=1))),
+    range  = unlist(list(min=0, max=0, minyear=1, maxyear=1))),
   validity=function(object){
 
   # range must be named ...
