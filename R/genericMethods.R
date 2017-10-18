@@ -1450,4 +1450,3 @@ setGeneric("fmsy", function(x) standardGeneric("fmsy")) # }}}
 
 setGeneric("rnoise", function(n, len, ...) standardGeneric("rnoise"))
 setGeneric("rlnoise", function(n, len, ...) standardGeneric("rlnoise"))
-

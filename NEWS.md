@@ -10,11 +10,19 @@
 ## USER-VISIBLE CHANGES
 
 - propagate(FLPar) to return object if iter == iters #45
+- Ratios of numbers written in alternative ways now also return an empty character
 
 ## BUG FIXES
 
-- dimnames<- for FLStock with no ages failed when changing age name #42
-- uom can now handle better products with units containing divisions
+- dimnames<- for FLStock with no ages failed when changing age name #42.
+- uom can now handle better products with units containing divisions.
+- coerce(FLBiol, FLBiolcpp) will now extend srparam to have as many years as the
+  object, to allow years per time eriod to be passed and used.
+- coerce FLBiol to FLBiolcpp now windows FLPar if year is given
+
+## DEPRECATED & DEFUNCT
+- catchSel is to be substituted by catch.sel, use the later instead
+- wt<-(FLStock) is to be deprecated, use the individual accessor methods instead
 
 # FLCore 2.6.5
 
