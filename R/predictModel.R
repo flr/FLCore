@@ -144,12 +144,16 @@ setMethod('predict', signature(object='predictModel'),
     args <- c(object, as(object@params, 'list'))
 
     extra <- list(...)
+
     
     if(length(extra) > 0) {
+      if("params" %in% names(extra)) {
+        params <- as(extra$params, "list")
+        extra <- c(extra[-which(names(extra) == "params")], params)
+      }
       for(i in names(extra))
         args[[i]] <- extra[[i]]
     }
-
 		return(eval(object@model[[length(object@model)]], args))
 	}
 ) # }}}
@@ -159,9 +163,23 @@ setMethod('predict', signature(object='predictModel'),
 #' @aliases summary,predictModel-method
 setMethod('summary', signature(object='predictModel'),
 	function(object) {
-		summary(object)
-		print(names(object))
-		print(object@model)
+
+    # model
+    cat(as.character(object@model), "\n")
+    # FLQuants
+    if(length(names(object)) > 0) {
+      for(j in names(object)) {
+        cat(substr(paste0("  ", j, "          "), start=1, stop=12),
+          " : [", dim(object[[j]]),"], units = ",
+          object[[j]]@units, "\n")
+      }
+    }
+    # params
+    par <- object@params
+    cat(substr(paste0("  ", ifelse(all(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == ""),
+      "NA", paste(dimnames(par)[[1]], collapse=", ")),
+      "           "), start=1, stop=12), " : [", dim(object@params),
+      "], units = ", object@params@units, "\n")
 	}
 ) # }}}
 
