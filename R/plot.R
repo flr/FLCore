@@ -778,7 +778,8 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         options$layout <- c(length(x),4)
 	    options$scales <- list(y=list(relation="free"))
         args[names(options)] <- options
-        if(is(latticeExtra::useOuterStrips, "function")) latticeExtra::useOuterStrips(do.call("xyplot", args)) else do.call("xyplot", args)
+#        if(is(latticeExtra::useOuterStrips, "function")) latticeExtra::useOuterStrips(do.call("xyplot", args)) else 
+          do.call("xyplot", args)
     }
 })
 
@@ -1128,6 +1129,7 @@ setMethod("bubbles", signature(x="formula", data ="FLQuants"),
 	# data
 	dots <- list(...)
 	dots$data <- as.data.frame(data)
+	dots$data <- subset(dots$data, !is.na(data))
 
 	# def col & pch to plot negative values
 	col <- as.numeric(dots$data$data>=0)
@@ -1159,12 +1161,16 @@ setMethod("bubbles", signature(x="formula", data ="FLQuants"),
 
 	akey <- bkey(list(data=dots$data$data, cex=cex, bub.col=bub.col, bub.scale=bub.scale), border=F, title="Scale", cex.title=0.8, padding.text=4)
 
+	# settings
+	pset <- list(strip.background=list(col="gray90"), strip.border=list(col="black"), box.rectangle=list(col="gray90"))
+
 	# call list
 	dots$cex <- cex
 	dots$pch <- pchn
 	dots$col <- coln
 	dots$panel <- pfun
 	dots$key <- akey
+	dots$par.settings <- pset
 	call.list <- c(x = x, dots)
 
 	# plot
