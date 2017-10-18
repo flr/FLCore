@@ -788,14 +788,16 @@ setMethod('sp', signature(stock='FLStock', catch='missing', harvest='missing'),
 
 # catchSel {{{
 setMethod("catchSel", signature(object="FLStock"),
-   function(object,fn="fapex")
+   function(object,fn="fapex") {
+     warning("catchSel is outdated, please call catch.sel")
     sweep(harvest(object),2:6,do.call(fn,list(object)),"/")
+   }
 ) # }}}
 
 # wt<- {{{
 setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
   function(object, ..., value) {
-
+    warning("wt<-(FLStock) is defunct, please use individual methods")
     recycleFLQuantOverYrs<-function(object,flq){
       # if averaged over years then expand years
       if (dim(flq)[2]==1 & dim(object)[2]>=1){
