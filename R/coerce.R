@@ -309,7 +309,12 @@ setAs('FLStock', 'FLBiol',
 
 setAs('FLBiol', 'FLBiolcpp',
   function(from) {
-    # process modelPredict slots
+    if("year" %in% names(from@rec@params))
+      srparams <- window(as(from@rec@params, "FLQuant"),
+        start=dims(from)$minyear, end=dims(from)$maxyear)
+    else
+      srparams <- as(from@rec@params, "FLQuant")
+
     new("FLBiolcpp",
         name = name(from),
         desc = desc(from),
@@ -321,7 +326,7 @@ setAs('FLBiol', 'FLBiolcpp',
         fec = fec(from),
         spwn = spwn(from),
         srmodel = SRModelName(from@rec@model),
-        srparams = as(from@rec@params, "FLQuant"))
+        srparams = srparams)
   }
 ) # }}}
 
