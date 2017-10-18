@@ -14,6 +14,7 @@ setGeneric("as.data.frame", useAsDefault = as.data.frame)
 setGeneric("barchart", useAsDefault = lattice::barchart)
 setGeneric("bwplot", useAsDefault = lattice::bwplot)
 setGeneric("coef", useAsDefault = coef)
+setGeneric("cor", useAsDefault = cov)
 setGeneric("cov", useAsDefault = cov)
 setGeneric("densityplot", useAsDefault = densityplot)
 setGeneric("dotplot", useAsDefault = dotplot)
@@ -26,7 +27,7 @@ setGeneric("lowess", useAsDefault = lowess)
 setGeneric("mean", useAsDefault = mean)
 setGeneric("median", useAsDefault = median)
 setGeneric("model.frame", useAsDefault = model.frame)
-setGeneric("mvrnorm", useAsDefault=mvrnorm)
+setGeneric("mvrnorm", useAsDefault = mvrnorm)
 setGeneric("names")
 setGeneric("names<-")
 setGeneric("nls", useAsDefault = nls)
@@ -46,15 +47,15 @@ setGeneric("stripplot", useAsDefault = stripplot)
 setGeneric("subset", useAsDefault = subset)
 setGeneric("summary", useAsDefault = summary)
 setGeneric("sweep", useAsDefault = sweep)
-setGeneric("tail", useAsDefault=tail)
-setGeneric("transform", useAsDefault=transform)
-setGeneric("tsp", useAsDefault=tsp)
-setGeneric("units", useAsDefault=units)
+setGeneric("tail", useAsDefault = tail)
+setGeneric("transform", useAsDefault = transform)
+setGeneric("tsp", useAsDefault = tsp)
+setGeneric("units", useAsDefault = units)
 setGeneric("update", useAsDefault = update)
 setGeneric("var", useAsDefault = var)
 setGeneric("vcov", useAsDefault = vcov)
 setGeneric("window", useAsDefault = window)
-setGeneric("wireframe", useAsDefault=wireframe)
+setGeneric("wireframe", useAsDefault = wireframe)
 setGeneric("xyplot", useAsDefault = xyplot) # }}}
 
 # -- CONSTRUCTORS, documented with each class {{{
@@ -171,7 +172,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 
 # -- ACCESSORS {{{
 
-#' Accesor and replacement methods for FLCore classes
+#' accessor and replacement methods for FLCore classes
 #'
 #' All S4 classes defined in FLCore have methods for accessing and replacing any
 #' of their slots. These methods are named as the slot, and will return the
@@ -179,7 +180,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #' value.
 #'
 #' Accessors and replacement methods, with some exception, are created at build
-#' time by calls to the \code{createFLAccessors} function. An accesor method is
+#' time by calls to the \code{createFLAccessors} function. An accessor method is
 #' created for each slot, with simply calls \code{slot()} on the relevant slot
 #' name. For slots of class \code{\link{FLQuant}}, or \code{FLArray}-based, two
 #' methods are created: one if \code{value} is of class \code{FLQuant}, and
@@ -207,20 +208,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #'   object, for the replacement one.
 #'
 #' @name accessors
-#' @rdname accesors
-#' @aliases catch catch.n catch.n catch.n<- catch.n<- catch.q catch.q<- catch.wt
-#' @aliases catch.wt catch.wt<- catch.wt<- catch<- desc desc<- details details<-
-#' @aliases discards discards.n discards.n<- discards.sel discards.sel<- discards.wt
-#' @aliases discards.wt<- discards<- distr distr<- distribution distribution<-
-#' @aliases effort effort<- fec fec<- fitted fitted<- gr gr<- harvest harvest.spwn
-#' @aliases harvest.spwn<- harvest<- hessian hessian<- index index.q index.q<-
-#' @aliases index.var index.var<- index<- initial initial<- landings landings.n
-#' @aliases landings.n<- landings.sel landings.sel<- landings.wt landings.wt<-
-#' @aliases landings<- logLik logLik<- logerror logerror<- logl logl<- m m m.spwn
-#' @aliases m.spwn<- m<- m<- mat mat<- model model<- n n<- name name<- params
-#' @aliases params<- range<- rec rec.obs rec<- residuals residuals<- sel.pattern
-#' @aliases sel.pattern<- spwn spwn<- stock stock.n stock.n<- stock.wt stock.wt<-
-#' @aliases stock<- type type<- units<- vcov<- wt wt<- 
+#' @rdname accessors
 #'
 #' @author The FLR Team
 #' @seealso \code{\link{FLQuant}}, \code{\link{FLStock}}, \code{\link{FLIndex}},
@@ -245,259 +233,361 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #' getMethod('catch', 'FLS')
 #'
 
-# range<-
-setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
-
-# units<-
-setGeneric("units<-", function(x, value) standardGeneric("units<-"))
+# name, name<-
+#' @rdname accessors
+#' @aliases name, name<- name, name<-<-
+setGeneric('name', function(object, ...) standardGeneric('name'))
+setGeneric('name<-', function(object, ..., value) standardGeneric('name<-'))
 
 # desc
+#' @rdname accessors
+#' @aliases desc desc<-
 setGeneric('desc', function(object, ...) standardGeneric('desc'))
 setGeneric('desc<-', function(object, ..., value) standardGeneric('desc<-'))
 
+# range<-
+#' @rdname accessors
+#' @aliases range<-
+setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
+
+# units<-
+#' @rdname accessors
+#' @aliases units<-
+setGeneric("units<-", function(x, value) standardGeneric("units<-"))
+
 # catch
+#' @rdname accessors
+#' @aliases catch catch<-
 setGeneric('catch', function(object, ...) standardGeneric('catch'))
 setGeneric('catch<-', function(object, ..., value) standardGeneric('catch<-'))
 
 # catch.n
+#' @rdname accessors
+#' @aliases desc desc<-
 setGeneric('catch.n', function(object, ...) standardGeneric('catch.n'))
 setGeneric('catch.n<-', function(object, ..., value) standardGeneric('catch.n<-'))
 
 # catch.wt
+#' @rdname accessors
+#' @aliases catch.wt catch.wt<-
 setGeneric('catch.wt', function(object, ...) standardGeneric('catch.wt'))
 setGeneric('catch.wt<-', function(object, ..., value) standardGeneric('catch.wt<-'))
 
 # discards
+#' @rdname accessors
+#' @aliases discards discards<-
 setGeneric('discards', function(object, ...) standardGeneric('discards'))
 setGeneric('discards<-', function(object, ..., value) standardGeneric('discards<-'))
 
 # discards.n
+#' @rdname accessors
+#' @aliases discards.n discards.n<-
 setGeneric('discards.n', function(object, ...) standardGeneric('discards.n'))
 setGeneric('discards.n<-', function(object, ..., value) standardGeneric('discards.n<-'))
 
 # discards.wt
+#' @rdname accessors
+#' @aliases discards.wt discards.wt<-
 setGeneric('discards.wt', function(object, ...) standardGeneric('discards.wt'))
 setGeneric('discards.wt<-', function(object, ..., value) standardGeneric('discards.wt<-'))
 
 # landings
+#' @rdname accessors
+#' @aliases landings landings<-
 setGeneric('landings', function(object, ...) standardGeneric('landings'))
 setGeneric('landings<-', function(object, ..., value) standardGeneric('landings<-'))
 
 # landings.n
+#' @rdname accessors
+#' @aliases landings.n landings.n<-
 setGeneric('landings.n', function(object, ...) standardGeneric('landings.n'))
 setGeneric('landings.n<-', function(object, ..., value) standardGeneric('landings.n<-'))
 
 # landings.wt
+#' @rdname accessors
+#' @aliases landings.wt landings.wt<-
 setGeneric('landings.wt', function(object, ...) standardGeneric('landings.wt'))
 setGeneric('landings.wt<-', function(object, ..., value) standardGeneric('landings.wt<-'))
 
 # m
+#' @rdname accessors
+#' @aliases m m<-
 setGeneric('m', function(object, ...) standardGeneric('m'))
 setGeneric('m<-', function(object, ..., value) standardGeneric('m<-'))
 
-# name, name<-
-setGeneric('name', function(object, ...) standardGeneric('name'))
-setGeneric('name<-', function(object, ..., value) standardGeneric('name<-'))
-
 # stock
+#' @rdname accessors
+#' @aliases stock stock<-
 setGeneric('stock', function(object, ...) standardGeneric('stock'))
 setGeneric('stock<-', function(object, ..., value) standardGeneric('stock<-'))
 
 # stock.n
+#' @rdname accessors
+#' @aliases stock.n stock.n<-
 setGeneric('stock.n', function(object, ...) standardGeneric('stock.n'))
 setGeneric('stock.n<-', function(object, ..., value) standardGeneric('stock.n<-'))
 
 # stock.wt
+#' @rdname accessors
+#' @aliases stock.wt stock.wt<-
 setGeneric('stock.wt', function(object, ...) standardGeneric('stock.wt'))
 setGeneric('stock.wt<-', function(object, ..., value) standardGeneric('stock.wt<-'))
 
 # m.spwn
+#' @rdname accessors
+#' @aliases m.spwn m.spwn<-
 setGeneric('m.spwn', function(object, ...) standardGeneric('m.spwn'))
 setGeneric('m.spwn<-', function(object, ..., value) standardGeneric('m.spwn<-'))
 
 # harvest
+#' @rdname accessors
+#' @aliases harvest harvest<-
 setGeneric('harvest', function(object, catch, ...) standardGeneric('harvest'))
 setGeneric('harvest<-', function(object, ..., value) standardGeneric('harvest<-'))
 
 # harvest.spwn
+#' @rdname accessors
+#' @aliases harvest.spwn harvest.spwn<-
 setGeneric('harvest.spwn', function(object, ...) standardGeneric('harvest.spwn'))
 setGeneric('harvest.spwn<-', function(object, ..., value) standardGeneric('harvest.spwn<-'))
 
 # mat
+#' @rdname accessors
+#' @aliases mat mat<-
 setGeneric('mat', function(object, ...) standardGeneric('mat'))
 setGeneric('mat<-', function(object, ..., value) standardGeneric('mat<-'))
 
 # n
+#' @rdname accessors
+#' @aliases n n<-
 setGeneric('n', function(object, ...) standardGeneric('n'))
 setGeneric('n<-', function(object, ..., value) standardGeneric('n<-'))
 
 # m
+#' @rdname accessors
+#' @aliases m m<-
 setGeneric('m', function(object, ...) standardGeneric('m'))
 setGeneric('m<-', function(object, ..., value) standardGeneric('m<-'))
 
 # wt
+#' @rdname accessors
+#' @aliases wt wt<-
 setGeneric('wt', function(object, ...) standardGeneric('wt'))
 setGeneric('wt<-', function(object, ..., value) standardGeneric('wt<-'))
 
 # fec
+#' @rdname accessors
+#' @aliases fec fec<-
 setGeneric('fec', function(object, ...) standardGeneric('fec'))
 setGeneric('fec<-', function(object, ..., value) standardGeneric('fec<-'))
 
 # spwn
+#' @rdname accessors
+#' @aliases spwn spwn<-
 setGeneric('spwn', function(object, ...) standardGeneric('spwn'))
 setGeneric('spwn<-', function(object, ..., value) standardGeneric('spwn<-'))
 
 # effort
+#' @rdname accessors
+#' @aliases effort effort<-
 setGeneric("effort", function(object, metier, ...) standardGeneric("effort"))
 setGeneric("effort<-", function(object, ..., value) standardGeneric("effort<-"))
 
 # type
-setGeneric('type', function(object, ...)
-		standardGeneric('type'))
-setGeneric('type<-', function(object, ..., value)
-		standardGeneric('type<-'))
+#' @rdname accessors
+#' @aliases type type<-
+setGeneric('type', function(object, ...) standardGeneric('type'))
+setGeneric('type<-', function(object, ..., value) standardGeneric('type<-'))
 
 # distr
-setGeneric('distr', function(object, ...)
-		standardGeneric('distr'))
-setGeneric('distr<-', function(object, ..., value)
-		standardGeneric('distr<-'))
+#' @rdname accessors
+#' @aliases distr distr<-
+setGeneric('distr', function(object, ...) standardGeneric('distr'))
+setGeneric('distr<-', function(object, ..., value) standardGeneric('distr<-'))
 
 # distribution
+#' @rdname accessors
+#' @aliases distribution distribution<-
 setGeneric('distribution', function(object, ...)
 		standardGeneric('distribution'))
 setGeneric('distribution<-', function(object, ..., value)
 		standardGeneric('distribution<-'))
 
 # index
+#' @rdname accessors
+#' @aliases index index<-
 setGeneric('index', function(object, ...)
 		standardGeneric('index'))
 setGeneric('index<-', function(object, ..., value)
 		standardGeneric('index<-'))
 
 # index.var
+#' @rdname accessors
+#' @aliases index.var index.var<-
 setGeneric('index.var', function(object, ...)
 		standardGeneric('index.var'))
 setGeneric('index.var<-', function(object, ..., value)
 		standardGeneric('index.var<-'))
 
 # catch.n
+#' @rdname accessors
+#' @aliases catch.n catch.n<-
 setGeneric('catch.n', function(object, ...)
 		standardGeneric('catch.n'))
 setGeneric('catch.n<-', function(object, ..., value)
 		standardGeneric('catch.n<-'))
 
 # catch.wt
+#' @rdname accessors
+#' @aliases catch.wt catch.wt<-
 setGeneric('catch.wt', function(object, ...)
 		standardGeneric('catch.wt'))
 setGeneric('catch.wt<-', function(object, ..., value)
 		standardGeneric('catch.wt<-'))
 
 # sel.pattern
+#' @rdname accessors
+#' @aliases sel.pattern sel.pattern<-
 setGeneric('sel.pattern', function(object, ...)
 		standardGeneric('sel.pattern'))
 setGeneric('sel.pattern<-', function(object, ..., value)
 		standardGeneric('sel.pattern<-'))
 
 # index.q
+#' @rdname accessors
+#' @aliases index.q index.q<-
 setGeneric('index.q', function(object, ...)
 		standardGeneric('index.q'))
 setGeneric('index.q<-', function(object, ..., value)
 		standardGeneric('index.q<-'))
 
 # model
+#' @rdname accessors
+#' @aliases model model<-
 setGeneric('model', function(object, ...)
 		standardGeneric('model'))
 setGeneric('model<-', function(object, ..., value)
 		standardGeneric('model<-'))
 
 # logl
+#' @rdname accessors
+#' @aliases logl logl<-
 setGeneric('logl', function(object, ...)
 		standardGeneric('logl'))
 setGeneric('logl<-', function(object, ..., value)
 		standardGeneric('logl<-'))
 
 # gr
+#' @rdname accessors
+#' @aliases gr gr<-
 setGeneric('gr', function(object, ...)
 		standardGeneric('gr'))
 setGeneric('gr<-', function(object, ..., value)
 		standardGeneric('gr<-'))
 
 # initial
+#' @rdname accessors
+#' @aliases initial initial<-
 setGeneric('initial', function(object, ...)
 		standardGeneric('initial'))
 setGeneric('initial<-', function(object, ..., value)
 		standardGeneric('initial<-'))
 
 # logLik
+#' @rdname accessors
+#' @aliases logLik logLik<-
 setGeneric('logLik', function(object, ...)
 		standardGeneric('logLik'))
 setGeneric('logLik<-', function(object, ..., value)
 		standardGeneric('logLik<-'))
 
 # vcov
+#' @rdname accessors
+#' @aliases vcov vcov<-
 setGeneric('vcov<-', function(object, ..., value)
 		standardGeneric('vcov<-'))
 
 # hessian
+#' @rdname accessors
+#' @aliases hessian hessian<-
 setGeneric('hessian', function(object, ...)
 		standardGeneric('hessian'))
 setGeneric('hessian<-', function(object, ..., value)
 		standardGeneric('hessian<-'))
 
 # logerror
+#' @rdname accessors
+#' @aliases logerror logerror<-
 setGeneric('logerror', function(object, ...)
 		standardGeneric('logerror'))
 setGeneric('logerror<-', function(object, ..., value)
 		standardGeneric('logerror<-'))
 
 # details
+#' @rdname accessors
+#' @aliases details details<-
 setGeneric('details', function(object, ...)
 		standardGeneric('details'))
 setGeneric('details<-', function(object, ..., value)
 		standardGeneric('details<-'))
 
 # residuals
+#' @rdname accessors
+#' @aliases residuals residuals<-
 setGeneric('residuals', function(object, ...)
 		standardGeneric('residuals'))
 setGeneric('residuals<-', function(object, ..., value)
 		standardGeneric('residuals<-'))
 
 # fitted
+#' @rdname accessors
+#' @aliases fitted fitted<-
 setGeneric('fitted', function(object, ...)
 		standardGeneric('fitted'))
 setGeneric('fitted<-', function(object, ..., value)
 		standardGeneric('fitted<-'))
 
 # rec
+#' @rdname accessors
+#' @aliases rec rec<-
 setGeneric('rec', function(object, ...)
 		standardGeneric('rec'))
 setGeneric('rec<-', function(object, ..., value)
 		standardGeneric('rec<-'))
 
 # rec.obs
+#' @rdname accessors
+#' @aliases rec.obs rec.obs<-
 setGeneric('rec.obs', function(object, ...)
 		standardGeneric('rec.obs'))
 
 # catch.q
+#' @rdname accessors
+#' @aliases catch.q catch.q<-
 setGeneric('catch.q', function(object, ...)
 		standardGeneric('catch.q'))
 setGeneric('catch.q<-', function(object, ..., value)
 		standardGeneric('catch.q<-'))
 
 # discards.sel
+#' @rdname accessors
+#' @aliases discards.sel discards.sel<-
 setGeneric('discards.sel', function(object, ...)
 		standardGeneric('discards.sel'))
 setGeneric('discards.sel<-', function(object, ..., value)
 		standardGeneric('discards.sel<-'))
 
 # landings.sel
+#' @rdname accessors
+#' @aliases landings.sel landings.sel<-
 setGeneric('landings.sel', function(object, ...)
 		standardGeneric('landings.sel'))
 setGeneric('landings.sel<-', function(object, ..., value)
 		standardGeneric('landings.sel<-'))
 
 # params, params<-
+#' @rdname accessors
+#' @aliases params, params<- params, params<-<-
 setGeneric("params", function(object, ...)
   standardGeneric("params"))
 setGeneric("params<-", function(object, value)
@@ -928,19 +1018,19 @@ setGeneric("catchSel", function(object, ...){
 
 # %+%
 #' @rdname operators
-#' @aliases %+%
+#' @aliases %+% % %+%-methods
 setGeneric("%+%", function(x, y)
   standardGeneric("%+%"))
 
 # %-%
 #' @rdname operators
-#' @aliases %-%
+#' @aliases %-% %-%-methods
 setGeneric("%-%", function(x, y)
   standardGeneric("%-%"))
 
 # %^%
 #' @rdname operators
-#' @aliases %^%
+#' @aliases %^% %^%-methods
 setGeneric("%^%", function(x, y)
   standardGeneric("%^%"))
 
@@ -1028,19 +1118,25 @@ setGeneric("yearTotals", function(x, ...)
 #' 
 #' Methods to compute various summary calculations (sum, mean, variance) over
 #' selected dimensions of objects from any array-based classes
-#' (e.g. \code{FLQuant}, \code{FLPar}). These methods return an object of the
-#' same dimensions as the input but with of length one in the dimension chosen
+#' (e.g. \code{FLQuant}). These methods return an object of the
+#' same dimensions as the input but with length one in the dimension chosen
 #' to operate along.
 #'
 #' This set of methods computes three different summaries (sum, mean and
 #' variance) of an \code{FLQuant} object along each of the six dimensions
-#' (quant, year, unit, season, area, or iter). Medians can also be computed
-#' along the sixth dimension, \code{iter}.
+#' (quant, year, unit, season, area, or iter). Medians and CVs can also be
+#' computed along the sixth dimension, \code{iter}.
 #' 
-#' These methods simply encapsulate a call to \code{\link[base]{apply}} with
-#' the corresponding dimensions and function.
+#' These methods encapsulate a call to \code{\link[base]{apply}} with
+#' the corresponding dimensions and function: \code{\link[base]{mean}}, 
+#' \code{\link[stats]{median}}, \code{\link[stats]{var}}, and
+#' \code{\link[base]{sum}}, while \code{iterCVs} are computed as
+#' \code{sqrt(iterVars) / iterMeans}.
+#'
+#' In contrast with R standard behaviour, the sum of a dimension where all
+#' elements are \code{NA} will be \code{NA} and not 0. See example below.
 #' 
-#' Methods along the iter dimension are also defined for objects of class
+#' Methods working along the iter dimension are also defined for objects of class
 #' \code{FLPar}.
 #' 
 #' Methods to operate over the first dimension refer to it as the \code{quant}
@@ -1065,87 +1161,75 @@ setGeneric("yearTotals", function(x, ...)
 #' @keywords methods
 #' @examples
 #' 
-#'  flq <- FLQuant(rnorm(4000), dim=c(5,10,2,2,2,10), quant='age')
-#'  quantSums(flq)
-#'  quantMeans(flq)
-#'  yearSums(flq)
-#'  iterMeans(flq)
-#'  dim(quantSums(flq))
+#' flq <- FLQuant(rnorm(4000), dim=c(5,10,2,2,2,10), quant='age')
+#'
+#' quantSums(flq)
+#' quantMeans(flq)
+#' yearSums(flq)
+#' iterMeans(flq)
+#' dim(quantSums(flq))
+#'
+#' # NA dims stay as NA when summed along
+#' x <- FLQuant(c(NA, NA, NA, rnorm(6)), dim=c(3, 3))
+#' quantSums(x)
+#' # although in fact a sum of no elements (as na.rm=TRUE) is zero
+#' apply(x, 2:6, sum, na.rm=TRUE)
 
 #' @rdname dimSummaries
-#' @aliases quantSums
 setGeneric("quantSums", function(x, ...) standardGeneric("quantSums"))
 #' @rdname dimSummaries
-#' @aliases yearSums
 setGeneric("yearSums", function(x, ...) standardGeneric("yearSums"))
 #' @rdname dimSummaries
-#' @aliases unitSums
 setGeneric("unitSums", function(x, ...) standardGeneric("unitSums"))
 #' @rdname dimSummaries
-#' @aliases seasonSums
 setGeneric("seasonSums", function(x, ...) standardGeneric("seasonSums"))
 #' @rdname dimSummaries
-#' @aliases areaSums
 setGeneric("areaSums", function(x, ...) standardGeneric("areaSums"))
 #' @rdname dimSummaries
-#' @aliases dimSums
-setGeneric("dimSums", function(x, ...) standardGeneric("dimSums"))
-#' @rdname dimSummaries
-#' @aliases quantMeans
-setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
-#' @rdname dimSummaries
-#' @aliases yearMeans
-setGeneric("yearMeans", function(x, ...) standardGeneric("yearMeans"))
-#' @rdname dimSummaries
-#' @aliases unitMeans
-setGeneric("unitMeans", function(x, ...) standardGeneric("unitMeans"))
-#' @rdname dimSummaries
-#' @aliases seasonMeans
-setGeneric("seasonMeans", function(x, ...) standardGeneric("seasonMeans"))
-#' @rdname dimSummaries
-#' @aliases areaMeans
-setGeneric("areaMeans", function(x, ...) standardGeneric("areaMeans"))
-#' @rdname dimSummaries
-#' @aliases iterMeans
-setGeneric("iterMeans", function(x, ...) standardGeneric("iterMeans"))
-#' @rdname dimSummaries
-#' @aliases iterSums
 setGeneric("iterSums", function(x, ...) standardGeneric("iterSums"))
 #' @rdname dimSummaries
-#' @aliases dimMeans
-setGeneric("dimMeans", function(x, ...) standardGeneric("dimMeans"))
+setGeneric("dimSums", function(x, ...) standardGeneric("dimSums"))
+
 #' @rdname dimSummaries
-#' @aliases quantVars
+setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
+#' @rdname dimSummaries
+setGeneric("yearMeans", function(x, ...) standardGeneric("yearMeans"))
+#' @rdname dimSummaries
+setGeneric("unitMeans", function(x, ...) standardGeneric("unitMeans"))
+#' @rdname dimSummaries
+setGeneric("seasonMeans", function(x, ...) standardGeneric("seasonMeans"))
+#' @rdname dimSummaries
+setGeneric("areaMeans", function(x, ...) standardGeneric("areaMeans"))
+#' @rdname dimSummaries
+setGeneric("iterMeans", function(x, ...) standardGeneric("iterMeans"))
+#' @rdname dimSummaries
+setGeneric("dimMeans", function(x, ...) standardGeneric("dimMeans"))
+
+#' @rdname dimSummaries
 setGeneric("quantVars", function(x, ...) standardGeneric("quantVars"))
 #' @rdname dimSummaries
-#' @aliases yearVars
 setGeneric("yearVars", function(x, ...) standardGeneric("yearVars"))
 #' @rdname dimSummaries
-#' @aliases unitVars
 setGeneric("unitVars", function(x, ...) standardGeneric("unitVars"))
 #' @rdname dimSummaries
-#' @aliases seasonVars
 setGeneric("seasonVars", function(x, ...) standardGeneric("seasonVars"))
 #' @rdname dimSummaries
-#' @aliases areaVars
 setGeneric("areaVars", function(x, ...) standardGeneric("areaVars"))
 #' @rdname dimSummaries
-#' @aliases iterVars
 setGeneric("iterVars", function(x, ...) standardGeneric("iterVars"))
 #' @rdname dimSummaries
-#' @aliases dimVars
 setGeneric("dimVars", function(x, ...) standardGeneric("dimVars"))
+
 #' @rdname dimSummaries
-#' @aliases iterMedians
 setGeneric("iterMedians", function(x, ...) standardGeneric("iterMedians"))
 #' @rdname dimSummaries
-#' @aliases iterCVs
 setGeneric("iterCVs", function(x, ...) standardGeneric("iterCVs"))
 # }}}
 
-# Z
+# z
 setGeneric("z", function(object, ...)
     standardGeneric("z"))
+
 # breaks
 setGeneric("breaks", function(object, ...) standardGeneric("breaks"))
 
@@ -1233,7 +1317,7 @@ setGeneric("as.FLIndex", function(object, ...)
 setGeneric("as.FLSR", function(object, ...)
   standardGeneric("as.FLSR"))
 
-# GENERICS for methods shared by FLFBRP, FLFleet & FLFishery
+# GENERICS for methods shared by multiple packages
 
 # vcost
 setGeneric("vcost", function(object, ...)
@@ -1246,6 +1330,18 @@ setGeneric("fcost", function(object, ...)
   standardGeneric("fcost"))
 setGeneric("fcost<-", function(object, ..., value)
   standardGeneric("fcost<-"))
+
+# cost
+setGeneric("cost", function(object, ...)
+  standardGeneric("cost"))
+
+# ccost
+setGeneric("ccost", function(object, ...)
+  standardGeneric("ccost"))
+
+# profit
+setGeneric("profit", function(object, ...)
+  standardGeneric("profit"))
 
 # price
 setGeneric("price", function(object, ...)
@@ -1261,9 +1357,29 @@ setGeneric("revenue", function(object, ...)
 setGeneric("fwd", function(object, fishery, control, ...)
   standardGeneric("fwd"))
 
-# metrics
+# metrics {{{
+
+#' Extract simply-defined metrics from compex objects
+#'
+#' Time series summaries of complex objects are commonly needed, for example for
+#' plotting the inputs and outputs of a class like \code{\link{FLStock}}. These
+#' methods allow for simple specification of those metrics by means of function
+#' calls and formulas.
+#'
+#' @param object A complex **FLR** object from which to extract time series metrics.
+#'
+#' @return An object, generally of class \code{\link{FLQuants}}.
+#'
+#' @name metrics
+#' @rdname metrics
+#' @aliases metrics metrics-methods
+#'
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @md
 setGeneric("metrics", function(object, metrics, ...)
-  standardGeneric("metrics"))
+  standardGeneric("metrics")) # }}}
 
 # srparams, srmodel for FLBiolcpp
 setGeneric("srmodel", function(object, ...)
@@ -1285,3 +1401,53 @@ setGeneric("corrected", function(x) standardGeneric("corrected"))
 setGeneric("FLQuantJK", function(object, orig) standardGeneric("FLQuantJK"))
 
 setGeneric("FLParJK", function(object, orig) standardGeneric("FLParJK"))
+
+setGeneric(":=", function(object, value,...) standardGeneric(":="))
+
+setGeneric("%=%", function(object, value,...) standardGeneric("%=%"))
+
+# msy {{{
+
+#' msy: A series of methods to extract or compute MSY-based reference points
+#'
+#' Reference points based on equilibirum calculations of Maximum Sustainable
+#' Yield (MSY) are computed by various FLR packages. The methods' generics are
+#' defined here for convenience. Please refer to the help pages of particular
+#' methods for further details
+#'
+#' @details The four methods are meant to provide the following estimates:
+#'   * `msy` Maximum Sustainable Yield (MSY)
+#'   * `fmsy` Fishing mortality level expected to produce on average MSY
+#'   * `bmsy` Total biomass that should produce MSY
+#'   * `sbmsy` Spawning biomass that should produce MSY
+#'
+#' @param x An input object from which to extract or compute a reference point
+#'
+#' @return A value fo the reference point, 'FLPar'
+#'
+#' @name msy
+#' @rdname msy-methods
+#' @aliases msy msy-methods
+#' @md
+#'
+#' @author The FLR Team
+#' @seealso \link{FLPar}
+#' @keywords classes
+
+setGeneric("msy", function(x) standardGeneric("msy"))
+
+#' @rdname msy-methods
+#' @aliases bmsy bmsy-methods
+setGeneric("bmsy", function(x) standardGeneric("bmsy"))
+
+#' @rdname msy-methods
+#' @aliases sbmsy sbmsy-methods
+setGeneric("sbmsy", function(x) standardGeneric("sbmsy"))
+
+#' @rdname msy-methods
+#' @aliases fmsy fmsy-methods
+setGeneric("fmsy", function(x) standardGeneric("fmsy")) # }}}
+
+setGeneric("rnoise", function(n, len, ...) standardGeneric("rnoise"))
+setGeneric("rlnoise", function(n, len, ...) standardGeneric("rlnoise"))
+

@@ -16,15 +16,15 @@
 #' the bias and variance of the statstic can be calculated.
 #' 
 #' Input objects cannot have length > 1 along the \code{iter} dimension, and
-#' the resulting object will have one more \code{iter} than the number of
-#' elements in the original object.
+#' the main slot in the resulting object will have as many \code{iter}s as the
+#' number of elements in the original object that are not \code{NA}.
 #' 
 #' @name jackknife
 #' @aliases jackknife jackknife-methods jackknife,FLQuant-method
 #' @docType methods
 #' @section Generic function: jackknife(object, ...)
 #' @author The FLR Team
-#' @seealso \code{\link{FLQuant}}
+#' @seealso \code{\link{FLQuantJK}} \code{\link{FLParJK}}
 #' @keywords methods
 #' @examples
 #' 
@@ -37,48 +37,58 @@ setMethod('jackknife', signature(object='FLQuant'),
   function(object, dim='year', na.rm=TRUE) {
 
     # tests
-      # object must have no iters
-      if(dim(object)[6] > 1)
-        stop("object cannot already contain iters: dim(object)[6] > 1")
+    # object must have no iters
+    if(dim(object)[6] > 1)
+      stop("object cannot already contain iters: dim(object)[6] > 1")
+  
+    # only one dim
+    if(length(dim) > 1)
+      stop(paste("Objects can only be jackknifed along 1 dimension:"), dim)
 
-      # only one dim
-      if(length(dim) > 1)
-        stop(paste("Objects can only be jackknifed along 1 dimension:"), dim)
-
-      # dim cannot be 'iter'
-      if(dim == 6 | dim =='iter')
-        stop("iter dimension cannot be jackknifed")
+    # dim cannot be 'iter'
+    if(dim == 6 | dim =='iter')
+      stop("iter dimension cannot be jackknifed")
 
     # match dim name
     if(is.character(dim))
       dim <- seq(1:6)[names(object) %in% dim]
 
-    # propagate
-    res <- propagate(object, dim(object)[dim])
+    # FIND NAs along dim
+    nas <- apply(object, dim, function(x) sum(is.na(x)))
+    nas <- list(c(!nas == prod(dim(object)[-dim])))
+    names(nas) <- c("i", "j", "k", "l", "m")[dim]
+    
+    res <- propagate(object, sum(nas[[1]]))
+    dres <- dim(do.call("[", c(list(x=res), nas)))
   
-    # permutaion vector, place dim one before last
+    # permutation vector, place dim one before last
     perms <- rep(5, 5)
     perms[-dim] <- 1:4
 
     # create array with 1 at each location by iter
-    idx <- aperm(array(c(rep(T, prod(dim(object)[-dim])), rep(F, prod(dim(res)[-6]))),
-        dim=c(dim(object)[seq(1:5)[-dim]], dim(object)[dim], dim(object)[dim])),
+    idx <- aperm(array(c(rep(TRUE, prod(dres[-c(dim, 6)])),
+      rep(FALSE, prod(dres[-6]))), dim=dres[c(seq(1, 6)[-dim], dim)]),
       c(perms, 6))
-
-    res[idx] <- NA
+ 
+    # ASSIGN idx to corresponding dims in res   
+    if(dim==1)
+      res[nas[[1]], ][idx] <- NA
+    if(dim==2)
+      res[,nas[[1]], ][idx] <- NA
+    if(dim==3)
+      res[,,nas[[1]], ][idx] <- NA
+    if(dim==4)
+      res[,,,nas[[1]], ][idx] <- NA
+    if(dim==5)
+      res[,,,,nas[[1]], ][idx] <- NA
 
     res <- new("FLQuantJK", res, orig=object)
 
-    jk.NA=function(x,object){
-        flag=seq(dims(x)$iter)[c(!is.na(object))]
-        return(x[,,,,,flag])}
-    
-    if (na.rm)  res=jk.NA(res,object)
- 
     return(res)
   }
 )
 
+#' @rdname jackknife
 setMethod('jackknife', signature(object='FLQuants'),
   function(object, ...) {
 
@@ -111,57 +121,67 @@ setMethod('jackknife', signature(object='FLQuants'),
   }
 )
 
+#' @rdname jackknife
 setMethod("jackknife", signature(object="FLModel"),
-  function(object) {
+  function(object, slot) {
+    
+    # RUN fit on orig
+    ori <- fmle(object)
 
     # CHECK inputs are JK
+    slot(object, slot) <- jackknife(slot(object, slot))
 
     # RUN fit on JK
     res <- fmle(object)
-
-    # RUN fit on orig
-    ori <- object
-    rec(ori) <- orig(rec(ori))
-    ori <- fmle(ori)
 
     # SET FLParJK @params
     params(res) <- FLParJK(params(res), orig=params(ori))
 
     # SET fitted
-    fitted <- FLQuantJK(fitted(res), orig=fitted(ori))
+    fitted(res) <- FLQuantJK(fitted(res), orig=fitted(ori))
 
     # SET residuals
 
     # SET vcov
 
+    return(res)
+
   }
 ) # }}}
 
 # FLQuantJK {{{
+
+#' @rdname FLQuantJK
 setMethod("FLQuantJK", signature(object="ANY", orig="ANY"),
   function(object, orig) {
     return(new("FLQuantJK", object, orig=orig))
   }) # }}}
 
 # FLParJK {{{
+
+#' @rdname FLParJK
 setMethod("FLParJK", signature(object="ANY", orig="ANY"),
   function(object, orig) {
     return(new("FLParJK", object, orig=orig))
   }) # }}}
 
 # orig {{{
+
+#' @rdname FLQuantJK
 setMethod("orig", signature(object="FLQuantJK"),
   function(object) {
     return(object@orig)
   }
 )
 
+#' @rdname FLParJK
 setMethod("orig", signature(object="FLParJK"),
   function(object) {
     return(object@orig)
   }
 )
 
+#' @rdname FLQuantJK
 setMethod("orig", signature(object="FLQuants"),
   function(object) {
     return(lapply(object,
@@ -175,23 +195,56 @@ setMethod("orig", signature(object="FLQuants"),
 ) # }}}
 
 # apply {{{
+#' @rdname apply-methods
 setMethod("apply", signature(X="FLQuantJK", MARGIN="numeric", FUN="function"),
   function(X, MARGIN, FUN, ...) {
     return(apply(new('FLQuant', X@.Data, units=units(X)), MARGIN, FUN, ...))
   })
 
+#' @rdname apply-methods
 setMethod("apply", signature(X="FLParJK", MARGIN="numeric", FUN="function"),
   function(X, MARGIN, FUN, ...) {
     return(apply(new('FLPar', X@.Data, units=units(X)), MARGIN, FUN, ...))
   }) # }}}
 
 # bias {{{
-# $ \widehat{Bias}_{(\theta)} = (n - 1)((\frac{1}{n}\sum\limits_{i=1}^n\hat{\theta}_{(i)})-\hat{\theta}) $
+
+#' Bias of estimates through jackknife
+#'
+#' Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend
+#' odio ac rutrum luctus. Aenean placerat porttitor commodo. Pellentesque eget porta
+#' libero. Pellentesque molestie mi sed orci feugiat, non mollis enim tristique. 
+#'
+#' Details: Aliquam sagittis feugiat felis eget consequat. Praesent eleifend dolor massa, 
+#' vitae faucibus justo lacinia a. Cras sed erat et magna pharetra bibendum quis in 
+#' mi. Sed sodales mollis arcu, sit amet venenatis lorem fringilla vel. Vivamus vitae 
+#' ipsum sem. Donec malesuada purus at libero bibendum accumsan. Donec ipsum sapien, 
+#' feugiat blandit arcu in, dapibus dictum felis. 
+#'
+#' \deqn{\widehat{Bias}_{(\theta)} = (n - 1)((\frac{1}{n}\sum\limits_{i=1}^n\hat{\theta}_{(i)})-\hat{\theta})}{}
+#'
+#' @param x An object holding estimates obtained through jackknife
+#'
+#' @return A value for the mean bias
+#'
+#' @name bias
+#' @rdname bias
+#' @md
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords classes
+#' @examples
+#'
+#' flq <- FLQuant(1:8)
+#' flj <- jackknife(flq)
+#' bias(flj)
+#'
 setMethod("bias", signature(x="FLQuantJK"),
   function(x) {
       return((dim(x)[6] - 1) * (iterMeans(x) - orig(x)))
   }) 
 
+#' @rdname bias
 setMethod("bias", signature(x="FLParJK"),
   function(x) {
     return((dim(x)[length(dim(x))] - 1) * (iterMeans(FLPar(x@.Data)) - orig(x)))
@@ -245,3 +298,24 @@ setMethod("window", signature(x="FLQuantJK"),
       window(FLQuant(x@.Data), ...),
       orig=window(orig(x), ...), units=units(x))
   }) # }}}
+
+# jackSummary {{{
+setMethod("jackSummary", signature(object="FLParJK"),
+  function(object, ...) {
+
+    nms <-names(dimnames(object))
+    idx <-seq(length(nms))[nms != 'iter']
+    n <-dims(object)$iter - 1
+   
+    mn <-iter(object,  1)
+    u <-iter(object, -1)
+    mnU <-apply(u, idx, mean)   
+
+    SS <-apply(sweep(u, idx, mnU,"-")^2, idx, sum)
+
+    bias <- (n - 1) * (mnU - mn)
+    se <- sqrt(((n-1)/n)*SS)
+
+    return(list(hat=mn, mean=mnU, se=se, bias=bias))
+  }
+) # }}}

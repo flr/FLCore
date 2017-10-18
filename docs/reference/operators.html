@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FLQuant arithmetic operators — %+% • FLCore</title>
+<title>FLQuant arithmetic operators that extend objects — %+% • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -81,7 +81,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>FLQuant arithmetic operators</h1>
+    <h1>FLQuant arithmetic operators that extend objects</h1>
     </div>
 
     
@@ -155,7 +155,10 @@ x %^% y
 %/%(e1, e2)
 
 # S4 method for FLPar,FLPar
-%^%(x, y)</pre>
+%^%(x, y)
+
+# S4 method for FLQuants,FLPar
+/(e1, e2)</pre>
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -163,7 +166,7 @@ x %^% y
 longer, the dimensions will be extended and the element-by-element operation
 then conducted. Dimensions and dimnames of the output will be those of the
 larger object. See the examples to observe their behaviour.</p>
-    <p>Please note that this behjaviour is present on the Arith methods for
+    <p>Please note that this behaviour is present on the Arith methods for
 <a href='FLArray.html'>FLArray</a>-derived classes but only on the 6th, `iter`, dimension.</p>
     <p>The original use of the `<!-- %*%` operator, as vector product, is not available -->
 for <a href='FLQuant.html'>FLQuant</a> objects, but can be applied to the array

@@ -16,7 +16,7 @@
 #' then conducted. Dimensions and dimnames of the output will be those of the
 #' larger object. See the examples to observe their behaviour.
 #'
-#' Please note that this behjaviour is present on the \link{Arith} methods for
+#' Please note that this behaviour is present on the \link{Arith} methods for
 #' \linkS4class{FLArray}-derived classes but only on the 6th, `iter`, dimension.
 #'
 #' The original use of the `%*%` operator, as vector product, is not available
@@ -53,6 +53,7 @@
 #' flp <- FLPar(2, dimnames=list(params='a', year=2000:2005, iter=1))
 #' flq <- FLQuant(3, dimnames=list(year=2000:2005))
 #' flp %*% flq
+NULL
 
 # FLQuant, FLQuant {{{
 # %*% {{{
@@ -884,5 +885,14 @@ setMethod("/", signature(e1="FLQuants", e2="FLPar"),
     res <- lapply(names(e1), function(x) e1[[x]] / e2[x,])
     names(res) <- names(e1)
     return(FLQuants(res))
+  }
+) # }}}
+
+# := {{{
+setMethod("%=%", signature(object="FLArray", value="numeric"),
+  function(object, value) {
+
+    object[] <- value
+    return(object)
   }
 ) # }}}

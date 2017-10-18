@@ -1,6 +1,47 @@
- CHANGES IN FLCore VERSION 2.6
+ FLCore 2.6.6
 
  NEW FEATURES
+
+- window(FLStocks) method to apply same window call across all elements
+- combine(FLStocks) method collapses all elements into a single FLStock object
+  with as many iters as elements in the list, must all have 1 iter.
+- combine(FLQuants, FLQuants) merges them one element at a time
+
+ USER-VISIBLE CHANGES
+
+- propagate(FLPar) to return object if iter == iters #45
+
+ BUG FIXES
+
+- dimnames<- for FLStock with no ages failed when changing age name #42
+- uom can now handle better products with units containing divisions
+
+ FLCore 2.6.5
+
+ NEW FEATURES
+
+- New harvest method for stock.n, catch.n and m, by minimizing diff in catch.
+- survey and cpue methods to generate observations from an operating model
+- knit_print.FLQuant method for the printr package, better printing of FLQuant
+  objects in knitr documents
+
+ USER-VISIBLE CHANGES
+
+- FLStock creator uses empty object for sizing, keeps iters but drops them if
+  object(s) are named.
+
+ BUG FIXES
+
+- Add tiny value to landings and discards to ensure no division by zero in
+  computeCatch.
+- Added reduced version to print(FLPar, reduced=TRUE) to reuse in summary methods
+ 
+ FLCore 2.6.4
+
+ NEW FEATURES
+- `%=%` operator to modify on thed fly the content of an FLQuant/FLArray. Object
+  structure can be reused with contents being changed, e.g.
+  FLQuant(2, dim=c(3,10)) %=% 0 will return the object with zeros.
 - FLModelSim and FLModelSims new classes
 - [<- FLArray now accepts an input FLQuant and keeps the structure, still recyling as appropriate.
 - New FLStockLen class for length-based stock data and results.
@@ -53,6 +94,7 @@
 - Dropped redundant Sums and Products methods for FLQuants, use Reduce("+", ...) instead
 
  BUG FIXES
+- coerce of data.frame to FLPar deals rightly with multiple params and no iters in wide format.
 - iterMeans(FLQuant) was not operating along the 6th dim
 - coerce from FLPar to data.frame now works as expected
 - Added check for range names to FLComp class validity. Elements must be named with non-empty strings and contain, at least, min, max, minyear and maxyear
@@ -81,9 +123,9 @@
 - Quick fix for readIndicesAdapt dimensions
 - apply(FLArray) did not return an FLQuant if function did not change the dimensions of the object
 
- UTILITIES
-
  DOCUMENTATION
+
+- All of the documentation has been converted to roxygen2.
 
  DEPRECATED & DEFUNCT
 - FLFleet, FLMetier and FLCatch classes (plus their plurals) and methods have been moved to the FLFleet package

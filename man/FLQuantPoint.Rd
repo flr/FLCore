@@ -8,6 +8,18 @@
 \alias{FLQuantPoint}
 \alias{FLQuantPoint-class}
 \alias{FLQuantPoint-methods}
+\alias{FLQuantPoint,FLQuant-method}
+\alias{mean,FLQuantPoint-method}
+\alias{mean<-,FLQuantPoint,FLQuant-method}
+\alias{median,FLQuantPoint-method}
+\alias{median<-,FLQuantPoint,FLQuant-method}
+\alias{var,FLQuantPoint-method}
+\alias{var<-,FLQuantPoint,FLQuant-method}
+\alias{lowq,FLQuantPoint-method}
+\alias{lowq<-,FLQuantPoint,FLQuant-method}
+\alias{uppq,FLQuantPoint-method}
+\alias{uppq<-,FLQuantPoint,FLQuant-method}
+\alias{quantile,FLQuantPoint-method}
 \alias{FLQuantPoint,missing-method}
 \alias{FLQuantPoint,FLQuant-method}
 \title{Class FLQuantPoint}
@@ -53,6 +65,7 @@ original \code{FLQuant} using \code{\link[base]{apply}}.
  \item{var,var<-:}{'var' element on 6th dimension, variance.}
  \item{lowq,lowq<-:}{'lowq' element on 6th dimension, lower quantile (0.25 by default).}
  \item{uppq,uppq<-:}{'uppq' element on 6th dimension, upper quantile (0.75 by default).}
+ \item{quantile:}{returns the 'lowq' or 'uppq' iter, depending on the value of 'probs' (0.25 or 0.75).}
 }
 }
 

@@ -10,16 +10,16 @@
 #' are provided in FLCore.
 #' 
 #' Each method is defined as a function returning a list with one or more
-#' elements as follows: \itemize{ \itemmodelFormula for the model, using the
-#' slot names \emph{rec} and \emph{ssb} to refer to the usual inputs
-#' \itemloglFunction to calculate the loglikelihood of the given model when
-#' estimated through MLE (See \code{\link{fmle}})  \iteminitialFunction to
-#' provide initial values for all parameters to the minimization algorithms
-#' called by \code{\link{fmle}} or \code{\link[stats]{nls}}. If required, this
-#' function also has two attributes, \code{\link{lower}} and
-#' \code{\link{upper}}, that give lower and upper limits for the parameter
-#' values, respectively. This is used by some of the methods defined in
-#' \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}}.
+#' elements as follows:
+#' * model: Formula for the model, using the slot names \emph{rec} and \emph{ssb}
+#' to refer to the usual inputs
+#' * logl: Function to calculate the loglikelihood of the given model when estimated through MLE (See \code{\link{fmle}}) 
+#' * initial: Function to provide initial values for all parameters to the
+#' minimization algorithms called by \code{\link{fmle}} or
+#' \code{\link[stats]{nls}}. If required, this function also has two attributes,
+#' \code{\link{lower}} and \code{\link{upper}}, that give lower and upper limits
+#' for the parameter values, respectively. This is used by some of the methods
+#' defined in \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}.
 #'
 #' The \emph{model<-} method for \code{\linkS4class{FLModel}} can then be called
 #' with \emph{value} being a list as described above, the name of the function
@@ -30,12 +30,12 @@
 #' \code{\link{loglAR1}}.
 #'
 #' \itemize{
-#' % ricker \itemricker: Ricker stock-recruitment model fit: \deqn{R = a S e^{-b
+#' \item ricker: Ricker stock-recruitment model fit: \deqn{R = a S e^{-b
 #' S}}{R = a*S*exp(-b*S)} \emph{a} is related to productivity (recruits per
 #' stock unit at small stock size) and \emph{b} to density dependence.
 #' (\emph{a, b} > 0).
 #'
-#' % bevholt \itembevholt: Beverton-Holt stock-recruitment model
+#' \item bevholt: Beverton-Holt stock-recruitment model
 #' fit: \deqn{R = \frac{a S}{b + S}}{R = a*S / (b + S)} \emph{a} is the
 #' maximum recruitment (asymptotically) and \emph{b} is the stock level needed
 #' to produce the half of maximum recruitment \eqn{\frac{a}{2}}{a/2}.

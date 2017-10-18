@@ -126,8 +126,15 @@ setReplaceMethod('fec', signature(object='FLBiol', value='predictModel'),
 
 # fec<- FLQuant: change to fec@.Data['fec']
 setReplaceMethod('fec', signature(object='FLBiol', value='FLQuant'),
-  function(object, value) {
-    object@fec@.Data <- FLQuants(fec=value)
+  function(object, name="fec", value) {
+    # HACK Should be solved by adding name to generic
+    if(missing(value))
+      value <- FLQuants(fec=name)
+    else {
+      value <- FLQuants(fec=value)
+      names(value) <- name
+    }
+    object@fec@.Data <- value
     return(object)
   }
 )
@@ -181,9 +188,12 @@ setReplaceMethod('fec', signature(object='FLBiol', value='list'),
 
 # mat {{{
 setMethod('mat', signature('FLBiol'),
-  function(object, compute=TRUE) {
+  function(object, compute=TRUE, name="missing") {
     if(compute)
       return(evalPredictModel(object, slot=object@mat))
+    else
+      if(!missing(name))
+      return(object@mat@.Data[[name]])
     else
       return(object@mat)
   }
@@ -201,8 +211,15 @@ setReplaceMethod('mat', signature(object='FLBiol', value='predictModel'),
 
 # mat<- FLQuant: change to mat@.Data['mat']
 setReplaceMethod('mat', signature(object='FLBiol', value='FLQuant'),
-  function(object, value) {
-    object@mat@.Data <- FLQuants(mat=value)
+  function(object, name="mat", value) {
+    # HACK Should be solved by adding name to generic
+    if(missing(value))
+      value <- FLQuants(mat=name)
+    else {
+      value <- FLQuants(mat=value)
+      names(value) <- name
+    }
+    object@mat@.Data <- value
     return(object)
   }
 )
@@ -282,8 +299,15 @@ setReplaceMethod('rec', signature(object='FLBiol', value='predictModel'),
 
 # rec<- FLQuant: change to rec@.Data['rec']
 setReplaceMethod('rec', signature(object='FLBiol', value='FLQuant'),
-  function(object, value) {
-    object@rec@.Data <- FLQuants(rec=value)
+  function(object, name="rec", value) {
+    # HACK Should be solved by adding name to generic
+    if(missing(value))
+      value <- FLQuants(rec=name)
+    else {
+      value <- FLQuants(rec=value)
+      names(value) <- name
+    }
+    object@rec@.Data <- value
     return(object)
   }
 )
@@ -358,6 +382,8 @@ setMethod('tep', signature(object='FLBiol'),
 ) # }}}
 
 # summary {{{
+#' @rdname summary-methods
+#' @aliases summary,FLBiol-method
 setMethod("summary", signature(object="FLBiol"),
   function(object) {
 

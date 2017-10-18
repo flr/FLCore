@@ -129,7 +129,7 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
     <pre class="examples"><div class='input'>
 <span class='co'># Create an FLIndex object.</span>
 <span class='no'>fli</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>8</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>8</span>)), <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"myTestFLindex"</span>)
-<span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class &quot;FLIndex&quot;
+<span class='fu'>summary</span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class &quot;FLIndex&quot;
 #&gt; 
 #&gt; Name: myTestFLindex 
 #&gt; Description:  
@@ -137,7 +137,7 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
 #&gt; Distribution :   
 #&gt; Quant: quant 
 #&gt; Dims:  quant 	year	unit	season	area	iter
-#&gt; 	quant	8	1	1	1	1	
+#&gt; 	1	8	1	1	1	1	
 #&gt; 
 #&gt; Range:  min	max	pgroup	minyear	maxyear	startf	endf 
 #&gt; 	NA	NA	NA	1	8	NA	NA	
@@ -148,23 +148,20 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
 #&gt; catch.wt      : [ 1 8 1 1 1 1 ], units =  NA 
 #&gt; effort        : [ 1 8 1 1 1 1 ], units =  NA 
 #&gt; sel.pattern   : [ 1 8 1 1 1 1 ], units =  NA 
-#&gt; index.q       : [ 1 8 1 1 1 1 ], units =  NA </div><div class='input'><span class='fu'>index</span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+#&gt; index.q       : [ 1 8 1 1 1 1 ], units =  NA </div><div class='input'><span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;   all -0.709127 -0.139500 -0.835634  0.471753 -2.694769  0.034813  0.362560
-#&gt;      year
-#&gt; quant 8        
-#&gt;   all -0.332326
+#&gt; quant 1        2        3        4        5        6        7        8       
+#&gt;   all -0.30260 -0.62297 -0.31057 -0.74256 -2.41807 -0.15497  0.70596  1.66847
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># Creat an FLIndex object using an existing FLQuant object.</span>
   <span class='fu'>data</span>(<span class='no'>ple4</span>)
   <span class='co'># Create a perfect index of abundance from abundance at age</span>
-    <span class='no'>fli2</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'>stock.n</span>(<span class='no'>ple4</span>))
+    <span class='no'>fli2</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>stock.n</a></span>(<span class='no'>ple4</span>))
   <span class='co'># Add some noise around the signal</span>
-    <span class='fu'>index</span>(<span class='no'>fli2</span>) <span class='kw'>&lt;-</span> <span class='fu'>index</span>(<span class='no'>fli2</span>)*<span class='fu'>exp</span>(<span class='fu'>rnorm</span>(<span class='fl'>1</span>, <span class='fu'>index</span>(<span class='no'>fli2</span>)-<span class='fu'>index</span>(<span class='no'>fli2</span>), <span class='fl'>0.1</span>))</div></pre>
+    <span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli2</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli2</span>)*<span class='fu'>exp</span>(<span class='fu'>rnorm</span>(<span class='fl'>1</span>, <span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli2</span>)-<span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli2</span>), <span class='fl'>0.1</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

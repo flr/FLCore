@@ -121,7 +121,7 @@ or removing elements. <code>logical</code>.</dd> </dl></p>
     <pre class="examples"><div class='input'>
 <span class='fu'>data</span>(<span class='no'>nsher</span>)
 <span class='no'>bnsher</span> <span class='kw'>&lt;-</span> <span class='no'>nsher</span>
-<span class='fu'>model</span>(<span class='no'>bnsher</span>) <span class='kw'>&lt;-</span> <span class='no'>bevholt</span>
+<span class='fu'><a href='accessors.html'>model</a></span>(<span class='no'>bnsher</span>) <span class='kw'>&lt;-</span> <span class='no'>bevholt</span>
 <span class='no'>bnsher</span> <span class='kw'>&lt;-</span> <span class='fu'>fmle</span>(<span class='no'>bnsher</span>)</div><div class='output co'>#&gt;   Nelder-Mead direct search function minimizer
 #&gt; function value for initial parameters = -10.336211
 #&gt;   Scaled convergence tolerance is 1.54022e-07
@@ -156,7 +156,7 @@ or removing elements. <code>logical</code>.</dd> </dl></p>
 #&gt; HI-REDUCTION      65 -12.200179 -12.200179
 #&gt; Exiting from Nelder Mead minimizer
 #&gt;     67 function evaluations used</div><div class='input'><span class='no'>fls</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSRs</span>(<span class='kw'>Ricker</span><span class='kw'>=</span><span class='no'>nsher</span>, <span class='kw'>BevHolt</span><span class='kw'>=</span><span class='no'>bnsher</span>)
-<span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>fls</span>)</div><div class='output co'>#&gt; An object of class &quot;FLSRs&quot;
+<span class='fu'>summary</span>(<span class='no'>fls</span>)</div><div class='output co'>#&gt; An object of class &quot;FLSRs&quot;
 #&gt; 
 #&gt; Elements: Ricker BevHolt 
 #&gt; 

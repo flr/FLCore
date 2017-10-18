@@ -179,6 +179,8 @@ setMethod('model.frame', signature(formula='FLlst'),
 )	# }}}
 
 # summary {{{
+#' @rdname summary-methods
+#' @aliases summary,FLlst-methods
 setMethod('summary', signature(object='FLlst'),
   function(object)
   {
@@ -204,7 +206,7 @@ setMethod('summary', signature(object='FLlst'),
 
 # range {{{
 setMethod("range", "FLlst",
-  function(x, i='missing', ..., na.rm = FALSE)
+  function(x, i = "missing", ..., na.rm = FALSE)
   {
     range <- matrix(unlist(lapply(x, function(x) range(x))), nrow=length(x), byrow=TRUE,
       dimnames=list(1:length(x), names(range(x[[1]]))))
@@ -279,5 +281,23 @@ setMethod("collapse", signature(x='FLlst'),
 	  }
 
 	  return(res)
+  }
+) # }}}
+
+# combine {{{
+setMethod("combine", signature(x="FLStocks", y="missing"),
+  function(x) {
+
+    res <- propagate(x[[1]], length(x))
+    for(i in seq(2, length(x)))
+      res[,,,,,i] <- x[[i]]
+    return(res)
+  }
+) # }}}
+
+# window {{{
+setMethod("window", signature(x="FLStocks"),
+  function(x, ... ) {
+    lapply(x, function(y) do.call("window", c(list(y), list(...))))
   }
 ) # }}}

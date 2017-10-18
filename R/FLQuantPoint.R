@@ -169,6 +169,8 @@ setMethod("quantile", signature(x="FLQuantPoint"),
 )   # }}}
 
 # summary          {{{
+#' @rdname summary-methods
+#' @aliases summary,FLQuantPoint-method
 setMethod("summary", signature(object="FLQuantPoint"),
 	function(object, ...){
 		cat("An object of class \"FLQuantPoint\" with:\n")

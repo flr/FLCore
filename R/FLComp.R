@@ -1,10 +1,12 @@
 # FLComp - Basic VIRTUAL class for all FLQuant-based classes
 # FLCore/R/FLComp.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2017 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # summary		{{{
+#' @rdname summary-methods
+#' @aliases summary,FLComp-method
 setMethod("summary", signature(object="FLComp"),
 	function(object, ...){
 
@@ -33,7 +35,7 @@ setMethod("summary", signature(object="FLComp"),
 		cat("Quant:", dms$quant, "\n")
     # Dims
 		cat("Dims: ", quant(slot(object, qnames[1])), "\tyear\tunit\tseason\tarea\titer\n")
-		cat("", dms[[dms$quant]], dim(slot(object, qnames[1]))[-c(1,6)],
+		cat("", dms[[2]], dim(slot(object, qnames[1]))[-c(1,6)],
       dms$iter, "\n\n", sep="\t")
 		# Range
     cat("Range: ", paste(sub('plusgroup', 'pgroup', names(object@range)),
@@ -262,7 +264,7 @@ setMethod('[', signature(x='FLComp'),
     }
 )   # }}}
 
-# "[<-"            {{{
+# '[<-'            {{{
 #' @rdname Extract
 #' @aliases [<-,FLComp,ANY,ANY,ANY-method
 setMethod("[<-", signature(x="FLComp"),
@@ -295,14 +297,14 @@ setMethod("[<-", signature(x="FLComp"),
 
 # as.data.frame        {{{
 setMethod("as.data.frame", signature(x="FLComp", row.names="missing", optional="missing"),
-	function(x, row.names, optional, drop=FALSE, cohort=FALSE)
+	function(x, row.names, optional, drop=FALSE, cohort=FALSE, units=FALSE)
 	{
     qnames <- getSlotNamesClass(x, 'FLArray')
     quant <- quant(slot(x, qnames[1]))
 	  df   <- data.frame()
     for(s in qnames)
 		{
-      sdf <- as.data.frame(slot(x, s), cohort=cohort)
+      sdf <- as.data.frame(slot(x, s), cohort=cohort, units=units)
       sdf[[quant]] <- as.character(sdf[[quant]])
       dfq <- cbind(slot=s, sdf)
 
@@ -370,11 +372,13 @@ setMethod("dims", signature(obj="FLComp"),
 			for(p in pnames)
 				iter <- max(iter, length(dimnames(slot(obj, p))$iter))
 
-    # Hack for FLBRP
-    # TODO Fix for FLstock
+    # Hack for FLBRP, drop fbar slot
     dnames <- dnames[!names(dnames) %in% 'fbar']
-    quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
-      function(x) x[1] == max(dims[,1])))][[1]]
+    if(is(obj, "FLFishery"))
+      quants <- c(hperiod=1:2)
+    else
+      quants <- lapply(dnames, function(x) x[[1]])[unlist(lapply(dimsl,
+        function(x) x[1] == max(dims[,1])))][[2]]
     res <- list(
       quant = quant(slot(obj, qnames[1])),
       quants = max(dims[,1]),
@@ -414,8 +418,7 @@ setMethod('model.frame', signature(formula='FLComp'),
 
 # range {{{
 setMethod("range", "FLComp",
-  function(x, i='missing', ..., na.rm = FALSE)
-  {
+  function(x, i='missing', ..., na.rm = FALSE) {
     if(missing(i))
       slot(x, 'range')
     else
@@ -423,9 +426,20 @@ setMethod("range", "FLComp",
   }
 )
 
+setReplaceMethod("range", signature(x="FLComp", i="missing", value="numeric"),
+  function(x, value) {
+    slot(x, 'range')[names(value)] <- value
+      return(x)
+  }
+)
+
 setReplaceMethod("range", signature(x="FLComp", i="ANY", value="numeric"),
-  function(x, i, value)
-  {
+  function(x, i, value) {
+
+    # HACK for "pgroup", as displayed by summary()
+    if(any(i == "pgroup"))
+      i[i == "pgroup"] <- "plusgroup"
+
     slot(x, 'range')[i] <- value
     if(validObject(x))
       return(x)
@@ -508,7 +522,10 @@ setMethod("vecage", "FLComp", function(object){
 
 # metrics {{{
 
+#' @rdname metrics
 #' @examples
+#'
+#' data(ple4)
 #' # missing
 #' metrics(ple4)
 #' # metrics = function

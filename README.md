@@ -1,8 +1,8 @@
 
 # FLCore
-- Version: 2.6.2.9001
-- Date: 2017-06-26
-- Author: FLR Team and various contributors.
+- Version: 2.6.5.9005
+- Date: 2017-10-09
+- Author: FLR Team and various [contributors](CONTRIBUTORS.md).
 - Maintainer: Iago Mosqueira <iago.mosqueira@ec.europa.eu>
 - Repository: <https://github.com/flr/FLCore/>
 - Bug reports: <https://github.com/flr/FLCore/issues>
@@ -29,11 +29,10 @@ or download from the [FLCore releases page](https://github.com/flr/FLCore/releas
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/FLCore)](https://cran.r-project.org/package=FLCore)
 
 ## Releases
-- [Latest release](https://github.com/flr/FLCore/releases/tag/v2.5.20130716)
-- [All release](https://github.com/flr/FLCore/releases/)
+- [All releases](https://github.com/flr/FLCore/releases/)
 
 ## License
-Copyright (c) 2004-2015 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
+Copyright (c) 2004-2017 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
 
 ## Contact
 You are welcome to:

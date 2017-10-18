@@ -247,24 +247,28 @@ setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing
 # }}}
 
 # sums         {{{
+#' @rdname dimSummaries
 setMethod('yearSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 	return(apply(e(x),c(1,3,4,5,6), function(x, NA.RM=na.rm){ 
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
+#' @rdname dimSummaries
 setMethod('unitSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 	return(apply(e(x),c(1,2,4,5,6), function(x, NA.RM=na.rm){ 
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
+#' @rdname dimSummaries
 setMethod('seasonSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 	return(apply(e(x),c(1,2,3,5,6), function(x, NA.RM=na.rm){ 
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
 	}))
 })
 
+#' @rdname dimSummaries
 setMethod('areaSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 	return(apply(e(x),c(1,2,3,4,6), function(x, NA.RM=na.rm){ 
 		z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
@@ -272,52 +276,64 @@ setMethod('areaSums', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
 }) # }}}
 
 # means         {{{
+#' @rdname dimSummaries
 setMethod('yearMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1,3:6), mean, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('unitMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:2,4:6), mean, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('seasonMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:3,6), mean, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('areaMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:4,6), mean, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('iterMeans', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:5), mean, na.rm=na.rm))
 }) # }}}
 
 # medians {{{
+#' @rdname dimSummaries
 setMethod('iterMedians', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:5), median, na.rm=na.rm))
 }) # }}}
 
 # vars         {{{
+#' @rdname dimSummaries
 setMethod('quantVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), 2:6, var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('yearVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1,3:6), var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('unitVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:2,4:6), var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('seasonVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:3,5:6), var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('areaVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:4,6), var, na.rm=na.rm))
 })
 
+#' @rdname dimSummaries
 setMethod('iterVars', signature(x='FLQuantDistr'), function(x, na.rm=TRUE) {
   return(apply(e(x), c(1:5), var, na.rm=na.rm))
 }) # }}}

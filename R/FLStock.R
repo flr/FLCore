@@ -14,7 +14,7 @@ setMethod('FLStock', signature(object='FLQuant'),
     args <- list(...)
 
     # empty object
-    object <- FLQuant(object)
+    # object <- iter(FLQuant(object), 1)
     object[] <- NA
     units(object) <- 'NA'
     qobject <- quantSums(object)
@@ -25,9 +25,9 @@ setMethod('FLStock', signature(object='FLQuant'),
     landings=qobject, landings.n=object, landings.wt=object,
     discards=qobject, discards.n=object, discards.wt=object,
     stock=qobject, stock.n=object, stock.wt=object,
-    harvest=object, harvest.spwn=FLQuant(object, units='prop'),
-		m=FLQuant(object, units='m'), m.spwn=FLQuant(object, units='prop'),
-		mat=FLQuant(object, units='prop'),
+    harvest=object, harvest.spwn=FLQuant(object, units=""),
+		m=FLQuant(object, units='m'), m.spwn=FLQuant(object, units=""),
+		mat=FLQuant(object, units=""),
 		range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
 		minyear=dims$minyear, maxyear=dims$maxyear, minfbar=dims$min,
     maxfbar=dims$max)))
@@ -63,6 +63,7 @@ setMethod('FLStock', signature(object='missing'),
           for (j in names(i))
              object <- i[[j]]
     }
+
     if(length(slots) == 0) {
       object <- FLQuant()
     } else{
@@ -73,7 +74,7 @@ setMethod('FLStock', signature(object='missing'),
         object <- args[[slots[1]]]
     }
 
-    return(FLStock(object, ...))
+    return(FLStock(iter(object, 1), ...))
   }
 )
 
@@ -696,7 +697,7 @@ setMethod('expand', signature(x='FLStock'),
   }
 ) # }}}
 
-# dimnames {{{
+# dimnames<- {{{
 setMethod('dimnames<-', signature(x='FLStock', value='list'),
   function(x, value)
   {
@@ -709,17 +710,17 @@ setMethod('dimnames<-', signature(x='FLStock', value='list'),
     vnames <- names(value)
     if('year' %in% vnames)
       range(x, c('minyear','maxyear')) <- value[['year']][c(1, length(value[['year']]))]
-    if(dims(x)$quant %in% vnames)
-      range(x, c('min','max')) <- value[[dims(x)$quant]][c(1,
-        length(value[[dims(x)$quant]]))]
+    if(dims(x)$quant %in% vnames) {
+      range(x, c('min','max', 'plusgroup')) <- suppressWarnings(as.numeric(
+        value[[dims(x)$quant]][c(1, rep(length(value[[dims(x)$quant]])),2)]))
+    }
 
     value <- value[names(value) != dims(x)$quant]
-    if(length(value) > 0)
-    {
+
+    if(length(value) > 0) {
       for (i in aslots)
         dimnames(slot(x, i)) <- value
     }
-
     return(x)
   }
 ) # }}}

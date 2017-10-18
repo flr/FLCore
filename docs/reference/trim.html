@@ -135,16 +135,16 @@ counterparts are modified along the first dimension.</p>
 #&gt; 
 #&gt;     year
 #&gt; age  2000      2001      2002      2003      2004      2005     
-#&gt;   1  -1.233679  0.380653  0.676940 -1.088783  0.672656  0.917813
-#&gt;   2  -0.256536 -0.105726  0.526385  0.074936  2.248306  1.087942
-#&gt;   3   0.554917  1.061131  0.935563 -0.089608  0.692988  0.473921
-#&gt;   4  -0.917464 -1.458702 -0.888250 -0.995773  0.420862 -1.211541
-#&gt;   5   0.664515  0.050181 -0.142501  1.470651  0.475680  0.475705
-#&gt;   6  -0.253107  1.807106 -1.051892 -0.032290 -0.131634 -0.336197
-#&gt;   7   0.332456 -0.447474 -0.746225 -0.891145 -0.455792 -1.079402
-#&gt;   8  -0.072724 -0.638360  1.227020  0.538861  1.126463 -0.533141
-#&gt;   9  -0.166886 -0.479728 -0.066312 -0.904091  0.587749  2.245681
-#&gt;   10  2.513564  0.625566  1.275253 -0.658182 -0.194454  1.294837
+#&gt;   1  -2.725535 -0.455349 -0.210886 -0.346662  0.714217  0.767133
+#&gt;   2  -0.305181  0.392446 -1.263650 -0.838827 -1.162195 -0.608500
+#&gt;   3  -0.634887  1.516195 -0.012322 -1.409560  0.849920 -0.874672
+#&gt;   4  -1.443674  0.573833 -0.003874  0.037726 -0.123669  0.107419
+#&gt;   5   0.486917 -0.174562 -0.167932  2.408326 -0.999429  0.110223
+#&gt;   6  -0.607496 -1.083028  0.091816 -1.122340  0.013876 -0.127320
+#&gt;   7  -1.045196 -0.074940 -1.107337  0.178444 -0.308229  0.077139
+#&gt;   8   1.107602 -1.981823 -0.846779 -0.068795  0.968329 -1.683823
+#&gt;   9  -0.368490 -1.734741 -1.367585 -0.596146  2.532179  1.648248
+#&gt;   10 -1.002448  0.087698 -0.284313 -1.097759 -0.244155 -0.456134
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># which is equivalent to</span>
 <span class='fu'>window</span>(<span class='no'>flq</span>, <span class='kw'>start</span><span class='kw'>=</span><span class='fl'>2000</span>, <span class='kw'>end</span><span class='kw'>=</span><span class='fl'>2005</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
@@ -152,31 +152,31 @@ counterparts are modified along the first dimension.</p>
 #&gt; 
 #&gt;     year
 #&gt; age  2000      2001      2002      2003      2004      2005     
-#&gt;   1  -1.233679  0.380653  0.676940 -1.088783  0.672656  0.917813
-#&gt;   2  -0.256536 -0.105726  0.526385  0.074936  2.248306  1.087942
-#&gt;   3   0.554917  1.061131  0.935563 -0.089608  0.692988  0.473921
-#&gt;   4  -0.917464 -1.458702 -0.888250 -0.995773  0.420862 -1.211541
-#&gt;   5   0.664515  0.050181 -0.142501  1.470651  0.475680  0.475705
-#&gt;   6  -0.253107  1.807106 -1.051892 -0.032290 -0.131634 -0.336197
-#&gt;   7   0.332456 -0.447474 -0.746225 -0.891145 -0.455792 -1.079402
-#&gt;   8  -0.072724 -0.638360  1.227020  0.538861  1.126463 -0.533141
-#&gt;   9  -0.166886 -0.479728 -0.066312 -0.904091  0.587749  2.245681
-#&gt;   10  2.513564  0.625566  1.275253 -0.658182 -0.194454  1.294837
+#&gt;   1  -2.725535 -0.455349 -0.210886 -0.346662  0.714217  0.767133
+#&gt;   2  -0.305181  0.392446 -1.263650 -0.838827 -1.162195 -0.608500
+#&gt;   3  -0.634887  1.516195 -0.012322 -1.409560  0.849920 -0.874672
+#&gt;   4  -1.443674  0.573833 -0.003874  0.037726 -0.123669  0.107419
+#&gt;   5   0.486917 -0.174562 -0.167932  2.408326 -0.999429  0.110223
+#&gt;   6  -0.607496 -1.083028  0.091816 -1.122340  0.013876 -0.127320
+#&gt;   7  -1.045196 -0.074940 -1.107337  0.178444 -0.308229  0.077139
+#&gt;   8   1.107602 -1.981823 -0.846779 -0.068795  0.968329 -1.683823
+#&gt;   9  -0.368490 -1.734741 -1.367585 -0.596146  2.532179  1.648248
+#&gt;   10 -1.002448  0.087698 -0.284313 -1.097759 -0.244155 -0.456134
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='fu'>trim</span>(<span class='no'>flq</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 2000      2001      2002      2003      2004      2005     
-#&gt;   1 -1.233679  0.380653  0.676940 -1.088783  0.672656  0.917813
-#&gt;   2 -0.256536 -0.105726  0.526385  0.074936  2.248306  1.087942
+#&gt; age 2000     2001     2002     2003     2004     2005    
+#&gt;   1 -2.72554 -0.45535 -0.21089 -0.34666  0.71422  0.76713
+#&gt;   2 -0.30518  0.39245 -1.26365 -0.83883 -1.16219 -0.60850
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 
 <span class='co'># Now on an FLStock</span>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='fu'><a href='summary.html'>summary</a></span>(<span class='fu'>trim</span>(<span class='no'>ple4</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1990</span>:<span class='fl'>1995</span>))</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
+<span class='fu'>summary</span>(<span class='fu'>trim</span>(<span class='no'>ple4</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1990</span>:<span class='fl'>1995</span>))</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
 #&gt; 
 #&gt; Name: Plaice in IV 
 #&gt; Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSS [...] 
@@ -200,17 +200,17 @@ counterparts are modified along the first dimension.</p>
 #&gt; stock.n       : [ 10 6 1 1 1 1 ], units =  10^3 
 #&gt; stock.wt      : [ 10 6 1 1 1 1 ], units =  kg 
 #&gt; m             : [ 10 6 1 1 1 1 ], units =  m 
-#&gt; mat           : [ 10 6 1 1 1 1 ], units =  NA 
+#&gt; mat           : [ 10 6 1 1 1 1 ], units =   
 #&gt; harvest       : [ 10 6 1 1 1 1 ], units =  f 
-#&gt; harvest.spwn  : [ 10 6 1 1 1 1 ], units =  NA 
-#&gt; m.spwn        : [ 10 6 1 1 1 1 ], units =  NA </div><div class='input'>
+#&gt; harvest.spwn  : [ 10 6 1 1 1 1 ], units =   
+#&gt; m.spwn        : [ 10 6 1 1 1 1 ], units =   </div><div class='input'>
 <span class='co'># If 'age' is trimmed in ple4, catch, landings and discards need to be</span>
 <span class='co'># recalculated</span>
   <span class='no'>shpl4</span> <span class='kw'>&lt;-</span> <span class='fu'>trim</span>(<span class='no'>ple4</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>4</span>)
-  <span class='fu'>landings</span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeLandings</a></span>(<span class='no'>shpl4</span>)
-  <span class='fu'>discards</span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span>(<span class='no'>shpl4</span>)
+  <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeLandings</a></span>(<span class='no'>shpl4</span>)
+  <span class='fu'><a href='accessors.html'>discards</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span>(<span class='no'>shpl4</span>)
   <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>shpl4</span>)
-  <span class='fu'><a href='summary.html'>summary</a></span>(<span class='no'>shpl4</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
+  <span class='fu'>summary</span>(<span class='no'>shpl4</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
 #&gt; 
 #&gt; Name: Plaice in IV 
 #&gt; Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSS [...] 
@@ -234,10 +234,10 @@ counterparts are modified along the first dimension.</p>
 #&gt; stock.n       : [ 4 52 1 1 1 1 ], units =  10^3 
 #&gt; stock.wt      : [ 4 52 1 1 1 1 ], units =  kg 
 #&gt; m             : [ 4 52 1 1 1 1 ], units =  m 
-#&gt; mat           : [ 4 52 1 1 1 1 ], units =  NA 
+#&gt; mat           : [ 4 52 1 1 1 1 ], units =   
 #&gt; harvest       : [ 4 52 1 1 1 1 ], units =  f 
-#&gt; harvest.spwn  : [ 4 52 1 1 1 1 ], units =  NA 
-#&gt; m.spwn        : [ 4 52 1 1 1 1 ], units =  NA </div><div class='input'>
+#&gt; harvest.spwn  : [ 4 52 1 1 1 1 ], units =   
+#&gt; m.spwn        : [ 4 52 1 1 1 1 ], units =   </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

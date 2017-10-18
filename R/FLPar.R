@@ -251,6 +251,8 @@ setMethod("iter<-", signature(object="FLPar", value="numeric"),
 # }}}
 
 # summary   {{{
+#' @rdname summary-methods
+#' @aliases summary,FLPar-method
 setMethod('summary', signature(object='FLPar'),
   function(object, ...) {
     cat("An object of class \"", class(object), "\"\n\n", sep="")
@@ -288,6 +290,8 @@ setMethod("as.data.frame", signature(x="FLPar"),
 )   # }}}
 
 # iterMedians, Means & Vars {{{
+
+#' @rdname dimSummaries
 setMethod("iterMeans", "FLPar",
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
@@ -295,6 +299,7 @@ setMethod("iterMeans", "FLPar",
   }
 )
 
+#' @rdname dimSummaries
 setMethod("iterMedians", "FLPar",
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
@@ -302,12 +307,15 @@ setMethod("iterMedians", "FLPar",
   }
 )
 
+#' @rdname dimSummaries
 setMethod("iterVars", "FLPar",
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
     apply(x, dim[-length(dim)], var, na.rm=na.rm)
   }
 )
+
+#' @rdname dimSummaries
 setMethod("iterSums", "FLPar",
   function(x, na.rm=TRUE) {
     dim <- seq(length=length(dim(x)))
@@ -392,8 +400,14 @@ setAs('FLPar', 'FLQuant',
 
 # propagate {{{
 setMethod("propagate", signature(object="FLPar"),
-  function(object, iter, fill.iter=TRUE)
-  {
+  function(object, iter, fill.iter=TRUE) {
+
+    # RETURN object if iter == iters
+    dob <- dim(object)
+
+    if(iter == dob[length(dob)])
+      return(object)
+
     # dimnames of input object
     dnames <- dimnames(object)
     dnames$iter <- seq(iter)
@@ -462,7 +476,7 @@ setMethod("show", signature(object="FLPar"),
       v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
     }
     else
-      v3 <- format(object@.Data, digits=5)
+      v3 <- format(object@.Data, digits=3)
     
     print(array(v3, dim=dim(object)[1:(ndim-1)], dimnames=dimnames(object)[1:(ndim-1)]),
       quote=FALSE)
@@ -473,13 +487,30 @@ setMethod("show", signature(object="FLPar"),
 
 # print {{{
 setMethod("print", signature(x="FLPar"),
-  function(x){
-    show(x)
-    invisible(x)
+  function(x, reduced=FALSE){
+
+    if(reduced) {
+      if(length(dimnames(x)[['iter']]) == 1) {
+        cat("Parameters: \n")
+        print(t(x@.Data), digits=3)
+      } else {
+        cat("Parameters median(mad): \n")
+        v1 <- apply(x@.Data, 1, median, na.rm=TRUE)
+        v2 <- apply(x@.Data, 1, mad, na.rm=TRUE)
+        v3 <- paste(format(v1, digits=3),"(", format(v2, digits=3), ")", sep="")
+        names(v3) <- names(v1)
+        print(v3, quote=FALSE)
+      }
+    } else {
+      show(x)
+      invisible(x)
+    }
   }
 ) # }}}
 
 # Arith    {{{
+
+#' @rdname Arith-methods
 setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
   signature(e1 = "FLPar", e2 = "FLPar"),
   function(e1, e2)
@@ -488,6 +519,10 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
   }
 )
 
+#' @rdname Arith-methods
+#' @examples
+#' # FLQuant and FLPar
+#' flq / flp
 setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
   function(e1, e2) {
     # objects dims
@@ -523,6 +558,7 @@ setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
   }
 )
 
+#' @rdname Arith-methods
 setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
   function(e1, e2) {
     # objects dims
@@ -619,6 +655,7 @@ setMethod('sv', signature(x='FLPar', model='formula'),
   })# }}}
 
 # sweep {{{
+#' @rdname sweep-methods
 setMethod('sweep', signature(x='FLPar'),
   function(x, MARGIN, STATS, FUN, check.margin=TRUE, ...)
   {
@@ -628,32 +665,12 @@ setMethod('sweep', signature(x='FLPar'),
 ) # }}}
 
 # apply {{{
+#' @rdname apply-methods
 setMethod('apply', signature(X='FLPar'),
   function(X, MARGIN, FUN, ...)
   {
     res <- callNextMethod()
     do.call(class(X), list(res, units=units(X)))
-  }
-) # }}}
-
-# jackSummary {{{
-setMethod("jackSummary", signature(object="FLPar"),
-  function(object, ...) {
-
-   nms <-names(dimnames(object))
-   idx <-seq(length(nms))[nms != 'iter']
-   n <-dims(object)$iter - 1
-   
-   mn <-iter(object,  1)
-   u <-iter(object, -1)
-   mnU <-apply(u, idx, mean)   
-
-   SS <-apply(sweep(u, idx, mnU,"-")^2, idx, sum)
-
-   bias <- (n - 1) * (mnU - mn)
-   se <- sqrt(((n-1)/n)*SS)
-
-   return(list(hat=mn, mean=mnU, se=se, bias=bias))
   }
 ) # }}}
 

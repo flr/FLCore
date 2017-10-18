@@ -4,7 +4,43 @@
 # Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC
 
+#' Convert Objects Between Classes
+#'
+#' Objects of various **FLCore** classes can be converted into other classes,
+#' both basic R ones, like `data.frame`, and defined in the package. For the
+#' specifics of the precise calculations carried out for each pair of classes,
+#' see Details.
+#' 
+#' @param object Object to be converted.
+#' @param Class Name of the class to convert the object to, `character`.
+#'
+#' @return An object of the requested class.
+#'
+#' @rdname coerce-methods
+#' @name coerce-methods
+#' @docType methods
+#' @md
+#' @author The FLR Team
+#' @seealso [base::as], [base::coerce]
+#' @keywords methods
+NULL
+
 # TO data.frame {{{
+
+#' @rdname coerce-methods
+#' @name coerce-methods
+#' @aliases coerce,FLArray,data.frame-method
+#' @section FLArray to data.frame:
+#'  The six dimensions of an `FLArray` are converted into seven columns, named
+#'  `quant` (or any other name given to the first dimension in the object),
+#'  `year`, `unit`, `season`, `area`, `iter`  and `data`. The last one contains
+#'  the actual numbers stored in the array. `units` are stored as an attribute
+#'  to the `data.frame`. The `year` and `data` columns are of type `numeric`,
+#'  while all others are `factor`.
+#' @examples
+#' # from FLQuant to data.frame
+#' as(FLQuant(rnorm(100), dim=c(5, 20)), "data.frame")
+#'
 setAs('FLArray', 'data.frame',
   function(from)
   {
@@ -32,6 +68,18 @@ setAs('FLArray', 'data.frame',
   }
 )
 
+#' @rdname coerce-methods
+#' @name coerce-methods
+#' @aliases coerce,FLPar,data.frame-method
+#' @section FLPar to data.frame:
+#'  The two or more dimensions of an *FLPar* objects are converted into three or
+#'  more columns. For a 2D objects, they are named *params*, *iter* and *data*.
+#'  The last one contains the actual numbers stored in the array, in a column
+#'  type `numeric`, while all others are `factor`.
+#' @examples
+#' # from FLPar to data.frame
+#' as(FLPar(phi=rnorm(10), rho=rlnorm(10)), "data.frame")
+#'
 setAs('FLPar', 'data.frame',
   function(from)
   {
@@ -42,9 +90,20 @@ setAs('FLPar', 'data.frame',
 # }}}
 
 # TO FLQuant {{{
+
+#' @rdname coerce-methods
+#' @name coerce-methods
+#' @aliases coerce,data.frame,FLQuant-method
+#' @section data.frame to FLQuant:
+#'  A *data.frame* with the right column names is converted into an *FLQuant*
+#'  object with missing values being added. Missing columns are assumed to
+#'  contain the default dimnames in *FLQuant*.
+#' @examples
+#' # from data.frame to FLQuant
+#' as(data.frame(age=rep(1:4, each=3), year=2011:2013, data=rnorm(12)), "FLQuant")
+#'
 setAs("data.frame", "FLQuant",
-  function(from)
-  {
+  function(from) {
     # get data.frame names and compare
     names(from) <- tolower(names(from))
     validnames <-c("year","unit","season","area","iter","data")
@@ -90,19 +149,27 @@ setAs("data.frame", "FLQuant",
 
     # fill up missing years
     if(length(dimnames(flq)[['year']]) != length(as.character(seq(dims(flq)$minyear,
-      dims(flq)$maxyear))))
-    {
+      dims(flq)$maxyear)))) {
       res <- FLQuant(dimnames=c(dimnames(flq)[1], list(year=seq(dims(flq)$minyear,
         dims(flq)$maxyear)), dimnames(flq)[3:6]))
       res[,dimnames(flq)[['year']],] <- flq
       flq <- res
     }
-return(flq)
+  return(flq)
   }
-)
-# }}}
+) # }}}
 
 # TO FLStock {{{
+
+#' @rdname coerce-methods
+#' @name coerce-methods
+#' @aliases coerce,FLBiol,FLStock-method
+#' @section *FLBiol* to *FLStock*:
+#'  - *n* = *stock.n*
+#'  - *wt* = *stock.wt*
+#'  - *m* = *m*
+#'  - *mat* = *mat()*
+#'  - *m.spwm*, *harvest.spwn* = *spwn*
 setAs('FLBiol', 'FLStock',
   function(from)
   {
@@ -113,30 +180,35 @@ setAs('FLBiol', 'FLStock',
 )
 
 setAs('data.frame', 'FLStock',
-  function(from)
-  {
-        slots <- as.character(unique(from$slot))
-        lst <- vector(length=length(slots), mode='list')
-        names(lst) <- slots
+  function(from) {
+    slots <- as.character(unique(from$slot))
+    lst <- vector(length=length(slots), mode='list')
+    names(lst) <- slots
 
-        for(i in slots) {
-            lst[[i]] <- as.FLQuant(subset(from, slot==i, select=-slot))
-        }
+    cnms <- colnames(from)
 
-        return(do.call('FLStock', lst))
+    for(i in slots) {
+      lst[[i]] <- as.FLQuant(subset(from, slot==i, select=-slot))
     }
+    return(do.call('FLStock', lst))
+  }
 )
 
 setMethod('as.FLStock', signature(object='data.frame'),
-    function(object, units=missing) {
+    function(object, units=missing, ...) {
 
         res <- as(object, 'FLStock')
 
         # units
-        if(missing(units))
-            warning("units in FLStock slots not specified")
-        else
+        if(!missing(units))
             units(res) <- units
+
+        # args
+        args <- list(...)
+
+        if(length(args) > 0)
+          for(i in names(args))
+            slot(res, i) <- args[[i]]
 
         return(res)
     }
@@ -264,22 +336,25 @@ setAs('data.frame', 'FLPar',
 
     # ... or wide
     } else {
+
       # iter names from df
-      if("iter" %in% colnames(from))
-        iters <- from$iter
-      # or from rownames, if present
-      else
-        iters <- rownames(from, do.NULL=TRUE, prefix="")
+      if(!"iter" %in% colnames(from))
+        from$iter <- "1"
 
       # param named columns
-      pnames <- colnames(from)[!colnames(from) %in% c("data", "iter")]
+      pnames <- colnames(from)[!colnames(from) %in% c("data")]
 
-      pnames <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
-      pnames <- lapply(pnames, as.character)
+      dmns <- lapply(as.list(as.list(subset(from, select=pnames))), unique)
+      dmns <- lapply(dmns, as.character)
 
-      dmns <- c(pnames, list(iter=unique(iters)))
+      idx <- match(pnames,
+        c("params", pnames[!pnames %in% c("params", "iter")], "iter"))
 
-      return(FLPar(from$data, dimnames=dmns, units="NA"))
+      dmns <- dmns[idx]
+
+      x <- from$data[do.call(order, as.list(from[, rev(names(dmns))]))]
+
+      return(FLPar(x, dimnames=dmns, units="NA"))
     }
   }
 )
@@ -369,3 +444,20 @@ setAs('data.frame', 'FLQuants',
 )
 
 # }}}
+
+# TO FLSR {{{
+setAs('FLBiol', 'FLSR',
+  function(from) {
+
+    # rec & ssb
+    rec <- rec(from)
+    ssb <- ssb(from)
+    rage <- dims(from)$min
+
+    # CORRECT for rage
+    rec <- rec[, seq(1 + rage, dim(rec)[2])]
+    ssb <- ssb[, seq(1, dim(ssb)[2] - rage)]
+
+    return(FLSR(name=name(from), desc=desc(from), rec=rec, ssb=ssb))
+
+  } )# }}}

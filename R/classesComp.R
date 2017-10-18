@@ -165,23 +165,20 @@ setClass("FLS",
     stock     = FLQuant(),
     stock.n   = FLQuant(),
     stock.wt = FLQuant(),
-    m     = FLQuant(units='m'),
-    mat     = FLQuant(units='prop'),
-    harvest   = FLQuant(units='f'),
-    harvest.spwn = FLQuant(units='prop'),
-    m.spwn   = FLQuant(units='prop')
+    m     = FLQuant(units="m"),
+    mat     = FLQuant(units=""),
+    harvest   = FLQuant(units="f"),
+    harvest.spwn = FLQuant(units=""),
+    m.spwn   = FLQuant(units="")
   ),
   validity=function(object) {
 
     ran <- range(object)
     dms <- dims(object)
-    # CHECK minfbar, maxfbar and plusgroup match object dimensions
-    if(ran["minfbar"] < dms$min)
-      return("minfbar is lower than first age")
-    if(ran["maxfbar"] > dms$max)
-      return("maxfbar is higher than last age")
-    if(ran["plusgroup"] > dms$max)
-      return("plusgroup is highet than last age")
+    
+    # CHECK year range
+	  if(any(range(object, c("minyear", "maxyear")) != dms[c("minyear", "maxyear")]))
+      return('Years in range do not match object dimensions')
 
   return(TRUE)}
 )
@@ -353,12 +350,17 @@ setClass("FLStock",
 		if(dim(slot(object, i))[1] != 1)
 			return(paste('Wrong dimensions for slot ', i, 'in FLStock'))
 	}
-	# check range
-	dim <- dim(object@catch.n)
-	dimnm <- dimnames(object@catch.n)
-	if(all(as.numeric(object@range[4:5]) != c(as.numeric(dimnm$year[1]),
-		as.numeric(dimnm$year[dim[2]]))))
-		return('Range does not match object dimensions')
+	
+    ran <- range(object)
+    dms <- dims(object)
+
+    # CHECK minfbar, maxfbar and plusgroup match object dimensions
+    if(!is.na(dms$min) & ran["minfbar"] < dms$min)
+      return("minfbar is lower than first age")
+    if(!is.na(dms$max) &ran["maxfbar"] > dms$max)
+      return("maxfbar is higher than last age")
+    if(!is.na(ran["plusgroup"]) & ran["plusgroup"] > dms$max)
+      return("plusgroup is higher than last age")
 
 	return(TRUE)}
 ) # }}}
@@ -818,8 +820,12 @@ setClass("FLIndexBiomass",
 #'
 #' Slots in this class attempt to map all the usual outputs for a modelling
 #' exercise, together with the standard inputs. Input data are stored in slots
-#' created by a specified class that is based on \code{FLModel}. See for example
+#' created by a specified class based on \code{FLModel}. See for example
 #' \code{\linkS4class{FLSR}} for a class used for stock-recruitment models.
+#'
+#' The \code{initial} slot contains a function used to obtain initial values for
+#' the numerical solver. It can also contain two attributes, \code{upper} and
+#' \code{lower} that limit the sarch area for each parameter.
 #'
 #' Various fitting algorithms, similar to those present in the basic R packages,
 #' are currently available for \code{FLModel}, including \code{\link{fmle}},

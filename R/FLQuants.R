@@ -5,6 +5,8 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # summary {{{
+#' @rdname summary-methods
+#' @aliases summary,FLQuants-methods
 setMethod('summary', signature(object='FLQuants'),
   function(object)
   {
@@ -174,6 +176,15 @@ setMethod('combine', signature(x='FLQuants', y='missing'),
 
     res <- FLQuant(unlist(x), dimnames=c(dimnames(x[[1]])[1:5], list(iter=seq(sum(its)))),
       units=units(x[[1]]))
+
+    return(res)
+  }
+) 
+
+setMethod('combine', signature(x='FLQuants', y='FLQuants'),
+  function(x, y) {
+
+    res <- lapply(names(x), function(a) combine(x[[a]], y[[a]]))
 
     return(res)
   }

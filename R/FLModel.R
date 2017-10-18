@@ -664,32 +664,23 @@ setMethod('nls',
 )   # }}}
 
 # summary  {{{
+#' @rdname summary-methods
+#' @aliases summary,FLModel-method
 setMethod('summary', signature(object='FLModel'),
   function(object, ...)
   {
     callNextMethod()
     cat("\n")
-    # covar, model, logl, params, logLik, FLQuants, details
+    # model
     cat("Model: \t")
-      print(slot(object, 'model'))
-    if(is.null(slot(object, 'params')))
-      cat("Parameters: EMPTY\n")
-    else if(length(dimnames(slot(object, 'params'))[['iter']]) == 1) {
-      cat("Parameters: \n")
-        print(t(slot(object, 'params')@.Data), digits=4)
-    } else {
-      cat("Parameters median(mad): \n")
-      v1 <- apply(object@params@.Data, 1, median, na.rm=TRUE)
-      v2 <- apply(object@params@.Data, 1, mad, na.rm=TRUE)
-      v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
-      names(v3) <- names(v1)
-      print(v3, quote=FALSE)
-#        print(apply(slot(object, 'params')@.Data, 1, median), digits=4)
-    }
-    cat("\n")
+    print(model(object), showEnv=FALSE)
+    # params
+    print(params(object), reduced=TRUE)
+    # logl
     cat("Log-likelihood: ", paste(format(median(slot(object, 'logLik')), digits=5),
       "(", format(mad(slot(object, 'logLik')), digits=5), ")", sep=""),
       "\n")
+    # vcov
     cat("Variance-covariance: ")
     if(all(dim(object@vcov) > 0) & length(dim(object@vcov)) > 1)
     {

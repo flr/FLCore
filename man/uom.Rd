@@ -3,9 +3,12 @@
 \docType{methods}
 \name{uom}
 \alias{uom}
+\alias{uomUnits}
 \title{uom Units of Measurement}
 \usage{
 uom(op, u1, u2)
+
+uomUnits(unit = missing)
 }
 \arguments{
 \item{op}{The arithmetic operator to be used, one of '+', '-', '*' or '/'}
@@ -13,9 +16,13 @@ uom(op, u1, u2)
 \item{u1}{The units of measurement string of the first object}
 
 \item{u2}{The units of measurement string of the second object}
+
+\item{unit}{A character vector for one or more units to be compared with those known to \code{uom}.}
 }
 \value{
-a string with the corresponding units of measurement, a string such as '10 *100' when not compatible
+\code{uom} returns a string with the corresponding units of measurement, or a character vector, showing the operation carried out, when units are not known to \code{uom} or not compatible, e.g. "100 * d".
+
+\code{uomUnits} returns TRUE or FALSE if \code{unit} is given, otherwise a character vector with all units known to \code{uom}.
 }
 \description{
 The 'units' attribute of FLQuant objects provides a mechanism for keeping track
@@ -34,19 +41,9 @@ units of measurement and the operation carried out, as in '10 * 1000'.
 Note that no scaling or modification of the values in the object takes place.
 
 Conversion across units is carried out by the \code{uom()} function
-}
-\section{Recognized Units}{
 
-The following units of measurement are recognized by the 'Arith' operators
-(+, -, * /).
-\describe{
-   \item{Weight}{'kg', 't'}
-   \item{Numbers}{1 - 100000000, 1e0 - 1e8, 10^0 - 10^8}
-   \item{Mortality}{'m', 'f', 'z', 'hr'}
-   \item{Other}{'NA'}
+The list of units known to \code{uom} is stored internally but can be queried by calling \code{uomUnits()} with no arguments. If a character vector is provided, a logical is returned telling whether the string is included or not in that table.
 }
-}
-
 \examples{
 
 # Conversion between weights
@@ -54,6 +51,10 @@ FLQuant(1, units='kg') * FLQuant(1000, units='1')
 
 # Conversion between mortalities
 FLQuant(0.2, units='m') + FLQuant(0.34, units='f')
+
+# Check if units are known
+uomUnits('kg')
+uomUnits('kell')
 }
 \seealso{
 \code{\linkS4class{FLQuant}} \code{\link{units,FLArray-method}}

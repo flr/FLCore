@@ -89,7 +89,9 @@
 of the units of measurement of that particular piece of data.</p>
     
 
-    <pre><span class='fu'>uom</span>(<span class='no'>op</span>, <span class='no'>u1</span>, <span class='no'>u2</span>)</pre>
+    <pre><span class='fu'>uom</span>(<span class='no'>op</span>, <span class='no'>u1</span>, <span class='no'>u2</span>)
+
+<span class='fu'>uomUnits</span>(<span class='kw'>unit</span> <span class='kw'>=</span> <span class='no'>missing</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -99,11 +101,14 @@ of the units of measurement of that particular piece of data.</p>
       <dd>The units of measurement string of the first object</dd>
       <dt>u2</dt>
       <dd>The units of measurement string of the second object</dd>
+      <dt>unit</dt>
+      <dd>A character vector for one or more units to be compared with those known to <code>uom</code>.</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a string with the corresponding units of measurement, a string such as &#39;10 *100&#39; when not compatible</p>
+    <p><code>uom</code> returns a string with the corresponding units of measurement, or a character vector, showing the operation carried out, when units are not known to <code>uom</code> or not compatible, e.g. &quot;100 * d&quot;.</p>
+    <p><code>uomUnits</code> returns TRUE or FALSE if <code>unit</code> is given, otherwise a character vector with all units known to <code>uom</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -116,18 +121,7 @@ the resulting &#39;units&#39; attribute will simply keep a string indicating the
 units of measurement and the operation carried out, as in &#39;10 * 1000&#39;.</p>
     <p>Note that no scaling or modification of the values in the object takes place.</p>
     <p>Conversion across units is carried out by the <code>uom()</code> function</p>
-    
-    <h2 class="hasAnchor" id="recognized-units"><a class="anchor" href="#recognized-units"></a>Recognized Units</h2>
-
-    <p></p>
-    <p>The following units of measurement are recognized by the &#39;Arith&#39; operators
-(+, -, * /).
-<dl class='dl-horizontal'>
-   <dt>Weight</dt><dd>&#39;kg&#39;, &#39;t&#39;</dd>
-   <dt>Numbers</dt><dd>1 - 100000000, 1e0 - 1e8, 10^0 - 10^8</dd>
-   <dt>Mortality</dt><dd>&#39;m&#39;, &#39;f&#39;, &#39;z&#39;, &#39;hr&#39;</dd>
-   <dt>Other</dt><dd>&#39;NA&#39;</dd>
-</dl></p>
+    <p>The list of units known to <code>uom</code> is stored internally but can be queried by calling <code>uomUnits()</code> with no arguments. If a character vector is provided, a logical is returned telling whether the string is included or not in that table.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -153,7 +147,9 @@ units of measurement and the operation carried out, as in &#39;10 * 1000&#39;.</
 #&gt; quant 1   
 #&gt;   all 0.54
 #&gt; 
-#&gt; units:  z </div></pre>
+#&gt; units:  z </div><div class='input'>
+<span class='co'># Check if units are known</span>
+<span class='fu'>uomUnits</span>(<span class='st'>'kg'</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>uomUnits</span>(<span class='st'>'kell'</span>)</div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -163,8 +159,6 @@ units of measurement and the operation carried out, as in &#39;10 * 1000&#39;.</
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#recognized-units">Recognized Units</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
