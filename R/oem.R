@@ -49,7 +49,7 @@ setGeneric("cpue", function(object, ...) standardGeneric("cpue"))
 #' @aliases cpue,FLStock-method
 
 setMethod('cpue',   signature(object='FLStock'),
-  function(object, f=harvest(object), effort = units(harvest(object)),
+  function(object, sel.pattern=harvest(object), effort = units(harvest(object)),
     mass = TRUE) {
 
     # EFFORT from F or HR
@@ -58,7 +58,7 @@ setMethod('cpue',   signature(object='FLStock'),
     else  
       E <- fbar(object)
     
-    cpue <- (catch.n(object) %*% f) %/% E
+    cpue <- (catch.n(object) %*% sel.pattern) %/% E
 
     if (mass)
       cpue <- cpue * catch.wt(object)
