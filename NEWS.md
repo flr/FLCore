@@ -6,6 +6,7 @@
 - combine(FLStocks) method collapses all elements into a single FLStock object
   with as many iters as elements in the list, must all have 1 iter.
 - combine(FLQuants, FLQuants) merges them one element at a time
+- drop(FLQuant) returnas the result of a call to base::drop on @.Data
 
 ## USER-VISIBLE CHANGES
 

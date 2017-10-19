@@ -252,6 +252,7 @@ exportMethods(
   "distribution",
   "distribution<-",
   "dotplot",
+  "drop",
   "e",
   "e<-",
   "effort",
