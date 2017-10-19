@@ -26,8 +26,8 @@ FLQuant(object, ...)
 \S4method{FLQuant}{array}(object, dim = rep(1, 6), dimnames = "missing",
   quant = NULL, units = "NA", iter = 1, fill.iter = TRUE)
 
-\S4method{FLQuant}{matrix}(object, dim = "missing", dimnames = "missing",
-  ...)
+\S4method{FLQuant}{matrix}(object, dim = lapply(dimnames, length),
+  dimnames = "missing", ...)
 
 \S4method{FLQuant}{FLQuant}(object, quant = attributes(object)[["quant"]],
   units = attributes(object)[["units"]],

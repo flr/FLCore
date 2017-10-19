@@ -89,8 +89,6 @@ setMethod('cpue',   signature(object='FLStock'),
 #' @rdname cpue
 #' @aliases cpue cpue-methods
 #'
-#' @genericMethods
-#' 
 #' @author The FLR Team
 #' @seealso \link{FLComp}
 #' @keywords classes
@@ -161,11 +159,8 @@ biased <- function(object, bias=0.02){
 #' @aliases rnoise rnoise-method rnoise,numeric,FLQuant-method rnoise,numeric,missing-method
 #' @aliases rlnoise rlnoise-method rlnoise,numeric,FLQuant-method rlnoise,numeric,missing-method
 #' 
-#' @export
 #' @docType methods
 #' @rdname rnoise
-#'
-#' @importFrom methods is
 #'
 #' @return A \code{FLQuant} with autocorrelation equal to B.
 #' 
@@ -173,8 +168,6 @@ biased <- function(object, bias=0.02){
 #' vt = b * vt-1 + s * sqrt(1 - b^2)
 #' s is a normally distributed random variable with mean = 0
 #' b is the autocorrelation parameter
-#' @export
-#' 
 #' @examples
 #' \dontrun{
 #' flq=FLQuant(1:100)
