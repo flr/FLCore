@@ -11,15 +11,16 @@
 #' 
 #' Each method is defined as a function returning a list with one or more
 #' elements as follows:
-#' * model: Formula for the model, using the slot names \emph{rec} and \emph{ssb}
-#' to refer to the usual inputs
-#' * logl: Function to calculate the loglikelihood of the given model when estimated through MLE (See \code{\link{fmle}}) 
-#' * initial: Function to provide initial values for all parameters to the
-#' minimization algorithms called by \code{\link{fmle}} or
-#' \code{\link[stats]{nls}}. If required, this function also has two attributes,
-#' \code{\link{lower}} and \code{\link{upper}}, that give lower and upper limits
-#' for the parameter values, respectively. This is used by some of the methods
-#' defined in \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}.
+#' - model: Formula for the model, using the slot names \emph{rec} and \emph{ssb}
+#'   to refer to the usual inputs
+#' - logl: Function to calculate the loglikelihood of the given model when
+#'   estimated through MLE (See \code{\link{fmle}}) 
+#' - initial: Function to provide initial values for all parameters to the
+#'   minimization algorithms called by \code{\link{fmle}} or
+#'   \code{\link[stats]{nls}}. If required, this function also has two attributes,
+#'   \code{\link{lower}} and \code{\link{upper}}, that give lower and upper limits
+#'   for the parameter values, respectively. This is used by some of the methods
+#'   defined in \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}.
 #'
 #' The \emph{model<-} method for \code{\linkS4class{FLModel}} can then be called
 #' with \emph{value} being a list as described above, the name of the function
@@ -49,8 +50,8 @@
 #'
 #' % geomean \itemgeomean: Constant recruitment model fit, equal to the
 #' historical geometric mean recruitment.  \deqn{(R_1 R_2 \ldots R_n)^{1/n} =
-#' e^{\mathbf{mean}(\log(R_1),\ldots , }{R = (R_1*R_2*...*R_n)^(1/n) =
-#' exp(mean(log(R_1) + ... + log(R_n)))}\deqn{ \log(R_n)))}}{R =
+#' e^{\mathbf{mean}(\log(R_1),\ldots , }}{R = (R_1*R_2*...*R_n)^(1/n) =
+#' exp(mean(log(R_1) + ... + log(R_n)))}\deqn{ \log(R_n))}{R =
 #' (R_1*R_2*...*R_n)^(1/n) = exp(mean(log(R_1) + ... + log(R_n)))}
 #' 
 #' % shepherd \itemshepherd: Shepherd stock-recruitment model fit: \deqn{R =
