@@ -900,7 +900,66 @@ setMethod("dim", signature(x="FLArray"),
   }
 ) # }}}
 
-# exp
+# drop {{{
+
+#' drop method for FLCore array-based classes
+#'
+#' Delete the dimensions of an array which have only one level.
+#' 
+#' This method calls R's [base::drop] on the `@.Data` slot of an [FLArray].
+#' Dimensions of length one are thus dropped, as is the class attribute and the
+#' `units` slot, and an array of equal or less
+#' dimensions, a matrix or a vector is returned.
+#'
+#' On an FLQuant object with
+#'
+#' @rdname drop-methods
+#' @aliases drop,FLQuant-method
+#' @md
+#' @author The FLR Team
+#' @seealso [base::drop]
+#' @keywords methods
+#' @examples
+#' x <- FLQuant(1:3, dim=c(3,3))
+#' drop(x)
+#' is(drop(x))
+#' dim(drop(x))
+#'
+#' # Result of drop can be used for matrix algebra
+#' # for example to calculate aging error
+#'
+#' data(ple4)
+#' aging.error <- diag(0.8, 10)
+#' diag(aging.error[-1,]) <- c(rep(0.1, 8), 0.2)
+#' diag(aging.error[, -1]) <- c(0.2, rep(0.1, 8))
+#' t(aging.error) %*% drop(catch.n(ple4))
+
+setMethod("drop", signature(x="FLArray"),
+  function(x) {
+    return(drop(x@.Data))   
+  }
+) # }}}
+
+# exp & log {{{
+
+#' exp and log methods FLCore array-based classes
+#'
+#' Compute the exponential and logarithmic functions
+#' 
+#' This method simply calls R's [base::exp] and [base::drop], but take care of
+#' returning the right units of measurement, that is "" or character(1).
+#'
+#' @rdname exp-methods
+#' @aliases exp,FLQuant-method
+#' @md
+#' @author The FLR Team
+#' @seealso [base::exp] [base::log]
+#' @keywords methods
+#' @examples
+#' x <- FLQuant(c(4,2,7,4,2,9), units="1000")
+#' log(x)
+#' units(log(x))
+
 setMethod("exp", signature(x="FLQuant"),
   function(x) {
     res <- callNextMethod()
@@ -908,11 +967,11 @@ setMethod("exp", signature(x="FLQuant"),
     return(res)
   })
 
-# log
+#' @rdname exp-methods
+#' @aliases log,FLQuant-method
 setMethod("log", signature(x="FLQuant"),
   function(x, ...) {
     res <- callNextMethod()
     units(res) <- ""
     return(res)
-  })
-
+  }) # }}}
