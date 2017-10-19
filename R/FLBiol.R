@@ -1,7 +1,7 @@
 # FLBiol - class for representing a natural population
 # FLCore/R/FLBiol.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2017 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # class FLBiol {{{
@@ -569,6 +569,33 @@ setMethod('qapply', signature(X='FLBiol', FUN='function'),
 		return(res)
 	}
 )   # }}}
+
+# trim {{{
+
+setMethod("trim", signature(x="FLBiol"),
+  function(x, ...) {
+
+  # trim all but spwn
+  for(i in c("n", "m", "wt", "mat", "fec", "rec")) {
+      slot(x, i) <- trim(slot(x, i), ...)
+  }
+
+  # spwn
+  args <- list(...)
+  args <- args[names(args) != dims(x)$quant]
+  
+  if(length(args) > 0)
+    slot(x, "spwn") <- do.call("trim", c(list(x=slot(x, "spwn")), args))
+
+  # RANGE
+  x@range[c("min", "max", "minyear", "maxyear")] <- 
+    unlist(dims(x@n)[c("min", "max", "minyear", "maxyear")])
+  x@range["plusgroup"] <- min(range(x, c("max", "plusgroup")))
+
+  return(x)
+
+  }
+) # }}}
 
 # ---
 
