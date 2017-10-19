@@ -181,11 +181,25 @@ setReplaceMethod('fec', signature(object='FLBiol', value='list'),
 
 # mat {{{
 setMethod('mat', signature('FLBiol'),
-  function(object, compute=TRUE) {
-    if(compute)
+  function(object, what=TRUE) {
+
+    # TRUE, compute
+    if(isTRUE(what))
       return(evalPredictModel(object, slot=object@mat))
-    else
+    # character, extract
+    else if(is.character(what)) {
+      if(any(what %in% c("model", "params")))
+        return(slot(object@mat, what))
+      else if(length(what) == 1)
+        return(object@mat@.Data[[names(object@mat) == what]])
+      else {
+        res <- object@mat@.Data[names(object@mat) == what]
+        names(res) <- what
+        return(res)
+      }
+    } else {
       return(object@mat)
+    }
   }
 ) # }}}
 

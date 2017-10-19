@@ -64,7 +64,18 @@
 setClass('predictModel',
 	contains='FLQuants',
 	representation(params='FLPar', model='formula'),
-    prototype(FLQuants(), params=FLPar(), model=as.formula("~NA", env=emptyenv()))) # }}}
+    prototype(FLQuants(), params=FLPar(), model=as.formula("~NA", env=emptyenv())))
+
+setValidity("predictModel",
+  function(object) {
+
+    # names(.Data) cannot include 'model' and 'params'
+    if(c("model", "params") %in% names(object@.Data))
+      return("names of FLQuants canmnot include 'model' or 'params'")
+
+    return(TRUE)
+    }
+) # }}}
 
 # predictModel() {{{
 
