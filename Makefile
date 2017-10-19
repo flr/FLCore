@@ -25,6 +25,8 @@ docs: $(HELP_FILES) README.md NEWS
 	R --vanilla --silent -e "options(repos='http://cran.r-project.org'); pkgdown::build_site(preview=FALSE)"
 
 roxygen: $(HELP_FILES)
+	R --vanilla --silent -e "library(devtools);" \
+		-e "document(roclets='rd')"
 
 $(HELP_FILES): $(R_FILES)
 	R --vanilla --silent -e "library(devtools);" \
