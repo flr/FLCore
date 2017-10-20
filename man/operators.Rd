@@ -127,6 +127,10 @@ b[,,drop=TRUE] \%*\% 1:3
 flp <- FLPar(2, dimnames=list(params='a', year=2000:2005, iter=1))
 flq <- FLQuant(3, dimnames=list(year=2000:2005))
 flp \%*\% flq
+
+# Divide each FLQuants element by a 'param' in FLPar, e.g. time series
+# divide by reference points
+FLQuants(SSB=FLQuant(2303), F=FLQuant(0.8)) / FLPar(SSB=1560, F=0.4)
 }
 \seealso{
 \code{\linkS4class{FLQuant}}, \code{\link[base]{matmult}}

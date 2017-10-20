@@ -862,23 +862,17 @@ setMethod("%^%", signature(x="FLPar", y="FLPar"),
 ) # }}}
 # }}}
 
-# matchDimnames {{{
-matchDimnames <- function(dnp, dnq) {
-
-  # too tricky to explain ...
-  idx <- match(names(dnq)[sort(match(names(dnp), names(dnq)))], names(dnp))
-  sx <- seq(names(dnp))
-  sx[sx %in% idx] <- idx
-
-  return(sx)
-} # }}}
-
 # FLQuants, FLPar
 
-# %/% {{{
+# / {{{
 
 #' @rdname operators
 #' @aliases /,FLQuants,FLPar-method
+#' @examples
+#'
+#' # Divide each FLQuants element by a 'param' in FLPar, e.g. time series
+#' # divide by reference points
+#' FLQuants(SSB=FLQuant(2303), F=FLQuant(0.8)) / FLPar(SSB=1560, F=0.4)
 setMethod("/", signature(e1="FLQuants", e2="FLPar"),
 	function(e1, e2) {
 
@@ -896,3 +890,14 @@ setMethod("%=%", signature(object="FLArray", value="numeric"),
     return(object)
   }
 ) # }}}
+
+# matchDimnames {{{
+matchDimnames <- function(dnp, dnq) {
+
+  # too tricky to explain ...
+  idx <- match(names(dnq)[sort(match(names(dnp), names(dnq)))], names(dnp))
+  sx <- seq(names(dnp))
+  sx[sx %in% idx] <- idx
+
+  return(sx)
+} # }}}
