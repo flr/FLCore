@@ -267,3 +267,26 @@ evalPredictModel <- function(object, slot) {
   # RETURN
   return(eval(slot@model[[length(slot@model)]], lis))
 } # }}}
+
+# returnPredictModelSlot {{{
+returnPredictModelSlot <- function(object, what=TRUE, slot) {
+
+    # TRUE, compute
+    if(isTRUE(what))
+      return(evalPredictModel(object, slot=slot(object, slot)))
+    # character, extract
+    else if(is.character(what)) {
+      if(any(what %in% c("model", "params")))
+        return(slot(slot(object, slot), what))
+      else if(length(what) == 1)
+        return(slot(object, slot)@.Data[[names(object@mat) == what]])
+      else {
+        res <- slot(object, slot)@.Data[names(object@mat) == what]
+        names(res) <- what
+        return(res)
+      }
+    } else {
+      # RETURN whole predictModel
+      return(slot(object, slot))
+    }
+} # }}}

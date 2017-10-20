@@ -106,13 +106,10 @@ invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # 
 
 # fec {{{
 setMethod('fec', signature('FLBiol'),
-  function(object, compute=TRUE) {
-    if(compute)
-      return(evalPredictModel(object, slot=object@fec))
-    else
-      return(object@fec)
-  }
-) # }}}
+  function(object, what=TRUE) {
+    return(returnPredictModelSlot(object, what=what, slot="fec"))
+  })
+# }}}
 
 # fec<- {{{
 
@@ -188,16 +185,10 @@ setReplaceMethod('fec', signature(object='FLBiol', value='list'),
 
 # mat {{{
 setMethod('mat', signature('FLBiol'),
-  function(object, compute=TRUE, name="missing") {
-    if(compute)
-      return(evalPredictModel(object, slot=object@mat))
-    else
-      if(!missing(name))
-      return(object@mat@.Data[[name]])
-    else
-      return(object@mat)
-  }
-) # }}}
+  function(object, what=TRUE) {
+    return(returnPredictModelSlot(object, what=what, slot="mat"))
+  })
+# }}}
 
 # mat<- {{{
 
@@ -273,19 +264,10 @@ setReplaceMethod('mat', signature(object='FLBiol', value='list'),
 
 # rec {{{
 setMethod('rec', signature('FLBiol'),
-  function(object, compute=TRUE) {
-    if(compute)
-      return(evalPredictModel(object, slot=object@rec))
-    else
-      return(object@rec)
-  }
-) 
-
-setMethod('rec', signature('FLBiolcpp'),
-  function(object) {
-    return(n(object)[1,])
-  }
-) # }}}
+  function(object, what=TRUE) {
+    return(returnPredictModelSlot(object, what=what, slot="rec"))
+  })
+# }}}
 
 # rec<- {{{
 
