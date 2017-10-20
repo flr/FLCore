@@ -20,6 +20,7 @@
 - coerce(FLBiol, FLBiolcpp) will now extend srparam to have as many years as the
   object, to allow years per time eriod to be passed and used.
 - coerce FLBiol to FLBiolcpp now windows FLPar if year is given
+- trim(FLBiol) is able to handle predictModel slots
 
  DEPRECATED & DEFUNCT
 - catchSel is to be substituted by catch.sel, use the later instead
