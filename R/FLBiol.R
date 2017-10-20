@@ -551,6 +551,36 @@ setMethod("rec.obs", signature(object="FLBiol"),
   }
 ) # }}}
 
+# trim {{{
+
+#' @rdname trim
+#' @aliases trim,FLBiol-method
+
+setMethod("trim", signature(x="FLBiol"),
+  function(x, ...) {
+
+  # trim all but spwn
+  for(i in c("n", "m", "wt", "mat", "fec", "rec")) {
+      slot(x, i) <- trim(slot(x, i), ...)
+  }
+
+  # spwn
+  args <- list(...)
+  args <- args[names(args) != dims(x)$quant]
+  
+  if(length(args) > 0)
+    slot(x, "spwn") <- do.call("trim", c(list(x=slot(x, "spwn")), args))
+
+  # RANGE
+  x@range[c("min", "max", "minyear", "maxyear")] <- 
+    unlist(dims(x@n)[c("min", "max", "minyear", "maxyear")])
+  x@range["plusgroup"] <- min(range(x, c("max", "plusgroup")))
+
+  return(x)
+
+  }
+) # }}}
+
 # ---
 
 # meanLifespan {{{
