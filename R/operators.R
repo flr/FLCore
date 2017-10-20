@@ -148,8 +148,11 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLQuant"),
 
 #' @rdname operators
 #' @aliases %+%,FLQuant,FLQuant-method
-setMethod("%+%", signature(x="FLQuant", y="FLQuant"),
-	function(x, y) {
+setMethod("%+%", signature(e1="FLQuant", e2="FLQuant"),
+	function(e1, e2) {
+
+    x <- e1
+    y <- e2
 
     # get dims
     dx <- dim(x)
@@ -366,8 +369,11 @@ setMethod("%/%", signature(e1="FLPar", e2="FLQuant"),
 
 #' @rdname operators
 #' @aliases %+%,FLPar,FLQuant-method
-setMethod("%+%", signature(x="FLPar", y="FLQuant"),
-	function(x, y) {
+setMethod("%+%", signature(e1="FLPar", e2="FLQuant"),
+	function(e1, e2) {
+
+    x <- e1
+    y <- e2
 
     # dims & dimnames
     dx <- dim(x)
@@ -563,8 +569,11 @@ setMethod("%/%", signature(e1="FLQuant", e2="FLPar"),
 
 #' @rdname operators
 #' @aliases %+%,FLQuant,FLPar-method
-setMethod("%+%", signature(x="FLQuant", y="FLPar"),
-	function(x, y) {
+setMethod("%+%", signature(e1="FLQuant", e2="FLPar"),
+	function(e1, e2) {
+
+    x <- e1
+    y <- e2
 
     # dims & dimnames
     dx <- dim(x)
@@ -717,8 +726,11 @@ setMethod("%*%", signature(x="FLPar", y="FLPar"),
 
 #' @rdname operators
 #' @aliases %+%,FLPar,FLPar-method
-setMethod("%+%", signature(x="FLPar", y="FLPar"),
-	function(x, y) {
+setMethod("%+%", signature(e1="FLPar", e2="FLPar"),
+	function(e1, e2) {
+
+    x <- e1
+    y <- e2
 
     # dimnames
     dnx <- dimnames(x)

@@ -1020,7 +1020,7 @@ setGeneric("catchSel", function(object, ...){
 # %+%
 #' @rdname operators
 #' @aliases %+% % %+%-methods
-setGeneric("%+%", function(x, y)
+setGeneric("%+%", function(e1, e2)
   standardGeneric("%+%"))
 
 # %-%
