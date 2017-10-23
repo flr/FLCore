@@ -1451,3 +1451,31 @@ setGeneric("fmsy", function(x) standardGeneric("fmsy")) # }}}
 
 setGeneric("rnoise", function(n, len, ...) standardGeneric("rnoise"))
 setGeneric("rlnoise", function(n, len, ...) standardGeneric("rlnoise"))
+
+# slim {{{
+
+#' Drop unnecesary 'iters'
+#'
+#' Objects of FLR classes can vary in the length along the sixth dimension
+#' in any slot of class [FLQuant-class]. This reduces object size and memory
+#' usage. If an object has been extended fully, for example by using 
+#' \code{\link[=propagate]{propagate}}, we can slim down the object by reducing
+#' any slot where all iters are identical and keeping only yhe first *iter*.
+#'
+#' The test for whether an slot can be slimmed is based on checking if the sum
+#' of the variance along the 6th dimensions is equal to zero.
+#'
+#' @param object A complex **FLR** object to slim down.
+#'
+#' @return An object of the same class as the input.
+#'
+#' @name slim
+#' @rdname slim
+#' @aliases slim slim-methods
+#'
+#' @author The FLR Team
+#' @seealso [FLQuant-class] \code{\link[=propagate]{propagate}}
+#' @keywords methods
+#' @md
+
+setGeneric("slim", function(object, ...) standardGeneric("slim")) # }}}

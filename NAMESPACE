@@ -434,6 +434,7 @@ exportMethods(
   "spwn",
   "spwn<-",
   "sigma",
+  "slim",
   "ssb",
   "ssb<-",
   "ssbpurec",

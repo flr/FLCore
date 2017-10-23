@@ -563,3 +563,34 @@ setMethod("metrics", signature(object="FLComp", metrics="formula"),
           return(eval(metrics[[length(metrics)]], list(object)))
   }
 ) # }}}
+
+# slim {{{
+
+#' @rdname slim
+#' @examples
+#'
+#' data(ple4)
+#' # Extend all of ple4 to 50 iters
+#' ple4 <- propagate(ple4, 50)
+#' # Add variability in catch.n
+#' catch.n(ple4) <- rlnoise(50, log(catch.n(ple4)), log(catch.n(ple4))/10)
+#' summary(ple4)
+#' # slim object by dropping identical iters
+#' sple4 <- slim(ple4)
+#' summary(sple4)
+
+setMethod("slim", signature(object="FLComp"),
+  function(object, ...) {
+
+    # FIND repeated iters
+    res <- qapply(object, function(x) {
+      # CHECK sum(var) along iters == 0
+      if(sum(iterVars(x)) == 0)
+        x[,,,,,1]
+      else
+        x
+      })
+
+    return(res)
+  }
+) # }}}
