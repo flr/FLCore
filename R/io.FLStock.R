@@ -80,6 +80,7 @@ readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a"
       discards.n(res) <- 0
       discards.wt(res) <- 0
       catch(res) <- computeCatch(res, 'all')
+      # catch.wt <- landings.wt
       }
 
 #    if(type=="VPA") units(harvest(res)) <- "f"

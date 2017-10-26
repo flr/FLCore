@@ -104,7 +104,7 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
             "25"= FLStock.@catch.n     <-a.,
             "26"= FLStock.@catch.wt    <-a.,
             "27"= FLStock.@harvest     <-a.,
-            "28"= FLStock.@stock.n     <-a. )
+            "28"= FLStock.@stock.n     <-a.)
         }
     }
 		
