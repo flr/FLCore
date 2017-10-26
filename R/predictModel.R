@@ -290,3 +290,28 @@ returnPredictModelSlot <- function(object, what=TRUE, slot) {
       return(slot(object, slot))
     }
 } # }}}
+
+# dims {{{
+setMethod("dims", signature(obj="predictModel"),
+  function(obj) {
+
+    dims(predict(obj))
+  
+  }
+)# }}}
+
+# window {{{
+setMethod("window", signature(x="predictModel"),
+  function(x, ...) {
+    x@.Data <- window(FLQuants(x@.Data), ...)
+    return(x)
+  }
+) # }}}
+
+# trim {{{
+setMethod("trim", signature(x="predictModel"),
+  function(x, ...) {
+    x@.Data <- lapply(FLQuants(x@.Data), trim, ...)
+    return(x)
+  }
+) # }}}
