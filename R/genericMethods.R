@@ -1479,3 +1479,23 @@ setGeneric("rlnoise", function(n, len, ...) standardGeneric("rlnoise"))
 #' @md
 
 setGeneric("slim", function(object, ...) standardGeneric("slim")) # }}}
+
+# simplify {{{
+
+#' Aggregate or select along unwanted dimensions
+#'
+#' Objects of many FLR classes might be aggregated along the "unit", "season",
+#' and/or "area" dimensions according to the type of data they contain.
+#' @param object A complex **FLR** object to aggregate.
+#'
+#' @return An object of the same class as the input.
+#'
+#' @name simplify
+#' @rdname simplify
+#' @aliases simplify simplify-methods
+#'
+#' @author The FLR Team
+#' @keywords methods
+#' @md
+
+setGeneric("simplify", function(object, ...) standardGeneric("simplify")) # }}}
