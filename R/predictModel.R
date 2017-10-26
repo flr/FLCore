@@ -70,8 +70,8 @@ setValidity("predictModel",
   function(object) {
 
     # names(.Data) cannot include 'model' and 'params'
-    if(c("model", "params") %in% names(object@.Data))
-      return("names of FLQuants canmnot include 'model' or 'params'")
+    if(any(c("model", "params") %in% names(object@.Data)))
+      return("names of FLQuants cannot include 'model' or 'params'")
 
     return(TRUE)
     }
