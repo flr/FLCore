@@ -214,6 +214,33 @@ bevholt <- function()
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+# bevholtss3 {{{
+
+#' @name SRModels
+#' @aliases bevholtss3
+bevholtss3 <- function() {
+
+  ## log likelihood, assuming normal log.
+  logl <- function(s, R0, v, rec, ssb)
+      loglAR1(log(rec), log((4 * s * R0 * ssb) / (v * (1 - s) + ssb * (5 * s - 1))))
+
+  ## initial parameter values
+  initial <- structure(function(rec, ssb) {
+    s <- 0.5
+    R0 <- max(rec)
+    v <- max(ssb)
+    return(FLPar(s=s, R0=R0, v=v))},
+
+  ## bounds
+  lower=c(1e-8, 1e-8, 1e-8),
+	upper=c(1, Inf, Inf))
+
+  ## model to be fitted
+  model  <- rec ~ (4 * s * R0 * ssb) / (v * (1 - s) + ssb * (5 * s - 1)) 
+  
+	return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # segreg  {{{
 
 #' @name SRModels
