@@ -555,8 +555,7 @@ setMethod("rec.obs", signature(object="FLBiol"),
 setMethod('qapply', signature(X='FLBiol', FUN='function'),
 	function(X, FUN, ..., exclude=missing) {
 
-    res <- 
-      callNextMethod()
+    res <- callNextMethod()
 		
     FUN <- match.fun(FUN)
 		
@@ -564,14 +563,14 @@ setMethod('qapply', signature(X='FLBiol', FUN='function'),
 
 		if(!missing(exclude))
       slots <- slots[!slots %in% exclude]
-
-    if(is(res, 'FLBiol'))
+    
+   if(is(res, 'FLBiol'))
   		for (i in slots)
         res <- do.call(paste0(i, "<-"), list(object=res,
-          value=do.call(FUN, list(slot(X,i), ...))))
+          value=do.call(FUN, list(do.call(i, list(X)), ...))))
     else
   		for (i in slots)
-        res[[i]] <- do.call(FUN, list(slot(X,i), ...))
+        res[[i]] <- do.call(FUN, list(do.call(i, list(X)), ...))
 
 		return(res)
 	}
