@@ -574,19 +574,15 @@ setClass("FLI",
     validity = function(object) {
 
   dimnms <- qapply(object, function(x) dimnames(x))
-
-  # quant is 1 or N
-  if (length(unique(unlist(qapply(object,function(x) dims(x)$max))))>2)
-     stop("quant dimension in FLI can only be 'all' or n")
-
+  
   # iter is 1 or N
-  if (length(unique(unlist(qapply(object,function(x) dims(x)$iter))))>2)
+  if (length(unique(unlist(qapply(object,function(x) dims(x)$iter)))) > 2)
      stop("iter dimension in FLI can only be '1' or n")
 
   # dims[2:5] match
   for(i in names(dimnms)[-1])
     # TODO Double check relaxation of unit
-    if(!all.equal(dimnms[[i]][c(-1,-3,-6)], dimnms[[1]][c(-1,-3,-6)]))
+    if(!identical(dimnms[[i]][c(-1,-3,-6)], dimnms[[1]][c(-1,-3,-6)]))
       stop(cat("Mismatch in dims for", i))
 
   # first dim equal for all index.* slots
@@ -685,27 +681,31 @@ setClass("FLI",
 #'     index(fli2) <- index(fli2)*exp(rnorm(1, index(fli2)-index(fli2), 0.1))
 #'
 setClass("FLIndex",
-    representation(
+  representation(
     "FLI",
     type         = "character"),
     prototype=prototype(
     type         = character(0)),
-    validity=function(object) {
+  validity=function(object) {
 
-  # min / max
-  dims <- dims(object@catch.n)
-  min <- object@range["min"]
-  max <- object@range["max"]
+    # quant is 1 or N
+    if (length(unique(unlist(qapply(object,function(x) dims(x)$max))))>2)
+       stop("quant dimension in FLI can only be 'all' or n")
 
-  if (!is.na(min) && (min < dims(object@catch.n)$min || min > dims(object@catch.n)$max))
-     stop(paste("min is outside quant range in FLQuant slot", i))
+    # min / max
+    dims <- dims(object@catch.n)
+    min <- object@range["min"]
+    max <- object@range["max"]
 
-  if(!is.na(max) && (max < dims(object@catch.n)$min || max > dims(object@catch.n)$max))
-    stop(paste("max is outside quant range in FLQuant slot", i))
+    if (!is.na(min) && (min < dims(object@catch.n)$min || min > dims(object@catch.n)$max))
+       stop(paste("min is outside quant range in FLQuant slot", i))
 
-  # Everything is fine
-  return(TRUE)
-  }
+    if(!is.na(max) && (max < dims(object@catch.n)$min || max > dims(object@catch.n)$max))
+      stop(paste("max is outside quant range in FLQuant slot", i))
+
+    # Everything is fine
+    return(TRUE)
+    }
 ) #   }}}
 
 # FLIndexBiomass    {{{
