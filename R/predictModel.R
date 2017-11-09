@@ -69,14 +69,14 @@ setClass('predictModel',
 # predictModel() {{{
 
 #' @rdname predictModel
-#' @aliases predictModel,FLQuants-method
+#' @aliases predictModel,FLQuants,formula-method
 #' @examples
-#' 
-#' fec <- FLQuants(fec=FLQuant(rlnorm(10, 20, 5), dimnames=list(year=2000:2009),
-#'   units='1'))
+#' fec <- FLQuants(fec=FLQuant(rlnorm(10, 20, 5),
+#'   dimnames=list(year=2000:2009), units='1'))
 #' predictModel(fec, model=~fec)
-setMethod('predictModel', signature(object='FLQuants'),
-	function(object, model=~NA, params=FLPar()) {
+
+setMethod('predictModel', signature(object='FLQuants', model="formula"),
+	function(object, model, params=FLPar()) {
 
 	# CREATE object
 	res <- new("predictModel", object, model=model, params=params)
@@ -86,12 +86,55 @@ setMethod('predictModel', signature(object='FLQuants'),
 )
 
 #' @rdname predictModel
-#' @aliases predictModel,missing-method
+#' @aliases predictModel,FLQuants,missing-method
 #' @examples
-#'
+#' predictModel(fec)
+
+setMethod('predictModel', signature(object='FLQuants', model="missing"),
+	function(object, params=FLPar()) {
+
+	# CREATE object
+  return(predictModel(object=object, model=~NA, params=params))
+	}
+)
+
+#' @rdname predictModel
+#' @aliases predictModel,FLQuants,character-method
+#' @examples
+#' predictModel(fec, model="bevholt")
+
+setMethod('predictModel', signature(object='FLQuants', model="character"),
+	function(object, model, params=FLPar()) {
+
+  model <- do.call(model, list())$model
+	# CREATE object
+  return(predictModel(object=object, model=model, params=params))
+	}
+)
+
+#' @rdname predictModel
+#' @aliases predictModel,FLQuants,function-method
+#' @examples
+#' predictModel(fec, model=bevholt)
+
+setMethod('predictModel', signature(object='FLQuants', model="function"),
+	function(object, model, params=FLPar()) {
+
+  model <- do.call(model, list())$model
+	# CREATE object
+  return(predictModel(object=object, model=model, params=params))
+	}
+)
+
+#' @rdname predictModel
+#' @aliases predictModel,missing,ANY-method
+#' @examples
 #' predictModel(model=rec~a*ssb, params=FLPar(a=1.234))
-setMethod('predictModel', signature(object='missing'),
-	function(object, ...) {
+#' predictModel(model=bevholt, params=FLPar(a=1.234))
+#' predictModel(model="bevholtss3", params=FLPar(a=1.234))
+
+setMethod('predictModel', signature(object="missing", model="ANY"),
+	function(object, model, ...) {
 
 	args <- list(...)
 
@@ -105,7 +148,7 @@ setMethod('predictModel', signature(object='missing'),
 	}
 
 	# CREATE object
-	res <- do.call('predictModel', args)
+	res <- do.call('predictModel', c(args, model=model))
 	
 	return(res)
 	}

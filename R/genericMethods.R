@@ -1293,7 +1293,7 @@ setGeneric("e", function(x, ...) standardGeneric("e"))
 setGeneric("e<-", function(x, value) standardGeneric("e<-"))
 
 # predictModel
-setGeneric("predictModel", function(object, ...)
+setGeneric("predictModel", function(object, model, ...)
   standardGeneric("predictModel"))
 
 # bkey
