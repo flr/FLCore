@@ -5,13 +5,22 @@
 \alias{predictModel}
 \alias{predictModel-methods}
 \alias{predictModel-class}
-\alias{predictModel,FLQuants-method}
-\alias{predictModel,missing-method}
+\alias{predictModel,FLQuants,formula-method}
+\alias{predictModel,FLQuants,missing-method}
+\alias{predictModel,FLQuants,character-method}
+\alias{predictModel,FLQuants,function-method}
+\alias{predictModel,missing,ANY-method}
 \title{A class for model prediction}
 \usage{
-\S4method{predictModel}{FLQuants}(object, model = ~NA, params = FLPar())
+\S4method{predictModel}{FLQuants,formula}(object, model, params = FLPar())
 
-\S4method{predictModel}{missing}(object, ...)
+\S4method{predictModel}{FLQuants,missing}(object, params = FLPar())
+
+\S4method{predictModel}{FLQuants,character}(object, model, params = FLPar())
+
+\S4method{predictModel}{FLQuants,`function`}(object, model, params = FLPar())
+
+\S4method{predictModel}{missing,ANY}(object, model, ...)
 }
 \description{
 Object of the predictModel class are used in various FLR classes to allow
@@ -72,12 +81,15 @@ Methods exist for various calculations based on values stored in the class:
 }
 
 \examples{
-
-fec <- FLQuants(fec=FLQuant(rlnorm(10, 20, 5), dimnames=list(year=2000:2009),
-  units='1'))
+fec <- FLQuants(fec=FLQuant(rlnorm(10, 20, 5),
+  dimnames=list(year=2000:2009), units='1'))
 predictModel(fec, model=~fec)
-
+predictModel(fec)
+predictModel(fec, model="bevholt")
+predictModel(fec, model=bevholt)
 predictModel(model=rec~a*ssb, params=FLPar(a=1.234))
+predictModel(model=bevholt, params=FLPar(a=1.234))
+predictModel(model="bevholtss3", params=FLPar(a=1.234))
 }
 \seealso{
 \code{\link{FLQuants}} \code{\link{FLPar}} \code{\link{FLBiol}}

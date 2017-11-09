@@ -31,6 +31,8 @@
 \alias{SRModels}
 \alias{bevholt}
 \alias{SRModels}
+\alias{bevholtss3}
+\alias{SRModels}
 \alias{segreg}
 \alias{SRModels}
 \alias{geomean}
@@ -57,6 +59,8 @@
 ricker()
 
 bevholt()
+
+bevholtss3()
 
 segreg()
 
