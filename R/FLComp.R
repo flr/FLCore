@@ -2,7 +2,7 @@
 # FLCore/R/FLComp.R
 
 # Copyright 2003-2017 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Maintainer: Iago Mosqueira, EC JRC D02
 
 # summary		{{{
 #' @rdname summary-methods
@@ -583,12 +583,12 @@ setMethod("slim", signature(object="FLComp"),
   function(object, ...) {
 
     # FIND repeated iters
-    res <- qapply(object, function(x) {
+    res   <- qapply(object, function(x) {
       # CHECK sum(var) along iters == 0
-      if(sum(iterVars(x)) == 0)
-        x[,,,,,1]
+      if(identical(sum(iterVars(x)), 0))
+        return(x[,,,,,1])
       else
-        x
+        return(x)
       })
 
     return(res)
