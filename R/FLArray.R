@@ -119,11 +119,12 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 #' \item{}{[<-(x,i,j,value)} \item{}{[[<-(x,i,j,value)}
 #' \item{}{\$<-(x,name,value)} }
 #' @param x object from which to extract or replace element(s)
-#' @param i,j,k,l,m,n,... indices specifying elements to extract or replace.
+#' @param i,j,k,l,m,n indices specifying elements to extract or replace on any of the six dimensions.
+#' @param ... indices specifying elements to extract or replace by dimension name.
 #' @param drop If 'TRUE' the result is coerced to the lowest possible dimension, and so
 #' might change class (e.g. drop='TRUE' on an \code{FLQuant} might return an
 #' \code{array} of less dimensions, a \code{matrix} or a \code{vector}.
-#' @param value An object of a similar or simpler class than 'x'.
+#' @param value An object of the same class, or simpler if \code{drop=TRUE}, than 'x'.
 #' @param name
 #' See \link[base]{Extract} for further details.
 #' @author The FLR Team
@@ -151,15 +152,25 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
 #'   flq['0',,,1]<-0
 #'
 setMethod("[", signature(x="FLArray"),
-    function(x, i, j, k, l, m, n, ..., drop=FALSE)
-    {
-      if(length(list(...)) > 0)
-        stop(paste(class(x), 'objects only have 6 dimensions'))
+    function(x, i, j, k, l, m, n, ..., drop=FALSE) {
    
       # INTERPRET i as vector of elements
       if(!missing(i) && missing(j) && missing(k) && missing(l) &&
         missing(m) && missing(n) && drop) {
         return(x@.Data[i, drop=TRUE])
+      }
+
+      # PARSE named arguments
+      if(missing(i) && missing(j) && missing(k) && missing(l) &&
+        missing(m) && missing(n)) {
+      
+        args <- list(...)
+        
+        if(length(args) > 0) {
+          nms <- names(args)
+          names(args) <- c("i", "j", "k", "l", "m", "n")[match(nms, names(x))]
+          return(do.call("[", c(list(x=x), args, list(drop=drop))))
+        }
       }
 
       dx <- dim(x)

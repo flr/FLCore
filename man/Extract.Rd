@@ -77,13 +77,15 @@
 \arguments{
 \item{x}{object from which to extract or replace element(s)}
 
-\item{i, j, k, l, m, n, ...}{indices specifying elements to extract or replace.}
+\item{i, j, k, l, m, n}{indices specifying elements to extract or replace on any of the six dimensions.}
+
+\item{...}{indices specifying elements to extract or replace by dimension name.}
 
 \item{drop}{If 'TRUE' the result is coerced to the lowest possible dimension, and so
 might change class (e.g. drop='TRUE' on an \code{FLQuant} might return an
 \code{array} of less dimensions, a \code{matrix} or a \code{vector}.}
 
-\item{value}{An object of a similar or simpler class than 'x'.}
+\item{value}{An object of the same class, or simpler if \code{drop=TRUE}, than 'x'.}
 
 \item{name}{See \link[base]{Extract} for further details.}
 }
