@@ -230,8 +230,8 @@ setMethod('summary', signature(object='predictModel'),
 #' @rdname Extract
 #' @aliases [,predictModel,ANY,missing,ANY-method
 setMethod('[', signature(x="predictModel", j="missing"),
-	function(x, i, drop=FALSE, k, l, m, n) {
-
+	function(x, i, k, l, m, n, ..., drop=FALSE) {
+    
     foo <- selectMethod("[", c("predictModel", "ANY", "ANY", "ANY"))
 
     args <- list()
@@ -251,7 +251,7 @@ setMethod('[', signature(x="predictModel", j="missing"),
   })
 
 setMethod('[', signature(x="predictModel"),
-	function(x, i, j, drop=FALSE, k, l, m, n) {
+	function(x, i, j, k, l, m, n, ..., drop=FALSE) {
     
    args <- list()
 
