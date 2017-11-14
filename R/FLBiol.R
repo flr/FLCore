@@ -1,7 +1,7 @@
 # FLBiol - class for representing a natural population
 # FLCore/R/FLBiol.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2017 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # class FLBiol {{{
@@ -605,6 +605,36 @@ setMethod("trim", signature(x="FLBiol"),
 
   }
 ) # }}}
+
+# '[' {{{
+setMethod('[', signature(x='FLBiol'),
+	function(x, i, j, k, l, m, n, ..., drop=FALSE) {
+    
+    res <- callNextMethod()
+    
+    pnames <- names(getSlots(class(x))[getSlots(class(x))=="predictModel"])
+	
+    args <- list(drop=FALSE)
+
+		if (!missing(i))
+      args <- c(args, list(i=i))
+		if (!missing(j))
+      args <- c(args, list(j=j))
+		if (!missing(k))
+      args <- c(args, list(k=k))
+		if (!missing(l))
+      args <- c(args, list(l=l))
+		if (!missing(m))
+      args <- c(args, list(m=m))
+		if (!missing(n))
+      args <- c(args, list(n=n))
+    
+    for(p in pnames)
+      slot(res, p) <- do.call('[', c(list(x=slot(x, p)), args))
+
+    return(res)
+    }
+)   # }}}
 
 # ---
 

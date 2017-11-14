@@ -1,7 +1,7 @@
 # predictModel.R - DESC
-# predictModel.R
+# FLCore/R/predictModel.R
 
-# Copyright 2015 Iago Mosqueira. Distributed under the GPL 2.
+# Copyright 2015-2017 Iago Mosqueira. Distributed under the GPL 2.
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # class predictModel: model + data + params {{{
@@ -226,16 +226,64 @@ setMethod('summary', signature(object='predictModel'),
 	}
 ) # }}}
 
-# [, [[<- {{{
+# [ {{{
 #' @rdname Extract
 #' @aliases [,predictModel,ANY,missing,ANY-method
-setMethod('[', signature(x="predictModel", i="ANY", j="missing"),
-	function(x, i) {
-		x@.Data <- x@.Data[i]
+setMethod('[', signature(x="predictModel", j="missing"),
+	function(x, i, drop=FALSE, k, l, m, n) {
+
+    foo <- selectMethod("[", c("predictModel", "ANY", "ANY", "ANY"))
+
+    args <- list()
+
+		if (!missing(i))
+      args <- c(args, list(i=i))
+		if (!missing(k))
+      args <- c(args, list(k=k))
+		if (!missing(l))
+      args <- c(args, list(l=l))
+		if (!missing(m))
+      args <- c(args, list(m=m))
+		if (!missing(n))
+      args <- c(args, list(n=n))
+
+    return(do.call(foo, c(list(x=x), args)))
+  })
+
+setMethod('[', signature(x="predictModel"),
+	function(x, i, j, drop=FALSE, k, l, m, n) {
+    
+   args <- list()
+
+		if (!missing(i))
+      args <- c(args, list(i=i))
+		if (!missing(j))
+      args <- c(args, list(j=j))
+		if (!missing(k))
+      args <- c(args, list(k=k))
+		if (!missing(l))
+      args <- c(args, list(l=l))
+		if (!missing(m))
+      args <- c(args, list(m=m))
+		if (!missing(n))
+      args <- c(args, list(n=n))
+    
+    # SUBSET FLQuants
+		x@.Data <- lapply(x@.Data, function(p) do.call("[", c(list(x=p), args)))
+
+    # SUBSET FLPar
+    dns <- names(x@.Data[[1]])
+    pns <- names(x@params)[-c(1,length(dim(x@params)))]
+    
+    # IF subset dimnames in params
+    idx <- letters[seq(9, 9+6)][match(pns, dns)]
+    if(length(idx) > 0)
+      x@params <- do.call("[", c(list(x=x@params),
+        args[idx]))
+
 		return(x)
 	}
-)
-# }}}
+) # }}}
 
 # show {{{
 setMethod('show', signature(object='predictModel'),

@@ -98,7 +98,7 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 #' @rdname Extract
 #' @aliases [,FLlst,ANY,missing,ANY-method
 setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
-  function(x,i,j,drop){
+  function(x, i, drop) {
 	  lst <- as(x, "list")
     # names dropped!
     names(lst) <- names(x)
