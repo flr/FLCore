@@ -71,6 +71,7 @@ uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 6, 16, 26, 7, 
 
 # U / U = ""
 diag(uomTable['/', puoms, puoms]) <- ""
+
 # Equivalent numbers
 diag(uomTable['/', 1:10, 11:20]) <- ""
 diag(uomTable['/', 1:10, 21:30]) <- ""
@@ -78,6 +79,17 @@ diag(uomTable['/', 11:20, 1:10]) <- ""
 diag(uomTable['/', 11:20, 21:30]) <- ""
 diag(uomTable['/', 21:30, 1:10]) <- ""
 diag(uomTable['/', 21:30, 11:20]) <- ""
+
+# 1000 / 100 = 10 et al
+diag(uomTable['/', 3:10, 2:9]) <- "10"
+diag(uomTable['/', 4:10, 2:8]) <- "100"
+diag(uomTable['/', 5:10, 2:7]) <- "1000"
+diag(uomTable['/', 3:10, 12:19]) <- "10"
+diag(uomTable['/', 4:10, 12:18]) <- "100"
+diag(uomTable['/', 5:10, 12:17]) <- "1000"
+diag(uomTable['/', 3:10, 22:29]) <- "10"
+diag(uomTable['/', 4:10, 22:28]) <- "100"
+diag(uomTable['/', 5:10, 22:27]) <- "1000"
 
 # U / 1 = U
 uomTable['/', puoms, c('1', '10^0', '1e0')] <- uoms[puoms]
