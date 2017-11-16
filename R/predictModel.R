@@ -207,6 +207,8 @@ setMethod('predict', signature(object='predictModel'),
 setMethod('summary', signature(object='predictModel'),
 	function(object) {
 
+    cat('An object of class "predictModel":\n')
+
     # model
     cat(as.character(object@model), "\n")
     # FLQuants
@@ -218,6 +220,7 @@ setMethod('summary', signature(object='predictModel'),
       }
     }
     # params
+    cat("params:\n")
     par <- object@params
     cat(substr(paste0("  ", ifelse(all(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == ""),
       "NA", paste(dimnames(par)[[1]], collapse=", ")),
@@ -231,6 +234,18 @@ setMethod('summary', signature(object='predictModel'),
 #' @aliases [,predictModel,ANY,missing,ANY-method
 setMethod('[', signature(x="predictModel", j="missing"),
 	function(x, i, k, l, m, n, ..., drop=FALSE) {
+
+    if(!missing(i) && missing(k) && missing(l) && missing(m) && missing(n) &&
+      drop) {
+      if(is.character(i)) {
+        res <- FLQuants(x@.Data[match(i, names(x))])
+        names(res) <- i
+      } else {
+        res <- FLQuants(x@.Data[i])
+        names(res) <- names(x)[i]
+      }
+      return(res)
+    }
     
     foo <- selectMethod("[", c("predictModel", "ANY", "ANY", "ANY"))
 

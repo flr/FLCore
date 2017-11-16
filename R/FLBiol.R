@@ -76,7 +76,7 @@ setClass("FLBiol",
   }
 )
 
-invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range')))  # }}}
+invisible(createFLAccesors("FLBiol", exclude=c('name', 'desc', 'range', 'fec', 'rec', 'mat')))  # }}}
 
 # class FLBiolcpp {{{
 setClass("FLBiolcpp",
@@ -115,7 +115,7 @@ setMethod('fec', signature('FLBiol'),
 
 # fec<- predictModel
 setReplaceMethod('fec', signature(object='FLBiol', value='predictModel'),
-  function(object, value) {
+  function(object, what=TRUE, value=what) {
     object@fec <- value
     return(object)
   }
@@ -140,6 +140,7 @@ setReplaceMethod('fec', signature(object='FLBiol', value='FLQuant'),
 setReplaceMethod('fec', signature(object='FLBiol', value='FLQuants'),
   function(object, value) {
     object@fec@.Data <- value
+    names(object@mat) <- names(value)
     return(object)
   }
 )
@@ -194,7 +195,7 @@ setMethod('mat', signature('FLBiol'),
 
 # mat<- predictModel
 setReplaceMethod('mat', signature(object='FLBiol', value='predictModel'),
-  function(object, value) {
+  function(object, what=TRUE, value=what) {
     object@mat <- value
     return(object)
   }
@@ -219,6 +220,7 @@ setReplaceMethod('mat', signature(object='FLBiol', value='FLQuant'),
 setReplaceMethod('mat', signature(object='FLBiol', value='FLQuants'),
   function(object, value) {
     object@mat@.Data <- value
+    names(object@mat) <- names(value)
     return(object)
   }
 )
@@ -273,7 +275,7 @@ setMethod('rec', signature('FLBiol'),
 
 # rec<- predictModel
 setReplaceMethod('rec', signature(object='FLBiol', value='predictModel'),
-  function(object, value) {
+  function(object, what, value) {
     object@rec <- value
     return(object)
   }
@@ -298,6 +300,7 @@ setReplaceMethod('rec', signature(object='FLBiol', value='FLQuant'),
 setReplaceMethod('rec', signature(object='FLBiol', value='FLQuants'),
   function(object, value) {
     object@rec@.Data <- value
+    names(object@mat) <- names(value)
     return(object)
   }
 )
