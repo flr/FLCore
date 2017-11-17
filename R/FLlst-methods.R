@@ -22,20 +22,18 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			(is.character(i) & is.na(match(i, names(x))))
 			|
 			(is.numeric(i) & length(x)<i)))
-				stop("The object is locked. You can not replace non-existent elements.")
-    
-    lst <- as(x, "list")
-    names(lst) <- names(x)
+				stop("The object is locked. You can not add non-existent elements.")
+ 
+    # ASSIGN by name
+    if(is.character(i))   
+      x@.Data[[match(i, names(x))]] <- value
+    # or position
+    else
+      x@.Data[[i]] <- value
 
-		lst[[i]] <- value
-
-		res <- FLlst(lst)
-		class(res) <- class(x)
-    res@desc <- x@desc
-
-		if(validObject(res))
-			return(res)
-		else
+    if(validObject(x))
+      return(x)
+    else
 			stop("Invalid object, classes do not match.")
 	}
 )
@@ -46,25 +44,13 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 	function(x, name, value)
 	{
 		if(isTRUE(x@lock) & is.na(match(name, names(x))))
-			stop("The object is locked. You can not replace non-existent elements.")
+			stop("The object is locked. You can not add non-exismetent elements.")
+		
+    # ASSIGN by name
+    x@.Data[[match(name, names(x))]] <- value
 
-		lst <- as(x, "list")
-    names(lst) <- names(x)
-
-#		if(length(lst)==0)
-#		{
-#			cls <- is(value)[1]
-#			lst <- do.call("$<-",list(x=lst, name=name, value=value))
-#			lst <- lapply(lst, as, cls)
-#		}
-
-		lst <- do.call("$<-",list(x=lst, name=name, value=value))
-
-		res <- FLlst(lst)
-		class(res) <- class(x)
-
-		if(validObject(res))
-			return(res)
+		if(validObject(x))
+			return(x)
 		else
 			stop("Invalid object, classes do not match.")
 })
