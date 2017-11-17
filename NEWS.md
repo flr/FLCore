@@ -21,6 +21,7 @@
   object, to allow params per time period to be passed and used.
 - coerce(FLBiol, FLBiolcpp) now windows FLPar if year is given.
 - trim(FLBiol) is able to handle predictModel slots.
+- [[<- and $<- FLlst now work on extended classes, like predictModel.
 
 ## DEPRECATED & DEFUNCT
 - catchSel is to be substituted by catch.sel, use the later instead

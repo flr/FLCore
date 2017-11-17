@@ -2,25 +2,26 @@
 
  NEW FEATURES
 
-- window(FLStocks) method to apply same window call across all elements
-- combine(FLStocks) method collapses all elements into a single FLStock object
+- window(FLStocks) method to apply same window call across all elements.
+- combine(FLStocks) method collapses all elements into a single FLStock object.
   with as many iters as elements in the list, must all have 1 iter.
-- combine(FLQuants, FLQuants) merges them one element at a time
-- drop(FLQuant) returnas the result of a call to base::drop on @.Data
+- combine(FLQuants, FLQuants) merges them one element at a time.
+- drop(FLQuant) returns the result of a call to base::drop on @.Data.
 
  USER-VISIBLE CHANGES
 
-- propagate(FLPar) to return object if iter == iters #45
-- Ratios of numbers written in alternative ways now also return an empty character
+- propagate(FLPar) to return object if iter == iters #45.
+- Ratios of numbers written in alternative ways now also return an empty character.
 
  BUG FIXES
 
 - dimnames<- for FLStock with no ages failed when changing age name #42.
 - uom can now handle better products with units containing divisions.
 - coerce(FLBiol, FLBiolcpp) will now extend srparam to have as many years as the
-  object, to allow years per time eriod to be passed and used.
-- coerce FLBiol to FLBiolcpp now windows FLPar if year is given
-- trim(FLBiol) is able to handle predictModel slots
+  object, to allow params per time period to be passed and used.
+- coerce(FLBiol, FLBiolcpp) now windows FLPar if year is given.
+- trim(FLBiol) is able to handle predictModel slots.
+- [[<- and $<- FLlst now work on extended classes, like predictModel.
 
  DEPRECATED & DEFUNCT
 - catchSel is to be substituted by catch.sel, use the later instead
