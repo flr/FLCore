@@ -614,8 +614,9 @@ setMethod("Arith",
   signature(e1 = "FLArray", e2 = "numeric"),
   function(e1, e2)
   {
-    units <- uom(as.character(get('.Generic')), units(e1), as.character(e2))
-    if(units == "NA")
+    if(!is.na(match(as.character(e2), uoms[nums])))
+      units <- uom(as.character(get('.Generic')), units(e1), as.character(e2))
+    else
       units <- units(e1)
 
     return(new(class(e1), callGeneric(e1@.Data, e2), units=units))

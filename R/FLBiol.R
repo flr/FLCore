@@ -104,6 +104,81 @@ setClass("FLBiolcpp",
 
 invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # }}}
 
+# rec {{{
+setMethod('rec', signature('FLBiol'),
+  function(object, what=TRUE) {
+    return(returnPredictModelSlot(object, what=what, slot="rec"))
+  })
+# }}}
+
+# rec<- {{{
+
+# rec<- predictModel
+setReplaceMethod('rec', signature(object='FLBiol', value='predictModel'),
+  function(object, what, value=what) {
+    object@rec <- value
+    return(object)
+  }
+)
+
+# rec<- FLQuant: change to rec@.Data['rec']
+setReplaceMethod('rec', signature(object='FLBiol', value='FLQuant'),
+  function(object, name="rec", value) {
+    
+    # HACK Should be solved by adding name to generic
+    if(missing(value))
+      value <- FLQuants(rec=name)
+    else {
+      value <- FLQuants(rec=value)
+    }
+    object@rec@.Data <- value
+    names(object@rec) <- name
+    return(object)
+  }
+)
+
+# rec<- FLQuants: assign to @.Data
+setReplaceMethod('rec', signature(object='FLBiol', value='FLQuants'),
+  function(object, value) {
+    object@rec@.Data <- value
+    names(object@rec) <- names(value)
+    return(object)
+  }
+)
+
+# rec<- formula:
+setReplaceMethod('rec', signature(object='FLBiol', value='formula'),
+  function(object, ..., value) {
+    object@rec@model <- value
+    return(object)
+  }
+)
+
+# rec<- params:
+setReplaceMethod('rec', signature(object='FLBiol', value='FLPar'),
+  function(object, value) {
+    object@rec@params <- value
+    return(object)
+  }
+) 
+
+# rec<- list:
+setReplaceMethod('rec', signature(object='FLBiol', value='list'),
+  function(object, value) {
+
+    idx <- unlist(lapply(value, is, 'FLQuant'))
+
+    for(i in names(value)[!idx])
+      object <- do.call("rec<-", list(object=object, value=value[[i]]))
+
+    value <- FLQuants(value[idx])
+ 
+    rec(object) <- value
+    
+    return(object)
+  }
+) # }}}
+
 # fec {{{
 setMethod('fec', signature('FLBiol'),
   function(object, what=TRUE) {
@@ -115,7 +190,7 @@ setMethod('fec', signature('FLBiol'),
 
 # fec<- predictModel
 setReplaceMethod('fec', signature(object='FLBiol', value='predictModel'),
-  function(object, what=TRUE, value=what) {
+  function(object, what, value=what) {
     object@fec <- value
     return(object)
   }
@@ -124,14 +199,15 @@ setReplaceMethod('fec', signature(object='FLBiol', value='predictModel'),
 # fec<- FLQuant: change to fec@.Data['fec']
 setReplaceMethod('fec', signature(object='FLBiol', value='FLQuant'),
   function(object, name="fec", value) {
+    
     # HACK Should be solved by adding name to generic
     if(missing(value))
       value <- FLQuants(fec=name)
     else {
       value <- FLQuants(fec=value)
-      names(value) <- name
     }
     object@fec@.Data <- value
+    names(object@fec) <- name
     return(object)
   }
 )
@@ -140,7 +216,7 @@ setReplaceMethod('fec', signature(object='FLBiol', value='FLQuant'),
 setReplaceMethod('fec', signature(object='FLBiol', value='FLQuants'),
   function(object, value) {
     object@fec@.Data <- value
-    names(object@mat) <- names(value)
+    names(object@fec) <- names(value)
     return(object)
   }
 )
@@ -164,22 +240,16 @@ setReplaceMethod('fec', signature(object='FLBiol', value='FLPar'),
 # fec<- list:
 setReplaceMethod('fec', signature(object='FLBiol', value='list'),
   function(object, value) {
+
+    idx <- unlist(lapply(value, is, 'FLQuant'))
+
+    for(i in names(value)[!idx])
+      object <- do.call("fec<-", list(object=object, value=value[[i]]))
+
+    value <- FLQuants(value[idx])
+ 
+    fec(object) <- value
     
-    # FLQuants
-    idx <- unlist(lapply(value, is, 'FLQuants'))
-    if(sum(idx) > 1)
-      stop("More than one element in the list is of class 'FLQuants'")
-    
-    object@fec@.Data <- value[idx][[1]]
-    object@fec@names <- names(value[idx][[1]])
-
-    # params & modes
-    idx <- !idx
-
-    if(sum(idx) > 0)
-    for(i in names(value[idx]))
-      slot(object@fec, i) <- value[[i]]
-
     return(object)
   }
 ) # }}}
@@ -195,7 +265,7 @@ setMethod('mat', signature('FLBiol'),
 
 # mat<- predictModel
 setReplaceMethod('mat', signature(object='FLBiol', value='predictModel'),
-  function(object, what=TRUE, value=what) {
+  function(object, what, value=what) {
     object@mat <- value
     return(object)
   }
@@ -204,14 +274,15 @@ setReplaceMethod('mat', signature(object='FLBiol', value='predictModel'),
 # mat<- FLQuant: change to mat@.Data['mat']
 setReplaceMethod('mat', signature(object='FLBiol', value='FLQuant'),
   function(object, name="mat", value) {
+    
     # HACK Should be solved by adding name to generic
     if(missing(value))
       value <- FLQuants(mat=name)
     else {
       value <- FLQuants(mat=value)
-      names(value) <- name
     }
     object@mat@.Data <- value
+    names(object@mat) <- name
     return(object)
   }
 )
@@ -244,102 +315,16 @@ setReplaceMethod('mat', signature(object='FLBiol', value='FLPar'),
 # mat<- list:
 setReplaceMethod('mat', signature(object='FLBiol', value='list'),
   function(object, value) {
+
+    idx <- unlist(lapply(value, is, 'FLQuant'))
+
+    for(i in names(value)[!idx])
+      object <- do.call("mat<-", list(object=object, value=value[[i]]))
+
+    value <- FLQuants(value[idx])
+ 
+    mat(object) <- value
     
-    # FLQuants
-    idx <- unlist(lapply(value, is, 'FLQuants'))
-    if(sum(idx) > 1)
-      stop("More than one element in the list is of class 'FLQuants'")
-    
-    object@mat@.Data <- value[idx][[1]]
-    object@mat@names <- names(value[idx][[1]])
-
-    # params & modes
-    idx <- !idx
-
-    if(sum(idx) > 0)
-    for(i in names(value[idx]))
-      slot(object@mat, i) <- value[[i]]
-
-    return(object)
-  }
-) # }}}
-
-# rec {{{
-setMethod('rec', signature('FLBiol'),
-  function(object, what=TRUE) {
-    return(returnPredictModelSlot(object, what=what, slot="rec"))
-  })
-# }}}
-
-# rec<- {{{
-
-# rec<- predictModel
-setReplaceMethod('rec', signature(object='FLBiol', value='predictModel'),
-  function(object, what, value) {
-    object@rec <- value
-    return(object)
-  }
-)
-
-# rec<- FLQuant: change to rec@.Data['rec']
-setReplaceMethod('rec', signature(object='FLBiol', value='FLQuant'),
-  function(object, name="rec", value) {
-    # HACK Should be solved by adding name to generic
-    if(missing(value))
-      value <- FLQuants(rec=name)
-    else {
-      value <- FLQuants(rec=value)
-      names(value) <- name
-    }
-    object@rec@.Data <- value
-    return(object)
-  }
-)
-
-# rec<- FLQuants: assign to @.Data
-setReplaceMethod('rec', signature(object='FLBiol', value='FLQuants'),
-  function(object, value) {
-    object@rec@.Data <- value
-    names(object@mat) <- names(value)
-    return(object)
-  }
-)
-
-# rec<- formula:
-setReplaceMethod('rec', signature(object='FLBiol', value='formula'),
-  function(object, ..., value) {
-    object@rec@model <- value
-    return(object)
-  }
-)
-
-# rec<- params:
-setReplaceMethod('rec', signature(object='FLBiol', value='FLPar'),
-  function(object, value) {
-    object@rec@params <- value
-    return(object)
-  }
-) 
-
-# rec<- list:
-setReplaceMethod('rec', signature(object='FLBiol', value='list'),
-  function(object, value) {
-    
-    # FLQuants
-    idx <- unlist(lapply(value, is, 'FLQuants'))
-    if(sum(idx) > 1)
-      stop("More than one element in the list is of class 'FLQuants'")
-    
-    object@rec@.Data <- value[idx][[1]]
-    object@rec@names <- names(value[idx][[1]])
-
-    # params & modes
-    idx <- !idx
-
-    if(sum(idx) > 0)
-    for(i in names(value[idx]))
-      slot(object@rec, i) <- value[[i]]
-
     return(object)
   }
 ) # }}}
@@ -685,9 +670,10 @@ setMethod("meanLifespan", signature(x="FLBiol"),
 #' For an object of class \code{\link{FLBiol}}, the calculation of SSB is as
 #' follows:
 #' \deqn{SSB_{a,y} = \sum\nolimits_{a} N_{a,y} \cdot W_{a,y} \cdot e^{-S_{a,y} \cdot M_{a,y}}}{SSB_ay = sum_a N_ay * W_ay * exp(-S_ay * M_ay)}
-#' where \eqn{S_{a,y}}{S_ay} is the fraction of natural mortality before spawning (\code{spwn}). The method for this class does not correct the estimate, based on abundnaces at the
-#' start of the time period, for fishing mortality ocurring between that time and
-#' spawning, as the class holds no information on fishing mortality.
+#' where \eqn{S_{a,y}}{S_ay} is the fraction of natural mortality before spawning (\code{spwn}). The method for this class does not correct the estimate, based on
+#' abundances at the start of the time period, for fishing mortality ocurring
+#' between that time and spawning, as the class holds no information on fishing
+#' mortality.
 
 #' @aliases ssb-FLBiol,method
 setMethod("ssb", signature(object="FLBiol"),
