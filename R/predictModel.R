@@ -194,9 +194,15 @@ setMethod('predict', signature(object='predictModel'),
     args <- c(args, extra)
     
     # TODO:parse params in extra
- 
+
+    # No. iters
+    nits <- unlist(lapply(args, function(x) dims(x)$iter))
+
+    if(length(unique(nits[nits > 1])) > 1)
+      warning("objects have different number of iters")
+
     # lapply eval(model) along iters, then combine
-    return(Reduce(combine, lapply(1:2, function(i)
+    return(Reduce(combine, lapply(seq(max(nits)), function(i)
       eval(object@model[[length(object@model)]], lapply(args, iter, i)))))
 	}
 ) # }}}
