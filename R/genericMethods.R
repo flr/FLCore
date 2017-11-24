@@ -1499,3 +1499,77 @@ setGeneric("slim", function(object, ...) standardGeneric("slim")) # }}}
 #' @md
 
 setGeneric("simplify", function(object, ...) standardGeneric("simplify")) # }}}
+
+# verify {{{
+
+#' Verify FLR objects
+#'
+#' Verifies the content of FLR objects according to a set of rules
+#'
+#' Classes' validity functions generally check the structure and dimensions of
+#' objects and their component slots. But some checks on the data content of
+#' objects is often required. The various verify methods implement both a system
+#' to create *rules* that an object is expected to pass, and a minimum standard
+#' set of rules for each defined class
+#'
+#' The data.frame output by the method when `report=TRUE` contains one row per
+#' rule and the following columns:
+#' - *name*, the rule name
+#' - *items*, number of comparisons carried out
+#' - *passes*, number of *TRUE* values
+#' - *fails*, number of *FALSE* values
+#' - *NAs*, number of logical NAs
+#' - *valid*, are all values *TRUE*?
+#' - *rule*, the expression being evaluated 
+#'
+#' Additional rules can be specify in a call to *verify*, in one of two forms.
+#' Simple rules can be defined as a formula involving methods defined for the
+#' class. A rule such as `highm = ~ m < 2` will check if values in the *m* slot are
+#' higher than 2 and return a logical *FLQuant*.
+#'
+#' Some rules cannot simply use existing methods or functions, for example those
+#' operating on all slots of the object, or requiring additional computations.
+#' In this case, the argument to *verify* can be a list, with an element named
+#' *rule* of class *formula* and where test is defined. The test then calls for
+#' a new function, defined as another element of the list, and which will be used
+#' by verify when evaluating the set of rules. See below for examples.
+#'
+#' @name verify
+#' @rdname verify
+#' @param object An object of any FLR class for which the method has been defined
+#' @param ... Additional rules to be tested, as a formula or list. See details
+#' @param report Should the standard data.frame report be output (if TRUE) or a single logical value for all tests?
+#' @return A data.frame with the results of applying those rules, or a single logical value, if report=FALSE
+#' @author The FLR Team
+#' @keywords methods
+#' @md
+#' @examples
+#' # Verifying a new rule for an FLSR object
+#' data(nsher)
+#' # rule: are all recruitment values greater than 0?
+#' verify(nsher, rec=~rec > 0)
+#'
+#' # Define rule calling its own function
+#' data(ple4)
+#' # rule: ssb is less
+#' verify(ple4, ssbstock = ~ssb < stock)
+
+setGeneric("verify", function(object, ...) standardGeneric("verify"))
+# }}}
+
+# ruleset {{{
+#' Set of verify rules for an FLR class
+#'
+#' Returns a set of standard rules to be used by the verify method for an
+#' object of any given class.
+#'
+#' @name ruleset
+#' @rdname ruleset
+#' @param object An object of any FLR class for which the method has been defined.
+#' @param ... Names of positions in the standard list to subset.
+#' @return A named list containing the rules defined for for the class object belongs to.
+#' @author The FLR Team
+#' @keywords methods
+#' @md
+setGeneric("ruleset", function(object, ...) standardGeneric("ruleset"))
+# }}}

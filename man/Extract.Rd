@@ -64,7 +64,8 @@
 
 \S4method{[}{FLI,ANY,ANY,ANY}(x, i, j, k, l, m, n, ..., drop = FALSE)
 
-\S4method{[}{predictModel,ANY,missing,ANY}(x, i)
+\S4method{[}{predictModel,ANY,missing,ANY}(x, i, k, l, m, n, ...,
+  drop = FALSE)
 
 \S4method{[[}{FLlst,ANY,missing}(x, i, j) <- value
 
@@ -72,7 +73,7 @@
 
 \S4method{[}{FLlst,ANY,missing,ANY}(x, i, j) <- value
 
-\S4method{[}{FLlst,ANY,missing,ANY}(x, i, j, drop)
+\S4method{[}{FLlst,ANY,missing,ANY}(x, i, drop)
 }
 \arguments{
 \item{x}{object from which to extract or replace element(s)}

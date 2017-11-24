@@ -594,3 +594,61 @@ setMethod("slim", signature(object="FLComp"),
     return(res)
   }
 ) # }}}
+
+# verify {{{
+
+#' @rdname verify
+
+setMethod("verify", signature(object="FLComp"),
+  function(object, ..., report=TRUE) {
+  
+  rules <- list(...)
+
+  # FIX names if missing
+  nms <- names(rules)
+  names(rules)[nms == ""] <- paste0("R", seq(length(rules)))[nms == ""]
+
+  # PREPARE rules
+  rules <- lapply(rules, function(x) {
+    # formula, deparse
+    if(is(x, 'formula')) return(list(rule=deparse(x[[length(x)]])))
+    # character, create list
+    else if(length(deparse(x))==1) return(list(rule=x))
+    # list
+    else if(is(x, "list"))
+      # formula, deparse
+      if(is(x[[1]], 'formula')) {
+       x[[1]] <- deparse(x[[1]][[length(x)]])
+        return(x)
+      }
+    else return(x)})
+  
+  # APPLY rules
+  res <- lapply(rules, function(x) {
+    expr <- parse(text=x$rule)
+    args <- all.names(expr, functions=FALSE)
+
+    env <- list2env(x["rule" != names(x)])
+
+    # calls to methods
+    inps <- lapply(args, do.call, list(object), envir=env)
+    names(inps) <- args
+
+    return(eval(expr, inps, enclos=env))
+    })
+
+  # CONVERT list to data.frame
+  res <- data.frame(do.call(rbind, lapply(res, function(x)
+    # CREATE result summary vector
+    c(items=length(x), passes=sum(x), fails=sum(!x), NAs=sum(is.na(x))))),
+    row.names=seq(1, length(res)))
+
+  # data.frame: name, items, passes, fails, NAs, valid, rule
+  res <- cbind(name=names(rules), res, valid=with(res, passes/items == 1),
+    rule=unlist(lapply(rules, "[[", "rule")))
+
+  if(report)
+    return(res)
+  else
+    return(all(res$valid))
+}) # }}}

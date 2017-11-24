@@ -1001,3 +1001,95 @@ setMethod("simplify", signature(object="FLStock"),
     return(res)
   } 
 ) # }}}
+
+# verify {{{
+
+#' @details A set of rules has been defined for the *FLStock* class, available by calling
+#' the ruleset method. The verify method for *FLStock* will by default evaluate
+#' those rules, as well as any other defined in the call.
+#'
+#' @rdname verify
+#' @examples
+#' data(ple4)
+#' # standard set of rules for FLStock
+#' verify(ple4)
+#' # verify a single rule from set
+#' verify(ple4, rules=ruleset(ple4, 'anyna'), report=FALSE)
+#'
+#' # add own rule to set
+#' verify(ple4, m = ~m >=0)
+
+setMethod("verify", signature(object="FLStock"),
+  function(object, rules=ruleset(object), ..., report=TRUE) {
+    do.call(callNextMethod,
+      c(list(object), rules, list(...), list(report=report)))
+  }
+ ) # }}}
+
+# ruleset {{{
+
+#' @details A standard minimal set of rules to check FLStock objects against using the
+#' verify method. The included rules are (with names in italics) check that:
+#'
+#' - there are no NAs in any slot, *anyna*.
+#' - *catch.wt*, *landings.wt*, *discards.wt* and *stock.wt* > 0.
+#' - *mat*, *m.spwn* and *harvest.spwn* values are between 0 and 1.
+#' - *harvest* >= 0.
+#' - *cohorts* in the stock.n slot contain decreasing numbers, except for the plusgroup age.
+#' @rdname ruleset
+#' @examples
+#' data(ple4)
+#' ruleset(ple4)
+#' # Extract single rule by name
+#' ruleset(ple4, 'anyna')
+
+setMethod("ruleset", signature(object="FLStock"),
+  function(object, ...) {
+
+    rulelist <- list(
+  
+    # CHECK for NAs
+    anyna=list(rule="!anyna", anyna=function(x)
+      unlist(qapply(x, function(y) sum(is.na(y), na.rm=TRUE) > 0))),
+
+    # CHECK catch.wt > 0
+    catch.wt=~catch.wt > 0,
+  
+    # CHECK landings.wt > 0
+    landings.wt=~landings.wt > 0,
+
+    # CHECK discards.wt > 0
+    discards.wt=~discards.wt > 0,
+
+    # CHECK stock.wt > 0
+    stock.wt=~stock.wt > 0,
+
+    # CHECK 0 < mat < 1
+    mat=~mat <= 1 & mat >= 0,
+
+    # CHECK 0 < harvest.spwn < 1
+    harvest.spwn=~harvest.spwn <= 1 & harvest.spwn >= 0,
+
+    # CHECK 0 < m.spwn < 1
+    m.spwn=~m.spwn <= 1 & m.spwn >= 0,
+
+    # CHECK harvest >= 0
+    harvest=~harvest >= 0,
+
+    # CHECK cohort numbers match (N_c,a > N_c,a+1)
+    cohorts=list(rule=~ccohorts(stock.n),
+      ccohorts=function(x) {
+        #   DROP plusgroup, SELECT full cohorts
+        x <- FLCohort(x)[-dim(x)[1], seq(dim(x)[1], dim(x)[2] - dim(x)[1])]
+        # CHECK cohort change in abundances
+        return((x[-1, ] / x[-dim(x)[1],]) < 1)
+      })
+    )
+
+    args <- list(...)
+  
+    if(length(args) == 0)
+      return(rulelist)
+    else
+      return(rulelist[unlist(args)])
+}) # }}}
