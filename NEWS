@@ -7,6 +7,9 @@
   with as many iters as elements in the list, must all have 1 iter.
 - combine(FLQuants, FLQuants) merges them one element at a time.
 - drop(FLQuant) returns the result of a call to base::drop on @.Data.
+- New verify() method for complex classes evaluates object against a set of
+  rules. Checks content rather than structure, as validity functions do.
+- New ruleset method to return standard verify rules per class.
 
  USER-VISIBLE CHANGES
 
@@ -22,6 +25,7 @@
 - coerce(FLBiol, FLBiolcpp) now windows FLPar if year is given.
 - trim(FLBiol) is able to handle predictModel slots.
 - [[<- and $<- FLlst now work on extended classes, like predictModel.
+- predict(predictModel) now handles correctly iters and extra FLPar dimensions.
 
  DEPRECATED & DEFUNCT
 - catchSel is to be substituted by catch.sel, use the later instead
