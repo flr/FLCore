@@ -183,21 +183,21 @@ setReplaceMethod('params', signature(object='predictModel', value='FLPar'),
 # predict(predictModel) {{{
 setMethod('predict', signature(object='predictModel'),
 	function(object, ...) {
-    
-    args <- c(object, as(object@params, 'list'))
+  
+    # SPLIT params in FLPars  
+    pars <- dimnames(params(object))$params
+    args <- lapply(pars, function(x) params(object)[x,])
+    names(args) <- pars
 
+    # ADD extra arguments
     extra <- list(...)
-
+    args <- c(args, extra)
     
-    if(length(extra) > 0) {
-      if("params" %in% names(extra)) {
-        params <- as(extra$params, "list")
-        extra <- c(extra[-which(names(extra) == "params")], params)
-      }
-      for(i in names(extra))
-        args[[i]] <- extra[[i]]
-    }
-		return(eval(object@model[[length(object@model)]], args))
+    # TODO:parse params in extra
+ 
+    # lapply eval(model) along iters, then combine
+    return(Reduce(combine, lapply(1:2, function(i)
+      eval(object@model[[length(object@model)]], lapply(args, iter, i)))))
 	}
 ) # }}}
 
