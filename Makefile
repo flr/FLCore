@@ -49,9 +49,13 @@ install: build
 	cd ..;\
 	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
 
-check: build
+checkCRAN: build
 	cd ..;\
 	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz --as-cran
+
+check: buildNV
+	cd ..;\
+	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz
 
 clean:
 	cd ..;\
