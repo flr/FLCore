@@ -10,6 +10,7 @@
 - New verify() method for complex classes evaluates object against a set of
   rules. Checks content rather than structure, as validity functions do.
 - New ruleset method to return standard verify rules per class.
+- window() and expand() methods for FLPar.
 
  USER-VISIBLE CHANGES
 
