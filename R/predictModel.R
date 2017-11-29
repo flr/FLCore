@@ -362,10 +362,14 @@ evalPredictModel <- function(object, slot) {
   }
 
   # (2) FLPar
-  pars <- as(slot@params, 'list')
-  idx <- names(pars) %in% args
+  parnms <- dimnames(slot@params)$params
+  idx <- parnms %in% args
+
   if(any(idx)) {
-    lis <- c(lis, as(slot@params, 'list')[idx])
+    pars <- lapply(parnms, function(x) params(slot)[x,])
+    names(pars) <- parnms
+    
+    lis <- c(lis, pars[idx])
     
     # DROP extracted args
     args <- args[!args %in% names(lis)]

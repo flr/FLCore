@@ -900,3 +900,95 @@ setMethod('$', signature(x='FLPar'),
     return(x[name,])
   }
 ) # }}}
+
+# expand {{{
+setMethod('expand', signature(x='FLPar'),
+  function(x, ...) {
+
+    args <- list(...)
+    dnx <- dimnames(x)
+    
+    # dimension names
+    nargs <- names(args)
+    qnames <- names(dnx)
+    
+    # check input names match dimnames
+    if(!all(nargs %in% qnames))
+      stop(paste("Wrong dimension name provided: ", nargs[!nargs%in%qnames]))
+
+    # turn into characters
+    select <- lapply(args, as.character)
+    
+    # match specified dimensions and dimnames
+    dimnames <- dnx
+    
+    # new dimnames
+    dimnames[names(select)] <- select
+
+    # output object
+    res <- new(class(x), array(as.numeric(NA), dimnames=dimnames,
+      dim=unlist(lapply(dimnames, length))), units=units(x))
+    
+    # list for assignment of x data
+    dimnames <- dimnames(res)
+
+    # extended or new?
+    for(i in nargs) {
+      
+      # are all old dimnames in the new ones?
+      idx <- all(dnx[[i]] %in% dimnames[[i]])
+      # if so, recover them
+      if(idx) {
+        dimnames[[i]] <- dnx[[i]]
+      } else {
+        if(length(dnx[[i]]) > 1) {
+          stop("trying to expand to new dims where existing have length > 1", i)
+        }
+      }
+    }
+    
+    # list names to match '[<-' signature
+    names(dimnames) <- c('i', 'j', 'k', 'l', 'm', 'n')[seq(length(dim(res)))]
+
+    do.call('[<-', c(list(x=res, value=x), dimnames))
+  }
+) # }}}
+
+# window           {{{
+setMethod("window", signature(x="FLPar"),
+  function(x, start=as.numeric(dimnames(x)$year[1]),
+    end=as.numeric(dimnames(x)$year[length(dimnames(x)$year)]), extend=TRUE,
+    frequency=1) {
+    #
+    if(!"year" %in% names(x))
+      stop("window can only be called to objects with a 'year' dimension")
+
+    # get original min and max
+    yrs <- dimnames(x)$year
+    min <- as.numeric(yrs[1])
+    max <- as.numeric(yrs[length(yrs)])
+    pos <- match("year", names(x))
+
+    # if extend=FALSE and end/start ask for it, error
+    if(!extend && (start < min | end > max))
+      stop("FLPar to be extended but extend=FALSE")
+
+    # if extend is a number, added to end
+    if(is.numeric(extend))
+        if (missing(end))
+          end <- max + extend
+        else
+          stop("'extend' is numeric and 'end' provided, don't know what to do")
+    
+    # construct new FLPar
+    dnames <- dimnames(x)
+    dnames[[pos]] <- seq(start, end, by=frequency)
+    res <- do.call(class(x), list(NA, units=units(x), dimnames=dnames))
+
+    # add data for matching years
+    dnames <- dnames[pos]
+    names(dnames) <- c('i', 'j', 'k', 'l', 'm', 'n')[pos]
+
+    do.call('[<-', c(list(x=res, value=x), dimnames))
+  }
+)   # }}}
