@@ -132,7 +132,7 @@ setReplaceMethod('rec', signature(object='FLBiol', value='FLQuant'),
       value <- FLQuants(rec=value)
     }
     object@rec@.Data <- value
-    names(object@rec) <- name
+    names(object@rec) <- names(value)
     return(object)
   }
 )
@@ -207,7 +207,7 @@ setReplaceMethod('fec', signature(object='FLBiol', value='FLQuant'),
       value <- FLQuants(fec=value)
     }
     object@fec@.Data <- value
-    names(object@fec) <- name
+    names(object@fec) <- names(value)
     return(object)
   }
 )
@@ -282,7 +282,7 @@ setReplaceMethod('mat', signature(object='FLBiol', value='FLQuant'),
       value <- FLQuants(mat=value)
     }
     object@mat@.Data <- value
-    names(object@mat) <- name
+    names(object@mat) <- names(value)
     return(object)
   }
 )
