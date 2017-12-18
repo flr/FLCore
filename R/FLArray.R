@@ -374,8 +374,8 @@ setMethod("iter", signature(obj="vector"),
 
 #' Method summary
 #' 
-#' Outputs a general summary of the structure and content of the object. The
-#' particular output obtained depends on the class of the argument object.
+#' Outputs a general summary of the structure and content of an fwdControl
+#' object. The method invisibly returns the data.frame shown on screen.
 #'
 #' @rdname summary-methods
 #' @aliases summary,FLArray-method
@@ -521,7 +521,7 @@ setMethod('trim', signature(x='FLArray'),
 
 # expand {{{
 setMethod('expand', signature(x='FLArray'),
-  function(x, ...) {
+  function(x, ..., fill=TRUE) {
 
     args <- list(...)
     dnx <- dimnames(x)
@@ -551,16 +551,18 @@ setMethod('expand', signature(x='FLArray'),
     dimnames <- dimnames(res)
 
     # extended or new?
-    for(i in nargs) {
+    if(!fill) {
+      for(i in nargs) {
       
-      # are all old dimnames in the new ones?
-      idx <- all(dnx[[i]] %in% dimnames[[i]])
-      # if so, recover them
-      if(idx) {
-        dimnames[[i]] <- dnx[[i]]
-      } else {
-        if(length(dnx[[i]]) > 1) {
-          stop("trying to expand to new dims where existing have length > 1", i)
+        # are all old dimnames in the new ones?
+        idx <- all(dnx[[i]] %in% dimnames[[i]])
+        # if so, recover them
+        if(idx) {
+          dimnames[[i]] <- dnx[[i]]
+        } else {
+          if(length(dnx[[i]]) > 1) {
+            stop("trying to expand to new dims where existing have length > 1", i)
+          }
         }
       }
     }
@@ -568,7 +570,7 @@ setMethod('expand', signature(x='FLArray'),
     # list names to match '[<-' signature
     names(dimnames) <- c('i', 'j', 'k', 'l', 'm', 'n')
 
-    do.call('[<-', c(list(x=res, value=x), dimnames))
+    return(do.call('[<-', c(list(x=res, value=x), dimnames)))
   }
 ) # }}}
 
