@@ -14,8 +14,8 @@
 #' summary(FLQuant())
 
 setMethod("FLQuant", signature(object="missing"),
-  function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA",
-    iter=1) {
+  function(object, dim=rep(1,6), dimnames="missing", quant=NULL,  
+    units="NA", iter=1) {
 
     # no dim or dimnames
     if (missing(dim) && missing(dimnames)) {
@@ -1353,4 +1353,3 @@ names(xnames)[1] <- names(dnames)[i]
 }
 return(xnames)
 } # }}}
-
