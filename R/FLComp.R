@@ -585,7 +585,7 @@ setMethod("slim", signature(object="FLComp"),
     # FIND repeated iters
     res   <- qapply(object, function(x) {
       # CHECK sum(var) along iters == 0
-      if(identical(sum(iterVars(x)), 0))
+      if(all(is.na(iterVars(x) / 0)))
         return(x[,,,,,1])
       else
         return(x)
