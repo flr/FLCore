@@ -189,6 +189,9 @@ setMethod('predict', signature(object='predictModel'),
     args <- lapply(pars, function(x) params(object)[x,])
     names(args) <- pars
 
+    # ADD FLQUant(s)
+    args <- c(args, object)
+
     # ADD extra arguments
     extra <- list(...)
     args <- c(args, extra)
@@ -429,5 +432,42 @@ setMethod("trim", signature(x="predictModel"),
   function(x, ...) {
     x@.Data <- lapply(FLQuants(x@.Data), trim, ...)
     return(x)
+  }
+) # }}}
+
+# propagate {{{
+setMethod("propagate", signature(object="predictModel"),
+  function(object, iter, fill.iter=TRUE) {
+    
+    # FLQuants iter
+    fqi <- unlist(lapply(lapply(object, dim), "[", 6), use.names=FALSE)
+
+    # FLPar iter
+    fpi <- dim(params(object))
+    fpi <- fpi[length(fpi)]
+
+    # RETURN object if all equal to iter
+    if(all(c(fqi, fpi) == iter))
+      return(object)
+
+    # CHECK no iters in object
+    if(any(c(fqi, fpi) > 1))
+      stop("propagate can only extend objects with no iters")
+
+    # EXPAND FLQs
+    object@.Data <- lapply(object, expand, iter=seq(1, iter))
+    params(object) <- expand(params(object), iter=seq(1, iter))
+
+    # fill.iter
+    if(fill.iter) {
+
+      object@.Data <- lapply(object, function(x) {
+        iter(x, seq(2, iter)) <- iter(x, 1)
+        return(x)
+        })
+      iter(params(object), seq(2, iter)) <- iter(params(object), 1)  
+    }
+
+    return(object)
   }
 ) # }}}
