@@ -83,9 +83,10 @@ x \%^\% y
 }
 \description{
 Arithmetic operations between two \linkS4class{FLQuant} objects using the
-standars operators (`+`, `-`, `*`, `/`, `^`, see \link{Arith}) need all dimensions in
-both objects to match. This requirement is relaxed by using the percent
-version of those four: `%+%`, `%-%`, `%*%`, `%/%` and `%^%`.
+standars operators (`+`, `-`, `*`, `/`, `^`, see \link{Arith}) need all
+dimensions in both objects to match. This requirement is relaxed by using
+the percent version of those four oeprators: `%+%`, `%-%`, `%*%`, `%/%` and
+`%^%`.
 }
 \details{
 If any of the objects is of length one in a dimensions where the other is

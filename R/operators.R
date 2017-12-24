@@ -7,9 +7,10 @@
 #' FLQuant arithmetic operators that extend objects
 #'
 #' Arithmetic operations between two \linkS4class{FLQuant} objects using the
-#' standars operators (`+`, `-`, `*`, `/`, `^`, see \link{Arith}) need all dimensions in
-#' both objects to match. This requirement is relaxed by using the percent
-#' version of those four: `%+%`, `%-%`, `%*%`, `%/%` and `%^%`.
+#' standars operators (`+`, `-`, `*`, `/`, `^`, see \link{Arith}) need all
+#' dimensions in both objects to match. This requirement is relaxed by using
+#' the percent version of those four oeprators: `%+%`, `%-%`, `%*%`, `%/%` and
+#' `%^%`.
 #'
 #' If any of the objects is of length one in a dimensions where the other is
 #' longer, the dimensions will be extended and the element-by-element operation
@@ -874,9 +875,7 @@ setMethod("%^%", signature(x="FLPar", y="FLPar"),
 ) # }}}
 # }}}
 
-# FLQuants, FLPar
-
-# / {{{
+# FLQuants, FLPar {{{
 
 #' @rdname operators
 #' @aliases /,FLQuants,FLPar-method
@@ -894,7 +893,7 @@ setMethod("/", signature(e1="FLQuants", e2="FLPar"),
   }
 ) # }}}
 
-# := {{{
+# %=% {{{
 setMethod("%=%", signature(object="FLArray", value="numeric"),
   function(object, value) {
 

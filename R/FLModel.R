@@ -825,6 +825,11 @@ setMethod('lm', signature(formula='FLModel', data = "missing", subset = "missing
 ) # }}}
 
 # lower & upper {{{
+
+#' @rdname upperlower-methods
+#' @aliases lower,FLModel-method
+#' @aliases lower<-,FLModel,numeric-method
+
 setMethod("lower", signature(object="FLModel"),
   function(object)
     return(attr(slot(object, 'initial'), 'lower'))
@@ -838,6 +843,10 @@ setReplaceMethod("lower", signature(object="FLModel", value="numeric"),
     return(object)
   }
 )
+
+#' @rdname upperlower-methods
+#' @aliases upper,FLModel-method
+#' @aliases upper<-,FLModel,numeric-method
 
 setMethod("upper", signature(object="FLModel"),
   function(object)

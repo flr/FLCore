@@ -23,7 +23,7 @@ fmsy(x)
 \item{x}{An input object from which to extract or compute a reference point}
 }
 \value{
-A value fo the reference point, 'FLPar'
+A value for the requested reference point, 'FLPar'
 }
 \description{
 Reference points based on equilibirum calculations of Maximum Sustainable
@@ -32,7 +32,7 @@ defined here for convenience. Please refer to the help pages of particular
 methods for further details
 }
 \details{
-The four methods are meant to provide the following estimates:
+The four methods provide the following parameter estimates:
 \itemize{
 \item \code{msy} Maximum Sustainable Yield (MSY)
 \item \code{fmsy} Fishing mortality level expected to produce on average MSY
@@ -41,9 +41,9 @@ The four methods are meant to provide the following estimates:
 }
 }
 \seealso{
-\link{FLPar}
+\code{\link{FLPar}}
 }
 \author{
 The FLR Team
 }
-\keyword{classes}
+\keyword{methods}

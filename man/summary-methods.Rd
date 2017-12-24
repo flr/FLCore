@@ -36,8 +36,8 @@
 \S4method{summary}{FLlst}(object)
 }
 \description{
-Outputs a general summary of the structure and content of the object. The
-particular output obtained depends on the class of the argument object.
+Outputs a general summary of the structure and content of an fwdControl
+object. The method invisibly returns the data.frame shown on screen.
 }
 \section{Generic function}{
  summary(object)

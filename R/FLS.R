@@ -102,6 +102,14 @@ setMethod("harvest<-", signature(object="FLS", value="numeric"),
 ) # }}}
 
 # z {{{
+
+#' @rdname z-methods
+#' @aliases z,FLS-method
+#' @examples
+#' data(ple4)
+#'
+#' z(ple4)
+
 setMethod("z", "FLS", function(object, ...) {
   f <- harvest(object)
   if(units(f) != 'f') {
@@ -189,6 +197,16 @@ setMethod("metrics", signature(object="FLS", metrics="missing"),
 ) # }}}
 
 # catch<- FLQuants		{{{
+
+#' @rdname accessors
+#' @aliases catch<-,FLS,FLQuants-method
+#' @md
+#' @details An object of class FLQuants, containing three elements named
+#' *catch*, *catch.n* and *catch.wt*, as returned by [`computeCatch`], can be
+#' assigned directly to an object using *catch<-*.
+#' @examples
+#' # Assign the 3 catch slots
+#' catch(ple4) <- computeCatch(ple4, slot="all")
 setMethod("catch<-", signature(object="FLS", value="FLQuants"),
 	function(object, value) {
 		catch(object)    <- value[['catch']]

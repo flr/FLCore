@@ -660,17 +660,40 @@ setGeneric("iter", function(obj, ...)
 setGeneric("iter<-", function(object, ..., value)
   standardGeneric("iter<-")) # }}}
 
-# lower
+# lower & upper {{{
+
+#' Extract and modify the *lower* and *upper* FLModel attibutes.
+#'
+#' Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+#'
+#' Details: Aliquam sagittis feugiat felis eget consequat.
+#'
+#' @param object Object to extract from or modify
+#' @param value New value
+#' @param ... Other arguments
+#'
+#' @return RETURN Lorem ipsum dolor sit amet
+#'
+#' @name upperlower
+#' @rdname upperlower-methods
+#' @aliases upper upper-methods upper<- upper<--methods
+#' @aliases lower lower-methods lower<- lower<--methods
+#'
+#' @author The FLR Team
+#' @seealso [`FLModel`]
+#' @keywords methods
+#' @md
+
 setGeneric("lower", function(object, ...)
   standardGeneric("lower"))
 setGeneric("lower<-", function(object, ..., value)
     standardGeneric("lower<-"))
 
-# upper
 setGeneric("upper", function(object, ...)
   standardGeneric("upper"))
 setGeneric("upper<-", function(object, ..., value)
   standardGeneric("upper<-"))
+# }}}
 
 # ssb {{{
 
@@ -1227,9 +1250,30 @@ setGeneric("iterMedians", function(x, ...) standardGeneric("iterMedians"))
 setGeneric("iterCVs", function(x, ...) standardGeneric("iterCVs"))
 # }}}
 
-# z
+# z {{{
+
+#' Total mortality z
+#'
+#' Returns the calculation of total mortality, *z*, usually as the sum of
+#' fishing mortality, *f*, and natural mortality, *m*.
+#'
+#' @param object Object to calculate on.
+#'
+#' @return An object of the corresponding class, usually *FLQuant*.
+#'
+#' @name z
+#' @rdname z-methods
+#' @aliases z z-methods
+#'
+#' @author The FLR Team
+#' @seealso [`FLQuant`]
+#' @keywords methods
+#' @md
+
+
 setGeneric("z", function(object, ...)
     standardGeneric("z"))
+# }}}
 
 # breaks
 setGeneric("breaks", function(object, ...) standardGeneric("breaks"))
@@ -1403,8 +1447,6 @@ setGeneric("FLQuantJK", function(object, orig) standardGeneric("FLQuantJK"))
 
 setGeneric("FLParJK", function(object, orig) standardGeneric("FLParJK"))
 
-setGeneric(":=", function(object, value,...) standardGeneric(":="))
-
 setGeneric("%=%", function(object, value,...) standardGeneric("%=%"))
 
 # msy {{{
@@ -1416,7 +1458,7 @@ setGeneric("%=%", function(object, value,...) standardGeneric("%=%"))
 #' defined here for convenience. Please refer to the help pages of particular
 #' methods for further details
 #'
-#' @details The four methods are meant to provide the following estimates:
+#' @details The four methods provide the following parameter estimates:
 #'   * `msy` Maximum Sustainable Yield (MSY)
 #'   * `fmsy` Fishing mortality level expected to produce on average MSY
 #'   * `bmsy` Total biomass that should produce MSY
@@ -1424,7 +1466,7 @@ setGeneric("%=%", function(object, value,...) standardGeneric("%=%"))
 #'
 #' @param x An input object from which to extract or compute a reference point
 #'
-#' @return A value fo the reference point, 'FLPar'
+#' @return A value for the requested reference point, 'FLPar'
 #'
 #' @name msy
 #' @rdname msy-methods
@@ -1432,8 +1474,8 @@ setGeneric("%=%", function(object, value,...) standardGeneric("%=%"))
 #' @md
 #'
 #' @author The FLR Team
-#' @seealso \link{FLPar}
-#' @keywords classes
+#' @seealso [`FLPar`]
+#' @keywords methods
 
 setGeneric("msy", function(x) standardGeneric("msy"))
 
