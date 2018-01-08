@@ -558,7 +558,7 @@ setClass('FLPar', representation('array', units='character'),
 setClass("FLParJK",
 	representation("FLPar", orig="FLPar"),
   prototype(new("FLPar"), orig=new("FLPar")),
-	validity=function(object) {browser()
+	validity=function(object) {
     # dimnames of .Data and origin, but 'iter', must mjatch
     if(!all.equal(dimnames(object@.Data)[ - length(dim(object))],
       dimnames(object@orig)[ - length(dim(object))]))
