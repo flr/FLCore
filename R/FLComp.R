@@ -76,11 +76,11 @@ setMethod("propagate", signature(object="FLComp"),
 		# GET slots to extend
 		idx <- mit[mit != iter]
 
-		for(s in names(idx)) {
-			slot(object, s) <- propagate(slot(object, s), iter, fill.iter=fill.iter)
+		for(sl in names(idx)) {
+			slot(object, sl) <- propagate(slot(object, sl), iter, fill.iter=fill.iter)
 		}
 
-		# DO for FLPar
+    # DO for FLPar
 		pnms <- getSlots(class(object))
 		pnames <- names(pnms)[pnms == "FLPar"]
 		for(i in pnames)

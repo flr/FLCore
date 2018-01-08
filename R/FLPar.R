@@ -929,28 +929,13 @@ setMethod('expand', signature(x='FLPar'),
     res <- new(class(x), array(as.numeric(NA), dimnames=dimnames,
       dim=unlist(lapply(dimnames, length))), units=units(x))
     
-    # list for assignment of x data
-    dimnames <- dimnames(res)
+    names(dnx) <- c('i', 'j', 'k', 'l', 'm', 'n')[seq(length(dim(res)))]
 
-    # extended or new?
-    for(i in nargs) {
-      
-      # are all old dimnames in the new ones?
-      idx <- all(dnx[[i]] %in% dimnames[[i]])
-      # if so, recover them
-      if(idx) {
-        dimnames[[i]] <- dnx[[i]]
-      } else {
-        if(length(dnx[[i]]) > 1) {
-          stop("trying to expand to new dims where existing have length > 1", i)
-        }
-      }
-    }
+    # FIX
+    dnx <- lapply(names(dnx), function(x) match(dnx[[x]], dimnames(res)[[x]]))
+
+   return(do.call('[<-', c(list(x=res, value=x), dnx)))
     
-    # list names to match '[<-' signature
-    names(dimnames) <- c('i', 'j', 'k', 'l', 'm', 'n')[seq(length(dim(res)))]
-
-    do.call('[<-', c(list(x=res, value=x), dimnames))
   }
 ) # }}}
 
