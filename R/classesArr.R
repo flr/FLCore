@@ -506,7 +506,7 @@ setClass("FLCohort",
 
 setClass('FLPar', representation('array', units='character'),
 	prototype=prototype(array(as.numeric(NA), dim=c(1,1),
-	dimnames=list(params=character(1), iter=1)), units='NA'),
+	dimnames=list(params="a", iter=1)), units='NA'),
 	validity=function(object) {
 		# object must be numeric
 		if(!is.numeric(object))
@@ -515,8 +515,8 @@ setClass('FLPar', representation('array', units='character'),
 	  if(names(dimnames(object))[length(dim(object))] != "iter")
   	  return("last dimension must be named 'iter'")
   	# ... and the first 'param'
-	  # if(names(dimnames(object))[1] != "param")
-  	#   return("last dimension must be named 'param'")
+	  # if(names(dimnames(object))[1] != "params")
+  	#   return("first dimension must be named 'params'")
 
 		return(TRUE)
 	}
