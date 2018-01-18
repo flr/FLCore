@@ -546,19 +546,19 @@ setMethod('qapply', signature(X='FLBiol', FUN='function'),
     res <- callNextMethod()
 		
     FUN <- match.fun(FUN)
-		
+
     slots <- getSlotNamesClass(X, 'predictModel')
 
 		if(!missing(exclude))
       slots <- slots[!slots %in% exclude]
-    
-   if(is(res, 'FLBiol'))
+   
+    if(is(res, 'FLBiol'))
   		for (i in slots)
         res <- do.call(paste0(i, "<-"), list(object=res,
           value=do.call(FUN, list(do.call(i, list(X)), ...))))
-    else
-  		for (i in slots)
-        res[[i]] <- do.call(FUN, list(do.call(i, list(X)), ...))
+ #   else
+ # 		for (i in slots)
+ #       res[[i]] <- do.call(FUN, list(do.call(i, list(X)), ...))
 
 		return(res)
 	}

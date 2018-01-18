@@ -993,3 +993,29 @@ setMethod("log", signature(x="FLQuant"),
     units(res) <- ""
     return(res)
   }) # }}}
+
+#' @example
+#' ibind(ares[[1]], ares[[2]])
+#' ibind(FLQuant(1:10), FLQuant(2:11))
+
+ibind <- function(x, y) {
+
+  dx <- dim(x)
+  len <- length(dx)
+  ix <- dx[len]
+  dy <- dim(y)
+  iy <- dy[len]
+
+  if(!identical(dx[-len], dy[-len]))
+    stop("Objects must share all dimensions but 'iter'")
+
+  res <- expand(x, iter=seq(1, ix + iy))
+  
+  arg <- list(x=res, iter=seq(ix + 1, ix+iy), value=y)
+  names(arg)[2] <- c("i", "j", "k", "l", "m", "n")[length(dx)]
+  res <- do.call('[<-', arg)
+
+  return(res)
+}
+
+
