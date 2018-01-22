@@ -177,10 +177,12 @@ setAs('FLBiol', 'FLStock',
     spwn <- expand(from@spwn, age=dms)
     rang <- c(range(from), minfbar=as.numeric(dms[1]),
       maxfbar=as.numeric(dms[length(dms)]))
-
-    return(FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
+    
+    res <- FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
       name=from@name, desc=from@desc, mat=mat(from),
-      m.spwn=spwn, harvest.spwn=spwn, range=rang))
+      m.spwn=spwn, harvest.spwn=spwn, range=rang)
+    
+    return(res)
   }
 )
 
