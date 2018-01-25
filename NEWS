@@ -11,6 +11,7 @@
   rules. Checks content rather than structure, as validity functions do.
 - New ruleset method to return standard verify rules per class.
 - window() and expand() methods for FLPar.
+- iter() method for FLlst, lapplies it along the list
 
  USER-VISIBLE CHANGES
 
