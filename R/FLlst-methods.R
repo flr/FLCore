@@ -291,8 +291,6 @@ setMethod("window", signature(x="FLStocks"),
 # iter {{{
 setMethod("iter", signature(obj="FLlst"),
 	  function(obj, iter) {
-
-		# simply use lapply and iter from FLQuant methods
     return(lapply(obj, "iter", iter=iter))
 	  }
 ) # }}}
