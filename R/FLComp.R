@@ -192,12 +192,12 @@ setMethod("trim", signature("FLComp"),
 
     # FLQuants with quant
     x <- qapply(x, trim, ...)
-
+    
     # range
   	if (length(c1) > 0)
     {
-    	x@range["min"] <- c1[1]
-	    x@range["max"] <- c1[length(c1)]
+    	x@range["min"] <- as.numeric(c1[1])
+	    x@range["max"] <- as.numeric(c1[length(c1)])
 	  }
   	if (length(c2)>0 )
     {
@@ -396,6 +396,7 @@ setMethod("dims", signature(obj="FLComp"),
       iter = iter)
     res <- lapply(res, function(x) if(is.null(x)) return(as.numeric(NA)) else return(x))
     names(res)[2] <- res$quant
+
     return(res)
   }
 ) # }}}
