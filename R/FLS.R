@@ -160,18 +160,18 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
         else
             slot(x,name) <- trim(slot(x,name), ...)
     }
-            
+  
   if (length(c1) > 0) {
-    x@range["min"] <- c1[1]
-    x@range["minfbar"] <- max(rng["minfbar"], c1[1])
-    x@range["max"] <- c1[length(c1)]
-    x@range["maxfbar"] <- min(rng["maxfbar"], c1[length(c1)])
+    x@range["min"] <- as.numeric(c1[1])
+    x@range["minfbar"] <- max(rng["minfbar"], as.numeric(c1[1]))
+    x@range["max"] <- as.numeric(c1[length(c1)])
+    x@range["maxfbar"] <- min(rng["maxfbar"], as.numeric(c1[length(c1)]))
     if (rng["max"] != x@range["max"])
         x@range["plusgroup"] <- NA
   }
   if (length(c2)>0 ) {
-    x@range["minyear"] <- c2[1]
-    x@range["maxyear"] <- c2[length(c2)]
+    x@range["minyear"] <- as.numeric(c2[1])
+    x@range["maxyear"] <- as.numeric(c2[length(c2)])
   }
 
   return(x)}) # }}}
