@@ -2,7 +2,8 @@ import("methods")
 importFrom("utils",
   "packageDescription",
   "combn",
-  "read.table")
+  "read.table",
+  "tail")
 importFrom("MASS",
   "mvrnorm")
 importFrom("Matrix",
