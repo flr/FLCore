@@ -444,7 +444,7 @@ setMethod("dimnames<-", signature(x="FLQuant", value='list'),
 #'
 
 setMethod("dims", signature(obj="FLQuant"),
-  function(obj, ...){
+  function(obj, element, ...){
 
     names <- names(dimnames(obj))
     quant   <-  as.numeric(dim(obj)[names == quant(obj)])
@@ -460,6 +460,9 @@ setMethod("dims", signature(obj="FLQuant"),
     list <- list(quant=quant, min=min, max=max, year=year, minyear=minyear,
     maxyear=maxyear, unit=unit, season=season, area=area, iter=iter)
     names(list)[1] <- quant(obj)
+
+    if(!missing(element))
+      return(list[[element]])
 
     return(list)
   }
@@ -1207,7 +1210,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
       f <- exp(logf)
       ch <- (f / (f + m)) * (1 - exp(-f - m)) * n
       cr <- (c - ch)
-      return(cr^2)
+      return(sum(cr^2))
     }
 
     # YEARLY
