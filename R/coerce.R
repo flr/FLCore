@@ -173,10 +173,11 @@ setAs("data.frame", "FLQuant",
 setAs('FLBiol', 'FLStock',
   function(from)
   {
-    dms <- dimnames(from@n)[[1]]
-    spwn <- expand(from@spwn, age=dms)
-    rang <- c(range(from), minfbar=as.numeric(dms[1]),
-      maxfbar=as.numeric(dms[length(dms)]))
+    dms <- dimnames(from@n)[1]
+    spwn <- do.call(expand, list(x=from@spwn, dms))
+    rang <- c(range(from))
+    rang <- c(rang, minfbar=unname(rang["min"]),
+      maxfbar=unname(rang["max"]))
     
     res <- FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
       name=from@name, desc=from@desc, mat=mat(from),
