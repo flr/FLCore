@@ -9,7 +9,7 @@
 \usage{
 dims(obj, ...)
 
-\S4method{dims}{FLQuant}(obj, ...)
+\S4method{dims}{FLQuant}(obj, element, ...)
 }
 \description{
 List with information on object dimensions

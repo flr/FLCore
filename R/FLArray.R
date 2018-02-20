@@ -994,9 +994,9 @@ setMethod("log", signature(x="FLQuant"),
     return(res)
   }) # }}}
 
-#' @example
-#' ibind(ares[[1]], ares[[2]])
-#' ibind(FLQuant(1:10), FLQuant(2:11))
+# @examples
+# ibind(ares[[1]], ares[[2]])
+# ibind(FLQuant(1:10), FLQuant(2:11))
 
 ibind <- function(x, y) {
 
@@ -1017,5 +1017,3 @@ ibind <- function(x, y) {
 
   return(res)
 }
-
-
