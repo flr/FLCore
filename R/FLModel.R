@@ -360,6 +360,7 @@ setMethod('fmle',
     }
  
     fitted(object) <- predict(object)
+    units(fitted(object)) <- units(slot(object, as.character(object@model[[2]])))
     residuals(object) <- slot(object, as.character(object@model[[2]])) - fitted(object)
 
     # force dimnames[1:5] in 'fitted' and 'residuals' to match

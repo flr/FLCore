@@ -867,7 +867,7 @@ setMethod("sr", signature(object="FLStock"),
 # catch.sel {{{
 setMethod("catch.sel", signature(object="FLStock"),
   function(object) {
-    return(harvest(object) %/% apply(harvest(object), 2:6, max))
+    return(harvest(object) %/% (apply(harvest(object), 2:6, max) + 1e-32))
   }
 ) # }}}
 
@@ -933,7 +933,7 @@ setMethod("simplify", signature(object="FLStock"),
 
     last.season <- dims(object)$season
 
-    # DIMS to operate on
+    # DIMS to operate on, inverse of dims
     dms <- seq(1,6)[-(match(dims, c("unit", "season", "area")) + 2)]
   
     # sum along dms
@@ -947,15 +947,21 @@ setMethod("simplify", signature(object="FLStock"),
     lan <- foo(landings.n(object))
     din <- foo(discards.n(object))
 
-    # GET stock.n at stock.season
-  	stn <- foo(stock.n(object)[,,, stock.season])
-	  dimnames(stn) <- list(season="all")
+    if("season" %in% dims) {
+      # GET stock.n at stock.season
+    	stn <- foo(stock.n(object)[,,, stock.season])
+	    dimnames(stn) <- list(season="all")
   
-    # CALCULATE harvest from survivors
-    survivors <- foo(stock.n(object)[,,, last.season] *
-      exp(- harvest(object)[,,, last.season] - m(object)[,,, last.season]))
-    har <- (can * log(survivors / stn)) / (survivors - stn)
-    units(har) <- "f"
+      # CALCULATE harvest from survivors
+      survivors <- foo(stock.n(object)[,,, last.season] *
+        exp(- harvest(object)[,,, last.season] - m(object)[,,, last.season]))
+      har <- (can * log(survivors / stn)) / (survivors - stn)
+      units(har) <- "f"
+
+    } else {
+      stn <- foo(stock.n(object))
+      har <- harvest(stn, can, areaMeans(m(object)))
+    }
 
     # Weighted MEANS for weights
     # BUG zeroes and NAs
@@ -970,10 +976,10 @@ setMethod("simplify", signature(object="FLStock"),
     if("unit" %in% dims)
   	  mat <- mat[,, 1,,]
     if("area" %in% dims)
-    	mat <- mat[,,,, 1]
+    	mat <- areaMeans(mat)
   	dimnames(mat) <- list(season="all", unit="unique", area="unique")[dims]
 
-    # M
+    # M: weighted mean?
     m <- m(object)
     if("unit" %in% dims)
       m <- unitMeans(m)
