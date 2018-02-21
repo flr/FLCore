@@ -155,7 +155,7 @@ readIndicesVPA <- function(file., sep="", quiet=TRUE, cchar='#', na.strings=na.s
     nyrs <- 0
 
     # creates empty FLIndices object
-    FLIndices. <- FLIndices()		
+    res <- list()	
 
     for(i in 1:num) {
 
@@ -226,10 +226,11 @@ readIndicesVPA <- function(file., sep="", quiet=TRUE, cchar='#', na.strings=na.s
         names(temp@range)<-c("min","max","plusgroup","minyear","maxyear","startf","endf")
 
         # Creates the FLIndices list of fleets
-        FLIndices.[[name]] <- temp
+        res[[name]] <- temp
     }
-        FLIndices.@desc <- desc
-        return(FLIndices.)
+        res <- FLIndices(res)
+        res@desc <- desc
+        return(res)
 }	# }}}
 
 ## readIndicesAdapt		{{{
