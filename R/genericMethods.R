@@ -1248,6 +1248,9 @@ setGeneric("dimVars", function(x, ...) standardGeneric("dimVars"))
 setGeneric("iterMedians", function(x, ...) standardGeneric("iterMedians"))
 #' @rdname dimSummaries
 setGeneric("iterCVs", function(x, ...) standardGeneric("iterCVs"))
+
+#' @rdname dimSummaries
+setGeneric("iterProb", function(x, ...) standardGeneric("iterProb"))
 # }}}
 
 # z {{{

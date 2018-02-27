@@ -321,6 +321,7 @@ exportMethods(
   "iterCVs",
   "iterMeans",
   "iterMedians",
+  "iterProb",
   "iterSums",
   "iterVars",
   "iters",

@@ -655,6 +655,12 @@ setMethod('iterCVs', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(sqrt(iterVars(x))/iterMeans(x))
 }) # }}}
 
+# prob {{{
+#' @rdname dimSummaries
+setMethod('iterProb', signature(x='FLQuant'), function(x, na.rm=TRUE) {
+  return(apply(x, c(1:5), sum, na.rm=na.rm) / dim(x)[6])
+}) # }}}
+
 # quantile   {{{
 setMethod("quantile", signature(x="FLQuant"),
   function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, ...) {
