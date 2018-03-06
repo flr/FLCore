@@ -11,26 +11,35 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Class FLIndex — FLIndex" />
 
+<meta property="og:description" content="A class for modelling abundance indices." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -88,7 +97,7 @@
     <p>A class for modelling abundance indices.</p>
     
 
-    <pre><span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLQuant</span>
 <span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='kw'>plusgroup</span> <span class='kw'>=</span> <span class='fu'><a href='dims.html'>dims</a></span>(<span class='no'>object</span>)$<span class='no'>max</span>, <span class='no'>...</span>)
@@ -103,20 +112,20 @@ indices.</p>
     
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p><dl class='dl-horizontal'>
-<dt>type</dt><dd>Type of index (<code>character</code>).</dd>
-<dt>distribution</dt><dd>Statistical distribution of the index values
-(<code>character</code>).</dd> <dt>index</dt><dd>Index values (<code>FLQuant</code>).</dd>
-    <dt>index.var</dt><dd>Variance of the index (<code>FLQuant</code>).</dd>
-    <dt>catch.n</dt><dd>Catch numbers used to create the index (<code>FLQuant</code>).</dd>
-    <dt>catch.wt</dt><dd>Catch weight of the index (<code>FLQuant</code>).</dd>
-    <dt>effort</dt><dd>Effort used to create the index (<code>FLQuant</code>).</dd>
-    <dt>sel.pattern</dt><dd>Selection pattern for the index (<code>FLQuant</code>).</dd>
-<dt>index.q</dt><dd>Catchability of the index (<code>FLQuant</code>).</dd> <dt>name</dt><dd>Name
-of the stock (<code>character</code>).</dd> <dt>desc</dt><dd>General description of the
-object (<code>character</code>).</dd> <dt>range</dt><dd>Named numeric vector containing the
+    <p></p><dl class='dl-horizontal'>
+<dt>type</dt><dd><p>Type of index (<code>character</code>).</p></dd>
+<dt>distribution</dt><dd><p>Statistical distribution of the index values
+(<code>character</code>).</p></dd> <dt>index</dt><dd><p>Index values (<code>FLQuant</code>).</p></dd>
+    <dt>index.var</dt><dd><p>Variance of the index (<code>FLQuant</code>).</p></dd>
+    <dt>catch.n</dt><dd><p>Catch numbers used to create the index (<code>FLQuant</code>).</p></dd>
+    <dt>catch.wt</dt><dd><p>Catch weight of the index (<code>FLQuant</code>).</p></dd>
+    <dt>effort</dt><dd><p>Effort used to create the index (<code>FLQuant</code>).</p></dd>
+    <dt>sel.pattern</dt><dd><p>Selection pattern for the index (<code>FLQuant</code>).</p></dd>
+<dt>index.q</dt><dd><p>Catchability of the index (<code>FLQuant</code>).</p></dd> <dt>name</dt><dd><p>Name
+of the stock (<code>character</code>).</p></dd> <dt>desc</dt><dd><p>General description of the
+object (<code>character</code>).</p></dd> <dt>range</dt><dd><p>Named numeric vector containing the
 quant and year ranges, the plusgroup, and the period of the year, expressed
-as proportions of a year, that corresponds to the index (<code>numeric</code>).</dd> </dl></p>
+as proportions of a year, that corresponds to the index (<code>numeric</code>).</p></dd> </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -128,8 +137,8 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Create an FLIndex object.</span>
-<span class='no'>fli</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>8</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>8</span>)), <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"myTestFLindex"</span>)
-<span class='fu'>summary</span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class &quot;FLIndex&quot;
+<span class='no'>fli</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>8</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>8</span>)), <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"myTestFLindex"</span>)
+<span class='fu'>summary</span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class "FLIndex"
 #&gt; 
 #&gt; Name: myTestFLindex 
 #&gt; Description:  
@@ -148,12 +157,12 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
 #&gt; catch.wt      : [ 1 8 1 1 1 1 ], units =  NA 
 #&gt; effort        : [ 1 8 1 1 1 1 ], units =  NA 
 #&gt; sel.pattern   : [ 1 8 1 1 1 1 ], units =  NA 
-#&gt; index.q       : [ 1 8 1 1 1 1 ], units =  NA </div><div class='input'><span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+#&gt; index.q       : [ 1 8 1 1 1 1 ], units =  NA </div><div class='input'><span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;   all -0.30260 -0.62297 -0.31057 -0.74256 -2.41807 -0.15497  0.70596  1.66847
+#&gt;   all -0.17409 -0.22174 -1.00953  0.48073  1.60441 -1.51502 -1.41602  0.87678
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># Creat an FLIndex object using an existing FLQuant object.</span>
@@ -189,7 +198,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -197,3 +206,4 @@ The FLR Team
 
   </body>
 </html>
+

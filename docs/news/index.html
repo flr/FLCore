@@ -11,26 +11,32 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
+<meta property="og:title" content="All news" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -86,21 +92,86 @@
     </div>
 
     <div class="contents">
-    <div id="flcore-2-6-5" class="section level1">
+    <div id="flcore-2-6-7" class="section level1">
 <h1 class="hasAnchor">
-<a href="#flcore-2-6-5" class="anchor"> </a>FLCore 2.6.5</h1>
+<a href="#flcore-2-6-7" class="anchor"></a>FLCore 2.6.7</h1>
+<div id="user-visible-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#user-visible-changes" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<ul>
+<li>writeADMB now accepts append=TRUE/FALSE</li>
+</ul>
+</div>
+</div>
+    <div id="flcore-2-6-6" class="section level1">
+<h1 class="hasAnchor">
+<a href="#flcore-2-6-6" class="anchor"></a>FLCore 2.6.6</h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"> </a>NEW FEATURES</h2>
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<ul>
+<li>window(FLStocks) method to apply same window call across all elements.</li>
+<li>combine(FLStocks) method collapses all elements into a single FLStock object. with as many iters as elements in the list, must all have 1 iter.</li>
+<li>combine(FLQuants, FLQuants) merges them one element at a time.</li>
+<li>drop(FLQuant) returns the result of a call to base::drop on @.Data.</li>
+<li>New verify() method for complex classes evaluates object against a set of rules. Checks content rather than structure, as validity functions do.</li>
+<li>New ruleset method to return standard verify rules per class.</li>
+<li>window() and expand() methods for FLPar.</li>
+<li>iter() method for FLlst, lapplies it along the list</li>
+</ul>
+</div>
+<div id="user-visible-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#user-visible-changes-1" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<ul>
+<li>propagate(FLPar) to return object if iter == iters #45.</li>
+<li>Ratios of numbers written in alternative ways now also return an empty character.</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h2>
+<ul>
+<li>dimnames&lt;- for FLStock with no ages failed when changing age name #42.</li>
+<li>uom can now handle better products with units containing divisions.</li>
+<li>coerce(FLBiol, FLBiolcpp) will now extend srparam to have as many years as the object, to allow params per time period to be passed and used.</li>
+<li>coerce(FLBiol, FLBiolcpp) now windows FLPar if year is given.</li>
+<li>trim(FLBiol) is able to handle predictModel slots.</li>
+<li>[[&lt;- and $&lt;- FLlst now work on extended classes, like predictModel.</li>
+<li>predict(predictModel) now handles correctly iters and extra FLPar dimensions.</li>
+</ul>
+</div>
+<div id="deprecated-defunct" class="section level2">
+<h2 class="hasAnchor">
+<a href="#deprecated-defunct" class="anchor"></a>DEPRECATED &amp; DEFUNCT</h2>
+<ul>
+<li>catchSel is to be substituted by catch.sel, use the later instead</li>
+<li>wt&lt;-(FLStock) is to be deprecated, use the individual accessor methods instead</li>
+</ul>
+</div>
+</div>
+    <div id="flcore-2-6-5" class="section level1">
+<h1 class="hasAnchor">
+<a href="#flcore-2-6-5" class="anchor"></a>FLCore 2.6.5</h1>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>New harvest method for stock.n, catch.n and m, by minimizing diff in catch.</li>
 <li>survey and cpue methods to generate observations from an operating model</li>
 <li>knit_print.FLQuant method for the printr package, better printing of FLQuant objects in knitr documents</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="user-visible-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"> </a>BUG FIXES</h2>
+<a href="#user-visible-changes-2" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<ul>
+<li>FLStock creator uses empty object for sizing, keeps iters but drops them if object(s) are named.</li>
+</ul>
+</div>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Add tiny value to landings and discards to ensure no division by zero in computeCatch.</li>
 <li>Added reduced version to print(FLPar, reduced=TRUE) to reuse in summary methods</li>
@@ -109,10 +180,10 @@
 </div>
     <div id="flcore-2-6-4" class="section level1">
 <h1 class="hasAnchor">
-<a href="#flcore-2-6-4" class="anchor"> </a>FLCore 2.6.4</h1>
-<div id="new-features-1" class="section level2">
+<a href="#flcore-2-6-4" class="anchor"></a>FLCore 2.6.4</h1>
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"> </a>NEW FEATURES</h2>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code>%=%</code> operator to modify on thed fly the content of an FLQuant/FLArray. Object structure can be reused with contents being changed, e.g. FLQuant(2, dim=c(3,10)) %=% 0 will return the object with zeros.</li>
@@ -135,9 +206,9 @@
 <li>Added vb method for vulnerable biomass</li>
 </ul>
 </div>
-<div id="user-visible-changes" class="section level2">
+<div id="user-visible-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes" class="anchor"> </a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-3" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim</li>
 <li>computeLogLik method added to FLModel. Will return a logLik object calculated with the data and params in the object</li>
@@ -171,9 +242,9 @@
 <li>Dropped redundant Sums and Products methods for FLQuants, use Reduce(“+”, …) instead</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"> </a>BUG FIXES</h2>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>coerce of data.frame to FLPar deals rightly with multiple params and no iters in wide format.</li>
 <li>iterMeans(FLQuant) was not operating along the 6th dim</li>
@@ -200,7 +271,12 @@
 <li>[&lt;- FLlst now respects names when list elements are added</li>
 <li>rbind(FLPar) should work better now</li>
 <li>
-<a href="mailto:predictModel@model">predictModel@model</a> slot now has by default an emptyenv()</li>
+<script type="text/javascript">
+<!--
+h='&#x6d;&#x6f;&#100;&#x65;&#108;';a='&#64;';n='&#112;&#114;&#x65;&#100;&#x69;&#x63;&#116;&#x4d;&#x6f;&#100;&#x65;&#108;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>predictModel at model</noscript> slot now has by default an emptyenv()</li>
 <li>uom is now safer to non-strings by using sprintf() for conversion</li>
 <li>Quick fix for readIndicesAdapt dimensions</li>
 <li>apply(FLArray) did not return an FLQuant if function did not change the dimensions of the object</li>
@@ -208,14 +284,14 @@
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#documentation" class="anchor"> </a>DOCUMENTATION</h2>
+<a href="#documentation" class="anchor"></a>DOCUMENTATION</h2>
 <ul>
 <li>All of the documentation has been converted to roxygen2.</li>
 </ul>
 </div>
-<div id="deprecated-defunct" class="section level2">
+<div id="deprecated-defunct-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#deprecated-defunct" class="anchor"> </a>DEPRECATED &amp; DEFUNCT</h2>
+<a href="#deprecated-defunct-1" class="anchor"></a>DEPRECATED &amp; DEFUNCT</h2>
 <ul>
 <li>FLFleet, FLMetier and FLCatch classes (plus their plurals) and methods have been moved to the FLFleet package</li>
 </ul>
@@ -228,6 +304,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#flcore-2-6-7">2.6.7</a></li>
+        <li><a href="#flcore-2-6-6">2.6.6</a></li>
         <li><a href="#flcore-2-6-5">2.6.5</a></li>
         <li><a href="#flcore-2-6-4">2.6.4</a></li>
       </ul>
@@ -242,7 +320,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -250,3 +328,4 @@
 
   </body>
 </html>
+

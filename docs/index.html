@@ -6,10 +6,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Core Package of FLR, Fisheries Modelling in R • FLCore</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Core Package of FLR, Fisheries Modelling in R">
+<meta property="og:description" content="Core classes and methods for FLR, a framework for fisheries
+    modelling and management strategy simulation in R. Developed by a team of
+    fisheries scientists in various countries. More information can be found at
+    http://flr-project.org/.">
+<meta name="twitter:card" content="summary">
+<!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
@@ -62,12 +68,17 @@
   <div class="contents col-md-9">
     <div id="flcore" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#flcore" class="anchor"> </a>FLCore</h1></div>
+<a href="#flcore" class="anchor"></a>FLCore</h1></div>
 <ul>
-<li>Version: 2.6.5</li>
-<li>Date: 2017-09-13</li>
-<li>Author: FLR Team and various contributors.</li>
-<li>Maintainer: Iago Mosqueira <a href="mailto:iago.mosqueira@ec.europa.eu">iago.mosqueira@ec.europa.eu</a>
+<li>Version: 2.6.6.9002</li>
+<li>Date: 2018-03-06</li>
+<li>Author: FLR Team and various <a href="CONTRIBUTORS.md">contributors</a>.</li>
+<li>Maintainer: Iago Mosqueira <script type="text/javascript">
+<!--
+h='&#x65;&#x63;&#46;&#x65;&#x75;&#114;&#x6f;&#112;&#x61;&#46;&#x65;&#x75;';a='&#64;';n='&#x69;&#x61;&#x67;&#x6f;&#46;&#x6d;&#x6f;&#x73;&#x71;&#x75;&#x65;&#x69;&#114;&#x61;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>iago.mosqueira at ec dot europa dot eu</noscript>
 </li>
 <li>Repository: <a href="https://github.com/flr/FLCore/" class="uri">https://github.com/flr/FLCore/</a>
 </li>
@@ -76,7 +87,7 @@
 </ul>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
-<a href="#overview" class="anchor"> </a>Overview</h2>
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R.</p>
 <p>To install this package, start R and enter:</p>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"FLCore"</span>, <span class="dt">repos=</span><span class="st">"http://flr-project.org/R"</span>)</code></pre></div>
@@ -84,14 +95,14 @@
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#documentation" class="anchor"> </a>Documentation</h2>
+<a href="#documentation" class="anchor"></a>Documentation</h2>
 <ul>
 <li><a href="http://flr-project.org/FLCore">Help pages</a></li>
 </ul>
 </div>
 <div id="bibliography" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bibliography" class="anchor"> </a>Bibliography</h2>
+<a href="#bibliography" class="anchor"></a>Bibliography</h2>
 <ul>
 <li>Kell, L. T., I. Mosqueira, P. Grosjean, J-M. Fromentin, D. Garcia, R. Hillary, E. Jardim, S. Mardle, M. A. Pastoors, J. J. Poos, F. Scott, R. D. Scott. 2007. FLR: an open-source framework for the evaluation and development of management strategies. <em>ICES J Mar Sci</em>, 64 (4): 640-646. doi: <a href="https://doi.org/10.1093/icesjms/fsm012">10.1093/icesjms/fsm012</a>
 </li>
@@ -99,31 +110,36 @@
 </div>
 <div id="build-status" class="section level2">
 <h2 class="hasAnchor">
-<a href="#build-status" class="anchor"> </a>Build Status</h2>
+<a href="#build-status" class="anchor"></a>Build Status</h2>
 <p><a href="https://travis-ci.org/flr/FLCore"><img src="https://travis-ci.org/flr/FLCore.svg?branch=master" alt="Travis Build Status"></a> <a href="https://ci.appveyor.com/project/flr/FLCore"><img src="https://ci.appveyor.com/api/projects/status/github/flr/FLCore?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://cran.r-project.org/package=FLCore"><img src="http://www.r-pkg.org/badges/version/FLCore" alt="CRAN_Status_Badge"></a></p>
 </div>
 <div id="releases" class="section level2">
 <h2 class="hasAnchor">
-<a href="#releases" class="anchor"> </a>Releases</h2>
+<a href="#releases" class="anchor"></a>Releases</h2>
 <ul>
 <li><a href="https://github.com/flr/FLCore/releases/">All releases</a></li>
 </ul>
 </div>
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
-<a href="#license" class="anchor"> </a>License</h2>
+<a href="#license" class="anchor"></a>License</h2>
 <p>Copyright (c) 2004-2017 The FLR Team. Released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL v2</a>.</p>
 </div>
 <div id="contact" class="section level2">
 <h2 class="hasAnchor">
-<a href="#contact" class="anchor"> </a>Contact</h2>
+<a href="#contact" class="anchor"></a>Contact</h2>
 <p>You are welcome to:</p>
 <ul>
 <li>Submit suggestions and bug-reports at: <a href="https://github.com/flr/FLCore/issues" class="uri">https://github.com/flr/FLCore/issues</a>
 </li>
 <li>Send a pull request on: <a href="https://github.com/flr/FLCore/" class="uri">https://github.com/flr/FLCore/</a>
 </li>
-<li>Compose a friendly e-mail to: <a href="mailto:flrteam@flr-project.org">flrteam@flr-project.org</a>
+<li>Compose a friendly e-mail to: <script type="text/javascript">
+<!--
+h='&#102;&#108;&#114;&#x2d;&#112;&#114;&#x6f;&#106;&#x65;&#x63;&#116;&#46;&#x6f;&#114;&#x67;';a='&#64;';n='&#102;&#108;&#114;&#116;&#x65;&#x61;&#x6d;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>flrteam at flr-project dot org</noscript>
 </li>
 </ul>
 </div>
@@ -138,11 +154,15 @@
 </ul>
 <h2>License</h2>
 <p>GPL (&gt;= 2)</p>
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing FLCore</a></li>
+</ul>
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Iago Mosqueira <br><small class="roles"> Maintainer </small> </li>
-<li>Laurence T. Kell <br><small class="roles"> Author </small> </li>
-<li>Philippe Grosjean <br><small class="roles"> Author </small> </li>
+<li>Iago Mosqueira <br><small class="roles"> Maintainer </small>  </li>
+<li>Laurence T. Kell <br><small class="roles"> Author </small>  </li>
+<li>Philippe Grosjean <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 </div>
@@ -153,7 +173,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>

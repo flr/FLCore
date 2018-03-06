@@ -11,26 +11,37 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Names of slots of a given class — getSlotNamesClass" />
 
+<meta property="og:description" content="This function returns the names, as a character vector, of the slots in an
+S4 object that are of the class specified by the 'class' argument. Comparison
+is done using is(), so class inheritance is matched." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -86,27 +97,32 @@
 
     
     <p>This function returns the names, as a character vector, of the slots in an
-S4 object that are of the class specified by the &#39;class&#39; argument. Comparison
+S4 object that are of the class specified by the 'class' argument. Comparison
 is done using is(), so class inheritance is matched.</p>
     
 
-    <pre><span class='fu'>getSlotNamesClass</span>(<span class='no'>object</span>, <span class='no'>class</span>)</pre>
+    <pre class="usage"><span class='fu'>getSlotNamesClass</span>(<span class='no'>object</span>, <span class='no'>class</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>object</dt>
-      <dd>An S4 object to check slots from.</dd>
-      <dt>class</dt>
-      <dd>The name of the class to match, &#39;character&#39;.</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>An S4 object to check slots from.</p></td>
+    </tr>
+    <tr>
+      <th>class</th>
+      <td><p>The name of the class to match, 'character'.</p></td>
+    </tr>
+    </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='fu'>getSlotNamesClass</span>(<span class='no'>ple4</span>, <span class='st'>'FLQuant'</span>)</div><div class='output co'>#&gt;  [1] &quot;catch&quot;        &quot;catch.n&quot;      &quot;catch.wt&quot;     &quot;discards&quot;     &quot;discards.n&quot;  
-#&gt;  [6] &quot;discards.wt&quot;  &quot;landings&quot;     &quot;landings.n&quot;   &quot;landings.wt&quot;  &quot;stock&quot;       
-#&gt; [11] &quot;stock.n&quot;      &quot;stock.wt&quot;     &quot;m&quot;            &quot;mat&quot;          &quot;harvest&quot;     
-#&gt; [16] &quot;harvest.spwn&quot; &quot;m.spwn&quot;      </div><div class='input'>
+<span class='fu'>getSlotNamesClass</span>(<span class='no'>ple4</span>, <span class='st'>'FLQuant'</span>)</div><div class='output co'>#&gt;  [1] "catch"        "catch.n"      "catch.wt"     "discards"     "discards.n"  
+#&gt;  [6] "discards.wt"  "landings"     "landings.n"   "landings.wt"  "stock"       
+#&gt; [11] "stock.n"      "stock.wt"     "m"            "mat"          "harvest"     
+#&gt; [16] "harvest.spwn" "m.spwn"      </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -130,7 +146,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -138,3 +154,4 @@ The FLR Team
 
   </body>
 </html>
+

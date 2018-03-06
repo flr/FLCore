@@ -11,26 +11,38 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="accessor and replacement methods for FLCore classes — accessors" />
 
+<meta property="og:description" content="All S4 classes defined in FLCore have methods for accessing and replacing any
+of their slots. These methods are named as the slot, and will return the
+content of the slot, for the accessor method, or modify it with the provided
+value." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -91,7 +103,7 @@ content of the slot, for the accessor method, or modify it with the provided
 value.</p>
     
 
-    <pre><span class='fu'>name</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>name</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='fu'>desc</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -195,15 +207,23 @@ value.</p>
 
 <span class='fu'>landings.sel</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
-<span class='fu'>params</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>params</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for FLS,FLQuants</span>
+<span class='fu'>catch</span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>object</dt>
-      <dd>The object from which a slot is to be extracted or replaced</dd>
-      <dt>value</dt>
-      <dd>Object to be inserted into the relevant slot</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>The object from which a slot is to be extracted or replaced</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>Object to be inserted into the relevant slot</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -215,26 +235,29 @@ value.</p>
     <p>Accessors and replacement methods, with some exception, are created at build
 time by calls to the <code>createFLAccessors</code> function. An accessor method is
 created for each slot, with simply calls <code>slot()</code> on the relevant slot
-name. For slots of class <code><a href='FLQuant.html'>FLQuant</a></code>, or <code>FLArray</code>-based, two
+name. For slots of class <code>FLQuant</code>, or <code>FLArray</code>-based, two
 methods are created: one if <code>value</code> is of class <code>FLQuant</code>, and
 another for <code>value</code> being a numeric vector. The later would insert the
-vector into the slot structure, using R&#39;s recycling rules.</p>
-    <p>Users are encouraged to use the accessor methods, rather than the &#39;@&#39; operator
+vector into the slot structure, using R's recycling rules.</p>
+<p>Users are encouraged to use the accessor methods, rather than the '@' operator
 or the <code>slot()</code> method, to isolate code from the internal structure of
 the class. If a slot was to be altered or deleted in the future, a method
 would be provided to return the same value, computed from other slots.</p>
-    <p>Some of these methods might already not access directly an slot, and instead
+<p>Some of these methods might already not access directly an slot, and instead
 carry out a calculation to return the requested value, depending on the class
 being called with. Please refer to the particular method implementation to
 see if this is the case.</p>
-    <p>Accessor methods for slots of class <code><a href='predictModel.html'>predictModel</a></code> behave
+<p>Accessor methods for slots of class <code><a href='predictModel.html'>predictModel</a></code> behave
 differently depending on the <code>compute</code> argument. Please refer to the
 relevant help page for further clarification.</p>
+<p>An object of class FLQuants, containing three elements named
+<em>catch</em>, <em>catch.n</em> and <em>catch.wt</em>, as returned by <code><a href='compute.html'>computeCatch</a></code>, can be
+assigned directly to an object using <em>catch&lt;-</em>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='FLQuant.html'>FLQuant</a></code>, <code><a href='FLStock.html'>FLStock</a></code>, <code><a href='FLIndex.html'>FLIndex</a></code>,
-<code><a href='FLBiol.html'>FLBiol</a></code>, <code><a href='predictModel.html'>predictModel</a></code></p>
+    <p><code>FLQuant</code>, <code>FLStock</code>, <code>FLIndex</code>,
+<code>FLBiol</code>, <code><a href='predictModel.html'>predictModel</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -242,7 +265,7 @@ relevant help page for further clarification.</p>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
 
 <span class='co'># To access the catch slot in an FLStock, use</span>
-<span class='fu'>catch</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+<span class='fu'>catch</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -279,16 +302,17 @@ relevant help page for further clarification.</p>
 #&gt; function (object, ...) 
 #&gt; {
 #&gt;     .local &lt;- function (object) 
-#&gt;     return(slot(object, &quot;catch&quot;))
+#&gt;     return(slot(object, "catch"))
 #&gt;     .local(object, ...)
 #&gt; }
-#&gt; &lt;environment: 0xca06518&gt;
+#&gt; &lt;environment: 0x1243b3e8&gt;
 #&gt; 
 #&gt; Signatures:
 #&gt;         object
-#&gt; target  &quot;FLS&quot; 
-#&gt; defined &quot;FLS&quot; </div><div class='input'>
-</div></pre>
+#&gt; target  "FLS" 
+#&gt; defined "FLS" </div><div class='input'>
+<span class='co'># Assign the 3 catch slots</span>
+<span class='fu'>catch</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -317,7 +341,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -325,3 +349,4 @@ The FLR Team
 
   </body>
 </html>
+

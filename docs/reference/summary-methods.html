@@ -11,26 +11,36 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Method summary — summary,FLArray-method" />
 
+<meta property="og:description" content="Outputs a general summary of the structure and content of an fwdControl
+object. The method invisibly returns the data.frame shown on screen." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -85,11 +95,11 @@
     </div>
 
     
-    <p>Outputs a general summary of the structure and content of the object. The
-particular output obtained depends on the class of the argument object.</p>
+    <p>Outputs a general summary of the structure and content of an fwdControl
+object. The method invisibly returns the data.frame shown on screen.</p>
     
 
-    <pre><span class='co'># S4 method for FLArray</span>
+    <pre class="usage"><span class='co'># S4 method for FLArray</span>
 <span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLQuantPoint</span>
@@ -127,21 +137,21 @@ particular output obtained depends on the class of the argument object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
-<span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot; with:
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  3 10 1 1 1 1 
 #&gt; quant:  quant 
 #&gt; units:  kg 
 #&gt; 
-#&gt; Min    :  0.251928 
-#&gt; 1st Qu.:  0.7543378 
-#&gt; Mean   :  1.368079 
-#&gt; Median :  1.022335 
-#&gt; 3rd Qu.:  1.564917 
-#&gt; Max    :  4.024292 
+#&gt; Min    :  0.1644407 
+#&gt; 1st Qu.:  0.389431 
+#&gt; Mean   :  1.087163 
+#&gt; Median :  0.7467997 
+#&gt; 3rd Qu.:  1.564393 
+#&gt; Max    :  3.915952 
 #&gt; NAs    :  0 %</div><div class='input'>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='fu'>summary</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
+<span class='fu'>summary</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name: Plaice in IV 
 #&gt; Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSS [...] 
@@ -170,7 +180,7 @@ particular output obtained depends on the class of the argument object.</p>
 #&gt; harvest.spwn  : [ 10 52 1 1 1 1 ], units =   
 #&gt; m.spwn        : [ 10 52 1 1 1 1 ], units =   </div><div class='input'>
 <span class='fu'>data</span>(<span class='no'>nsher</span>)
-<span class='fu'>summary</span>(<span class='no'>nsher</span>)</div><div class='output co'>#&gt; An object of class &quot;FLSR&quot;
+<span class='fu'>summary</span>(<span class='no'>nsher</span>)</div><div class='output co'>#&gt; An object of class "FLSR"
 #&gt; 
 #&gt; Name:  
 #&gt; Description:  
@@ -222,7 +232,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -230,3 +240,4 @@ The FLR Team
 
   </body>
 </html>
+

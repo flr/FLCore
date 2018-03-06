@@ -11,26 +11,38 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="msy: A series of methods to extract or compute MSY-based reference points — msy" />
 
+<meta property="og:description" content="Reference points based on equilibirum calculations of Maximum Sustainable
+Yield (MSY) are computed by various FLR packages. The methods' generics are
+defined here for convenience. Please refer to the help pages of particular
+methods for further details" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -86,12 +98,12 @@
 
     
     <p>Reference points based on equilibirum calculations of Maximum Sustainable
-Yield (MSY) are computed by various FLR packages. The methods&#39; generics are
+Yield (MSY) are computed by various FLR packages. The methods' generics are
 defined here for convenience. Please refer to the help pages of particular
 methods for further details</p>
     
 
-    <pre><span class='fu'>msy</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>msy</span>(<span class='no'>x</span>)
 
 <span class='fu'>bmsy</span>(<span class='no'>x</span>)
 
@@ -100,32 +112,30 @@ methods for further details</p>
 <span class='fu'>fmsy</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>An input object from which to extract or compute a reference point</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>An input object from which to extract or compute a reference point</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A value fo the reference point, &#39;FLPar&#39;</p>
+    <p>A value for the requested reference point, 'FLPar'</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The four methods are meant to provide the following estimates:
-<ul>
-<li> <code>msy</code> Maximum Sustainable Yield (MSY)
-</li>
-<li> <code>fmsy</code> Fishing mortality level expected to produce on average MSY
-</li>
-<li> <code>bmsy</code> Total biomass that should produce MSY
-</li>
-<li> <code>sbmsy</code> Spawning biomass that should produce MSY
-</li>
-</ul></p>
+    <p>The four methods provide the following parameter estimates:</p><ul>
+<li><p><code>msy</code> Maximum Sustainable Yield (MSY)</p></li>
+<li><p><code>fmsy</code> Fishing mortality level expected to produce on average MSY</p></li>
+<li><p><code>bmsy</code> Total biomass that should produce MSY</p></li>
+<li><p><code>sbmsy</code> Spawning biomass that should produce MSY</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='FLPar.html'>FLPar</a></p>
+    <p><code>FLPar</code></p>
     
 
   </div>
@@ -154,7 +164,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -162,3 +172,4 @@ The FLR Team
 
   </body>
 </html>
+

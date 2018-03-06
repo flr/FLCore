@@ -11,26 +11,35 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Lattice methods — lattice" />
 
+<meta property="og:description" content="Implementation of Trellis graphics in FLR" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -88,7 +97,7 @@
     <p>Implementation of Trellis graphics in FLR</p>
     
 
-    <pre><span class='co'># S4 method for formula,FLQuant</span>
+    <pre class="usage"><span class='co'># S4 method for formula,FLQuant</span>
 <span class='fu'>xyplot</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for formula,FLCohort</span>
@@ -141,22 +150,22 @@
     <p>Plot methods in the <code><a href='http://www.rdocumentation.org/packages/lattice/topics/Lattice'>lattice</a></code> package are available for
 an object of classes <code>FLQuant</code>, <code>FLQuants</code> or those derived from
 <code>FLComp</code>.</p>
-    <p>See the help page in <code><a href='http://www.rdocumentation.org/packages/lattice/topics/Lattice'>lattice</a></code> for a full description
+<p>See the help page in <code><a href='http://www.rdocumentation.org/packages/lattice/topics/Lattice'>lattice</a></code> for a full description
 of each plot method and all possible arguments.</p>
-    <p>Plot methods from lattice are called by passing a <a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a>
+<p>Plot methods from lattice are called by passing a <a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a>
 obtained by converting the FLR objects using as.data.frame. For details on
 this transformation, see as.data.frame-FLCore.</p>
     
     <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
 
-    <p></p>
+    
     <p>barchart(x, data, ...)</p>
-    <p>bwplot(x, data, ...)</p>
-    <p>densityplot(x, data, ...)</p>
-    <p>dotplot(x, data, ...)</p>
-    <p>histogram(x, data, ...)</p>
-    <p>stripplot(x, data, ...)</p>
-    <p>xyplot(x, data, ...)</p>
+<p>bwplot(x, data, ...)</p>
+<p>densityplot(x, data, ...)</p>
+<p>dotplot(x, data, ...)</p>
+<p>histogram(x, data, ...)</p>
+<p>stripplot(x, data, ...)</p>
+<p>xyplot(x, data, ...)</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -170,16 +179,16 @@ this transformation, see as.data.frame-FLCore.</p>
     <pre class="examples"><div class='input'>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
 <span class='co'># xyplot on FLQuant</span>
-  <span class='fu'>xyplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='no'>age</span>, <span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>])</div><img src='lattice-2.png' alt='' width='540' height='400' /><div class='input'>  <span class='fu'>xyplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='fu'>as.factor</span>(<span class='no'>age</span>), <span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>], <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'b'</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,
-    <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>0.5</span>)</div><img src='lattice-4.png' alt='' width='540' height='400' /><div class='input'>
+  <span class='fu'>xyplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='no'>age</span>, <span class='fu'>catch.n</span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>])</div><div class='img'><img src='lattice-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>  <span class='fu'>xyplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='fu'>as.factor</span>(<span class='no'>age</span>), <span class='fu'>catch.n</span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>], <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'b'</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,
+    <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>0.5</span>)</div><div class='img'><img src='lattice-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># bwplot on FLQuant with iter...</span>
-  <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>, <span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>], <span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)[,<span class='fl'>1</span>:<span class='fl'>20</span>])
-  <span class='fu'>bwplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='fu'>as.factor</span>(<span class='no'>age</span>), <span class='no'>flq</span>)</div><img src='lattice-6.png' alt='' width='540' height='400' /><div class='input'><span class='co'># ...now with same style modifications</span>
+  <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>, <span class='fu'>catch.n</span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>], <span class='fu'>catch.n</span>(<span class='no'>ple4</span>)[,<span class='fl'>1</span>:<span class='fl'>20</span>])
+  <span class='fu'>bwplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='fu'>as.factor</span>(<span class='no'>age</span>), <span class='no'>flq</span>)</div><div class='img'><img src='lattice-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='co'># ...now with same style modifications</span>
   <span class='fu'>bwplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='fu'>as.factor</span>(<span class='no'>age</span>), <span class='no'>flq</span>, <span class='kw'>scales</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>relation</span><span class='kw'>=</span><span class='st'>'free'</span>,
     <span class='kw'>x</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>at</span><span class='kw'>=</span><span class='fu'>seq</span>(<span class='fl'>1</span>, <span class='fl'>20</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='fl'>5</span>),
-    <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'>dimnames</span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)[,<span class='fl'>1</span>:<span class='fl'>20</span>])$<span class='no'>year</span>[<span class='fu'>seq</span>(<span class='fl'>1</span>, <span class='fl'>20</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='fl'>5</span>)])),
+    <span class='kw'>labels</span><span class='kw'>=</span><span class='fu'>dimnames</span>(<span class='fu'>catch.n</span>(<span class='no'>ple4</span>)[,<span class='fl'>1</span>:<span class='fl'>20</span>])$<span class='no'>year</span>[<span class='fu'>seq</span>(<span class='fl'>1</span>, <span class='fl'>20</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='fl'>5</span>)])),
     <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>0.5</span>, <span class='kw'>strip</span><span class='kw'>=</span><span class='fu'>strip.custom</span>(<span class='kw'>strip.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>strip.levels</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-    <span class='kw'>var.name</span><span class='kw'>=</span><span class='st'>'age'</span>))</div><img src='lattice-8.png' alt='' width='540' height='400' /><div class='input'>
+    <span class='kw'>var.name</span><span class='kw'>=</span><span class='st'>'age'</span>))</div><div class='img'><img src='lattice-4.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -208,7 +217,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -216,3 +225,4 @@ The FLR Team
 
   </body>
 </html>
+

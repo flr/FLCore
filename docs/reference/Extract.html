@@ -11,26 +11,35 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Extract — Extract" />
 
+<meta property="og:description" content="Extract or replace parts of an FLR Object" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -88,7 +97,7 @@
     <p>Extract or replace parts of an FLR Object</p>
     
 
-    <pre># S4 method for FLArray,ANY,ANY,ANY
+    <pre class="usage"># S4 method for FLArray,ANY,ANY,ANY
 [(x, i, j, k, l, m, n, ..., drop = FALSE)
 
 # S4 method for FLArray,array,missing,missing
@@ -137,7 +146,8 @@ $(x, name)
 [(x, i, j, k, l, m, n, ..., drop = FALSE)
 
 # S4 method for predictModel,ANY,missing,ANY
-[(x, i)
+[(x, i, k, l, m, n, ...,
+  drop = FALSE)
 
 # S4 method for FLlst,ANY,missing
 [[(x, i, j) <- value
@@ -149,46 +159,61 @@ $(x, name) <- value
 [(x, i, j) <- value
 
 # S4 method for FLlst,ANY,missing,ANY
-[(x, i, j, drop)</pre>
+[(x, i, drop)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>object from which to extract or replace element(s)</dd>
-      <dt>i, j, k, l, m, n, ...</dt>
-      <dd>indices specifying elements to extract or replace.</dd>
-      <dt>drop</dt>
-      <dd>If &#39;TRUE&#39; the result is coerced to the lowest possible dimension, and so
-might change class (e.g. drop=&#39;TRUE&#39; on an <code>FLQuant</code> might return an
-<code>array</code> of less dimensions, a <code>matrix</code> or a <code>vector</code>.</dd>
-      <dt>value</dt>
-      <dd>An object of a similar or simpler class than &#39;x&#39;.</dd>
-      <dt>name</dt>
-      <dd>See <a href='http://www.rdocumentation.org/packages/base/topics/Extract'>Extract</a> for further details.</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>object from which to extract or replace element(s)</p></td>
+    </tr>
+    <tr>
+      <th>i, j, k, l, m, n</th>
+      <td><p>indices specifying elements to extract or replace on any of the six dimensions.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>indices specifying elements to extract or replace by dimension name.</p></td>
+    </tr>
+    <tr>
+      <th>drop</th>
+      <td><p>If 'TRUE' the result is coerced to the lowest possible dimension, and so
+might change class (e.g. drop='TRUE' on an <code>FLQuant</code> might return an
+<code>array</code> of less dimensions, a <code>matrix</code> or a <code>vector</code>.</p></td>
+    </tr>
+    <tr>
+      <th>value</th>
+      <td><p>An object of the same class, or simpler if <code>drop=TRUE</code>, than 'x'.</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>See <a href='http://www.rdocumentation.org/packages/base/topics/Extract'>Extract</a> for further details.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Operators acting on FLQuant, FLCohort, FLPar, FLComp, and derived classes to
 extract or replace sections of an object.</p>
-    <p>Please note the differences between referencing sections of an object by
+<p>Please note the differences between referencing sections of an object by
 position using values of class <code>numeric</code>, or by using dimnames of class
 <code>character</code>. See examples below.</p>
-    <p>All classes that are derived from <code>FLComp</code> (for example, <code>FLStock</code>
+<p>All classes that are derived from <code>FLComp</code> (for example, <code>FLStock</code>
 and <code>FLBiol</code>) can be subset along the six dimensions of their
 <code>FLQuant</code> slots.</p>
-    <p>Classes that are derived from <code>FLlst</code> (for example, <code>FLStocks</code> and
+<p>Classes that are derived from <code>FLlst</code> (for example, <code>FLStocks</code> and
 <code>FLBiols</code>) can be subset in a similar way to ordinary list objects.</p>
-    <p>&#39;$&#39; for the <code>FLPar</code> and <code>FLQuant</code> classes operate only along the first
-dimension (&#39;params&#39; or &#39;quant&#39;), and are provided to be used specially in
+<p>'$' for the <code>FLPar</code> and <code>FLQuant</code> classes operate only along the first
+dimension ('params' or 'quant'), and are provided to be used specially in
 formulas.</p>
     
     <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
 
-    <p><dl class='dl-horizontal'>
-<dt></dt><dd>[x,i,j,drop]</dd>
-<dt></dt><dd>[&lt;-(x,i,j,value)</dd> <dt></dt><dd>[[&lt;-(x,i,j,value)</dd>
-<dt></dt><dd>\$&lt;-(x,name,value)</dd> </dl></p>
+    <p></p><dl class='dl-horizontal'>
+<dt></dt><dd><p>[x,i,j,drop]</p></dd>
+<dt></dt><dd><p>[&lt;-(x,i,j,value)</p></dd> <dt></dt><dd><p>[[&lt;-(x,i,j,value)</p></dd>
+<dt></dt><dd><p>\$&lt;-(x,name,value)</p></dd> </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -197,205 +222,205 @@ formulas.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>200</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>0</span>:<span class='fl'>4</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1991</span>:<span class='fl'>2000</span>,
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>200</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>0</span>:<span class='fl'>4</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1991</span>:<span class='fl'>2000</span>,
   <span class='kw'>season</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>4</span>))
 
 <span class='co'># Extracting by position...</span>
-  <span class='no'>flq</span>[<span class='fl'>1</span>,]</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+  <span class='no'>flq</span>[<span class='fl'>1</span>,]</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = 1, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0  0.0307889  0.6766602 -0.5405284 -0.3095935  1.7951221  0.0598843
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  0.8400353  0.3858582 -0.0802218 -0.5259815
+#&gt; age 1998      1999      2000     
+#&gt;   0  0.022295 -1.146200  0.454342
 #&gt; 
 #&gt; , , unit = unique, season = 2, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0  0.1169163  0.2851892 -0.4601525  0.8007313 -2.4000574  0.2367283
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0 -0.162676  1.321781  0.429147  0.677684 -1.900061 -0.788259 -0.102909
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  1.1657546 -0.9298408  0.4874132  0.9324465
+#&gt; age 1998      1999      2000     
+#&gt;   0  1.035931 -1.041668  1.993110
 #&gt; 
 #&gt; , , unit = unique, season = 3, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0 -0.8077798  1.3954494 -2.0576698 -1.6832780  1.1587197  0.4668494
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  0.4665304  1.4796630 -0.0071697  0.4146715
+#&gt; age 1998      1999      2000     
+#&gt;   0  1.233390  0.237425 -0.639535
 #&gt; 
 #&gt; , , unit = unique, season = 4, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0 -0.7909489  0.4344542  0.4539588  1.0157901  0.7339844 -1.4999525
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0 -0.902815  1.382911 -0.830214 -0.828604  0.149679 -2.102152  0.060899
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  0.2731848  1.0704768  0.8983289 -1.8249571
+#&gt; age 1998      1999      2000     
+#&gt;   0  1.877744  1.012002  1.129835
 #&gt; 
-#&gt; units:  NA </div><div class='input'>  <span class='no'>flq</span>[,<span class='fl'>1</span>:<span class='fl'>5</span>]</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+#&gt; units:  NA </div><div class='input'>  <span class='no'>flq</span>[,<span class='fl'>1</span>:<span class='fl'>5</span>]</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = 1, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0  0.0307889  0.6766602 -0.5405284 -0.3095935  1.7951221
-#&gt;   1  0.8683820  1.0965677  0.9631811 -0.3640824  2.1308595
-#&gt;   2 -0.5868564 -0.0054018 -0.7453091 -0.9776918 -0.6288574
-#&gt;   3 -0.2223422  1.2309434 -2.4370368  0.6573057  0.5478358
-#&gt;   4 -0.1392056 -0.1209512  1.2692526 -0.7918942 -1.0816732
+#&gt;   0  0.4241876  1.6728826 -0.3872136 -0.6905379 -0.2088827
+#&gt;   1  1.0631020 -0.3543612 -0.7854327 -0.5585420 -1.3994105
+#&gt;   2  1.0487126  0.9463479 -1.0567369 -0.5366633  0.2585373
+#&gt;   3 -0.0381029  1.3168264 -0.7955414  0.2271271 -0.4417995
+#&gt;   4  0.4861489 -0.2966400 -1.7562754  0.9784549  0.5685999
 #&gt; 
 #&gt; , , unit = unique, season = 2, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0  0.1169163  0.2851892 -0.4601525  0.8007313 -2.4000574
-#&gt;   1 -0.4044483 -0.5954382 -0.8239034 -0.2384143 -0.3147488
-#&gt;   2  0.7285455 -0.9951180  0.1048494  0.0339915 -0.3489642
-#&gt;   3 -0.4691204 -0.1720538  0.0012183 -0.2617264 -0.7954684
-#&gt;   4 -1.6948621  0.5353710 -0.4515997 -0.2487327  0.6499336
+#&gt;   0 -0.1626763  1.3217810  0.4291474  0.6776836 -1.9000608
+#&gt;   1 -0.8273102 -1.1197108  0.1221034  0.0384995  0.9357843
+#&gt;   2  1.8765056  0.5145998 -1.1380124 -0.3563812 -0.3090515
+#&gt;   3  0.7664402 -1.5090998 -0.5580151  0.7828441  0.2630667
+#&gt;   4  0.9799567  1.5327415  1.0525385  0.8044116 -1.7905919
 #&gt; 
 #&gt; , , unit = unique, season = 3, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0 -0.8077798  1.3954494 -2.0576698 -1.6832780  1.1587197
-#&gt;   1 -0.4489336  0.7535879  0.7170255  1.1883881 -0.1499829
-#&gt;   2  1.4260378  0.5593508 -0.6316115 -1.4538138  0.7754196
-#&gt;   3 -0.4512673  2.0800399  1.2651173  2.2468224 -2.0040210
-#&gt;   4 -0.1749845  0.2924207  0.1483972  0.6930216 -1.1027980
+#&gt;   0  1.1238388  0.1329921 -0.4293801  0.0654866 -1.1533984
+#&gt;   1 -0.3970015  0.3764993  1.3604613 -1.0985089 -0.3406379
+#&gt;   2 -0.8232612  1.1387077 -0.0708574 -0.6331782  0.7863626
+#&gt;   3 -0.5788846  1.2412631 -0.2721537 -2.0636545 -1.2705131
+#&gt;   4  1.7637894  0.6120909 -2.4466800  2.6489320  0.5421415
 #&gt; 
 #&gt; , , unit = unique, season = 4, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0 -0.7909489  0.4344542  0.4539588  1.0157901  0.7339844
-#&gt;   1  0.7174211  0.1878014 -1.0386883  0.0424709 -0.2552334
-#&gt;   2 -0.6412440 -0.9097625  0.5934559  0.0719632 -1.0729966
-#&gt;   3 -0.3480327 -0.8799690  0.6737462  0.2895000  0.0489001
-#&gt;   4 -0.0891892 -1.4514463  0.5938412  0.3316570 -0.2529969
+#&gt;   0 -0.9028149  1.3829109 -0.8302143 -0.8286035  0.1496794
+#&gt;   1  1.3176337  0.0031259 -0.5035929  0.2897745 -1.4333211
+#&gt;   2  1.1001897 -0.0778868 -1.1936412 -0.4800535 -0.0103033
+#&gt;   3  1.2037678  0.4414282 -0.7517233 -0.6048294 -0.2122360
+#&gt;   4 -1.4312708  0.1289229  1.4558414  1.4601102 -0.9063402
 #&gt; 
-#&gt; units:  NA </div><div class='input'>  <span class='no'>flq</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,,,<span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>3</span>)]</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+#&gt; units:  NA </div><div class='input'>  <span class='no'>flq</span>[<span class='fl'>1</span>:<span class='fl'>2</span>,,,<span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>3</span>)]</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = 1, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0  0.0307889  0.6766602 -0.5405284 -0.3095935  1.7951221  0.0598843
-#&gt;   1  0.8683820  1.0965677  0.9631811 -0.3640824  2.1308595  0.5041320
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369
+#&gt;   1  1.063102 -0.354361 -0.785433 -0.558542 -1.399410  0.424858  0.449454
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  0.8400353  0.3858582 -0.0802218 -0.5259815
-#&gt;   1  0.0746456 -1.2360464 -0.6223109 -0.4793830
+#&gt; age 1998      1999      2000     
+#&gt;   0  0.022295 -1.146200  0.454342
+#&gt;   1  0.603611  0.846185 -0.855203
 #&gt; 
 #&gt; , , unit = unique, season = 3, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0 -0.8077798  1.3954494 -2.0576698 -1.6832780  1.1587197  0.4668494
-#&gt;   1 -0.4489336  0.7535879  0.7170255  1.1883881 -0.1499829  0.2954394
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936
+#&gt;   1 -0.397001  0.376499  1.360461 -1.098509 -0.340638  0.558514 -0.075574
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  0.4665304  1.4796630 -0.0071697  0.4146715
-#&gt;   1 -1.5521054 -0.3508083  0.3033496 -1.7676570
+#&gt; age 1998      1999      2000     
+#&gt;   0  1.233390  0.237425 -0.639535
+#&gt;   1  0.340424 -1.312814 -0.845196
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># ...by dimnames</span>
-  <span class='no'>flq</span>[<span class='st'>'0'</span>,]</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+  <span class='no'>flq</span>[<span class='st'>'0'</span>,]</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = 1, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0  0.0307889  0.6766602 -0.5405284 -0.3095935  1.7951221  0.0598843
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  0.8400353  0.3858582 -0.0802218 -0.5259815
+#&gt; age 1998      1999      2000     
+#&gt;   0  0.022295 -1.146200  0.454342
 #&gt; 
 #&gt; , , unit = unique, season = 2, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0  0.1169163  0.2851892 -0.4601525  0.8007313 -2.4000574  0.2367283
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0 -0.162676  1.321781  0.429147  0.677684 -1.900061 -0.788259 -0.102909
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  1.1657546 -0.9298408  0.4874132  0.9324465
+#&gt; age 1998      1999      2000     
+#&gt;   0  1.035931 -1.041668  1.993110
 #&gt; 
 #&gt; , , unit = unique, season = 3, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0 -0.8077798  1.3954494 -2.0576698 -1.6832780  1.1587197  0.4668494
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  0.4665304  1.4796630 -0.0071697  0.4146715
+#&gt; age 1998      1999      2000     
+#&gt;   0  1.233390  0.237425 -0.639535
 #&gt; 
 #&gt; , , unit = unique, season = 4, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995       1996      
-#&gt;   0 -0.7909489  0.4344542  0.4539588  1.0157901  0.7339844 -1.4999525
+#&gt; age 1991      1992      1993      1994      1995      1996      1997     
+#&gt;   0 -0.902815  1.382911 -0.830214 -0.828604  0.149679 -2.102152  0.060899
 #&gt;    year
-#&gt; age 1997       1998       1999       2000      
-#&gt;   0  0.2731848  1.0704768  0.8983289 -1.8249571
+#&gt; age 1998      1999      2000     
+#&gt;   0  1.877744  1.012002  1.129835
 #&gt; 
-#&gt; units:  NA </div><div class='input'>  <span class='no'>flq</span>[,<span class='st'>'1991'</span>]</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+#&gt; units:  NA </div><div class='input'>  <span class='no'>flq</span>[,<span class='st'>'1991'</span>]</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = 1, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 1991     
-#&gt;   0  0.030789
-#&gt;   1  0.868382
-#&gt;   2 -0.586856
-#&gt;   3 -0.222342
-#&gt;   4 -0.139206
+#&gt;   0  0.424188
+#&gt;   1  1.063102
+#&gt;   2  1.048713
+#&gt;   3 -0.038103
+#&gt;   4  0.486149
 #&gt; 
 #&gt; , , unit = unique, season = 2, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 1991     
-#&gt;   0  0.116916
-#&gt;   1 -0.404448
-#&gt;   2  0.728546
-#&gt;   3 -0.469120
-#&gt;   4 -1.694862
+#&gt;   0 -0.162676
+#&gt;   1 -0.827310
+#&gt;   2  1.876506
+#&gt;   3  0.766440
+#&gt;   4  0.979957
 #&gt; 
 #&gt; , , unit = unique, season = 3, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 1991     
-#&gt;   0 -0.807780
-#&gt;   1 -0.448934
-#&gt;   2  1.426038
-#&gt;   3 -0.451267
-#&gt;   4 -0.174985
+#&gt;   0  1.123839
+#&gt;   1 -0.397001
+#&gt;   2 -0.823261
+#&gt;   3 -0.578885
+#&gt;   4  1.763789
 #&gt; 
 #&gt; , , unit = unique, season = 4, area = unique
 #&gt; 
 #&gt;    year
 #&gt; age 1991     
-#&gt;   0 -0.790949
-#&gt;   1  0.717421
-#&gt;   2 -0.641244
-#&gt;   3 -0.348033
-#&gt;   4 -0.089189
+#&gt;   0 -0.902815
+#&gt;   1  1.317634
+#&gt;   2  1.100190
+#&gt;   3  1.203768
+#&gt;   4 -1.431271
 #&gt; 
-#&gt; units:  NA </div><div class='input'>  <span class='no'>flq</span>[,<span class='fu'>as.character</span>(<span class='fl'>1991</span>:<span class='fl'>1995</span>),,<span class='st'>'1'</span>]</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+#&gt; units:  NA </div><div class='input'>  <span class='no'>flq</span>[,<span class='fu'>as.character</span>(<span class='fl'>1991</span>:<span class='fl'>1995</span>),,<span class='st'>'1'</span>]</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = 1, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0  0.0307889  0.6766602 -0.5405284 -0.3095935  1.7951221
-#&gt;   1  0.8683820  1.0965677  0.9631811 -0.3640824  2.1308595
-#&gt;   2 -0.5868564 -0.0054018 -0.7453091 -0.9776918 -0.6288574
-#&gt;   3 -0.2223422  1.2309434 -2.4370368  0.6573057  0.5478358
-#&gt;   4 -0.1392056 -0.1209512  1.2692526 -0.7918942 -1.0816732
+#&gt; age 1991      1992      1993      1994      1995     
+#&gt;   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883
+#&gt;   1  1.063102 -0.354361 -0.785433 -0.558542 -1.399410
+#&gt;   2  1.048713  0.946348 -1.056737 -0.536663  0.258537
+#&gt;   3 -0.038103  1.316826 -0.795541  0.227127 -0.441799
+#&gt;   4  0.486149 -0.296640 -1.756275  0.978455  0.568600
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># Dimensions of length one can be drop</span>
-  <span class='no'>flq</span>[<span class='fl'>1</span>, <span class='kw'>drop</span><span class='kw'>=</span><span class='fl'>TRUE</span>]</div><div class='output co'>#&gt; [1] 0.03078885</div><div class='input'>
+  <span class='no'>flq</span>[<span class='fl'>1</span>, <span class='kw'>drop</span><span class='kw'>=</span><span class='fl'>TRUE</span>]</div><div class='output co'>#&gt; [1] 0.4241876</div><div class='input'>
 <span class='co'># Replacing part of the object</span>
   <span class='no'>flq</span>[<span class='st'>'0'</span>,,,<span class='fl'>1</span>]<span class='kw'>&lt;-</span><span class='fl'>0</span></div></pre>
   </div>
@@ -426,7 +451,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -434,3 +459,4 @@ The FLR Team
 
   </body>
 </html>
+

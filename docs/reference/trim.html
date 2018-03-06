@@ -11,26 +11,35 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Method trim — trim" />
 
+<meta property="og:description" content="Trim FLR objects using named dimensions" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -88,7 +97,7 @@
     <p>Trim FLR objects using named dimensions</p>
     
 
-    <pre><span class='fu'>trim</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>trim</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLArray</span>
 <span class='fu'>trim</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -97,6 +106,9 @@
 <span class='fu'>trim</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLS</span>
+<span class='fu'>trim</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for FLBiol</span>
 <span class='fu'>trim</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -104,11 +116,11 @@
     <p>Subsetting of FLR objects can be carried out with dimension names by using
 <code>trim</code>. A number of dimension names and selected dimensions are passed
 to the method and those are used to subset the input object.</p>
-    <p>Exceptions are made for those classes where certain slots might differ in
+<p>Exceptions are made for those classes where certain slots might differ in
 one or more dimensions. If trim is applied to an FLQuant object of length 1
-in its first dimension and with dimension name equal to &#39;all&#39;, values to
+in its first dimension and with dimension name equal to 'all', values to
 <code>trim</code> specified for that dimension will be ignored. For example,
-<code><a href='FLStock.html'>FLStock</a></code> objects contain slots with length=1 in their first
+<code>FLStock</code> objects contain slots with length=1 in their first
 dimension. Specifying values to trim over the first dimension will have no
 effect on those slots (<code>catch</code>, <code>landings</code>, <code>discards</code>, and
 <code>stock</code>). Calculations might need to be carried out to recalculate
@@ -128,55 +140,55 @@ counterparts are modified along the first dimension.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>90</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2016</span>))
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>90</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2016</span>))
 
-<span class='fu'>trim</span>(<span class='no'>flq</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+<span class='fu'>trim</span>(<span class='no'>flq</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;     year
 #&gt; age  2000      2001      2002      2003      2004      2005     
-#&gt;   1  -2.725535 -0.455349 -0.210886 -0.346662  0.714217  0.767133
-#&gt;   2  -0.305181  0.392446 -1.263650 -0.838827 -1.162195 -0.608500
-#&gt;   3  -0.634887  1.516195 -0.012322 -1.409560  0.849920 -0.874672
-#&gt;   4  -1.443674  0.573833 -0.003874  0.037726 -0.123669  0.107419
-#&gt;   5   0.486917 -0.174562 -0.167932  2.408326 -0.999429  0.110223
-#&gt;   6  -0.607496 -1.083028  0.091816 -1.122340  0.013876 -0.127320
-#&gt;   7  -1.045196 -0.074940 -1.107337  0.178444 -0.308229  0.077139
-#&gt;   8   1.107602 -1.981823 -0.846779 -0.068795  0.968329 -1.683823
-#&gt;   9  -0.368490 -1.734741 -1.367585 -0.596146  2.532179  1.648248
-#&gt;   10 -1.002448  0.087698 -0.284313 -1.097759 -0.244155 -0.456134
+#&gt;   1  -1.696771  0.385644  1.695688  0.669377 -0.302649 -2.371328
+#&gt;   2   0.535643 -1.499199 -0.659136 -0.039033 -0.596989 -0.496989
+#&gt;   3   1.047686  1.492262 -1.289716  1.117548 -1.653208  1.323359
+#&gt;   4  -1.144403 -0.118358  0.485055  1.771568 -0.611979  0.489594
+#&gt;   5  -1.912947  0.660862 -0.286032 -0.148496 -0.482996 -0.631589
+#&gt;   6   1.497038  1.030641 -0.227667 -0.893594 -0.631101 -1.161250
+#&gt;   7   1.547187  0.873635  0.132082  1.284845  0.069459 -0.299012
+#&gt;   8   0.144471  0.354430  1.258653  0.202333 -0.475232  2.170422
+#&gt;   9   1.144374 -0.151166  1.176382 -1.422905 -1.817089 -0.962280
+#&gt;   10 -1.244080 -0.879086 -0.766694  0.273985  1.391685  1.060647
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># which is equivalent to</span>
-<span class='fu'>window</span>(<span class='no'>flq</span>, <span class='kw'>start</span><span class='kw'>=</span><span class='fl'>2000</span>, <span class='kw'>end</span><span class='kw'>=</span><span class='fl'>2005</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+<span class='fu'>window</span>(<span class='no'>flq</span>, <span class='kw'>start</span><span class='kw'>=</span><span class='fl'>2000</span>, <span class='kw'>end</span><span class='kw'>=</span><span class='fl'>2005</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;     year
 #&gt; age  2000      2001      2002      2003      2004      2005     
-#&gt;   1  -2.725535 -0.455349 -0.210886 -0.346662  0.714217  0.767133
-#&gt;   2  -0.305181  0.392446 -1.263650 -0.838827 -1.162195 -0.608500
-#&gt;   3  -0.634887  1.516195 -0.012322 -1.409560  0.849920 -0.874672
-#&gt;   4  -1.443674  0.573833 -0.003874  0.037726 -0.123669  0.107419
-#&gt;   5   0.486917 -0.174562 -0.167932  2.408326 -0.999429  0.110223
-#&gt;   6  -0.607496 -1.083028  0.091816 -1.122340  0.013876 -0.127320
-#&gt;   7  -1.045196 -0.074940 -1.107337  0.178444 -0.308229  0.077139
-#&gt;   8   1.107602 -1.981823 -0.846779 -0.068795  0.968329 -1.683823
-#&gt;   9  -0.368490 -1.734741 -1.367585 -0.596146  2.532179  1.648248
-#&gt;   10 -1.002448  0.087698 -0.284313 -1.097759 -0.244155 -0.456134
+#&gt;   1  -1.696771  0.385644  1.695688  0.669377 -0.302649 -2.371328
+#&gt;   2   0.535643 -1.499199 -0.659136 -0.039033 -0.596989 -0.496989
+#&gt;   3   1.047686  1.492262 -1.289716  1.117548 -1.653208  1.323359
+#&gt;   4  -1.144403 -0.118358  0.485055  1.771568 -0.611979  0.489594
+#&gt;   5  -1.912947  0.660862 -0.286032 -0.148496 -0.482996 -0.631589
+#&gt;   6   1.497038  1.030641 -0.227667 -0.893594 -0.631101 -1.161250
+#&gt;   7   1.547187  0.873635  0.132082  1.284845  0.069459 -0.299012
+#&gt;   8   0.144471  0.354430  1.258653  0.202333 -0.475232  2.170422
+#&gt;   9   1.144374 -0.151166  1.176382 -1.422905 -1.817089 -0.962280
+#&gt;   10 -1.244080 -0.879086 -0.766694  0.273985  1.391685  1.060647
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
-<span class='fu'>trim</span>(<span class='no'>flq</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+<span class='fu'>trim</span>(<span class='no'>flq</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
-#&gt; age 2000     2001     2002     2003     2004     2005    
-#&gt;   1 -2.72554 -0.45535 -0.21089 -0.34666  0.71422  0.76713
-#&gt;   2 -0.30518  0.39245 -1.26365 -0.83883 -1.16219 -0.60850
+#&gt; age 2000      2001      2002      2003      2004      2005     
+#&gt;   1 -1.696771  0.385644  1.695688  0.669377 -0.302649 -2.371328
+#&gt;   2  0.535643 -1.499199 -0.659136 -0.039033 -0.596989 -0.496989
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 
 <span class='co'># Now on an FLStock</span>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='fu'>summary</span>(<span class='fu'>trim</span>(<span class='no'>ple4</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1990</span>:<span class='fl'>1995</span>))</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
+<span class='fu'>summary</span>(<span class='fu'>trim</span>(<span class='no'>ple4</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1990</span>:<span class='fl'>1995</span>))</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name: Plaice in IV 
 #&gt; Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSS [...] 
@@ -207,10 +219,10 @@ counterparts are modified along the first dimension.</p>
 <span class='co'># If 'age' is trimmed in ple4, catch, landings and discards need to be</span>
 <span class='co'># recalculated</span>
   <span class='no'>shpl4</span> <span class='kw'>&lt;-</span> <span class='fu'>trim</span>(<span class='no'>ple4</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>4</span>)
-  <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeLandings</a></span>(<span class='no'>shpl4</span>)
+  <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeLandings</span>(<span class='no'>shpl4</span>)
   <span class='fu'><a href='accessors.html'>discards</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span>(<span class='no'>shpl4</span>)
   <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>shpl4</span>)
-  <span class='fu'>summary</span>(<span class='no'>shpl4</span>)</div><div class='output co'>#&gt; An object of class &quot;FLStock&quot;
+  <span class='fu'>summary</span>(<span class='no'>shpl4</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name: Plaice in IV 
 #&gt; Description: Imported from a VPA file. ( N:\Projecten\ICES WG\Demersale werkgroep WGNSS [...] 
@@ -266,7 +278,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -274,3 +286,4 @@ The FLR Team
 
   </body>
 </html>
+

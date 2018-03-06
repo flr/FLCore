@@ -11,26 +11,35 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="apply method for FLCore classes — apply,FLArray,numeric,function-method" />
 
+<meta property="og:description" content="Applies a function over the margins of an array-based FLCore class" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -88,7 +97,7 @@
     <p>Applies a function over the margins of an array-based FLCore class</p>
     
 
-    <pre><span class='co'># S4 method for FLArray,numeric,`function`</span>
+    <pre class="usage"><span class='co'># S4 method for FLArray,numeric,`function`</span>
 <span class='fu'>apply</span>(<span class='no'>X</span>, <span class='no'>MARGIN</span>, <span class='no'>FUN</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLPar,ANY,ANY</span>
@@ -102,12 +111,12 @@
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These methods call R&#39;s <a href='http://www.rdocumentation.org/packages/base/topics/apply'>base::apply</a> on an <a href='FLArray.html'>FLArray</a> the standard arithmetic operators included in the
-<code><a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a></code> group (&quot;+&quot;, &quot;-&quot;, &quot;*&quot;, `&quot;^&quot;, &quot;<!-- %%&quot;, &quot;%/%&quot;, and -->
-&quot;/&quot;), so that they return an object of the appropriate class.</p>
-    <p>When the operation involves objects of two classes (e.g. <code><a href='FLPar.html'>FLPar</a></code> and <code><a href='FLQuant.html'>FLQuant</a></code>),
+    <p>These methods call R's <a href='http://www.rdocumentation.org/packages/base/topics/apply'>base::apply</a> on an <a href='FLArray.html'>FLArray</a> the standard arithmetic operators included in the
+<code><a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a></code> group ("+", "-", "*", `"^", "<!-- %%", "%/%", and -->
+"/"), so that they return an object of the appropriate class.</p>
+<p>When the operation involves objects of two classes (e.g. <code>FLPar</code> and <code>FLQuant</code>),
 the class is the returned object is that of the more complexs object, in this
-case <code><a href='FLQuant.html'>FLQuant</a></code>.</p>
+case <code>FLQuant</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -116,38 +125,38 @@ case <code><a href='FLQuant.html'>FLQuant</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
-<span class='no'>flp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>99</span>)
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='no'>flp</span> <span class='kw'>&lt;-</span> <span class='fu'>FLPar</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>99</span>)
 
 <span class='co'># FLQuant and numeric</span>
-<span class='no'>flq</span> * <span class='fl'>25</span></div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+<span class='no'>flq</span> * <span class='fl'>25</span></div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;     1   6.1647  24.8611   4.0433  18.8435 197.1374   3.8801  43.0289  35.9391
-#&gt;     2  32.2718  46.5454  19.5222  14.3705   4.8934  14.8331  10.0222   6.7824
-#&gt;     3   2.1850  78.8295  19.5833  46.8925  41.7334  23.7189  39.9261  52.2820
+#&gt;     1   6.7537 133.8963  12.0807  39.4671  11.8366   5.8128  19.3728   6.4374
+#&gt;     2   2.4368  26.8593 208.8267  50.4469  20.5601  11.4609 101.1428   8.0637
+#&gt;     3  76.9089  51.9008  19.6924  13.0810  23.4884  27.1847  77.7664  38.1011
 #&gt;      year
 #&gt; quant 9        10      
-#&gt;     1 165.2370  24.6044
-#&gt;     2  22.6788  10.9363
-#&gt;     3   9.8063   5.5095
+#&gt;     1  15.2718  15.0328
+#&gt;     2  34.0636  17.4996
+#&gt;     3 115.8129   2.3655
 #&gt; 
 #&gt; units:  kg </div><div class='input'><span class='co'># Two FLQuant objects</span>
-<span class='no'>flq</span> + <span class='no'>flq</span></div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+<span class='no'>flq</span> + <span class='no'>flq</span></div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;     1  0.49317  1.98889  0.32346  1.50748 15.77099  0.31041  3.44231  2.87513
-#&gt;     2  2.58174  3.72363  1.56177  1.14964  0.39147  1.18665  0.80177  0.54259
-#&gt;     3  0.17480  6.30636  1.56666  3.75140  3.33868  1.89752  3.19409  4.18256
+#&gt;     1  0.54030 10.71171  0.96645  3.15737  0.94693  0.46502  1.54982  0.51499
+#&gt;     2  0.19495  2.14874 16.70613  4.03575  1.64481  0.91688  8.09143  0.64509
+#&gt;     3  6.15271  4.15206  1.57539  1.04648  1.87907  2.17478  6.22131  3.04809
 #&gt;      year
 #&gt; quant 9        10      
-#&gt;     1 13.21896  1.96835
-#&gt;     2  1.81430  0.87490
-#&gt;     3  0.78451  0.44076
+#&gt;     1  1.22174  1.20263
+#&gt;     2  2.72509  1.39997
+#&gt;     3  9.26503  0.18924
 #&gt; 
 #&gt; units:  kg </div><div class='input'>
 </div></pre>
@@ -176,7 +185,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -184,3 +193,4 @@ The FLR Team
 
   </body>
 </html>
+

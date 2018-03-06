@@ -11,26 +11,40 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Calculate or return the Spawning Stock Biomass — ssb" />
 
+<meta property="og:description" content="The calculated Spawning Stock Biomass (SSB) of a fish population is returned
+by this method. SSB is the combined weight of all individuals in a fish stock
+that are capable of reproducing. In some classes this is calculated from
+information stored in different slots, while in others ssb() is simply
+an slot accessor. When the later is the case, the corresponding replacement
+method also exists." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -93,7 +107,7 @@ an slot accessor. When the later is the case, the corresponding replacement
 method also exists.</p>
     
 
-    <pre><span class='fu'>ssb</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>ssb</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLStock</span>
 <span class='fu'>ssb</span>(<span class='no'>object</span>, <span class='no'>...</span>)
@@ -102,20 +116,23 @@ method also exists.</p>
 <span class='fu'>ssb</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>object</dt>
-      <dd>Object on which <code>ssb</code> is calculated or extracted.</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>Object on which <code>ssb</code> is calculated or extracted.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object, generally of class <code><a href='FLQuant.html'>FLQuant</a></code>.</p>
+    <p>An object, generally of class <code>FLQuant</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For an object of class <code><a href='FLStock.html'>FLStock</a></code>, the calculation of SSB depends
-on the value of the &#39;units&#39; attribute in the <code>harvest</code> slot. If this is
-in terms of fishing mortality (<code>units(harvest(object)) == &#39;f&#39;</code>), and
+    <p>For an object of class <code>FLStock</code>, the calculation of SSB depends
+on the value of the 'units' attribute in the <code>harvest</code> slot. If this is
+in terms of fishing mortality (<code>units(harvest(object)) == 'f'</code>), and
 assuming an object structured by age, then SSB is calculated as
 $$SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot e^{-(F_{a,y} \cdot Hs_{a,y} + M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} $$
 where \(N_{a,y}\) is the abundance in numbers (<code>stock.n</code>) by
@@ -127,31 +144,32 @@ age (a) and year (y), \(F_{a,y}\) is the fishing mortality (<code>harvest</code>
 (<code>m.spwn</code>),
 \(W_{a,y}\) is the mean weight at age in the stock (<code>m</code>), and
 \(T_{a,y}\) is the proportion mature at age in the stock (<code>mat</code>).
-For <code><a href='FLStock.html'>FLStock</a></code> objects with other dimensions (<code>area</code>,
+For <code>FLStock</code> objects with other dimensions (<code>area</code>,
 <code>unit</code>), the calculation is carried out along those dimensions too. To
 obtain a global value please use the corresponding summing method.</p>
-    <p>If the harvest slot contains estimates in terms of harvest rates
-(<code>units(harvest(object)) == &quot;hr&quot;</code>), SSB will be computed as
+<p>If the harvest slot contains estimates in terms of harvest rates
+(<code>units(harvest(object)) == "hr"</code>), SSB will be computed as
 $$SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot (1 - H_{a,y} \cdot Hs_{a,y}) \cdot e^{-(M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} $$
 where \(H_{a,y}\) is the harvest rate (proportion of catch in weight
 over total biomass).</p>
-    <p>For an object of class <code><a href='FLBiol.html'>FLBiol</a></code>, the calculation of SSB is as
+<p>For an object of class <code>FLBiol</code>, the calculation of SSB is as
 follows:
 $$SSB_{a,y} = \sum\nolimits_{a} N_{a,y} \cdot W_{a,y} \cdot e^{-S_{a,y} \cdot M_{a,y}}$$
-where \(S_{a,y}\) is the fraction of natural mortality before spawning (<code>spwn</code>). The method for this class does not correct the estimate, based on abundnaces at the
-start of the time period, for fishing mortality ocurring between that time and
-spawning, as the class holds no information on fishing mortality.</p>
+where \(S_{a,y}\) is the fraction of natural mortality before spawning (<code>spwn</code>). The method for this class does not correct the estimate, based on
+abundances at the start of the time period, for fishing mortality ocurring
+between that time and spawning, as the class holds no information on fishing
+mortality.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='FLComp.html'>FLComp</a></p>
-    <p><code><a href='dimSummaries.html'>areaSums</a></code></p>
+    <p><a href='FLComp.html'>FLComp</a>
+    <code><a href='dimSummaries.html'>areaSums</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='fu'>ssb</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class &quot;FLQuant&quot;
+<span class='fu'>ssb</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -202,7 +220,7 @@ The FLR Team
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -210,3 +228,4 @@ The FLR Team
 
   </body>
 </html>
+
