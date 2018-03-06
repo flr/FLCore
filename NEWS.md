@@ -1,3 +1,9 @@
+# FLCore 2.6.7
+
+## USER-VISIBLE CHANGES
+
+- writeADMB now accepts append=TRUE/FALSE
+
 # FLCore 2.6.6
 
 ## NEW FEATURES
