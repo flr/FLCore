@@ -616,7 +616,7 @@ setMethod("Arith",
   signature(e1 = "FLArray", e2 = "numeric"),
   function(e1, e2)
   {
-    if(!is.na(match(as.character(e2), uoms[nums])))
+    if(length(e2) == 1 & !is.na(match(as.character(e2), uoms[nums])))
       units <- uom(as.character(get('.Generic')), units(e1), as.character(e2))
     else
       units <- units(e1)
