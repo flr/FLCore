@@ -948,6 +948,7 @@ setMethod("simplify", signature(object="FLStock"),
     din <- foo(discards.n(object))
 
     if("season" %in% dims) {
+      
       # GET stock.n at stock.season
     	stn <- foo(stock.n(object)[,,, stock.season])
 	    dimnames(stn) <- list(season="all")
@@ -959,8 +960,12 @@ setMethod("simplify", signature(object="FLStock"),
       units(har) <- "f"
 
     } else {
+
+      # SUM stock.n
       stn <- foo(stock.n(object))
-      har <- harvest(stn, can, areaMeans(m(object)))
+
+      # 
+      har <- harvest(stn, can, unitMeans(areaMeans(m(object))))
     }
 
     # Weighted MEANS for weights
