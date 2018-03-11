@@ -51,7 +51,7 @@ setGeneric("cpue", function(object, ...) standardGeneric("cpue"))
 setMethod('cpue',   signature(object='FLStock'),
   function(object, sel.pattern=harvest(object), effort = units(harvest(object)),
     mass = TRUE) {
-
+    
     # EFFORT from F or HR
     if (effort[1] == "hr")
       E <- catch(object) / stock(object)
