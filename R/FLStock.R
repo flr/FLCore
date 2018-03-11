@@ -931,10 +931,10 @@ setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area"), spwn.season=1,
     stock.season=1) {
 
-    last.season <- dims(object)$season
-
     # DIMS to operate on, inverse of dims
     dms <- seq(1,6)[-(match(dims, c("unit", "season", "area")) + 2)]
+
+    last.season <- dims(object)$season
   
     # sum along dms
     foo <- function(x, dims=dms) {
@@ -959,13 +959,18 @@ setMethod("simplify", signature(object="FLStock"),
       har <- (can * log(survivors / stn)) / (survivors - stn)
       units(har) <- "f"
 
-    } else {
+      dims <- dims[dims!="season"]
+
+    }
+
+    if(any(c("area", "unit") %in% dims)) {
 
       # SUM stock.n
       stn <- foo(stock.n(object))
 
-      # 
-      har <- harvest(stn, can, unitMeans(areaMeans(m(object))))
+      # RECALCULATE F
+
+      har <- harvest(stn, can, apply(m(object), dms, mean, na.rm=TRUE))
     }
 
     # Weighted MEANS for weights
