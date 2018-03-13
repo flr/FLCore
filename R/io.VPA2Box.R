@@ -63,7 +63,7 @@ readVPA2Box <- function(file,m=NULL,minage=1,retros=TRUE,printFiles=FALSE,...) {
   
   # "csv" file
   # data
-  dat <- scan(files[5], what="", sep="\n", strip.white=TRUE )
+  dat <- scan(files[5], what="", sep="\n", strip.white=TRUE,quiet=TRUE)
   dat <- dat[nchar(dat)>0]
   
   # gets line number for start of data  
@@ -261,7 +261,7 @@ skip.until.hash <- function(i,file) {
 # getNBootRetro {{{
 getNBootRetro <- function(file) {
 
-    tmp <- scan(file,what=character(),sep="\n")
+    tmp <- scan(file,what=character(),sep="\n",quiet=TRUE)
     tmp <- unlist(lapply(strsplit(tmp[substr(tmp,1,1)!="#"]," +"),
       function(x) x[x!=""][1]))
 
