@@ -928,61 +928,69 @@ setMethod("dimnames", signature(x="FLStock"),
 #' @aliases simplify,FLStock-method
 
 setMethod("simplify", signature(object="FLStock"),
-  function(object, dims=c("unit", "season", "area"), spwn.season=1,
-    stock.season=1) {
+  function(object, dims=c("unit", "season", "area"),
+    spwn.season=1, stock.season=1) {
 
     # DIMS to operate on, inverse of dims
     dms <- seq(1,6)[-(match(dims, c("unit", "season", "area")) + 2)]
+  	dmns <- list(season="all", unit="unique", area="unique")[dims]
 
     last.season <- dims(object)$season
   
     # sum along dms
-    foo <- function(x, dims=dms) {
+    foo <- function(x, dims=dms, FUN=sum) {
       return(apply(x, dims, function(x){
-      z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=TRUE), NA)}))
+      z <- x[!is.na(x)]; ifelse(length(z), FUN(z, na.rm=TRUE), NA)}))
     }
 
     # SUMS for catch.n, landings.n and discards.n
-    can <- foo(catch.n(object))
-    lan <- foo(landings.n(object))
-    din <- foo(discards.n(object))
+    can <- foo(catch.n(object), dims=dms)
+    lan <- foo(landings.n(object), dims=dms)
+    din <- foo(discards.n(object), dims=dms)
 
     if("season" %in% dims) {
       
       # GET stock.n at stock.season
-    	stn <- foo(stock.n(object)[,,, stock.season])
+    	stn <- foo(stock.n(object)[,,, stock.season], dims=dms)
 	    dimnames(stn) <- list(season="all")
   
       # CALCULATE harvest from survivors
       survivors <- foo(stock.n(object)[,,, last.season] *
-        exp(- harvest(object)[,,, last.season] - m(object)[,,, last.season]))
+        exp(- harvest(object)[,,, last.season] - m(object)[,,, last.season]), 
+        dims=dms)
       har <- (can * log(survivors / stn)) / (survivors - stn)
       units(har) <- "f"
+      
+      cawt <- foo(catch.wt(object)[,,,spwn.season], dims=dms, FUN=mean)
+      lawt <- foo(landings.wt(object)[,,,spwn.season], dims=dms, FUN=mean)
+      diwt <- foo(discards.wt(object)[,,,spwn.season], dims=dms, FUN=mean)
+      stwt <- foo(stock.wt(object)[,,,spwn.season], dims=dms, FUN=mean)
 
-      dims <- dims[dims!="season"]
+      mat <- mat(object)[,,, spwn.season]
 
-    }
-
-    if(any(c("area", "unit") %in% dims)) {
+    } else {
 
       # SUM stock.n
       stn <- foo(stock.n(object))
 
       # RECALCULATE F
-
       har <- harvest(stn, can, apply(m(object), dms, mean, na.rm=TRUE))
+      
+      cawt <- foo(catch.wt(object), dims=dms, FUN=mean)
+      lawt <- foo(landings.wt(object), dims=dms, FUN=mean)
+      diwt <- foo(discards.wt(object), dims=dms, FUN=mean)
+      stwt <- foo(stock.wt(object), dims=dms, FUN=mean)
+
+      mat <- mat(object)
     }
 
-    # Weighted MEANS for weights
-    # BUG zeroes and NAs
-    cawt <- foo(catch.wt(object) * catch.n(object)) / can
-    lawt <- foo(landings.wt(object) * landings.n(object)) / lan
-    diwt <- foo(discards.wt(object) * discards.n(object)) / din
-    stwt <- foo(stock.wt(object) * stock.n(object)) / stn
+    dimnames(cawt) <- dmns
+    dimnames(lawt) <- dmns
+    dimnames(diwt) <- dmns
+    dimnames(stwt) <- dmns
 
   	# EXTRACT mat from spwnSeason and unit (gender) 1
     # TODO CHECK / DECIDE on unit
-    mat <- mat(object)[,,, spwn.season]
     if("unit" %in% dims)
   	  mat <- mat[,, 1,,]
     if("area" %in% dims)
