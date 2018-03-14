@@ -4,6 +4,10 @@
 
 - writeADMB now accepts append=TRUE/FALSE
 
+ BUG FIXES
+
+- Corrected simplify(FLStock) to use unweighted means for wts
+
  FLCore 2.6.6
 
  NEW FEATURES
