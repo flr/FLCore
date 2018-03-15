@@ -961,12 +961,12 @@ setMethod("simplify", signature(object="FLStock"),
       har <- (can * log(survivors / stn)) / (survivors - stn)
       units(har) <- "f"
       
-      cawt <- foo(catch.wt(object)[,,,spwn.season], dims=dms, FUN=mean)
-      lawt <- foo(landings.wt(object)[,,,spwn.season], dims=dms, FUN=mean)
-      diwt <- foo(discards.wt(object)[,,,spwn.season], dims=dms, FUN=mean)
-      stwt <- foo(stock.wt(object)[,,,spwn.season], dims=dms, FUN=mean)
+      cawt <- foo(catch.wt(object)[,,,stock.season], dims=dms, FUN=mean)
+      lawt <- foo(landings.wt(object)[,,,stock.season], dims=dms, FUN=mean)
+      diwt <- foo(discards.wt(object)[,,,stock.season], dims=dms, FUN=mean)
+      stwt <- foo(stock.wt(object)[,,,stock.season], dims=dms, FUN=mean)
 
-      mat <- mat(object)[,,, spwn.season]
+      mat <- mat(object)[,,,spwn.season]
 
     } else {
 
