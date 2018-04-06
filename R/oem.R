@@ -170,27 +170,27 @@ biased <- function(object, bias=0.02){
 #' b is the autocorrelation parameter
 #' @examples
 #' \dontrun{
-#' flq=FLQuant(1:100)
-#' white <- rnoise(1000,flq,sd=.3,b=0)
+#' flq <- FLQuant(1:100, quant="age")
+#' white <- rnoise(100,flq,sd=.3,b=0)
 #' plot(white)
 #' acf(white)
 #' 
-#' red <- rnoise(1000,flq,sd=.3,b=0.7)
+#' red <- rnoise(100,flq,sd=.3,b=0.7)
 #' plot(red)
 #' acf(red)
 #' 
-#' data(ple4)
-#' res=rnoise(1000,flq,sd=.3,b=0)
+#' res <- rnoise(100,flq,sd=.3,b=0)
 #' 
-#' ggplot()+
-#' geom_point(aes(year,age,size= data),
-#'             data=subset(as.data.frame(res),data>0))+
+#' ggplot() +
+#'   geom_point(aes(year,age,size=data),
+#'     data=subset(as.data.frame(res), data>0)) +
 #' geom_point(aes(year,age,size=-data),
 #'             data=subset(as.data.frame(res),data<=0),colour="red")+
 #' scale_size_area(max_size=4, guide="none")+
 #' facet_wrap(~iter)
 #' 
-#' res=rnoise(4,m(ple4),burn=10,b=0.9,cohort=TRUE)
+#' data(ple4)
+#' res <- rnoise(4,m(ple4),burn=10,b=0.9,what="cohort")
 #' ggplot()+
 #' geom_point(aes(year,age,size= data),
 #'           data=subset(as.data.frame(res),data>0))+
