@@ -477,10 +477,7 @@ setMethod('[', signature(x='FLStock'),
     args <- list(drop=FALSE)
 
 		if (!missing(i))
-    {
       args <- c(args, list(i=i))
-      x@range['plusgroup'] <- min(as.numeric(i)[length(i)], x@range['plusgroup'])
-    }
 		if (!missing(j))
       args <- c(args, list(j=j))
 		if (!missing(k))
@@ -506,6 +503,7 @@ setMethod('[', signature(x='FLStock'),
     # range
     x@range['min'] <- dims(slot(x, 'stock.n'))$min
     x@range['max'] <- dims(slot(x, 'stock.n'))$max
+    x@range['plusgroup'] <- min(x@range['plusgroup'], dims(slot(x, 'stock.n'))$max)
     x@range['minyear'] <- dims(slot(x, 'stock.n'))$minyear
     x@range['maxyear'] <- dims(slot(x, 'stock.n'))$maxyear
 
