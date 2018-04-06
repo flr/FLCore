@@ -230,7 +230,12 @@ setMethod("units<-", signature(x="FLComp", value="list"),
 setMethod('[', signature(x='FLComp'),
 	function(x, i, j, k, l, m, n, ..., drop=FALSE) {
 
-		qnames <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant" | getSlots(class(x))=="FLArray" | getSlots(class(x))=="FLCohort"])
+    # FIND FLQs, FLAs or FLChs
+		qnames <- names(getSlots(class(x))[
+      getSlots(class(x))=="FLQuant" |
+      getSlots(class(x))=="FLArray" |
+      getSlots(class(x))=="FLCohort"])
+
 		dx <- dim(slot(x, qnames[1]))
     args <- list(drop=FALSE)
 
@@ -250,7 +255,7 @@ setMethod('[', signature(x='FLComp'),
 
     for(q in qnames)
       slot(x, q) <- do.call('[', c(list(x=slot(x,q)), args))
-
+    
     # range
 		if (!missing(i)) {
     	x@range['min'] <- dims(slot(x, qnames[1]))$min
