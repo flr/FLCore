@@ -662,6 +662,7 @@ SRNameCode <- function(name)
     "pellat" = 8,
     "bevholtD" = 21,
     "bevholtSV" = 22,
+    "bevholtSS3" = 23,
     "rickerD" = 31,
     "rickerSV" = 32,
     "shepherdD" = 51,
