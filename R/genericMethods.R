@@ -1480,19 +1480,19 @@ setGeneric("%=%", function(object, value,...) standardGeneric("%=%"))
 #' @seealso [`FLPar`]
 #' @keywords methods
 
-setGeneric("msy", function(x) standardGeneric("msy"))
+setGeneric("msy", function(x, ...) standardGeneric("msy"))
 
 #' @rdname msy-methods
 #' @aliases bmsy bmsy-methods
-setGeneric("bmsy", function(x) standardGeneric("bmsy"))
+setGeneric("bmsy", function(x, ...) standardGeneric("bmsy"))
 
 #' @rdname msy-methods
 #' @aliases sbmsy sbmsy-methods
-setGeneric("sbmsy", function(x) standardGeneric("sbmsy"))
+setGeneric("sbmsy", function(x, ...) standardGeneric("sbmsy"))
 
 #' @rdname msy-methods
 #' @aliases fmsy fmsy-methods
-setGeneric("fmsy", function(x) standardGeneric("fmsy")) # }}}
+setGeneric("fmsy", function(x, ...) standardGeneric("fmsy")) # }}}
 
 setGeneric("rnoise", function(n, len, ...) standardGeneric("rnoise"))
 setGeneric("rlnoise", function(n, len, ...) standardGeneric("rlnoise"))
