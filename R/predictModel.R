@@ -471,3 +471,15 @@ setMethod("propagate", signature(object="predictModel"),
     return(object)
   }
 ) # }}}
+
+# iter {{{
+setMethod("iter", signature(obj="predictModel"),
+	  function(obj, iter) {
+    
+      res <- callNextMethod()
+      obj@.Data <- res@.Data
+      params(obj) <- iter(params(obj), iter)
+      
+      return(obj)
+	  }
+) # }}}
