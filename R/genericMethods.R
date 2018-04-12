@@ -1618,3 +1618,11 @@ setGeneric("verify", function(object, ...) standardGeneric("verify"))
 #' @md
 setGeneric("ruleset", function(object, ...) standardGeneric("ruleset"))
 # }}}
+
+# fwdWindow
+setGeneric("fwdWindow", function(x, y, ...)
+    standardGeneric("fwdWindow"))
+
+# refpts
+setGeneric("refpts", function(object, ...)
+		standardGeneric("refpts"))
