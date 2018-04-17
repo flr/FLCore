@@ -94,20 +94,43 @@
 <div id="flcore-2-6-7" class="section level1">
 <h1 class="hasAnchor">
 <a href="#flcore-2-6-7" class="anchor"></a>FLCore 2.6.7</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<ul>
+<li>Added iterProb(FLQuant) method</li>
+</ul>
+</div>
 <div id="user-visible-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#user-visible-changes" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>writeADMB now accepts append=TRUE/FALSE</li>
+<li>Added generics from mpb and FLRP</li>
+<li>Improved simplify(FLStock)</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h2>
+<ul>
+<li>Corrected simplify(FLStock) to use unweighted means for wts</li>
+<li>Added … to msy et al generics</li>
+<li>Added numeric code 23 for bevholtss3</li>
+<li>BUG in ‘[’, wrong pgroup if i=-1</li>
+<li>Corrected simplify(FLStock) to use unweighted means for wt</li>
+<li>Bug in uom for FLQ,numeric when numeric was of length &gt; 1</li>
+<li>Bug when dims was only one of unit or area</li>
+<li>Convert numeric to uom in Arith only if length==1</li>
 </ul>
 </div>
 </div>
 <div id="flcore-2-6-6" class="section level1">
 <h1 class="hasAnchor">
 <a href="#flcore-2-6-6" class="anchor"></a>FLCore 2.6.6</h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>window(FLStocks) method to apply same window call across all elements.</li>
 <li>combine(FLStocks) method collapses all elements into a single FLStock object. with as many iters as elements in the list, must all have 1 iter.</li>
@@ -127,9 +150,9 @@
 <li>Ratios of numbers written in alternative ways now also return an empty character.</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>dimnames&lt;- for FLStock with no ages failed when changing age name #42.</li>
 <li>uom can now handle better products with units containing divisions.</li>
@@ -152,9 +175,9 @@
 <div id="flcore-2-6-5" class="section level1">
 <h1 class="hasAnchor">
 <a href="#flcore-2-6-5" class="anchor"></a>FLCore 2.6.5</h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>New harvest method for stock.n, catch.n and m, by minimizing diff in catch.</li>
 <li>survey and cpue methods to generate observations from an operating model</li>
@@ -168,9 +191,9 @@
 <li>FLStock creator uses empty object for sizing, keeps iters but drops them if object(s) are named.</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Add tiny value to landings and discards to ensure no division by zero in computeCatch.</li>
 <li>Added reduced version to print(FLPar, reduced=TRUE) to reuse in summary methods</li>
@@ -180,9 +203,9 @@
 <div id="flcore-2-6-4" class="section level1">
 <h1 class="hasAnchor">
 <a href="#flcore-2-6-4" class="anchor"></a>FLCore 2.6.4</h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code>%=%</code> operator to modify on thed fly the content of an FLQuant/FLArray. Object structure can be reused with contents being changed, e.g. FLQuant(2, dim=c(3,10)) %=% 0 will return the object with zeros.</li>
@@ -241,9 +264,9 @@
 <li>Dropped redundant Sums and Products methods for FLQuants, use Reduce(“+”, …) instead</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>coerce of data.frame to FLPar deals rightly with multiple params and no iters in wide format.</li>
 <li>iterMeans(FLQuant) was not operating along the 6th dim</li>

@@ -1,12 +1,25 @@
  FLCore 2.6.7
 
+ NEW FEATURES
+
+-  Added iterProb(FLQuant) method
+
  USER-VISIBLE CHANGES
 
 - writeADMB now accepts append=TRUE/FALSE
+- Added generics from mpb and FLRP
+- Improved simplify(FLStock)
 
  BUG FIXES
 
 - Corrected simplify(FLStock) to use unweighted means for wts
+- Added ... to msy et al generics
+- Added numeric code 23 for bevholtss3
+- BUG in '[', wrong pgroup if i=-1
+- Corrected simplify(FLStock) to use unweighted means for wt 
+- Bug in uom for FLQ,numeric when numeric was of length > 1
+- Bug when dims was only one of unit or area
+-  Convert numeric to uom in Arith only if length==1
 
  FLCore 2.6.6
 
