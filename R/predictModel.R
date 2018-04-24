@@ -186,18 +186,29 @@ setMethod('predict', signature(object='predictModel'),
   
     # SPLIT params in FLPars  
     pars <- dimnames(params(object))$params
-    args <- lapply(pars, function(x) params(object)[x,])
-    names(args) <- pars
+    args <- setNames(lapply(pars, function(x) params(object)[x,]), pars)
 
     # ADD FLQUant(s)
     args <- c(args, object)
 
     # ADD extra arguments
     extra <- list(...)
-    args <- c(args, extra)
-    
-    # TODO:parse params in extra
 
+    # EXTRACT FLQuant elements
+    exflq <- extra[unlist(lapply(extra, is, "FLQuant"))]
+
+    # PARSE any FLPar to list
+    expar <- extra[unlist(lapply(extra, is, "FLPar"))]
+    if(length(expar))
+      expar <- Reduce("c", lapply(expar, as, 'list'))
+
+    # PARSE any numeric to FLQuant
+    exnum <- extra[unlist(lapply(extra, is, "numeric"))]
+    if(length(exnum))
+      exnum <- lapply(exnum, as, 'FLQuant')
+
+    args <- c(args, exflq, expar, exnum)
+    
     # No. iters
     nits <- unlist(lapply(args, function(x) dims(x)$iter))
 
