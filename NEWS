@@ -9,6 +9,7 @@
 - writeADMB now accepts append=TRUE/FALSE
 - Added generics from mpb and FLRP
 - Improved simplify(FLStock)
+- predict(predictModel) now accepts numeric vectors and FLPar objects in ...
 
  BUG FIXES
 
