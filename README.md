@@ -14,7 +14,7 @@ To install this package, start R and enter:
 
 	install.packages("FLCore", repos="http://flr-project.org/R")
 
-or download from the [FLCore releases page](https://github.com/flr/FLCore/releases/latest)
+or download from the [FLR releases page](https://github.com/flr/R/releases)
 
 ## Documentation
 - [Help pages](http://flr-project.org/FLCore)
@@ -29,7 +29,8 @@ or download from the [FLCore releases page](https://github.com/flr/FLCore/releas
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/FLCore)](https://cran.r-project.org/package=FLCore)
 
 ## Releases
-- [All releases](https://github.com/flr/FLCore/releases/)
+- [Latest release](https://github.com/flr/R/releases/latest)
+- [All releases](https://github.com/flr/R/releases/)
 
 ## License
 Copyright (c) 2004-2017 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
