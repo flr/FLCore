@@ -227,7 +227,7 @@ setMethod("rnoise", signature(n='numeric', len="FLQuant"),
       "year" = {
         leng <- prod(dim(len)[-6])
         # MATRIX with n rows and recycled sd and d
-        res[] <- apply(matrix(c(sd, b), ncol=2, nrow=n), 1,
+        res[] <- apply(matrix(c(rep(sd, length=n), rep(b, length=n)), ncol=2, nrow=n), 1,
           function(x) noiseFn(len=leng, sd=x[1], b=x[2], burn=burn, trunc=trunc,
             seed=seed))
       },

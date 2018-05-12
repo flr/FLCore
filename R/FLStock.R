@@ -1007,6 +1007,7 @@ setMethod("simplify", signature(object="FLStock"),
 	
     # harvest.spwn & m.spwn
     harvest.spwn <- m.spwn <- m
+    units(harvest.spwn) <- units(m.spwn) <- ""
     harvest.spwn[] <- (spwn.season - 1) / last.season
     m.spwn[] <- (spwn.season - 1) / last.season
   
