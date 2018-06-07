@@ -609,7 +609,7 @@ setMethod("verify", signature(object="FLComp"),
   function(object, ..., report=TRUE) {
   
   rules <- list(...)
-
+  
   # FIX names if missing
   nms <- names(rules)
   names(rules)[nms == ""] <- paste0("R", seq(length(rules)))[nms == ""]

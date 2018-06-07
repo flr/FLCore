@@ -1102,6 +1102,8 @@ setMethod("ruleset", signature(object="FLStock"),
     # CHECK cohort numbers match (N_c,a > N_c,a+1)
     cohorts=list(rule=~ccohorts(stock.n),
       ccohorts=function(x) {
+        if(dim(x)[2] < dim(x)[1])
+          return(NA)
         #   DROP plusgroup, SELECT full cohorts
         x <- FLCohort(x)[-dim(x)[1], seq(dim(x)[1], dim(x)[2] - dim(x)[1])]
         # CHECK cohort change in abundances
