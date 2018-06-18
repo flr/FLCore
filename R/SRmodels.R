@@ -516,19 +516,19 @@ rickerCa <- function() {
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
-# survival {{{
+# survSRR {{{
 
 #' @name SRModels
 #' @aliases survival
 
-survRec <- function(ssb, R0, Sfrac, beta, SB0=ssb[,1]) {
+survRec <- function(ssf, R0, Sfrac, beta, SF0=ssf[,1]) {
 
   z0 <- log(1 / (SB0 / R0))
   zmax <- z0 + Sfrac * (-z0)
 
-  zsurv <- exp((1 - (ssb %/% SB0) ^ beta) %*% (zmax - z0) %+% z0)
+  zsurv <- exp((1 - (ssf %/% SF0) ^ beta) %*% (zmax - z0) %+% z0)
 
-  rec <- ssb * zsurv
+  rec <- ssf * zsurv
 
   return(rec)
 }
@@ -536,11 +536,11 @@ survRec <- function(ssb, R0, Sfrac, beta, SB0=ssb[,1]) {
 survSRR <- function() {
 
   ## log likelihood, assuming normal log.
-  logl <- function(R0, Sfrac, beta, rec, ssb, ...)
-      loglAR1(log(rec), log(survRec(ssb, R0, Sfrac, beta, ...)))
+  logl <- function(R0, Sfrac, beta, rec, ssf, ...)
+      loglAR1(log(rec), log(survRec(ssf, R0, Sfrac, beta, ...)))
 
   ## initial parameter values
-  initial <- structure(function(rec, ssb) {
+  initial <- structure(function(rec, ssf) {
     R0 <- max(rec)
     Sfrac <- 0.5
     beta <- 0.5
@@ -551,7 +551,7 @@ survSRR <- function() {
 	upper=c(Inf, 1, 1))
 
   ## model to be fitted
-  model  <- rec ~ survRec(ssb, R0, Sfrac, beta, SB0=ssb[,1])
+  model  <- rec ~ survRec(ssf, R0, Sfrac, beta, SF0=ssf[,1])
   
 	return(list(logl=logl, model=model, initial=initial))
 }
