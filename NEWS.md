@@ -1,3 +1,10 @@
+# FLCore 2.6.9
+
+## NEW FEATURES
+
+- survSRR implements Taylor et al (2013, doi: 10.1016/j.fishres.2012.04.018) model for low fecundity species.
+- ssf(FLStock) method returns the Spawning Stock Fecundity, as stock.n times mat, where mat holds fecundity by individual
+
 # FLCore 2.6.7
 
 ## NEW FEATURES
