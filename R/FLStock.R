@@ -352,6 +352,27 @@ setMethod("ssb", signature(object="FLStock"),
 	}
 )	# }}}
 
+# ssf		{{{
+
+setMethod("ssf", signature(object="FLStock"),
+	function(object, ...) {
+
+		uns <- units(harvest(object))
+
+		if(uns == 'f') {
+			return(quantSums(stock.n(object) * exp(-(harvest(object) * harvest.spwn(object) +
+				m(object) * m.spwn(object))) * mat(object)))
+
+		} else if(uns == 'hr') {
+			return(quantSums(stock.n(object) * mat(object) *
+				(1 - harvest(object) * harvest.spwn(object)) *
+				exp(-m(object) * m.spwn(object))))
+  	} else {
+		stop("Correct units (f or hr) not specified in the harvest slot")
+		}
+	}
+)	# }}}
+
 # tsb		{{{
 setMethod("tsb", signature(object="FLStock"),
 	function(object, ...) {
