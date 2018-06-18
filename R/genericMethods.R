@@ -722,6 +722,141 @@ setGeneric('ssb', function(object, ...)
 setGeneric('ssb<-', function(object, ..., value)
 		standardGeneric('ssb<-')) # }}}
 
+setGeneric('ssf', function(object, ...)
+		standardGeneric('ssf')) # }}}
+
+# dims {{{
+
+#' Method dims
+#'
+#' List with information on object dimensions
+#' 
+#' Method \code{dims} returns a named list with information on the dimensions
+#' and dimension names of a given object. The list returned could be
+#' extended in the future and currently contains, depending on the class of the
+#' object, some of the following:
+#' \describe{
+#'   \item{quant}{Length of the first dimension}
+#'   \item{min}{First quant}
+#'   \item{max}{Last quant}
+#'   \item{year}{Number of years}
+#'   \item{minyear}{First year in series}
+#'   \item{maxyear}{Last year in series}
+#'   \item{cohort}{Number of cohorts}
+#'   \item{mincohort}{First cohort in series}
+#'   \item{maxcohort}{Last cohort in series}
+#'   \item{unit}{Length of the third (\code{unit}) dimension}
+#'   \item{season}{Length of the fourth (\code{season}) dimension}
+#'   \item{area}{Length of the fifth (\code{area}) dimension}
+#'   \item{iter}{Length of the sixth (\code{iter}) dimension} }
+#' Values in the returned list are of class \code{numeric}, unless dimnames are
+#' strings with no numeric translation, in which case the result is \code{NA}.
+#' 
+#' Please note that the name of the first element in the returned list changes
+#' with the name of the first dimension in the input object. Use
+#' \code{\link{quant}} to obtain the name and extract the relevant element from
+#' the result list.
+#'
+#' @name dims
+#' @aliases dims dims-methods
+#' @docType methods
+#' @section Generic function: dims(obj)
+#' @author The FLR Team
+#' @seealso \code{\link[base]{dimnames}}, \code{\link{FLQuant}}
+#' @keywords methods
+
+setGeneric("dims", function(obj, ...) standardGeneric("dims")) # }}}
+
+# compute {{{
+
+#' Methods to compute quantities
+#'
+#' Methods to compute total quant-aggregated catch, landings, discards and
+#' stock biomass from age or length-structured numbers and mean weights.
+#' 
+#' These methods compute the total catch, landings, discards and stock biomass
+#' from the quant-structured values in numbers and weight per individual. The
+#' calculation for landings, discards and stock involves the product of the
+#' landings/discards/stock in numbers (\code{landings.n}, \code{discards.n} or
+#' \code{stock.n}) by the individual weight-at-quant (\code{landings.wt},
+#' \code{discards.wt} or \code{stock.wt}), as in
+#' 
+#' \deqn{L=L_n * L_{wt}}{landings = landings.n * landings.wt}
+#' 
+#' By selecting \code{slot="catch"}, \code{computeCatch} can calculate in the
+#' same way the total catch from the catch-at-quant and weight in the catch.
+#' Those two values (in slots \code{catch.n} and \code{catch.wt}) can also be
+#' calculated (from landings and discards) by specifying \code{slot="n"} and
+#' \code{slot="wt"} respectively. Calling \code{computeCatch} with option
+#' \code{slot="all"} will carry out the three calculations. In this case, the
+#' returned object will be of class \code{\link{FLQuants}}, with element names
+#' \code{catch}, \code{catch.n} and \code{catch.wt}, which can then be passed
+#' directly to the \code{\link{catch<-}} replacement method.
+#' 
+#' @name compute
+#' @docType methods
+#' @section Generic function:
+#' computeCatch(object, ...)
+#' 
+#' computeLandings(object, ...)
+#' 
+#' computeDiscards(object, ...)
+#' 
+#' computeStock(object, ...)
+#'
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#' 
+#' data(ple4)
+#' summary(computeLandings(ple4))
+#' summary(computeCatch(ple4, slot="all"))
+#' stock(ple4) <- computeStock(ple4)
+#' landings(ple4) <- computeLandings(ple4)
+#' catch.n(ple4) <- computeCatch(ple4, slot="n")
+#' catch(ple4) <- computeCatch(ple4, slot="all")
+#'
+
+
+#' @rdname compute
+#' @aliases computeLandings computeLandings-methods
+setGeneric("computeLandings", function(object, ...)
+		standardGeneric("computeLandings"))
+
+#' @rdname compute
+#' @aliases computeDiscards computeDiscards-methods
+	setGeneric("computeDiscards", function(object, ...)
+		standardGeneric("computeDiscards"))
+
+#' @rdname compute
+#' @aliases computeLandings computeCatch-methods
+	setGeneric("computeCatch", function(object, ...)
+		standardGeneric("computeCatch"))
+
+#' @rdname compute
+#' @aliases computeStock computeStock-methods
+setGeneric("computeStock", function(object, ...)
+		standardGeneric("computeStock"))
+
+# }}}
+
+# tsb
+	setGeneric("tsb", function(object, ...)
+		standardGeneric("tsb"))
+
+# fbar
+	setGeneric("fbar", function(object, ...)
+		standardGeneric("fbar"))
+
+# ssbpurec
+	setGeneric("ssbpurec", function(object, ...)
+		standardGeneric("ssbpurec"))
+
+# meanLifespan
+setGeneric("meanLifespan", function(x, ...)
+	standardGeneric("meanLifespan"))
+
 # dims {{{
 
 #' Method dims

@@ -445,6 +445,7 @@ exportMethods(
   "slim",
   "ssb",
   "ssb<-",
+  "ssf",
   "ssbpurec",
   "ssn",
   "sr",
