@@ -516,6 +516,49 @@ rickerCa <- function() {
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+# survival {{{
+
+#' @name SRModels
+#' @aliases survival
+
+survRec <- function(ssb, R0, Sfrac, beta, SB0=ssb[,1]) {
+
+  z0 <- log(1 / (SB0 / R0))
+  zmax <- z0 + Sfrac * (-z0)
+
+  zsurv <- exp((1 - (ssb %/% SB0) ^ beta) %*% (zmax - z0) %+% z0)
+
+  rec <- ssb * zsurv
+
+  return(rec)
+}
+
+survSRR <- function() {
+
+  ## log likelihood, assuming normal log.
+  logl <- function(R0, Sfrac, beta, rec, ssb, ...)
+      loglAR1(log(rec), log(survRec(ssb, R0, Sfrac, beta, ...)))
+
+  ## initial parameter values
+  initial <- structure(function(rec, ssb) {
+    R0 <- max(rec)
+    Sfrac <- 0.5
+    beta <- 0.5
+    return(FLPar(R0=R0, Sfrac=Sfrac, beta=beta))},
+
+  ## bounds
+  lower=c(1e-8, 1e-8, 1e-8),
+	upper=c(Inf, 1, 1))
+
+  ## model to be fitted
+  model  <- rec ~ survRec(ssb, R0, Sfrac, beta, SB0=ssb[,1])
+  
+	return(list(logl=logl, model=model, initial=initial))
+}
+
+
+# }}}
+
 # methods
 
 # spr0  {{{
@@ -646,6 +689,7 @@ SRModelName <- function(model){
 			"FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"a\"]%*%ssb%/%(FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"b\"]%+%ssb)" = "bevholtSV",
       'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "rickerSV",
       "(4*s*R0*ssb)/(v*(1-s)+ssb*(5*s-1))" = "bevholtss3",
+      "survRec(ssb,R0,Sfrac,beta,SB0=ssb[,1])" = "survSRR",
       NULL))} # }}}
 
 # SRNameCode {{{

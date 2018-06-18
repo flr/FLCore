@@ -130,6 +130,7 @@ export(
   "sop",
   "SRModelName",
   "SRNameCode",
+  "survSRR",
   "svModel",
   "svPars",
   "uom",
