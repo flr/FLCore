@@ -689,7 +689,7 @@ SRModelName <- function(model){
 			"FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"a\"]%*%ssb%/%(FLPar(abPars(\"bevholt\",s=s,v=v,spr0=spr0))[\"b\"]%+%ssb)" = "bevholtSV",
       'abPars("ricker",s=s,v=v,spr0=spr0)["a"]*ssb*exp(-abPars("ricker",s=s,v=v,spr0=spr0)["b"]*ssb)' = "rickerSV",
       "(4*s*R0*ssb)/(v*(1-s)+ssb*(5*s-1))" = "bevholtss3",
-      "survRec(ssb,R0,Sfrac,beta,SB0=ssb[,1])" = "survSRR",
+      "survRec(ssf,R0,Sfrac,beta,SF0=ssf[,1])" = "survSRR",
       NULL))} # }}}
 
 # SRNameCode {{{
