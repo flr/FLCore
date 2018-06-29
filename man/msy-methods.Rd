@@ -11,13 +11,13 @@
 \alias{fmsy-methods}
 \title{msy: A series of methods to extract or compute MSY-based reference points}
 \usage{
-msy(x)
+msy(x, ...)
 
-bmsy(x)
+bmsy(x, ...)
 
-sbmsy(x)
+sbmsy(x, ...)
 
-fmsy(x)
+fmsy(x, ...)
 }
 \arguments{
 \item{x}{An input object from which to extract or compute a reference point}

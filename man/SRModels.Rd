@@ -54,6 +54,9 @@
 \alias{segregAR1}
 \alias{SRModels}
 \alias{rickerCa}
+\alias{SRModels}
+\alias{survRec}
+\alias{survival}
 \title{Stock-Recruitment models}
 \usage{
 ricker()
@@ -83,6 +86,8 @@ rickerAR1()
 segregAR1()
 
 rickerCa()
+
+survRec(ssf, R0, Sfrac, beta, SF0 = ssf[, 1])
 }
 \arguments{
 \item{rho}{Autoregression}

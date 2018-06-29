@@ -4,6 +4,11 @@
 
 - survSRR implements Taylor et al (2013, doi: 10.1016/j.fishres.2012.04.018) model for low fecundity species.
 - ssf(FLStock) method returns the Spawning Stock Fecundity, as stock.n times mat, where mat holds fecundity by individual
+- spread() function to make available inside a function a list of parameters
+
+## USER-VISIBLE CHANGES
+
+- Added calcF=TRUE to simplify(), to speed it up when harvest is not needed
 
 # FLCore 2.6.7
 

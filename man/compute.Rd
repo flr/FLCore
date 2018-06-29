@@ -12,6 +12,16 @@
 \alias{computeCatch-methods}
 \alias{computeStock}
 \alias{computeStock-methods}
+\alias{compute}
+\alias{computeLandings}
+\alias{computeLandings-methods}
+\alias{computeDiscards}
+\alias{computeDiscards-methods}
+\alias{computeCatch}
+\alias{computeLandings}
+\alias{computeCatch-methods}
+\alias{computeStock}
+\alias{computeStock-methods}
 \alias{computeLandings,FLS-method}
 \alias{computeLandings,FLStock-method}
 \alias{computeLandings,FLStockLen-method}
@@ -33,6 +43,14 @@ computeCatch(object, ...)
 
 computeStock(object, ...)
 
+computeLandings(object, ...)
+
+computeDiscards(object, ...)
+
+computeCatch(object, ...)
+
+computeStock(object, ...)
+
 \S4method{computeLandings}{FLS}(object, na.rm = TRUE)
 
 \S4method{computeDiscards}{FLS}(object, na.rm = TRUE)
@@ -44,8 +62,30 @@ computeStock(object, ...)
 \description{
 Methods to compute total quant-aggregated catch, landings, discards and
 stock biomass from age or length-structured numbers and mean weights.
+
+Methods to compute total quant-aggregated catch, landings, discards and
+stock biomass from age or length-structured numbers and mean weights.
 }
 \details{
+These methods compute the total catch, landings, discards and stock biomass
+from the quant-structured values in numbers and weight per individual. The
+calculation for landings, discards and stock involves the product of the
+landings/discards/stock in numbers (\code{landings.n}, \code{discards.n} or
+\code{stock.n}) by the individual weight-at-quant (\code{landings.wt},
+\code{discards.wt} or \code{stock.wt}), as in
+
+\deqn{L=L_n * L_{wt}}{landings = landings.n * landings.wt}
+
+By selecting \code{slot="catch"}, \code{computeCatch} can calculate in the
+same way the total catch from the catch-at-quant and weight in the catch.
+Those two values (in slots \code{catch.n} and \code{catch.wt}) can also be
+calculated (from landings and discards) by specifying \code{slot="n"} and
+\code{slot="wt"} respectively. Calling \code{computeCatch} with option
+\code{slot="all"} will carry out the three calculations. In this case, the
+returned object will be of class \code{\link{FLQuants}}, with element names
+\code{catch}, \code{catch.n} and \code{catch.wt}, which can then be passed
+directly to the \code{\link{catch<-}} replacement method.
+
 These methods compute the total catch, landings, discards and stock biomass
 from the quant-structured values in numbers and weight per individual. The
 calculation for landings, discards and stock involves the product of the
@@ -74,6 +114,15 @@ computeLandings(object, ...)
 computeDiscards(object, ...)
 
 computeStock(object, ...)
+
+
+computeCatch(object, ...)
+
+computeLandings(object, ...)
+
+computeDiscards(object, ...)
+
+computeStock(object, ...)
 }
 
 \examples{
@@ -86,11 +135,24 @@ landings(ple4) <- computeLandings(ple4)
 catch.n(ple4) <- computeCatch(ple4, slot="n")
 catch(ple4) <- computeCatch(ple4, slot="all")
 
+
+data(ple4)
+summary(computeLandings(ple4))
+summary(computeCatch(ple4, slot="all"))
+stock(ple4) <- computeStock(ple4)
+landings(ple4) <- computeLandings(ple4)
+catch.n(ple4) <- computeCatch(ple4, slot="n")
+catch(ple4) <- computeCatch(ple4, slot="all")
+
 }
 \seealso{
 \link{FLComp}
+
+\link{FLComp}
 }
 \author{
+The FLR Team
+
 The FLR Team
 }
 \keyword{methods}

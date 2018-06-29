@@ -127,6 +127,7 @@ export(
   "segregAR1",
   "shepherd",
   "shepherdSV",
+  "spread",
   "sop",
   "SRModelName",
   "SRNameCode",

@@ -29,6 +29,7 @@
 \alias{dimVars}
 \alias{iterMedians}
 \alias{iterCVs}
+\alias{iterProb}
 \alias{quantSums,FLQuant-method}
 \alias{yearSums,FLQuant-method}
 \alias{unitSums,FLQuant-method}
@@ -49,6 +50,7 @@
 \alias{areaVars,FLQuant-method}
 \alias{iterVars,FLQuant-method}
 \alias{iterCVs,FLQuant-method}
+\alias{iterProb,FLQuant-method}
 \alias{yearSums,FLQuantDistr-method}
 \alias{unitSums,FLQuantDistr-method}
 \alias{seasonSums,FLQuantDistr-method}
@@ -117,6 +119,8 @@ iterMedians(x, ...)
 
 iterCVs(x, ...)
 
+iterProb(x, ...)
+
 \S4method{quantSums}{FLQuant}(x, na.rm = TRUE)
 
 \S4method{yearSums}{FLQuant}(x, na.rm = TRUE)
@@ -156,6 +160,8 @@ iterCVs(x, ...)
 \S4method{iterVars}{FLQuant}(x, na.rm = TRUE)
 
 \S4method{iterCVs}{FLQuant}(x, na.rm = TRUE)
+
+\S4method{iterProb}{FLQuant}(x, na.rm = TRUE)
 
 \S4method{yearSums}{FLQuantDistr}(x, na.rm = TRUE)
 

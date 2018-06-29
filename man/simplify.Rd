@@ -10,7 +10,7 @@
 simplify(object, ...)
 
 \S4method{simplify}{FLStock}(object, dims = c("unit", "season", "area"),
-  spwn.season = 1, stock.season = 1)
+  spwn.season = 1, stock.season = 1, calcF = TRUE)
 }
 \arguments{
 \item{object}{A complex \strong{FLR} object to aggregate.}
