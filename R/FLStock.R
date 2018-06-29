@@ -948,7 +948,7 @@ setMethod("dimnames", signature(x="FLStock"),
 
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area"),
-    spwn.season=1, stock.season=1) {
+    spwn.season=1, stock.season=1, calcF=TRUE) {
 
     # DIMS to operate on, inverse of dims
     dms <- seq(1,6)[-(match(dims, c("unit", "season", "area")) + 2)]
@@ -993,7 +993,8 @@ setMethod("simplify", signature(object="FLStock"),
       stn <- foo(stock.n(object))
 
       # RECALCULATE F
-      har <- harvest(stn, can, apply(m(object), dms, mean, na.rm=TRUE))
+      if(calcF)
+        har <- harvest(stn, can, apply(m(object), dms, mean, na.rm=TRUE))
       
       cawt <- foo(catch.wt(object), dims=dms, FUN=mean)
       lawt <- foo(landings.wt(object), dims=dms, FUN=mean)
