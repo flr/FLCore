@@ -477,6 +477,8 @@ setMethod('predict', signature(object='FLModel'),
           envir=c(params, data, dimdat))))
       }
     }
+    units(res) <- units(slot(object, fittedSlot))
+
     return(res)
   }
 )
