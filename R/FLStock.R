@@ -1049,14 +1049,14 @@ setMethod("simplify", signature(object="FLStock"),
 
 # verify {{{
 
-#' @details A set of rules has been defined for the *FLStock* class, available by calling
-#' the ruleset method. The verify method for *FLStock* will by default evaluate
-#' those rules, as well as any other defined in the call.
+#' @details A set of rules has been defined for the *FLStock* class, available
+#' by calling the ruleset method. The verify method for *FLStock* will by default
+#' evaluate those rules, as well as any other defined in the call.
 #'
 #' @rdname verify
 #' @examples
 #' data(ple4)
-#' # standard set of rules for FLStock
+#' # verify for the standard set of rules for FLStock
 #' verify(ple4)
 #' # verify a single rule from set
 #' verify(ple4, rules=ruleset(ple4, 'anyna'), report=FALSE)
