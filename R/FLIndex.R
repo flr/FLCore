@@ -284,3 +284,52 @@ plotInternalConsistency <-  function(idx,log.scales=TRUE,
   print(p)
   return(p)
 }   # }}}
+
+# expand  {{{
+setMethod('expand', signature(x='FLIndex'),
+  function(x, ...)
+  {
+    args <- list(...)
+    quant <- dims(x)$quant
+
+    # if 'quant' is to be expanded, need to consider no-quant slots
+    if(quant %in% names(args))
+    {
+
+      # slots where age cannot be changed
+      nquant <- c('effort')
+
+      # full FLQuant(s)
+      squant <- c('index', 'index.var', 'catch.n', 'catch.wt',
+        'sel.pattern', 'index.q')
+
+      # apply straight to all but nquant
+      x <- qapply(x, expand, exclude=nquant, ...)
+
+      # apply to nquant, but ignore first dim
+      args <- args[!names(args)%in%quant]
+      x <- do.call(qapply, c(list(X=x, FUN=expand, exclude=squant), args))
+
+      # range
+      range <- qapply(x, function(x) dimnames(x)[[1]])
+      slot <- names(which.max(lapply(range, length)))
+      dnames <- dimnames(slot(x, slot))
+      range(x, c('min', 'max', 'minyear', 'maxyear')) <- c(as.numeric(dnames[[1]][1]),
+        as.numeric(dnames[[1]][length(dnames[[1]])]), as.numeric(dnames[[2]][1]),
+        as.numeric(dnames[[2]][length(dnames[[2]])]))
+
+    }
+    else
+    {
+      x <- qapply(x, expand, ...)
+
+      if('year' %in% names(args))
+      {
+        years <- dimnames(slot(x, 'index'))[[2]]
+        range(x, c('minyear', 'maxyear')) <- c(as.numeric(years[1]),
+          as.numeric(years[length(years)]))
+       }
+    }
+    return(x)
+  }
+) # }}}
