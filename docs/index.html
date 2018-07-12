@@ -8,8 +8,8 @@
 <title>Core Package of FLR, Fisheries Modelling in R • FLCore</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Core Package of FLR, Fisheries Modelling in R">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Core Package of FLR, Fisheries Modelling in R">
 <meta property="og:description" content="Core classes and methods for FLR, a framework for fisheries
     modelling and management strategy simulation in R. Developed by a team of
     fisheries scientists in various countries. More information can be found at
@@ -30,8 +30,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -70,9 +74,9 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#flcore" class="anchor"></a>FLCore</h1></div>
 <ul>
-<li>Version: 2.6.7</li>
-<li>Date: 2018-04-17</li>
-<li>Author: FLR Team and various <a href="CONTRIBUTORS.md">contributors</a>.</li>
+<li>Version: 2.6.8</li>
+<li>Date: 2018-07-11</li>
+<li>Author: FLR Team and various <a href="CONTRIBUTORS.html">contributors</a>.</li>
 <li>Maintainer: Iago Mosqueira <script type="text/javascript">
 <!--
 h='&#x65;&#x63;&#46;&#x65;&#x75;&#114;&#x6f;&#112;&#x61;&#46;&#x65;&#x75;';a='&#64;';n='&#x69;&#x61;&#x67;&#x6f;&#46;&#x6d;&#x6f;&#x73;&#x71;&#x75;&#x65;&#x69;&#114;&#x61;';e=n+a+h;
@@ -91,7 +95,7 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 <p>FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R.</p>
 <p>To install this package, start R and enter:</p>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"FLCore"</span>, <span class="dt">repos=</span><span class="st">"http://flr-project.org/R"</span>)</code></pre></div>
-<p>or download from the <a href="https://github.com/flr/FLCore/releases/latest">FLCore releases page</a></p>
+<p>or download from the <a href="https://github.com/flr/R/releases">FLR releases page</a></p>
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
@@ -117,7 +121,8 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 <h2 class="hasAnchor">
 <a href="#releases" class="anchor"></a>Releases</h2>
 <ul>
-<li><a href="https://github.com/flr/FLCore/releases/">All releases</a></li>
+<li><a href="https://github.com/flr/R/releases/latest">Latest release</a></li>
+<li><a href="https://github.com/flr/R/releases/">All releases</a></li>
 </ul>
 </div>
 <div id="license" class="section level2">
@@ -147,17 +152,28 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
   </div>
 
   <div class="col-md-3" id="sidebar">
-    <h2>Links</h2>
+    <div class="links">
+<h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=FLCore">https://​cloud.r-project.org/​package=FLCore</a>
+</li>
 <li>Report a bug at <br><a href="https://github.com/flr/FLCore/issues">https://​github.com/​flr/​FLCore/​issues</a>
 </li>
 </ul>
+</div>
+<div class="license">
 <h2>License</h2>
-<p>GPL (&gt;= 2)</p>
+<ul class="list-unstyled">
+<li>GPL (&gt;= 2)</li>
+</ul>
+</div>
+<div class="citation">
 <h2>Citation</h2>
 <ul class="list-unstyled">
 <li><a href="authors.html">Citing FLCore</a></li>
 </ul>
+</div>
+<div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Iago Mosqueira <br><small class="roles"> Maintainer </small>  </li>
@@ -165,6 +181,8 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 <li>Philippe Grosjean <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
+
+  </div>
 </div>
 
 
@@ -178,6 +196,8 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

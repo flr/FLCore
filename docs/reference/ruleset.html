@@ -21,17 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Set of verify rules for an FLR class — ruleset" />
 
 <meta property="og:description" content="Returns a set of standard rules to be used by the verify method for an
 object of any given class." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +60,12 @@ object of any given class." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -81,6 +91,7 @@ object of any given class." />
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -88,23 +99,27 @@ object of any given class." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Set of verify rules for an FLR class</h1>
+    
+    <div class="hidden name"><code>ruleset.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Returns a set of standard rules to be used by the verify method for an
 object of any given class.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>ruleset</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLStock</span>
 <span class='fu'>ruleset</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -141,53 +156,55 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt; $anyna$anyna
 #&gt; function (x) 
 #&gt; unlist(qapply(x, function(y) sum(is.na(y), na.rm = TRUE) &gt; 0))
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; 
 #&gt; $catch.wt
 #&gt; ~catch.wt &gt; 0
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $landings.wt
 #&gt; ~landings.wt &gt; 0
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $discards.wt
 #&gt; ~discards.wt &gt; 0
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $stock.wt
 #&gt; ~stock.wt &gt; 0
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $mat
 #&gt; ~mat &lt;= 1 &amp; mat &gt;= 0
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $harvest.spwn
 #&gt; ~harvest.spwn &lt;= 1 &amp; harvest.spwn &gt;= 0
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $m.spwn
 #&gt; ~m.spwn &lt;= 1 &amp; m.spwn &gt;= 0
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $harvest
 #&gt; ~harvest &gt;= 0
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $cohorts
 #&gt; $cohorts$rule
 #&gt; ~ccohorts(stock.n)
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; $cohorts$ccohorts
 #&gt; function (x) 
 #&gt; {
+#&gt;     if (dim(x)[2] &lt; dim(x)[1]) 
+#&gt;         return(NA)
 #&gt;     x &lt;- FLCohort(x)[-dim(x)[1], seq(dim(x)[1], dim(x)[2] - dim(x)[1])]
 #&gt;     return((x[-1, ]/x[-dim(x)[1], ]) &lt; 1)
 #&gt; }
-#&gt; &lt;environment: 0xf0aa1d8&gt;
+#&gt; &lt;environment: 0xc26bdb8&gt;
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># Extract single rule by name</span>
 <span class='fu'>ruleset</span>(<span class='no'>ple4</span>, <span class='st'>'anyna'</span>)</div><div class='output co'>#&gt; $anyna
@@ -197,8 +214,8 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt; $anyna$anyna
 #&gt; function (x) 
 #&gt; unlist(qapply(x, function(y) sum(is.na(y), na.rm = TRUE) &gt; 0))
-#&gt; &lt;bytecode: 0xf16d4a8&gt;
-#&gt; &lt;environment: 0xefbe8d8&gt;
+#&gt; &lt;bytecode: 0xfefbe88&gt;
+#&gt; &lt;environment: 0xe735700&gt;
 #&gt; 
 #&gt; </div></pre>
   </div>
@@ -232,6 +249,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -21,13 +21,19 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Function reference" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -50,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -77,6 +87,7 @@
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -84,501 +95,503 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;2.6.7</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="AIC.html">AIC</a></code> </p>
-          </td>
-          <td><p>Method AIC</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Arith-methods.html">Arith</a></code> </p>
-          </td>
-          <td><p>Arithmetic operators for FLCore classes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="BIC.html">BIC</a></code> </p>
-          </td>
-          <td><p>Method BIC
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="AIC.html">AIC(<i>&lt;FLModel&gt;</i>,<i>&lt;numeric&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method AIC</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Arith-methods.html">Arith(<i>&lt;numeric&gt;</i>,<i>&lt;FLArray&gt;</i>)</a></code> <code><a href="Arith-methods.html">Arith(<i>&lt;FLArray&gt;</i>,<i>&lt;numeric&gt;</i>)</a></code> <code><a href="Arith-methods.html">Arith(<i>&lt;FLArray&gt;</i>,<i>&lt;FLArray&gt;</i>)</a></code> <code><a href="Arith-methods.html">Arith(<i>&lt;FLPar&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="Arith-methods.html">Arith(<i>&lt;FLArray&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="Arith-methods.html">Arith(<i>&lt;FLPar&gt;</i>,<i>&lt;FLArray&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Arithmetic operators for FLCore classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="BIC.html">BIC(<i>&lt;FLModel&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method BIC
 Bayesian information criterion (BIC) method</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Extract.html">Extract</a></code> </p>
-          </td>
-          <td><p>Extract</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLArray.html">FLArray</a></code> </p>
-          </td>
-          <td><p>Class FLArray</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLBiol.html">FLBiol</a></code> </p>
-          </td>
-          <td><p>Class FLBiol</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLBiols.html">FLBiols</a></code> </p>
-          </td>
-          <td><p>Class FLBiols</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLCohort.html">FLCohort</a></code> </p>
-          </td>
-          <td><p>Class FLCohort</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLCohorts.html">FLCohorts</a></code> </p>
-          </td>
-          <td><p>Class FLCohorts</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLComp.html">FLComp</a></code> </p>
-          </td>
-          <td><p>Class FLComp</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLComps.html">FLComps</a></code> </p>
-          </td>
-          <td><p>Class FLComps</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLI.html">FLI</a></code> </p>
-          </td>
-          <td><p>Class FLI</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLIndex.html">FLIndex</a></code> </p>
-          </td>
-          <td><p>Class FLIndex</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLIndexBiomass.html">FLIndexBiomass</a></code> </p>
-          </td>
-          <td><p>Class FLIndexBiomass</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLIndices.html">FLIndices</a></code> </p>
-          </td>
-          <td><p>Class FLIndices</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLModel.html">FLModel</a></code> </p>
-          </td>
-          <td><p>Class FLModel</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLModelSim.html">FLModelSim</a></code> </p>
-          </td>
-          <td><p>Class FLModelSim</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLModelSims.html">FLModelSims</a></code> </p>
-          </td>
-          <td><p>Class FLModelSims</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLPar.html">FLPar</a></code> </p>
-          </td>
-          <td><p>Class FLPar</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLParJK.html">FLParJK</a></code> <code><a href="FLParJK.html">orig</a></code> </p>
-          </td>
-          <td><p>Class FLParJK</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLPars.html">FLPars</a></code> </p>
-          </td>
-          <td><p>Class FLPars</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLQuant.html">FLQuant</a></code> </p>
-          </td>
-          <td><p>FLQuant class for numerical data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLQuantDistr.html">FLQuantDistr</a></code> </p>
-          </td>
-          <td><p>A class for samples of a probability distribution</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLQuantJK.html">FLQuantJK</a></code> <code><a href="FLQuantJK.html">orig</a></code> </p>
-          </td>
-          <td><p>A class for jackknifing fisheries data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLQuantPoint.html">FLQuantPoint</a></code> </p>
-          </td>
-          <td><p>Class FLQuantPoint</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLQuants.html">FLQuants</a></code> </p>
-          </td>
-          <td><p>Class FLQuants</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLS.html">FLS</a></code> </p>
-          </td>
-          <td><p>Class FLS</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLSR.html">FLSR</a></code> </p>
-          </td>
-          <td><p>Class FLSR</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLSRs.html">FLSRs</a></code> </p>
-          </td>
-          <td><p><code>FLSRS</code> is a class that extends <code>list</code> through <code>FLlst</code> but
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Extract.html">`[`(<i>&lt;FLArray&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLArray&gt;</i>,<i>&lt;array&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="Extract.html">`[<-`(<i>&lt;FLArray&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[<-`(<i>&lt;FLArray&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;FLArray&gt;</i>)</a></code> <code><a href="Extract.html">`$`(<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLQuantDistr&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLQuantDistr&gt;</i>,<i>&lt;array&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLPar&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLPar&gt;</i>,<i>&lt;array&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="Extract.html">`[<-`(<i>&lt;FLPar&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`$`(<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLComp&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[<-`(<i>&lt;FLComp&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLStock&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[<-`(<i>&lt;FLStock&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;FLStock&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLI&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;predictModel&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[[<-`(<i>&lt;FLlst&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="Extract.html">`$<-`(<i>&lt;FLlst&gt;</i>)</a></code> <code><a href="Extract.html">`[<-`(<i>&lt;FLlst&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="Extract.html">`[`(<i>&lt;FLlst&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Extract</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLArray.html">FLArray</a></code> </p>
+        </td>
+        <td><p>Class FLArray</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLBiol.html">FLBiol()</a></code> </p>
+        </td>
+        <td><p>Class FLBiol</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLBiols.html">FLBiols()</a></code> </p>
+        </td>
+        <td><p>Class FLBiols</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLCohort.html">FLCohort()</a></code> </p>
+        </td>
+        <td><p>Class FLCohort</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLCohorts.html">FLCohorts()</a></code> </p>
+        </td>
+        <td><p>Class FLCohorts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLComp.html">FLComp</a></code> </p>
+        </td>
+        <td><p>Class FLComp</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLComps.html">FLComps</a></code> </p>
+        </td>
+        <td><p>Class FLComps</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLI.html">FLI</a></code> </p>
+        </td>
+        <td><p>Class FLI</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLIndex.html">FLIndex()</a></code> </p>
+        </td>
+        <td><p>Class FLIndex</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLIndexBiomass.html">FLIndexBiomass()</a></code> </p>
+        </td>
+        <td><p>Class FLIndexBiomass</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLIndices.html">FLIndices()</a></code> </p>
+        </td>
+        <td><p>Class FLIndices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLModel.html">FLModel()</a></code> </p>
+        </td>
+        <td><p>Class FLModel</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLModelSim.html">FLModelSim()</a></code> </p>
+        </td>
+        <td><p>Class FLModelSim</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLModelSims.html">FLModelSims()</a></code> </p>
+        </td>
+        <td><p>Class FLModelSims</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLPar.html">FLPar()</a></code> </p>
+        </td>
+        <td><p>Class FLPar</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLParJK.html">FLParJK(<i>&lt;ANY&gt;</i>)</a></code> <code><a href="FLParJK.html">orig(<i>&lt;FLParJK&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Class FLParJK</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLPars.html">FLPars()</a></code> </p>
+        </td>
+        <td><p>Class FLPars</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLQuant.html">FLQuant()</a></code> </p>
+        </td>
+        <td><p>FLQuant class for numerical data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLQuantDistr.html">FLQuantDistr()</a></code> </p>
+        </td>
+        <td><p>A class for samples of a probability distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLQuantJK.html">FLQuantJK(<i>&lt;ANY&gt;</i>)</a></code> <code><a href="FLQuantJK.html">orig(<i>&lt;FLQuantJK&gt;</i>)</a></code> <code><a href="FLQuantJK.html">orig(<i>&lt;FLQuants&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>A class for jackknifing fisheries data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLQuantPoint.html">FLQuantPoint()</a></code> </p>
+        </td>
+        <td><p>Class FLQuantPoint</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLQuants.html">FLQuants()</a></code> </p>
+        </td>
+        <td><p>Class FLQuants</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLS.html">FLS</a></code> </p>
+        </td>
+        <td><p>Class FLS</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLSR.html">FLSR()</a></code> </p>
+        </td>
+        <td><p>Class FLSR</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLSRs.html">FLSRs()</a></code> </p>
+        </td>
+        <td><p><code>FLSRS</code> is a class that extends <code>list</code> through <code>FLlst</code> but
 implements a set of features that give a little bit more structure to list
 objects. The elements of <code>FLSRs</code> must all be of class
 <code>FLSR</code>. It implements a lock mechanism that, when turned on, does
 not allow the user to increase or decrease the object length.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLStock.html">FLStock</a></code> </p>
-          </td>
-          <td><p>Class FLStock</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLStockLen.html">FLStockLen</a></code> </p>
-          </td>
-          <td><p>Class FLStockLen</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLStocks.html">FLStocks</a></code> </p>
-          </td>
-          <td><p>Class FLStocks</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="FLlst.html">FLlst</a></code> </p>
-          </td>
-          <td><p>Class FLlst</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="SRModels.html">ricker</a></code> <code><a href="SRModels.html">bevholt</a></code> <code><a href="SRModels.html">bevholtss3</a></code> <code><a href="SRModels.html">segreg</a></code> <code><a href="SRModels.html">geomean</a></code> <code><a href="SRModels.html">shepherd</a></code> <code><a href="SRModels.html">cushing</a></code> <code><a href="SRModels.html">rickerSV</a></code> <code><a href="SRModels.html">bevholtSV</a></code> <code><a href="SRModels.html">shepherdSV</a></code> <code><a href="SRModels.html">bevholtAR1</a></code> <code><a href="SRModels.html">rickerAR1</a></code> <code><a href="SRModels.html">segregAR1</a></code> <code><a href="SRModels.html">rickerCa</a></code> </p>
-          </td>
-          <td><p>Stock-Recruitment models</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="accessors.html">name</a></code> <code><a href="accessors.html">desc</a></code> <code><a href="accessors.html">range<-</a></code> <code><a href="accessors.html">units<-</a></code> <code><a href="accessors.html">catch</a></code> <code><a href="accessors.html">catch.n</a></code> <code><a href="accessors.html">catch.wt</a></code> <code><a href="accessors.html">discards</a></code> <code><a href="accessors.html">discards.n</a></code> <code><a href="accessors.html">discards.wt</a></code> <code><a href="accessors.html">landings</a></code> <code><a href="accessors.html">landings.n</a></code> <code><a href="accessors.html">landings.wt</a></code> <code><a href="accessors.html">m</a></code> <code><a href="accessors.html">stock</a></code> <code><a href="accessors.html">stock.n</a></code> <code><a href="accessors.html">stock.wt</a></code> <code><a href="accessors.html">m.spwn</a></code> <code><a href="accessors.html">harvest</a></code> <code><a href="accessors.html">harvest.spwn</a></code> <code><a href="accessors.html">mat</a></code> <code><a href="accessors.html">n</a></code> <code><a href="accessors.html">wt</a></code> <code><a href="accessors.html">fec</a></code> <code><a href="accessors.html">spwn</a></code> <code><a href="accessors.html">effort</a></code> <code><a href="accessors.html">type</a></code> <code><a href="accessors.html">distr</a></code> <code><a href="accessors.html">distribution</a></code> <code><a href="accessors.html">index</a></code> <code><a href="accessors.html">index.var</a></code> <code><a href="accessors.html">sel.pattern</a></code> <code><a href="accessors.html">index.q</a></code> <code><a href="accessors.html">model</a></code> <code><a href="accessors.html">logl</a></code> <code><a href="accessors.html">gr</a></code> <code><a href="accessors.html">initial</a></code> <code><a href="accessors.html">logLik</a></code> <code><a href="accessors.html">vcov<-</a></code> <code><a href="accessors.html">hessian</a></code> <code><a href="accessors.html">logerror</a></code> <code><a href="accessors.html">details</a></code> <code><a href="accessors.html">residuals</a></code> <code><a href="accessors.html">fitted</a></code> <code><a href="accessors.html">rec</a></code> <code><a href="accessors.html">rec.obs</a></code> <code><a href="accessors.html">catch.q</a></code> <code><a href="accessors.html">discards.sel</a></code> <code><a href="accessors.html">landings.sel</a></code> <code><a href="accessors.html">params</a></code> <code><a href="accessors.html">catch<-</a></code> </p>
-          </td>
-          <td><p>accessor and replacement methods for FLCore classes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="aliases.html">flq</a></code> <code><a href="aliases.html">flqp</a></code> <code><a href="aliases.html">flqd</a></code> <code><a href="aliases.html">flc</a></code> <code><a href="aliases.html">flp</a></code> <code><a href="aliases.html">fls</a></code> <code><a href="aliases.html">flsl</a></code> <code><a href="aliases.html">fli</a></code> <code><a href="aliases.html">flib</a></code> <code><a href="aliases.html">flsr</a></code> <code><a href="aliases.html">flqs</a></code> <code><a href="aliases.html">flcs</a></code> <code><a href="aliases.html">flss</a></code> <code><a href="aliases.html">flis</a></code> <code><a href="aliases.html">flps</a></code> <code><a href="aliases.html">flb</a></code> <code><a href="aliases.html">flbs</a></code> <code><a href="aliases.html">flms</a></code> <code><a href="aliases.html">flmss</a></code> <code><a href="aliases.html">pm</a></code> </p>
-          </td>
-          <td><p>Short aliases for most FLCore classes construction methods</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="apply-methods.html">apply</a></code> </p>
-          </td>
-          <td><p>apply method for FLCore classes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bias.html">bias</a></code> </p>
-          </td>
-          <td><p>Bias of estimates through jackknife</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="bubbles.html">bubbles</a></code> </p>
-          </td>
-          <td><p>Method Bubbles plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="coerce-methods.html">coerce-methods</a></code> </p>
-          </td>
-          <td><p>Convert Objects Between Classes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="compute.html">computeLandings</a></code> <code><a href="compute.html">computeDiscards</a></code> <code><a href="compute.html">computeCatch</a></code> <code><a href="compute.html">computeStock</a></code> </p>
-          </td>
-          <td><p>Methods to compute quantities</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="cpue.html">cpue</a></code> <code><a href="cpue.html">survey</a></code> </p>
-          </td>
-          <td><p>cpue, a method to generate an observation of a CPUE index of abundance</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="createFLAccesors.html">createFLAccesors</a></code> </p>
-          </td>
-          <td><p>Create accesor methods for a given class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="datasets.html">datasets</a></code> </p>
-          </td>
-          <td><p>FLCore datasets</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="dimSummaries.html">quantSums</a></code> <code><a href="dimSummaries.html">yearSums</a></code> <code><a href="dimSummaries.html">unitSums</a></code> <code><a href="dimSummaries.html">seasonSums</a></code> <code><a href="dimSummaries.html">areaSums</a></code> <code><a href="dimSummaries.html">iterSums</a></code> <code><a href="dimSummaries.html">dimSums</a></code> <code><a href="dimSummaries.html">quantMeans</a></code> <code><a href="dimSummaries.html">yearMeans</a></code> <code><a href="dimSummaries.html">unitMeans</a></code> <code><a href="dimSummaries.html">seasonMeans</a></code> <code><a href="dimSummaries.html">areaMeans</a></code> <code><a href="dimSummaries.html">iterMeans</a></code> <code><a href="dimSummaries.html">dimMeans</a></code> <code><a href="dimSummaries.html">quantVars</a></code> <code><a href="dimSummaries.html">yearVars</a></code> <code><a href="dimSummaries.html">unitVars</a></code> <code><a href="dimSummaries.html">seasonVars</a></code> <code><a href="dimSummaries.html">areaVars</a></code> <code><a href="dimSummaries.html">iterVars</a></code> <code><a href="dimSummaries.html">dimVars</a></code> <code><a href="dimSummaries.html">iterMedians</a></code> <code><a href="dimSummaries.html">iterCVs</a></code> </p>
-          </td>
-          <td><p>Summaries by dimension</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="dims.html">dims</a></code> </p>
-          </td>
-          <td><p>Method dims</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="drop-methods.html">drop</a></code> </p>
-          </td>
-          <td><p>drop method for FLCore array-based classes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="evalPredictModel.html">evalPredictModel</a></code> </p>
-          </td>
-          <td><p>Evaluates a predictModel slot inside the object cointaining it</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="exp-methods.html">exp</a></code> <code><a href="exp-methods.html">log</a></code> </p>
-          </td>
-          <td><p>exp and log methods FLCore array-based classes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="getSlotNamesClass.html">getSlotNamesClass</a></code> </p>
-          </td>
-          <td><p>Names of slots of a given class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="iter.html">iter</a></code> </p>
-          </td>
-          <td><p>Methods iter</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="jackknife.html">jackknife</a></code> </p>
-          </td>
-          <td><p>Method jackknife</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="lattice.html">xyplot</a></code> <code><a href="lattice.html">bwplot</a></code> <code><a href="lattice.html">dotplot</a></code> <code><a href="lattice.html">barchart</a></code> <code><a href="lattice.html">stripplot</a></code> <code><a href="lattice.html">histogram</a></code> <code><a href="lattice.html">densityplot</a></code> </p>
-          </td>
-          <td><p>Lattice methods</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="metrics.html">metrics</a></code> </p>
-          </td>
-          <td><p>Extract simply-defined metrics from compex objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="msy-methods.html">msy</a></code> <code><a href="msy-methods.html">bmsy</a></code> <code><a href="msy-methods.html">sbmsy</a></code> <code><a href="msy-methods.html">fmsy</a></code> </p>
-          </td>
-          <td><p>msy: A series of methods to extract or compute MSY-based reference points</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="names.html">names</a></code> <code><a href="names.html">names<-</a></code> </p>
-          </td>
-          <td><p>Method names</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="operators.html">%+%</a></code> </p>
-          </td>
-          <td><p>FLQuant arithmetic operators that extend objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="plot.html">plot</a></code> </p>
-          </td>
-          <td><p>Method plot</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="predictModel.html">predictModel</a></code> </p>
-          </td>
-          <td><p>A class for model prediction</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="quant.html">quant</a></code> <code><a href="quant.html">quant<-</a></code> </p>
-          </td>
-          <td><p>Method quant</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="quantTotals.html">quantTotals</a></code> </p>
-          </td>
-          <td><p>Methods quantTotals</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rnoise.html">rnoise</a></code> </p>
-          </td>
-          <td><p>Random noise with different frequencies</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ruleset.html">ruleset</a></code> </p>
-          </td>
-          <td><p>Set of verify rules for an FLR class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="show.html">show</a></code> </p>
-          </td>
-          <td><p>Method show</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="simplify.html">simplify</a></code> </p>
-          </td>
-          <td><p>Aggregate or select along unwanted dimensions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="slim.html">slim</a></code> </p>
-          </td>
-          <td><p>Drop unnecesary 'iters'</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="splom.html">splom</a></code> </p>
-          </td>
-          <td><p>Method splom</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ssb.html">ssb</a></code> </p>
-          </td>
-          <td><p>Calculate or return the Spawning Stock Biomass</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="summary-methods.html">summary</a></code> </p>
-          </td>
-          <td><p>Method summary</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sweep-methods.html">sweep</a></code> </p>
-          </td>
-          <td><p>Method sweep for FLCore classes</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="trim.html">trim</a></code> </p>
-          </td>
-          <td><p>Method trim</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="units.html">units</a></code> </p>
-          </td>
-          <td><p>Method units</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="uom.html">uom</a></code> <code><a href="uom.html">uomUnits</a></code> </p>
-          </td>
-          <td><p>uom Units of Measurement</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="upperlower-methods.html">lower</a></code> <code><a href="upperlower-methods.html">upper</a></code> </p>
-          </td>
-          <td><p>Extract and modify the <em>lower</em> and <em>upper</em> FLModel attibutes.</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="verify.html">verify</a></code> </p>
-          </td>
-          <td><p>Verify FLR objects</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="wireframe.html">wireframe</a></code> </p>
-          </td>
-          <td><p>Method wireframe</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="z-methods.html">z</a></code> </p>
-          </td>
-          <td><p>Total mortality z</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLStock.html">FLStock()</a></code> </p>
+        </td>
+        <td><p>Class FLStock</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLStockLen.html">FLStockLen()</a></code> </p>
+        </td>
+        <td><p>Class FLStockLen</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLStocks.html">FLStocks()</a></code> </p>
+        </td>
+        <td><p>Class FLStocks</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="FLlst.html">FLlst()</a></code> </p>
+        </td>
+        <td><p>Class FLlst</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="SRModels.html">ricker()</a></code> <code><a href="SRModels.html">bevholt()</a></code> <code><a href="SRModels.html">bevholtss3()</a></code> <code><a href="SRModels.html">segreg()</a></code> <code><a href="SRModels.html">geomean()</a></code> <code><a href="SRModels.html">shepherd()</a></code> <code><a href="SRModels.html">cushing()</a></code> <code><a href="SRModels.html">rickerSV()</a></code> <code><a href="SRModels.html">bevholtSV()</a></code> <code><a href="SRModels.html">shepherdSV()</a></code> <code><a href="SRModels.html">bevholtAR1()</a></code> <code><a href="SRModels.html">rickerAR1()</a></code> <code><a href="SRModels.html">segregAR1()</a></code> <code><a href="SRModels.html">rickerCa()</a></code> <code><a href="SRModels.html">survRec()</a></code> </p>
+        </td>
+        <td><p>Stock-Recruitment models</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="accessors.html">name()</a></code> <code><a href="accessors.html">desc()</a></code> <code><a href="accessors.html">`range<-`()</a></code> <code><a href="accessors.html">`units<-`()</a></code> <code><a href="accessors.html">catch()</a></code> <code><a href="accessors.html">catch.n()</a></code> <code><a href="accessors.html">catch.wt()</a></code> <code><a href="accessors.html">discards()</a></code> <code><a href="accessors.html">discards.n()</a></code> <code><a href="accessors.html">discards.wt()</a></code> <code><a href="accessors.html">landings()</a></code> <code><a href="accessors.html">landings.n()</a></code> <code><a href="accessors.html">landings.wt()</a></code> <code><a href="accessors.html">m()</a></code> <code><a href="accessors.html">stock()</a></code> <code><a href="accessors.html">stock.n()</a></code> <code><a href="accessors.html">stock.wt()</a></code> <code><a href="accessors.html">m.spwn()</a></code> <code><a href="accessors.html">harvest()</a></code> <code><a href="accessors.html">harvest.spwn()</a></code> <code><a href="accessors.html">mat()</a></code> <code><a href="accessors.html">n()</a></code> <code><a href="accessors.html">m()</a></code> <code><a href="accessors.html">wt()</a></code> <code><a href="accessors.html">fec()</a></code> <code><a href="accessors.html">spwn()</a></code> <code><a href="accessors.html">effort()</a></code> <code><a href="accessors.html">type()</a></code> <code><a href="accessors.html">distr()</a></code> <code><a href="accessors.html">distribution()</a></code> <code><a href="accessors.html">index()</a></code> <code><a href="accessors.html">index.var()</a></code> <code><a href="accessors.html">catch.n()</a></code> <code><a href="accessors.html">catch.wt()</a></code> <code><a href="accessors.html">sel.pattern()</a></code> <code><a href="accessors.html">index.q()</a></code> <code><a href="accessors.html">model()</a></code> <code><a href="accessors.html">logl()</a></code> <code><a href="accessors.html">gr()</a></code> <code><a href="accessors.html">initial()</a></code> <code><a href="accessors.html">logLik()</a></code> <code><a href="accessors.html">`vcov<-`()</a></code> <code><a href="accessors.html">hessian()</a></code> <code><a href="accessors.html">logerror()</a></code> <code><a href="accessors.html">details()</a></code> <code><a href="accessors.html">residuals()</a></code> <code><a href="accessors.html">fitted()</a></code> <code><a href="accessors.html">rec()</a></code> <code><a href="accessors.html">rec.obs()</a></code> <code><a href="accessors.html">catch.q()</a></code> <code><a href="accessors.html">discards.sel()</a></code> <code><a href="accessors.html">landings.sel()</a></code> <code><a href="accessors.html">params()</a></code> <code><a href="accessors.html">`catch<-`(<i>&lt;FLS&gt;</i>,<i>&lt;FLQuants&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>accessor and replacement methods for FLCore classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="aliases.html">flq()</a></code> <code><a href="aliases.html">flqp()</a></code> <code><a href="aliases.html">flqd()</a></code> <code><a href="aliases.html">flc()</a></code> <code><a href="aliases.html">flp()</a></code> <code><a href="aliases.html">fls()</a></code> <code><a href="aliases.html">flsl()</a></code> <code><a href="aliases.html">fli()</a></code> <code><a href="aliases.html">flib()</a></code> <code><a href="aliases.html">flsr()</a></code> <code><a href="aliases.html">flqs()</a></code> <code><a href="aliases.html">flcs()</a></code> <code><a href="aliases.html">flss()</a></code> <code><a href="aliases.html">flis()</a></code> <code><a href="aliases.html">flps()</a></code> <code><a href="aliases.html">flb()</a></code> <code><a href="aliases.html">flbs()</a></code> <code><a href="aliases.html">flms()</a></code> <code><a href="aliases.html">flmss()</a></code> <code><a href="aliases.html">pm()</a></code> </p>
+        </td>
+        <td><p>Short aliases for most FLCore classes construction methods</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="apply-methods.html">apply(<i>&lt;FLArray&gt;</i>,<i>&lt;numeric&gt;</i>,<i>&lt;function&gt;</i>)</a></code> <code><a href="apply-methods.html">apply(<i>&lt;FLPar&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="apply-methods.html">apply(<i>&lt;FLQuantJK&gt;</i>,<i>&lt;numeric&gt;</i>,<i>&lt;function&gt;</i>)</a></code> <code><a href="apply-methods.html">apply(<i>&lt;FLParJK&gt;</i>,<i>&lt;numeric&gt;</i>,<i>&lt;function&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>apply method for FLCore classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="bias.html">bias(<i>&lt;FLQuantJK&gt;</i>)</a></code> <code><a href="bias.html">bias(<i>&lt;FLParJK&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Bias of estimates through jackknife</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="bubbles.html">bubbles(<i>&lt;formula&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="bubbles.html">bubbles(<i>&lt;formula&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="bubbles.html">bubbles(<i>&lt;formula&gt;</i>,<i>&lt;FLCohort&gt;</i>)</a></code> <code><a href="bubbles.html">bubbles(<i>&lt;formula&gt;</i>,<i>&lt;FLQuants&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method Bubbles plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="coerce-methods.html">coerce-methods</a></code> </p>
+        </td>
+        <td><p>Convert Objects Between Classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="compute.html">computeLandings()</a></code> <code><a href="compute.html">computeDiscards()</a></code> <code><a href="compute.html">computeCatch()</a></code> <code><a href="compute.html">computeStock()</a></code> <code><a href="compute.html">computeLandings()</a></code> <code><a href="compute.html">computeDiscards()</a></code> <code><a href="compute.html">computeCatch()</a></code> <code><a href="compute.html">computeStock()</a></code> </p>
+        </td>
+        <td><p>Methods to compute quantities</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cpue.html">cpue()</a></code> <code><a href="cpue.html">survey()</a></code> </p>
+        </td>
+        <td><p>cpue, a method to generate an observation of a CPUE index of abundance</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="createFLAccesors.html">createFLAccesors()</a></code> </p>
+        </td>
+        <td><p>Create accesor methods for a given class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="datasets.html">datasets</a></code> </p>
+        </td>
+        <td><p>FLCore datasets</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dimSummaries.html">quantSums()</a></code> <code><a href="dimSummaries.html">yearSums()</a></code> <code><a href="dimSummaries.html">unitSums()</a></code> <code><a href="dimSummaries.html">seasonSums()</a></code> <code><a href="dimSummaries.html">areaSums()</a></code> <code><a href="dimSummaries.html">iterSums()</a></code> <code><a href="dimSummaries.html">dimSums()</a></code> <code><a href="dimSummaries.html">quantMeans()</a></code> <code><a href="dimSummaries.html">yearMeans()</a></code> <code><a href="dimSummaries.html">unitMeans()</a></code> <code><a href="dimSummaries.html">seasonMeans()</a></code> <code><a href="dimSummaries.html">areaMeans()</a></code> <code><a href="dimSummaries.html">iterMeans()</a></code> <code><a href="dimSummaries.html">dimMeans()</a></code> <code><a href="dimSummaries.html">quantVars()</a></code> <code><a href="dimSummaries.html">yearVars()</a></code> <code><a href="dimSummaries.html">unitVars()</a></code> <code><a href="dimSummaries.html">seasonVars()</a></code> <code><a href="dimSummaries.html">areaVars()</a></code> <code><a href="dimSummaries.html">iterVars()</a></code> <code><a href="dimSummaries.html">dimVars()</a></code> <code><a href="dimSummaries.html">iterMedians()</a></code> <code><a href="dimSummaries.html">iterCVs()</a></code> <code><a href="dimSummaries.html">iterProb()</a></code> </p>
+        </td>
+        <td><p>Summaries by dimension</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dims.html">dims()</a></code> <code><a href="dims.html">dims()</a></code> </p>
+        </td>
+        <td><p>Method dims</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="drop-methods.html">drop(<i>&lt;FLArray&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>drop method for FLCore array-based classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="evalPredictModel.html">evalPredictModel()</a></code> </p>
+        </td>
+        <td><p>Evaluates a predictModel slot inside the object cointaining it</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="exp-methods.html">exp(<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="exp-methods.html">log(<i>&lt;FLQuant&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>exp and log methods FLCore array-based classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getSlotNamesClass.html">getSlotNamesClass()</a></code> </p>
+        </td>
+        <td><p>Names of slots of a given class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="iter.html">iter()</a></code> </p>
+        </td>
+        <td><p>Methods iter</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="jackknife.html">jackknife(<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="jackknife.html">jackknife(<i>&lt;FLQuants&gt;</i>)</a></code> <code><a href="jackknife.html">jackknife(<i>&lt;FLModel&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method jackknife</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lattice.html">xyplot(<i>&lt;formula&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="lattice.html">xyplot(<i>&lt;formula&gt;</i>,<i>&lt;FLCohort&gt;</i>)</a></code> <code><a href="lattice.html">xyplot(<i>&lt;formula&gt;</i>,<i>&lt;FLQuants&gt;</i>)</a></code> <code><a href="lattice.html">xyplot(<i>&lt;formula&gt;</i>,<i>&lt;FLComp&gt;</i>)</a></code> <code><a href="lattice.html">bwplot(<i>&lt;formula&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="lattice.html">bwplot(<i>&lt;formula&gt;</i>,<i>&lt;FLComp&gt;</i>)</a></code> <code><a href="lattice.html">dotplot(<i>&lt;formula&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="lattice.html">dotplot(<i>&lt;formula&gt;</i>,<i>&lt;FLComp&gt;</i>)</a></code> <code><a href="lattice.html">barchart(<i>&lt;formula&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="lattice.html">barchart(<i>&lt;formula&gt;</i>,<i>&lt;FLComp&gt;</i>)</a></code> <code><a href="lattice.html">stripplot(<i>&lt;formula&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="lattice.html">stripplot(<i>&lt;formula&gt;</i>,<i>&lt;FLComp&gt;</i>)</a></code> <code><a href="lattice.html">histogram(<i>&lt;formula&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="lattice.html">histogram(<i>&lt;formula&gt;</i>,<i>&lt;FLComp&gt;</i>)</a></code> <code><a href="lattice.html">histogram(<i>&lt;formula&gt;</i>,<i>&lt;FLQuants&gt;</i>)</a></code> <code><a href="lattice.html">densityplot(<i>&lt;formula&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Lattice methods</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="metrics.html">metrics()</a></code> </p>
+        </td>
+        <td><p>Extract simply-defined metrics from compex objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="msy-methods.html">msy()</a></code> <code><a href="msy-methods.html">bmsy()</a></code> <code><a href="msy-methods.html">sbmsy()</a></code> <code><a href="msy-methods.html">fmsy()</a></code> </p>
+        </td>
+        <td><p>msy: A series of methods to extract or compute MSY-based reference points</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="names.html">names(<i>&lt;FLArray&gt;</i>)</a></code> <code><a href="names.html">names(<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="names.html">`names<-`(<i>&lt;FLPar&gt;</i>,<i>&lt;character&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method names</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="operators.html">`%+%`</a></code> <code><a href="operators.html">`%-%`</a></code> <code><a href="operators.html">`%^%`</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`/`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>FLQuant arithmetic operators that extend objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot.html">plot(<i>&lt;FLQuant&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;FLStock&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;FLBiol&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;FLIndex&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;FLSR&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;FLPar&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method plot</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="predictModel.html">predictModel(<i>&lt;FLQuants&gt;</i>,<i>&lt;formula&gt;</i>)</a></code> <code><a href="predictModel.html">predictModel(<i>&lt;FLQuants&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="predictModel.html">predictModel(<i>&lt;FLQuants&gt;</i>,<i>&lt;character&gt;</i>)</a></code> <code><a href="predictModel.html">predictModel(<i>&lt;FLQuants&gt;</i>,<i>&lt;function&gt;</i>)</a></code> <code><a href="predictModel.html">predictModel(<i>&lt;missing&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>A class for model prediction</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="quant.html">quant()</a></code> <code><a href="quant.html">`quant<-`(<i>&lt;FLArray&gt;</i>,<i>&lt;character&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method quant</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="quantTotals.html">quantTotals()</a></code> </p>
+        </td>
+        <td><p>Methods quantTotals</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rnoise.html">rnoise(<i>&lt;numeric&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Random noise with different frequencies</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ruleset.html">ruleset()</a></code> </p>
+        </td>
+        <td><p>Set of verify rules for an FLR class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="show.html">show(<i>&lt;FLArray&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method show</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="simplify.html">simplify()</a></code> </p>
+        </td>
+        <td><p>Aggregate or select along unwanted dimensions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="slim.html">slim()</a></code> </p>
+        </td>
+        <td><p>Drop unnecesary 'iters'</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="splom.html">splom(<i>&lt;FLPar&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method splom</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spread.html">spread()</a></code> </p>
+        </td>
+        <td><p>A function to make available list elements inside a function or method</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ssb.html">ssb()</a></code> </p>
+        </td>
+        <td><p>Calculate or return the Spawning Stock Biomass</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="summary-methods.html">summary(<i>&lt;FLArray&gt;</i>)</a></code> <code><a href="summary-methods.html">summary(<i>&lt;FLQuantPoint&gt;</i>)</a></code> <code><a href="summary-methods.html">summary(<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="summary-methods.html">summary(<i>&lt;FLComp&gt;</i>)</a></code> <code><a href="summary-methods.html">summary(<i>&lt;FLQuants&gt;</i>)</a></code> <code><a href="summary-methods.html">summary(<i>&lt;predictModel&gt;</i>)</a></code> <code><a href="summary-methods.html">summary(<i>&lt;FLBiol&gt;</i>)</a></code> <code><a href="summary-methods.html">summary(<i>&lt;FLModel&gt;</i>)</a></code> <code><a href="summary-methods.html">summary(<i>&lt;FLlst&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method summary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sweep-methods.html">sweep(<i>&lt;FLArray&gt;</i>)</a></code> <code><a href="sweep-methods.html">sweep(<i>&lt;FLPar&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method sweep for FLCore classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trim.html">trim()</a></code> </p>
+        </td>
+        <td><p>Method trim</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="units.html">units(<i>&lt;FLArray&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method units</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="uom.html">uom()</a></code> <code><a href="uom.html">uomUnits()</a></code> </p>
+        </td>
+        <td><p>uom Units of Measurement</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="upperlower-methods.html">lower()</a></code> <code><a href="upperlower-methods.html">upper(<i>&lt;FLModel&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Extract and modify the <em>lower</em> and <em>upper</em> FLModel attibutes.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="verify.html">verify()</a></code> </p>
+        </td>
+        <td><p>Verify FLR objects</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wireframe.html">wireframe(<i>&lt;formula&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Method wireframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="z-methods.html">z()</a></code> </p>
+        </td>
+        <td><p>Total mortality z</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -600,6 +613,8 @@ not allow the user to increase or decrease the object length.</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

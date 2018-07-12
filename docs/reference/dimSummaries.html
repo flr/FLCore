@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Summaries by dimension — dimSummaries" />
 
 <meta property="og:description" content="Methods to compute various summary calculations (sum, mean, variance) over
@@ -35,6 +38,9 @@ selected dimensions of objects from any array-based classes
 same dimensions as the input but with length one in the dimension chosen
 to operate along." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ to operate along." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -84,6 +94,7 @@ to operate along." />
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -91,12 +102,15 @@ to operate along." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Summaries by dimension</h1>
+    
+    <div class="hidden name"><code>dimSummaries.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Methods to compute various summary calculations (sum, mean, variance) over
 selected dimensions of objects from any array-based classes
@@ -104,6 +118,7 @@ selected dimensions of objects from any array-based classes
 same dimensions as the input but with length one in the dimension chosen
 to operate along.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>quantSums</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -150,6 +165,8 @@ to operate along.</p>
 <span class='fu'>iterMedians</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='fu'>iterCVs</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>iterProb</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLQuant</span>
 <span class='fu'>quantSums</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
@@ -211,6 +228,9 @@ to operate along.</p>
 <span class='co'># S4 method for FLQuant</span>
 <span class='fu'>iterCVs</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
+<span class='co'># S4 method for FLQuant</span>
+<span class='fu'>iterProb</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
 <span class='co'># S4 method for FLQuantDistr</span>
 <span class='fu'>yearSums</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
@@ -271,7 +291,7 @@ to operate along.</p>
 <span class='co'># S4 method for FLPar</span>
 <span class='fu'>iterSums</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -315,8 +335,8 @@ dimSums(x), dimMeans(x), dimVars(x)</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>FLQuant, <a href='http://www.rdocumentation.org/packages/base/topics/sum'>sum</a>, <a href='http://www.rdocumentation.org/packages/base/topics/mean'>mean</a>,
-<a href='http://www.rdocumentation.org/packages/stats/topics/cor'>var</a></p>
+    <div class='dont-index'><p>FLQuant, <a href='http://www.rdocumentation.org/packages/base/topics/sum'>sum</a>, <a href='http://www.rdocumentation.org/packages/base/topics/mean'>mean</a>,
+<a href='http://www.rdocumentation.org/packages/stats/topics/cor'>var</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -793,6 +813,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

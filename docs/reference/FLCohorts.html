@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Class FLCohorts — FLCohorts" />
 
 <meta property="og:description" content="FLCohorts is a class that extends list through FLlst
@@ -35,6 +38,9 @@ list objects. The elements of FLCohorts must all be of class
 FLCohort. It implements a lock mechanism that, when turned on, does
 not allow the user to increase or decrease the object length." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ not allow the user to increase or decrease the object length." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -84,6 +94,7 @@ not allow the user to increase or decrease the object length." />
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -91,12 +102,15 @@ not allow the user to increase or decrease the object length." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Class FLCohorts</h1>
+    
+    <div class="hidden name"><code>FLCohorts.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>FLCohorts</code> is a class that extends <code>list</code> through <code>FLlst</code>
 but implements a set of features that give a little more structure to
@@ -104,10 +118,11 @@ list objects. The elements of <code>FLCohorts</code> must all be of class
 <code>FLCohort</code>. It implements a lock mechanism that, when turned on, does
 not allow the user to increase or decrease the object length.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>FLCohorts</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -137,10 +152,10 @@ any of the list elements.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/base/topics/Arithmetic'>*</a>, <a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a>, <a href='http://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a>,
+    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/base/topics/Arithmetic'>*</a>, <a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a>, <a href='http://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a>,
 <a href='bubbles.html'>bubbles</a>, catch&lt;-, <a href='iter.html'>iter</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/model.frame'>model.frame</a>,
 <a href='http://www.rdocumentation.org/packages/methods/topics/show'>show</a>, <a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a>, <a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a>,
-FLlst, <a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></p>
+FLlst, <a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></p></div>
     
 
   </div>
@@ -174,6 +189,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Method trim — trim" />
 
 <meta property="og:description" content="Trim FLR objects using named dimensions" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -80,6 +90,7 @@
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,15 +98,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Method trim</h1>
+    
+    <div class="hidden name"><code>trim.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Trim FLR objects using named dimensions</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>trim</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -134,8 +149,8 @@ counterparts are modified along the first dimension.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='FLQuant.html'>FLQuant</a>, <a href='FLStock.html'>FLStock</a>,
-<a href='FLCohort.html'>FLCohort</a>, <a href='FLIndex.html'>FLIndex</a></p>
+    <div class='dont-index'><p><a href='FLQuant.html'>FLQuant</a>, <a href='FLStock.html'>FLStock</a>,
+<a href='FLCohort.html'>FLCohort</a>, <a href='FLIndex.html'>FLIndex</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -220,8 +235,8 @@ counterparts are modified along the first dimension.</p>
 <span class='co'># recalculated</span>
   <span class='no'>shpl4</span> <span class='kw'>&lt;-</span> <span class='fu'>trim</span>(<span class='no'>ple4</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>4</span>)
   <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeLandings</span>(<span class='no'>shpl4</span>)
-  <span class='fu'><a href='accessors.html'>discards</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span>(<span class='no'>shpl4</span>)
-  <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>shpl4</span>)
+  <span class='fu'><a href='accessors.html'>discards</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeDiscards</span>(<span class='no'>shpl4</span>)
+  <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>shpl4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>shpl4</span>)
   <span class='fu'>summary</span>(<span class='no'>shpl4</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name: Plaice in IV 
@@ -283,6 +298,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -110,6 +110,113 @@ survRec(ssf, R0, Sfrac, beta, SF0 = ssf[, 1])
 A range of stock-recruitment (SR) models commonly used in fisheries science
 are provided in FLCore.
 }
+\details{
+Each method is defined as a function returning a list with one or more
+elements as follows:
+- model: Formula for the model, using the slot names \emph{rec} and \emph{ssb}
+  to refer to the usual inputs
+- logl: Function to calculate the loglikelihood of the given model when
+  estimated through MLE (See \code{\link{fmle}}) 
+- initial: Function to provide initial values for all parameters to the
+  minimization algorithms called by \code{\link{fmle}} or
+  \code{\link[stats]{nls}}. If required, this function also has two attributes,
+  \code{\link{lower}} and \code{\link{upper}}, that give lower and upper limits
+  for the parameter values, respectively. This is used by some of the methods
+  defined in \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}.
+
+The \emph{model<-} method for \code{\linkS4class{FLModel}} can then be called
+with \emph{value} being a list as described above, the name of the function
+returning such a list, or the function itself. See the examples below.
+
+Several functions to fit commonly-used SR models are available. They all use
+maximum likelihood to estimate the parameters through the method
+\code{\link{loglAR1}}.
+
+\itemize{
+\item ricker: Ricker stock-recruitment model fit: \deqn{R = a S e^{-b
+S}}{R = a*S*exp(-b*S)} \emph{a} is related to productivity (recruits per
+stock unit at small stock size) and \emph{b} to density dependence.
+(\emph{a, b} > 0).
+
+\item bevholt: Beverton-Holt stock-recruitment model
+fit: \deqn{R = \frac{a S}{b + S}}{R = a*S / (b + S)} \emph{a} is the
+maximum recruitment (asymptotically) and \emph{b} is the stock level needed
+to produce the half of maximum recruitment \eqn{\frac{a}{2}}{a/2}.
+(\emph{a, b} > 0).
+
+\item segreg: Segmented regression stock-recruitment model fit:
+\deqn{R = \mathbf{ifelse}(S \leq b, a S, a b)}{ R = ifelse(S <= b, a*S, a*b)}
+\emph{a} is the slope of the recruitment for stock levels below \emph{b}, and
+\eqn{a b}{a*b} is the mean recruitment for stock levels above \emph{b}.
+(\emph{a, b} > 0).
+
+\item geomean: Constant recruitment model fit, equal to the
+historical geometric mean recruitment.  \deqn{(R_1 R_2 \ldots R_n)^{1/n} =
+e^{\mathbf{mean}(\log(R_1),\ldots , }}{R = (R_1*R_2*...*R_n)^(1/n) =
+exp(mean(log(R_1) + ... + log(R_n)))}\deqn{ \log(R_n))}{R =
+(R_1*R_2*...*R_n)^(1/n) = exp(mean(log(R_1) + ... + log(R_n)))}
+
+\item shepherd: Shepherd stock-recruitment model fit: \deqn{R =
+\frac{a S}{1+(\frac{S}{b})^c}}{ R = a * S/(1 + (S/b)^c)} \emph{a} represents
+density-independent survival (similar to \emph{a} in the Ricker stock-recruit
+model), \emph{b} the stock size above which density-dependent processes
+predominate over density-independent ones (also referred to as the threshold
+stock size), and \emph{c} the degree of compensation.
+
+\item cushing: Cushing stock-recruitment model fit: \deqn{R = a S
+e^{b}}{R = a*S*exp(b)} This model has been used less often, and is limited
+by the fact that it is unbounded for \emph{b}>=1 as \emph{S} increases.
+(\emph{a, b} > 0). }
+
+Stock recruitment models parameterized for steepness and virgin biomass:
+
+\itemize{
+% rickerSV \itemrickerSV: Fits a ricker stock-recruitment model
+parameterized for steepness and virgin biomass.
+\deqn{a = e^{\frac{b \cdot vbiomass}{spr0}}}{a = exp(b*vbiomass)/spr0}
+\deqn{b = \frac{\log(5 \cdot steepness)}{0.8 \cdot vbiomass}}{b =
+log(5*steepness)/(0.8*vbiomass)}
+
+\item bevholtSV: Fits a Beverton-Holt stock-recruitment model
+parameterised for steepness and virgin biomass.
+\deqn{a = \frac{4 \cdot vbiomass \cdot steepness}{(spr0 \cdot (5 \cdot
+steepness-1.0}}{a = 4*vbiomass*steepness/(spr0*(5*steepness-1.0))}
+\deqn{b = \frac{vbiomass (1.0-steepness)}{5 \cdot steepnes-1.0}}{b =
+vbiomass*(1.0-steepness)/(5*steepness-1.0)}
+
+\item sheperdSV: Fits a shepher stock-recruitment model
+parameterized for steepness and virgin biomass.
+\deqn{a = \frac{1.0+(\frac{vbiomass}{b})^c}{spr0}}{a = (1.0 +
+(vbiomass/b)^c)/spr0}
+\deqn{b = vbiomass (\frac{0.2-steepness}{steepness (0.2)^c - 0.2})^
+(\frac{-1.0}{c})}{b = vbiomass*((0.2-steepness)/(steepness*0.2^c - 0.2))^
+(-1.0/c)} }
+
+Models fitted using autoregressive residuals of first order:
+
+\itemize{
+\item bevholtAR1, rickerAR1, segregAR1: Beverton-Holt, Ricker and segmented
+regression stock-recruitment models with autoregressive normal log residuals
+of first order. In the model fit, the corresponding stock-recruit
+model is combined with an autoregressive normal log likelihood of first order
+for the residuals. If \eqn{R_t}{R_t} is the observed recruitment and
+\eqn{\hat{R}_t}{Rest_t} is the predicted recruitment, an autoregressive model
+of first order is fitted to the log-residuals, \eqn{x_t =
+\log(\frac{R_t}{\hat{R}_t})}{x_t = log(R_t/Rest_t)}.
+\deqn{x_t=\rho x_{t-1} + e}{x_t = rho*x_t-1 + e}
+where \eqn{e}{e} follows a normal distribution with mean 0: \eqn{e \sim N(0,
+\sigma^2_{AR})}{e ~ N(0, sigma_ar^2)}. }
+
+Ricker model with one covariate. The covariate can be used, for example, to
+account for an enviromental factor that influences the recruitment dynamics.
+In the equations, \emph{c} is the shape parameter and \emph{X} is the
+covariate.
+
+\itemize{
+\item rickerCa: Ricker stock-recruitment model with one
+multiplicative covariate.
+\deqn{R = a (1- c X) S e^{-b S}}{R = a*(1-c*X)*S*e^{-b*S}} }
+}
 \examples{
 
 # inspect the output of one of the model functions

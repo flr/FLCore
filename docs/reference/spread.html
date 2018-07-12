@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract and modify the <em>lower</em> and <em>upper</em> FLModel attibutes. — upperlower • FLCore</title>
+<title>A function to make available list elements inside a function or method — spread • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,14 @@
 
 
 
-<meta property="og:title" content="Extract and modify the <em>lower</em> and <em>upper</em> FLModel attibutes. — upperlower" />
+<meta property="og:title" content="A function to make available list elements inside a function or method — spread" />
 
-<meta property="og:description" content="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+<meta property="og:description" content="Inside a function, a call to spread() will attach to the function environment,
+sys.frame(), the elements in the list, or of the conversion to list of the
+object (e.g. named vector or FLPar), so that they be called by name. The function 
+environment will be deleted once the function returns, so those variables won't
+make it to the environment from which the function was called, or further up
+in the call stack." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -101,55 +106,74 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract and modify the <em>lower</em> and <em>upper</em> FLModel attibutes.</h1>
+    <h1>A function to make available list elements inside a function or method</h1>
     
-    <div class="hidden name"><code>upperlower-methods.Rd</code></div>
+    <div class="hidden name"><code>spread.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Inside a function, a call to spread() will attach to the function environment,
+sys.frame(), the elements in the list, or of the conversion to list of the
+object (e.g. named vector or FLPar), so that they be called by name. The function 
+environment will be deleted once the function returns, so those variables won't
+make it to the environment from which the function was called, or further up
+in the call stack.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>lower</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for FLModel</span>
-<span class='fu'>lower</span>(<span class='no'>object</span>)
-
-<span class='co'># S4 method for FLModel</span>
-<span class='fu'>upper</span>(<span class='no'>object</span>)</pre>
+    <pre class="usage"><span class='fu'>spread</span>(<span class='no'>object</span>, <span class='kw'>FORCE</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object to extract from or modify</p></td>
+      <td><p>A named list or vector whose elements are to be loaded into the calling environment.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>New value</p></td>
+      <th>FORCE</th>
+      <td><p>Should existing variable with matching names be redefined?</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>RETURN Lorem ipsum dolor sit amet</p>
+    <p>Invisibly the names of the variables loaded into the calling environment.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Details: Aliquam sagittis feugiat felis eget consequat.</p>
+    <p>By default, spread() will not overwrite variables in the function environment
+with the same name as any list element, unles FORCE=TRUE</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>FLModel</code></p></div>
+    <div class='dont-index'><p>sys.nframe</p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># EXAMPLE function</span>
+<span class='no'>foo</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span> (<span class='no'>params</span>) {
+  <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>spread</span>(<span class='no'>params</span>)
+ <span class='fu'>print</span>(<span class='no'>a</span>)
+ <span class='no'>x</span>*<span class='no'>y</span>
+}
+<span class='co'># x and y are accesible to the internal calculation</span>
+<span class='fu'>foo</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>3.5</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>9</span>))</div><div class='output co'>#&gt; [1] "x" "y"</div><div class='output co'>#&gt; [1] 31.5</div><div class='input'>
+<span class='co'># Works with FLPar</span>
+<span class='fu'>foo</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='fu'>FLPar</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>3L</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>0.99238</span>))</div><div class='output co'>#&gt; [1] "x" "y"</div><div class='output co'>#&gt; [1] 2.97714</div><div class='input'>
+# Elements in object must be named
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>foo</span>(<span class='fu'>list</span>(<span class='fl'>3</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>0.99238</span>))
+<span class='co'># }</span><div class='input'>
+# If a variable is missing from the spread object, function will fail
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>foo</span>(<span class='fu'>list</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>4</span>))
+<span class='co'># }</span><div class='input'><span class='co'># Unless the variable is already defined in the calling environment,</span>
+<span class='co'>#in this case &lt;environment: R_GlobalEnv&gt;</span>
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>45</span>
+<span class='fu'>foo</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>4</span>))</div><div class='output co'>#&gt; [1] "x"</div><div class='output co'>#&gt; [1] 180</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -161,7 +185,9 @@
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     

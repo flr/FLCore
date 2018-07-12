@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="accessor and replacement methods for FLCore classes — accessors" />
 
 <meta property="og:description" content="All S4 classes defined in FLCore have methods for accessing and replacing any
@@ -34,6 +37,9 @@ of their slots. These methods are named as the slot, and will return the
 content of the slot, for the accessor method, or modify it with the provided
 value." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -56,8 +62,12 @@ value." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -83,6 +93,7 @@ value." />
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -90,18 +101,22 @@ value." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>accessor and replacement methods for FLCore classes</h1>
+    
+    <div class="hidden name"><code>accessors.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>All S4 classes defined in FLCore have methods for accessing and replacing any
 of their slots. These methods are named as the slot, and will return the
 content of the slot, for the accessor method, or modify it with the provided
 value.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>name</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -212,7 +227,7 @@ value.</p>
 <span class='co'># S4 method for FLS,FLQuants</span>
 <span class='fu'>catch</span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -251,13 +266,13 @@ see if this is the case.</p>
 differently depending on the <code>compute</code> argument. Please refer to the
 relevant help page for further clarification.</p>
 <p>An object of class FLQuants, containing three elements named
-<em>catch</em>, <em>catch.n</em> and <em>catch.wt</em>, as returned by <code><a href='compute.html'>computeCatch</a></code>, can be
+<em>catch</em>, <em>catch.n</em> and <em>catch.wt</em>, as returned by <code>computeCatch</code>, can be
 assigned directly to an object using <em>catch&lt;-</em>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>FLQuant</code>, <code>FLStock</code>, <code>FLIndex</code>,
-<code>FLBiol</code>, <code><a href='predictModel.html'>predictModel</a></code></p>
+    <div class='dont-index'><p><code>FLQuant</code>, <code>FLStock</code>, <code>FLIndex</code>,
+<code>FLBiol</code>, <code><a href='predictModel.html'>predictModel</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -305,14 +320,14 @@ assigned directly to an object using <em>catch&lt;-</em>.</p>
 #&gt;     return(slot(object, "catch"))
 #&gt;     .local(object, ...)
 #&gt; }
-#&gt; &lt;environment: 0xfa8dcd0&gt;
+#&gt; &lt;environment: 0xe297af8&gt;
 #&gt; 
 #&gt; Signatures:
 #&gt;         object
 #&gt; target  "FLS" 
 #&gt; defined "FLS" </div><div class='input'>
 <span class='co'># Assign the 3 catch slots</span>
-<span class='fu'>catch</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)</div></pre>
+<span class='fu'>catch</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -346,6 +361,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

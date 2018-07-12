@@ -21,16 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Class FLStockLen — FLStockLen" />
 
 <meta property="og:description" content="A class for modelling a length-structured fish stock." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -80,6 +90,7 @@
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,15 +98,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Class FLStockLen</h1>
+    
+    <div class="hidden name"><code>FLStockLen.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A class for modelling a length-structured fish stock.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>FLStockLen</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -145,10 +160,10 @@ assessment (i.e. estimates of abundance and removal rates).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>[</a>, [&lt;-, as.FLBiol, as.FLSR,
-<a href='compute.html'>computeCatch</a>, <a href='compute.html'>computeDiscards</a>, computeLandings,
+    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>[</a>, [&lt;-, as.FLBiol, as.FLSR,
+computeCatch, computeDiscards, computeLandings,
 <a href='http://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>, <a href='ssb.html'>ssb</a>, ssbpurec, <a href='trim.html'>trim</a>,
-<a href='FLComp.html'>FLComp</a></p>
+<a href='FLComp.html'>FLComp</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -273,6 +288,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

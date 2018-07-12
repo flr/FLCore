@@ -21,16 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Method dims — dims" />
 
-<meta property="og:description" content="List with information on object dimensions" />
+<meta property="og:description" content="List with information on object dimensions
+List with information on object dimensions" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +60,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -80,6 +91,7 @@
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,17 +99,24 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Method dims</h1>
+    
+    <div class="hidden name"><code>dims.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>List with information on object dimensions</p>
+<p>List with information on object dimensions</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>dims</span>(<span class='no'>obj</span>, <span class='no'>...</span>)
+
+<span class='fu'>dims</span>(<span class='no'>obj</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLQuant</span>
 <span class='fu'>dims</span>(<span class='no'>obj</span>, <span class='no'>element</span>, <span class='no'>...</span>)</pre>
@@ -126,14 +145,38 @@ strings with no numeric translation, in which case the result is <code>NA</code>
 with the name of the first dimension in the input object. Use
 <code><a href='quant.html'>quant</a></code> to obtain the name and extract the relevant element from
 the result list.</p>
+<p>Method <code>dims</code> returns a named list with information on the dimensions
+and dimension names of a given object. The list returned could be
+extended in the future and currently contains, depending on the class of the
+object, some of the following:</p><dl class='dl-horizontal'>
+  <dt>quant</dt><dd><p>Length of the first dimension</p></dd>
+  <dt>min</dt><dd><p>First quant</p></dd>
+  <dt>max</dt><dd><p>Last quant</p></dd>
+  <dt>year</dt><dd><p>Number of years</p></dd>
+  <dt>minyear</dt><dd><p>First year in series</p></dd>
+  <dt>maxyear</dt><dd><p>Last year in series</p></dd>
+  <dt>cohort</dt><dd><p>Number of cohorts</p></dd>
+  <dt>mincohort</dt><dd><p>First cohort in series</p></dd>
+  <dt>maxcohort</dt><dd><p>Last cohort in series</p></dd>
+  <dt>unit</dt><dd><p>Length of the third (<code>unit</code>) dimension</p></dd>
+  <dt>season</dt><dd><p>Length of the fourth (<code>season</code>) dimension</p></dd>
+  <dt>area</dt><dd><p>Length of the fifth (<code>area</code>) dimension</p></dd>
+  <dt>iter</dt><dd><p>Length of the sixth (<code>iter</code>) dimension</p></dd> </dl><p>Values in the returned list are of class <code>numeric</code>, unless dimnames are
+strings with no numeric translation, in which case the result is <code>NA</code>.</p>
+<p>Please note that the name of the first element in the returned list changes
+with the name of the first dimension in the input object. Use
+<code><a href='quant.html'>quant</a></code> to obtain the name and extract the relevant element from
+the result list.</p>
     
     <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
 
     <p>dims(obj)</p>
+<p>dims(obj)</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames</a></code>, <code>FLQuant</code></p>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames</a></code>, <code>FLQuant</code></p>
+<p><code><a href='http://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames</a></code>, <code>FLQuant</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -192,6 +235,8 @@ the result list.</p>
     
 The FLR Team
 
+The FLR Team
+
   </div>
 </div>
 
@@ -206,6 +251,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

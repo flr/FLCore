@@ -58,9 +58,9 @@ In this case, the argument to \emph{verify} can be a list, with an element named
 a new function, defined as another element of the list, and which will be used
 by verify when evaluating the set of rules. See below for examples.
 
-A set of rules has been defined for the *FLStock* class, available by calling
-the ruleset method. The verify method for *FLStock* will by default evaluate
-those rules, as well as any other defined in the call.
+A set of rules has been defined for the *FLStock* class, available
+by calling the ruleset method. The verify method for *FLStock* will by default
+evaluate those rules, as well as any other defined in the call.
 }
 \examples{
 # Verifying a new rule for an FLSR object
@@ -73,7 +73,7 @@ data(ple4)
 # rule: ssb is less
 verify(ple4, ssbstock = ~ssb < stock)
 data(ple4)
-# standard set of rules for FLStock
+# verify for the standard set of rules for FLStock
 verify(ple4)
 # verify a single rule from set
 verify(ple4, rules=ruleset(ple4, 'anyna'), report=FALSE)

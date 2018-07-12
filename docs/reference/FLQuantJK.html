@@ -21,18 +21,24 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="A class for jackknifing fisheries data — FLQuantJK" />
 
 <meta property="og:description" content="This extended FLQuant class holds both a jackknifed FLQuant, one in which each
 iter is missing one element, and the original object, as a separate
 FLQuant in the orig slot." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +61,12 @@ FLQuant in the orig slot." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -82,6 +92,7 @@ FLQuant in the orig slot." />
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,17 +100,21 @@ FLQuant in the orig slot." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>A class for jackknifing fisheries data</h1>
+    
+    <div class="hidden name"><code>FLQuantJK.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This extended FLQuant class holds both a jackknifed FLQuant, one in which each
 iter is missing one element, and the original object, as a separate
 <code>FLQuant</code> in the <code>orig</code> slot.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for ANY</span>
 <span class='fu'>FLQuantJK</span>(<span class='no'>object</span>, <span class='no'>orig</span>)
@@ -110,7 +125,7 @@ iter is missing one element, and the original object, as a separate
 <span class='co'># S4 method for FLQuants</span>
 <span class='fu'>orig</span>(<span class='no'>object</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -166,7 +181,7 @@ they will operate only on the jackknifed (<code>.Data</code>) slot. Please use
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>FLQuant</p>
+    <div class='dont-index'><p>FLQuant</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -215,6 +230,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • FLCore</title>
+<title>Changelog • FLCore</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -21,13 +21,19 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
-<meta property="og:title" content="All news" />
+
+
+
+<meta property="og:title" content="Changelog" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -50,8 +56,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -77,6 +87,7 @@
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -84,31 +95,53 @@
       
       </header>
 
-      <div class="row">
-
-  <div class="col-md-9">
+<div class="row">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+      <h1>Changelog <small></small></h1>
+      
     </div>
 
-    <div class="contents">
-    <div id="flcore-2-6-7" class="section level1">
-<h1 class="hasAnchor">
-<a href="#flcore-2-6-7" class="anchor"></a>FLCore 2.6.7</h1>
+    <div id="flcore-2-6-9" class="section level1">
+<h1 class="page-header">
+<a href="#flcore-2-6-9" class="anchor"></a>FLCore 2.6.9<small> Unreleased </small>
+</h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
 <ul>
-<li>Added iterProb(FLQuant) method</li>
+<li>survSRR implements Taylor et al (2013, doi: 10.1016/j.fishres.2012.04.018) model for low fecundity species.</li>
+<li>ssf(FLStock) method returns the Spawning Stock Fecundity, as stock.n times mat, where mat holds fecundity by individual</li>
+<li>spread() function to make available inside a function a list of parameters</li>
 </ul>
 </div>
 <div id="user-visible-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#user-visible-changes" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
+<li>Added calcF=TRUE to simplify(), to speed it up when harvest is not needed</li>
+</ul>
+</div>
+</div>
+    <div id="flcore-2-6-7" class="section level1">
+<h1 class="page-header">
+<a href="#flcore-2-6-7" class="anchor"></a>FLCore 2.6.7<small> Unreleased </small>
+</h1>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
+<ul>
+<li>Added iterProb(FLQuant) method</li>
+</ul>
+</div>
+<div id="user-visible-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#user-visible-changes-1" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<ul>
 <li>writeADMB now accepts append=TRUE/FALSE</li>
 <li>Added generics from mpb and FLRP</li>
 <li>Improved simplify(FLStock)</li>
+<li>predict(predictModel) now accepts numeric vectors and FLPar objects in …</li>
 </ul>
 </div>
 <div id="bug-fixes" class="section level2">
@@ -127,11 +160,12 @@
 </div>
 </div>
     <div id="flcore-2-6-6" class="section level1">
-<h1 class="hasAnchor">
-<a href="#flcore-2-6-6" class="anchor"></a>FLCore 2.6.6</h1>
-<div id="new-features-1" class="section level2">
+<h1 class="page-header">
+<a href="#flcore-2-6-6" class="anchor"></a>FLCore 2.6.6<small> Unreleased </small>
+</h1>
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>window(FLStocks) method to apply same window call across all elements.</li>
 <li>combine(FLStocks) method collapses all elements into a single FLStock object. with as many iters as elements in the list, must all have 1 iter.</li>
@@ -143,9 +177,9 @@
 <li>iter() method for FLlst, lapplies it along the list</li>
 </ul>
 </div>
-<div id="user-visible-changes-1" class="section level2">
+<div id="user-visible-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-1" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-2" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>propagate(FLPar) to return object if iter == iters #45.</li>
 <li>Ratios of numbers written in alternative ways now also return an empty character.</li>
@@ -174,20 +208,21 @@
 </div>
 </div>
     <div id="flcore-2-6-5" class="section level1">
-<h1 class="hasAnchor">
-<a href="#flcore-2-6-5" class="anchor"></a>FLCore 2.6.5</h1>
-<div id="new-features-2" class="section level2">
+<h1 class="page-header">
+<a href="#flcore-2-6-5" class="anchor"></a>FLCore 2.6.5<small> Unreleased </small>
+</h1>
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>New harvest method for stock.n, catch.n and m, by minimizing diff in catch.</li>
 <li>survey and cpue methods to generate observations from an operating model</li>
 <li>knit_print.FLQuant method for the printr package, better printing of FLQuant objects in knitr documents</li>
 </ul>
 </div>
-<div id="user-visible-changes-2" class="section level2">
+<div id="user-visible-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-2" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-3" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>FLStock creator uses empty object for sizing, keeps iters but drops them if object(s) are named.</li>
 </ul>
@@ -202,11 +237,12 @@
 </div>
 </div>
     <div id="flcore-2-6-4" class="section level1">
-<h1 class="hasAnchor">
-<a href="#flcore-2-6-4" class="anchor"></a>FLCore 2.6.4</h1>
-<div id="new-features-3" class="section level2">
+<h1 class="page-header">
+<a href="#flcore-2-6-4" class="anchor"></a>FLCore 2.6.4<small> Unreleased </small>
+</h1>
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code>%=%</code> operator to modify on thed fly the content of an FLQuant/FLArray. Object structure can be reused with contents being changed, e.g. FLQuant(2, dim=c(3,10)) %=% 0 will return the object with zeros.</li>
@@ -229,9 +265,9 @@
 <li>Added vb method for vulnerable biomass</li>
 </ul>
 </div>
-<div id="user-visible-changes-3" class="section level2">
+<div id="user-visible-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-3" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-4" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim</li>
 <li>computeLogLik method added to FLModel. Will return a logLik object calculated with the data and params in the object</li>
@@ -320,13 +356,13 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 </ul>
 </div>
 </div>
-    </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#flcore-2-6-9">2.6.9</a></li>
         <li><a href="#flcore-2-6-7">2.6.7</a></li>
         <li><a href="#flcore-2-6-6">2.6.6</a></li>
         <li><a href="#flcore-2-6-5">2.6.5</a></li>
@@ -348,6 +384,8 @@ document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

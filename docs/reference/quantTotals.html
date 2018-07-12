@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Methods quantTotals — quantTotals" />
 
 <meta property="og:description" content="Methods to compute totals over selected dimensions of FLQuant objects
@@ -36,6 +39,9 @@ sums along the first (yearTotals) or second dimension
 be noted that what each method really returns are the totals over the
 selected dimension." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -58,8 +64,12 @@ selected dimension." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -85,6 +95,7 @@ selected dimension." />
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -92,12 +103,15 @@ selected dimension." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Methods quantTotals</h1>
+    
+    <div class="hidden name"><code>quantTotals.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Methods to compute totals over selected dimensions of <code>FLQuant</code> objects
 These methods return an object of same dimensions as the input but with the
@@ -106,6 +120,7 @@ sums along the first (<code>yearTotals</code>) or second dimension
 be noted that what each method really returns are the totals over the
 selected dimension.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>quantTotals</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
         
@@ -116,7 +131,7 @@ selected dimension.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>FLQuant</p>
+    <div class='dont-index'><p>FLQuant</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -256,6 +271,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

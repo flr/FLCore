@@ -21,12 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
+
+
 <meta property="og:title" content="Class FLQuants — FLQuants" />
 
 <meta property="og:description" content="FLQuants is a list of FLQuant objects. It is very
@@ -35,6 +38,9 @@ that, when turned on, does not allow the user to increase or decrease the
 object length. The elements of FLQuants must all be of class
 FLQuant." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -57,8 +63,12 @@ FLQuant." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">FLCore</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">FLCore</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -84,6 +94,7 @@ FLQuant." />
   <a href="http://flr-project.org/">FLR</a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -91,12 +102,15 @@ FLQuant." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Class FLQuants</h1>
+    
+    <div class="hidden name"><code>FLQuants.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>FLQuants</code> is a <code>list</code> of <code>FLQuant</code> objects. It is very
 similar to the standard <code>list</code> class. It implements a lock mechanism
@@ -104,6 +118,7 @@ that, when turned on, does not allow the user to increase or decrease the
 object length. The elements of <code>FLQuants</code> must all be of class
 <code>FLQuant</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>FLQuants</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -122,7 +137,7 @@ object length. The elements of <code>FLQuants</code> must all be of class
 <span class='co'># S4 method for FLQuants</span>
 <span class='fu'>FLQuants</span>(<span class='no'>object</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -152,10 +167,10 @@ any of the list elements.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><a href='http://www.rdocumentation.org/packages/base/topics/Arithmetic'>*</a>, <a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a>, <a href='http://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a>,
+    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/base/topics/Arithmetic'>*</a>, <a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a>, <a href='http://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a>,
 <a href='bubbles.html'>bubbles</a>, catch&lt;-, <a href='iter.html'>iter</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/model.frame'>model.frame</a>,
 <a href='http://www.rdocumentation.org/packages/methods/topics/show'>show</a>, <a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a>, <a href='http://www.rdocumentation.org/packages/lattice/topics/xyplot'>xyplot</a>,
-FLlst, <a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></p>
+FLlst, <a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -215,7 +230,7 @@ FLlst, <a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a
 #&gt; 	Median :  0.5515977 
 #&gt; 	3rd Qu.:  0.6586751 
 #&gt; 	Max    :  0.8758763 
-#&gt; 	NAs    :  0 %</div><div class='input'>  <span class='fu'>xyplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='no'>qname</span>, <span class='no'>fqs</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'b'</span>, <span class='kw'>scales</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>relation</span><span class='kw'>=</span><span class='st'>'free'</span>))</div><div class='img'><img src='FLQuants-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; 	NAs    :  0 %</div><div class='input'>  <span class='fu'>xyplot</span>(<span class='no'>data</span>~<span class='no'>year</span><span class='kw'>|</span><span class='no'>qname</span>, <span class='no'>fqs</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'b'</span>, <span class='kw'>scales</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>relation</span><span class='kw'>=</span><span class='st'>'free'</span>))</div><div class='img'><img src='FLQuants-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -250,6 +265,8 @@ The FLR Team
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>
