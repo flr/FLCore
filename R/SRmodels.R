@@ -69,7 +69,7 @@
 #' Stock recruitment models parameterized for steepness and virgin biomass:
 #'
 #' \itemize{
-#' % rickerSV \itemrickerSV: Fits a ricker stock-recruitment model
+#' \item rickerSV: Fits a ricker stock-recruitment model
 #' parameterized for steepness and virgin biomass.
 #' \deqn{a = e^{\frac{b \cdot vbiomass}{spr0}}}{a = exp(b*vbiomass)/spr0}
 #' \deqn{b = \frac{\log(5 \cdot steepness)}{0.8 \cdot vbiomass}}{b =
@@ -88,7 +88,8 @@
 #' (vbiomass/b)^c)/spr0}
 #' \deqn{b = vbiomass (\frac{0.2-steepness}{steepness (0.2)^c - 0.2})^
 #' (\frac{-1.0}{c})}{b = vbiomass*((0.2-steepness)/(steepness*0.2^c - 0.2))^
-#' (-1.0/c)} }
+#' (-1.0/c)}
+#' }
 #'
 #' Models fitted using autoregressive residuals of first order:
 #'
@@ -103,7 +104,8 @@
 #' \log(\frac{R_t}{\hat{R}_t})}{x_t = log(R_t/Rest_t)}.
 #' \deqn{x_t=\rho x_{t-1} + e}{x_t = rho*x_t-1 + e}
 #' where \eqn{e}{e} follows a normal distribution with mean 0: \eqn{e \sim N(0,
-#' \sigma^2_{AR})}{e ~ N(0, sigma_ar^2)}. }
+#' \sigma^2_{AR})}{e ~ N(0, sigma_ar^2)}.
+#' }
 #'
 #' Ricker model with one covariate. The covariate can be used, for example, to
 #' account for an enviromental factor that influences the recruitment dynamics.
@@ -113,7 +115,8 @@
 #' \itemize{
 #' \item rickerCa: Ricker stock-recruitment model with one
 #' multiplicative covariate.
-#' \deqn{R = a (1- c X) S e^{-b S}}{R = a*(1-c*X)*S*e^{-b*S}} }
+#' \deqn{R = a (1- c X) S e^{-b S}}{R = a*(1-c*X)*S*e^{-b*S}}
+#' }
 #'
 #' @name SRModels
 #' @aliases SRModels ab2sv bevholt bevholt.ar1 bevholt.c.a bevholt.c.b
