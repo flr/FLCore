@@ -1130,7 +1130,11 @@ setMethod("ruleset", signature(object="FLStock"),
         x <- FLCohort(x)[-dim(x)[1], seq(dim(x)[1], dim(x)[2] - dim(x)[1])]
         # CHECK cohort change in abundances
         return((x[-1, ] / x[-dim(x)[1],]) < 1)
-      })
+      }),
+    
+    # CHECK units
+    uoms=list(rule="uoms", uoms=function(x)
+      uomUnits(unlist(units(x))))
     )
 
     args <- list(...)
