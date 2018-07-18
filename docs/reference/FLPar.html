@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
       </span>
     </div>
 
@@ -143,27 +143,27 @@ units,FLPar-method, units&lt;-,FLPar,character-method,
     <pre class="examples"><div class='input'>
 <span class='fu'>FLPar</span>(<span class='fu'>rnorm</span>(<span class='fl'>4</span>), <span class='kw'>params</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>'a'</span>,<span class='st'>'b'</span>,<span class='st'>'c'</span>,<span class='st'>'sigma2'</span>))</div><div class='output co'>#&gt; An object of class "FLPar"
 #&gt; params
-#&gt;      a      b      c sigma2 
-#&gt; -0.229 -0.975  2.692  1.392 
+#&gt;       a       b       c  sigma2 
+#&gt;  1.2404  0.6857 -0.0268  0.3096 
 #&gt; units:  NA NA NA NA </div><div class='input'>
 <span class='fu'>FLPar</span>(<span class='fu'>rnorm</span>(<span class='fl'>20</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>'a'</span>,<span class='st'>'b'</span>), <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1990</span>:<span class='fl'>1999</span>, <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>1</span>),
   <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'NA'</span>)</div><div class='output co'>#&gt; An object of class "FLPar"
 #&gt;       year
-#&gt; params 1990    1991    1992    1993    1994    1995    1996    1997    1998   
-#&gt;      a  1.3601 -0.8689  1.2147 -2.0950  0.8527  0.5572 -0.2079 -0.5067  2.4117
-#&gt;      b -0.3654 -0.5066  0.5070  0.0341  0.7432 -1.2486  0.4240 -0.6115 -0.1650
+#&gt; params 1990     1991     1992     1993     1994     1995     1996     1997    
+#&gt;      a  0.24986  0.59938  0.09072 -0.48178 -0.85954  1.21506 -0.08591 -0.21826
+#&gt;      b -1.35646  0.00865 -0.65706  0.01776  1.35770  1.45391 -0.61757 -1.32601
 #&gt;       year
-#&gt; params 1999   
-#&gt;      a -0.4404
-#&gt;      b  0.5220
+#&gt; params 1998     1999    
+#&gt;      a -2.36221  0.25440
+#&gt;      b -1.40997  0.29587
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># with iters</span>
   <span class='fu'>FLPar</span>(<span class='fu'>rnorm</span>(<span class='fl'>80</span>), <span class='kw'>params</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>'a'</span>, <span class='st'>'b'</span>), <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>40</span>)</div><div class='output co'>#&gt; An object of class "FLPar"
 #&gt; iters:  40 
 #&gt; 
 #&gt; params
-#&gt;                a                b 
-#&gt; -0.301427(0.796)  0.013203(1.064) 
+#&gt;              a              b 
+#&gt; 0.12703(1.477) 0.20103(0.714) 
 #&gt; units:  NA NA </div><div class='input'>
 </div></pre>
   </div>

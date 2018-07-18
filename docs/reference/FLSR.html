@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
       </span>
     </div>
 
@@ -164,30 +164,30 @@ formulation implemented for each of them.</p>
   <span class='co'># Create an  FLSR object using the existing SR models.</span>
   <span class='no'>sr2</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'ricker'</span>)
   <span class='no'>sr2</span>@<span class='kw'>model</span></div><div class='output co'>#&gt; rec ~ a * ssb * exp(-b * ssb)
-#&gt; &lt;environment: 0x130a6d50&gt;</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
+#&gt; &lt;environment: 0x12db29f0&gt;</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
 #&gt; 		# The function to provide initial values
 #&gt;     res  &lt;-coefficients(lm(log(c(rec)/c(ssb))~c(ssb)))
 #&gt;     return(FLPar(a=max(exp(res[1])), b=-max(res[2])))}
-#&gt; &lt;environment: 0x130a6d50&gt;
+#&gt; &lt;environment: 0x12db29f0&gt;
 #&gt; attr(,"lower")
 #&gt; [1] -Inf -Inf
 #&gt; attr(,"upper")
 #&gt; [1] Inf Inf</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))
-#&gt; &lt;environment: 0x130a6d50&gt;</div><div class='input'>
+#&gt; &lt;environment: 0x12db29f0&gt;</div><div class='input'>
   <span class='no'>sr3</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'bevholt'</span>)
   <span class='no'>sr3</span>@<span class='kw'>model</span></div><div class='output co'>#&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x1543f860&gt;</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
+#&gt; &lt;environment: 0x139d2240&gt;</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
 #&gt;     a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))
 #&gt;     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #&gt;     return(FLPar(a = a, b = a/b))}
-#&gt; &lt;environment: 0x1543f860&gt;
+#&gt; &lt;environment: 0x139d2240&gt;
 #&gt; attr(,"lower")
 #&gt; [1] -Inf -Inf
 #&gt; attr(,"upper")
 #&gt; [1] Inf Inf</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;environment: 0x1543f860&gt;</div><div class='input'>
+#&gt; &lt;environment: 0x139d2240&gt;</div><div class='input'>
   <span class='co'># Create an FLSR using a function.</span>
   <span class='no'>mysr1</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(){
     <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='no'>rec</span> ~ <span class='no'>a</span>*<span class='no'>ssb</span>^<span class='no'>b</span>
@@ -218,74 +218,194 @@ formulation implemented for each of them.</p>
   <span class='no'>sr5</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>mysr2</span>, <span class='kw'>ssb</span> <span class='kw'>=</span> <span class='no'>ssb</span>, <span class='kw'>rec</span> <span class='kw'>=</span> <span class='no'>rec</span>)
 
   <span class='no'>sr5.mle</span> <span class='kw'>&lt;-</span> <span class='fu'>fmle</span>(<span class='no'>sr5</span>)</div><div class='output co'>#&gt;   Nelder-Mead direct search function minimizer
-#&gt; function value for initial parameters = 472201.588643
-#&gt;   Scaled convergence tolerance is 0.00703635
-#&gt; Stepsize computed as 13358.013420
-#&gt; BUILD              4 84257167485884.187500 364736.828711
-#&gt; LO-REDUCTION       6 18352153340100.308594 364736.828711
-#&gt; HI-REDUCTION       8 4687197164396.531250 364736.828711
-#&gt; HI-REDUCTION      10 1184153971139.947266 364736.828711
-#&gt; HI-REDUCTION      12 297381827741.920898 364736.828711
-#&gt; HI-REDUCTION      14 74401243415.609268 364736.828711
-#&gt; HI-REDUCTION      16 18550626525.672588 364736.828711
-#&gt; HI-REDUCTION      18 4603229631.633773 364736.828711
-#&gt; HI-REDUCTION      20 1132552691.115204 364736.828711
-#&gt; HI-REDUCTION      22 274040347.845235 364736.828711
-#&gt; HI-REDUCTION      24 64124727.102706 364736.828711
-#&gt; HI-REDUCTION      26 14018817.821885 364736.828711
-#&gt; HI-REDUCTION      28 2680934.561353 364736.828711
-#&gt; HI-REDUCTION      30 673973.984524 364736.828711
-#&gt; REFLECTION        32 472201.588643 197820.184975
-#&gt; HI-REDUCTION      34 441022.832376 197820.184975
-#&gt; HI-REDUCTION      36 364736.828711 190390.792963
-#&gt; HI-REDUCTION      38 204198.748517 182556.905051
-#&gt; HI-REDUCTION      40 197820.184975 153376.994018
-#&gt; HI-REDUCTION      42 190390.792963 151147.238095
-#&gt; HI-REDUCTION      44 182556.905051 151147.238095
-#&gt; HI-REDUCTION      46 154521.420093 149821.184397
-#&gt; REFLECTION        48 153376.994018 140904.949524
-#&gt; EXTENSION         50 151147.238095 125290.090825
-#&gt; HI-REDUCTION      52 149821.184397 125290.090825
-#&gt; LO-REDUCTION      54 140904.949524 125290.090825
-#&gt; HI-REDUCTION      56 136350.913831 125290.090825
-#&gt; EXTENSION         58 129821.867205 107636.539205
-#&gt; LO-REDUCTION      60 127191.351532 107636.539205
-#&gt; EXTENSION         62 125290.090825 99845.492068
-#&gt; EXTENSION         64 118735.046604 80604.759312
-#&gt; EXTENSION         66 107636.539205 60711.343411
-#&gt; EXTENSION         68 99845.492068 47451.536705
-#&gt; EXTENSION         70 80604.759312 19327.711397
-#&gt; EXTENSION         72 60711.343411 5953.183716
-#&gt; LO-REDUCTION      74 47451.536705 5953.183716
-#&gt; REFLECTION        76 19327.711397 854.085120
-#&gt; LO-REDUCTION      78 8975.663193 854.085120
-#&gt; REFLECTION        80 5953.183716 157.618417
-#&gt; LO-REDUCTION      82 2721.950712 157.618417
-#&gt; LO-REDUCTION      84 1939.276084 157.618417
-#&gt; LO-REDUCTION      86 854.085120 69.673303
-#&gt; HI-REDUCTION      88 695.069855 69.673303
-#&gt; LO-REDUCTION      90 311.928283 69.673303
-#&gt; LO-REDUCTION      92 157.618417 69.673303
-#&gt; HI-REDUCTION      94 126.299955 69.673303
-#&gt; HI-REDUCTION      96 91.340797 69.673303
-#&gt; HI-REDUCTION      98 84.607913 69.673303
-#&gt; HI-REDUCTION     100 77.307010 69.673303
-#&gt; HI-REDUCTION     102 73.330270 69.673303
-#&gt; HI-REDUCTION     104 72.496370 69.673303
-#&gt; LO-REDUCTION     106 70.420345 69.673303
-#&gt; HI-REDUCTION     108 70.280563 69.673303
-#&gt; HI-REDUCTION     110 70.187166 69.620653
-#&gt; HI-REDUCTION     112 69.706103 69.620653
-#&gt; LO-REDUCTION     114 69.681304 69.558233
-#&gt; HI-REDUCTION     116 69.673303 69.530771
-#&gt; HI-REDUCTION     118 69.620653 69.530771
-#&gt; LO-REDUCTION     120 69.558233 69.525482
-#&gt; HI-REDUCTION     122 69.547790 69.525482
-#&gt; LO-REDUCTION     124 69.530771 69.516747
-#&gt; HI-REDUCTION     126 69.526923 69.516480
-#&gt; HI-REDUCTION     128 69.525482 69.516147
+#&gt; function value for initial parameters = 163406.701688
+#&gt;   Scaled convergence tolerance is 0.00243495
+#&gt; Stepsize computed as 7496.820439
+#&gt; BUILD              4 9181163641994.675781 141540.160296
+#&gt; LO-REDUCTION       6 2129977522396.011719 141540.160296
+#&gt; HI-REDUCTION       8 538828068094.632690 141540.160296
+#&gt; HI-REDUCTION      10 135471725247.814880 141540.160296
+#&gt; HI-REDUCTION      12 33943657773.507915 141540.160296
+#&gt; HI-REDUCTION      14 8485095365.236800 141540.160296
+#&gt; HI-REDUCTION      16 2116059492.850708 141540.160296
+#&gt; HI-REDUCTION      18 525861882.708607 141540.160296
+#&gt; HI-REDUCTION      20 129877061.405528 141540.160296
+#&gt; HI-REDUCTION      22 31729980.268444 141540.160296
+#&gt; HI-REDUCTION      24 7626132.270864 141540.160296
+#&gt; HI-REDUCTION      26 1817676.813873 141540.160296
+#&gt; HI-REDUCTION      28 474446.919157 141540.160296
+#&gt; HI-REDUCTION      30 219409.298128 141540.160296
+#&gt; REFLECTION        32 193097.769001 128665.987280
+#&gt; LO-REDUCTION      34 163406.701688 128665.987280
+#&gt; EXTENSION         36 141540.160296 86398.126977
+#&gt; LO-REDUCTION      38 136930.633178 86398.126977
+#&gt; HI-REDUCTION      40 128665.987280 86398.126977
+#&gt; EXTENSION         42 99061.935418 57313.041709
+#&gt; LO-REDUCTION      44 97008.208272 57313.041709
+#&gt; EXTENSION         46 86398.126977 31904.956474
+#&gt; REFLECTION        48 61527.247440 31099.754288
+#&gt; HI-REDUCTION      50 57313.041709 31099.754288
+#&gt; EXTENSION         52 41725.116784 9994.304172
+#&gt; LO-REDUCTION      54 31904.956474 9994.304172
+#&gt; EXTENSION         56 31099.754288 7899.295274
+#&gt; EXTENSION         58 16622.579730 2362.855801
+#&gt; REFLECTION        60 9994.304172 865.531551
+#&gt; HI-REDUCTION      62 7899.295274 865.531551
+#&gt; LO-REDUCTION      64 2362.855801 697.123217
+#&gt; LO-REDUCTION      66 2061.396804 131.370456
+#&gt; HI-REDUCTION      68 865.531551 131.370456
+#&gt; LO-REDUCTION      70 697.123217 131.370456
+#&gt; HI-REDUCTION      72 300.924786 131.370456
+#&gt; HI-REDUCTION      74 157.736501 121.566363
+#&gt; HI-REDUCTION      76 141.827460 73.447339
+#&gt; LO-REDUCTION      78 131.370456 72.115881
+#&gt; HI-REDUCTION      80 121.566363 72.115881
+#&gt; LO-REDUCTION      82 86.968056 72.115881
+#&gt; HI-REDUCTION      84 80.304614 72.115881
+#&gt; LO-REDUCTION      86 74.328873 72.115881
+#&gt; HI-REDUCTION      88 73.447339 71.407375
+#&gt; HI-REDUCTION      90 72.905934 70.943981
+#&gt; LO-REDUCTION      92 72.115881 70.785005
+#&gt; HI-REDUCTION      94 71.407375 70.785005
+#&gt; HI-REDUCTION      96 71.092687 70.785005
+#&gt; HI-REDUCTION      98 70.943981 70.785005
+#&gt; HI-REDUCTION     100 70.917673 70.763889
+#&gt; LO-REDUCTION     102 70.829585 70.752861
+#&gt; HI-REDUCTION     104 70.785005 70.752861
+#&gt; HI-REDUCTION     106 70.763889 70.749545
+#&gt; REFLECTION       108 70.761302 70.748467
+#&gt; REFLECTION       110 70.752861 70.744787
+#&gt; HI-REDUCTION     112 70.749545 70.740893
+#&gt; EXTENSION        114 70.748467 70.724123
+#&gt; HI-REDUCTION     116 70.744787 70.724123
+#&gt; LO-REDUCTION     118 70.740893 70.724123
+#&gt; EXTENSION        120 70.734920 70.722481
+#&gt; LO-REDUCTION     122 70.734458 70.722481
+#&gt; EXTENSION        124 70.724123 70.695721
+#&gt; LO-REDUCTION     126 70.723645 70.695721
+#&gt; LO-REDUCTION     128 70.722481 70.695721
+#&gt; EXTENSION        130 70.715444 70.676064
+#&gt; EXTENSION        132 70.703208 70.637697
+#&gt; LO-REDUCTION     134 70.695721 70.637697
+#&gt; EXTENSION        136 70.676064 70.611820
+#&gt; EXTENSION        138 70.644578 70.541271
+#&gt; LO-REDUCTION     140 70.637697 70.541271
+#&gt; LO-REDUCTION     142 70.611820 70.541271
+#&gt; EXTENSION        144 70.563786 70.443727
+#&gt; LO-REDUCTION     146 70.552506 70.443727
+#&gt; EXTENSION        148 70.541271 70.403008
+#&gt; EXTENSION        150 70.455309 70.266001
+#&gt; LO-REDUCTION     152 70.443727 70.266001
+#&gt; LO-REDUCTION     154 70.403008 70.266001
+#&gt; LO-REDUCTION     156 70.347710 70.266001
+#&gt; EXTENSION        158 70.325720 70.207409
+#&gt; EXTENSION        160 70.281998 70.174752
+#&gt; EXTENSION        162 70.266001 69.966123
+#&gt; LO-REDUCTION     164 70.207409 69.966123
+#&gt; LO-REDUCTION     166 70.174752 69.966123
+#&gt; EXTENSION        168 70.102607 69.665746
+#&gt; EXTENSION        170 70.010629 69.402631
+#&gt; LO-REDUCTION     172 69.966123 69.402631
+#&gt; EXTENSION        174 69.665746 68.343674
+#&gt; LO-REDUCTION     176 69.467717 68.343674
+#&gt; EXTENSION        178 69.402631 67.340172
+#&gt; EXTENSION        180 68.578834 63.479393
+#&gt; LO-REDUCTION     182 68.343674 63.479393</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     184 67.340172 63.479393</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       186 66.915483 61.301086</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     188 65.241403 61.301086
+#&gt; HI-REDUCTION     190 64.548113 61.301086
+#&gt; LO-REDUCTION     192 64.162698 61.301086
+#&gt; EXTENSION        194 63.479393 58.547281</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       196 62.922467 58.529138</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     198 61.301086 58.529138
+#&gt; LO-REDUCTION     200 61.266886 58.529138</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     202 59.761060 58.529138</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       204 58.630956 56.896382
+#&gt; LO-REDUCTION     206 58.547281 56.896382</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     208 58.529138 56.896382
+#&gt; REFLECTION       210 57.675235 56.452485</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       212 57.185361 56.267132
+#&gt; HI-REDUCTION     214 56.896382 56.267132
+#&gt; EXTENSION        216 56.452485 55.396118
+#&gt; LO-REDUCTION     218 56.429536 55.260150
+#&gt; EXTENSION        220 56.267132 51.721751
+#&gt; LO-REDUCTION     222 55.396118 51.721751
+#&gt; HI-REDUCTION     224 55.260150 51.721751
+#&gt; LO-REDUCTION     226 54.477910 51.721751
+#&gt; EXTENSION        228 53.896320 47.475276
+#&gt; HI-REDUCTION     230 52.586416 47.475276
+#&gt; LO-REDUCTION     232 52.326430 47.475276</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     234 51.721751 47.475276
+#&gt; EXTENSION        236 50.948154 47.004641</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     238 49.353867 47.004641
+#&gt; LO-REDUCTION     240 49.073246 47.004641
+#&gt; HI-REDUCTION     242 47.760300 47.004641
+#&gt; HI-REDUCTION     244 47.612588 47.004641
+#&gt; EXTENSION        246 47.475276 46.317208
+#&gt; REFLECTION       248 47.262919 45.622102
+#&gt; LO-REDUCTION     250 47.004641 45.027214
+#&gt; LO-REDUCTION     252 46.317208 44.861974
+#&gt; HI-REDUCTION     254 45.622102 44.861974
+#&gt; HI-REDUCTION     256 45.329985 44.861974
+#&gt; REFLECTION       258 45.088177 44.810057
+#&gt; REFLECTION       260 45.027214 44.266724
+#&gt; REFLECTION       262 44.861974 44.138604
+#&gt; HI-REDUCTION     264 44.810057 44.138604
+#&gt; HI-REDUCTION     266 44.427386 44.138604
+#&gt; REFLECTION       268 44.337632 44.032394
+#&gt; REFLECTION       270 44.266724 43.951003
+#&gt; REFLECTION       272 44.138604 43.800632
+#&gt; LO-REDUCTION     274 44.032394 43.774492
+#&gt; HI-REDUCTION     276 43.951003 43.774492
+#&gt; EXTENSION        278 43.840938 43.473799
+#&gt; EXTENSION        280 43.800632 43.313788
+#&gt; REFLECTION       282 43.774492 43.281572
+#&gt; EXTENSION        284 43.473799 42.844823
+#&gt; EXTENSION        286 43.313788 42.373266
+#&gt; EXTENSION        288 43.281572 42.182610
+#&gt; LO-REDUCTION     290 42.844823 42.182610
+#&gt; EXTENSION        292 42.373266 40.670656
+#&gt; LO-REDUCTION     294 42.207204 40.670656
+#&gt; LO-REDUCTION     296 42.182610 40.670656
+#&gt; EXTENSION        298 41.638092 39.458445
+#&gt; EXTENSION        300 41.153727 36.769684
+#&gt; LO-REDUCTION     302 40.670656 36.769684
+#&gt; LO-REDUCTION     304 39.458445 36.769684</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       306 37.921832 35.200274
+#&gt; HI-REDUCTION     308 37.448116 35.200274
+#&gt; EXTENSION        310 37.010754 33.039041</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       312 36.769684 29.418643</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     314 35.200274 29.418643
+#&gt; LO-REDUCTION     316 34.772622 29.418643</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       318 33.039041 26.451462</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       320 32.651520 24.329467</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     322 30.273241 24.329467</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     324 29.418643 24.329467
+#&gt; LO-REDUCTION     326 28.501430 24.208132</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     328 26.551550 24.208132</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       330 26.451462 19.349720</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     332 24.329467 19.349720
+#&gt; HI-REDUCTION     334 24.208132 19.349720</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       336 24.021515 14.604988</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     338 21.734688 14.604988</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     340 21.122190 14.604988</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     342 20.117199 14.604988</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     344 19.469040 14.604988
+#&gt; HI-REDUCTION     346 19.349720 14.604988
+#&gt; LO-REDUCTION     348 18.821741 14.604988
+#&gt; LO-REDUCTION     350 18.286990 14.604988
+#&gt; LO-REDUCTION     352 18.228687 14.604988</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     354 16.729009 14.604988</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       356 15.451851 13.780624</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; REFLECTION       358 14.672805 11.868968
+#&gt; HI-REDUCTION     360 14.604988 11.868968</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     362 13.780624 11.868968
+#&gt; LO-REDUCTION     364 13.604789 11.868968
+#&gt; EXTENSION        366 13.377487 10.876970
+#&gt; LO-REDUCTION     368 13.143379 10.807862</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION     370 12.008277 10.807862
+#&gt; HI-REDUCTION     372 11.868968 10.807862
+#&gt; LO-REDUCTION     374 11.419716 10.807862
+#&gt; REFLECTION       376 10.876970 10.432530
+#&gt; REFLECTION       378 10.836609 10.333558
+#&gt; LO-REDUCTION     380 10.807862 10.275494
+#&gt; REFLECTION       382 10.432530 10.076943
+#&gt; LO-REDUCTION     384 10.333558 10.076943
+#&gt; LO-REDUCTION     386 10.275494 10.007425
+#&gt; REFLECTION       388 10.081922 9.871004
+#&gt; HI-REDUCTION     390 10.076943 9.871004
+#&gt; REFLECTION       392 10.007425 9.832550
+#&gt; EXTENSION        394 9.906016 9.608536
+#&gt; EXTENSION        396 9.871004 9.477899
+#&gt; REFLECTION       398 9.832550 9.431202
+#&gt; REFLECTION       400 9.608536 9.391317
+#&gt; EXTENSION        402 9.477899 9.064771
+#&gt; LO-REDUCTION     404 9.431202 9.064771
+#&gt; LO-REDUCTION     406 9.391317 9.064771
+#&gt; EXTENSION        408 9.208730 8.588939
+#&gt; EXTENSION        410 9.081577 8.388029
+#&gt; LO-REDUCTION     412 9.064771 8.388029
+#&gt; REFLECTION       414 8.588939 8.109063
+#&gt; LO-REDUCTION     416 8.432654 8.109063
+#&gt; HI-REDUCTION     418 8.388029 8.109063
+#&gt; REFLECTION       420 8.241052 8.094280
+#&gt; LO-REDUCTION     422 8.165604 8.080601
+#&gt; HI-REDUCTION     424 8.109063 8.080601
+#&gt; REFLECTION       426 8.094280 8.069875
+#&gt; HI-REDUCTION     428 8.093345 8.069875
+#&gt; HI-REDUCTION     430 8.080601 8.069875
 #&gt; Exiting from Nelder Mead minimizer
-#&gt;     130 function evaluations used</div><div class='input'>  <span class='no'>sr5.nls</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>sr5</span>)
+#&gt;     432 function evaluations used</div><div class='input'>  <span class='no'>sr5.nls</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>sr5</span>)
 
 <span class='co'># NS Herring stock-recruitment dataset</span>
 <span class='fu'>data</span>(<span class='no'>nsher</span>)

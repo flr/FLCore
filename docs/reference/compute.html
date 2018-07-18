@@ -64,7 +64,7 @@ stock biomass from age or length-structured numbers and mean weights." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
       </span>
     </div>
 
@@ -203,55 +203,55 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
     <pre class="examples"><div class='input'>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
 <span class='fu'>summary</span>(<span class='fu'>computeLandings</span>(<span class='no'>ple4</span>))</div><div class='output co'>#&gt; An object of class "FLQuant" with:
-#&gt; dim  :  1 52 1 1 1 1 
+#&gt; dim  :  1 61 1 1 1 1 
 #&gt; quant:  age 
 #&gt; units:  t 
 #&gt; 
-#&gt; Min    :  48874 
-#&gt; 1st Qu.:  81541.75 
-#&gt; Mean   :  108403.7 
-#&gt; Median :  110466 
-#&gt; 3rd Qu.:  132758.5 
-#&gt; Max    :  169818 
+#&gt; Min    :  59712.83 
+#&gt; 1st Qu.:  82874.98 
+#&gt; Mean   :  108795.2 
+#&gt; Median :  103161.8 
+#&gt; 3rd Qu.:  130443 
+#&gt; Max    :  187666.1 
 #&gt; NAs    :  0 %</div><div class='input'><span class='fu'>summary</span>(<span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>))</div><div class='output co'>#&gt; An object of class "FLQuants"
 #&gt; 
 #&gt; Elements: catch.wt catch.n catch 
 #&gt; 
 #&gt; Name: catch.wt 
-#&gt; 	dim  :  10 52 1 1 1 1 
+#&gt; 	dim  :  10 61 1 1 1 1 
 #&gt; 	quant:  age 
 #&gt; 	units:  kg 
 #&gt; 
-#&gt; 	Min    :  0.034 
-#&gt; 	1st Qu.:  0.2206675 
-#&gt; 	Mean   :  0.4551756 
-#&gt; 	Median :  0.4372537 
-#&gt; 	3rd Qu.:  0.6629051 
-#&gt; 	Max    :  1.108295 
+#&gt; 	Min    :  0.02500463 
+#&gt; 	1st Qu.:  0.2190491 
+#&gt; 	Mean   :  0.4378413 
+#&gt; 	Median :  0.4175921 
+#&gt; 	3rd Qu.:  0.6279721 
+#&gt; 	Max    :  1.126954 
 #&gt; 	NAs    :  0 %
 #&gt; Name: catch.n 
-#&gt; 	dim  :  10 52 1 1 1 1 
+#&gt; 	dim  :  10 61 1 1 1 1 
 #&gt; 	quant:  age 
 #&gt; 	units:  1000 
 #&gt; 
-#&gt; 	Min    :  412 
-#&gt; 	1st Qu.:  7027.75 
-#&gt; 	Mean   :  81702.88 
-#&gt; 	Median :  29044 
-#&gt; 	3rd Qu.:  101951.5 
-#&gt; 	Max    :  1459325 
+#&gt; 	Min    :  541.6833 
+#&gt; 	1st Qu.:  7740.584 
+#&gt; 	Mean   :  79380 
+#&gt; 	Median :  32437.93 
+#&gt; 	3rd Qu.:  114974.9 
+#&gt; 	Max    :  1083226 
 #&gt; 	NAs    :  0 %
 #&gt; Name: catch 
-#&gt; 	dim  :  1 52 1 1 1 1 
+#&gt; 	dim  :  1 61 1 1 1 1 
 #&gt; 	quant:  age 
 #&gt; 	units:  t 
 #&gt; 
-#&gt; 	Min    :  78422.95 
-#&gt; 	1st Qu.:  126077.3 
-#&gt; 	Mean   :  165127 
-#&gt; 	Median :  151975.4 
-#&gt; 	3rd Qu.:  182754.8 
-#&gt; 	Max    :  342985.1 
+#&gt; 	Min    :  78360.36 
+#&gt; 	1st Qu.:  131216.1 
+#&gt; 	Mean   :  160583.9 
+#&gt; 	Median :  149389.9 
+#&gt; 	3rd Qu.:  175881.4 
+#&gt; 	Max    :  315244.7 
 #&gt; 	NAs    :  0 %</div><div class='input'><span class='fu'><a href='accessors.html'>stock</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeStock</span>(<span class='no'>ple4</span>)
 <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeLandings</span>(<span class='no'>ple4</span>)
 <span class='fu'>catch.n</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"n"</span>)
@@ -260,55 +260,55 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
 <span class='fu'>summary</span>(<span class='fu'>computeLandings</span>(<span class='no'>ple4</span>))</div><div class='output co'>#&gt; An object of class "FLQuant" with:
-#&gt; dim  :  1 52 1 1 1 1 
+#&gt; dim  :  1 61 1 1 1 1 
 #&gt; quant:  age 
 #&gt; units:  t 
 #&gt; 
-#&gt; Min    :  48874 
-#&gt; 1st Qu.:  81541.75 
-#&gt; Mean   :  108403.7 
-#&gt; Median :  110466 
-#&gt; 3rd Qu.:  132758.5 
-#&gt; Max    :  169818 
+#&gt; Min    :  59712.83 
+#&gt; 1st Qu.:  82874.98 
+#&gt; Mean   :  108795.2 
+#&gt; Median :  103161.8 
+#&gt; 3rd Qu.:  130443 
+#&gt; Max    :  187666.1 
 #&gt; NAs    :  0 %</div><div class='input'><span class='fu'>summary</span>(<span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>))</div><div class='output co'>#&gt; An object of class "FLQuants"
 #&gt; 
 #&gt; Elements: catch.wt catch.n catch 
 #&gt; 
 #&gt; Name: catch.wt 
-#&gt; 	dim  :  10 52 1 1 1 1 
+#&gt; 	dim  :  10 61 1 1 1 1 
 #&gt; 	quant:  age 
 #&gt; 	units:  kg 
 #&gt; 
-#&gt; 	Min    :  0.034 
-#&gt; 	1st Qu.:  0.2206675 
-#&gt; 	Mean   :  0.4551756 
-#&gt; 	Median :  0.4372537 
-#&gt; 	3rd Qu.:  0.6629051 
-#&gt; 	Max    :  1.108295 
+#&gt; 	Min    :  0.02500463 
+#&gt; 	1st Qu.:  0.2190491 
+#&gt; 	Mean   :  0.4378413 
+#&gt; 	Median :  0.4175921 
+#&gt; 	3rd Qu.:  0.6279721 
+#&gt; 	Max    :  1.126954 
 #&gt; 	NAs    :  0 %
 #&gt; Name: catch.n 
-#&gt; 	dim  :  10 52 1 1 1 1 
+#&gt; 	dim  :  10 61 1 1 1 1 
 #&gt; 	quant:  age 
 #&gt; 	units:  1000 
 #&gt; 
-#&gt; 	Min    :  412 
-#&gt; 	1st Qu.:  7027.75 
-#&gt; 	Mean   :  81702.88 
-#&gt; 	Median :  29044 
-#&gt; 	3rd Qu.:  101951.5 
-#&gt; 	Max    :  1459325 
+#&gt; 	Min    :  541.6833 
+#&gt; 	1st Qu.:  7740.584 
+#&gt; 	Mean   :  79380 
+#&gt; 	Median :  32437.93 
+#&gt; 	3rd Qu.:  114974.9 
+#&gt; 	Max    :  1083226 
 #&gt; 	NAs    :  0 %
 #&gt; Name: catch 
-#&gt; 	dim  :  1 52 1 1 1 1 
+#&gt; 	dim  :  1 61 1 1 1 1 
 #&gt; 	quant:  age 
 #&gt; 	units:  t 
 #&gt; 
-#&gt; 	Min    :  78422.95 
-#&gt; 	1st Qu.:  126077.3 
-#&gt; 	Mean   :  165127 
-#&gt; 	Median :  151975.4 
-#&gt; 	3rd Qu.:  182754.8 
-#&gt; 	Max    :  342985.1 
+#&gt; 	Min    :  78360.36 
+#&gt; 	1st Qu.:  131216.1 
+#&gt; 	Mean   :  160583.9 
+#&gt; 	Median :  149389.9 
+#&gt; 	3rd Qu.:  175881.4 
+#&gt; 	Max    :  315244.7 
 #&gt; 	NAs    :  0 %</div><div class='input'><span class='fu'><a href='accessors.html'>stock</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeStock</span>(<span class='no'>ple4</span>)
 <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeLandings</span>(<span class='no'>ple4</span>)
 <span class='fu'>catch.n</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"n"</span>)

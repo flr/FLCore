@@ -56,7 +56,7 @@
 \alias{rickerCa}
 \alias{SRModels}
 \alias{survRec}
-\alias{survival}
+\alias{survSRR}
 \title{Stock-Recruitment models}
 \usage{
 ricker()

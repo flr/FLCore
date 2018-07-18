@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.8</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
       </span>
     </div>
 
@@ -185,16 +185,17 @@ evaluate those rules, as well as any other defined in the call.</p>
 <span class='co'># rule: ssb is less</span>
 <span class='fu'>verify</span>(<span class='no'>ple4</span>, <span class='kw'>ssbstock</span> <span class='kw'>=</span> ~<span class='no'>ssb</span> <span class='kw'>&lt;</span> <span class='no'>stock</span>)</div><div class='output co'>#&gt;            name items passes fails NAs valid
 #&gt; 1         anyna    17     17     0   0  TRUE
-#&gt; 2      catch.wt   520    520     0   0  TRUE
-#&gt; 3   landings.wt   520    508    12   0 FALSE
-#&gt; 4   discards.wt   520    364   156   0 FALSE
-#&gt; 5      stock.wt   520    520     0   0  TRUE
-#&gt; 6           mat   520    520     0   0  TRUE
-#&gt; 7  harvest.spwn   520    520     0   0  TRUE
-#&gt; 8        m.spwn   520    520     0   0  TRUE
-#&gt; 9       harvest   520    520     0   0  TRUE
-#&gt; 10      cohorts   264    264     0   0  TRUE
-#&gt; 11     ssbstock    52     52     0   0  TRUE
+#&gt; 2      catch.wt   610    610     0   0  TRUE
+#&gt; 3   landings.wt   610    594    16   0 FALSE
+#&gt; 4   discards.wt   610    431   179   0 FALSE
+#&gt; 5      stock.wt   610    610     0   0  TRUE
+#&gt; 6           mat   610    610     0   0  TRUE
+#&gt; 7  harvest.spwn   610    610     0   0  TRUE
+#&gt; 8        m.spwn   610    610     0   0  TRUE
+#&gt; 9       harvest   610    610     0   0  TRUE
+#&gt; 10      cohorts   336    336     0   0  TRUE
+#&gt; 11         uoms    17     17     0   0  TRUE
+#&gt; 12     ssbstock    61     61     0   0  TRUE
 #&gt;                                     rule
 #&gt; 1                                 !anyna
 #&gt; 2                           catch.wt &gt; 0
@@ -206,19 +207,21 @@ evaluate those rules, as well as any other defined in the call.</p>
 #&gt; 8              m.spwn &lt;= 1 &amp; m.spwn &gt;= 0
 #&gt; 9                           harvest &gt;= 0
 #&gt; 10                     ccohorts(stock.n)
-#&gt; 11                           ssb &lt; stock</div><div class='input'><span class='fu'>data</span>(<span class='no'>ple4</span>)
+#&gt; 11                                  uoms
+#&gt; 12                           ssb &lt; stock</div><div class='input'><span class='fu'>data</span>(<span class='no'>ple4</span>)
 <span class='co'># verify for the standard set of rules for FLStock</span>
 <span class='fu'>verify</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt;            name items passes fails NAs valid
 #&gt; 1         anyna    17     17     0   0  TRUE
-#&gt; 2      catch.wt   520    520     0   0  TRUE
-#&gt; 3   landings.wt   520    508    12   0 FALSE
-#&gt; 4   discards.wt   520    364   156   0 FALSE
-#&gt; 5      stock.wt   520    520     0   0  TRUE
-#&gt; 6           mat   520    520     0   0  TRUE
-#&gt; 7  harvest.spwn   520    520     0   0  TRUE
-#&gt; 8        m.spwn   520    520     0   0  TRUE
-#&gt; 9       harvest   520    520     0   0  TRUE
-#&gt; 10      cohorts   264    264     0   0  TRUE
+#&gt; 2      catch.wt   610    610     0   0  TRUE
+#&gt; 3   landings.wt   610    594    16   0 FALSE
+#&gt; 4   discards.wt   610    431   179   0 FALSE
+#&gt; 5      stock.wt   610    610     0   0  TRUE
+#&gt; 6           mat   610    610     0   0  TRUE
+#&gt; 7  harvest.spwn   610    610     0   0  TRUE
+#&gt; 8        m.spwn   610    610     0   0  TRUE
+#&gt; 9       harvest   610    610     0   0  TRUE
+#&gt; 10      cohorts   336    336     0   0  TRUE
+#&gt; 11         uoms    17     17     0   0  TRUE
 #&gt;                                     rule
 #&gt; 1                                 !anyna
 #&gt; 2                           catch.wt &gt; 0
@@ -229,21 +232,23 @@ evaluate those rules, as well as any other defined in the call.</p>
 #&gt; 7  harvest.spwn &lt;= 1 &amp; harvest.spwn &gt;= 0
 #&gt; 8              m.spwn &lt;= 1 &amp; m.spwn &gt;= 0
 #&gt; 9                           harvest &gt;= 0
-#&gt; 10                     ccohorts(stock.n)</div><div class='input'><span class='co'># verify a single rule from set</span>
+#&gt; 10                     ccohorts(stock.n)
+#&gt; 11                                  uoms</div><div class='input'><span class='co'># verify a single rule from set</span>
 <span class='fu'>verify</span>(<span class='no'>ple4</span>, <span class='kw'>rules</span><span class='kw'>=</span><span class='fu'><a href='ruleset.html'>ruleset</a></span>(<span class='no'>ple4</span>, <span class='st'>'anyna'</span>), <span class='kw'>report</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># add own rule to set</span>
 <span class='fu'>verify</span>(<span class='no'>ple4</span>, <span class='kw'>m</span> <span class='kw'>=</span> ~<span class='no'>m</span> <span class='kw'>&gt;=</span><span class='fl'>0</span>)</div><div class='output co'>#&gt;            name items passes fails NAs valid
 #&gt; 1         anyna    17     17     0   0  TRUE
-#&gt; 2      catch.wt   520    520     0   0  TRUE
-#&gt; 3   landings.wt   520    508    12   0 FALSE
-#&gt; 4   discards.wt   520    364   156   0 FALSE
-#&gt; 5      stock.wt   520    520     0   0  TRUE
-#&gt; 6           mat   520    520     0   0  TRUE
-#&gt; 7  harvest.spwn   520    520     0   0  TRUE
-#&gt; 8        m.spwn   520    520     0   0  TRUE
-#&gt; 9       harvest   520    520     0   0  TRUE
-#&gt; 10      cohorts   264    264     0   0  TRUE
-#&gt; 11            m   520    520     0   0  TRUE
+#&gt; 2      catch.wt   610    610     0   0  TRUE
+#&gt; 3   landings.wt   610    594    16   0 FALSE
+#&gt; 4   discards.wt   610    431   179   0 FALSE
+#&gt; 5      stock.wt   610    610     0   0  TRUE
+#&gt; 6           mat   610    610     0   0  TRUE
+#&gt; 7  harvest.spwn   610    610     0   0  TRUE
+#&gt; 8        m.spwn   610    610     0   0  TRUE
+#&gt; 9       harvest   610    610     0   0  TRUE
+#&gt; 10      cohorts   336    336     0   0  TRUE
+#&gt; 11         uoms    17     17     0   0  TRUE
+#&gt; 12            m   610    610     0   0  TRUE
 #&gt;                                     rule
 #&gt; 1                                 !anyna
 #&gt; 2                           catch.wt &gt; 0
@@ -255,7 +260,8 @@ evaluate those rules, as well as any other defined in the call.</p>
 #&gt; 8              m.spwn &lt;= 1 &amp; m.spwn &gt;= 0
 #&gt; 9                           harvest &gt;= 0
 #&gt; 10                     ccohorts(stock.n)
-#&gt; 11                                m &gt;= 0</div></pre>
+#&gt; 11                                  uoms
+#&gt; 12                                m &gt;= 0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

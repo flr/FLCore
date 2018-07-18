@@ -522,11 +522,11 @@ rickerCa <- function() {
 # survSRR {{{
 
 #' @name SRModels
-#' @aliases survival
+#' @aliases survSRR
 
 survRec <- function(ssf, R0, Sfrac, beta, SF0=ssf[,1]) {
 
-  z0 <- log(1 / (SB0 / R0))
+  z0 <- log(1 / (SF0 / R0))
   zmax <- z0 + Sfrac * (-z0)
 
   zsurv <- exp((1 - (ssf %/% SF0) ^ beta) %*% (zmax - z0) %+% z0)
