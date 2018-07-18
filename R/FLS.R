@@ -180,18 +180,27 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
 
 #' @rdname metrics
 
-# FLS
 setMethod("metrics", signature(object="FLS", metrics="missing"),
   function(object, ...) {
     
     dots <- list(...)
+    # HACK for some method dispatch problem
     foo <- selectMethod("metrics", c(object="FLS", metrics="list"))
 
     if(length(dots) > 0) {
       return(foo(object=object, metrics=dots))
     }
     else {
-      return(foo(object=object, metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
+      if(tolower(units(harvest(object))) == "f") {
+        return(foo(object=object,
+          metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
+      } else if(tolower(units(harvest(object))) == "hr") {
+        return(foo(object=object,
+          metrics=list(Rec=rec, SSB=ssb, Catch=catch, HR=fbar)))
+      } else {
+        return(foo(object=object,
+          metrics=list(Rec=rec, SSB=ssb, Catch=catch)))
+      }
     }
   }
 ) # }}}
@@ -215,4 +224,3 @@ setMethod("catch<-", signature(object="FLS", value="FLQuants"),
 		return(object)
 	}
 ) # }}}
-
