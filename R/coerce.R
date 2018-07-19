@@ -485,3 +485,12 @@ setAs('FLBiol', 'FLSR',
     return(FLSR(name=name(from), desc=desc(from), rec=rec, ssb=ssb))
 
   } )# }}}
+
+# TO predictModel {{{
+setAs('FLSR', 'predictModel',
+  function(from) {
+
+    return(predictModel(FLQuants(residuals=residuals(from)),
+      model=model(from), params=params(from)))
+
+  } )# }}}
