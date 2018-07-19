@@ -36,13 +36,48 @@ desc(ple4) <- "Plaice in IV. ICES WGNSSK 2018. FLAAP"
 
 summary(ple4.indices)
 
-# FLIndex
+# GET RID of zeroes in @index
+ple4.indices <- lapply(ple4.indices, function(x) {
+  idx <- index(x) == 0
+  index(x)[idx] <- min(index(x)) / 10
+  return(x)
+  })
 
+ple4.indices[["BTS-Combined (all)"]] <- ple4.indices[["BTS-Combined (all)"]][-1,]
+ple4.indices[["IBTS_Q3"]] <- ple4.indices[["IBTS_Q3"]][-1,]
+
+# COMPARE AAP, XSA & a4a
+library(FLXSA)
+res <- FLXSA(ple4, ple4.indices)
+
+library(ggplotFL)
+plot(ple4, ple4+res)
+
+library(FLa4a)
+fit <- sca(ple4, ple4.indices)
+plot(FLStocks(AAP=ple4, XSA=ple4+res, A4A=ple4+fit))
+
+# FLIndex
 ple4.index <- ple4.indices[[1]]
 
 # FLBiol
+
 ple4.biol <- as(ple4, "FLBiol")
+
+# rec
+ple4sr <- fmle(transform(as.FLSR(ple4, model=ricker), ssb=ssb/100, rec=rec/100))
+params(ple4sr)['b',] <- params(ple4sr)['b',] / 100
+ple4sr <- transform(ple4sr, ssb=ssb*100, rec=rec*100)
+bre <- as(ple4sr, 'predictModel')
+units(params(bre)) <- c("","")
+
+rec(ple4.biol) <- bre
+
+summary(ple4.biol)
+
+# ---
 
 save(ple4, file="../data/ple4.RData", compress="xz")
 save(ple4.indices, file="../data/ple4.indices.RData", compress="xz")
 save(ple4.index, file="../data/ple4.index.RData", compress="xz")
+save(ple4.biol, file="../data/ple4.biol.RData", compress="xz")
