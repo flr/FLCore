@@ -50,12 +50,14 @@ ple4.indices[["IBTS_Q3"]] <- ple4.indices[["IBTS_Q3"]][-1,]
 library(FLXSA)
 res <- FLXSA(ple4, ple4.indices)
 
-library(ggplotFL)
-plot(ple4, ple4+res)
-
 library(FLa4a)
-fit <- sca(ple4, ple4.indices)
-plot(FLStocks(AAP=ple4, XSA=ple4+res, A4A=ple4+fit))
+fit <- sca(ple4, ple4.indices, fit="assessment")
+
+vpa <- VPA(ple4)
+
+library(ggplotFL)
+
+plot(FLStocks(AAP=ple4, XSA=ple4+res, A4A=ple4+fit, VPA=ple4+vpa))
 
 # FLIndex
 ple4.index <- ple4.indices[[1]]
