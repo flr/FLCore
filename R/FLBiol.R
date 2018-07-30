@@ -624,6 +624,19 @@ setMethod('[', signature(x='FLBiol'),
     }
 )   # }}}
 
+# iter {{{
+setMethod("iter", signature(obj="FLBiol"),
+  function(obj, iter) {
+    
+    res <- callNextMethod()
+
+    for(i in c('mat', 'fec', 'rec'))
+      slot(res, i) <- iter(slot(res, i), iter)
+    
+    return(res)
+  }
+) # }}}
+
 # ---
 
 # meanLifespan {{{

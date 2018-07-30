@@ -333,7 +333,7 @@ setAs('FLBiol', 'FLBiolcpp',
         start=dims(from)$minyear, end=dims(from)$maxyear)
     else
       srparams <- as(from@rec@params, "FLQuant")
-
+    
     new("FLBiolcpp",
         name = name(from),
         desc = desc(from),
