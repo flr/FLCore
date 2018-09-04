@@ -184,6 +184,7 @@ setMethod("metrics", signature(object="FLS", metrics="missing"),
   function(object, ...) {
     
     dots <- list(...)
+    
     # HACK for some method dispatch problem
     foo <- selectMethod("metrics", c(object="FLS", metrics="list"))
 

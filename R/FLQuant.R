@@ -1196,6 +1196,18 @@ setMethod("$", signature(x="FLQuant"),
   }
 ) # }}}
 
+# catch.n {{{
+#  C = N *F/(M+F) * (1-exp(-M-F))
+
+#' @examples
+#' data(ple4)
+#' res <- catch.n(stock.n(ple4), harvest(ple4), m(ple4))
+#' catch.n(ple4) / res
+setMethod("catch.n", signature(object="FLQuant"),
+  function(object, harvest, m) {
+    object * (harvest / (harvest + m)) * (1 - exp(-(harvest + m)))
+  }) # }}}
+
 # harvest {{{
 # F_t = ln(N_t / N_t+1) - M_t
 #

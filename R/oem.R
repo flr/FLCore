@@ -48,7 +48,7 @@ setGeneric("cpue", function(object, ...) standardGeneric("cpue"))
 #' @rdname cpue
 #' @aliases cpue,FLStock-method
 
-setMethod('cpue',   signature(object='FLStock'),
+setMethod('cpue', signature(object='FLStock'),
   function(object, sel.pattern=harvest(object), effort = units(harvest(object)),
     mass = TRUE) {
     
@@ -111,7 +111,8 @@ setMethod("survey",   signature(object="FLStock"),
     timing <- pmax(pmin(timing, 1.0), 0.0)
 
     # CORRECT abundances for timing
-    stock.n <- stock.n(object) * exp(-(harvest(object) * timing - m(object) * timing))
+    stock.n <- stock.n(object) *
+      exp(-(harvest(object) * timing - m(object) * timing))
  
     # APPLY survey selectivity
     survey <- stock.n %*% sel

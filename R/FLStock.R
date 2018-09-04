@@ -346,6 +346,7 @@ setMethod("ssb", signature(object="FLStock"),
 			return(quantSums(stock.n(object) * stock.wt(object) * mat(object) *
 				(1 - harvest(object) * harvest.spwn(object)) *
 				exp(-m(object) * m.spwn(object))))
+
   	} else {
 		stop("Correct units (f or hr) not specified in the harvest slot")
 		}
@@ -802,14 +803,6 @@ setMethod('sp', signature(stock='FLStock', catch='missing', harvest='missing'),
   {
     return(sp(stock(stock), catch(stock), rel=rel))
   }
-) # }}}
-
-# catchSel {{{
-setMethod("catchSel", signature(object="FLStock"),
-   function(object,fn="fapex") {
-     warning("catchSel is outdated, please call catch.sel")
-    sweep(harvest(object),2:6,do.call(fn,list(object)),"/")
-   }
 ) # }}}
 
 # wt<- {{{

@@ -214,7 +214,6 @@ exportMethods(
   "catch.wt<-",
   "catches",
   "catches<-",
-  "catchSel",
   "cbind2",
   "ccplot",
   "coerce",
