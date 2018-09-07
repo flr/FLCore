@@ -367,6 +367,12 @@ setMethod("propagate", signature(object="FLQuantDistr"),
   }
 ) # }}}
 
+# window           {{{
+setMethod("window", signature(x="FLQuantDistr"),
+  function(x, ...) {
 
+    x@.Data  <- window(FLQuant(x@.Data), ...)
+    x@var <- window(x@var, ...)
 
-
+    return(x)
+}) # }}}
