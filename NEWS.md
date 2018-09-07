@@ -1,3 +1,8 @@
+# FLCore 2.6.10
+
+## NEW FEATURES
+- window(FLQuantDistr) method added to deal with @var slot
+
 # FLCore 2.6.9
 
 ## NEW FEATURES
