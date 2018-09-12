@@ -411,8 +411,12 @@ setMethod("propagate", signature(object="FLPar"),
     # dimnames of input object
     dnames <- dimnames(object)
     dnames$iter <- seq(iter)
-    # new object
-    res <- FLPar(object, dimnames=dnames)
+    
+    # CREATE new object
+    res <- FLPar(NA, dimnames=dnames)
+    # PLACE content in iter 1
+    res[,,1] <- object
+
     # fill.iter
     if(fill.iter == TRUE)
     {
