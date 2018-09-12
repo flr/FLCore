@@ -3,6 +3,10 @@
  NEW FEATURES
 - window(FLQuantDistr) method added to deal with @var slot
 
+ BUG FIXES
+- propagate(FLPar) placed the original object in the matching dimname$iter,
+  instead of iter=1
+
  FLCore 2.6.9
 
  NEW FEATURES
@@ -37,7 +41,7 @@
 - Corrected simplify(FLStock) to use unweighted means for wt 
 - Bug in uom for FLQ,numeric when numeric was of length > 1
 - Bug when dims was only one of unit or area
--  Convert numeric to uom in Arith only if length==1
+- Convert numeric to uom in Arith only if length==1
 
  FLCore 2.6.6
 

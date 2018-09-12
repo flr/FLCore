@@ -6,7 +6,6 @@
 #
 # Distributed under the terms of the European Union Public Licence (EUPL) V.1.1.
 
-
 # cpue {{{
 
 #' cpue, a method to generate an observation of a CPUE index of abundance
