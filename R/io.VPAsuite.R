@@ -229,6 +229,13 @@ one unit. Lowestoft VPA can't handle this unfortunately.")
     {
       output.config <-  config.df[config.df$stock.slot %in% slots,]
       do.call(mapply,c(as.list(output.config),FUN=writeVPAFile))
+      # produces the index file
+      temp <- file(paste(output.file, "-INDEX.txt", sep=""), "w")
+      cat(FLStock@name, "\n", file=temp)
+      cat(1,paste(output.file,"-",output.config$file.ext,".txt",sep=""),
+        file=temp, sep="\n")
+      close(temp)
+
     }
     return(invisible(NULL))
 }	# }}}
