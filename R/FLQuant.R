@@ -785,15 +785,36 @@ setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="FLQuant"),
 # rlnorm {{{
 setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="FLQuant"),
   function(n=1, meanlog, sdlog) {
-    if(dim(meanlog)[6] > 1 | dim(sdlog)[6] > 1)
-      stop("meanlog or sdlog can only have iter=1")
-    if(all(dim(meanlog) != dim(sdlog)))
+
+    dms <- c(n, dim(meanlog)[6], dim(sdlog)[6])
+    len <- max(prod(dim(meanlog)[-6]), prod(dim(sdlog)[-6]))
+
+    # CHECK 1 vs. N
+    if(!all(dms %in% c(1, max(dms))))
       stop("dims of meanlog and sdlog must be equal")
-    FLQuant(array(rlnorm(prod(dim(meanlog)[-6])*n,
-      rep(iter(meanlog, 1)[drop=TRUE], n),
-      rep(iter(sdlog, 1)[drop=TRUE],n)), dim=c(dim(meanlog)[-6], n)),
-      dimnames=c(dimnames(meanlog)[-6], list(iter=seq(n))), fill.iter=TRUE,
-      units=units(meanlog))
+
+    # rep() INDICES
+    n <- max(dms)
+    
+    if(dms[2] == n) m <- 1
+    else m <- n
+    
+    if(dms[3] == n) s <- 1
+    else s <- n
+ 
+    # CALL rlnorm   
+    arr <- rlnorm(
+      # n
+      n * len,
+      # meanlog
+      rep(c(meanlog), m * len),
+      # sdlog
+      rep(c(sdlog), s * len))
+
+    res <- propagate(meanlog, n)
+    res[] <- arr
+
+    return(res)
   }
 )
 
@@ -812,7 +833,6 @@ setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="missing"),
   function(n=1, meanlog, sdlog)
     rlnorm(n, meanlog, 1)
 )
-
 setMethod("rlnorm", signature(n='numeric', meanlog="missing", sdlog="FLQuant"),
   function(n=1, meanlog, sdlog)
     rlnorm(n, 0, sdlog)
@@ -1013,8 +1033,12 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
 
     # create date column
     if(date) {
-    lens <- (ISOdate(2014, 12, 31) - ISOdate(2014, 1, 1)) / dim(x)[4]
-    res$date <- ISOdate(res$year, 1, 1) + lens * (as.numeric(res$season) - 1)
+      if(dim(x)[4] == 12)
+        res$date <- ISOdate(res$year, res$season, 1)
+      else {
+        lens <- (ISOdate(2014, 12, 31) - ISOdate(2014, 1, 1)) / dim(x)[4]
+        res$date <- ISOdate(res$year, 1, 1) + lens * (as.numeric(res$season) - 1)
+      }
     }
 
     # drops columns with a single value, i.e. dims of length=1
