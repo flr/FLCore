@@ -1125,7 +1125,79 @@ setMethod('computeLogLik', signature(object='FLModel'),
   }
 ) # }}}
 
-# INTERNAL
+# dim {{{
+setMethod("dim", signature(x="FLModel"), 
+  function(x) {
+    return(dim(fitted(x)))
+  }
+) # }}}
+
+# combine {{{
+setMethod('combine', signature(x='FLModel', y='FLModel'),
+  function(x, y, check=FALSE) {
+
+    if(!all.equal(is(x), is(y)))
+      stop("combine can only operate on objects of identical class")
+
+    if(check) {
+      dx <- dims(x)
+	    dy <- dims(y)
+		  idi <- names(dx)!="iter"
+
+      # COMPARE dims(x)[-'iter')]
+      if(!all.equal(dx[idi], dy[idi]))
+        stop("Object dimensions must match")
+    }
+    
+    itx <- dim(x)[6]
+    ity <- dim(y)[6]
+
+    res <- propagate(x[,,,,,1], itx + ity)
+
+		res[,,,,,1:itx] <- x
+		res[,,,,,(itx+1):(itx+ity)] <- y
+
+    # params
+    params(res) <- cbind(params(x), params(y))
+
+    # vcov
+    # vcov(res) <- array(vcov(x), dim=c(dim(vcov(x))[1:2],itx + ity))
+    # vcov(res)[,,(itx+1):(itx+ity)] <- vcov(y)
+    
+    # hessian
+    # hessian(res) <- array(hessian(x), dim=c(dim(hessian(x))[1:2],itx + ity))
+    # hessian(res)[,,(itx+1):(itx+ity)] <- hessian(y)
+
+    return(res)
+  }
+) # }}}
+
+# propagate {{{
+setMethod("propagate", signature(object="FLModel"),
+	function(object, iter, fill.iter=TRUE) {
+
+		# GET object iters
+		mit <- unlist(qapply(object, function(x) dim(x)[6]))
+
+		# CHECK iter can only be 1 or dim(object)[6]
+		if(sum(mit) > length(mit) & !iter %in% mit)
+			stop("incompatible number of iters requested")
+		
+    # GET slots to extend
+		idx <- mit[mit != iter]
+		
+    for(sl in names(idx)) {
+			slot(object, sl) <- propagate(slot(object, sl), iter, fill.iter=fill.iter)
+		}
+
+    # DO for FLPar
+		pnms <- getSlots(class(object))
+		pnames <- names(pnms)[pnms == "FLPar"]
+		for(i in pnames)
+			slot(object, i) <- propagate(iter(slot(object, i),1), iter)
+		return(object)
+	}
+) # }}}
 
 # getFLPar {{{
 getFLPar <- function(object, formula=object@model)

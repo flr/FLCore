@@ -1094,8 +1094,10 @@ setMethod("catch.n", signature(object="FLBiol"),
 ) # }}}
 
 setMethod("propagate", signature(object="FLBiol"),
-  function(object, iter) {
+  function(object, ...) {
 
-    return(qapply(object, propagate, iter=iter))
+    # TODO propagate FLPar?
+
+    return(qapply(object, propagate, ...))
 
   })

@@ -275,26 +275,35 @@ setMethod('[', signature(x='FLComp'),
 setMethod("[<-", signature(x="FLComp"),
 	function(x, i, j, k, l, m, n, ..., value="missing")
   {
+    # SLOTS to work on
 		qnames <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant"])
-		dx <- dim(slot(x, qnames[1]))
-    di <- qapply(x, function(y) seq(1, dim(y)[1]))
-    dn <- qapply(x, function(y) seq(1, dim(y)[6]))
 
-		if (!missing(i))
+    # dims
+		dx <- dim(slot(x, qnames[1]))
+
+    # quant and iter by slot
+    di <- qapply(x, function(y) seq(1, dim(y)[1]))
+    dj <- qapply(x, function(y) seq(1, dim(y)[2]))
+    dk <- qapply(x, function(y) seq(1, dim(y)[3]))
+    dl <- qapply(x, function(y) seq(1, dim(y)[4]))
+    dm <- qapply(x, function(y) seq(1, dim(y)[5]))
+    dn <- qapply(x, function(y) seq(1, dim(y)[6]))
+		
+    if (!missing(i))
       di <- lapply(di, function(x) x <- i)
-		if (missing(j))
-			j <- seq(1, dx[2])
-   	if (missing(k))
-			k <- seq(1, dx[3])
-		if (missing(l))
-			l <- seq(1, dx[4])
-		if (missing(m))
-			m <- seq(1, dx[5])
+    if (!missing(j))
+      dj <- lapply(dj, function(x) x <- j)
+    if (!missing(k))
+      dk <- lapply(dk, function(x) x <- k)
+    if (!missing(l))
+      dl <- lapply(dl, function(x) x <- l)
+    if (!missing(m))
+      dm <- lapply(dm, function(x) x <- m)
 		if (!missing(n))
       dn <- lapply(dn, function(x) x <- n)
-
+    
     for(q in qnames)
-      slot(x, q)[di[[q]],j,k,l,m,dn[[q]]] <- slot(value, q)
+      slot(x, q)[di[[q]],dj[[q]],dk[[q]],dl[[q]],dm[[q]],dn[[q]]] <- slot(value, q)
 
    	return(x)
 	}
@@ -658,3 +667,31 @@ setMethod("verify", signature(object="FLComp"),
   else
     return(all(res$valid))
 }) # }}}
+
+# combine {{{
+setMethod('combine', signature(x='FLComp', y='FLComp'),
+  function(x, y, check=FALSE) {
+
+    if(!all.equal(is(x), is(y)))
+      stop("combine can only operate on objects of identical class")
+
+    if(check) {
+      dx <- dims(x)
+	    dy <- dims(y)
+		  idi <- names(dx)!="iter"
+
+      # COMPARE dims(x)[-'iter')]
+      if(!all.equal(dx[idi], dy[idi]))
+        stop("Object dimensions must match")
+    }
+    
+    itx <- dim(x)[6]
+    ity <- dim(y)[6]
+
+    res <- propagate(x[,,,,,1], sum(itx + ity))
+
+		res[,,,,,1:itx] <- x
+		res[,,,,,(itx+1):(itx+ity)] <- y
+    return(res)
+  }
+) # }}}

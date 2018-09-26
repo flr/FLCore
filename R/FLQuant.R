@@ -722,7 +722,8 @@ setMethod("propagate", signature(object="FLQuant"),
     # or NAs
     } else {
       return(new('FLQuant', array(c(object, rep(NA, prod(dob)*(iter-1))),
-        dim=c(dim(object)[-6], iter), dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), units=units(object)))
+        dim=c(dim(object)[-6], iter),
+        dimnames=c(dimnames(object)[-6], list(iter=seq(iter)))), units=units(object)))
     }
   }
 ) # }}}
