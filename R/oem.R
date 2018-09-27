@@ -290,3 +290,19 @@ noiseFn <- function(len, sd=1, b=0, burn=0, trunc=0, seed=NA) {
   
   return(x)
 }# }}}
+
+# ar1rlnorm {{{
+ar1rlnorm <- function(rho, years, iters=1, margSD=0.6) {
+  n <- length(years)
+  rhosq <- rho ^ 2
+
+  res <- matrix(rnorm(n*iters, mean=0, sd=margSD), nrow=n, ncol=iters)
+  res <- apply(res, 2, function(x) {
+    for(i in 2:n)
+    x[i] <- sqrt(rhosq) * x[i-1] + sqrt(1-rhosq) * x[i]
+    return(exp(x))
+    }
+  )
+  return(FLQuant(array(res, dim=c(1,n,1,1,1,iters)),
+    dimnames=list(year=years, iter=seq(1, iters))))
+  } # }}}

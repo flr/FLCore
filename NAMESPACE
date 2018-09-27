@@ -96,6 +96,7 @@ export(
   "abPars",
   "ac",
   "an",
+  "ar1rlnorm",
   "bevholt",
   "bevholtAR1",
   "bevholtss3",
