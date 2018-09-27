@@ -60,7 +60,7 @@ library(ggplotFL)
 plot(FLStocks(AAP=ple4, XSA=ple4+res, A4A=ple4+fit, VPA=ple4+vpa))
 
 # FLIndex
-ple4.index <- ple4.indices[[1]]
+ple4.index <- ple4.indices[[4]]
 
 # FLBiol
 
