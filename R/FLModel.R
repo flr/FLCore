@@ -1151,11 +1151,11 @@ setMethod('combine', signature(x='FLModel', y='FLModel'),
     
     itx <- dim(x)[6]
     ity <- dim(y)[6]
+    
+    res <- propagate(x[,,,,,1], itx + ity, fill.iter=FALSE)
 
-    res <- propagate(x[,,,,,1], itx + ity)
-
-		res[,,,,,1:itx] <- x
-		res[,,,,,(itx+1):(itx+ity)] <- y
+		res[,,,,,seq(1, itx)] <- x
+		res[,,,,,seq(itx+1, itx+ity)] <- y
 
     # params
     params(res) <- cbind(params(x), params(y))

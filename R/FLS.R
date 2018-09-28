@@ -38,9 +38,9 @@ setMethod("computeCatch", signature(object="FLS"),
     }
     else if(slot == "wt") {
     # 0 to 1e-16
-      res <- (landings.wt(object) * (landings.n(object) + 1e-16) +
-        discards.wt(object) * (discards.n(object) + 1e-16)) /
-        ((landings.n(object) + discards.n(object)) + 1e-16)
+      res <- ((landings.wt(object) * (landings.n(object) + 1e-16)) +
+      (discards.wt(object) * (discards.n(object) + 1e-16))) / 
+        (landings.n(object) + discards.n(object) + 1e-16)
     }
     else if (slot == "all") {
       ctch.n     <-computeCatch(object, slot="n")

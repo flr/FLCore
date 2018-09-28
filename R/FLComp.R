@@ -276,7 +276,7 @@ setMethod("[<-", signature(x="FLComp"),
 	function(x, i, j, k, l, m, n, ..., value="missing")
   {
     # SLOTS to work on
-		qnames <- names(getSlots(class(x))[getSlots(class(x))=="FLQuant"])
+		qnames <- getSlotNamesClass(x, 'FLArray')
 
     # dims
 		dx <- dim(slot(x, qnames[1]))
