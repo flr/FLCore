@@ -994,26 +994,97 @@ setMethod("log", signature(x="FLQuant"),
     return(res)
   }) # }}}
 
-# @examples
-# ibind(ares[[1]], ares[[2]])
-# ibind(FLQuant(1:10), FLQuant(2:11))
+# dbind {{{
 
-ibind <- function(x, y) {
+#' @rdname dbind
+#' @examples
+#' x <- FLQuant(rnorm(80000), dim=c(4,20,1,1,1,1000))
+#' y <- FLQuant(rnorm(80000), dim=c(4,20,1,1,1,1000))
+#'   dimnames(y) <- list(iter=1001:2000)
+#' ibind(x,y)
+#' 
+#' x <- FLQuant(1, dimnames=list(age=1:3, year=1:10))
+#' y <- FLQuant(2, dimnames=list(age=4:12, year=1:10))
+#' qbind(x, y)
+#' 
+#' x <- FLQuant(1, dimnames=list(age=1:3, year=1:10))
+#' y <- FLQuant(2, dimnames=list(age=1:3, year=11:20))
+#' z <- FLQuant(3, dimnames=list(age=1:3, year=21:30))
+#' ybind(x, y, z)
+#' 
+#' x <- FLQuant(1, dimnames=list(quant=c('effort', 'ssb'), year=1:10))
+#' y <- FLQuant(2, dimnames=list(quant=c('msy'), year=1:10))
+#' qbind(x, y)
+#' 
+#' x <- FLQuant(1, dimnames=list(year=1:10, season=1:2))
+#' y <- FLQuant(2, dimnames=list(year=1:10, season=3:4))
+#' sbind(x, y)
+ 
+setMethod('dbind', signature(x='FLArray', y='FLArray'),
+  function(x, y, ..., dim=1) {
 
-  dx <- dim(x)
-  len <- length(dx)
-  ix <- dx[len]
-  dy <- dim(y)
-  iy <- dy[len]
+    args <- c(list(x=x, y=y), list(...))
+    
+    # Input dim and dimnames
+    dms <- lapply(args, dim)
+    dnms <- lapply(args, dimnames)
+    
+    # new dim
+    dms[[1]][dim] <- sum(unlist(lapply(dms, `[`, dim)))
+    ndms <- dms[[1]]
+    
+    # CHECK names(dimnames) match
+    if(!all.equal(Reduce(intersect, lapply(dnms, names)), names(dnms[[1]])))
+       stop("Names of dimnames must match")
+    
+    # CHECK dimnames[dim] do not match
+    nnms <- lapply(dnms, `[`, dim)
+    if(any(Vectorize(identical, 'x')(nnms[-1], nnms[1])))
+      stop("dimnames to combine must be different")
+    
+    # CHECK dimnames[-c(dim, iter)] match
+    onms <- lapply(dnms, `[`, -dim)
+    if(!all(Vectorize(identical, 'x')(onms[-1], onms[[1]])))
+      stop("dimnames across all object must match for common dimensions")
 
-  if(!identical(dx[-len], dy[-len]))
-    stop("Objects must share all dimensions but 'iter'")
+    # names
+    nams <- lapply(dnms, `[`, dim)
 
-  res <- expand(x, iter=seq(1, ix + iy))
-  
-  arg <- list(x=res, iter=seq(ix + 1, ix+iy), value=y)
-  names(arg)[2] <- c("i", "j", "k", "l", "m", "n")[length(dx)]
-  res <- do.call('[<-', arg)
+    # aperm to join by dim
+    idx <- c(seq(1, 6)[-dim], dim)
+    pargs <- lapply(args, aperm, idx)
+    ndms <- ndms[idx]
 
-  return(res)
-}
+    # then re-aperm
+    idx <- match(seq(1, 6), idx)
+    res <- aperm(array(unlist(pargs), dim=ndms), idx)
+
+    # dimnames
+    dmns <- dimnames(x)
+    dmns[[dim]] <- unname(unlist(lapply(dnms, "[[", dim)))
+    dimnames(res) <- dmns
+
+    x@.Data <- res
+    return(x)
+  }
+)
+
+qbind <- function(...)
+  dbind(..., dim=1)
+
+ybind <- function(...)
+  dbind(..., dim=2)
+
+ubind <- function(...)
+  dbind(..., dim=3)
+
+sbind <- function(...)
+  dbind(..., dim=4)
+
+abind <- function(...)
+  dbind(..., dim=5)
+
+ibind <- function(...)
+  dbind(..., dim=6)
+
+ # }}}

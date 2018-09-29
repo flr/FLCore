@@ -1075,6 +1075,7 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
     itx <- dx[6]
     ity <- dy[6]
 
+    # TODO: test array()@.Data, as in dbind
     res <- FLQuant(NA, dimnames=c(dimnames(x)[1:5], list(iter=seq(itx + ity))),
       units=units(x))
     res[,,,,,1:itx] <- x

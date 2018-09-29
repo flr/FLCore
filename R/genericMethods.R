@@ -1761,3 +1761,8 @@ setGeneric("fwdWindow", function(x, y, ...)
 # refpts
 setGeneric("refpts", function(object, ...)
 		standardGeneric("refpts"))
+
+# dbind
+setGeneric("dbind", function(x, y, ...)
+		standardGeneric("dbind"))
+
