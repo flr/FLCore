@@ -4,9 +4,7 @@
 \name{FLModel}
 \alias{FLModel}
 \alias{FLModel-methods}
-\alias{FLModel}
 \alias{FLModel-class}
-\alias{FLModel-methods}
 \alias{FLModel,formula-method}
 \alias{FLModel,missing-method}
 \alias{FLModel,character-method}

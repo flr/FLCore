@@ -4,7 +4,6 @@
 \name{FLSR}
 \alias{FLSR}
 \alias{FLSR-methods}
-\alias{FLSR}
 \alias{FLSR-class}
 \alias{covar,FLSR-method}
 \alias{desc,FLSR-method}

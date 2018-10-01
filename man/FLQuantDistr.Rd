@@ -5,7 +5,6 @@
 \name{FLQuantDistr}
 \alias{FLQuantDistr}
 \alias{FLQuantDistr-methods}
-\alias{FLQuantDistr}
 \alias{FLQuantDistr-class}
 \alias{FLQuantDistr,ANY,ANY-method}
 \alias{FLQuantDistr,FLQuant,FLQuant-method}
@@ -15,8 +14,8 @@ FLQuantDistr(object, var, ...)
 
 \S4method{FLQuantDistr}{ANY,ANY}(object, var, ...)
 
-\S4method{FLQuantDistr}{FLQuant,FLQuant}(object, var, units = object@units,
-  distr = "norm")
+\S4method{FLQuantDistr}{FLQuant,FLQuant}(object, var,
+  units = object@units, distr = "norm")
 }
 \arguments{
 \item{object}{Input numeric object}

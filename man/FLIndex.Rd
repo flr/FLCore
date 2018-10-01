@@ -4,7 +4,6 @@
 \name{FLIndex}
 \alias{FLIndex}
 \alias{FLIndex-methods}
-\alias{FLIndex}
 \alias{FLIndex-class}
 \alias{catch.n,FLIndex-method}
 \alias{catch.wt,FLIndex-method}

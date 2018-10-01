@@ -4,9 +4,7 @@
 \name{FLPars}
 \alias{FLPars}
 \alias{FLPars-methods}
-\alias{FLPars}
 \alias{FLPars-class}
-\alias{FLPars-methods}
 \alias{FLPars,ANY-method}
 \alias{FLPars,missing-method}
 \alias{FLPars,list-method}

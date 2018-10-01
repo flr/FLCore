@@ -4,7 +4,6 @@
 \name{FLStock}
 \alias{FLStock}
 \alias{FLStock-methods}
-\alias{FLStock}
 \alias{FLStock-class}
 \alias{catch,FLStock-method}
 \alias{catch.n,FLStock-method}

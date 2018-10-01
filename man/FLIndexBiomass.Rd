@@ -5,7 +5,6 @@
 \name{FLIndexBiomass}
 \alias{FLIndexBiomass}
 \alias{FLIndexBiomass-methods}
-\alias{FLIndexBiomass}
 \alias{FLIndexBiomass-class}
 \alias{catch.n,FLIndexBiomass-method}
 \alias{catch.wt,FLIndexBiomass-method}
@@ -41,7 +40,8 @@
 \usage{
 FLIndexBiomass(object, ...)
 
-\S4method{FLIndexBiomass}{FLQuant}(object, plusgroup = dims(object)$max, ...)
+\S4method{FLIndexBiomass}{FLQuant}(object, plusgroup = dims(object)$max,
+  ...)
 
 \S4method{FLIndexBiomass}{missing}(object, ...)
 }

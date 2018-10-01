@@ -4,7 +4,6 @@
 \name{FLBiols}
 \alias{FLBiols}
 \alias{FLBiols-methods}
-\alias{FLBiols}
 \alias{FLBiols-class}
 \alias{FLBiols,FLBiol-method}
 \alias{FLBiols,missing-method}

@@ -8,17 +8,6 @@
 \alias{computeDiscards}
 \alias{computeDiscards-methods}
 \alias{computeCatch}
-\alias{computeLandings}
-\alias{computeCatch-methods}
-\alias{computeStock}
-\alias{computeStock-methods}
-\alias{compute}
-\alias{computeLandings}
-\alias{computeLandings-methods}
-\alias{computeDiscards}
-\alias{computeDiscards-methods}
-\alias{computeCatch}
-\alias{computeLandings}
 \alias{computeCatch-methods}
 \alias{computeStock}
 \alias{computeStock-methods}

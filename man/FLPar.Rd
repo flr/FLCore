@@ -4,9 +4,7 @@
 \name{FLPar}
 \alias{FLPar}
 \alias{FLPar-methods}
-\alias{FLPar}
 \alias{FLPar-class}
-\alias{FLPar-methods}
 \alias{FLPar,array-method}
 \alias{FLPar,missing-method}
 \alias{FLPar,vector-method}

@@ -4,15 +4,11 @@
 \name{FLStocks}
 \alias{FLStocks}
 \alias{FLStocks-methods}
-\alias{FLStocks}
 \alias{FLStocks-class}
-\alias{FLStocks-methods}
 \alias{FLStocks,ANY-method}
 \alias{FLStocks,missing-method}
 \alias{FLStocks,list-method}
 \alias{FLStocks,FLStock-method}
-\alias{FLStocks,missing-method}
-\alias{FLStocks,list-method}
 \title{Class FLStocks}
 \usage{
 FLStocks(object, ...)

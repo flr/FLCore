@@ -30,7 +30,6 @@
 \alias{iterMedians}
 \alias{iterCVs}
 \alias{iterProb}
-\alias{quantSums,FLQuant-method}
 \alias{yearSums,FLQuant-method}
 \alias{unitSums,FLQuant-method}
 \alias{seasonSums,FLQuant-method}

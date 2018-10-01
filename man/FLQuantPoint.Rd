@@ -5,9 +5,7 @@
 \name{FLQuantPoint}
 \alias{FLQuantPoint}
 \alias{FLQuantPoint-methods}
-\alias{FLQuantPoint}
 \alias{FLQuantPoint-class}
-\alias{FLQuantPoint-methods}
 \alias{FLQuantPoint,FLQuant-method}
 \alias{mean,FLQuantPoint-method}
 \alias{mean<-,FLQuantPoint,FLQuant-method}
@@ -21,7 +19,6 @@
 \alias{uppq<-,FLQuantPoint,FLQuant-method}
 \alias{quantile,FLQuantPoint-method}
 \alias{FLQuantPoint,missing-method}
-\alias{FLQuantPoint,FLQuant-method}
 \title{Class FLQuantPoint}
 \usage{
 FLQuantPoint(object, ...)

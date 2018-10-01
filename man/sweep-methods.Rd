@@ -6,11 +6,11 @@
 \alias{sweep,FLPar-method}
 \title{Method sweep for FLCore classes}
 \usage{
-\S4method{sweep}{FLArray}(x, MARGIN, STATS, FUN = "-", check.margin = TRUE,
-  ...)
+\S4method{sweep}{FLArray}(x, MARGIN, STATS, FUN = "-",
+  check.margin = TRUE, ...)
 
-\S4method{sweep}{FLPar}(x, MARGIN, STATS, FUN = "-", check.margin = TRUE,
-  ...)
+\S4method{sweep}{FLPar}(x, MARGIN, STATS, FUN = "-",
+  check.margin = TRUE, ...)
 }
 \description{
 Use R's sweep method on FLCore classes

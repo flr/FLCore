@@ -14,16 +14,10 @@
 \alias{plot,FLIndex,missing-method}
 \alias{plot,FLIndices,missing-method}
 \alias{plot,FLSR,missing-method}
-\alias{plot,FLQuant,missing-method}
-\alias{plot,FLStock,missing-method}
-\alias{plot,FLBiol,missing-method}
-\alias{plot,FLIndex,missing-method}
-\alias{plot,FLSR,missing-method}
-\alias{plot,FLPar,missing-method}
 \title{Method plot}
 \usage{
-\S4method{plot}{FLQuant,missing}(x, xlab = "year", ylab = paste("data (",
-  units(x), ")", sep = ""), type = "p", ...)
+\S4method{plot}{FLQuant,missing}(x, xlab = "year",
+  ylab = paste("data (", units(x), ")", sep = ""), type = "p", ...)
 
 \S4method{plot}{FLStock,missing}(x, auto.key = TRUE, ...)
 

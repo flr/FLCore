@@ -4,9 +4,7 @@
 \name{FLCohorts}
 \alias{FLCohorts}
 \alias{FLCohorts-methods}
-\alias{FLCohorts}
 \alias{FLCohorts-class}
-\alias{FLCohorts-methods}
 \alias{FLCohorts,ANY-method}
 \alias{FLCohorts,missing-method}
 \alias{FLCohorts,list-method}

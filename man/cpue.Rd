@@ -5,8 +5,6 @@
 \alias{cpue}
 \alias{cpue-methods}
 \alias{cpue,FLStock-method}
-\alias{cpue}
-\alias{cpue-methods}
 \alias{survey,FLStock-method}
 \alias{cpue-FLStock-method}
 \title{cpue, a method to generate an observation of a CPUE index of abundance}

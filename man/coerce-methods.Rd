@@ -3,13 +3,9 @@
 \docType{methods}
 \name{coerce-methods}
 \alias{coerce-methods}
-\alias{coerce-methods}
 \alias{coerce,FLArray,data.frame-method}
-\alias{coerce-methods}
 \alias{coerce,FLPar,data.frame-method}
-\alias{coerce-methods}
 \alias{coerce,data.frame,FLQuant-method}
-\alias{coerce-methods}
 \alias{coerce,FLBiol,FLStock-method}
 \title{Convert Objects Between Classes}
 \arguments{

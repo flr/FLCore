@@ -4,32 +4,32 @@
 \name{FLQuant}
 \alias{FLQuant}
 \alias{FLQuant-methods}
-\alias{FLQuant}
 \alias{FLQuant-class}
-\alias{FLQuant-methods}
 \alias{FLQuant,FLQuant-method}
 \alias{FLQuant,missing-method}
 \alias{FLQuant,vector-method}
 \alias{FLQuant,array-method}
 \alias{FLQuant,matrix-method}
-\alias{FLQuant,FLQuant-method}
 \title{FLQuant class for numerical data}
 \usage{
 FLQuant(object, ...)
 
-\S4method{FLQuant}{missing}(object, dim = rep(1, 6), dimnames = "missing",
-  quant = NULL, units = "NA", iter = 1)
+\S4method{FLQuant}{missing}(object, dim = rep(1, 6),
+  dimnames = "missing", quant = NULL, units = "NA", iter = 1)
 
-\S4method{FLQuant}{vector}(object, dim = rep(1, 6), dimnames = "missing",
-  quant = NULL, units = "NA", iter = 1, fill.iter = TRUE)
+\S4method{FLQuant}{vector}(object, dim = rep(1, 6),
+  dimnames = "missing", quant = NULL, units = "NA", iter = 1,
+  fill.iter = TRUE)
 
-\S4method{FLQuant}{array}(object, dim = rep(1, 6), dimnames = "missing",
-  quant = NULL, units = "NA", iter = 1, fill.iter = TRUE)
+\S4method{FLQuant}{array}(object, dim = rep(1, 6),
+  dimnames = "missing", quant = NULL, units = "NA", iter = 1,
+  fill.iter = TRUE)
 
 \S4method{FLQuant}{matrix}(object, dim = lapply(dimnames, length),
   dimnames = "missing", ...)
 
-\S4method{FLQuant}{FLQuant}(object, quant = attributes(object)[["quant"]],
+\S4method{FLQuant}{FLQuant}(object,
+  quant = attributes(object)[["quant"]],
   units = attributes(object)[["units"]],
   dimnames = attributes(object)[["dimnames"]], iter = dim(object)[6],
   fill.iter = TRUE, dim = attributes(object)[["dim"]])
@@ -152,4 +152,5 @@ FLQuant(FLQuant(array(rnorm(9), dim=c(3,3,3)), units='kg'), units='t')
 \author{
 The FLR Team
 }
+\concept{FLCoreClasses}
 \keyword{classes}

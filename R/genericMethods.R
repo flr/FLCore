@@ -1763,6 +1763,39 @@ setGeneric("refpts", function(object, ...)
 		standardGeneric("refpts"))
 
 # dbind
+
+#' Methods for binding objects of array classes along a given dimension
+#'
+#' These methods can bind two or more objects of array-based classes
+#' (e.g. FLQuant), along the specified dimension.
+#'
+#' The objects to bind must contain the same dimmames in all dimensions other
+#' than that used to bind, while dimnames in the selected one must differ. See
+#' the examples below for correct and incorrect uses.
+#'
+#' Object are bound in the order they are provided, with no attempt to sort
+#' according to the dimnames of the chosen dimension.
+#'
+#' The implementation is based around a single method (*dbind*), that operates
+#' along the dimension position or name indicated by the *dim* argument. A
+#' series of shortcut functions call the method for specific dimensions, with
+#' names related to the dimensions name they operate on (e.g. ybind for *year*).
+#'
+#' @param x First object to bind
+#' @param y Second object to bind
+#' @param ... Other objects to bind
+#'
+#' @return An object of the same class as the inputs
+#'
+#' @name dbind
+#' @rdname dbind-methods
+#' @aliases dbind dbind-methods
+#'
+#' @author Iago Mosqueira (EC JRC)
+#' @seealso [`FLQuant`] [`FLarray`]
+#' @keywords methods
+#' @md
+
 setGeneric("dbind", function(x, y, ...)
 		standardGeneric("dbind"))
 

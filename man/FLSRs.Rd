@@ -4,14 +4,11 @@
 \name{FLSRs}
 \alias{FLSRs}
 \alias{FLSRs-methods}
-\alias{FLSRs}
 \alias{FLSRs-class}
 \alias{FLSRs,ANY-method}
 \alias{FLSRs,missing-method}
 \alias{FLSRs,list-method}
 \alias{FLSRs,FLSR-method}
-\alias{FLSRs,missing-method}
-\alias{FLSRs,list-method}
 \title{\code{FLSRS} is a class that extends \code{list} through \code{FLlst} but
 implements a set of features that give a little bit more structure to list
 objects. The elements of \code{FLSRs} must all be of class

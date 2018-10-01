@@ -4,8 +4,6 @@
 \name{dims}
 \alias{dims}
 \alias{dims-methods}
-\alias{dims}
-\alias{dims-methods}
 \alias{dims,FLQuant-method}
 \title{Method dims}
 \usage{

@@ -996,26 +996,28 @@ setMethod("log", signature(x="FLQuant"),
 
 # dbind {{{
 
-#' @rdname dbind
+#' @rdname dbind-methods
+#' @param dim Dimension to bind on, *numeric* or *character*.
 #' @examples
+#'
+#' # By iter
 #' x <- FLQuant(rnorm(80000), dim=c(4,20,1,1,1,1000))
 #' y <- FLQuant(rnorm(80000), dim=c(4,20,1,1,1,1000))
 #'   dimnames(y) <- list(iter=1001:2000)
 #' ibind(x,y)
 #' 
+#' # By quant (age)
 #' x <- FLQuant(1, dimnames=list(age=1:3, year=1:10))
 #' y <- FLQuant(2, dimnames=list(age=4:12, year=1:10))
 #' qbind(x, y)
 #' 
+#' # By year
 #' x <- FLQuant(1, dimnames=list(age=1:3, year=1:10))
 #' y <- FLQuant(2, dimnames=list(age=1:3, year=11:20))
 #' z <- FLQuant(3, dimnames=list(age=1:3, year=21:30))
 #' ybind(x, y, z)
 #' 
-#' x <- FLQuant(1, dimnames=list(quant=c('effort', 'ssb'), year=1:10))
-#' y <- FLQuant(2, dimnames=list(quant=c('msy'), year=1:10))
-#' qbind(x, y)
-#' 
+#' # By season
 #' x <- FLQuant(1, dimnames=list(year=1:10, season=1:2))
 #' y <- FLQuant(2, dimnames=list(year=1:10, season=3:4))
 #' sbind(x, y)
@@ -1069,21 +1071,33 @@ setMethod('dbind', signature(x='FLArray', y='FLArray'),
   }
 )
 
+#' @rdname dbind-methods
+#' @aliases qbind
 qbind <- function(...)
   dbind(..., dim=1)
 
+#' @rdname dbind-methods
+#' @aliases ybind
 ybind <- function(...)
   dbind(..., dim=2)
 
+#' @rdname dbind-methods
+#' @aliases ubind
 ubind <- function(...)
   dbind(..., dim=3)
 
+#' @rdname dbind-methods
+#' @aliases sbind
 sbind <- function(...)
   dbind(..., dim=4)
 
+#' @rdname dbind-methods
+#' @aliases abind
 abind <- function(...)
   dbind(..., dim=5)
 
+#' @rdname dbind-methods
+#' @aliases ibind
 ibind <- function(...)
   dbind(..., dim=6)
 

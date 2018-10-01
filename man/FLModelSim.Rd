@@ -4,14 +4,11 @@
 \name{FLModelSim}
 \alias{FLModelSim}
 \alias{FLModelSim-methods}
-\alias{FLModelSim}
 \alias{FLModelSim-class}
-\alias{FLModelSim-methods}
 \alias{FLModelSim,formula-method}
 \alias{FLModelSim,missing-method}
 \alias{FLModelSim,character-method}
 \alias{FLModelSim,function-method}
-\alias{FLModelSim,missing-method}
 \title{Class FLModelSim}
 \usage{
 FLModelSim(object, ...)

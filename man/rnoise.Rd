@@ -9,7 +9,8 @@
 \title{Random noise with different frequencies}
 \usage{
 \S4method{rnoise}{numeric,FLQuant}(n = n, len = len, sd = 1, b = 0,
-  burn = 0, trunc = 0, what = c("year", "cohort", "age"), seed = NA)
+  burn = 0, trunc = 0, what = c("year", "cohort", "age"),
+  seed = NA)
 }
 \arguments{
 \item{n}{number of iterations}

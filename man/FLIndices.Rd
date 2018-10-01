@@ -4,7 +4,6 @@
 \name{FLIndices}
 \alias{FLIndices}
 \alias{FLIndices-methods}
-\alias{FLIndices}
 \alias{FLIndices-class}
 \alias{FLIndices,FLI-method}
 \alias{FLIndices,missing-method}

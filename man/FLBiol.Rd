@@ -4,7 +4,6 @@
 \name{FLBiol}
 \alias{FLBiol}
 \alias{FLBiol-methods}
-\alias{FLBiol}
 \alias{FLBiol-class}
 \alias{n,FLBiol-method}
 \alias{m,FLBiol-method}
@@ -25,7 +24,6 @@
 \alias{FLBiolcpp-class}
 \alias{FLBiol,FLQuant-method}
 \alias{FLBiol,missing-method}
-\alias{FLBiolcpp-class}
 \title{Class FLBiol}
 \usage{
 FLBiol(object, ...)

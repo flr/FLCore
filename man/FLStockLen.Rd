@@ -5,7 +5,6 @@
 \name{FLStockLen}
 \alias{FLStockLen}
 \alias{FLStockLen-methods}
-\alias{FLStockLen}
 \alias{FLStockLen-class}
 \alias{catch,FLStockLen-method}
 \alias{catch.n,FLStockLen-method}

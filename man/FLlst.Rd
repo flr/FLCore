@@ -4,9 +4,7 @@
 \name{FLlst}
 \alias{FLlst}
 \alias{FLlst-methods}
-\alias{FLlst}
 \alias{FLlst-class}
-\alias{FLlst-methods}
 \alias{FLlst,ANY-method}
 \alias{FLlst,missing-method}
 \alias{FLlst,list-method}

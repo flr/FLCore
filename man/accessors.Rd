@@ -13,8 +13,6 @@
 \alias{catch}
 \alias{catch<-}
 \alias{catch.n}
-\alias{desc}
-\alias{desc<-}
 \alias{catch.wt}
 \alias{catch.wt<-}
 \alias{discards}
@@ -47,8 +45,6 @@
 \alias{mat<-}
 \alias{n}
 \alias{n<-}
-\alias{m}
-\alias{m<-}
 \alias{wt}
 \alias{wt<-}
 \alias{fec}
@@ -67,10 +63,7 @@
 \alias{index<-}
 \alias{index.var}
 \alias{index.var<-}
-\alias{catch.n}
 \alias{catch.n<-}
-\alias{catch.wt}
-\alias{catch.wt<-}
 \alias{sel.pattern}
 \alias{sel.pattern<-}
 \alias{index.q}

@@ -4,7 +4,6 @@
 \name{FLQuants}
 \alias{FLQuants}
 \alias{FLQuants-methods}
-\alias{FLQuants}
 \alias{FLQuants-class}
 \alias{FLQuants,ANY-method}
 \alias{FLQuants,FLComp-method}

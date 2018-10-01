@@ -5,7 +5,6 @@
 \alias{FLModelSims}
 \alias{FLModelSims-class}
 \alias{FLModelSims-methods}
-\alias{FLModelSims}
 \alias{FLModelSims,ANY-method}
 \alias{FLModelSims,missing-method}
 \alias{FLModelSims,list-method}
