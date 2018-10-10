@@ -249,7 +249,7 @@ setMethod("plot", signature(x="FLBiol", y="missing"),
 #' data(ple4.index)
 #' plot(ple4.index)
 #'
-# Author: Mark Payne, DIFRES
+# Author: Mark Payne, DTU Aqua
 setMethod("plot", signature(x="FLIndex",y="missing"),
   function(x, type=c("splom"), ...)
   {
@@ -257,12 +257,12 @@ setMethod("plot", signature(x="FLIndex",y="missing"),
     validObject(x)
 		type <- type[1]
 
-	  res <- switch(type,
+	  res <- switch(type[1],
 		  "splom" = plotinternal(x=x, ... ),
 		  "ts" = plotts(x=x, ... ),
 		  "pairwise"=pairwiseConsistency(idx=x,...),
 		  "internal"=plotInternalConsistency(idx=x,...),
-		  cat("type must be 'splom', 'ts', 'pairwise' or 'internal'!\n"))
+		  stop("type must be 'splom', 'ts', 'pairwise' or 'internal'!\n"))
 	  # Return result invisibly
 	  invisible(res)
     }
