@@ -276,11 +276,7 @@ setMethod("%^%", signature(x="FLQuant", y="FLQuant"),
     dni[di > dx] <- dimnames(y)[di > dx]
 
 		# units
-		if(identical(units(x), units(y))) {
-			units <- units(x)
-		} else {
-			units <- uom('^', units(x), units(y))
-		}
+		units <- units(x)
 
     return(FLQuant(rx ^ ry, dimnames=dni, units=units))
   }
@@ -870,7 +866,8 @@ setMethod("%^%", signature(x="FLPar", y="FLPar"),
 		dnx[dni == 2] <- dny[dni == 2]
 
     # TODO expand & aperm FLPars
-    FLPar(array(x@.Data, dim=dr, dimnames=dnx) ^ array(y@.Data, dim=dr, dimnames=dnx))
+    FLPar(array(x@.Data, dim=dr, dimnames=dnx) ^ array(y@.Data, dim=dr, dimnames=dnx),
+      units=units(x))
   }
 ) # }}}
 # }}}
@@ -891,7 +888,24 @@ setMethod("/", signature(e1="FLQuants", e2="FLPar"),
     names(res) <- names(e1)
     return(FLQuants(res))
   }
-) # }}}
+)
+
+#' @rdname operators
+#' @aliases *,FLQuants,FLPar-method
+#' @examples
+#'
+#' # Product of each FLQuants element by a 'param' in FLPar
+#' FLQuants(SSB=FLQuant(2303), F=FLQuant(0.8)) * FLPar(SSB=1560, F=0.4)
+setMethod("*", signature(e1="FLQuants", e2="FLPar"),
+	function(e1, e2) {
+
+    res <- lapply(names(e1), function(x) e1[[x]] * e2[x,])
+    names(res) <- names(e1)
+    return(FLQuants(res))
+  }
+)
+
+# }}}
 
 # %=% {{{
 setMethod("%=%", signature(object="FLArray", value="numeric"),
