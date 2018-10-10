@@ -30,8 +30,6 @@ test_that("unparseable units are returned pasted", {
 
 })
 
-# TEST
-
 # TEST leading and trailing spaces are ignored
 test_that("leading and trailing spaces are ignored", {
 
@@ -42,7 +40,19 @@ test_that("leading and trailing spaces are ignored", {
 })
 
 # DOES NOT PARSE:
+FLQuant(126, units="kg / d") * FLQuant(2350, units="EUR / kg / d")
+
 FLQuant(126, units="boat / d") * FLQuant(2350, units="EUR / boat / d")
 FLQuant(2350, units="EUR / boat / d") * FLQuant(2350, units="boat / d")
+FLQuant(2350, units="eur / boat / d") * FLQuant(2350, units="boat / d")
 
+FLQuant(2350, units="€ / boat / d") * FLQuant(2350, units="boat / d")
+FLQuant(2350, units="$ / boat / d") * FLQuant(2350, units="boat / d")
 
+FLQuant(2, units="1000") * (FLQuant(3, units="kg") * FLQuant(0.004, units="EUR / kg"))
+FLQuant(2, units="1000") * FLQuant(3, units="kg") * FLQuant(4, units="EUR / t")
+
+FLQuant(2, units="EUR") + FLQuant(3, units="EUR / boat") * FLQuant(4, units="boat")
+FLQuant(2, units="EUR") + FLQuant(3, units="EUR/boat") * FLQuant(4, units="boat")
+
+FLQuant(2, units="EUR / crew") * FLQuant(3, units="crew") + FLQuant(0.5, units="") * FLQuant(1200, units="EUR")
