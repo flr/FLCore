@@ -943,6 +943,8 @@ setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area"),
     spwn.season=1, stock.season=1, calcF=TRUE) {
 
+    # TODO: check spwn.season vs. mat
+
     # DIMS to operate on, inverse of dims
     dms <- seq(1,6)[-(match(dims, c("unit", "season", "area")) + 2)]
   	dmns <- list(season="all", unit="unique", area="unique")[dims]
@@ -1008,7 +1010,8 @@ setMethod("simplify", signature(object="FLStock"),
   	  mat <- mat[,, 1,,]
     if("area" %in% dims)
     	mat <- areaMeans(mat)
-  	dimnames(mat) <- list(season="all", unit="unique", area="unique")[dims]
+  	
+    dimnames(mat) <- list(season="all", unit="unique", area="unique")[dims]
 
     # M: weighted mean?
     m <- m(object)
@@ -1018,13 +1021,14 @@ setMethod("simplify", signature(object="FLStock"),
       m <- seasonSums(m)
     if("area" %in% dims)
       m <- areaMeans(m)
-  	dimnames(mat) <- list(season="all", unit="unique", area="unique")[dims]
+  	
+    dimnames(m) <- list(season="all", unit="unique", area="unique")[dims]
 	
     # harvest.spwn & m.spwn
     harvest.spwn <- m.spwn <- m
     units(harvest.spwn) <- units(m.spwn) <- ""
-    harvest.spwn[] <- (spwn.season - 1) / last.season
-    m.spwn[] <- (spwn.season - 1) / last.season
+    harvest.spwn[] <- ((spwn.season - 1) / last.season) + (1 / (last.season * 2))
+    m.spwn[] <- ((spwn.season - 1) / last.season) + (1 / (last.season * 2))
   
     res <- FLStock(name=name(object), desc=desc(object), range=range(object),
       catch.n=can, catch.wt=cawt, landings.n=lan, landings.wt=lawt,
