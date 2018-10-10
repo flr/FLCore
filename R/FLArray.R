@@ -651,7 +651,10 @@ setMethod("Arith",
     
     # units
     op <- as.character(get('.Generic'))
-    units <- uom(op, units(e1), units(e2))
+    if(op == "^")
+      units <- units(e1)
+    else
+      units <- uom(op, units(e1), units(e2))
     
     return(new(class(e1), e, units=units))
   }
