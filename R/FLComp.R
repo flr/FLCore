@@ -51,6 +51,20 @@ setMethod("summary", signature(object="FLComp"),
 	}
 )	# }}}
 
+# show {{{
+setMethod('show', signature('FLComp'),
+  function(object) {
+    summary(object)
+  }
+) # }}}
+
+# print {{{
+setMethod('print', signature(x='FLComp'),
+  function(x) {
+    showDefault(x, FALSE)
+  }
+) # }}}
+
 # window    {{{
 setMethod("window", signature(x="FLComp"),
 	  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1) {
