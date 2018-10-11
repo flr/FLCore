@@ -3,7 +3,8 @@
 ## NEW FEATURES
 - window(FLQuantDistr) method added to deal with @var slot
 - Method %*% for FLQuants,FLPar added
-- Better handling of currency units, so far for EUR and USD. Symbols are accepted.
+- Better handling of currency units, so far for EUR and USD. Symbols are accepted
+- show() for FLComp-derived classes will call summary instead of printDefault. print() will still show the full object
 
 ## BUG FIXES
 - propagate(FLPar) placed the original object in the matching dimname$iter,
