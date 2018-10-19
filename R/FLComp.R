@@ -111,8 +111,10 @@ setMethod("iter", signature(obj="FLComp"),
 		names. <- c(getSlotNamesClass(obj, 'FLArray'), getSlotNamesClass(obj, 'FLPar'))
 		for(s. in names.)
 		{
-			if(dims(slot(obj, s.))$iter == 1)
+			if(dims(slot(obj, s.))$iter == 1) {
 				slot(obj, s.) <- iter(slot(obj, s.), 1)
+        dimnames(slot(obj, s.))$iter <- iter
+      }
 			else
 				slot(obj, s.) <- iter(slot(obj, s.), iter)
 		}
