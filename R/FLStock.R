@@ -533,11 +533,12 @@ setMethod('[', signature(x='FLStock'),
     }
 )   # }}}
 
-# "[<-"            {{{
+# '[<-'            {{{
 #' @rdname Extract
 #' @aliases [<-,FLStock,ANY,ANY,FLStock-method
 setMethod("[<-", signature(x="FLStock", value="FLStock"),
 	function(x, i, j, k, l, m, n, ..., value) {
+
     if (missing(i))
 			i  <-  dimnames(x@stock.n)[1][[1]]
 		if (missing(j))
@@ -1027,8 +1028,16 @@ setMethod("simplify", signature(object="FLStock"),
     # harvest.spwn & m.spwn
     harvest.spwn <- m.spwn <- m
     units(harvest.spwn) <- units(m.spwn) <- ""
-    harvest.spwn[] <- ((spwn.season - 1) / last.season) + (1 / (last.season * 2))
-    m.spwn[] <- ((spwn.season - 1) / last.season) + (1 / (last.season * 2))
+    
+    if("unit" %in% dims) {
+      harvest.spwn[] <- seasonSums(unitSums(catch(object)[,,,seq(1,spwn.season-1)])) %/%
+        seasonSums(unitSums(catch(object)))
+    } else {
+      harvest.spwn[] <- seasonSums(catch(object)[,,,seq(1,spwn.season-1)]) %/%
+        seasonSums(catch(object))
+    }
+
+    m.spwn[] <- ((spwn.season - 1) / last.season)
   
     res <- FLStock(name=name(object), desc=desc(object), range=range(object),
       catch.n=can, catch.wt=cawt, landings.n=lan, landings.wt=lawt,
