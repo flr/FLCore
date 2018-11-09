@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -114,7 +114,8 @@
 
     <pre class="usage"><span class='co'># S4 method for numeric,FLQuant</span>
 <span class='fu'>rnoise</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='no'>n</span>, <span class='kw'>len</span> <span class='kw'>=</span> <span class='no'>len</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>burn</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>trunc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"year"</span>, <span class='st'>"cohort"</span>, <span class='st'>"age"</span>), <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+  <span class='kw'>burn</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>trunc</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"year"</span>, <span class='st'>"cohort"</span>, <span class='st'>"age"</span>),
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,7 +168,7 @@ b is the autocorrelation parameter</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='kw'>quant</span><span class='kw'>=</span><span class='st'>"age"</span>)
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>1</span>:<span class='fl'>100</span>, <span class='kw'>quant</span><span class='kw'>=</span><span class='st'>"age"</span>)
 <span class='no'>white</span> <span class='kw'>&lt;-</span> <span class='fu'>rnoise</span>(<span class='fl'>100</span>,<span class='no'>flq</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>.3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0</span>)
 <span class='fu'><a href='plot.html'>plot</a></span>(<span class='no'>white</span>)
 <span class='fu'>acf</span>(<span class='no'>white</span>)
@@ -187,7 +188,7 @@ b is the autocorrelation parameter</p>
 <span class='fu'>facet_wrap</span>(~<span class='no'>iter</span>)
 
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>rnoise</span>(<span class='fl'>4</span>,<span class='fu'>m</span>(<span class='no'>ple4</span>),<span class='kw'>burn</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.9</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"cohort"</span>)
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>rnoise</span>(<span class='fl'>4</span>,<span class='fu'><a href='accessors.html'>m</a></span>(<span class='no'>ple4</span>),<span class='kw'>burn</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.9</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"cohort"</span>)
 <span class='fu'>ggplot</span>()+
 <span class='fu'>geom_point</span>(<span class='fu'>aes</span>(<span class='no'>year</span>,<span class='no'>age</span>,<span class='kw'>size</span><span class='kw'>=</span> <span class='no'>data</span>),
           <span class='kw'>data</span><span class='kw'>=</span><span class='fu'>subset</span>(<span class='fu'>as.data.frame</span>(<span class='no'>res</span>),<span class='no'>data</span><span class='kw'>&gt;</span><span class='fl'>0</span>))+

@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -129,9 +129,9 @@
     <p>These methods call R's <a href='http://www.rdocumentation.org/packages/base/topics/apply'>base::apply</a> on an <a href='FLArray.html'>FLArray</a> the standard arithmetic operators included in the
 <code><a href='http://www.rdocumentation.org/packages/methods/topics/S4groupGeneric'>Arith</a></code> group ("+", "-", "*", `"^", "<!-- %%", "%/%", and -->
 "/"), so that they return an object of the appropriate class.</p>
-<p>When the operation involves objects of two classes (e.g. <code>FLPar</code> and <code>FLQuant</code>),
+<p>When the operation involves objects of two classes (e.g. <code><a href='FLPar.html'>FLPar</a></code> and <code><a href='FLQuant.html'>FLQuant</a></code>),
 the class is the returned object is that of the more complexs object, in this
-case <code>FLQuant</code>.</p>
+case <code><a href='FLQuant.html'>FLQuant</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -140,8 +140,8 @@ case <code>FLQuant</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
-<span class='no'>flp</span> <span class='kw'>&lt;-</span> <span class='fu'>FLPar</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>99</span>)
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='no'>flp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>99</span>)
 
 <span class='co'># FLQuant and numeric</span>
 <span class='no'>flq</span> * <span class='fl'>25</span></div><div class='output co'>#&gt; An object of class "FLQuant"

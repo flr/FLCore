@@ -62,7 +62,7 @@ object of any given class." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -156,45 +156,45 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt; $anyna$anyna
 #&gt; function (x) 
 #&gt; unlist(qapply(x, function(y) sum(is.na(y), na.rm = TRUE) &gt; 0))
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; 
 #&gt; $catch.wt
 #&gt; ~catch.wt &gt; 0
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $landings.wt
 #&gt; ~landings.wt &gt; 0
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $discards.wt
 #&gt; ~discards.wt &gt; 0
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $stock.wt
 #&gt; ~stock.wt &gt; 0
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $mat
 #&gt; ~mat &lt;= 1 &amp; mat &gt;= 0
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $harvest.spwn
 #&gt; ~harvest.spwn &lt;= 1 &amp; harvest.spwn &gt;= 0
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $m.spwn
 #&gt; ~m.spwn &lt;= 1 &amp; m.spwn &gt;= 0
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $harvest
 #&gt; ~harvest &gt;= 0
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $cohorts
 #&gt; $cohorts$rule
 #&gt; ~ccohorts(stock.n)
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; $cohorts$ccohorts
 #&gt; function (x) 
@@ -204,7 +204,7 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt;     x &lt;- FLCohort(x)[-dim(x)[1], seq(dim(x)[1], dim(x)[2] - dim(x)[1])]
 #&gt;     return((x[-1, ]/x[-dim(x)[1], ]) &lt; 1)
 #&gt; }
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; 
 #&gt; $uoms
@@ -214,7 +214,7 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt; $uoms$uoms
 #&gt; function (x) 
 #&gt; uomUnits(unlist(units(x)))
-#&gt; &lt;environment: 0x14c31d28&gt;
+#&gt; &lt;environment: 0xec6b7c0&gt;
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># Extract single rule by name</span>
 <span class='fu'>ruleset</span>(<span class='no'>ple4</span>, <span class='st'>'anyna'</span>)</div><div class='output co'>#&gt; $anyna
@@ -224,8 +224,8 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt; $anyna$anyna
 #&gt; function (x) 
 #&gt; unlist(qapply(x, function(y) sum(is.na(y), na.rm = TRUE) &gt; 0))
-#&gt; &lt;bytecode: 0xbf8d760&gt;
-#&gt; &lt;environment: 0x127ff9c8&gt;
+#&gt; &lt;bytecode: 0xe2aada0&gt;
+#&gt; &lt;environment: 0xc14cd18&gt;
 #&gt; 
 #&gt; </div></pre>
   </div>

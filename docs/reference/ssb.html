@@ -66,7 +66,7 @@ method also exists." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -141,11 +141,11 @@ method also exists.</p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object, generally of class <code>FLQuant</code>.</p>
+    <p>An object, generally of class <code><a href='FLQuant.html'>FLQuant</a></code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>For an object of class <code>FLStock</code>, the calculation of SSB depends
+    <p>For an object of class <code><a href='FLStock.html'>FLStock</a></code>, the calculation of SSB depends
 on the value of the 'units' attribute in the <code>harvest</code> slot. If this is
 in terms of fishing mortality (<code>units(harvest(object)) == 'f'</code>), and
 assuming an object structured by age, then SSB is calculated as
@@ -159,7 +159,7 @@ age (a) and year (y), \(F_{a,y}\) is the fishing mortality (<code>harvest</code>
 (<code>m.spwn</code>),
 \(W_{a,y}\) is the mean weight at age in the stock (<code>m</code>), and
 \(T_{a,y}\) is the proportion mature at age in the stock (<code>mat</code>).
-For <code>FLStock</code> objects with other dimensions (<code>area</code>,
+For <code><a href='FLStock.html'>FLStock</a></code> objects with other dimensions (<code>area</code>,
 <code>unit</code>), the calculation is carried out along those dimensions too. To
 obtain a global value please use the corresponding summing method.</p>
 <p>If the harvest slot contains estimates in terms of harvest rates
@@ -167,7 +167,7 @@ obtain a global value please use the corresponding summing method.</p>
 $$SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot (1 - H_{a,y} \cdot Hs_{a,y}) \cdot e^{-(M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} $$
 where \(H_{a,y}\) is the harvest rate (proportion of catch in weight
 over total biomass).</p>
-<p>For an object of class <code>FLBiol</code>, the calculation of SSB is as
+<p>For an object of class <code><a href='FLBiol.html'>FLBiol</a></code>, the calculation of SSB is as
 follows:
 $$SSB_{a,y} = \sum\nolimits_{a} N_{a,y} \cdot W_{a,y} \cdot e^{-S_{a,y} \cdot M_{a,y}}$$
 where \(S_{a,y}\) is the fraction of natural mortality before spawning (<code>spwn</code>). The method for this class does not correct the estimate, based on

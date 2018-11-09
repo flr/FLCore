@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -115,7 +115,7 @@
     <pre class="usage"><span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLQuant</span>
-<span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='kw'>plusgroup</span> <span class='kw'>=</span> <span class='fu'>dims</span>(<span class='no'>object</span>)$<span class='no'>max</span>, <span class='no'>...</span>)
+<span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='kw'>plusgroup</span> <span class='kw'>=</span> <span class='fu'><a href='dims.html'>dims</a></span>(<span class='no'>object</span>)$<span class='no'>max</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for missing</span>
 <span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
@@ -144,7 +144,7 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>computeCatch, dims, <a href='iter.html'>iter</a>,
+    <div class='dont-index'><p><a href='compute.html'>computeCatch</a>, <a href='dims.html'>dims</a>, <a href='iter.html'>iter</a>,
 <a href='http://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>, propagate, <a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a>,
 <a href='http://www.rdocumentation.org/packages/base/topics/transform'>transform</a>, <a href='trim.html'>trim</a>, <a href='http://www.rdocumentation.org/packages/stats/topics/window'>window</a>, <a href='FLComp.html'>FLComp</a></p></div>
     
@@ -152,7 +152,7 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Create an FLIndex object.</span>
-<span class='no'>fli</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>8</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>8</span>)), <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"myTestFLindex"</span>)
+<span class='no'>fli</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>8</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>8</span>)), <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"myTestFLindex"</span>)
 <span class='fu'>summary</span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class "FLIndex"
 #&gt; 
 #&gt; Name: myTestFLindex 

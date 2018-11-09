@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -117,7 +117,7 @@
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Objects of <code>FLArray</code>-based classes (e.g. <code>FLQuant</code>) contain a
+    <p>Objects of <code>FLArray</code>-based classes (e.g. <code><a href='FLQuant.html'>FLQuant</a></code>) contain a
 <code>units</code> attribute of class <code>character</code>. This should be used to store
 the corresponding units of measurement.  This attribute can be directly accessed
 and modified using the <code>units</code> and <code>units&lt;-</code> methods.</p>
@@ -138,19 +138,19 @@ the new values. See examples below.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>100</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>5</span>,<span class='fl'>20</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>100</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>5</span>,<span class='fl'>20</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
 <span class='fu'>units</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; [1] "kg"</div><div class='input'><span class='fu'>units</span>(<span class='no'>flq</span>) <span class='kw'>&lt;-</span> <span class='st'>'t'</span>
 <span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  5 20 1 1 1 1 
 #&gt; quant:  quant 
 #&gt; units:  t 
 #&gt; 
-#&gt; Min    :  -3.202528 
-#&gt; 1st Qu.:  -0.8169777 
-#&gt; Mean   :  -0.1473364 
-#&gt; Median :  -0.2413215 
-#&gt; 3rd Qu.:  0.4810889 
-#&gt; Max    :  2.3558 
+#&gt; Min    :  -2.703825 
+#&gt; 1st Qu.:  -0.7452874 
+#&gt; Mean   :  -0.08431374 
+#&gt; Median :  -0.1282466 
+#&gt; 3rd Qu.:  0.6667935 
+#&gt; Max    :  2.032777 
 #&gt; NAs    :  0 %</div><div class='input'>
 <span class='co'># units for a complex object</span>
   <span class='fu'>data</span>(<span class='no'>ple4</span>)

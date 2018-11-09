@@ -62,7 +62,7 @@ of any FLArray-based class, like FLQuant or FLCohort." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@ of any FLArray-based class, like FLQuant or FLCohort." />
     <div class="ref-description">
     
     <p>Function to get or set the name of the first dimension (quant) in an object
-of any FLArray-based class, like <code>FLQuant</code> or <code>FLCohort</code>.</p>
+of any FLArray-based class, like <code><a href='FLQuant.html'>FLQuant</a></code> or <code><a href='FLCohort.html'>FLCohort</a></code>.</p>
     
     </div>
 
@@ -134,37 +134,37 @@ of any FLArray-based class, like <code>FLQuant</code> or <code>FLCohort</code>.<
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># quant is 'quant' by default</span>
-  <span class='fu'>quant</span>(<span class='fu'>FLQuant</span>())</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>80</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>20</span>), <span class='kw'>quant</span><span class='kw'>=</span><span class='st'>'age'</span>)
+  <span class='fu'>quant</span>(<span class='fu'><a href='FLQuant.html'>FLQuant</a></span>())</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>80</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>20</span>), <span class='kw'>quant</span><span class='kw'>=</span><span class='st'>'age'</span>)
 <span class='fu'>quant</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; [1] "age"</div><div class='input'><span class='fu'>quant</span>(<span class='no'>flq</span>) <span class='kw'>&lt;-</span> <span class='st'>'length'</span>
 <span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  4 20 1 1 1 1 
 #&gt; quant:  length 
 #&gt; units:  NA 
 #&gt; 
-#&gt; Min    :  -1.949392 
-#&gt; 1st Qu.:  -0.6447622 
-#&gt; Mean   :  -0.1280569 
-#&gt; Median :  -0.1978124 
-#&gt; 3rd Qu.:  0.3834044 
-#&gt; Max    :  1.954153 
+#&gt; Min    :  -2.666953 
+#&gt; 1st Qu.:  -0.7061025 
+#&gt; Mean   :  -0.06910715 
+#&gt; Median :  0.01951749 
+#&gt; 3rd Qu.:  0.488593 
+#&gt; Max    :  2.758114 
 #&gt; NAs    :  0 %</div><div class='input'>
 
 <span class='co'># quant is 'quant' by default</span>
-  <span class='fu'>quant</span>(<span class='fu'>FLQuant</span>())</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>80</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>20</span>), <span class='kw'>quant</span><span class='kw'>=</span><span class='st'>'age'</span>)
+  <span class='fu'>quant</span>(<span class='fu'><a href='FLQuant.html'>FLQuant</a></span>())</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>80</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>20</span>), <span class='kw'>quant</span><span class='kw'>=</span><span class='st'>'age'</span>)
 <span class='fu'>quant</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; [1] "age"</div><div class='input'><span class='fu'>quant</span>(<span class='no'>flq</span>) <span class='kw'>&lt;-</span> <span class='st'>'length'</span>
 <span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  4 20 1 1 1 1 
 #&gt; quant:  length 
 #&gt; units:  NA 
 #&gt; 
-#&gt; Min    :  -2.561117 
-#&gt; 1st Qu.:  -0.6880248 
-#&gt; Mean   :  0.02322914 
-#&gt; Median :  0.01286564 
-#&gt; 3rd Qu.:  0.7341856 
-#&gt; Max    :  2.079626 
+#&gt; Min    :  -1.954968 
+#&gt; 1st Qu.:  -0.60053 
+#&gt; Mean   :  0.09030635 
+#&gt; Median :  0.1493286 
+#&gt; 3rd Qu.:  0.6805952 
+#&gt; Max    :  2.486845 
 #&gt; NAs    :  0 %</div><div class='input'>
 </div></pre>
   </div>

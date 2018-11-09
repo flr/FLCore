@@ -62,7 +62,7 @@ are provided in FLCore." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -294,12 +294,12 @@ Explor. Mer 40, 67-75.</p>
   <span class='fu'>bevholt</span>()</div><div class='output co'>#&gt; $logl
 #&gt; function (a, b, rec, ssb) 
 #&gt; loglAR1(log(rec), log(a * ssb/(b + ssb)))
-#&gt; &lt;bytecode: 0x10ebcc98&gt;
-#&gt; &lt;environment: 0xfd40998&gt;
+#&gt; &lt;bytecode: 0xa3201b0&gt;
+#&gt; &lt;environment: 0xbf5d590&gt;
 #&gt; 
 #&gt; $model
 #&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0xfd40998&gt;
+#&gt; &lt;environment: 0xbf5d590&gt;
 #&gt; 
 #&gt; $initial
 #&gt; function (rec, ssb) 
@@ -308,16 +308,16 @@ Explor. Mer 40, 67-75.</p>
 #&gt;     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #&gt;     return(FLPar(a = a, b = a/b))
 #&gt; }
-#&gt; &lt;bytecode: 0x1557f710&gt;
-#&gt; &lt;environment: 0xfd40998&gt;
+#&gt; &lt;bytecode: 0x11de6548&gt;
+#&gt; &lt;environment: 0xbf5d590&gt;
 #&gt; attr(,"lower")
 #&gt; [1] -Inf -Inf
 #&gt; attr(,"upper")
 #&gt; [1] Inf Inf
-#&gt; </div><div class='input'>  <span class='fu'><a href='names.html'>names</a></span>(<span class='fu'>bevholt</span>())</div><div class='output co'>#&gt; [1] "logl"    "model"   "initial"</div><div class='input'>  <span class='fu'>bevholt</span>()$<span class='no'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
+#&gt; </div><div class='input'>  <span class='fu'>names</span>(<span class='fu'>bevholt</span>())</div><div class='output co'>#&gt; [1] "logl"    "model"   "initial"</div><div class='input'>  <span class='fu'>bevholt</span>()$<span class='no'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;bytecode: 0x10ebcc98&gt;
-#&gt; &lt;environment: 0x124de7d8&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0xa3201b0&gt;
+#&gt; &lt;environment: 0x114a8770&gt;</div><div class='input'>
 <span class='co'># once an FLSR model is in the workspace ...</span>
   <span class='fu'>data</span>(<span class='no'>nsher</span>)
 

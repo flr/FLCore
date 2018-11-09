@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@
 
     <p>A series of commonly-used stock-recruitment models are already available,
 including the corresponding likelihood functions and calculation of initial
-values. See <code>SRModels</code> for more details and the exact
+values. See <code><a href='SRModels.html'>SRModels</a></code> for more details and the exact
 formulation implemented for each of them.</p>
     
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
@@ -153,7 +153,7 @@ formulation implemented for each of them.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>FLModel, <a href='FLComp.html'>FLComp</a></p></div>
+    <div class='dont-index'><p><a href='FLModel.html'>FLModel</a>, <a href='FLComp.html'>FLComp</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -164,30 +164,30 @@ formulation implemented for each of them.</p>
   <span class='co'># Create an  FLSR object using the existing SR models.</span>
   <span class='no'>sr2</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'ricker'</span>)
   <span class='no'>sr2</span>@<span class='kw'>model</span></div><div class='output co'>#&gt; rec ~ a * ssb * exp(-b * ssb)
-#&gt; &lt;environment: 0x12db29f0&gt;</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
+#&gt; &lt;environment: 0x10700870&gt;</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
 #&gt; 		# The function to provide initial values
 #&gt;     res  &lt;-coefficients(lm(log(c(rec)/c(ssb))~c(ssb)))
 #&gt;     return(FLPar(a=max(exp(res[1])), b=-max(res[2])))}
-#&gt; &lt;environment: 0x12db29f0&gt;
+#&gt; &lt;environment: 0x10700870&gt;
 #&gt; attr(,"lower")
 #&gt; [1] -Inf -Inf
 #&gt; attr(,"upper")
 #&gt; [1] Inf Inf</div><div class='input'>  <span class='no'>sr2</span>@<span class='kw'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))
-#&gt; &lt;environment: 0x12db29f0&gt;</div><div class='input'>
+#&gt; &lt;environment: 0x10700870&gt;</div><div class='input'>
   <span class='no'>sr3</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>'bevholt'</span>)
   <span class='no'>sr3</span>@<span class='kw'>model</span></div><div class='output co'>#&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x139d2240&gt;</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
+#&gt; &lt;environment: 0xef17700&gt;</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>initial</span></div><div class='output co'>#&gt; function(rec, ssb) {
 #&gt;     a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))
 #&gt;     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #&gt;     return(FLPar(a = a, b = a/b))}
-#&gt; &lt;environment: 0x139d2240&gt;
+#&gt; &lt;environment: 0xef17700&gt;
 #&gt; attr(,"lower")
 #&gt; [1] -Inf -Inf
 #&gt; attr(,"upper")
 #&gt; [1] Inf Inf</div><div class='input'>  <span class='no'>sr3</span>@<span class='kw'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;environment: 0x139d2240&gt;</div><div class='input'>
+#&gt; &lt;environment: 0xef17700&gt;</div><div class='input'>
   <span class='co'># Create an FLSR using a function.</span>
   <span class='no'>mysr1</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(){
     <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='no'>rec</span> ~ <span class='no'>a</span>*<span class='no'>ssb</span>^<span class='no'>b</span>
@@ -213,7 +213,7 @@ formulation implemented for each of them.</p>
    <span class='fu'>return</span>(<span class='fu'>list</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>formula</span>, <span class='kw'>initial</span> <span class='kw'>=</span> <span class='no'>initial</span>, <span class='kw'>logl</span> <span class='kw'>=</span> <span class='no'>logl</span>))
   }
 
-  <span class='no'>ssb</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>runif</span>(<span class='fl'>10</span>, <span class='fl'>10000</span>, <span class='fl'>100000</span>))
+  <span class='no'>ssb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>runif</span>(<span class='fl'>10</span>, <span class='fl'>10000</span>, <span class='fl'>100000</span>))
   <span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fl'>10000</span> + <span class='fl'>2</span>*<span class='no'>ssb</span> + <span class='fu'>rnorm</span>(<span class='fl'>10</span>,<span class='fl'>0</span>,<span class='fl'>1</span>)
   <span class='no'>sr5</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSR</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>mysr2</span>, <span class='kw'>ssb</span> <span class='kw'>=</span> <span class='no'>ssb</span>, <span class='kw'>rec</span> <span class='kw'>=</span> <span class='no'>rec</span>)
 
@@ -422,10 +422,10 @@ formulation implemented for each of them.</p>
 #&gt; Range:  min	minyear	max	maxyear 
 #&gt; 	0	1960	0	2004	
 #&gt; 
-#&gt; rec           : [ 1 45 1 1 1 1 ], units =  10^3 
-#&gt; ssb           : [ 1 45 1 1 1 1 ], units =  t*10^3 
-#&gt; residuals     : [ 1 45 1 1 1 1 ], units =  NA 
-#&gt; fitted        : [ 1 45 1 1 1 1 ], units =  10^3 
+#&gt; rec           : [ 1 45 1 1 1 1 ], units =  1000 
+#&gt; ssb           : [ 1 45 1 1 1 1 ], units =  kt 
+#&gt; residuals     : [ 1 45 1 1 1 1 ], units =   
+#&gt; fitted        : [ 1 45 1 1 1 1 ], units =  1000 
 #&gt; 
 #&gt; Model: 	rec ~ a * ssb * exp(-b * ssb)
 #&gt; Parameters: 
@@ -439,7 +439,7 @@ formulation implemented for each of them.</p>
 #&gt;   b   0.0180887 1.992659e-06</div><div class='input'>
 <span class='fu'><a href='plot.html'>plot</a></span>(<span class='no'>nsher</span>)</div><div class='img'><img src='FLSR-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># change model</span>
-<span class='fu'><a href='accessors.html'>model</a></span>(<span class='no'>nsher</span>) <span class='kw'>&lt;-</span> <span class='fu'>bevholt</span>()
+<span class='fu'><a href='accessors.html'>model</a></span>(<span class='no'>nsher</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='SRModels.html'>bevholt</a></span>()
 
 <span class='co'># fit through MLE</span>
 <span class='no'>nsher</span> <span class='kw'>&lt;-</span> <span class='fu'>fmle</span>(<span class='no'>nsher</span>)</div><div class='output co'>#&gt;   Nelder-Mead direct search function minimizer

@@ -6,47 +6,7 @@
 \alias{dbind-methods}
 \alias{dbind,FLArray,FLArray-method}
 \alias{qbind}
-\alias{The}
-\alias{implementation}
-\alias{is}
-\alias{based}
-\alias{around}
-\alias{a}
-\alias{single}
-\alias{method}
-\alias{(*dbind*),}
-\alias{that}
-\alias{operates}
-\alias{along}
-\alias{the}
-\alias{dimension}
-\alias{position}
-\alias{or}
-\alias{name}
-\alias{indicated}
-\alias{by}
-\alias{*dim*}
-\alias{argument.}
-\alias{A}
-\alias{series}
-\alias{of}
-\alias{shortcut}
-\alias{functions}
-\alias{call}
-\alias{for}
-\alias{specific}
-\alias{dimensions,}
-\alias{with}
-\alias{names}
-\alias{related}
-\alias{to}
-\alias{dimensions}
-\alias{they}
-\alias{operate}
-\alias{on}
-\alias{(e.g.}
 \alias{ybind}
-\alias{*year*).}
 \alias{ubind}
 \alias{sbind}
 \alias{abind}
@@ -92,6 +52,11 @@ the examples below for correct and incorrect uses.
 
 Object are bound in the order they are provided, with no attempt to sort
 according to the dimnames of the chosen dimension.
+
+The implementation is based around a single method (\emph{dbind}), that operates
+along the dimension position or name indicated by the \emph{dim} argument. A
+series of shortcut functions call the method for specific dimensions, with
+names related to the dimensions name they operate on (e.g. ybind for \emph{year}).
 }
 \examples{
 

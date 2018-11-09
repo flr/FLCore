@@ -64,7 +64,7 @@ value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@ value.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>name</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'><a href='dbind-methods.html'>name</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='fu'>desc</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
@@ -250,7 +250,7 @@ value.</p>
     <p>Accessors and replacement methods, with some exception, are created at build
 time by calls to the <code>createFLAccessors</code> function. An accessor method is
 created for each slot, with simply calls <code>slot()</code> on the relevant slot
-name. For slots of class <code>FLQuant</code>, or <code>FLArray</code>-based, two
+name. For slots of class <code><a href='FLQuant.html'>FLQuant</a></code>, or <code>FLArray</code>-based, two
 methods are created: one if <code>value</code> is of class <code>FLQuant</code>, and
 another for <code>value</code> being a numeric vector. The later would insert the
 vector into the slot structure, using R's recycling rules.</p>
@@ -266,13 +266,13 @@ see if this is the case.</p>
 differently depending on the <code>compute</code> argument. Please refer to the
 relevant help page for further clarification.</p>
 <p>An object of class FLQuants, containing three elements named
-<em>catch</em>, <em>catch.n</em> and <em>catch.wt</em>, as returned by <code>computeCatch</code>, can be
+<em>catch</em>, <em>catch.n</em> and <em>catch.wt</em>, as returned by <code><a href='compute.html'>computeCatch</a></code>, can be
 assigned directly to an object using <em>catch&lt;-</em>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>FLQuant</code>, <code>FLStock</code>, <code>FLIndex</code>,
-<code>FLBiol</code>, <code><a href='predictModel.html'>predictModel</a></code></p></div>
+    <div class='dont-index'><p><code><a href='FLQuant.html'>FLQuant</a></code>, <code><a href='FLStock.html'>FLStock</a></code>, <code><a href='FLIndex.html'>FLIndex</a></code>,
+<code><a href='FLBiol.html'>FLBiol</a></code>, <code><a href='predictModel.html'>predictModel</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -323,14 +323,14 @@ assigned directly to an object using <em>catch&lt;-</em>.</p>
 #&gt;     return(slot(object, "catch"))
 #&gt;     .local(object, ...)
 #&gt; }
-#&gt; &lt;environment: 0x1236bb90&gt;
+#&gt; &lt;environment: 0x107066b0&gt;
 #&gt; 
 #&gt; Signatures:
 #&gt;         object
 #&gt; target  "FLS" 
 #&gt; defined "FLS" </div><div class='input'>
 <span class='co'># Assign the 3 catch slots</span>
-<span class='fu'>catch</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)</div></pre>
+<span class='fu'>catch</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

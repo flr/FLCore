@@ -64,7 +64,7 @@ stock biomass from age or length-structured numbers and mean weights." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@ Those two values (in slots <code>catch.n</code> and <code>catch.wt</code>) can a
 calculated (from landings and discards) by specifying <code>slot="n"</code> and
 <code>slot="wt"</code> respectively. Calling <code>computeCatch</code> with option
 <code>slot="all"</code> will carry out the three calculations. In this case, the
-returned object will be of class <code>FLQuants</code>, with element names
+returned object will be of class <code><a href='FLQuants.html'>FLQuants</a></code>, with element names
 <code>catch</code>, <code>catch.n</code> and <code>catch.wt</code>, which can then be passed
 directly to the <code>catch&lt;-</code> replacement method.</p>
 <p>These methods compute the total catch, landings, discards and stock biomass
@@ -177,7 +177,7 @@ Those two values (in slots <code>catch.n</code> and <code>catch.wt</code>) can a
 calculated (from landings and discards) by specifying <code>slot="n"</code> and
 <code>slot="wt"</code> respectively. Calling <code>computeCatch</code> with option
 <code>slot="all"</code> will carry out the three calculations. In this case, the
-returned object will be of class <code>FLQuants</code>, with element names
+returned object will be of class <code><a href='FLQuants.html'>FLQuants</a></code>, with element names
 <code>catch</code>, <code>catch.n</code> and <code>catch.wt</code>, which can then be passed
 directly to the <code>catch&lt;-</code> replacement method.</p>
     
@@ -254,7 +254,7 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 #&gt; 	Max    :  315244.7 
 #&gt; 	NAs    :  0 %</div><div class='input'><span class='fu'><a href='accessors.html'>stock</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeStock</span>(<span class='no'>ple4</span>)
 <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeLandings</span>(<span class='no'>ple4</span>)
-<span class='fu'>catch.n</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"n"</span>)
+<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"n"</span>)
 <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)
 
 
@@ -311,7 +311,7 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 #&gt; 	Max    :  315244.7 
 #&gt; 	NAs    :  0 %</div><div class='input'><span class='fu'><a href='accessors.html'>stock</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeStock</span>(<span class='no'>ple4</span>)
 <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeLandings</span>(<span class='no'>ple4</span>)
-<span class='fu'>catch.n</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"n"</span>)
+<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"n"</span>)
 <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

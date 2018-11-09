@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -115,7 +115,7 @@
     <pre class="usage"><span class='fu'>FLStock</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLQuant</span>
-<span class='fu'>FLStock</span>(<span class='no'>object</span>, <span class='kw'>plusgroup</span> <span class='kw'>=</span> <span class='fu'>dims</span>(<span class='no'>object</span>)$<span class='no'>max</span>, <span class='no'>...</span>)
+<span class='fu'>FLStock</span>(<span class='no'>object</span>, <span class='kw'>plusgroup</span> <span class='kw'>=</span> <span class='fu'><a href='dims.html'>dims</a></span>(<span class='no'>object</span>)$<span class='no'>max</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for missing</span>
 <span class='fu'>FLStock</span>(<span class='no'>object</span>, <span class='no'>...</span>)
@@ -199,13 +199,13 @@ for sizing but not stored in any slot.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>[</a>, [&lt;-, as.FLBiol, as.FLSR,
-<a href='accessors.html'>catch</a>, catch&lt;-, catch.n, catch.n&lt;-,
-catch.wt, catch.wt&lt;-, <a href='http://www.rdocumentation.org/packages/methods/topics/setAs'>coerce</a>,
-computeCatch, computeDiscards, computeLandings,
+<a href='accessors.html'>catch</a>, catch&lt;-, <a href='accessors.html'>catch.n</a>, catch.n&lt;-,
+<a href='accessors.html'>catch.wt</a>, catch.wt&lt;-, <a href='http://www.rdocumentation.org/packages/methods/topics/setAs'>coerce</a>,
+<a href='compute.html'>computeCatch</a>, <a href='compute.html'>computeDiscards</a>, <a href='compute.html'>computeLandings</a>,
 <a href='accessors.html'>discards</a>, discards&lt;-, <a href='accessors.html'>discards.n</a>, discards.n&lt;-,
 <a href='accessors.html'>discards.wt</a>, discards.wt&lt;-, <a href='accessors.html'>harvest</a>, harvest&lt;-,
 <a href='accessors.html'>harvest.spwn</a>, <a href='accessors.html'>landings</a>, landings&lt;-, <a href='accessors.html'>landings.n</a>,
-landings.n&lt;-, <a href='accessors.html'>landings.wt</a>, landings.wt&lt;-, m,
+landings.n&lt;-, <a href='accessors.html'>landings.wt</a>, landings.wt&lt;-, <a href='accessors.html'>m</a>,
 m&lt;-, <a href='accessors.html'>mat</a>, <a href='accessors.html'>m.spwn</a>, <a href='http://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a>, <a href='ssb.html'>ssb</a>,
 ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</a>, <a href='accessors.html'>stock.wt</a>, <a href='trim.html'>trim</a>,
 <a href='FLComp.html'>FLComp</a></p></div>
@@ -271,598 +271,69 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 #&gt; units:  t </div><div class='input'>  <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>apply</span>(<span class='fu'><a href='accessors.html'>landings.n</a></span>(<span class='no'>ple4</span>)*<span class='fu'><a href='accessors.html'>landings.wt</a></span>(<span class='no'>ple4</span>),<span class='fl'>2</span>,<span class='no'>sum</span>)
 
 <span class='co'># perform similar calculation as the preceding apply function</span>
-  <span class='fu'><a href='accessors.html'>discards</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeDiscards</span>(<span class='no'>ple4</span>)
-  <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>)
-  <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)
+  <span class='fu'><a href='accessors.html'>discards</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span>(<span class='no'>ple4</span>)
+  <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>ple4</span>)
+  <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)
 
 <span class='co'># set the units of the harvest slot of an FLStock object</span>
   <span class='fu'><a href='accessors.html'>harvest</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='st'>'f'</span>
 
 <span class='co'># subset and trim the FLStock</span>
   <span class='no'>ple4</span>[,<span class='fl'>1</span>]</div><div class='output co'>#&gt; An object of class "FLStock"
-#&gt; Slot "catch":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
 #&gt; 
-#&gt;      year
-#&gt; age   1957 
-#&gt;   all 78360
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; Slot "catch.n":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957   
-#&gt;   1  42702.7
-#&gt;   2  40141.3
-#&gt;   3  79353.0
-#&gt;   4  56560.1
-#&gt;   5  31888.3
-#&gt;   6  10988.0
-#&gt;   7  12049.6
-#&gt;   8   9595.8
-#&gt;   9   5495.2
-#&gt;   10 11779.1
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; Slot "catch.wt":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957    
-#&gt;   1  0.043999
-#&gt;   2  0.109801
-#&gt;   3  0.194296
-#&gt;   4  0.256615
-#&gt;   5  0.349100
-#&gt;   6  0.455454
-#&gt;   7  0.532988
-#&gt;   8  0.588982
-#&gt;   9  0.395964
-#&gt;   10 0.997959
-#&gt; 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Slot "discards":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957  
-#&gt;   all 7434.2
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; Slot "discards.n":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957      
-#&gt;   1  4.2702e+04
-#&gt;   2  3.6324e+04
-#&gt;   3  9.6720e+03
-#&gt;   4  1.0172e+03
-#&gt;   5  8.4596e+02
-#&gt;   6  2.8323e+01
-#&gt;   7  4.9188e-01
-#&gt;   8  4.7852e-01
-#&gt;   9  4.9744e-01
-#&gt;   10 4.8836e-01
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; Slot "discards.wt":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957 
-#&gt;   1  0.044
-#&gt;   2  0.104
-#&gt;   3  0.146
-#&gt;   4  0.181
-#&gt;   5  0.206
-#&gt;   6  0.244
-#&gt;   7  0.244
-#&gt;   8  0.231
-#&gt;   9  0.000
-#&gt;   10 0.000
-#&gt; 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Slot "landings":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957 
-#&gt;   all 70926
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; Slot "landings.n":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957      
-#&gt;   1  6.5789e-01
-#&gt;   2  3.8177e+03
-#&gt;   3  6.9681e+04
-#&gt;   4  5.5543e+04
-#&gt;   5  3.1042e+04
-#&gt;   6  1.0960e+04
-#&gt;   7  1.2049e+04
-#&gt;   8  9.5953e+03
-#&gt;   9  5.4948e+03
-#&gt;   10 1.1779e+04
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; Slot "landings.wt":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957 
-#&gt;   1  0.000
-#&gt;   2  0.165
-#&gt;   3  0.201
-#&gt;   4  0.258
-#&gt;   5  0.353
-#&gt;   6  0.456
-#&gt;   7  0.533
-#&gt;   8  0.589
-#&gt;   9  0.396
-#&gt;   10 0.998
-#&gt; 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Slot "stock":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957  
-#&gt;   all 402414
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; Slot "stock.n":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957  
-#&gt;   1  477074
-#&gt;   2  268185
-#&gt;   3  361589
-#&gt;   4  223134
-#&gt;   5  147904
-#&gt;   6   60609
-#&gt;   7   62627
-#&gt;   8   49418
-#&gt;   9   31997
-#&gt;   10  68585
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; Slot "stock.wt":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957 
-#&gt;   1  0.038
-#&gt;   2  0.102
-#&gt;   3  0.157
-#&gt;   4  0.242
-#&gt;   5  0.325
-#&gt;   6  0.485
-#&gt;   7  0.719
-#&gt;   8  0.682
-#&gt;   9  0.844
-#&gt;   10 0.918
-#&gt; 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Slot "m":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957
-#&gt;   1  0.1 
-#&gt;   2  0.1 
-#&gt;   3  0.1 
-#&gt;   4  0.1 
-#&gt;   5  0.1 
-#&gt;   6  0.1 
-#&gt;   7  0.1 
-#&gt;   8  0.1 
-#&gt;   9  0.1 
-#&gt;   10 0.1 
-#&gt; 
-#&gt; units:  m 
-#&gt; 
-#&gt; Slot "mat":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957
-#&gt;   1  0.0 
-#&gt;   2  0.5 
-#&gt;   3  0.5 
-#&gt;   4  1.0 
-#&gt;   5  1.0 
-#&gt;   6  1.0 
-#&gt;   7  1.0 
-#&gt;   8  1.0 
-#&gt;   9  1.0 
-#&gt;   10 1.0 
-#&gt; 
-#&gt; units:   
-#&gt; 
-#&gt; Slot "harvest":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957    
-#&gt;   1  0.098696
-#&gt;   2  0.170862
-#&gt;   3  0.261509
-#&gt;   4  0.308815
-#&gt;   5  0.256284
-#&gt;   6  0.210938
-#&gt;   7  0.225401
-#&gt;   8  0.227728
-#&gt;   9  0.198666
-#&gt;   10 0.198666
-#&gt; 
-#&gt; units:  f 
-#&gt; 
-#&gt; Slot "harvest.spwn":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957
-#&gt;   1  0   
-#&gt;   2  0   
-#&gt;   3  0   
-#&gt;   4  0   
-#&gt;   5  0   
-#&gt;   6  0   
-#&gt;   7  0   
-#&gt;   8  0   
-#&gt;   9  0   
-#&gt;   10 0   
-#&gt; 
-#&gt; units:   
-#&gt; 
-#&gt; Slot "m.spwn":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1957
-#&gt;   1  0   
-#&gt;   2  0   
-#&gt;   3  0   
-#&gt;   4  0   
-#&gt;   5  0   
-#&gt;   6  0   
-#&gt;   7  0   
-#&gt;   8  0   
-#&gt;   9  0   
-#&gt;   10 0   
-#&gt; 
-#&gt; units:   
-#&gt; 
-#&gt; Slot "name":
-#&gt; [1] "PLE"
-#&gt; 
-#&gt; Slot "desc":
-#&gt; [1] "Plaice in IV. ICES WGNSSK 2018. FLAAP"
-#&gt; 
-#&gt; Slot "range":
-#&gt;       min       max plusgroup   minyear   maxyear   minfbar   maxfbar 
-#&gt;         1        10        10      1957      1957         2         6 
-#&gt; </div><div class='input'>  <span class='fu'><a href='trim.html'>trim</a></span>(<span class='no'>ple4</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>6</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1980</span>:<span class='fl'>1990</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
-#&gt; Slot "catch":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1980   1981   1982   1983   1984   1985   1986   1987   1988   1989  
-#&gt;   all 184690 184494 192439 212632 228265 247071 279228 308480 315245 292035
-#&gt;      year
-#&gt; age   1990  
-#&gt;   all 250604
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; Slot "catch.n":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980    1981    1982    1983    1984    1985    1986    1987    1988   
-#&gt;   2  218847  269603  249567  462799  315003  294918  417134 1047256  478976
-#&gt;   3  139742  158998  195147  177915  330543  227034  213479  302191  746685
-#&gt;   4   80323   65083   69631   91099   93428  186569  128385  114725  148045
-#&gt;   5   28828   35922   27199   29609   41553   46044   96350   65923   56420
-#&gt;   6   19874   13526   16783   12739   14251   20730   23033   46662   31129
-#&gt;    year
-#&gt; age 1989    1990   
-#&gt;   2  438712  298563
-#&gt;   3  331436  307676
-#&gt;   4  337986  152615
-#&gt;   5   71205  168825
-#&gt;   6   26394   33026
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; Slot "catch.wt":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980    1981    1982    1983    1984    1985    1986    1987    1988   
-#&gt;   2 0.19700 0.18344 0.15200 0.15269 0.14991 0.16913 0.14140 0.11340 0.10180
-#&gt;   3 0.34296 0.32683 0.30825 0.27476 0.26546 0.26797 0.27541 0.21861 0.19749
-#&gt;   4 0.39937 0.41473 0.42061 0.37913 0.32104 0.33350 0.31052 0.34336 0.27587
-#&gt;   5 0.47118 0.50169 0.51192 0.50695 0.47045 0.44388 0.40240 0.37542 0.41513
-#&gt;   6 0.54244 0.55558 0.60590 0.60200 0.58835 0.56154 0.47181 0.47066 0.47669
-#&gt;    year
-#&gt; age 1989    1990   
-#&gt;   2 0.11764 0.12966
-#&gt;   3 0.21508 0.21065
-#&gt;   4 0.29130 0.29049
-#&gt;   5 0.36431 0.35963
-#&gt;   6 0.51227 0.43976
-#&gt; 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Slot "discards":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1980   1981   1982   1983   1984   1985   1986   1987   1988   1989  
-#&gt;   all  34050  33190  46770  68942  65584  64697 112595 153474 147127 104369
-#&gt;      year
-#&gt; age   1990  
-#&gt;   all  76190
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; Slot "discards.n":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980       1981       1982       1983       1984       1985      
-#&gt;   2 142175.000 175655.000 201855.000 363172.000 261939.000 223822.000
-#&gt;   3    949.720   2302.600   4162.390  37418.400  52242.200  44268.400
-#&gt;   4    692.682    405.554   1068.880   1982.810  26231.600   2033.170
-#&gt;   5    216.694    417.773    200.244    783.681   1442.790    242.048
-#&gt;   6     93.389     58.620     96.820     70.866     63.955     94.690
-#&gt;    year
-#&gt; age 1986       1987       1988       1989       1990      
-#&gt;   2 367088.000 986149.000 467295.000 400157.000 266361.000
-#&gt;   3  48280.400 182665.000 480953.000 212393.000 189772.000
-#&gt;   4  25565.200   1340.070  61806.300  89459.900  28992.200
-#&gt;   5   1356.000   1075.540    818.479   7795.260   4849.140
-#&gt;   6    120.006    258.605    174.467    139.947    194.602
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; Slot "discards.wt":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980  1981  1982  1983  1984  1985  1986  1987  1988  1989  1990 
-#&gt;   2 0.149 0.135 0.126 0.126 0.127 0.139 0.124 0.105 0.098 0.102 0.111
-#&gt;   3 0.191 0.179 0.182 0.180 0.172 0.177 0.181 0.166 0.153 0.163 0.157
-#&gt;   4 0.212 0.212 0.203 0.205 0.211 0.197 0.196 0.205 0.185 0.181 0.186
-#&gt;   5 0.231 0.220 0.231 0.211 0.205 0.231 0.220 0.220 0.220 0.196 0.212
-#&gt;   6 0.000 0.000 0.244 0.244 0.000 0.244 0.244 0.231 0.244 0.000 0.231
-#&gt; 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Slot "landings":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1980   1981   1982   1983   1984   1985   1986   1987   1988   1989  
-#&gt;   all 150640 151304 145669 143690 162681 182374 166633 155005 168118 187666
-#&gt;      year
-#&gt; age   1990  
-#&gt;   all 174414
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; Slot "landings.n":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980   1981   1982   1983   1984   1985   1986   1987   1988   1989  
-#&gt;   2  76672  93948  47712  99627  53064  71096  50046  61107  11681  38555
-#&gt;   3 138792 156695 190985 140497 278301 182766 165199 119526 265732 119043
-#&gt;   4  79631  64677  68562  89117  67196 184536 102820 113385  86239 248526
-#&gt;   5  28611  35504  26999  28826  40110  45802  94994  64848  55601  63410
-#&gt;   6  19781  13468  16686  12668  14187  20635  22913  46403  30955  26254
-#&gt;    year
-#&gt; age 1990  
-#&gt;   2  32202
-#&gt;   3 117904
-#&gt;   4 123623
-#&gt;   5 163976
-#&gt;   6  32831
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; Slot "landings.wt":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980  1981  1982  1983  1984  1985  1986  1987  1988  1989  1990 
-#&gt;   2 0.286 0.274 0.262 0.250 0.263 0.264 0.269 0.249 0.254 0.280 0.284
-#&gt;   3 0.344 0.329 0.311 0.300 0.283 0.290 0.303 0.299 0.278 0.308 0.297
-#&gt;   4 0.401 0.416 0.424 0.383 0.364 0.335 0.339 0.345 0.341 0.331 0.315
-#&gt;   5 0.473 0.505 0.514 0.515 0.480 0.445 0.405 0.378 0.418 0.385 0.364
-#&gt;   6 0.545 0.558 0.608 0.604 0.591 0.563 0.473 0.472 0.478 0.515 0.441
-#&gt; 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Slot "stock":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1980   1981   1982   1983   1984   1985   1986   1987   1988   1989  
-#&gt;   all 465713 425416 477746 541397 579572 608773 728868 757282 689841 630289
-#&gt;      year
-#&gt; age   1990  
-#&gt;   all 554640
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; Slot "stock.n":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980    1981    1982    1983    1984    1985    1986    1987    1988   
-#&gt;   2  603278  759629  728751 1391630  948596  864871 1177750 2866780 1308470
-#&gt;   3  308663  338604  431979  422976  820717  559870  503176  670566 1602170
-#&gt;   4  188898  147121  156042  206296  214367  429744  291704  253291  320928
-#&gt;   5   74240   94918   71554   75328  100486  105579  212338  142492  120680
-#&gt;   6   54396   39883   51872   38992   40129   51598   51971  101004   66592
-#&gt;    year
-#&gt; age 1989    1990   
-#&gt;   2 1251000  898824
-#&gt;   3  730349  716388
-#&gt;   4  743636  347377
-#&gt;   5  150385  353208
-#&gt;   6   55846   68750
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; Slot "stock.wt":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980  1981  1982  1983  1984  1985  1986  1987  1988  1989  1990 
-#&gt;   2 0.163 0.140 0.128 0.128 0.129 0.146 0.126 0.105 0.097 0.101 0.108
-#&gt;   3 0.289 0.239 0.250 0.242 0.216 0.232 0.245 0.200 0.172 0.192 0.176
-#&gt;   4 0.428 0.421 0.351 0.381 0.413 0.320 0.311 0.383 0.264 0.247 0.261
-#&gt;   5 0.444 0.473 0.490 0.494 0.464 0.452 0.440 0.401 0.426 0.362 0.343
-#&gt;   6 0.524 0.536 0.589 0.559 0.571 0.536 0.533 0.503 0.467 0.484 0.422
-#&gt; 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Slot "m":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990
-#&gt;   2 0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1 
-#&gt;   3 0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1 
-#&gt;   4 0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1 
-#&gt;   5 0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1 
-#&gt;   6 0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1  0.1 
-#&gt; 
-#&gt; units:  m 
-#&gt; 
-#&gt; Slot "mat":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990
-#&gt;   2 0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5 
-#&gt;   3 0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5  0.5 
-#&gt;   4 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0 
-#&gt;   5 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0 
-#&gt;   6 1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0 
-#&gt; 
-#&gt; units:   
-#&gt; 
-#&gt; Slot "harvest":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980    1981    1982    1983    1984    1985    1986    1987    1988   
-#&gt;   2 0.47755 0.46445 0.44402 0.42806 0.42728 0.44164 0.46324 0.48183 0.48309
-#&gt;   3 0.64099 0.67471 0.63907 0.57963 0.54699 0.55196 0.58640 0.63690 0.66756
-#&gt;   4 0.58819 0.62080 0.62827 0.61929 0.60823 0.60501 0.61645 0.64140 0.65802
-#&gt;   5 0.52136 0.50423 0.50711 0.52975 0.56654 0.60877 0.64302 0.66071 0.67054
-#&gt;   6 0.48192 0.43865 0.41374 0.41874 0.46480 0.54520 0.62235 0.65939 0.67044
-#&gt;    year
-#&gt; age 1989    1990   
-#&gt;   2 0.45748 0.42744
-#&gt;   3 0.64311 0.59619
-#&gt;   4 0.64450 0.61494
-#&gt;   5 0.68272 0.69197
-#&gt;   6 0.68093 0.69696
-#&gt; 
-#&gt; units:  f 
-#&gt; 
-#&gt; Slot "harvest.spwn":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990
-#&gt;   2 0    0    0    0    0    0    0    0    0    0    0   
-#&gt;   3 0    0    0    0    0    0    0    0    0    0    0   
-#&gt;   4 0    0    0    0    0    0    0    0    0    0    0   
-#&gt;   5 0    0    0    0    0    0    0    0    0    0    0   
-#&gt;   6 0    0    0    0    0    0    0    0    0    0    0   
-#&gt; 
-#&gt; units:   
-#&gt; 
-#&gt; Slot "m.spwn":
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990
-#&gt;   2 0    0    0    0    0    0    0    0    0    0    0   
-#&gt;   3 0    0    0    0    0    0    0    0    0    0    0   
-#&gt;   4 0    0    0    0    0    0    0    0    0    0    0   
-#&gt;   5 0    0    0    0    0    0    0    0    0    0    0   
-#&gt;   6 0    0    0    0    0    0    0    0    0    0    0   
-#&gt; 
-#&gt; units:   
-#&gt; 
-#&gt; Slot "name":
-#&gt; [1] "PLE"
-#&gt; 
-#&gt; Slot "desc":
-#&gt; [1] "Plaice in IV. ICES WGNSSK 2018. FLAAP"
-#&gt; 
-#&gt; Slot "range":
-#&gt;       min       max plusgroup   minyear   maxyear   minfbar   maxfbar 
-#&gt;         2         6        NA      1980      1990         2         6 
-#&gt; </div><div class='input'>
+#&gt; Name: PLE 
+#&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
+#&gt; Quant: age 
+#&gt; Dims:  age 	year	unit	season	area	iter
+#&gt; 	10	1	1	1	1	1	
+#&gt; 
+#&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+#&gt; 	1	10	10	1957	1957	2	6	
+#&gt; 
+#&gt; catch         : [ 1 1 1 1 1 1 ], units =  t 
+#&gt; catch.n       : [ 10 1 1 1 1 1 ], units =  1000 
+#&gt; catch.wt      : [ 10 1 1 1 1 1 ], units =  kg 
+#&gt; discards      : [ 1 1 1 1 1 1 ], units =  t 
+#&gt; discards.n    : [ 10 1 1 1 1 1 ], units =  1000 
+#&gt; discards.wt   : [ 10 1 1 1 1 1 ], units =  kg 
+#&gt; landings      : [ 1 1 1 1 1 1 ], units =  t 
+#&gt; landings.n    : [ 10 1 1 1 1 1 ], units =  1000 
+#&gt; landings.wt   : [ 10 1 1 1 1 1 ], units =  kg 
+#&gt; stock         : [ 1 1 1 1 1 1 ], units =  t 
+#&gt; stock.n       : [ 10 1 1 1 1 1 ], units =  1000 
+#&gt; stock.wt      : [ 10 1 1 1 1 1 ], units =  kg 
+#&gt; m             : [ 10 1 1 1 1 1 ], units =  m 
+#&gt; mat           : [ 10 1 1 1 1 1 ], units =   
+#&gt; harvest       : [ 10 1 1 1 1 1 ], units =  f 
+#&gt; harvest.spwn  : [ 10 1 1 1 1 1 ], units =   
+#&gt; m.spwn        : [ 10 1 1 1 1 1 ], units =   </div><div class='input'>  <span class='fu'><a href='trim.html'>trim</a></span>(<span class='no'>ple4</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>6</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1980</span>:<span class='fl'>1990</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
+#&gt; 
+#&gt; Name: PLE 
+#&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
+#&gt; Quant: age 
+#&gt; Dims:  age 	year	unit	season	area	iter
+#&gt; 	5	11	1	1	1	1	
+#&gt; 
+#&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
+#&gt; 	2	6	NA	1980	1990	2	6	
+#&gt; 
+#&gt; catch         : [ 1 11 1 1 1 1 ], units =  t 
+#&gt; catch.n       : [ 5 11 1 1 1 1 ], units =  1000 
+#&gt; catch.wt      : [ 5 11 1 1 1 1 ], units =  kg 
+#&gt; discards      : [ 1 11 1 1 1 1 ], units =  t 
+#&gt; discards.n    : [ 5 11 1 1 1 1 ], units =  1000 
+#&gt; discards.wt   : [ 5 11 1 1 1 1 ], units =  kg 
+#&gt; landings      : [ 1 11 1 1 1 1 ], units =  t 
+#&gt; landings.n    : [ 5 11 1 1 1 1 ], units =  1000 
+#&gt; landings.wt   : [ 5 11 1 1 1 1 ], units =  kg 
+#&gt; stock         : [ 1 11 1 1 1 1 ], units =  t 
+#&gt; stock.n       : [ 5 11 1 1 1 1 ], units =  1000 
+#&gt; stock.wt      : [ 5 11 1 1 1 1 ], units =  kg 
+#&gt; m             : [ 5 11 1 1 1 1 ], units =  m 
+#&gt; mat           : [ 5 11 1 1 1 1 ], units =   
+#&gt; harvest       : [ 5 11 1 1 1 1 ], units =  f 
+#&gt; harvest.spwn  : [ 5 11 1 1 1 1 ], units =   
+#&gt; m.spwn        : [ 5 11 1 1 1 1 ], units =   </div><div class='input'>
 <span class='co'># Calculate SSB, and SSB per recruit at zero fishing mortality</span>
   <span class='fu'><a href='ssb.html'>ssb</a></span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique

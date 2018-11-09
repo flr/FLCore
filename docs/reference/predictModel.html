@@ -63,7 +63,7 @@ processes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -117,16 +117,19 @@ processes.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for FLQuants,formula</span>
-<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='no'>model</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>FLPar</span>())
+<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='no'>model</span>,
+  <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>())
 
 <span class='co'># S4 method for FLQuants,missing</span>
-<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>FLPar</span>())
+<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>())
 
 <span class='co'># S4 method for FLQuants,character</span>
-<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='no'>model</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>FLPar</span>())
+<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='no'>model</span>,
+  <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>())
 
 <span class='co'># S4 method for FLQuants,`function`</span>
-<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='no'>model</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'>FLPar</span>())
+<span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='no'>model</span>,
+  <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>())
 
 <span class='co'># S4 method for missing,ANY</span>
 <span class='fu'>predictModel</span>(<span class='no'>object</span>, <span class='no'>model</span>, <span class='no'>...</span>)</pre>
@@ -183,11 +186,11 @@ class validity.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>FLQuants</code> <code>FLPar</code> <code>FLBiol</code></p></div>
+    <div class='dont-index'><p><code><a href='FLQuants.html'>FLQuants</a></code> <code><a href='FLPar.html'>FLPar</a></code> <code><a href='FLBiol.html'>FLBiol</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fec</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuants</span>(<span class='kw'>fec</span><span class='kw'>=</span><span class='fu'>FLQuant</span>(<span class='fu'>rlnorm</span>(<span class='fl'>10</span>, <span class='fl'>20</span>, <span class='fl'>5</span>),
+    <pre class="examples"><div class='input'><span class='no'>fec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuants.html'>FLQuants</a></span>(<span class='kw'>fec</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>10</span>, <span class='fl'>20</span>, <span class='fl'>5</span>),
   <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2009</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'1'</span>))
 <span class='fu'>predictModel</span>(<span class='no'>fec</span>, <span class='kw'>model</span><span class='kw'>=</span>~<span class='no'>fec</span>)</div><div class='output co'>#&gt; $ fec 
 #&gt; An object of class "FLQuant"
@@ -195,16 +198,16 @@ class validity.</p>
 #&gt; 
 #&gt;      year
 #&gt; quant 2000       2001       2002       2003       2004       2005      
-#&gt;   all 1.3719e+11 1.0857e+10 2.5959e+09 1.9545e+08 2.0928e+12 3.2991e+05
+#&gt;   all 1.0932e+10 1.1698e+12 1.2373e+09 8.7744e+07 1.0820e+09 5.8033e+10
 #&gt;      year
 #&gt; quant 2006       2007       2008       2009      
-#&gt;   all 4.5202e+08 2.5468e+08 5.4826e+09 1.4670e+07
+#&gt;   all 1.0078e+09 3.1109e+07 1.9579e+08 1.1840e+08
 #&gt; 
 #&gt; units:  1 
 #&gt; 
 #&gt; model:  
 #&gt; ~fec
-#&gt; &lt;environment: 0x1023cef0&gt;
+#&gt; &lt;environment: 0x12b34080&gt;
 #&gt; 
 #&gt; params:  
 #&gt; An object of class "FLPar"
@@ -217,16 +220,16 @@ class validity.</p>
 #&gt; 
 #&gt;      year
 #&gt; quant 2000       2001       2002       2003       2004       2005      
-#&gt;   all 1.3719e+11 1.0857e+10 2.5959e+09 1.9545e+08 2.0928e+12 3.2991e+05
+#&gt;   all 1.0932e+10 1.1698e+12 1.2373e+09 8.7744e+07 1.0820e+09 5.8033e+10
 #&gt;      year
 #&gt; quant 2006       2007       2008       2009      
-#&gt;   all 4.5202e+08 2.5468e+08 5.4826e+09 1.4670e+07
+#&gt;   all 1.0078e+09 3.1109e+07 1.9579e+08 1.1840e+08
 #&gt; 
 #&gt; units:  1 
 #&gt; 
 #&gt; model:  
 #&gt; ~NA
-#&gt; &lt;environment: 0x12830288&gt;
+#&gt; &lt;environment: 0x124f7218&gt;
 #&gt; 
 #&gt; params:  
 #&gt; An object of class "FLPar"
@@ -239,16 +242,16 @@ class validity.</p>
 #&gt; 
 #&gt;      year
 #&gt; quant 2000       2001       2002       2003       2004       2005      
-#&gt;   all 1.3719e+11 1.0857e+10 2.5959e+09 1.9545e+08 2.0928e+12 3.2991e+05
+#&gt;   all 1.0932e+10 1.1698e+12 1.2373e+09 8.7744e+07 1.0820e+09 5.8033e+10
 #&gt;      year
 #&gt; quant 2006       2007       2008       2009      
-#&gt;   all 4.5202e+08 2.5468e+08 5.4826e+09 1.4670e+07
+#&gt;   all 1.0078e+09 3.1109e+07 1.9579e+08 1.1840e+08
 #&gt; 
 #&gt; units:  1 
 #&gt; 
 #&gt; model:  
 #&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x107aa1e8&gt;
+#&gt; &lt;environment: 0xe7868d8&gt;
 #&gt; 
 #&gt; params:  
 #&gt; An object of class "FLPar"
@@ -261,46 +264,46 @@ class validity.</p>
 #&gt; 
 #&gt;      year
 #&gt; quant 2000       2001       2002       2003       2004       2005      
-#&gt;   all 1.3719e+11 1.0857e+10 2.5959e+09 1.9545e+08 2.0928e+12 3.2991e+05
+#&gt;   all 1.0932e+10 1.1698e+12 1.2373e+09 8.7744e+07 1.0820e+09 5.8033e+10
 #&gt;      year
 #&gt; quant 2006       2007       2008       2009      
-#&gt;   all 4.5202e+08 2.5468e+08 5.4826e+09 1.4670e+07
+#&gt;   all 1.0078e+09 3.1109e+07 1.9579e+08 1.1840e+08
 #&gt; 
 #&gt; units:  1 
 #&gt; 
 #&gt; model:  
 #&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x131ec448&gt;
+#&gt; &lt;environment: 0xd640b40&gt;
 #&gt; 
 #&gt; params:  
 #&gt; An object of class "FLPar"
 #&gt; params
 #&gt;    
 #&gt; NA 
-#&gt; units:  NA </div><div class='input'><span class='fu'>predictModel</span>(<span class='kw'>model</span><span class='kw'>=</span><span class='no'>rec</span>~<span class='no'>a</span>*<span class='no'>ssb</span>, <span class='kw'>params</span><span class='kw'>=</span><span class='fu'>FLPar</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1.234</span>))</div><div class='output co'>#&gt; An object of class "FLQuants": EMPTY
+#&gt; units:  NA </div><div class='input'><span class='fu'>predictModel</span>(<span class='kw'>model</span><span class='kw'>=</span><span class='no'>rec</span>~<span class='no'>a</span>*<span class='no'>ssb</span>, <span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1.234</span>))</div><div class='output co'>#&gt; An object of class "FLQuants": EMPTY
 #&gt; model:  
 #&gt; rec ~ a * ssb
-#&gt; &lt;environment: 0x1023cef0&gt;
+#&gt; &lt;environment: 0x12b34080&gt;
 #&gt; 
 #&gt; params:  
 #&gt; An object of class "FLPar"
 #&gt; params
 #&gt;    a 
 #&gt; 1.23 
-#&gt; units:  NA </div><div class='input'><span class='fu'>predictModel</span>(<span class='kw'>model</span><span class='kw'>=</span><span class='no'>bevholt</span>, <span class='kw'>params</span><span class='kw'>=</span><span class='fu'>FLPar</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1.234</span>))</div><div class='output co'>#&gt; An object of class "FLQuants": EMPTY
+#&gt; units:  NA </div><div class='input'><span class='fu'>predictModel</span>(<span class='kw'>model</span><span class='kw'>=</span><span class='no'>bevholt</span>, <span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1.234</span>))</div><div class='output co'>#&gt; An object of class "FLQuants": EMPTY
 #&gt; model:  
 #&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x12edeb90&gt;
+#&gt; &lt;environment: 0xdc34d30&gt;
 #&gt; 
 #&gt; params:  
 #&gt; An object of class "FLPar"
 #&gt; params
 #&gt;    a 
 #&gt; 1.23 
-#&gt; units:  NA </div><div class='input'><span class='fu'>predictModel</span>(<span class='kw'>model</span><span class='kw'>=</span><span class='st'>"bevholtss3"</span>, <span class='kw'>params</span><span class='kw'>=</span><span class='fu'>FLPar</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1.234</span>))</div><div class='output co'>#&gt; An object of class "FLQuants": EMPTY
+#&gt; units:  NA </div><div class='input'><span class='fu'>predictModel</span>(<span class='kw'>model</span><span class='kw'>=</span><span class='st'>"bevholtss3"</span>, <span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1.234</span>))</div><div class='output co'>#&gt; An object of class "FLQuants": EMPTY
 #&gt; model:  
 #&gt; rec ~ (4 * s * R0 * ssb)/(v * (1 - s) + ssb * (5 * s - 1))
-#&gt; &lt;environment: 0x11cc7250&gt;
+#&gt; &lt;environment: 0x13a978a8&gt;
 #&gt; 
 #&gt; params:  
 #&gt; An object of class "FLPar"

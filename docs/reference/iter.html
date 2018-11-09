@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@ checks whether individual slots contain more than one iteration, i.e.
 iteration, that is returned, otherwise the chosen iteration is selected.
 This is in contrast with the subset operator <code>[</code>, which does not carry
 out this check.</p>
-<p>For objects of class <code>FLModel</code>, iters are extracted for slots of
+<p>For objects of class <code><a href='FLModel.html'>FLModel</a></code>, iters are extracted for slots of
 classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
     
     <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
@@ -145,41 +145,41 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># For an FLQuant</span>
-  <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rnorm</span>(<span class='fl'>800</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span>), <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>10</span>)
+  <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rnorm</span>(<span class='fl'>800</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span>), <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>10</span>)
   <span class='fu'>iter</span>(<span class='no'>flq</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = 1, season = all, area = unique
 #&gt; 
 #&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;     1 -0.667346 -1.677620  0.699882 -0.377008 -0.088231 -1.100387 -1.802455
-#&gt;     2 -0.432300  0.401979  0.215288 -1.025266 -1.213671  1.710365 -0.679170
-#&gt;     3  0.808808 -0.892882 -1.266103 -0.057063 -0.298184 -1.171778 -0.549425
-#&gt;     4 -0.374635 -1.334167 -0.763111  0.467650  1.274906 -0.834468  0.971436
+#&gt; quant 1          2          3          4          5          6         
+#&gt;     1  0.0149466  0.6344955 -0.8772473 -0.7387653  1.3264455 -0.4749096
+#&gt;     2 -1.8073206 -3.1210439  1.0489363  0.3529074 -0.7998410 -1.1784852
+#&gt;     3 -0.4498878 -0.0741168 -0.9426929 -0.8374302 -0.7282673 -2.0924444
+#&gt;     4  0.4187975  0.6536831  0.4300361 -0.8901320  0.2307829 -1.0345330
 #&gt;      year
-#&gt; quant 8         9         10       
-#&gt;     1  2.003450 -0.386807  0.947430
-#&gt;     2  0.231358  0.496411  0.391296
-#&gt;     3 -1.323721 -0.279472 -0.157719
-#&gt;     4 -1.691177 -0.339043  0.927637
+#&gt; quant 7          8          9          10        
+#&gt;     1  1.2635706 -0.0640060 -0.6805505 -0.4361111
+#&gt;     2 -0.8299078  0.8517549  1.5046112  2.9364849
+#&gt;     3 -0.9804823  0.9328557 -0.0082422  1.3491986
+#&gt;     4  0.0510746 -0.6754396 -1.1969618  0.5892612
 #&gt; 
 #&gt; , , unit = 2, season = all, area = unique
 #&gt; 
 #&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;     1  1.371859 -1.291134  0.416757  0.066684 -0.248906  0.673121 -0.256691
-#&gt;     2 -1.350794  0.388625  1.493511  0.571962 -0.054271  0.161090 -0.547402
-#&gt;     3 -0.899969  0.572465  0.027718 -2.398831  0.382550  0.605062  1.060007
-#&gt;     4 -0.820673 -0.709146  0.693796 -0.243132 -0.304929  1.105828 -0.866133
+#&gt; quant 1          2          3          4          5          6         
+#&gt;     1 -0.6580589 -0.3492219  0.8510244 -0.2846050  0.6568769 -0.7696865
+#&gt;     2  0.2891020 -0.3599562  0.5712133 -1.0979271 -0.6450367  0.1959713
+#&gt;     3 -0.2551301  0.1257492 -0.0961339 -0.4645786 -1.8681936 -1.7682876
+#&gt;     4  0.1710397 -2.2179958  0.7698861  0.6567013 -0.9572913  0.9828270
 #&gt;      year
-#&gt; quant 8         9         10       
-#&gt;     1  1.063485  0.484498 -0.932145
-#&gt;     2  0.213194 -0.111100  0.624232
-#&gt;     3 -0.213301  0.847359  0.995460
-#&gt;     4 -0.237983  1.053457 -0.203371
+#&gt; quant 7          8          9          10        
+#&gt;     1 -0.2988305 -0.1670568 -0.8638603 -0.7690900
+#&gt;     2  1.3195509 -0.7930054  2.5633866  0.1936301
+#&gt;     3 -0.2843006  1.2418775  1.4956502 -1.8257455
+#&gt;     4  0.9512391 -0.9497013  0.7338674  0.3194418
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># For the more complex FLStock object</span>
-  <span class='no'>fls</span> <span class='kw'>&lt;-</span> <span class='fu'>FLStock</span>(<span class='kw'>catch.n</span><span class='kw'>=</span><span class='no'>flq</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fu'>FLQuant</span>(<span class='fl'>0.2</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span>)))
+  <span class='no'>fls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLStock.html'>FLStock</a></span>(<span class='kw'>catch.n</span><span class='kw'>=</span><span class='no'>flq</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>0.2</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span>)))
   <span class='fu'>summary</span>(<span class='no'>fls</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name:  

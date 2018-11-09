@@ -31,6 +31,7 @@
 \alias{\%/\%,FLPar,FLPar-method}
 \alias{\%^\%,FLPar,FLPar-method}
 \alias{/,FLQuants,FLPar-method}
+\alias{*,FLQuants,FLPar-method}
 \title{FLQuant arithmetic operators that extend objects}
 \usage{
 e1 \%+\% e2
@@ -80,6 +81,8 @@ x \%^\% y
 \S4method{\%^\%}{FLPar,FLPar}(x, y)
 
 \S4method{/}{FLQuants,FLPar}(e1, e2)
+
+\S4method{*}{FLQuants,FLPar}(e1, e2)
 }
 \description{
 Arithmetic operations between two \linkS4class{FLQuant} objects using the
@@ -132,6 +135,9 @@ flp \%*\% flq
 # Divide each FLQuants element by a 'param' in FLPar, e.g. time series
 # divide by reference points
 FLQuants(SSB=FLQuant(2303), F=FLQuant(0.8)) / FLPar(SSB=1560, F=0.4)
+
+# Product of each FLQuants element by a 'param' in FLPar
+FLQuants(SSB=FLQuant(2303), F=FLQuant(0.8)) * FLPar(SSB=1560, F=0.4)
 }
 \seealso{
 \code{\linkS4class{FLQuant}}, \code{\link[base]{matmult}}

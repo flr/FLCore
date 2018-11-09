@@ -65,7 +65,7 @@ any slot where all iters are identical and keeping only yhe first iter." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -154,7 +154,7 @@ of the variance along the 6th dimensions is equal to zero.</p>
 <span class='co'># Extend all of ple4 to 50 iters</span>
 <span class='no'>ple4</span> <span class='kw'>&lt;-</span> <span class='fu'>propagate</span>(<span class='no'>ple4</span>, <span class='fl'>50</span>)
 <span class='co'># Add variability in catch.n</span>
-<span class='fu'>catch.n</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>rlnoise</span>(<span class='fl'>50</span>, <span class='fu'>log</span>(<span class='fu'>catch.n</span>(<span class='no'>ple4</span>)), <span class='fu'>log</span>(<span class='fu'>catch.n</span>(<span class='no'>ple4</span>))/<span class='fl'>10</span>)
+<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>rlnoise</span>(<span class='fl'>50</span>, <span class='fu'>log</span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)), <span class='fu'>log</span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>))/<span class='fl'>10</span>)
 <span class='fu'>summary</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name: PLE 

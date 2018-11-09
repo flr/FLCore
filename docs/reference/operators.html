@@ -65,7 +65,7 @@ the percent version of those four oeprators: `
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -215,8 +215,8 @@ regardless of position.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fl'>2</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>))
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fl'>3</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>1</span>))
+<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>2</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>))
+<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>3</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>1</span>))
 
 <span class='co'># This should fail</span></div><span class='co'># NOT RUN {</span>
  <span class='no'>a</span> * <span class='no'>b</span>
@@ -267,8 +267,8 @@ regardless of position.</p>
 #&gt;     2   18
 #&gt;     3   18</div><div class='input'>
 <span class='co'># FLPar vs. FLQuant works by dimnames' names</span>
-<span class='no'>flp</span> <span class='kw'>&lt;-</span> <span class='fu'>FLPar</span>(<span class='fl'>2</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='st'>'a'</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>1</span>))
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fl'>3</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>))
+<span class='no'>flp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='fl'>2</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='st'>'a'</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>1</span>))
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>3</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>))
 <span class='no'>flp</span> <span class='kw'>%*%</span> <span class='no'>flq</span></div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -279,7 +279,7 @@ regardless of position.</p>
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># Divide each FLQuants element by a 'param' in FLPar, e.g. time series</span>
 <span class='co'># divide by reference points</span>
-<span class='fu'>FLQuants</span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fu'>FLQuant</span>(<span class='fl'>2303</span>), <span class='kw'>F</span><span class='kw'>=</span><span class='fu'>FLQuant</span>(<span class='fl'>0.8</span>)) / <span class='fu'>FLPar</span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fl'>1560</span>, <span class='kw'>F</span><span class='kw'>=</span><span class='fl'>0.4</span>)</div><div class='output co'>#&gt; $ SSB 
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>2303</span>), <span class='kw'>F</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>0.8</span>)) / <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fl'>1560</span>, <span class='kw'>F</span><span class='kw'>=</span><span class='fl'>0.4</span>)</div><div class='output co'>#&gt; $ SSB 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 

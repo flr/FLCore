@@ -63,7 +63,7 @@ modelling." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -119,23 +119,26 @@ modelling.</p>
     <pre class="usage"><span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for missing</span>
-<span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fl'>6</span>), <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>,
-  <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
+  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>, <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='co'># S4 method for vector</span>
-<span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fl'>6</span>), <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>,
-  <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fill.iter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
+  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>, <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>fill.iter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for array</span>
-<span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fl'>6</span>), <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>,
-  <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fill.iter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
+  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>, <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>fill.iter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># S4 method for matrix</span>
 <span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>lapply</span>(<span class='no'>dimnames</span>, <span class='no'>length</span>),
   <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLQuant</span>
-<span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>quant</span> <span class='kw'>=</span> <span class='fu'>attributes</span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"quant"</span>]],
+<span class='fu'>FLQuant</span>(<span class='no'>object</span>,
+  <span class='kw'>quant</span> <span class='kw'>=</span> <span class='fu'>attributes</span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"quant"</span>]],
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'>attributes</span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"units"</span>]],
   <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>attributes</span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"dimnames"</span>]], <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fu'>dim</span>(<span class='no'>object</span>)[<span class='fl'>6</span>],
   <span class='kw'>fill.iter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'>attributes</span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"dim"</span>]])</pre>
@@ -183,7 +186,7 @@ modelling.</p>
 altered by the user from its default, <code>quant</code>. This could typically be
 <code>age</code> or <code>length</code> for data related to natural populations. The
 only name not accepted is 'cohort', as data structured along cohort should
-be stored using the <code>FLCohort</code> class instead. Other dimensions
+be stored using the <code><a href='FLCohort.html'>FLCohort</a></code> class instead. Other dimensions
 are always names as follows: <code>year</code>, for the calendar year of the
 datapoint; <code>unit</code>, for any kind of division of the population, e.g. by
 sex; <code>season</code>, for any temporal strata shorter than year; <code>area</code>,

@@ -63,7 +63,7 @@ object contents." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -117,8 +117,8 @@ object contents.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for FLQuant,missing</span>
-<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>paste</span>(<span class='st'>"data ("</span>,
-  <span class='fu'><a href='units.html'>units</a></span>(<span class='no'>x</span>), <span class='st'>")"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>""</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='no'>...</span>)
+<span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>paste</span>(<span class='st'>"data ("</span>, <span class='fu'><a href='units.html'>units</a></span>(<span class='no'>x</span>), <span class='st'>")"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>""</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLStock,missing</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>auto.key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
@@ -157,7 +157,7 @@ overloaded <code><a href='http://www.rdocumentation.org/packages/lattice/topics/
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
 
 <span class='co'># FLQuant</span>
-<span class='fu'>plot</span>(<span class='fu'>catch.n</span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>])</div><div class='img'><img src='plot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='fu'>catch.n</span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>], <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'b'</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>0.5</span>)</div><div class='img'><img src='plot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>])</div><div class='img'><img src='plot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)[, <span class='fl'>1</span>:<span class='fl'>20</span>], <span class='kw'>type</span><span class='kw'>=</span><span class='st'>'b'</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>0.5</span>)</div><div class='img'><img src='plot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># FLStock</span>
 <span class='fu'>data</span>(<span class='no'>ple4sex</span>)
 <span class='fu'>plot</span>(<span class='no'>ple4</span>)</div><div class='img'><img src='plot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>ple4sex</span>)</div><div class='img'><img src='plot-4.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -171,7 +171,7 @@ overloaded <code><a href='http://www.rdocumentation.org/packages/lattice/topics/
 <span class='fu'>data</span>(<span class='no'>nsher</span>)
 <span class='fu'>plot</span>(<span class='no'>nsher</span>)</div><div class='img'><img src='plot-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># FLPar</span>
-<span class='no'>fpa</span> <span class='kw'>&lt;-</span> <span class='fu'>FLPar</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fu'>rnorm</span>(<span class='fl'>100</span>, <span class='fl'>1</span>, <span class='fl'>20</span>), <span class='kw'>b</span><span class='kw'>=</span><span class='fu'>rlnorm</span>(<span class='fl'>100</span>, <span class='fl'>0.5</span>, <span class='fl'>0.2</span>))
+<span class='no'>fpa</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fu'>rnorm</span>(<span class='fl'>100</span>, <span class='fl'>1</span>, <span class='fl'>20</span>), <span class='kw'>b</span><span class='kw'>=</span><span class='fu'>rlnorm</span>(<span class='fl'>100</span>, <span class='fl'>0.5</span>, <span class='fl'>0.2</span>))
 <span class='fu'>plot</span>(<span class='no'>fpa</span>)</div><div class='img'><img src='plot-8.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

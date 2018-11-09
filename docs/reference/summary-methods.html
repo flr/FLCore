@@ -62,7 +62,7 @@ object. The method invisibly returns the data.frame shown on screen." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -152,18 +152,18 @@ object. The method invisibly returns the data.frame shown on screen.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
 <span class='fu'>summary</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  3 10 1 1 1 1 
 #&gt; quant:  quant 
 #&gt; units:  kg 
 #&gt; 
-#&gt; Min    :  0.05533899 
-#&gt; 1st Qu.:  0.7109414 
-#&gt; Mean   :  1.580303 
-#&gt; Median :  1.302224 
-#&gt; 3rd Qu.:  2.081067 
-#&gt; Max    :  5.132892 
+#&gt; Min    :  0.175525 
+#&gt; 1st Qu.:  0.4126401 
+#&gt; Mean   :  1.166339 
+#&gt; Median :  0.8201302 
+#&gt; 3rd Qu.:  1.340814 
+#&gt; Max    :  4.949052 
 #&gt; NAs    :  0 %</div><div class='input'>
 <span class='fu'>data</span>(<span class='no'>ple4</span>)
 <span class='fu'>summary</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
@@ -206,10 +206,10 @@ object. The method invisibly returns the data.frame shown on screen.</p>
 #&gt; Range:  min	minyear	max	maxyear 
 #&gt; 	0	1960	0	2004	
 #&gt; 
-#&gt; rec           : [ 1 45 1 1 1 1 ], units =  10^3 
-#&gt; ssb           : [ 1 45 1 1 1 1 ], units =  t*10^3 
-#&gt; residuals     : [ 1 45 1 1 1 1 ], units =  NA 
-#&gt; fitted        : [ 1 45 1 1 1 1 ], units =  10^3 
+#&gt; rec           : [ 1 45 1 1 1 1 ], units =  1000 
+#&gt; ssb           : [ 1 45 1 1 1 1 ], units =  kt 
+#&gt; residuals     : [ 1 45 1 1 1 1 ], units =   
+#&gt; fitted        : [ 1 45 1 1 1 1 ], units =  1000 
 #&gt; 
 #&gt; Model: 	rec ~ a * ssb * exp(-b * ssb)
 #&gt; Parameters: 

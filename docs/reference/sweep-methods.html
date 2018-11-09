@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.9</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.10</span>
       </span>
     </div>
 
@@ -113,12 +113,12 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for FLArray</span>
-<span class='fu'>sweep</span>(<span class='no'>x</span>, <span class='no'>MARGIN</span>, <span class='no'>STATS</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>check.margin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)
+<span class='fu'>sweep</span>(<span class='no'>x</span>, <span class='no'>MARGIN</span>, <span class='no'>STATS</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='st'>"-"</span>,
+  <span class='kw'>check.margin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for FLPar</span>
-<span class='fu'>sweep</span>(<span class='no'>x</span>, <span class='no'>MARGIN</span>, <span class='no'>STATS</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>check.margin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)</pre>
+<span class='fu'>sweep</span>(<span class='no'>x</span>, <span class='no'>MARGIN</span>, <span class='no'>STATS</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='st'>"-"</span>,
+  <span class='kw'>check.margin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -136,21 +136,21 @@ that the returned object is of same class.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'>rlnorm</span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
 <span class='co'># Get ratio of max value by year</span>
 <span class='fu'>sweep</span>(<span class='no'>flq</span>, <span class='fl'>2</span>, <span class='fu'>apply</span>(<span class='no'>flq</span>, <span class='fl'>2</span>, <span class='no'>max</span>), <span class='st'>"/"</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;     1 0.259799 1.000000 0.414171 0.535998 0.051075 0.374943 0.657031 1.000000
-#&gt;     2 0.702868 0.133005 1.000000 0.249040 0.141474 0.274152 0.747717 0.636026
-#&gt;     3 1.000000 0.485028 0.868102 1.000000 1.000000 1.000000 1.000000 0.144954
+#&gt;     1 0.322468 0.157481 0.690532 0.228553 0.305330 0.898511 1.000000 0.130672
+#&gt;     2 1.000000 0.829918 1.000000 0.268456 0.311934 1.000000 0.504618 0.227745
+#&gt;     3 0.236245 1.000000 0.198535 1.000000 1.000000 0.343954 0.074065 1.000000
 #&gt;      year
 #&gt; quant 9        10      
 #&gt;     1 1.000000 1.000000
-#&gt;     2 0.308079 0.393440
-#&gt;     3 0.134414 0.597736
+#&gt;     2 0.504686 0.660375
+#&gt;     3 0.471446 0.413912
 #&gt; 
 #&gt; units:  kg </div></pre>
   </div>
