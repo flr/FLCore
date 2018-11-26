@@ -1,3 +1,8 @@
+# FLCore 2.6.11
+
+## USER-VISIBLE CHANGES
+- combine(FLQuant) can now accept multiple objects, useful for ysing with foreach's .multicombine
+
 # FLCore 2.6.10
 
 ## NEW FEATURES
