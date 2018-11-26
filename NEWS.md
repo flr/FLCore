@@ -1,7 +1,10 @@
 # FLCore 2.6.11
 
+## NEW FEATURES
+- dimnames(FLComp) method defined, returns dimnames corresponding to maximum length per dimension.
+
 ## USER-VISIBLE CHANGES
-- combine(FLQuant) can now accept multiple objects, useful for ysing with foreach's .multicombine
+- combine(FLQuant) and combine (FLComp) can now accept multiple objects, useful for using with foreach's .multicombine.
 
 # FLCore 2.6.10
 
