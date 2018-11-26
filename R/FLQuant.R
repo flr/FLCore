@@ -1061,25 +1061,34 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
 setMethod('combine', signature(x='FLQuant', y='FLQuant'),
   function(x, y) {
 
+    # GET dim(s) & dimnames
     dx <- dim(x)
+    dnx <- dimnames(x)
     dy <- dim(y)
+    dny <- dimnames(y)
 
-    # dim(x)[1:5] == dim(x)[1:5]
+    # CHECK dim(x)[1:5] == dim(x)[1:5]
     if(any(dx[-6] != dy[-6]))
       stop("Object dimensions [1:5] must match")
 
-    #
-    if(!all.equal(dimnames(x)[1:5], dimnames(y)[1:5]))
+    # WARN if dimnames[1:5] differ
+    if(!all.equal(dnx[1:5], dny[1:5]))
       warning("dimnames of x and y differ")
 
+    # GET iter dims
     itx <- dx[6]
     ity <- dy[6]
 
     # TODO: test array()@.Data, as in dbind
-    res <- FLQuant(NA, dimnames=c(dimnames(x)[1:5], list(iter=seq(itx + ity))),
+    
+    # CREATE output object, units as in x
+    res <- FLQuant(NA, dimnames=c(dimnames(x)[1:5], list(iter=c(dnx[[6]], dny[[6]]))),
       units=units(x))
+
+    # ASSIGN by iter
     res[,,,,,1:itx] <- x
     res[,,,,,(itx+1):(itx+ity)] <- y
+
     return(res)
   }
 ) # }}}
