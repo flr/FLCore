@@ -11,12 +11,12 @@ citEntry(
     person("R.", "Hillary"),
     person("E.", "Jardim"),
     person("S.", "Mardle"),
-    person("M.", "Pastoors"),
+    person("M.A.", "Pastoors"),
     person("J.J.", "Poos"),
     person("F.", "Scott"),
     person("R.D.", "Scott")),
-  journal="ICES J. of Mar. Sci.",
+  journal="ICES Journal of Marine Science",
   year="2007",
   volume="64",
   pages="640-646",
-  textVersion="Kell, L.T., Mosqueira, I., Grosjean, P., Fromentin, J-M., Garcia, D., Hillary, R., Jardim, E., Mardle, S., Pastoors, M.A., Poos, J.J., Scott, F., Scott R.D. 2007. FLR: an open-soiurce framework for the evaluation and development of management strategies. ICES J. of Mar. Sci., 64: 640-646.")
+  textVersion="Kell, L.T., Mosqueira, I., Grosjean, P., Fromentin, J-M., Garcia, D., Hillary, R., Jardim, E., Mardle, S., Pastoors, M.A., Poos, J.J., Scott, F., Scott, R.D. 2007. FLR: an open-source framework for the evaluation and development of management strategies. ICES Journal of Marine Science, 64: 640-646.")
