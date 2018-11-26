@@ -1059,35 +1059,40 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
 
 # combine {{{
 setMethod('combine', signature(x='FLQuant', y='FLQuant'),
-  function(x, y) {
+  function(x, y, ...) {
+
+    args <- c(list(x, y), list(...))
 
     # GET dim(s) & dimnames
-    dx <- dim(x)
-    dnx <- dimnames(x)
-    dy <- dim(y)
-    dny <- dimnames(y)
-
-    # CHECK dim(x)[1:5] == dim(x)[1:5]
-    if(any(dx[-6] != dy[-6]))
+    ds <- lapply(args, dim)
+    dns <- lapply(args, dimnames)
+    
+    # CHECK objects share dim[1:5]
+    if(length(unique(lapply(ds, "[", 1:5))) > 1)
       stop("Object dimensions [1:5] must match")
 
     # WARN if dimnames[1:5] differ
-    if(!all.equal(dnx[1:5], dny[1:5]))
-      warning("dimnames of x and y differ")
+    if(length(unique(lapply(dns, "[", 1:5))) > 1)
+      warning("dimnames among objects differ, will use those of x")
 
-    # GET iter dims
-    itx <- dx[6]
-    ity <- dy[6]
-
-    # TODO: test array()@.Data, as in dbind
+    # SETUP iter dimnames
+    itns <- unname(unlist(lapply(dns, "[", 6)))
     
+    # IF dimnames clash, then rename
+    if(length(unique(itns)) < length(itns))
+      itns <- ac(seq(1, length(itns)))
+
     # CREATE output object, units as in x
-    res <- FLQuant(NA, dimnames=c(dimnames(x)[1:5], list(iter=c(dnx[[6]], dny[[6]]))),
+    res <- FLQuant(NA, dimnames=c(dimnames(x)[1:5], list(iter=itns)),
       units=units(x))
 
+    # GET iter limits
+    ite <- cumsum(unlist(lapply(ds, "[", 6)))
+    its <- ite - unlist(lapply(ds, "[", 6)) + 1
+
     # ASSIGN by iter
-    res[,,,,,1:itx] <- x
-    res[,,,,,(itx+1):(itx+ity)] <- y
+    for(i in seq(length(args)))
+      res[,,,,,seq(its[i], ite[i])] <- args[[i]]
 
     return(res)
   }
