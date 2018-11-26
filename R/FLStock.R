@@ -824,35 +824,6 @@ setMethod("wt<-", signature(object="FLStock", value="FLQuant"),
 
 		return(object)}) # }}}
 
-# combine {{{
-setMethod('combine', signature(x='FLStock', y='FLStock'),
-  function(x, y, check=FALSE) {
-
-    if(check) {
-      dx <- dims(x)
-	    dy <- dims(y)
-		  idi <- names(dx)!="iter"
-
-      # COMPARE dims(x)[-'iter')]
-      if(!all.equal(dx[idi], dy[idi]))
-        stop("Object dimensions must match")
-
-      #
-      if(!all.equal(dimnames(m(x))[1:5], dimnames(m(y))[1:5]))
-        warning("dimnames of x and y differ")
-    }
-
-    itx <- dim(x)[6]
-    ity <- dim(y)[6]
-
-    res <- propagate(x[,,,,,1], sum(itx + ity))
-
-		res[,,,,,1:itx] <- x
-		res[,,,,,(itx+1):(itx+ity)] <- y
-    return(res)
-  }
-) # }}}
-
 # sr {{{
 setMethod("sr", signature(object="FLStock"),
 	function(object, rec.age = dims(stock.n(object))$min, ...) {
@@ -916,24 +887,6 @@ setMethod("vb", signature(x="FLStock", sel="FLQuant"),
 )
 
 # }}}
-
-# dimnames {{{
-setMethod("dimnames", signature(x="FLStock"),
-  function(x) {
-
-    # GET dimnames from m
-    dns <- dimnames(m(x))
-
-    # FIND slot with max iter
-    its <- qapply(x, function(x) dimnames(x)$iter)
-    len <- unlist(lapply(its, length))
-    slt <- names(which(len == max(len)))
- 
-    dns$iter <- its[[slt]]
-
-    return(dns)
-  }
-) # }}}
 
 # simplify {{{
 

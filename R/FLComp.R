@@ -685,28 +685,74 @@ setMethod("verify", signature(object="FLComp"),
 
 # combine {{{
 setMethod('combine', signature(x='FLComp', y='FLComp'),
-  function(x, y, check=FALSE) {
-
-    if(!all.equal(is(x), is(y)))
-      stop("combine can only operate on objects of identical class")
-
-    if(check) {
-      dx <- dims(x)
-	    dy <- dims(y)
-		  idi <- names(dx)!="iter"
-
-      # COMPARE dims(x)[-'iter')]
-      if(!all.equal(dx[idi], dy[idi]))
-        stop("Object dimensions must match")
-    }
+  function(x, y, ..., check=FALSE) {
     
-    itx <- dim(x)[6]
-    ity <- dim(y)[6]
+    args <- c(list(x, y), list(...))
 
-    res <- propagate(x[,,,,,1], sum(itx + ity))
+    # CHECK input classes match exactly
+    if(length(unique(lapply(args, is))) > 1)
+      stop("combine can only operate on objects of identical class")
+    
+    ds <- lapply(args, dims)
 
-		res[,,,,,1:itx] <- x
-		res[,,,,,(itx+1):(itx+ity)] <- y
+    # CHECK dimnames but iter
+    if(check) {
+
+		  idi <- names(ds[[1]])!="iter"
+      
+      # COMPARE dims(x)[-'iter')]
+      if(length(unique(lapply(ds, "[", idi))) > 1)
+        stop("Object dimensions but iter must match")
+    }
+
+    # CALCULATE iters
+    its <- sum(unlist(lapply(ds, "[[", "iter")))
+
+    # PROPAGATE object
+    res <- propagate(x[,,,,,1], its)
+
+    # KEEP iter dimnames if unique
+    itns <- unlist(lapply(args, function(x) dimnames(x)$iter))
+
+    # CHECK iter dimanmes are unique
+    if(length(itns) > length(unique(itns)))
+      itns <- ac(seq(1, its))
+
+    # GET iter limits
+    ite <- cumsum(unlist(lapply(ds, "[", "iter")))
+    its <- ite - unlist(lapply(ds, "[", "iter")) + 1
+
+    for(i in seq(length(its)))
+      res[,,,,, seq(its[i], ite[i])] <- args[[i]]
+
+    dimnames(res) <- list(iter=itns)
+
     return(res)
   }
 ) # }}}
+
+# dimnames {{{
+setMethod("dimnames", signature(x="FLComp"),
+  function(x) {
+
+    # GET dimnames by FLQ/FLA slot
+    dns <- qapply(x, dimnames)
+
+    # FIND unique combinations
+    udns <- unique(dns)
+
+    # GET length by dim for each
+    len <- lapply(udns, lapply, length)
+
+    # TRAVERSE list by dim and return the longest element
+    out <- lapply(names(udns[[1]]), function(x) {
+        xlen <- unlist(lapply(len, "[[", x))
+        idx <- which(xlen == max(xlen))[1]
+        return(udns[[idx]][[x]])
+    })
+
+    # FIX missing names
+    names(out) <- names(udns[[1]])
+
+    return(out)
+  }) # }}}
