@@ -5,6 +5,7 @@
 
 ## USER-VISIBLE CHANGES
 - combine(FLQuant) and combine (FLComp) can now accept multiple objects, useful for using with foreach's .multicombine.
+- Replacement method for FLlst elements ([[<-) now allows extending it.
 
 # FLCore 2.6.10
 
