@@ -285,6 +285,20 @@ setMethod("combine", signature(x="FLlst", y="missing"),
       res[,,,,,i] <- x[[i]]
     return(res)
   }
+) 
+
+setMethod("combine", signature(x="FLlst", y="FLlst"),
+  function(x, y, ...) {
+ 
+    args <- c(list(x, y), list(...))  
+    
+    nms <- names(x)
+
+    for(i in nms)
+      x[[i]] <- do.call(combine, lapply(args, "[[", i))
+    
+    return(x)
+  }
 ) # }}}
 
 # window {{{
