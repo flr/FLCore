@@ -23,10 +23,16 @@ setReplaceMethod("[[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 			|
 			(is.numeric(i) & length(x)<i)))
 				stop("The object is locked. You can not add non-existent elements.")
- 
+    
     # ASSIGN by name
-    if(is.character(i))   
-      x@.Data[[match(i, names(x))]] <- value
+    if(is.character(i)) {
+      if(is.na(match(i, names(x)))) {
+        x@.Data[[length(x) + 1]] <- value
+        names(x)[length(x)] <- i
+      } else {
+        x@.Data[[match(i, names(x))]] <- value
+      }
+    }
     # or position
     else
       x@.Data[[i]] <- value
