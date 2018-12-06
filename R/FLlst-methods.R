@@ -277,9 +277,9 @@ setMethod("collapse", signature(x='FLlst'),
 ) # }}}
 
 # combine {{{
-setMethod("combine", signature(x="FLStocks", y="missing"),
+setMethod("combine", signature(x="FLlst", y="missing"),
   function(x) {
-
+    
     res <- propagate(x[[1]], length(x))
     for(i in seq(2, length(x)))
       res[,,,,,i] <- x[[i]]

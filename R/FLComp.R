@@ -724,7 +724,7 @@ setMethod('combine', signature(x='FLComp', y='FLComp'),
 
     for(i in seq(length(its)))
       res[,,,,, seq(its[i], ite[i])] <- args[[i]]
-
+    
     dimnames(res) <- list(iter=itns)
 
     return(res)
@@ -734,7 +734,7 @@ setMethod('combine', signature(x='FLComp', y='FLComp'),
 # dimnames {{{
 setMethod("dimnames", signature(x="FLComp"),
   function(x) {
-
+    
     # GET dimnames by FLQ/FLA slot
     dns <- qapply(x, dimnames)
 
@@ -756,3 +756,14 @@ setMethod("dimnames", signature(x="FLComp"),
 
     return(out)
   }) # }}}
+
+# dimnames<- {{{
+setMethod('dimnames<-', signature(x='FLComp', value='list'),
+  function(x, value)
+  {
+    res <- qapply(x, function(y) {
+      dimnames(y) <- value
+      return(y)
+    })
+  }
+) # }}}

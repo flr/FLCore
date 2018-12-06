@@ -174,7 +174,8 @@ setMethod('combine', signature(x='FLQuants', y='missing'),
 
     its <- dm[,6]
 
-    res <- FLQuant(unlist(x), dimnames=c(dimnames(x[[1]])[1:5], list(iter=seq(sum(its)))),
+    res <- FLQuant(unlist(x),
+      dimnames=c(dimnames(x[[1]])[1:5], list(iter=seq(sum(its)))),
       units=units(x[[1]]))
 
     return(res)
@@ -189,6 +190,3 @@ setMethod('combine', signature(x='FLQuants', y='FLQuants'),
     return(FLQuants(res))
   }
 ) # }}}
-
-
-
