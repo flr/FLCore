@@ -884,7 +884,7 @@ setMethod("iter", signature(obj="FLModel"),
 
 		return(obj)
 	  }
-) # }}}
+)
 
 # iter     {{{
 # setMethod("iter", signature(obj="vector"),
@@ -896,7 +896,6 @@ setMethod("iter", signature(obj="FLModel"),
 # 	}
 # )   # }}}
 
-# iter     {{{
 setMethod("iter", signature(obj="logLik"),
 	function(obj, iter) {
     if(length(obj)== 1)
