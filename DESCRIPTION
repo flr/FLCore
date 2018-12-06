@@ -17,13 +17,13 @@ Depends:
 Imports:
     graphics,
     grid,
+    iterators,
     methods,
     Matrix,
     MASS,
     stats,
     stats4,
-    utils,
-    iterators
+    utils
 License: GPL (>= 2)
 Repository: flr
 URL: http://flr-project.org/FLCore

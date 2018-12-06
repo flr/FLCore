@@ -1,5 +1,5 @@
-importFrom("iterators", "iter")
 import("methods")
+importFrom("iterators", "iter")
 importFrom("utils",
   "packageDescription",
   "combn",
@@ -181,6 +181,7 @@ exportClasses(
   "FLStocks",
   "predictModel")
 exportMethods(
+  "iter",
   "$",
   "+",
   "%*%",
