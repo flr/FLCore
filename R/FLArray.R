@@ -361,14 +361,14 @@ setMethod("iter", signature(obj="FLArray"),
 
 #' @rdname iter
 #' @aliases iter,vector-method
-setMethod("iter", signature(obj="vector"),
-	function(obj, iter) {
-    if(length(obj)== 1)
-      return(obj)
-    else
-      return(obj[iter])
-	}
-)   # }}}
+# setMethod("iter", signature(obj="vector"),
+# 	function(obj, iter) {
+#     if(length(obj)== 1)
+#       return(obj)
+#     else
+#       return(obj[iter])
+# 	}
+# )   # }}}
 
 # summary          {{{
 
