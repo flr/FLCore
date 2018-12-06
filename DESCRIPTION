@@ -22,7 +22,8 @@ Imports:
     MASS,
     stats,
     stats4,
-    utils
+    utils,
+    iterators
 License: GPL (>= 2)
 Repository: flr
 URL: http://flr-project.org/FLCore
