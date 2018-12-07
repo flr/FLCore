@@ -298,7 +298,7 @@ setAs('FLStock', 'FLBiol',
   function(from) {
 
     # mat as fec if > 1
-    if(max(from@mat) > 1) {
+    if(max(from@mat[!is.na(from@mat)]) > 1) {
       mat <- new("predictModel", FLQuants(mat=from@mat%=%1), model=~mat)
       fec <- new("predictModel", FLQuants(fec=from@mat), model=~fec)
     } else {

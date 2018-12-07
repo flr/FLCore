@@ -1,8 +1,8 @@
 # FLQuants - A list of FLQuant objects
 # FLCore/R/FLQuants.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Copyright 2003-2018 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # summary {{{
 #' @rdname summary-methods

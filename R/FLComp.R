@@ -1,8 +1,8 @@
 # FLComp - Basic VIRTUAL class for all FLQuant-based classes
 # FLCore/R/FLComp.R
 
-# Copyright 2003-2017 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC D02
+# Copyright 2003-2018 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, EC JRC
 
 # summary		{{{
 #' @rdname summary-methods

@@ -1,7 +1,7 @@
 # FLStock.R - FLStock class and methods
 # FLCore/R/FLStock.R
 
-# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2018 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC
 
 # FLStock()   {{{
