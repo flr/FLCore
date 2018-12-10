@@ -863,13 +863,16 @@ setMethod("survprob", signature(object="FLArray"),
 setMethod("window", signature(x="FLArray"),
   function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1)
   {
+
     # get original min and max
-    min <- dims(x)$minyear
-    max <- dims(x)$maxyear
+    dnames <- dimnames(x)
+    d2s <- as.numeric(dnames[[2]])
+    min <- d2s[1]
+    max <- d2s[length(d2s)]
 
     # if extend=FALSE and end/start ask for it, error
     if(!extend && (start < min | end > max))
-      stop("FLQuant to be extended but extend=FALSE")
+      stop("Object to be extended but extend=FALSE")
 
     # if extend is a number, added to end
     if(is.numeric(extend))
@@ -878,15 +881,13 @@ setMethod("window", signature(x="FLArray"),
         else
           stop("'extend' is numeric and 'end' provided, don't know what to do")
     
-    # construct new FLQuant
-    years <- seq(start, end, by=frequency)
-    dnames <- dimnames(x)
-    dnames[[2]] <- years
+    # construct new object
+    d2nms <- as.character(seq(start, end, by=frequency))
+    dnames[[2]] <- d2nms
     flq <- do.call(class(x), list(NA, units=units(x), dimnames=dnames))
 
     # add data for matching years
-    flq[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]  <-
-      x[,dimnames(x)$year[dimnames(x)$year%in%as.character(years)],,,]
+    flq[, d2nms %in% d2s] <- x[, d2s %in% d2nms]
 
     return(flq)
   }

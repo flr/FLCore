@@ -334,3 +334,9 @@ setMethod("dimnames<-", signature(x="FLCohort", value='list'),
     return(x)
   }
 ) # }}}
+
+setMethod("window", signature(x="FLCohort"),
+  function(x, start=dims(x)$mincohort, end=dims(x)$maxcohort, extend=TRUE, frequency=1) {
+    callNextMethod(x, start=start, end=end, extend=extend, frequency=frequency)
+  })
+
