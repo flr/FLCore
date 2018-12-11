@@ -7,14 +7,36 @@
 \alias{iter,FLArray-method}
 \alias{iter,FLQuant,ANY-method}
 \alias{iter,FLCohort,ANY-method}
+\alias{summary,FLArray-method}
 \alias{iter,vector-method}
+\alias{Method}
+\alias{summary}
+\alias{Outputs}
+\alias{a}
+\alias{general}
+\alias{of}
+\alias{the}
+\alias{structure}
+\alias{and}
+\alias{content}
+\alias{an}
+\alias{fwdControl}
+\alias{object.}
+\alias{The}
+\alias{method}
+\alias{invisibly}
+\alias{returns}
+\alias{data.frame}
+\alias{shown}
+\alias{on}
+\alias{screen.}
 \title{Methods iter}
 \usage{
 iter(obj, ...)
 
 \S4method{iter}{FLArray}(obj, iter)
 
-\S4method{iter}{vector}(obj, iter)
+\S4method{summary}{FLArray}(object, ...)
 }
 \description{
 Select or modify iterations of an FLR object
@@ -35,6 +57,8 @@ classes \code{FLQuant}, \code{FLCohort} and \code{FLPar}.
 }
 \section{Generic function}{
  iter(object) iter<-(object,value)
+
+ summary(object)
 }
 
 \examples{
@@ -53,11 +77,25 @@ classes \code{FLQuant}, \code{FLCohort} and \code{FLPar}.
   # ...in contrast to using [ which returns an error
     \dontrun{fls[,,,,,2]}
 
+
+flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
+summary(flq)
+
+data(ple4)
+summary(ple4)
+
+data(nsher)
+summary(nsher)
+
 }
 \seealso{
 \linkS4class{FLComp}, \linkS4class{FLQuant}
+
+\link[base]{summary}
 }
 \author{
+The FLR Team
+
 The FLR Team
 }
 \keyword{methods}

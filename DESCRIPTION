@@ -17,6 +17,7 @@ Depends:
 Imports:
     graphics,
     grid,
+    iterators,
     methods,
     Matrix,
     MASS,
