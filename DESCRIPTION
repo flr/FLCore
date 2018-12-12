@@ -13,11 +13,11 @@ Description: Core classes and methods for FLR, a framework for fisheries
     http://flr-project.org/.
 Depends:
     R(>= 3.4),
-    lattice
+    lattice,
+    iterators
 Imports:
     graphics,
     grid,
-    iterators,
     methods,
     Matrix,
     MASS,
