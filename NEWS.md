@@ -6,6 +6,7 @@
 ## USER-VISIBLE CHANGES
 - combine(FLQuant) and combine (FLComp) can now accept multiple objects, useful for using with foreach's .multicombine.
 - Replacement method for FLlst elements ([[<-) now allows extending it.
+- Dependency added on iterators package. iter() method was overwritten when iterators was loaded.
 
 ## BUG FIXES
 - FLStock@mat conversion to FLBiol@mat/fec now works with NAs
