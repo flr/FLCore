@@ -35,7 +35,10 @@ $(HELP_FILES): $(R_FILES)
 update:
 	sed -i 's/Date: *\([^ ]*\)/Date: $(GITDATE)/' DESCRIPTION
 
-release: build docs
+spell:
+	R -e "spelling::spell_check_package()"
+
+release: spell build docs
 	
 build: README.md NEWS
 	cd ..;\
