@@ -1059,10 +1059,6 @@ setGeneric("trim", function(x, ...)
 setGeneric('catch.sel', function(object, ...)
 		standardGeneric('catch.sel'))
 
-# flc2flq
-setGeneric("flc2flq", function(object, ...)
-	standardGeneric("flc2flq"))
-
 # ccplot
 setGeneric("ccplot", function(x, data, ...)
 	standardGeneric("ccplot"))
