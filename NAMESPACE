@@ -281,7 +281,6 @@ exportMethods(
   "fec<-",
   "fitted",
   "fitted<-",
-  "flc2flq",
   "FLBiol",
   "FLBiols",
   "FLCohort",
