@@ -233,38 +233,6 @@ setAs("FLCohort", "FLQuant", function(from){
   new("FLQuant", flq, units=units(from))
 })  # }}}
 
-# flc2flq {{{
-# this is a FLQuant creator method for FLCohorts 
-setMethod("flc2flq", signature("FLCohort"), function(object, ...){
-
-  # reduce with trim
-  if(!missing(...))
-    object <- trim(object, ...)
-
-  # dimensions and co
-  ystart <- as.numeric(dimnames(object)$cohort[1])
-  dobj <- dim(object)  
-  dflq <- dobj
-  dflq[2] <- dobj[2]-dobj[1]+1
-  dnflq <- dimnames(object)
-  dnflq[[2]] <- as.character(as.numeric(dnflq[[2]][-c(1:dobj[1] - 1)])+as.numeric(dnflq[[1]][1]))
-  names(dnflq)[2]<-"year"
-
-  # the new object
-  flq <- array(NA, dim=dflq, dimnames=dnflq)
-    
-  # loop
-  for(i in 1:dflq[1]){
-    start <- dobj[1]-i+1
-    end <- dobj[2]-i+1
-    flq[i,,,,,] <- object[i, start:end,,,,]
-  }
-  
-  # et voila
-  new("FLQuant", flq, units=units(object))
-
-})  # }}}
-
 # dims       {{{
 setMethod("dims", signature(obj="FLCohort"),
   # Return a list with different parameters

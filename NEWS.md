@@ -1,3 +1,9 @@
+# FLCore 2.6.12
+
+## DEPRECATED & DEFUNCT
+
+- flc2flq has been deprecated. Use as(object, 'FLQuant') instead.
+
 # FLCore 2.6.11
 
 ## NEW FEATURES
