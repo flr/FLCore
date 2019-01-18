@@ -155,7 +155,7 @@ setMethod('fmle',
         supplied log-likelihood")
     # HACK! clean up fixed list if elements are named vectors
     fixed <- lapply(fixed, function(x){ names(x) <- NULL; x})
-
+    
     # create list of input data
     #   get FLQuant slots' names
     datanm <- getSlotNamesClass(object, 'FLArray')
@@ -200,7 +200,7 @@ setMethod('fmle',
     loglfoo <- function(par) {
       pars <- as.list(par)
       names(pars) <- names(start)
-      pars[fixnm] <- lapply(fixed, iter, it)
+      pars[fixnm] <- lapply(fixed, function(x) c(x)[ifelse(length(x) == 1, 1, it)])
       return(-1*(do.call(logl, args=c(pars, data))))
     }
 
@@ -328,7 +328,8 @@ setMethod('fmle',
         iter(object@params[names(start),], it) <- out$par
         # fixed
         if(length(fixed) > 0)
-          iter(object@params, it)[fixnm,] <- unlist(lapply(fixed, iter, it))
+          iter(object@params, it)[fixnm,] <-
+            unlist(lapply(fixed, function(x) c(x)[ifelse(length(x) == 1, 1, it)]))
         # TODO make details list of lists if iter > 1?
         object@details <- list(call=call, value=out$value, count=out$counts,
           convergence=out$convergence, message=out$message)
