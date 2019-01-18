@@ -1,5 +1,6 @@
 import("methods")
-import("iterators")
+importFrom("iterators",
+  "iter")
 importFrom("utils",
   "packageDescription",
   "combn",
