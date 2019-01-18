@@ -4,6 +4,10 @@
 
 - flc2flq has been deprecated. Use as(object, 'FLQuant') instead.
 
+## BUG FIXES
+
+- Fix to iter(vector) after addition of iterators dependency.
+
 # FLCore 2.6.11
 
 ## NEW FEATURES
