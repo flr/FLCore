@@ -1,7 +1,7 @@
 
 # FLCore
-- Version: 2.6.11.9002
-- Date: 2019-01-18
+- Version: 2.6.12
+- Date: 2019-01-22
 - Author: FLR Team and various [contributors](CONTRIBUTORS.md).
 - Maintainer: Iago Mosqueira <iago.mosqueira@ec.europa.eu>
 - Repository: <https://github.com/flr/FLCore/>
@@ -14,7 +14,12 @@ To install this package, start R and enter:
 
 	install.packages("FLCore", repos="http://flr-project.org/R")
 
-or download from the [FLR releases page](https://github.com/flr/R/releases)
+or directly from the github repository by using:
+
+```
+  library(devtools)
+  install_github("flr/FLCore")
+```
 
 ## Documentation
 - [Help pages](http://flr-project.org/FLCore)
