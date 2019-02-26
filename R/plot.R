@@ -165,12 +165,12 @@ setMethod("plot", signature(x="FLStock", y="missing"),
         if(length(levels(iter)) > 1)
         {
           # median
-          panel.xyplot(unique(x), tapply(y, x, options$probs[2], na.rm=TRUE), type= 'l', ...)
+          panel.xyplot(unique(x), tapply(y, x, quantile, options$probs[2], na.rm=TRUE), type= 'l', ...)
           # 95% quantile
-          panel.xyplot(unique(x), tapply(y, x, options$probs[3], na.rm=TRUE), type= 'l',
+          panel.xyplot(unique(x), tapply(y, x, quantile, options$probs[3], na.rm=TRUE), type= 'l',
             lwd=1, lty=2, col='grey50')
           # 5% quantile
-          panel.xyplot(unique(x), tapply(y, x, options$probs[1], na.rm=TRUE), type= 'l',
+          panel.xyplot(unique(x), tapply(y, x, quantile, options$probs[1], na.rm=TRUE), type= 'l',
             lwd=1, lty=2, col='grey50')
         }
         else
@@ -181,7 +181,7 @@ setMethod("plot", signature(x="FLStock", y="missing"),
       }
     }
     do.call(xyplot, c(list(x=data ~ year|panel, data=obj, panel=pfun,
-      groups=expression(qname)), options))
+      groups=expression(qname), options = options), options))
 	}
 )	# }}}
 
