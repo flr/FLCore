@@ -24,8 +24,7 @@ notifications:
     on_failure: change
 
 before_deploy:
-  - export TRAVIS_TAG=`sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION`
-  - export OSX_BIN2=$(ls FLCore-${TRAVIS_TAG}.tgz)
+  - export TRAVIS_TAG=${$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)}
     
 deploy:
   provider: releases
