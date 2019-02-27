@@ -29,9 +29,9 @@ notifications:
 
 before_deploy:
   # EXTRACT pkg version numbers from git tag
-  # - export PKGVERS = ${TRAVIS_TAG//[!0-9.]/}
-  - export PKGSVERS=$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
-  - export TRAVIS_TAG=mk${PKGSVER}
+  - export PKGVERS = ${TRAVIS_TAG//[!0-9.]/}
+  # - export PKGSVERS=$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
+  - export TRAVIS_TAG="mk${PKGSVER}"
 
 deploy:
   provider: releases
