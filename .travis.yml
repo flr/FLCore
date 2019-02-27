@@ -13,7 +13,7 @@ branches:
   only:
   - master
   # RUN also for version tags, v*.*.*
-  - ^v\d+\.\d+(\.\d+)?(-\S*)?$ ).
+  - /^v.*$/
 
 sudo: false
 
