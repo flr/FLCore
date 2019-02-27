@@ -2,8 +2,6 @@ language: r
 
 warnings_are_errors: false
 
-install: travis_wait mvn install
-
 matrix:
   include:
     - os: linux
