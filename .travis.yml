@@ -39,7 +39,6 @@ deploy:
     secure: QrWCUrkEVOwPitBzGoIoK8zp2Mk4SL0KTnygW9YtVwFCe+vkbEAfvRpRRQ9IvjPUberQT1WvysWr/oM232QtL+g7TeEad0uB5oLMrGq6lyUBgaUnkzRShIKMbUzXOH3i2EW4Bv2mUaKf02nkiRNcNIG0t3SBfwbgMHwhf/VWATc=
   skip_cleanup: true
   overwrite: true
-  draft: true
   on:
     tag: true
     os: osx
