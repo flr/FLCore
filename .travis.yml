@@ -1,35 +1,25 @@
-#
 warnings_are_errors: false
-
 language: r
-
 os:
-  - linux
-  - osx
-
+- linux
+- osx
 r:
-  - release
-
+- release
 branches:
   only:
   - master
-
 sudo: false
-
 cache: packages
-
 notifications:
   email:
     on_success: change
     on_failure: change
-
 before_deploy:
-    - export PKGVERS = ${TRAVIS_TAG//[!0-9.]/}
-    
+- export PKGVERS = ${TRAVIS_TAG//[!0-9.]/}
 deploy:
   provider: releases
   api_key:
-    secure: hd/AVHdIxPFEYvx66wCgXHfm0mFr/SGgiwRks8q9vSVHZwTrKoOyutt80p5lbPLSOaLIb818ZBAaxYuaKACoxZWblS/Rm+VfR3q/ct+y5Mx9EUQItuHTWbD/Y7wwcoa9myvh45U72ubve+UWbBjJUDNYrGrlX/OaJcIMu8QfGx4=
+    secure: QrWCUrkEVOwPitBzGoIoK8zp2Mk4SL0KTnygW9YtVwFCe+vkbEAfvRpRRQ9IvjPUberQT1WvysWr/oM232QtL+g7TeEad0uB5oLMrGq6lyUBgaUnkzRShIKMbUzXOH3i2EW4Bv2mUaKf02nkiRNcNIG0t3SBfwbgMHwhf/VWATc=
   skip_cleanup: true
   file: FLCore_${PKGVERS}.tgz
   on:
