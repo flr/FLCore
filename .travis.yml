@@ -24,7 +24,8 @@ notifications:
     on_failure: change
 
 before_deploy:
-  - export TRAVIS_TAG=${$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)}
+  # - export TRAVIS_TAG=${$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)}
+    - export TRAVIS_TAG="FLCore_2.6.12"
     
 deploy:
   provider: releases
@@ -37,4 +38,3 @@ deploy:
     os: osx
     branch: master
     repo: flr/FLCore
-    draft: true
