@@ -251,6 +251,10 @@ uom <- function(op, u1, u2) {
   # undefined unit
 	if(any(is.na(idx)))
 		return(sprintf("%s %s %s", u1, op, u2))
+
+  # BUG power
+  if(op == "^")
+		return(sprintf("%s %s %s", u1, op, u2))
 	
 	# use uomTable
 	res <- uomTable[op, idx[1], idx[2]]
