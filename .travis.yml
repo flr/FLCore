@@ -12,6 +12,7 @@ r:
 branches:
   only:
   - master
+  - /^v.*$/
 
 sudo: false
 
