@@ -1,21 +1,30 @@
 warnings_are_errors: false
+
 language: r
+
 os:
 - linux
 - osx
+
 r:
 - release
+
 branches:
   only:
   - master
+
 sudo: false
+
 cache: packages
+
 notifications:
   email:
     on_success: change
     on_failure: change
+
 before_deploy:
 - export PKGVERS = ${TRAVIS_TAG//[!0-9.]/}
+
 deploy:
   provider: releases
   api_key:
