@@ -1,0 +1,10 @@
+# delete local tag '12345'
+git tag -d v2.6.12
+git push origin :refs/tags/v2.6.12
+
+git tag v2.6.12
+git push origin v2.6.12
+
+# alternative approach
+git push --delete origin tagName
+git tag -d tagName

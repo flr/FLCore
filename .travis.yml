@@ -24,7 +24,7 @@ notifications:
     on_failure: change
 
 before_deploy:
-    - export PKGVERS=${TRAVIS_TAG//[!0-9.]/}
+    - export PKGVERS=$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
     
 deploy:
   provider: releases
