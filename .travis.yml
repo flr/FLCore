@@ -24,7 +24,8 @@ notifications:
     on_failure: change
 
 before_deploy:
-    - export PKGVERS=$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
+  #    - export PKGVERS=${`sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION`}
+    - export PKGVERS="2.6.12"
     
 deploy:
   provider: releases
