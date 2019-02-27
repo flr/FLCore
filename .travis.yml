@@ -38,3 +38,4 @@ deploy:
     os: osx
     branch: master
     repo: flr/FLCore
+    tag: true
