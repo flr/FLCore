@@ -1,6 +1,6 @@
-warnings_are_errors: false
-
 language: r
+
+warnings_are_errors: false
 
 os:
 - linux
@@ -12,7 +12,8 @@ r:
 branches:
   only:
   - master
-  - /^v.*$/
+  # RUN also for version tags, v*.*.*
+  - ^v\d+\.\d+(\.\d+)?(-\S*)?$ ).
 
 sudo: false
 
@@ -24,7 +25,8 @@ notifications:
     on_failure: change
 
 before_deploy:
-- export PKGVERS = ${TRAVIS_TAG//[!0-9.]/}
+  # EXTRACT pkg version numbers from git tag
+  - export PKGVERS = ${TRAVIS_TAG//[!0-9.]/}
 
 deploy:
   provider: releases
