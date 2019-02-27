@@ -32,7 +32,7 @@ before_deploy:
   - export PKGVERS=${TRAVIS_TAG//[!0-9.]/}
     # - export PKGSVERS=$(sed -n 's/Version: *\([^ ]*\)/\1/p' DESCRIPTION)
     # - export TRAVIS_TAG="mk${PKGSVER}"
-  - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
+  - echo "$TRAVIS_TAG" "$PKGVERS"
 
 deploy:
   provider: releases
