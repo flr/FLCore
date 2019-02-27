@@ -25,7 +25,7 @@ notifications:
 
 before_deploy:
   #    - export PKGVERS=${`sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION`}
-    - export PKGVERS="2.6.12"
+    - export PKGVERS = ${TRAVIS_TAG//[!0-9.]/}
     
 deploy:
   provider: releases
