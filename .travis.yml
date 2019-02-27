@@ -2,9 +2,14 @@ language: r
 
 warnings_are_errors: false
 
-os:
-- linux
-- osx
+install: travis_wait mvn install
+
+matrix:
+  include:
+    - os: linux
+      env: FILE=FLCore_${PKGVERS}.tar.gz
+    - os: osx
+      env: FILE=FLCore_${PKGVERS}.tgz
 
 r:
 - release
@@ -33,9 +38,7 @@ deploy:
   api_key:
     secure: QrWCUrkEVOwPitBzGoIoK8zp2Mk4SL0KTnygW9YtVwFCe+vkbEAfvRpRRQ9IvjPUberQT1WvysWr/oM232QtL+g7TeEad0uB5oLMrGq6lyUBgaUnkzRShIKMbUzXOH3i2EW4Bv2mUaKf02nkiRNcNIG0t3SBfwbgMHwhf/VWATc=
   skip_cleanup: true
-  file: FLCore_${PKGVERS}.tgz
-  on:
-    os: osx
-    branch: master
-    repo: flr/FLCore
-    tag: true
+  file: ${FILE}
+  branch: master
+  repo: flr/FLCore
+  tag: true
