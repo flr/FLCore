@@ -25,6 +25,8 @@ notifications:
 before_deploy:
   # Get PKGVER
   - 'export PKGVER=$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)'
+  # CHECK version type
+  = 'export RELEASE=$(grep -o \\. <<< "2.6.12.9001" | wc -w)'
   # Build binary and remove the source archive
   - "R CMD INSTALL --build FLCore_$PKGVER.tar.gz"
   - "rm FLCore_$PKGVER.tar.gz"
@@ -41,3 +43,4 @@ deploy:
   draft: true
   on:
     repo: flr/FLCore
+    condition: $RELEASE=2
