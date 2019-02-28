@@ -29,7 +29,7 @@ before_deploy:
   - "R CMD INSTALL --build FLCore_$PKGVER.tar.gz"
   - "rm FLCore_$PKGVER.tar.gz"
   # Look for packages
-  - "export RELEASE_PKG_FILE=$(ls FLCore*tgz)"
+  - "export RELEASE_PKG_FILE=$(ls FLCore*gz)"
   - "echo $RELEASE_PKG_FILE"
 
 deploy:
