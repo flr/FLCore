@@ -44,4 +44,5 @@ deploy:
   draft: true
   on:
     repo: flr/FLCore
-    condition: "$RELEASE=2"
+    # condition: "$RELEASE=2"
+    condition: $RELEASE =~ ^[0-9]+\.[0-9]+\.[0-9]+
