@@ -8,6 +8,7 @@ os:
 
 r:
   - release
+
 branches:
   only:
   - master
@@ -28,7 +29,7 @@ before_deploy:
   - "R CMD INSTALL --build FLCore_$PKGVER.tar.gz"
   - "rm FLCore_$PKGVER.tar.gz"
   # Look for packages
-  - "export RELEASE_PKG_FILE=$(ls FLCore*gz)"
+  - "export RELEASE_PKG_FILE=$(ls FLCore*tgz)"
   - "echo $RELEASE_PKG_FILE"
 
 deploy:
