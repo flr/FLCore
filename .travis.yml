@@ -1,6 +1,9 @@
-warnings_are_errors: false
-
 language: r
+
+env:
+  - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
+
+warnings_are_errors: false
 
 os:
   - linux
@@ -22,12 +25,11 @@ notifications:
     on_success: change
     on_failure: change
 
-before_deploy:
+after_success:
   # Get PKGVER
   - 'export PKGVER=$(sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)'
-  # CHECK version type by counting dots (flaky)
-  - 'export RELEASE=$(grep -o \\. <<< $PKGVER | wc -w)'
-  - "echo $RELEASE"
+  - 'export REL=$(echo $PKGVER | grep -o "\." | grep -c "\.")'
+  - "echo $PKGVER $REL"
   # Build binary and remove the source archive
   - "R CMD INSTALL --build FLCore_$PKGVER.tar.gz"
   - "rm FLCore_$PKGVER.tar.gz"
@@ -44,5 +46,4 @@ deploy:
   draft: true
   on:
     repo: flr/FLCore
-    # condition: "$RELEASE=2"
-    # condition: $RELEASE =~ ^[0-9]+\.[0-9]+\.[0-9]+
+    condition: $REL = "2"
