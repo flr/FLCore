@@ -957,8 +957,8 @@ setMethod("simplify", signature(object="FLStock"),
     dimnames(lawt) <- dmns
     dimnames(diwt) <- dmns
     dimnames(stwt) <- dmns
-
-  	# EXTRACT mat from spwnSeason and unit (gender) 1
+  	
+    # EXTRACT mat from spwnSeason and unit (gender) 1
     # TODO CHECK / DECIDE on unit
     if("unit" %in% dims)
   	  mat <- mat[,, 1,,]
@@ -985,7 +985,7 @@ setMethod("simplify", signature(object="FLStock"),
     if("unit" %in% dims) {
       harvest.spwn[] <- seasonSums(unitSums(catch(object)[,,,seq(1,spwn.season-1)])) %/%
         seasonSums(unitSums(catch(object)))
-    } else {
+    } else if("season" %in% dims) {
       harvest.spwn[] <- seasonSums(catch(object)[,,,seq(1,spwn.season-1)]) %/%
         seasonSums(catch(object))
     }
