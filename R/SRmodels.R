@@ -812,7 +812,7 @@ svModel <- function(model)
   res <- switch(modelname,
     'bevholt'='bevholtSV',
     'ricker'='rickerSV',
-    'shepherd', 'shepherdSV')
+    'shepherd'='shepherdSV')
   if(is(model, 'formula'))
     return(do.call(res, list())$model)
   return(res)
