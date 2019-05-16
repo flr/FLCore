@@ -130,6 +130,7 @@ export(
   "rickerAR1",
   "rickerCa",
   "rickerSV",
+  "run.info",
   "sbind",
   "segreg",
   "segregAR1",

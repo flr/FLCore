@@ -896,7 +896,7 @@ setMethod("vb", signature(x="FLStock", sel="FLQuant"),
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area"),
     spwn.season=1, stock.season=1, calcF=TRUE) {
-
+    
     # TODO: check spwn.season vs. mat
 
     # DIMS to operate on, inverse of dims
@@ -949,14 +949,20 @@ setMethod("simplify", signature(object="FLStock"),
       lawt <- foo(landings.wt(object), dims=dms, FUN=mean)
       diwt <- foo(discards.wt(object), dims=dms, FUN=mean)
       stwt <- foo(stock.wt(object), dims=dms, FUN=mean)
-
-      mat <- mat(object)
     }
+
+    if("unit" %in% dims) {
+      mat <- foo(mat(object)[,,'F'], dims=dms, FUN=mean)
+    } else {
+      mat <- foo(mat(object), dims=dms, FUN=mean)
+    }
+
 
     dimnames(cawt) <- dmns
     dimnames(lawt) <- dmns
     dimnames(diwt) <- dmns
     dimnames(stwt) <- dmns
+    dimnames(mat) <- dmns
   	
     # EXTRACT mat from spwnSeason and unit (gender) 1
     # TODO CHECK / DECIDE on unit
@@ -982,12 +988,15 @@ setMethod("simplify", signature(object="FLStock"),
     harvest.spwn <- m.spwn <- m
     units(harvest.spwn) <- units(m.spwn) <- ""
     
+    # TODO CHECK all options
     if("unit" %in% dims) {
       harvest.spwn[] <- seasonSums(unitSums(catch(object)[,,,seq(1,spwn.season-1)])) %/%
         seasonSums(unitSums(catch(object)))
     } else if("season" %in% dims) {
       harvest.spwn[] <- seasonSums(catch(object)[,,,seq(1,spwn.season-1)]) %/%
         seasonSums(catch(object))
+    } else {
+      harvest.spwn <- areaMeans(harvest.spwn(object))
     }
 
     m.spwn[] <- ((spwn.season - 1) / last.season)
@@ -1076,6 +1085,9 @@ setMethod("ruleset", signature(object="FLStock"),
 
     # CHECK 0 < m.spwn < 1
     m.spwn=~m.spwn <= 1 & m.spwn >= 0,
+    
+    # CHECK if m.spwn = 0, harvest.spwn = 0
+    # TODO m.spwn=~m.spwn <= 1 & m.spwn >= 0,
 
     # CHECK harvest >= 0
     harvest=~harvest >= 0,

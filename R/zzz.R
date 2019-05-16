@@ -21,3 +21,19 @@ ac <- function(x, ...)
 # an
 an <- function(x, ...)
   as.numeric(x, ...)
+
+run.info <- function(pkgs) {
+
+  info <- as.matrix(c(unlist(setNames(lapply(pkgs, function(x)
+    # pkgs Version
+    packageDescription(x)$Version), pkgs)),
+    # R.version and .platform
+    setNames(unlist(R.version[c("version.string", "platform")]),
+    c("R", "platform")),
+    # date
+    date=format(Sys.time(), usetz=TRUE)))
+
+  colnames(info) <- "Version"
+
+  return(info)
+}
