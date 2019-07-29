@@ -215,9 +215,17 @@ uomTable['*', c('1000', '1e3', '10^3'), c('USD', 'usd', '\u0024')] <- '1000 USD'
 
 uom <- function(op, u1, u2) {
 	
+  # BUG power
+  if(op == "^")
+		return(sprintf("%s %s %s", u1, op, u2))
+
   # REMOVE trailing and leading spaces and ENSURE string
   u <- sprintf("%s", gsub(" ", "", c(u1, u2)))
 	idx <- match(u, uoms)
+
+  # undefined unit (not in uoms)
+	if(any(is.na(idx)))
+		return(sprintf("%s %s %s", u1, op, u2))
 
   # PARSE and SOLVE if '/' in u and op = '*'
   if(any(grepl("/", u)) && op == "*") {
@@ -245,18 +253,11 @@ uom <- function(op, u1, u2) {
     idp <- us %in% uoms[nums]
     # FIX for as.numeric not handling 10^*
     val <- prod(as.numeric(uom('+', us[idp], us[idp])))
+    # RETURN
     return(uom(op, as.character(val), us[!idp]))
   }
-	
-  # undefined unit
-	if(any(is.na(idx)))
-		return(sprintf("%s %s %s", u1, op, u2))
 
-  # BUG power
-  if(op == "^")
-		return(sprintf("%s %s %s", u1, op, u2))
-	
-	# use uomTable
+  # use uomTable
 	res <- uomTable[op, idx[1], idx[2]]
 	
 	return(res)

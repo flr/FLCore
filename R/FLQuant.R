@@ -1264,7 +1264,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
     yy <- seq(1, dm[2] - 1)
     
     # MINIMIZES diff in catch
-    foo <- function(logf, n, c, m, ratio) {
+    foo <- function(logf, n, c, m) {
       f <- exp(logf)
       ch <- (f / (f + m)) * (1 - exp(-f - m)) * n
       cr <- (c - ch)
