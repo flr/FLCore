@@ -1130,9 +1130,26 @@ setGeneric("qmin", function(x, ...)
 setGeneric('sp', function(stock, catch, harvest, ...)
 		standardGeneric('sp'))
 
-# propagate
+# propagate {{{
+
+#' Method propagate
+#' 
+#' Methods to extend objects of various FLR classes along the `iter`
+#' (6th FLQuant) dimension. Objects must generally have a single
+#' `iter` to be extended. The new iterations can be filled with copies
+#' of the existing, or remain as `NA`.
+#'
+#' @name propagate
+#' @rdname propagate
+#' @aliases propagate propagate-methods
+#' @docType methods
+#' @section Generic function: propagate(object, ...)
+#' @author The FLR Team
+#' @seealso \linkS4class{FLQuant}
+#' @keywords methods
+
 setGeneric("propagate", function(object, ...)
-    standardGeneric("propagate"))
+    standardGeneric("propagate")) # }}}
 
 # Sums
 setGeneric('Sums', function(object, ...)

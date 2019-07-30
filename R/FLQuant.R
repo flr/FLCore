@@ -701,6 +701,23 @@ return(object)
 )   # }}}
 
 # propagate {{{
+
+#' @rdname propagate
+#' @param object Object to be propagated.
+#' @param iters No. of iterations in output.
+#' @param fill.iter Should first array be copied to others? Defaults to FALSE.
+#' @examples
+#' 
+#' # An FLQuant with one iter (dim(flq)[6] == 1)
+#' flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age')
+#'
+#' # can now be extended along the `iter` dimension, with
+#' #' copies of the first
+#' propagate(flq, 100)
+#'
+#' # or without
+#' iter(propagate(flq, 100, fill.iter=FALSE), 2)
+
 setMethod("propagate", signature(object="FLQuant"),
   function(object, iter, fill.iter=TRUE) {
     

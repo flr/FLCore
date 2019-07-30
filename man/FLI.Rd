@@ -58,8 +58,9 @@ for sizing but not stored in any slot.
 
 \seealso{
 \link{computeCatch}, \link{dims},
-\link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
-\link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
+\link{iter}, \link[graphics]{plot}, \link[FLCore]{propagate},
+\link[base]{summary}, \link[base]{transform}, \link{trim},
+\link[stats]{window}, \link{FLComp}
 }
 \author{
 The FLR Team

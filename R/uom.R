@@ -223,11 +223,7 @@ uom <- function(op, u1, u2) {
   u <- sprintf("%s", gsub(" ", "", c(u1, u2)))
 	idx <- match(u, uoms)
 
-  # undefined unit (not in uoms)
-	if(any(is.na(idx)))
-		return(sprintf("%s %s %s", u1, op, u2))
-
-  # PARSE and SOLVE if '/' in u and op = '*'
+    # PARSE and SOLVE if '/' in u and op = '*'
   if(any(grepl("/", u)) && op == "*") {
     
     # FIND u with more parenthesis
@@ -255,6 +251,11 @@ uom <- function(op, u1, u2) {
     val <- prod(as.numeric(uom('+', us[idp], us[idp])))
     # RETURN
     return(uom(op, as.character(val), us[!idp]))
+  }
+
+  # undefined unit (not in uoms)
+	if(any(is.na(idx))) {
+	  return(sprintf("%s %s %s", u1, op, u2))
   }
 
   # use uomTable

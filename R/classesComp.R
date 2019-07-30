@@ -545,8 +545,9 @@ setClass("FLStockLen",
 #' }
 #' @author The FLR Team
 #' @seealso \link{computeCatch}, \link{dims},
-#' \link{iter}, \link[graphics]{plot}, \link{propagate}, \link[base]{summary},
-#' \link[base]{transform}, \link{trim}, \link[stats]{window}, \link{FLComp}
+#' \link{iter}, \link[graphics]{plot}, \link[FLCore]{propagate},
+#' \link[base]{summary}, \link[base]{transform}, \link{trim},
+#' \link[stats]{window}, \link{FLComp}
 #' @keywords classes
 setClass("FLI",
     representation(
