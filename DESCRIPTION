@@ -81,4 +81,5 @@ LazyLoad: Yes
 LazyData: No
 Suggests:
     testthat
+Encoding: UTF-8
 RoxygenNote: 6.1.1
