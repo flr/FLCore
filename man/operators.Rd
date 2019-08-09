@@ -48,7 +48,7 @@ x \%^\% y
 
 \S4method{\%-\%}{FLQuant,FLQuant}(x, y)
 
-\S4method{\%^\%}{FLQuant,FLQuant}(x, y)
+x \%^\% y
 
 \S4method{\%*\%}{FLPar,FLQuant}(x, y)
 
