@@ -1254,12 +1254,28 @@ setMethod("$", signature(x="FLQuant"),
 ) # }}}
 
 # catch.n {{{
-#  C = N *F/(M+F) * (1-exp(-M-F))
 
+#' catch.n method
+#'
+#' Calculate catch.n (catch-at-age/length) from abundances using the catch equation
+#' 
+#' The catch-at-age/length, commonly found in the catch.n slot of an
+#' `FLStock` object, can be simply calculated from abundances-at-age/length,
+#' and natural and fishing mortalities-at-age/length by applying the catch
+#' equation
+#' \deqn{C = N \cdot F \frac{F}{M+F} \cdot (1 - {\rm e}^(-M-F))}{C = N *F/(M+F) * (1-exp(-M-F))}
+#'
+#' @name catch.n
+#' @rdname catch.n
+#' @docType methods
+#' @author The FLR Team
+#' @seealso \linkS4class{FLStock}
+#' @keywords methods
 #' @examples
 #' data(ple4)
 #' res <- catch.n(stock.n(ple4), harvest(ple4), m(ple4))
 #' catch.n(ple4) / res
+
 setMethod("catch.n", signature(object="FLQuant"),
   function(object, harvest, m) {
     object * (harvest / (harvest + m)) * (1 - exp(-(harvest + m)))
