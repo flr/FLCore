@@ -127,6 +127,20 @@ setMethod('predictModel', signature(object='FLQuants', model="function"),
 )
 
 #' @rdname predictModel
+#' @aliases predictModel,FLQuants,list-method
+#' @examples
+#' predictModel(fec, model=bevholt())
+
+setMethod('predictModel', signature(object='FLQuants', model="list"),
+	function(object, model, params=FLPar()) {
+
+  model <- model$model
+	# CREATE object
+  return(predictModel(object=object, model=model, params=params))
+	}
+)
+
+#' @rdname predictModel
 #' @aliases predictModel,missing,ANY-method
 #' @examples
 #' predictModel(model=rec~a*ssb, params=FLPar(a=1.234))

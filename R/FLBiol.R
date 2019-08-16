@@ -162,6 +162,15 @@ setReplaceMethod('rec', signature(object='FLBiol', value='FLPar'),
   }
 ) 
 
+# rec<- FLSR:
+setReplaceMethod('rec', signature(object='FLBiol', value='FLSR'),
+  function(object, value) {
+    object@rec@params <- value@params
+    object@rec@model <- value@model
+    return(object)
+  }
+)
+
 # rec<- list:
 setReplaceMethod('rec', signature(object='FLBiol', value='list'),
   function(object, value) {
