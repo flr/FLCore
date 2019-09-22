@@ -726,7 +726,7 @@ setMethod("computeStock", signature(object="FLBiol"),
 # ssn  {{{
 setMethod("ssn", signature(object="FLBiol"),
   function(object, ...)
-    return(quantSums(n(object) * fec(object) * exp(-spwn(object) * m(object)), ...))
+    return(quantSums(n(object) * fec(object) * exp(-spwn(object) %*% m(object)), ...))
 )  # }}}
 
 # harvest {{{
