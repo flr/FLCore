@@ -339,8 +339,9 @@ setMethod("ssb", signature(object="FLStock"),
 		uns <- units(harvest(object))
 
 		if(uns == 'f') {
-			return(quantSums(stock.n(object) * exp(-(harvest(object) * harvest.spwn(object) +
-				m(object) * m.spwn(object))) * stock.wt(object) * mat(object)))
+			return(quantSums(stock.n(object) * exp(-(harvest(object) *
+        harvest.spwn(object) + m(object) * m.spwn(object))) *
+        stock.wt(object) * mat(object)))
 
 		} else if(uns == 'hr') {
 			return(quantSums(stock.n(object) * stock.wt(object) * mat(object) *
