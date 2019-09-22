@@ -1813,3 +1813,25 @@ setGeneric("refpts", function(object, ...)
 setGeneric("dbind", function(x, y, ...)
 		standardGeneric("dbind"))
 
+# compare {{{
+
+#' A method for comparing FLR objects
+#'
+#' Comparisons of complete objects of FLR classes can be carried out and
+#' a report table is generated to better identify differences. Comparisons
+#' do not substitute but complement those provided by R's all.equal and
+#' identical.
+#'
+#' @param result First element in comparison, result of method or operation.
+#' @param target Second element, desired output.
+#'
+#' @return A table of comparisons, of class data.frame.
+#'
+#' @name compare
+#' @rdname compare-methods
+#'
+#' @author Iago Mosqueira (WMR)
+#' @keywords methods
+#' @md
+setGeneric("compare", function(result, target, ...)
+  standardGeneric("compare")) # }}}

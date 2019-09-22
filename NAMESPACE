@@ -229,6 +229,7 @@ exportMethods(
   "ccplot",
   "coerce",
   "combine",
+  "compare",
   "computeDiscards",
   "computeCatch",
   "computeD",
