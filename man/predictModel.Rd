@@ -9,6 +9,7 @@
 \alias{predictModel,FLQuants,missing-method}
 \alias{predictModel,FLQuants,character-method}
 \alias{predictModel,FLQuants,function-method}
+\alias{predictModel,FLQuants,list-method}
 \alias{predictModel,missing,ANY-method}
 \title{A class for model prediction}
 \usage{
@@ -22,6 +23,8 @@
 
 \S4method{predictModel}{FLQuants,`function`}(object, model,
   params = FLPar())
+
+\S4method{predictModel}{FLQuants,list}(object, model, params = FLPar())
 
 \S4method{predictModel}{missing,ANY}(object, model, ...)
 }
@@ -90,6 +93,7 @@ predictModel(fec, model=~fec)
 predictModel(fec)
 predictModel(fec, model="bevholt")
 predictModel(fec, model=bevholt)
+predictModel(fec, model=bevholt())
 predictModel(model=rec~a*ssb, params=FLPar(a=1.234))
 predictModel(model=bevholt, params=FLPar(a=1.234))
 predictModel(model="bevholtss3", params=FLPar(a=1.234))

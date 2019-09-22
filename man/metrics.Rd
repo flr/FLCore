@@ -27,7 +27,6 @@ methods allow for simple specification of those metrics by means of function
 calls and formulas.
 }
 \examples{
-
 data(ple4)
 # missing
 metrics(ple4)
