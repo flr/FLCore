@@ -1835,3 +1835,6 @@ setGeneric("dbind", function(x, y, ...)
 #' @md
 setGeneric("compare", function(result, target, ...)
   standardGeneric("compare")) # }}}
+
+setGeneric("standardUnits", function(object, ...)
+  standardGeneric("standardUnits"))

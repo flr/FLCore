@@ -225,3 +225,43 @@ setMethod("catch<-", signature(object="FLS", value="FLQuants"),
 		return(object)
 	}
 ) # }}}
+
+# standardUnits
+setMethod("standardUnits", signature(object="FLS"),
+  function(object, ...) {
+
+    standard <- list(biomass="t", numbers="1000", weights="kg",
+      proportions="", m="m", harvest="f")
+
+    units <- c(
+
+    # weights
+    setNames(rep(standard$weight, 4),
+      c("catch.wt", "landings.wt", "discards.wt", "stock.wt")),
+
+    # biomass
+    setNames(rep(standard$biomass, 4),
+      c("catch", "landings", "discards", "stock")),
+
+    # numbers
+    setNames(rep(standard$numbers, 4),
+      c("catch.n", "landings.n", "discards.n", "stock.n")),
+
+    # proportions
+    setNames(rep(standard$proportions, 3),
+      c("mat", "harvest.spwn", "m.spwn")),
+
+    # proportions
+    setNames(rep(standard$m, 1),
+      c("m")),
+    
+    # proportions
+    setNames(rep(standard$harvest, 1),
+      c("harvest"))
+    )
+
+    return(as.list(units))
+
+    })
+
+

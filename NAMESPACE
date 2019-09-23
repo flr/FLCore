@@ -462,6 +462,7 @@ exportMethods(
   "ssbpurec",
   "ssn",
   "sr",
+  "standardUnits",
   "stock",
   "stock<-",
   "stock.n",

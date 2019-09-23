@@ -232,10 +232,26 @@ setMethod("units", signature(x="FLComp"), function(x)
 # units<-      {{{
 setMethod("units<-", signature(x="FLComp", value="list"),
     function(x, value) {
-        for(i in seq(along=value))
-            if(is.character(value[[i]]))
-                units(slot(x, names(value[i]))) <- value[[i]]
-        return(x)
+      for(i in seq(along=value))
+        if(is.character(value[[i]]))
+          units(slot(x, names(value[i]))) <- value[[i]]
+      return(x)
+	}
+)
+
+setMethod("units<-", signature(x="FLComp", value="character"),
+    function(x, value) {
+      value <- as.list(value)
+      units(x) <- value
+      return(x)
+	}
+)
+
+setMethod("units<-", signature(x="FLComp", value="function"),
+    function(x, value) {
+      value <- do.call(value, list(x))
+      units(x) <- value
+      return(x)
 	}
 ) # }}}
 
