@@ -171,6 +171,12 @@ uomTable['*', c('1000', '1e3', '10^3'), c('EUR', 'eur', '\u20AC')] <- '1000 EUR'
 # USD * 1000 = 1000 USD
 uomTable['*', c('USD', 'usd', '\u0024'), c('1000', '1e3', '10^3')] <- '1000 USD'
 uomTable['*', c('1000', '1e3', '10^3'), c('USD', 'usd', '\u0024')] <- '1000 USD'
+
+# TODO Check if this is OK
+uomTable['+', 'NA',] <- uoms
+uomTable['+', , 'NA'] <- uoms
+uomTable['-', 'NA',] <- uoms
+uomTable['-', , 'NA'] <- uoms
 	
 # }}}
 
