@@ -106,8 +106,8 @@ invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # 
 
 # rec {{{
 setMethod('rec', signature('FLBiol'),
-  function(object, what=TRUE) {
-    return(returnPredictModelSlot(object, what=what, slot="rec"))
+  function(object, what=TRUE, ...) {
+    return(returnPredictModelSlot(object, what=what, slot="rec", ...))
   })
 # }}}
 
@@ -190,8 +190,8 @@ setReplaceMethod('rec', signature(object='FLBiol', value='list'),
 
 # fec {{{
 setMethod('fec', signature('FLBiol'),
-  function(object, what=TRUE) {
-    return(returnPredictModelSlot(object, what=what, slot="fec"))
+  function(object, what=TRUE, ...) {
+    return(returnPredictModelSlot(object, what=what, slot="fec", ...))
   })
 # }}}
 
@@ -265,8 +265,8 @@ setReplaceMethod('fec', signature(object='FLBiol', value='list'),
 
 # mat {{{
 setMethod('mat', signature('FLBiol'),
-  function(object, what=TRUE) {
-    return(returnPredictModelSlot(object, what=what, slot="mat"))
+  function(object, what=TRUE, ...) {
+    return(returnPredictModelSlot(object, what=what, slot="mat", ...))
   })
 # }}}
 
@@ -711,7 +711,7 @@ setMethod("ssb", signature(object="FLBiol"),
 setMethod("tsb", signature(object="FLBiol"),
   function(object, ...)
   {
-    res <- quantSums(n(object) * wt(object) * exp(-spwn(object) *
+    res <- quantSums(n(object) * wt(object) * exp(-spwn(object) %*%
       m(object)), na.rm=FALSE)
     return(res)
   }
