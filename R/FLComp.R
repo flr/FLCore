@@ -224,12 +224,26 @@ setMethod("trim", signature("FLComp"),
 ) # }}}
 
 # units	    {{{
+
+#' @rdname units
+#' @details The complete set of *units* for a complex object can be obtained
+#' as a named *list*.
+
 setMethod("units", signature(x="FLComp"), function(x)
 	qapply(x, units)
 )
 #}}}
 
 # units<-      {{{
+
+#' @rdname units
+#' @details Assignment of *units* to the *FLQuant* slots of a complex object
+#' can be carried out passing a named *list* or *character* vector containing
+#' the units for the slots to be modified.
+#' @examples
+#' data(ple4)
+#' units(ple4) <- list(harvest="hr")
+
 setMethod("units<-", signature(x="FLComp", value="list"),
     function(x, value) {
       for(i in seq(along=value))
@@ -239,6 +253,7 @@ setMethod("units<-", signature(x="FLComp", value="list"),
 	}
 )
 
+#' @rdname units
 setMethod("units<-", signature(x="FLComp", value="character"),
     function(x, value) {
       value <- as.list(value)
@@ -247,9 +262,11 @@ setMethod("units<-", signature(x="FLComp", value="character"),
 	}
 )
 
+#' @rdname units
 setMethod("units<-", signature(x="FLComp", value="function"),
-    function(x, value) {
-      value <- do.call(value, list(x))
+    function(x, ..., value) {
+      args <- list(...)
+      value <- do.call(value, c(list(x), args))
       units(x) <- value
       return(x)
 	}
@@ -782,3 +799,26 @@ setMethod('dimnames<-', signature(x='FLComp', value='list'),
     })
   }
 ) # }}}
+
+setMethod("update", signature(object="FLComp"),
+  function(object, ...) {
+    
+    args <- list(...)
+    
+    # HANDLE list, e.g. FLQuants
+    idx <- unlist(lapply(args, is, 'list'))
+    args <- c(args[!idx], unlist(args[idx], recursive=FALSE))
+
+    # CHECK all elements are named
+    if(any(names(args) %in% c(NULL, character(1))))
+      stop("Object to assign to slots must be named")
+
+    for(i in names(args)) {
+      dms <- setNames(dimnames(args[[i]]), letters[9:14])
+      # TODO USE do.call
+      slot(object, i)[dms$i, dms$j, dms$k, dms$l, dms$m, dms$n] <- args[[i]]
+    }
+
+    return(object)
+  }
+)
