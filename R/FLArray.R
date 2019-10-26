@@ -1095,3 +1095,46 @@ ibind <- function(...)
   dbind(..., dim=6)
 
  # }}}
+
+# intersect {{{
+
+#' Returns FLR objects trimmed to their shared dimensions.
+#'
+#' Objects sharing certain dimensions, as inferred by their *dimnames*, are
+#' subset to the common ones along all dimensions. The returned object is of one
+#' of the *FLlst* classes, as corresponds to the input class. The objects in
+#' the list can then be, for example, combined or directly compared, as shown
+#' in the examples.
+#'
+#' @param x First object to be compared and subset
+#' @param y Second object to be compared and subset
+#'
+#' @return And object of the corresponding *FLsdt*-based plural class.
+#'
+#' @name intersect
+#' @rdname intersect
+#'
+#' @author The FLR Team
+#' @seealso [base::intercept]
+#' @keywords methods
+#' @md
+#' @examples
+#' big <- FLQuant(64.39, dimnames=list(age=1:4, year=2001:2012))
+#' small <- FLQuant(3.52, dimnames=list(age=2:3, year=2001:2005))
+#' intersect(big, small)
+#'
+#' # Two FLQuant objects can be added along their common dimension using Reduce() 
+#' Reduce('+', intersect(big, small))
+
+setMethod("intersect", signature(x="FLArray", y="FLArray"),
+  function(x, y) {
+
+    dx <- dimnames(x)
+    dy <- dimnames(y)
+
+    dres <- mapply(intersect, dx, dy)
+
+    return(FLQuants(do.call("[", c(list(x), dres)),
+      do.call("[", c(list(y), dres))))
+  }
+) # }}}
