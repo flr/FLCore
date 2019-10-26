@@ -681,7 +681,7 @@ setMethod('apply', signature(X='FLPar'),
 # rbind2 {{{
 setMethod('rbind2', signature(x='FLPar', y='FLPar'),
   function(x, y, ...) {
-
+    
     args <- c(list(x=x, y=y), list(...))
     
     # FLPars dimensions and dimnames
@@ -694,9 +694,9 @@ setMethod('rbind2', signature(x='FLPar', y='FLPar'),
       stop("FLPar object to rbind must share number of dimensions")
 
     # CHECK all have same dim[-1]
-    dms <- apply(matrix(unlist(dimar), nrow=nrow), 1,
+    dms <- apply(matrix(unlist(dimar), nrow=length(args)), 1,
       function(x) length(unique(x)))
-    if(any(dms != 1))
+    if(any(dms[-1] != 1))
       stop("FLPar object to rbind must share number of dimensions except params")
 
     # CHECK names(dimnames) match
