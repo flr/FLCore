@@ -34,10 +34,16 @@ setMethod("computeCatch", signature(object="FLS"),
   function(object, slot="catch", na.rm=TRUE) {
     if(slot == "n"){
     # NA to 0
+      if(na.rm)
+        landings.n(object)[is.na(landings.n(object))] <- 0
+        discards.n(object)[is.na(discards.n(object))] <- 0
       res <- landings.n(object) + discards.n(object)
     }
     else if(slot == "wt") {
     # 0 to 1e-16
+      if(na.rm)
+        landings.n(object)[is.na(landings.n(object))] <- 0
+        discards.n(object)[is.na(discards.n(object))] <- 0
       res <- ((landings.wt(object) * (landings.n(object) + 1e-16)) +
       (discards.wt(object) * (discards.n(object) + 1e-16))) / 
         (landings.n(object) + discards.n(object) + 1e-16)
@@ -226,12 +232,21 @@ setMethod("catch<-", signature(object="FLS", value="FLQuants"),
 	}
 ) # }}}
 
-# standardUnits
+# standardUnits {{{
+
+#' @name standardUnits
+#' @examples
+#' stk <- FLStock(catch=FLQuant(runif(20, 2, 120)))
+#' units(stk) <- standardUnits
+
 setMethod("standardUnits", signature(object="FLS"),
   function(object, ...) {
 
     standard <- list(biomass="t", numbers="1000", weights="kg",
       proportions="", m="m", harvest="f")
+
+    args <- list(...)
+    standard[names(args)] <- args
 
     units <- c(
 
@@ -262,6 +277,5 @@ setMethod("standardUnits", signature(object="FLS"),
 
     return(as.list(units))
 
-    })
-
-
+    }
+) # }}}
