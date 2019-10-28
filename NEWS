@@ -1,3 +1,13 @@
+ FLCore 2.6.14
+
+ NEW FEATURES
+
+- intersect method called on two FLQuants returns them subset to only the common
+  dimension names.
+- standardUnits provides a possible set of standard units of measurement in
+  complex object. Set now for FLS/FLStock, using 1000, kg, t, m, and f, as in
+  data(ple4).
+
  FLCore 2.6.12
 
  DEPRECATED & DEFUNCT
