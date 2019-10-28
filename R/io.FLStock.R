@@ -7,14 +7,15 @@
 # readFLStock		{{{
 readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a", 
     type, "file. (", file, "). ", date()), m = 0.2, quant="age", quiet=TRUE,
-    no.discards=FALSE, harvest.units, sep="")
+    no.discards=FALSE, harvest.units, sep="", na.strings="NA")
 	{
     ow <- options()$warn
     options(warn = -1)
     on.exit(options(warn = ow))
 
     res <- switch(type,
-                  VPA = readVPA(file, quiet=quiet, sep=sep),
+                  VPA = readVPA(file, quiet=quiet, sep=sep, 
+                    na.strings=na.strings),
                   Adapt = readAdaptFile(file,m),
                   PA = readPAFile(file),
                   CSA = readCSAFile(file),

@@ -367,13 +367,14 @@ setMethod('show', signature(object='predictModel'),
 #' @author The FLR Team
 #' @seealso \link{predictModel}
 #' @keywords utilities
-evalPredictModel <- function(object, slot) {
+evalPredictModel <- function(object, slot, ...) {
 
   # EVALUATING list
   lis <- list()
 
   # EXTRACT expression to evaluate
-  args <- all.names(slot@model[[length(slot@model)]], functions=FALSE)
+  args <- unique(all.names(slot@model[[length(slot@model)]],
+    functions=FALSE))
 
   # (1) EXTRACT from FLQuants
 
@@ -407,17 +408,21 @@ evalPredictModel <- function(object, slot) {
   if(length(args) > 0)
     for(i in args)
       lis[[i]] <- do.call(i, list(object))
+  
+  # (4) SUBSTITUTE from list(...)
+  extra <- list(...)
+  lis[names(extra)] <- extra
 
   # RETURN
   return(eval(slot@model[[length(slot@model)]], lis))
 } # }}}
 
 # returnPredictModelSlot {{{
-returnPredictModelSlot <- function(object, what=TRUE, slot) {
+returnPredictModelSlot <- function(object, what=TRUE, slot, ...) {
 
     # TRUE, compute
     if(isTRUE(what))
-      return(evalPredictModel(object, slot=slot(object, slot)))
+      return(evalPredictModel(object, slot=slot(object, slot), ...))
     # character, extract
     else if(is.character(what)) {
       if(any(what %in% c("model", "params")))

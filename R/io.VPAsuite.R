@@ -7,7 +7,8 @@
 
 
 # readVPAFile		{{{
-readVPAFile <- function(file, sep = "", units = "NA", quiet = TRUE) {	
+readVPAFile <- function(file, sep = "", units = "NA", na.strings="NA",
+  quiet = TRUE) {	
     if (!file.exists(file)){
         if(quiet==TRUE) stop()
         if(quiet!=TRUE) stop(paste("VPA index file", file, "does not exist"))
@@ -16,7 +17,8 @@ readVPAFile <- function(file, sep = "", units = "NA", quiet = TRUE) {
     switch (as.character(file.access(file)),
         "0"  = info <- read.table(file, colClasses = "character", 
                                   header = FALSE, fill = TRUE, skip = 1, 
-                                  nrows = 4, sep = sep, comment.char='#'),
+                                  nrows = 4, sep = sep, comment.char='#',
+                                  na.strings=na.strings),
         "-1" = info <- matrix(rep("0", 8), nrow = 4, ncol = 2))
 
     misc <- info[1, 1]
@@ -25,7 +27,7 @@ readVPAFile <- function(file, sep = "", units = "NA", quiet = TRUE) {
 
     # Switch for file type (dfor; e.g. matrix, scalar, vector)
     switch(misc,
-      "1" = {range <- scan(file, skip = 2, nlines = 2, sep = sep, comment.char='#',
+      "1" = {range <- scan(file, skip = 2, nlines = 2, sep = sep, comment.char='#', na.strings=na.strings,
         quiet=quiet)
         ages <- range[3:4]
         nages <- ages[2] - ages[1] + 1
@@ -34,18 +36,18 @@ readVPAFile <- function(file, sep = "", units = "NA", quiet = TRUE) {
         dms <- list(age=as.character(ages[1]:ages[2]),year=as.character(yrs[1]:yrs[2]))
         switch(dfor,
           "1" = a. <- as.FLQuant(matrix(t(read.table(file = file, skip = 5,
-            nrows = nyrs, sep = sep, comment.char='#')[, 1:nages]), nrow=nages,
+            nrows = nyrs, sep = sep, comment.char='#', na.strings=na.strings)[, 1:nages]), nrow=nages,
             ncol=nyrs),dimnames= dms),
           "2" = a. <- as.FLQuant(matrix(rep(scan(file, skip = 5, sep = sep,
-            comment.char='#', quiet=quiet)[1:nages], nyrs), nrow = nages,
+            comment.char='#', quiet=quiet, na.strings=na.strings)[1:nages], nyrs), nrow = nages,
             ncol = nyrs), dimnames = dms),
           "3" = a. <- as.FLQuant(matrix(rep(scan(file, skip = 5, sep = sep,
-            comment.char='#', quiet=quiet)[1], nyrs * nages),nrow = nages,
+            comment.char='#', quiet=quiet, na.strings=na.strings)[1], nyrs * nages),nrow = nages,
             ncol = nyrs), dimnames = dms),
           "5" = {
             dms <- list(age="all",year=as.character(yrs[1]:yrs[2]))
             a. <- as.FLQuant(matrix(t(read.table(file = file, skip = 5,
-              nrows = nyrs, sep = sep)[,1]), nrow = 1, ncol = nyrs), dimnames = dms)
+              nrows = nyrs, sep = sep, na.strings=na.strings)[,1]), nrow = 1, ncol = nyrs), dimnames = dms)
             }
          )
          #needed to go from int to double
@@ -58,20 +60,20 @@ readVPAFile <- function(file, sep = "", units = "NA", quiet = TRUE) {
 }	# }}}
 
 # readVPA		{{{
-readVPA <- function(file, sep = "", quiet=TRUE) {
+readVPA <- function(file, sep = "", quiet=TRUE, na.strings="NA") {
     if (!file.exists(file)){
         if(quiet==TRUE) stop()
         if(quiet!=TRUE) stop(paste("VPA index file", file, "does not exist"))
     }
     dir    <- dirname(file)
-    files. <- scan(file, what = "character", skip = 2, sep = sep, quiet=quiet)
+    files. <- scan(file, what = "character", skip = 2, sep = sep, quiet=quiet, na.strings=na.strings)
     
     for(i in seq(length(files.)))
       if (!grepl(dir,files.[i]))    
         files.[i] <- file.path(dir, files.[i], fsep = .Platform$file.sep)
     
-    range1 <- scan(files.[1], skip = 2, nlines = 1, sep = sep, quiet=quiet)
-    range2 <- scan(files.[1], skip = 3, nlines = 1, sep = sep, quiet=quiet)
+    range1 <- scan(files.[1], skip = 2, nlines = 1, sep = sep, quiet=quiet, na.strings=na.strings)
+    range2 <- scan(files.[1], skip = 3, nlines = 1, sep = sep, quiet=quiet, na.strings=na.strings)
     range  <- c(range1[1:2], range2[1:2])
     
     ages <- range[3:4]
@@ -84,10 +86,10 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
            if(quiet != TRUE) cat("File ", i, "does not exist", "\n")
            }
         if (file.exists(i)) {
-            a.   <-  readVPAFile(i, sep=sep, quiet=quiet)
+            a.   <-  readVPAFile(i, sep=sep, quiet=quiet, na.strings=na.strings)
 
             switch(
-									 as.character(scan(i, skip = 1, nlines = 1, sep = sep, comment.char='#', quiet=TRUE)[2])
+									 as.character(scan(i, skip = 1, nlines = 1, sep = sep, comment.char='#', quiet=TRUE, na.strings=na.strings)[2])
 									 ,
             "1" = FLStock.@landings    <-a.,
             "2" = FLStock.@landings.n  <-a.,
@@ -127,7 +129,7 @@ readVPA <- function(file, sep = "", quiet=TRUE) {
     FLStock.@desc <- paste("Imported from a VPA file (",
         file, "). ", date(), sep="")
     FLStock.@name <- scan(file, nlines = 1, what = character(0),
-        sep = "\n", quiet=TRUE)
+        sep = "\n", quiet=TRUE, na.strings=na.strings)
 
     return(FLStock.)
 }	# }}}

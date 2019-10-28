@@ -252,7 +252,7 @@ readIndicesAdapt <- function(file.,na.strings="NA") {
     range<-numeric(5)
 	names(range)<-c("min","max","plusgroup","minyear","maxyear")
 	i <- skip.hash(0)
-    range[c("minyear", "maxyear")] <- scan(file.,skip = i, nlines = 1, nmax = 2, quiet = TRUE,na.strings=na.strings)
+    range[c("minyear", "maxyear")] <- scan(file.,skip = i, nlines = 1, nmax = 2, quiet = TRUE, na.strings=na.strings)
     i <- skip.hash(i)
     range[c("min", "max", "plusgroup")] <- scan(file.,skip = i, nlines = 1, nmax = 3, quiet = TRUE,na.strings=na.strings)
     i <- skip.hash(i+1)
