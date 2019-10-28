@@ -12,8 +12,9 @@ uoms <- c(
 	'1','10','100','1000','10000','100000','1000000','10000000','100000000', '1000000000',
 	'10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8', '10^9',
 	'1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8', '1e9',
-	'kg', 't', 'm', 'f', 'z', 'hr', 'NA', '', 'EUR', 'eur', '\u20AC', 'USD', 'usd',
-  '\u0024', 'd', 'h', 'vessel', 'boat', 'cm')
+	'kg', 't', 'tonnes', 'thousands', 'm', 'f', 'z', 'hr', 'NA', '',
+  'EUR', 'eur', '\u20AC', 'USD', 'usd', '\u0024',
+  'd', 'h', 'vessel', 'boat', 'cm')
 puoms <- seq(length(uoms))
 # numeric units
 nums <- c(1:30)
@@ -177,6 +178,18 @@ uomTable['+', 'NA',] <- uoms
 uomTable['+', , 'NA'] <- uoms
 uomTable['-', 'NA',] <- uoms
 uomTable['-', , 'NA'] <- uoms
+
+# thousands
+uomTable['*', 'thousands', c('1', '10^0', '1e0')] <- 'thousands'
+uomTable[c('+','-'), 'thousands', 'thousands'] <- 'thousands'
+uomTable['*', 'thousands', 'thousands'] <- '1e6'
+uomTable['/', 'thousands', 'thousands'] <- ''
+uomTable['*', 'thousands', 'kg'] <- 'tonnes'
+
+# tonnes / 1000 = kg
+uomTable['/', 'tonnes', c('1000', '1e3', '10^3', 'thousands')] <- 'kg'
+uomTable['/', 'tonnes', c('1000', '1e3', '10^3', 'thousands')] <- 'kg'
+
 	
 # }}}
 
