@@ -243,6 +243,7 @@ setMethod("units", signature(x="FLComp"), function(x)
 #' @examples
 #' data(ple4)
 #' units(ple4) <- list(harvest="hr")
+#' units(ple4) <- c(harvest="hr")
 
 setMethod("units<-", signature(x="FLComp", value="list"),
     function(x, value) {
@@ -263,14 +264,14 @@ setMethod("units<-", signature(x="FLComp", value="character"),
 )
 
 #' @rdname units
-setMethod("units<-", signature(x="FLComp", value="function"),
-    function(x, ..., value) {
-      args <- list(...)
-      value <- do.call(value, c(list(x), args))
-      units(x) <- value
-      return(x)
-	}
-) # }}}
+# setMethod("units<-", signature(x="FLComp", value="function"),
+#     function(x, ..., value) {
+#       args <- list(...)
+#       value <- do.call(value, c(list(x), args))
+#       units(x) <- value
+#       return(x)
+# 	}
+# ) # }}}
 
 # '['       {{{
 #' @rdname Extract

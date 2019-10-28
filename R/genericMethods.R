@@ -22,6 +22,7 @@ setGeneric("dotplot", useAsDefault = dotplot)
 setGeneric("expand", useAsDefault=Matrix::expand)
 setGeneric("histogram", useAsDefault = histogram)
 setGeneric("ifelse", useAsDefault = ifelse)
+setGeneric("intersect", useAsDefault = intersect)
 setGeneric("lapply", useAsDefault = lapply)
 setGeneric("lm", useAsDefault = lm)
 setGeneric("lowess", useAsDefault = lowess)
@@ -52,6 +53,7 @@ setGeneric("tail", useAsDefault = utils::tail)
 setGeneric("transform", useAsDefault = transform)
 setGeneric("tsp", useAsDefault = tsp)
 setGeneric("units", useAsDefault = units)
+setGeneric("units<-", useAsDefault = `units<-`)
 setGeneric("update", useAsDefault = update)
 setGeneric("var", useAsDefault = var)
 setGeneric("vcov", useAsDefault = vcov)
@@ -250,11 +252,6 @@ setGeneric('desc<-', function(object, ..., value) standardGeneric('desc<-'))
 #' @rdname accessors
 #' @aliases range<-
 setGeneric("range<-", function(x, i, value) standardGeneric("range<-"))
-
-# units<-
-#' @rdname accessors
-#' @aliases units<-
-setGeneric("units<-", function(x, value) standardGeneric("units<-"))
 
 # catch
 #' @rdname accessors
