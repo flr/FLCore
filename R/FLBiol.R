@@ -698,11 +698,48 @@ setMethod("meanLifespan", signature(x="FLBiol"),
 #' mortality.
 
 #' @aliases ssb-FLBiol,method
+#' @examples
+#' biol <- as(ple4, "FLBiol")
+#' ssb(biol)
+#' ssb(biol, catch.n=catch.n(ple4))
+#' ssb(biol, f=harvest(ple4))
+#' ssb(biol, harvest=harvest(ple4))
+#' ssb(biol, hr=catch.n(ple4) / stock.n(ple4))
+
+
 setMethod("ssb", signature(object="FLBiol"),
   function(object, ...)
   {
-    res <- quantSums(n(object) * wt(object) * mat(object) %*% exp(-spwn(object) %*%
-      m(object)), na.rm=FALSE)
+    args <- list(...)
+    
+    # NO catch data
+    if(length(args) == 0) {
+      res <- quantSums(n(object) * wt(object) * mat(object) %*%
+        exp(-spwn(object) %*%    m(object)), na.rm=FALSE)
+
+    } else {
+      res <- switch(names(args),
+        # catch.n
+        "catch.n" = quantSums(n(object) * wt(object) * mat(object) *
+			  	(1 - (args$catch.n / n(object)) %*% spwn(object)) *
+				  exp(-m(object) %*% spwn(object)), na.rm=FALSE),
+        # hr
+        "hr" = quantSums(n(object) * wt(object) * mat(object) *
+          (1 - args$hr %*% spwn(object)) * exp(-m(object) %*% spwn(object)), na.rm=FALSE),
+        # f
+  			"f" = quantSums(n(object) * exp(-(args$f %*%
+          spwn(object) + m(object) %*% spwn(object))) *
+          wt(object) * mat(object), na.rm=FALSE),
+        # harvest, units == 'f' / 'hr'
+        "harvest" = switch(units(args$harvest),
+          "f" = ssb(object, f=args$harvest),
+          "hr" = ssb(object, hr=args$harvest), NULL),
+        NULL)
+    }
+
+    if(is.null(res))
+      stop("catch information must be one of 'catch.n', 'f', 'hr' or 'harvest'")
+
     return(res)
   }
 )  # }}}
