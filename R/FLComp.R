@@ -225,7 +225,7 @@ setMethod("trim", signature("FLComp"),
 
 # units	    {{{
 
-#' @rdname units
+#' @rdname units-FLCore
 #' @details The complete set of *units* for a complex object can be obtained
 #' as a named *list*.
 
@@ -236,7 +236,7 @@ setMethod("units", signature(x="FLComp"), function(x)
 
 # units<-      {{{
 
-#' @rdname units
+#' @rdname units-FLCore
 #' @details Assignment of *units* to the *FLQuant* slots of a complex object
 #' can be carried out passing a named *list* or *character* vector containing
 #' the units for the slots to be modified.
@@ -254,7 +254,7 @@ setMethod("units<-", signature(x="FLComp", value="list"),
 	}
 )
 
-#' @rdname units
+#' @rdname units-FLCore
 setMethod("units<-", signature(x="FLComp", value="character"),
     function(x, value) {
       value <- as.list(value)
@@ -263,15 +263,14 @@ setMethod("units<-", signature(x="FLComp", value="character"),
 	}
 )
 
-#' @rdname units
-# setMethod("units<-", signature(x="FLComp", value="function"),
-#     function(x, ..., value) {
-#       args <- list(...)
-#       value <- do.call(value, c(list(x), args))
-#       units(x) <- value
-#       return(x)
-# 	}
-# ) # }}}
+#' @rdname units-FLCore
+setMethod("units<-", signature(x="FLComp", value="function"),
+  function(x, value) {
+    value <- do.call(value, list(x))
+    units(x) <- value
+    return(x)
+	}
+) # }}}
 
 # '['       {{{
 #' @rdname Extract

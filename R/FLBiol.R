@@ -687,16 +687,15 @@ setMethod("meanLifespan", signature(x="FLBiol"),
 )# }}}
 
 # ssb  {{{
-#' @rdname ssb
-#' @details
-#' For an object of class \code{\link{FLBiol}}, the calculation of SSB is as
-#' follows:
-#' \deqn{SSB_{a,y} = \sum\nolimits_{a} N_{a,y} \cdot W_{a,y} \cdot e^{-S_{a,y} \cdot M_{a,y}}}{SSB_ay = sum_a N_ay * W_ay * exp(-S_ay * M_ay)}
-#' where \eqn{S_{a,y}}{S_ay} is the fraction of natural mortality before spawning (\code{spwn}). The method for this class does not correct the estimate, based on
-#' abundances at the start of the time period, for fishing mortality ocurring
-#' between that time and spawning, as the class holds no information on fishing
-#' mortality.
 
+#' @rdname ssb
+#' @details Objects of the *FLBiol* class do not contain any information on
+#' catch or fishing mortality, so a call to `ssb()` will only correct abdunaces
+#' for natural mortality to the moment of spawning. The method can also take
+#' information on catches or fishing mortality and use them when calcualting
+#' abudances at spawning time. An *FLQuant* named either 'catch.n', 'f', 'hr' or
+#' 'harvest' can be used. The first three are self-explanatory, while for the last
+#' units must be either 'f' or 'hr'.
 #' @aliases ssb-FLBiol,method
 #' @examples
 #' biol <- as(ple4, "FLBiol")
@@ -705,7 +704,6 @@ setMethod("meanLifespan", signature(x="FLBiol"),
 #' ssb(biol, f=harvest(ple4))
 #' ssb(biol, harvest=harvest(ple4))
 #' ssb(biol, hr=catch.n(ple4) / stock.n(ple4))
-
 
 setMethod("ssb", signature(object="FLBiol"),
   function(object, ...)

@@ -197,6 +197,7 @@ exportMethods(
   "ab",
   "AIC",
   "apply",
+  "append",
   "areaMeans",
   "areaSums",
   "areaVars",

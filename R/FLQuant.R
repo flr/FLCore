@@ -690,15 +690,12 @@ cat("\nunits: ", object@units, "\n")
 )   # }}}
 
 # iter<-     {{{
-setGeneric("iter<-", function(object, ..., value)
-standardGeneric("iter<-"))
 setMethod("iter<-", signature(object="FLQuant", value="FLQuant"),
-function(object, iter, value)
-{
-object[,,,,,iter] <- value
-return(object)
-}
-)   # }}}
+  function(object, iter, value) {
+    object[,,,,,iter] <- value
+    return(object)
+  }
+) # }}}
 
 # propagate {{{
 
@@ -1447,3 +1444,97 @@ names(xnames)[1] <- names(dnames)[i]
 }
 return(xnames)
 } # }}}
+
+#' Append objects along the year dimension
+#'
+#' Method to append objects along the *year* dimensions, by extending, combining
+#' and substituting sections of them.
+#'
+#' FLR objects are commonly manipulated along rhe year dimension, and the append
+#' method offers a single interface for substituting parts of an object with
+#' another, or combine them into one, extending them when necessary.
+#' The object to be included or added to the first will be placed as defined by
+#' the *year* dimnames, unless the *after* input argument specifies otherwise.
+#'
+#' @param x the object to which the values are to be appended to.
+#' @param values to be included in the modified object.
+#' @param after a year dimname after with the values are to be appended.
+#'
+#' @return An object of the same class as x with values appended.
+#'
+#' @name append-FLCore
+#' @rdname append-methods
+#' @author The FLR Team
+#' @seealso [base::append]
+#' @keywords methods
+#' @md
+#' @examples
+#' fq1 <- FLQuant(1, dimnames=list(age=1:3, year=2000:2010))
+#' fq2 <- FLQuant(2, dimnames=list(age=1:3, year=2011:2012))
+#' fq3 <- FLQuant(2, dimnames=list(age=1:3, year=2014:2016))
+#' 
+#' # Appends by dimnames$year
+#' append(fq1, fq2)
+#' # Appends by dimnames$year with gap (2011:2013)
+#' append(fq1, fq3)
+#' # Appends inside x
+#' append(fq1, fq2, after=2009)
+#' # Appends after end of x
+#' append(fq1, fq2, after=2013)
+
+setMethod("append", signature(x="FLQuant", values="FLQuant"),
+  function(x, values, after=dims(values)$minyear-1) {
+    
+    # EXTEND x if needed
+    if(after + dims(values)$year > dims(x)$maxyear)
+      x <- window(x, end=after + dims(values)$year)
+
+    x[, ac(seq(after + 1, length=dims(values)$year))] <- values
+
+    return(x)
+  })
+
+
+
+# RESIDUALS
+
+# rraw(FLQ, FLQ)
+setGeneric("rraw", function(obs, fit, ...)
+		standardGeneric("rraw"))
+setMethod("rraw", signature(obs="FLQuant", fit="FLQuant"),
+  function(obs, fit) {
+    return(obs - fit)
+  }
+)
+
+# rlogstandard(FLQ, FLQ)
+setGeneric("rlogstandard", function(obs, fit, ...)
+		standardGeneric("rlogstandard"))
+setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
+  function(obs, fit) {
+	
+    flq <- log(Reduce("/", intersect(obs, fit)))
+	  res <- flq %/% sqrt(yearVars(flq))
+
+    return(res)
+  }
+)
+
+# rstandard(FLQ, FLQ)
+setGeneric("rstandard", useAsDefault=stats::rstandard)
+setMethod("rstandard", signature(model="FLQuant"),
+  function(model, fit) {
+
+    if(!is(fit, "FLQuant"))
+      stop("Both objects must be of class 'FLQuant'")
+	
+    flq <- Reduce("/", intersect(model, fit))
+	  res <- flq %/% sqrt(yearVars(flq))
+
+    return(res)
+  }
+)
+# rstudent(FLQ, FLQ)
+# rpearson(FLQ, FLQ)
+# rpress(FLQ, FLQ)
+# rcholesky(FLQ, FLQ)

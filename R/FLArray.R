@@ -20,7 +20,8 @@
 #' be modified for all slots or a subset of them, by passing a named list with
 #' the new values. See examples below.
 #'
-#' @name units
+#' @name units-FLCore
+#' @rdname units-FLCore
 #' @aliases units,FLArray-method units<-,FLArray,character-method
 #' @docType methods
 #' @section Generic function: units(x)
@@ -48,6 +49,7 @@ setMethod("units", signature(x="FLArray"),
 ) # }}}
 
 # units<- {{{
+#' @rdname units-FLCore
 setMethod("units<-", signature(x="FLArray", value="character"),
   function(x, value) {
     x@units <- value

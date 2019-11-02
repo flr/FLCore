@@ -264,12 +264,14 @@ setMethod('summary', signature(object='FLPar'),
 )   # }}}
 
 # units        {{{
+#' @rdname units-FLCore
 setMethod("units", signature(x="FLPar"),
   function(x)
     return(x@units)
 ) # }}}
 
 # units<-      {{{
+#' @rdname units-FLCore
 setMethod("units<-", signature(x="FLPar", value="character"),
   function(x, value) {
     x@units <- value

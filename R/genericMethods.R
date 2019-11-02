@@ -9,6 +9,7 @@ globalVariables(c("qname"))
 # -- OVERLOADED methods/functions {{{
 
 setGeneric("AIC", useAsDefault = stats::AIC)
+setGeneric("append", useAsDefault = append)
 setGeneric("apply", useAsDefault = apply)
 setGeneric("as.data.frame", useAsDefault = as.data.frame)
 setGeneric("barchart", useAsDefault = lattice::barchart)
@@ -1833,5 +1834,24 @@ setGeneric("dbind", function(x, y, ...)
 setGeneric("compare", function(result, target, ...)
   standardGeneric("compare")) # }}}
 
+# standardUnits {{{
+
+#' @title Standard units of measurement for a complex class object
+#'
+#' @description Returns values for the *units* of each *FLQuant* slot according to the
+#' standard adopted by the FLR Team for the supplied class.
+#'
+#' @param object for which the standard *units* are to be returned
+#' @return A list with the corresponding *units* value for each slot
+#'
+#' @name standardUnits
+#' @rdname standardUnits-methods
+#' @author The FLR Team
+#' @seealso [`units-FLCore`]
+#' @keywords methods
+#' @md
+
 setGeneric("standardUnits", function(object, ...)
   standardGeneric("standardUnits"))
+
+# }}}

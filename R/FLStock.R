@@ -1112,3 +1112,37 @@ setMethod("ruleset", signature(object="FLStock"),
     else
       return(rulelist[unlist(args)])
 }) # }}}
+
+# append {{{
+
+#' @rdname append-methods
+#' @details The method for an *FLStock*
+#' @examples
+#' data(ple4)
+#' fs1 <- window(ple4, end=2001)
+#' fs2 <- window(ple4, start=2002)
+#' fs3 <- window(ple4, start=2005)
+#'
+#' # Appends by dimnames$year
+#' stock.n(append(fs1, fs2))
+#' 
+#' # Appends by dimnames$year with gap (2011:2013)
+#' stock.n(append(fs1, fs3))
+#' 
+#' # Appends inside x
+#' stock.n(append(fs1, fs3, after=2000))
+#' # Appends after end of x
+#' stock.n(append(fs1, fs3, after=2005))
+
+setMethod("append", signature(x="FLStock", values="FLStock"),
+  function(x, values, after=dims(values)$minyear-1) {
+    
+    # EXTEND x if needed
+    if(after + dims(values)$year > dims(x)$maxyear)
+      x <- window(x, end=after + dims(values)$year)
+
+    x[, ac(seq(after + 1, length=dims(values)$year))] <- values
+
+    return(x)
+  }
+) # }}}

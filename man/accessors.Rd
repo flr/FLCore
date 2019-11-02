@@ -9,7 +9,6 @@
 \alias{desc}
 \alias{desc<-}
 \alias{range<-}
-\alias{units<-}
 \alias{catch}
 \alias{catch<-}
 \alias{catch.n}
@@ -112,8 +111,6 @@ name(object, ...)
 desc(object, ...)
 
 range(x, i) <- value
-
-units(x) <- value
 
 catch(object, ...)
 

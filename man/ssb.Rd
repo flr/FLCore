@@ -55,18 +55,24 @@ If the harvest slot contains estimates in terms of harvest rates
 where \eqn{H_{a,y}}{H_ay} is the harvest rate (proportion of catch in weight
 over total biomass).
 
-For an object of class \code{\link{FLBiol}}, the calculation of SSB is as
-follows:
-\deqn{SSB_{a,y} = \sum\nolimits_{a} N_{a,y} \cdot W_{a,y} \cdot e^{-S_{a,y} \cdot M_{a,y}}}{SSB_ay = sum_a N_ay * W_ay * exp(-S_ay * M_ay)}
-where \eqn{S_{a,y}}{S_ay} is the fraction of natural mortality before spawning (\code{spwn}). The method for this class does not correct the estimate, based on
-abundances at the start of the time period, for fishing mortality ocurring
-between that time and spawning, as the class holds no information on fishing
-mortality.
+Objects of the *FLBiol* class do not contain any information on
+catch or fishing mortality, so a call to `ssb()` will only correct abdunaces
+for natural mortality to the moment of spawning. The method can also take
+information on catches or fishing mortality and use them when calcualting
+abudances at spawning time. An *FLQuant* named either 'catch.n', 'f', 'hr' or
+'harvest' can be used. The first three are self-explanatory, while for the last
+units must be either 'f' or 'hr'.
 }
 \examples{
 
 data(ple4)
 ssb(ple4)
+biol <- as(ple4, "FLBiol")
+ssb(biol)
+ssb(biol, catch.n=catch.n(ple4))
+ssb(biol, f=harvest(ple4))
+ssb(biol, harvest=harvest(ple4))
+ssb(biol, hr=catch.n(ple4) / stock.n(ple4))
 }
 \seealso{
 \link{FLComp}

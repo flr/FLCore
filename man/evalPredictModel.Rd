@@ -4,7 +4,7 @@
 \alias{evalPredictModel}
 \title{Evaluates a predictModel slot inside the object cointaining it}
 \usage{
-evalPredictModel(object, slot)
+evalPredictModel(object, slot, ...)
 }
 \arguments{
 \item{object}{The FLR S4 over whicvh the predictModel evaluation should take place}

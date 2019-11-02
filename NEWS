@@ -7,6 +7,8 @@
 - standardUnits provides a possible set of standard units of measurement in
   complex object. Set now for FLS/FLStock, using 1000, kg, t, m, and f, as in
   data(ple4).
+- append method for FLQuant and FLStock adss an object to another by year
+  dimnames or ar year specified by 'after'.
 
  FLCore 2.6.12
 

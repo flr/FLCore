@@ -234,9 +234,21 @@ setMethod("catch<-", signature(object="FLS", value="FLQuants"),
 
 # standardUnits {{{
 
-#' @name standardUnits
+#' @rdname standardUnits-methods
+#' @details For objects derived from class *FLS*, which currently includes
+#' *FLStock* and *FLStockLen*, the adopted standard includes: 'kg' for individual
+#' weights, '1000' for number of individuals, 't' for biomass, 'f' for harvest,
+#' 'm' for natural mortality, and an empty string for proportions (spwn, mat).
 #' @examples
 #' stk <- FLStock(catch=FLQuant(runif(20, 2, 120)))
+#' # FLStock object has no units
+#' summary(stk)
+#' # Obtain standard units for the class as a list
+#' standardUnits(stk)
+#' # which can then be assigned to the object
+#' units(stk) <- standardUnits(stk)
+#' summary(stk)
+#' # units<- methjod also accepts a function to be called to provide units
 #' units(stk) <- standardUnits
 
 setMethod("standardUnits", signature(object="FLS"),
