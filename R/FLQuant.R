@@ -1445,12 +1445,14 @@ names(xnames)[1] <- names(dnames)[i]
 return(xnames)
 } # }}}
 
+# append {{{
+
 #' Append objects along the year dimension
 #'
 #' Method to append objects along the *year* dimensions, by extending, combining
 #' and substituting sections of them.
 #'
-#' FLR objects are commonly manipulated along rhe year dimension, and the append
+#' FLR objects are commonly manipulated along the year dimension, and the append
 #' method offers a single interface for substituting parts of an object with
 #' another, or combine them into one, extending them when necessary.
 #' The object to be included or added to the first will be placed as defined by
@@ -1469,6 +1471,7 @@ return(xnames)
 #' @keywords methods
 #' @md
 #' @examples
+#' # append(FLQuant, FLQuant)
 #' fq1 <- FLQuant(1, dimnames=list(age=1:3, year=2000:2010))
 #' fq2 <- FLQuant(2, dimnames=list(age=1:3, year=2011:2012))
 #' fq3 <- FLQuant(2, dimnames=list(age=1:3, year=2014:2016))
@@ -1481,6 +1484,7 @@ return(xnames)
 #' append(fq1, fq2, after=2009)
 #' # Appends after end of x
 #' append(fq1, fq2, after=2013)
+#'
 
 setMethod("append", signature(x="FLQuant", values="FLQuant"),
   function(x, values, after=dims(values)$minyear-1) {

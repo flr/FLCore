@@ -27,15 +27,17 @@ Method to append objects along the \emph{year} dimensions, by extending, combini
 and substituting sections of them.
 }
 \details{
-FLR objects are commonly manipulated along rhe year dimension, and the append
+FLR objects are commonly manipulated along the year dimension, and the append
 method offers a single interface for substituting parts of an object with
 another, or combine them into one, extending them when necessary.
 The object to be included or added to the first will be placed as defined by
 the \emph{year} dimnames, unless the \emph{after} input argument specifies otherwise.
 
-The method for an *FLStock*
+Attributes like dimnames and *units* will always be taken from the
+first argument, unless the necessary chnages to dimnames$year
 }
 \examples{
+# append(FLQuant, FLQuant)
 fq1 <- FLQuant(1, dimnames=list(age=1:3, year=2000:2010))
 fq2 <- FLQuant(2, dimnames=list(age=1:3, year=2011:2012))
 fq3 <- FLQuant(2, dimnames=list(age=1:3, year=2014:2016))
@@ -48,6 +50,8 @@ append(fq1, fq3)
 append(fq1, fq2, after=2009)
 # Appends after end of x
 append(fq1, fq2, after=2013)
+
+# append(FLStock, FLStock)
 data(ple4)
 fs1 <- window(ple4, end=2001)
 fs2 <- window(ple4, start=2002)

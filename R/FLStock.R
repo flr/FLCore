@@ -1116,8 +1116,11 @@ setMethod("ruleset", signature(object="FLStock"),
 # append {{{
 
 #' @rdname append-methods
-#' @details The method for an *FLStock*
+#' @details Attributes like dimnames and *units* will always be taken from the
+#' first argument, unless the necessary chnages to dimnames$year
+#'
 #' @examples
+#' # append(FLStock, FLStock)
 #' data(ple4)
 #' fs1 <- window(ple4, end=2001)
 #' fs2 <- window(ple4, start=2002)
