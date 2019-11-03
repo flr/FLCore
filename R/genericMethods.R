@@ -1408,6 +1408,7 @@ setGeneric("iterProb", function(x, ...) standardGeneric("iterProb"))
 #' fishing mortality, *f*, and natural mortality, *m*.
 #'
 #' @param object Object to calculate on.
+#' @param ... Any extra arguments.
 #'
 #' @return An object of the corresponding class, usually *FLQuant*.
 #'
@@ -1750,10 +1751,11 @@ setGeneric("verify", function(object, ...) standardGeneric("verify"))
 # }}}
 
 # ruleset {{{
+
 #' Set of verify rules for an FLR class
 #'
 #' Returns a set of standard rules to be used by the verify method for an
-#' object of any given class.
+#' object of a given class.
 #'
 #' @name ruleset
 #' @rdname ruleset
@@ -1774,7 +1776,7 @@ setGeneric("fwdWindow", function(x, y, ...)
 setGeneric("refpts", function(object, ...)
 		standardGeneric("refpts"))
 
-# dbind
+# dbind {{{
 
 #' Methods for binding objects of array classes along a given dimension
 #'
@@ -1809,7 +1811,7 @@ setGeneric("refpts", function(object, ...)
 #' @md
 
 setGeneric("dbind", function(x, y, ...)
-		standardGeneric("dbind"))
+		standardGeneric("dbind")) # }}}
 
 # compare {{{
 

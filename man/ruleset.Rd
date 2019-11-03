@@ -20,7 +20,7 @@ A named list containing the rules defined for for the class object belongs to.
 }
 \description{
 Returns a set of standard rules to be used by the verify method for an
-object of any given class.
+object of a given class.
 }
 \details{
 A standard minimal set of rules to check FLStock objects against using the

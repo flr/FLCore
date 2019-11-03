@@ -1019,6 +1019,8 @@ setMethod("simplify", signature(object="FLStock"),
 #' evaluate those rules, as well as any other defined in the call.
 #'
 #' @rdname verify
+#' @param rules Basic set of rules for a given class, as returned by ruleset().
+#' @seealso \code{\link{ruleset}}
 #' @examples
 #' data(ple4)
 #' # verify for the standard set of rules for FLStock

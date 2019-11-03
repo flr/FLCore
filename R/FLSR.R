@@ -411,3 +411,12 @@ setMethod("FLSRs", signature(object="list"),
       )
 
 }) # }}}
+
+# rec<- {{{
+setReplaceMethod('rec', signature(object='FLBiol', value='FLSR'),
+  function(object, value) {
+    object@rec@params <- value@params
+    object@rec@model <- value@model
+    return(object)
+  }
+) # }}}

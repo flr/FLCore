@@ -1496,11 +1496,8 @@ setMethod("append", signature(x="FLQuant", values="FLQuant"),
     x[, ac(seq(after + 1, length=dims(values)$year))] <- values
 
     return(x)
-  })
-
-
-
-# RESIDUALS
+  }
+) # }}}
 
 # rraw(FLQ, FLQ)
 setGeneric("rraw", function(obs, fit, ...)

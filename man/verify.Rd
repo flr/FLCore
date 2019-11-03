@@ -20,6 +20,8 @@ verify(object, ...)
 \item{...}{Additional rules to be tested, as a formula or list. See details}
 
 \item{report}{Should the standard data.frame report be output (if TRUE) or a single logical value for all tests?}
+
+\item{rules}{Basic set of rules for a given class, as returned by ruleset().}
 }
 \value{
 A data.frame with the results of applying those rules, or a single logical value, if report=FALSE
@@ -80,6 +82,9 @@ verify(ple4, rules=ruleset(ple4, 'anyna'), report=FALSE)
 
 # add own rule to set
 verify(ple4, m = ~m >=0)
+}
+\seealso{
+\code{\link{ruleset}}
 }
 \author{
 The FLR Team

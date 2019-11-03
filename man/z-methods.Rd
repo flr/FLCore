@@ -13,6 +13,8 @@ z(object, ...)
 }
 \arguments{
 \item{object}{Object to calculate on.}
+
+\item{...}{Any extra arguments.}
 }
 \value{
 An object of the corresponding class, usually \emph{FLQuant}.
