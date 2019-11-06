@@ -1499,6 +1499,20 @@ setMethod("append", signature(x="FLQuant", values="FLQuant"),
   }
 ) # }}}
 
+# residuals {{{
+
+#' residuals
+#' @name residuals
+#' @rdname residuals
+#'
+#' @examples
+#' data(ple4)
+#' fit <- rlnorm(1, log(catch(ple4)), 0.1)
+#' rraw(catch(ple4), fit)
+#' rlogstandard(catch(ple4), fit)
+#' rstandard(catch(ple4), fit)
+#' rstudent(catch(ple4), fit)
+
 # rraw(FLQ, FLQ)
 setGeneric("rraw", function(obs, fit, ...)
 		standardGeneric("rraw"))
@@ -1512,10 +1526,10 @@ setMethod("rraw", signature(obs="FLQuant", fit="FLQuant"),
 setGeneric("rlogstandard", function(obs, fit, ...)
 		standardGeneric("rlogstandard"))
 setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
-  function(obs, fit) {
+  function(obs, fit, sdlog=c(sqrt(yearVars(flq)))) {
 	
     flq <- log(Reduce("/", intersect(obs, fit)))
-	  res <- flq %/% sqrt(yearVars(flq))
+	  res <- flq / sdlog
 
     return(res)
   }
@@ -1524,18 +1538,47 @@ setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
 # rstandard(FLQ, FLQ)
 setGeneric("rstandard", useAsDefault=stats::rstandard)
 setMethod("rstandard", signature(model="FLQuant"),
-  function(model, fit) {
+  function(model, fit, sd=c(sqrt(yearVars(flq)))) {
 
     if(!is(fit, "FLQuant"))
       stop("Both objects must be of class 'FLQuant'")
 	
     flq <- Reduce("/", intersect(model, fit))
-	  res <- flq %/% sqrt(yearVars(flq))
+	  res <- flq / sd
 
     return(res)
   }
 )
 # rstudent(FLQ, FLQ)
-# rpearson(FLQ, FLQ)
+# https://stackoverflow.com/questions/45485144/how-to-compute-studentized-residuals-in-python
+setGeneric("rstudent", useAsDefault=stats::rstudent)
+setMethod("rstudent", signature(model="FLQuant"),
+  function(model, fit, internal=TRUE) {
+
+    if(!is(fit, "FLQuant"))
+      stop("Both objects must be of class 'FLQuant'")
+	
+    mmodel <- mean(model)
+    mfit <- mean(fit)
+    nn <- length(model)
+
+    diffmsqr <- (model - mmodel)^2
+    beta1 <- (model - mmodel) * (fit - mfit)
+    beta0 <- mfit - beta1 * model
+    fhat <- beta0 + beta1 + model
+    residuals <- fit - fhat
+    
+    hii <- (model - mmodel) * 2 / diffmsqr + (1 / nn)
+    vare <- sqrt(sum((fit - fhat) ^ 2) / (nn -2))
+    se <- vare * ((1 - hii) ^ 0.5)
+    
+    if(internal)
+      return(residuals / se)
+    else
+      return((residuals / se) * sqrt((nn-2-1) / (nn-2-(residuals/se)^2))) 
+  }
+)
+
 # rpress(FLQ, FLQ)
 # rcholesky(FLQ, FLQ)
+# https://www.tandfonline.com/doi/abs/10.1198/016214504000000403
