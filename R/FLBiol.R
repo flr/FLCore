@@ -743,6 +743,17 @@ setMethod("tsb", signature(object="FLBiol"),
   }
 )  # }}}
 
+# tb  {{{
+setMethod("tb", signature(object="FLBiol"),
+  function(object, ...)
+  {
+    res <- quantSums(n(object) * wt(object))
+    return(res)
+  }
+)  # }}}
+
+
+
 # computeStock  {{{
 setMethod("computeStock", signature(object="FLBiol"),
   function(object, ...)

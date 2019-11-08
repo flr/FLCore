@@ -1508,10 +1508,25 @@ setMethod("append", signature(x="FLQuant", values="FLQuant"),
 #' @examples
 #' data(ple4)
 #' fit <- rlnorm(1, log(catch(ple4)), 0.1)
+#' residuals(catch(ple4), fit)
+#' residuals(catch(ple4), fit, type="student")
 #' rraw(catch(ple4), fit)
 #' rlogstandard(catch(ple4), fit)
 #' rstandard(catch(ple4), fit)
 #' rstudent(catch(ple4), fit)
+
+setMethod("residuals", signature(object="FLQuant"),
+  function(object, fit, type="log") {
+
+    # MAP glm residuals names with methods
+    method <- switch(type[1],
+      log="rlogstandard",
+      standard="rstandard",
+      student="rstudent")
+
+    do.call(method, list(object, fit))
+  }
+)
 
 # rraw(FLQ, FLQ)
 setGeneric("rraw", function(obs, fit, ...)

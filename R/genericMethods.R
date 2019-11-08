@@ -844,6 +844,10 @@ setGeneric("computeStock", function(object, ...)
 	setGeneric("tsb", function(object, ...)
 		standardGeneric("tsb"))
 
+# tb
+	setGeneric("tb", function(object, ...)
+		standardGeneric("tb"))
+
 # fbar
 	setGeneric("fbar", function(object, ...)
 		standardGeneric("fbar"))
