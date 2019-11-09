@@ -1522,6 +1522,7 @@ setMethod("residuals", signature(object="FLQuant"),
     method <- switch(type[1],
       log="rlogstandard",
       standard="rstandard",
+      pearson="rstandard",
       student="rstudent")
 
     do.call(method, list(object, fit))
@@ -1534,7 +1535,7 @@ setGeneric("rraw", function(obs, fit, ...)
 setMethod("rraw", signature(obs="FLQuant", fit="FLQuant"),
   function(obs, fit) {
     res <- obs - fit
-    units(res) <- ""
+    units(res) <- units(obs)
     return(res)
   }
 )
