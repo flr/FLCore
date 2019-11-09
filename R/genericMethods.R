@@ -39,6 +39,7 @@ setGeneric("predict", useAsDefault = predict)
 setGeneric("print", useAsDefault = print)
 setGeneric("profile", useAsDefault = profile)
 setGeneric("quantile", useAsDefault = quantile)
+setGeneric('residuals', useAsDefault = stats::residuals)
 setGeneric("rgamma", useAsDefault = rgamma)
 setGeneric("rlnorm", useAsDefault=rlnorm)
 setGeneric("rnorm", useAsDefault=rnorm)
@@ -532,9 +533,7 @@ setGeneric('details<-', function(object, ..., value)
 
 # residuals
 #' @rdname accessors
-#' @aliases residuals residuals<-
-setGeneric('residuals', function(object, ...)
-		standardGeneric('residuals'))
+#' @aliases residuals<-
 setGeneric('residuals<-', function(object, ..., value)
 		standardGeneric('residuals<-'))
 

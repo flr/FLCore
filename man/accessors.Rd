@@ -85,7 +85,6 @@
 \alias{logerror<-}
 \alias{details}
 \alias{details<-}
-\alias{residuals}
 \alias{residuals<-}
 \alias{fitted}
 \alias{fitted<-}
@@ -194,7 +193,7 @@ logerror(object, ...)
 
 details(object, ...)
 
-residuals(object, ...)
+residuals(object, ...) <- value
 
 fitted(object, ...)
 

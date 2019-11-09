@@ -1502,8 +1502,8 @@ setMethod("append", signature(x="FLQuant", values="FLQuant"),
 # residuals {{{
 
 #' residuals
-#' @name residuals
-#' @rdname residuals
+#' @name residuals-FLQuant
+#' @rdname residuals-FLQuant
 #'
 #' @examples
 #' data(ple4)
@@ -1533,7 +1533,9 @@ setGeneric("rraw", function(obs, fit, ...)
 		standardGeneric("rraw"))
 setMethod("rraw", signature(obs="FLQuant", fit="FLQuant"),
   function(obs, fit) {
-    return(obs - fit)
+    res <- obs - fit
+    units(res) <- ""
+    return(res)
   }
 )
 
@@ -1545,6 +1547,7 @@ setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
 	
     flq <- log(Reduce("/", intersect(obs, fit)))
 	  res <- flq / sdlog
+    units(res) <- ""
 
     return(res)
   }
@@ -1560,6 +1563,7 @@ setMethod("rstandard", signature(model="FLQuant"),
 	
     flq <- Reduce("/", intersect(model, fit))
 	  res <- flq / sd
+    units(res) <- ""
 
     return(res)
   }
@@ -1588,9 +1592,13 @@ setMethod("rstudent", signature(model="FLQuant"),
     se <- vare * ((1 - hii) ^ 0.5)
     
     if(internal)
-      return(residuals / se)
+      res <- residuals / se
     else
-      return((residuals / se) * sqrt((nn-2-1) / (nn-2-(residuals/se)^2))) 
+      res <- (residuals / se) * sqrt((nn-2-1) / (nn-2-(residuals/se)^2))
+
+    units(res) <- ""
+
+    return(res)
   }
 )
 
