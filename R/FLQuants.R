@@ -185,6 +185,12 @@ setMethod('combine', signature(x='FLQuants', y='missing'),
 setMethod('combine', signature(x='FLQuants', y='FLQuants'),
   function(x, y) {
 
+    if(any(c(is.na(names(x)), is.na(names(y)))))
+      stop("Both FLQuants must have names")
+
+    if(length(setdiff(names(x), names(y))) > 0)
+      stop("Both FLQuants must have the same names")
+
     res <- lapply(names(x), function(a) combine(x[[a]], y[[a]]))
 	names(res) <- names(x)
     return(FLQuants(res))
