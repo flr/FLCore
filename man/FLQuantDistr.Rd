@@ -14,8 +14,7 @@ FLQuantDistr(object, var, ...)
 
 \S4method{FLQuantDistr}{ANY,ANY}(object, var, ...)
 
-\S4method{FLQuantDistr}{FLQuant,FLQuant}(object, var,
-  units = object@units, distr = "norm")
+\S4method{FLQuantDistr}{FLQuant,FLQuant}(object, var, units = object@units, distr = "norm")
 }
 \arguments{
 \item{object}{Input numeric object}

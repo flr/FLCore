@@ -13,16 +13,13 @@
 \alias{predictModel,missing,ANY-method}
 \title{A class for model prediction}
 \usage{
-\S4method{predictModel}{FLQuants,formula}(object, model,
-  params = FLPar())
+\S4method{predictModel}{FLQuants,formula}(object, model, params = FLPar())
 
 \S4method{predictModel}{FLQuants,missing}(object, params = FLPar())
 
-\S4method{predictModel}{FLQuants,character}(object, model,
-  params = FLPar())
+\S4method{predictModel}{FLQuants,character}(object, model, params = FLPar())
 
-\S4method{predictModel}{FLQuants,`function`}(object, model,
-  params = FLPar())
+\S4method{predictModel}{FLQuants,`function`}(object, model, params = FLPar())
 
 \S4method{predictModel}{FLQuants,list}(object, model, params = FLPar())
 

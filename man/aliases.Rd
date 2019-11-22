@@ -15,6 +15,13 @@
 \alias{flqs}
 \alias{flcs}
 \alias{flss}
+\alias{flis}
+\alias{flps}
+\alias{flb}
+\alias{flbs}
+\alias{flms}
+\alias{flmss}
+\alias{pm}
 \title{Short aliases for most FLCore classes construction methods}
 \usage{
 flq(object, ...)

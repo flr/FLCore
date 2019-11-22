@@ -800,6 +800,7 @@ setMethod('dimnames<-', signature(x='FLComp', value='list'),
   }
 ) # }}}
 
+# update {{{
 setMethod("update", signature(object="FLComp"),
   function(object, ...) {
     
@@ -821,4 +822,4 @@ setMethod("update", signature(object="FLComp"),
 
     return(object)
   }
-)
+) # }}}

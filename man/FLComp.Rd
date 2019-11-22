@@ -4,6 +4,12 @@
 \name{FLComp}
 \alias{FLComp}
 \alias{FLComp-class}
+\alias{name,FLComp-method}
+\alias{name<-,FLComp,character-method}
+\alias{desc,FLComp-method}
+\alias{desc<-,FLComp,character-method}
+\alias{range,FLComp-method}
+\alias{range<-,FLComp,numeric-method}
 \title{Class FLComp}
 \description{
 A virtual class that forms the basis for most FLR classes composed of slots

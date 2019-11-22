@@ -64,8 +64,7 @@
 
 \S4method{[}{FLI,ANY,ANY,ANY}(x, i, j, k, l, m, n, ..., drop = FALSE)
 
-\S4method{[}{predictModel,ANY,missing,ANY}(x, i, k, l, m, n, ...,
-  drop = FALSE)
+\S4method{[}{predictModel,ANY,missing,ANY}(x, i, k, l, m, n, ..., drop = FALSE)
 
 \S4method{[[}{FLlst,ANY,missing}(x, i, j) <- value
 

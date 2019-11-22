@@ -4,6 +4,8 @@
 \name{show}
 \alias{show}
 \alias{show,FLArray-method}
+\alias{show,FLQuants-method}
+\alias{show,FLPar-method}
 \title{Method show}
 \usage{
 \S4method{show}{FLArray}(object)

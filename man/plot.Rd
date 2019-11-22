@@ -16,8 +16,13 @@
 \alias{plot,FLSR,missing-method}
 \title{Method plot}
 \usage{
-\S4method{plot}{FLQuant,missing}(x, xlab = "year",
-  ylab = paste("data (", units(x), ")", sep = ""), type = "p", ...)
+\S4method{plot}{FLQuant,missing}(
+  x,
+  xlab = "year",
+  ylab = paste("data (", units(x), ")", sep = ""),
+  type = "p",
+  ...
+)
 
 \S4method{plot}{FLStock,missing}(x, auto.key = TRUE, ...)
 
@@ -25,8 +30,7 @@
 
 \S4method{plot}{FLIndex,missing}(x, type = c("splom"), ...)
 
-\S4method{plot}{FLSR,missing}(x, main = "Functional form",
-  log.resid = FALSE, cex = 0.8)
+\S4method{plot}{FLSR,missing}(x, main = "Functional form", log.resid = FALSE, cex = 0.8)
 
 \S4method{plot}{FLPar,missing}(x, y = "missing", ...)
 }

@@ -242,12 +242,14 @@ setMethod("rnoise", signature(n='numeric', len="FLQuant"),
   }
 )
 
+#' @rdname rnoise
 setMethod("rnoise", signature(n='numeric', len="missing"),
   function(n=n, sd=1, b=0, burn=0, trunc=0, seed=NA) {
     return(noiseFn(len=n, sd=sd, b=b, burn=burn, trunc=trunc, seed=seed))
   }
 )
 
+#' @rdname rnoise
 setMethod("rlnoise", signature(n='numeric', len="FLQuant"),
   function(n=n, len=len, sd=1, b=0, burn=0, trunc=0,
     what=c("year", "cohort", "age"), seed=NA) {

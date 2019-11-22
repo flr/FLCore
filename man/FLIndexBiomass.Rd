@@ -40,8 +40,7 @@
 \usage{
 FLIndexBiomass(object, ...)
 
-\S4method{FLIndexBiomass}{FLQuant}(object, plusgroup = dims(object)$max,
-  ...)
+\S4method{FLIndexBiomass}{FLQuant}(object, plusgroup = dims(object)$max, ...)
 
 \S4method{FLIndexBiomass}{missing}(object, ...)
 }

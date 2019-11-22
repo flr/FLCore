@@ -18,14 +18,24 @@ FLCohort(object, ...)
 
 \S4method{FLCohort}{FLCohort}(object, units = units(object))
 
-\S4method{FLCohort}{array}(object, dim = rep(1, 6),
-  dimnames = "missing", units = "NA", iter = 1, fill.iter = TRUE)
+\S4method{FLCohort}{array}(
+  object,
+  dim = rep(1, 6),
+  dimnames = "missing",
+  units = "NA",
+  iter = 1,
+  fill.iter = TRUE
+)
 
-\S4method{FLCohort}{vector}(object, dim = c(length(object), rep(1, 5)),
-  dimnames = "missing", units = "NA", iter = 1)
+\S4method{FLCohort}{vector}(
+  object,
+  dim = c(length(object), rep(1, 5)),
+  dimnames = "missing",
+  units = "NA",
+  iter = 1
+)
 
-\S4method{FLCohort}{missing}(object, dim = rep(1, 6),
-  dimnames = "missing", units = "NA", iter = 1)
+\S4method{FLCohort}{missing}(object, dim = rep(1, 6), dimnames = "missing", units = "NA", iter = 1)
 }
 \arguments{
 \item{object}{Input numeric object}

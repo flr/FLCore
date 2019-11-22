@@ -6,11 +6,35 @@
 \alias{rnoise}
 \alias{rnoise-method}
 \alias{rnoise,numeric,missing-method}
+\alias{rlnoise}
+\alias{rlnoise-method}
+\alias{rlnoise,numeric,FLQuant-method}
+\alias{rlnoise,numeric,missing-method}
 \title{Random noise with different frequencies}
 \usage{
-\S4method{rnoise}{numeric,FLQuant}(n = n, len = len, sd = 1, b = 0,
-  burn = 0, trunc = 0, what = c("year", "cohort", "age"),
-  seed = NA)
+\S4method{rnoise}{numeric,FLQuant}(
+  n = n,
+  len = len,
+  sd = 1,
+  b = 0,
+  burn = 0,
+  trunc = 0,
+  what = c("year", "cohort", "age"),
+  seed = NA
+)
+
+\S4method{rnoise}{numeric,missing}(n = n, sd = 1, b = 0, burn = 0, trunc = 0, seed = NA)
+
+\S4method{rlnoise}{numeric,FLQuant}(
+  n = n,
+  len = len,
+  sd = 1,
+  b = 0,
+  burn = 0,
+  trunc = 0,
+  what = c("year", "cohort", "age"),
+  seed = NA
+)
 }
 \arguments{
 \item{n}{number of iterations}
