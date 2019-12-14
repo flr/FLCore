@@ -637,6 +637,19 @@ setMethod("iter", signature(obj="FLBiol"),
   }
 ) # }}}
 
+# iter<- {{{
+setMethod("iter<-", signature(object="FLBiol", value="FLBiol"),
+  function(object, iter, value) {
+
+    res <- callNextMethod()
+
+    for(i in c('mat', 'fec', 'rec'))
+      slot(res, i) <- slot(value, i)
+
+    return(res)
+  }
+) # }}}
+
 # ---
 
 # meanLifespan {{{
@@ -1139,11 +1152,17 @@ setMethod("catch.n", signature(object="FLBiol"),
    }
 ) # }}}
 
+# propagate {{{
 setMethod("propagate", signature(object="FLBiol"),
-  function(object, ...) {
+	function(object, iter, fill.iter=TRUE) {
 
-    # TODO propagate FLPar?
+    # FLQs
+    res <- callNextMethod()
 
-    return(qapply(object, propagate, ...))
+    # pMs
+    for(i in c('mat', 'fec', 'rec'))
+      slot(res, i) <- propagate(slot(object, i), iter, fill.iter=fill.iter)
 
-  })
+    return(res)
+
+  }) # }}}

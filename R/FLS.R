@@ -42,8 +42,10 @@ setMethod("computeCatch", signature(object="FLS"),
     else if(slot == "wt") {
     # 0 to 1e-16
       if(na.rm)
-        landings.n(object)[is.na(landings.n(object))] <- 0
-        discards.n(object)[is.na(discards.n(object))] <- 0
+        landings.wt(object)[is.na(landings.n(object))] <- 0
+        landings.n(object)[is.na(landings.n(object))] <- 1
+        discards.wt(object)[is.na(discards.n(object))] <- 0
+        discards.n(object)[is.na(discards.n(object))] <- 1
       res <- ((landings.wt(object) * (landings.n(object) + 1e-16)) +
       (discards.wt(object) * (discards.n(object) + 1e-16))) / 
         (landings.n(object) + discards.n(object) + 1e-16)

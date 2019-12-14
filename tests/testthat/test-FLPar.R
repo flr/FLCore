@@ -49,3 +49,5 @@ testFLPar(FLPar(a=1, b=rnorm(9), iter=12),
 # FLPar(params=c("a","b"))
 testFLPar(FLPar(params=c("a","b")), "FLPar(params=c('a','b')) works as expected",
  c(2,1), list(params=c("a", "b"), iter=ac(seq(1))))
+
+# expand

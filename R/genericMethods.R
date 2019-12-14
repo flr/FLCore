@@ -262,9 +262,9 @@ setGeneric('catch', function(object, ...) standardGeneric('catch'))
 setGeneric('catch<-', function(object, ..., value) standardGeneric('catch<-'))
 
 # catch.n
-#' @rdname accessors
-#' @aliases desc desc<-
 setGeneric('catch.n', function(object, ...) standardGeneric('catch.n'))
+#' @rdname accessors
+#' @aliases catch.n<-
 setGeneric('catch.n<-', function(object, ..., value) standardGeneric('catch.n<-'))
 
 # catch.wt

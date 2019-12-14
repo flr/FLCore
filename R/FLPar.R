@@ -945,13 +945,11 @@ setMethod('expand', signature(x='FLPar'),
     res <- new(class(x), array(as.numeric(NA), dimnames=dimnames,
       dim=unlist(lapply(dimnames, length))), units=units(x))
     
-    names(dnx) <- c('i', 'j', 'k', 'l', 'm', 'n')[seq(length(dim(res)))]
-
-    # FIX
-    dnx <- lapply(names(dnx), function(x) match(dnx[[x]], dimnames(res)[[x]]))
-
-   return(do.call('[<-', c(list(x=res, value=x), dnx)))
+    # assigment list by position to avoid "" dimnames
+    dnx <- setNames(lapply(as.list(dim(x)), seq),
+      c('i', 'j', 'k', 'l', 'm', 'n')[seq(length(dim(res)))])
     
+    return(do.call('[<-', c(list(x=res, value=x), dnx)))
   }
 ) # }}}
 
