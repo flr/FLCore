@@ -718,16 +718,14 @@ setMethod("ssb", signature(object="FLBiol"),
     if(length(args) == 0) {
       res <- quantSums(n(object) * wt(object) * mat(object) %*%
         exp(-spwn(object) %*%    m(object)), na.rm=FALSE)
-
     } else {
       res <- switch(names(args),
         # catch.n
-        "catch.n" = quantSums(n(object) * wt(object) * mat(object) *
-			  	(1 - (args$catch.n / n(object)) %*% spwn(object)) *
-				  exp(-m(object) %*% spwn(object)), na.rm=FALSE),
+        "catch.n" = quantSums(ssb(object, f=-log(1-args$catch.n / n(object))),
+          na.rm=FALSE),
         # hr
-        "hr" = quantSums(n(object) * wt(object) * mat(object) *
-          (1 - args$hr %*% spwn(object)) * exp(-m(object) %*% spwn(object)), na.rm=FALSE),
+        "hr" = quantSums(ssb(object, f=-log(1-args$hr)),
+          na.rm=FALSE),
         # f
   			"f" = quantSums(n(object) * exp(-(args$f %*%
           spwn(object) + m(object) %*% spwn(object))) *
@@ -738,7 +736,6 @@ setMethod("ssb", signature(object="FLBiol"),
           "hr" = ssb(object, hr=args$harvest), NULL),
         NULL)
     }
-
     if(is.null(res))
       stop("catch information must be one of 'catch.n', 'f', 'hr' or 'harvest'")
 
@@ -764,8 +761,6 @@ setMethod("tb", signature(object="FLBiol"),
     return(res)
   }
 )  # }}}
-
-
 
 # computeStock  {{{
 setMethod("computeStock", signature(object="FLBiol"),

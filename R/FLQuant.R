@@ -1279,8 +1279,6 @@ setMethod("catch.n", signature(object="FLQuant"),
   }) # }}}
 
 # harvest {{{
-# F_t = ln(N_t / N_t+1) - M_t
-#
 setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
   function(object, catch, m) {
  
