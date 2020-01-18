@@ -167,7 +167,7 @@ function(`_data`, ...)
 
 # qapply		{{{
 setMethod('qapply', signature(X='FLComp', FUN='function'),
-	function(X, FUN, ..., exclude=missing) {
+	function(X, FUN, ..., exclude=missing, simplify=FALSE) {
 
 		FUN <- match.fun(FUN)
 		slots <- getSlotNamesClass(X, 'FLArray')
@@ -185,6 +185,9 @@ setMethod('qapply', signature(X='FLComp', FUN='function'),
 			for (i in slots)
 				res[[i]] <- do.call(FUN, list(slot(X,i), ...))
 		}
+
+    if(simplify)
+      res <- unlist(res)
 
 		return(res)
 	}
