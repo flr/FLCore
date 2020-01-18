@@ -1,3 +1,10 @@
+# FLCore 2.6.15
+
+## USER-VISIBLE CHANGES
+
+- qapply() now has a simplify argument to call unlist() on the output and
+  return a vector. Deafults to simplify=FALSE
+
 # FLCore 2.6.14
 
 ## NEW FEATURES

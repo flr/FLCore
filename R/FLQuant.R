@@ -1543,7 +1543,7 @@ setGeneric("rlogstandard", function(obs, fit, ...)
 		standardGeneric("rlogstandard"))
 setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
   function(obs, fit, sdlog=c(sqrt(yearVars(flq)))) {
-	
+
     flq <- log(Reduce("/", intersect(obs, fit)))
 	  res <- flq / sdlog
     units(res) <- ""
