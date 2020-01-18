@@ -474,17 +474,34 @@ setAs('FLBiol', 'FLSR',
   function(from) {
 
     # rec & ssb
-    rec <- rec(from)
     ssb <- ssb(from)
     rage <- dims(from)$min
+    rec <- n(from)[ac(rage),]
 
     # CORRECT for rage
     rec <- rec[, seq(1 + rage, dim(rec)[2])]
     ssb <- ssb[, seq(1, dim(ssb)[2] - rage)]
 
-    return(FLSR(name=name(from), desc=desc(from), rec=rec, ssb=ssb))
+    res <- FLSR(name=name(from), desc=desc(from), rec=rec, ssb=ssb,
+      model=model(rec(from, FALSE)), params=params(rec(from, FALSE)))
 
-  } )# }}}
+    # PREDICT if possible
+    pred <- tryCatch(predict(res))
+    if(is(pred, "FLQuant")) {
+      fitted(res) <- pred
+      residuals(res) <- rec(res) - pred
+    }
+
+    return(res)
+  } )
+
+setAs('predictModel', 'FLSR',
+  function(from) {
+
+    return(FLSR(model=model(from), params=params(from)))
+
+  } )
+# }}}
 
 # TO predictModel {{{
 setAs('FLSR', 'predictModel',
