@@ -48,9 +48,8 @@ setAs('FLArray', 'data.frame',
     options(warn=-1)
     dnames <- dimnames(from)
 
-    # CONVERT year/cohort and iter dnames to numeric
+    # CONVERT year/cohort dnames to numeric
     dnames[[2]] <- as.numeric(dnames[[2]])
-    # dnames[["iter"]] <- as.numeric(dnames[["iter"]])
     
     # TURN quant to numeric, if possible
     if(!any(is.na(suppressWarnings(as.numeric(dnames[[1]])))))
