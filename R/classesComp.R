@@ -43,7 +43,7 @@ setClass("FLComp",
     "VIRTUAL"),
   prototype(
     name=character(1),
-    desc=character(0),
+    desc=character(1),
     range  = unlist(list(min=0, max=0, minyear=1, maxyear=1))),
   validity=function(object){
 
