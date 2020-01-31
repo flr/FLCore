@@ -977,8 +977,6 @@ return(pv)
 # }}}
 
 # setPlusGroup{{{
-setGeneric("setPlusGroup", function(x, plusgroup, ...)
-standardGeneric("setPlusGroup"))
 setMethod("setPlusGroup", signature(x='FLQuant', plusgroup='numeric'),
 function(x, plusgroup, na.rm=FALSE, by='mean') {
 # only valid for age-based FLQuant

@@ -1860,3 +1860,6 @@ setGeneric("standardUnits", function(object, ...)
   standardGeneric("standardUnits"))
 
 # }}}
+
+setGeneric("setPlusGroup", function(x, plusgroup, ...)
+standardGeneric("setPlusGroup"))
