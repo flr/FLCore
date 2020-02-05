@@ -396,6 +396,7 @@ setMethod('FLBiol', signature(object='FLQuant'),
     # empty object
     # TODO
     object[] <- NA
+    units(object) <- "NA"
 
     dims <- dims(object)
 
@@ -410,10 +411,9 @@ setMethod('FLBiol', signature(object='FLQuant'),
     # Load given slots
     for(i in names(args))
       slot(res, i) <- args[[i]]
-
     # FIX rec to n[1,] if no rec given
-    if(! 'rec' %in% names(args))
-      res@rec['rec']  <- new('predictModel', FLQuants(rec=res@n[1,]),
+    if(! 'rec' %in% names(args) & 'n' %in% names(args))
+      res@rec <- new('predictModel', FLQuants(rec=res@n[1,]),
         model=as.formula("~rec", env=emptyenv()))
 
     return(res)
@@ -1110,19 +1110,19 @@ s.<-  function(x, plusgroup, na.rm=FALSE)
 
 # fbar {{{
 setMethod("fbar", signature(object="FLBiol"),
- function(object, ...)
+ function(object, minAge=dims(object)$min + 1, maxAge=dims(object)$max - 1, ...)
  {
   if (!("minfbar" %in% names(range(object))))
-    range(object,"minfbar") <- dims(object)$min+1
+    range(object,"minfbar") <- minAge
 
   if (!("maxfbar" %in% names(range(object))))
-    range(object,"maxfbar")<-dims(object)$max-1
+    range(object,"maxfbar") <- maxAge
 
   if (is.na(object@range["minfbar"]))
-    object@range["minfbar"]<-object@range["min"]+1
+    object@range["minfbar"] <- minAge
 
   if (is.na(object@range["maxfbar"]))
-    object@range["maxfbar"]<-object@range["max"]-1
+    object@range["maxfbar"] <- maxAge
 
   fbarRng<-range(object,"minfbar"):(range(object,"maxfbar")-1)
 
@@ -1161,3 +1161,49 @@ setMethod("propagate", signature(object="FLBiol"),
     return(res)
 
   }) # }}}
+
+# standardUnits {{{
+
+#' @rdname standardUnits-methods
+#' @details For objects derived of class *FLBiol* the adopted standard
+#' units are: 'kg' for individual weights, '1000' for number of individuals,
+#' 'm' for natural mortality, and an empty string for proportions (spwn, mat).
+#' @examples
+#' bio <- FLBiol(n=FLQuant(runif(50, 2, 120), dim=c(5, 10)))
+#' # Object has no units
+#' summary(bio)
+#' # Obtain standard units for the class as a list
+#' standardUnits(bio)
+#' # which can then be assigned to the object
+#' units(bio) <- standardUnits(bio)
+#' summary(stk)
+
+setMethod("standardUnits", signature(object="FLBiol"),
+  function(object, ...) {
+
+    standard <- list(n="1000", m="m", wt="kg", spwn="", mat="mat", fec="NA",
+      rec="1000")
+
+    args <- list(...)
+    standard[names(args)] <- args
+
+    return(standard)
+    }
+) # }}}
+
+# units<-{{{
+
+setReplaceMethod("units", signature(x="FLBiol", value="list"),
+  function(x, value) {
+
+    slt <- names(value)
+
+    # FLQuant
+    for(i in slt[slt %in% c("n", "m", "wt", "spwn")])
+      units(slot(x, i)) <- value[[i]]
+
+    # predictModel
+
+    return(x)
+  }
+) # }}}
