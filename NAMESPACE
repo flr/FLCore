@@ -483,6 +483,7 @@ exportMethods(
   "sv",
   "sweep",
   "tail",
+  "tb",
   "tep",
   "transform",
   "trim",
