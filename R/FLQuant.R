@@ -1540,10 +1540,12 @@ setMethod("rraw", signature(obs="FLQuant", fit="FLQuant"),
 setGeneric("rlogstandard", function(obs, fit, ...)
 		standardGeneric("rlogstandard"))
 setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
-  function(obs, fit, sdlog=c(sqrt(yearVars(flq)))) {
-
+  function(obs, fit, sdlog=sqrt(yearVars(flq))) {
+  
     flq <- log(Reduce("/", intersect(obs, fit)))
-	  res <- flq / sdlog
+    is.na(flq) <- !is.finite(flq)
+
+	  res <- flq %/% sdlog
     units(res) <- ""
 
     return(res)
@@ -1559,6 +1561,7 @@ setMethod("rstandard", signature(model="FLQuant"),
       stop("Both objects must be of class 'FLQuant'")
 	
     flq <- Reduce("/", intersect(model, fit))
+    is.na(flq) <- !is.finite(flq)
 	  res <- flq / sd
     units(res) <- ""
 
