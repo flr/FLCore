@@ -31,7 +31,7 @@ setMethod("FLQuantPoint", signature(object="missing"),
 
       res <- new('FLQuantPoint', FLQuant(NA, dimnames=dmns, units=units))
 
-      for(i in length(args))
+      for(i in names(args))
         res[,,,,,i] <- args[[i]]
     }
     return(res)
