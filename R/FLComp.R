@@ -705,7 +705,8 @@ setMethod("verify", signature(object="FLComp"),
   # CONVERT list to data.frame
   res <- data.frame(do.call(rbind, lapply(res, function(x)
     # CREATE result summary vector
-    c(items=length(x), passes=sum(x), fails=sum(!x), NAs=sum(is.na(x))))),
+    c(items=length(x), passes=sum(x, na.rm=TRUE), fails=sum(!x, na.rm=TRUE),
+      NAs=sum(is.na(x))))),
     row.names=seq(1, length(res)))
 
   # data.frame: name, items, passes, fails, NAs, valid, rule
