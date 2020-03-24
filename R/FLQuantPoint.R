@@ -63,13 +63,20 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
 # TODO show median(var) or [lowq-uppq]
 setMethod("show", signature(object="FLQuantPoint"),
 	function(object){
-		cat("An object of class \"FLQuantPoint\":\n")
-		cat("-- median:\n")
-		if(any(complete.cases(object)))
+		
+    cat("An object of class \"FLQuantPoint\":\n")
+
+    # CHOOSE mean or median
+    if(any(complete.cases(median(object)))) {
+		  cat("-- median:\n")
 			print(unclass(median(object)@.Data), digits=3)
-		else
+    } else if(any(complete.cases(mean(object)))) {
+		  cat("-- mean:\n")
+			print(unclass(mean(object)@.Data), digits=3)
+    } else {
 			print(unclass(array(NA, dimnames=dimnames(object@.Data)[1:5],
 				dim=dim(object@.Data)[1:5])))
+    }
 		cat("units: ", object@units, "\n")
 	}
 )   # }}}
@@ -184,3 +191,33 @@ setMethod("summary", signature(object="FLQuantPoint"),
 		cat("3rd Qu.: ", mean(uppq(object)), "\n")
 	}
 )   # }}}
+
+# as.data.frame {{{
+setMethod("as.data.frame", signature(x="FLQuantPoint", row.names="missing",
+  optional="missing"),
+    function(x, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE, units=FALSE) {
+        as.data.frame(x, row.names=NULL, cohort=cohort, timestep=timestep,
+            date=date, drop=drop, units=units)
+    }
+)
+setMethod("as.data.frame", signature(x="FLQuantPoint", row.names="ANY",
+  optional="missing"),
+function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
+  units=FALSE) {
+
+    # COERCE as if FLQuant
+    df <- callNextMethod(x, cohort=cohort, timestep=timestep,
+            date=date, drop=drop, units=units)
+
+    # FIND dimensions not dropped
+    idvar <- colnames(df)[!colnames(df) %in% c("iter", "data")]
+
+    # RESHAPE to wide
+    dat <- reshape(df, idvar=idvar, timevar = "iter", direction = "wide")
+
+    # RENAME data columns as iters
+    colnames(dat) <- sub("data.", "", colnames(dat))
+
+    return(dat)
+  } 
+) # }}}
