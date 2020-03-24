@@ -58,8 +58,8 @@ setAs('FLArray', 'data.frame',
     # CONVERT dim[c(1,3:6)] to factors
     dnames[c(3:6)] <- lapply(dnames[c(3:6)], as.factor)
 
-    df <- data.frame(do.call(expand.grid, list(dnames, stringsAsFactors = FALSE)),
-      data=c(from))
+    df <- data.frame(do.call(expand.grid, list(dnames,
+      stringsAsFactors = FALSE)), data=c(from), stringsAsFactors = FALSE)
 
     attributes(df)$units <- units(from)
     options(warn=0)
@@ -82,11 +82,10 @@ setAs('FLArray', 'data.frame',
 setAs('FLPar', 'data.frame',
   function(from)
   {
-    return(data.frame(expand.grid(dimnames(from)), data=as.vector(from@.Data)))
+    return(data.frame(expand.grid(dimnames(from)), data=as.vector(from@.Data),
+      stringsAsFactors = FALSE))
   }
-)
-
-# }}}
+) # }}}
 
 # TO FLQuant {{{
 
