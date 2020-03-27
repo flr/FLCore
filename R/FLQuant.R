@@ -1605,3 +1605,25 @@ setMethod("rstudent", signature(model="FLQuant"),
 # rpress(FLQ, FLQ)
 # rcholesky(FLQ, FLQ)
 # https://www.tandfonline.com/doi/abs/10.1198/016214504000000403
+
+# fwd(FLQuant) {{{
+
+setMethod("fwd", signature(object="FLQuant", fishery="missing", control="missing"),
+  function(object) {
+
+    # ADD plusgroup
+    dms <- dims(object)
+    object[dms$max,] <- quantSums(object[seq(dms$max - 1, dms$max),])
+    
+    # MOVE other ages
+    object[seq(dms$min + 1, dms$max - 1), ] <- object[seq(dms$min, dms$max - 2), ]
+
+    # SET rec to NA
+    object[1, ] <- NA
+
+    # CHANGE dimnames
+    dimnames(object)$year <- as.numeric(dimnames(object)$year) + 1
+
+    return(object)
+  })
+# }}}
