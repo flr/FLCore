@@ -40,45 +40,45 @@ x \%-\% y
 
 x \%^\% y
 
-\S4method{\\\%*\\\%}{FLQuant,FLQuant}(x, y)
+\S4method{\%*\%}{FLQuant,FLQuant}(x, y)
 
-\S4method{\\\%/\\\%}{FLQuant,FLQuant}(e1, e2)
+\S4method{\%/\%}{FLQuant,FLQuant}(e1, e2)
 
-\S4method{\\\%+\\\%}{FLQuant,FLQuant}(e1, e2)
+\S4method{\%+\%}{FLQuant,FLQuant}(e1, e2)
 
-\S4method{\\\%-\\\%}{FLQuant,FLQuant}(x, y)
+\S4method{\%-\%}{FLQuant,FLQuant}(x, y)
 
-\S4method{\\\%^\\\%}{FLQuant,FLQuant}(x, y)
+\S4method{\%^\%}{FLQuant,FLQuant}(x, y)
 
-\S4method{\\\%*\\\%}{FLPar,FLQuant}(x, y)
+\S4method{\%*\%}{FLPar,FLQuant}(x, y)
 
-\S4method{\\\%/\\\%}{FLPar,FLQuant}(e1, e2)
+\S4method{\%/\%}{FLPar,FLQuant}(e1, e2)
 
-\S4method{\\\%+\\\%}{FLPar,FLQuant}(e1, e2)
+\S4method{\%+\%}{FLPar,FLQuant}(e1, e2)
 
-\S4method{\\\%-\\\%}{FLPar,FLQuant}(x, y)
+\S4method{\%-\%}{FLPar,FLQuant}(x, y)
 
-\S4method{\\\%^\\\%}{FLPar,FLQuant}(x, y)
+\S4method{\%^\%}{FLPar,FLQuant}(x, y)
 
-\S4method{\\\%*\\\%}{FLQuant,FLPar}(x, y)
+\S4method{\%*\%}{FLQuant,FLPar}(x, y)
 
-\S4method{\\\%/\\\%}{FLQuant,FLPar}(e1, e2)
+\S4method{\%/\%}{FLQuant,FLPar}(e1, e2)
 
-\S4method{\\\%+\\\%}{FLQuant,FLPar}(e1, e2)
+\S4method{\%+\%}{FLQuant,FLPar}(e1, e2)
 
-\S4method{\\\%-\\\%}{FLQuant,FLPar}(x, y)
+\S4method{\%-\%}{FLQuant,FLPar}(x, y)
 
-\S4method{\\\%^\\\%}{FLQuant,FLPar}(x, y)
+\S4method{\%^\%}{FLQuant,FLPar}(x, y)
 
-\S4method{\\\%*\\\%}{FLPar,FLPar}(x, y)
+\S4method{\%*\%}{FLPar,FLPar}(x, y)
 
-\S4method{\\\%+\\\%}{FLPar,FLPar}(e1, e2)
+\S4method{\%+\%}{FLPar,FLPar}(e1, e2)
 
-\S4method{\\\%-\\\%}{FLPar,FLPar}(x, y)
+\S4method{\%-\%}{FLPar,FLPar}(x, y)
 
-\S4method{\\\%/\\\%}{FLPar,FLPar}(e1, e2)
+\S4method{\%/\%}{FLPar,FLPar}(e1, e2)
 
-\S4method{\\\%^\\\%}{FLPar,FLPar}(x, y)
+\S4method{\%^\%}{FLPar,FLPar}(x, y)
 
 \S4method{/}{FLQuants,FLPar}(e1, e2)
 

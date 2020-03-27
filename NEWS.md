@@ -5,6 +5,14 @@
 - qapply() now has a simplify argument to call unlist() on the output and
   return a vector. Deafults to simplify=FALSE
 
+## NEW FEATURES
+
+- mohnMatrix to construct a table of metrics to compute Mohn's rho from an
+  FLStocks object obtained from a restrospective analysis.
+- readVPAInterCatch creates an FLQuant from a VPA file in the format exported
+  by ICES Intercatch system.
+- fwd(FLQuant) to move one year forward a population vector.
+
 # FLCore 2.6.14
 
 ## NEW FEATURES

@@ -117,9 +117,12 @@ export(
   "getPlural",
   "getSlotNamesClass",
   "loglAR1",
+  "knit_print.FLQuant",
+  "mohnMatrix",
   "qbind",
   "readADMB",
   "readVPAFile",
+  "readVPAInterCatch",
   "readVPA2Box",
   "readFLIndex",
   "read.FLIndex",
@@ -149,6 +152,7 @@ export(
   "writeADMB",
   "writeFLStock",
   "ybind")
+
 exportClasses(
   "FLArray",
   "FLComp",
@@ -182,6 +186,7 @@ exportClasses(
   "FLStockLen",
   "FLStocks",
   "predictModel")
+
 exportMethods(
   "iter",
   "$",
@@ -527,6 +532,7 @@ exportMethods(
   "vecyear",
   "vecage",
   "wireframe")
+
 export(
   "flq",
   "flqp",
@@ -547,5 +553,4 @@ export(
   "flbs",
   "flms",
   "flmss",
-  "knit_print.FLQuant",
   "pm")
