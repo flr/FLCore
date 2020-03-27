@@ -241,3 +241,44 @@ one unit. Lowestoft VPA can't handle this unfortunately.")
     }
     return(invisible(NULL))
 }	# }}}
+
+# readVPAInterCatch {{{
+
+#' Reads a single file with one year of data in VPA format as output by
+#' ICES intercatch
+#'
+#' @param file Itercatch VPA to load
+#'
+#' @return An object of class FLQuant.
+
+readVPAInterCatch <- function(file) {
+
+  contents <- scan(file=file, what="", sep="\n", quiet=TRUE)
+
+  # 1. Catch category
+  # 2. stock
+  # 3. 1 2
+  # 4. year
+  year <- as.numeric(strsplit(contents[4], " ")[[1]])[1]
+  # 5. ages
+  age <- do.call(seq, as.list(as.numeric(strsplit(contents[5], " ")[[1]])))
+  # 6. 1
+  # 7. units
+  units <- switch(contents[7],
+    "in numbers" = "1",
+    "in grams" = "gr",
+    "NA")
+  # 8. data: 300,999.876
+  data <- as.numeric(strsplit(gsub(",", "",
+    gsub("\\s+", "-", contents[8])), "-")[[1]])
+
+  if(units == "1") {
+    data <- data / 1000
+    units <- "thousands"
+  } else if (units == "gr") {
+    data <- data / 1000
+    units <- "kg"
+  }
+
+  return(FLQuant(data, dimnames=list(age=age, year=year), units=units))
+} # }}}
