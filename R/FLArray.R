@@ -867,10 +867,14 @@ setMethod("window", signature(x="FLArray"),
 
     # if extend is a number, added to end
     if(is.numeric(extend))
-        if (missing(end))
-          end <- dims(x)$maxyear + extend
-        else
-          stop("'extend' is numeric and 'end' provided, don't know what to do")
+      if (missing(end))
+        end <- dims(x)$maxyear + extend
+      else
+        stop("'extend' is numeric and 'end' provided, don't know what to do")
+
+    # IF end is negatuve, substract from object
+    if(end < 0)
+      end <- dims(x)$maxyear + end
     
     # construct new object
     d2nms <- as.character(seq(start, end, by=frequency))
