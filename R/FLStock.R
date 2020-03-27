@@ -1151,3 +1151,41 @@ setMethod("append", signature(x="FLStock", values="FLStock"),
     return(x)
   }
 ) # }}}
+
+# mohnMatrix {{{
+
+#' Generate a matrix to compute Mohn's rho for a single metric
+#'
+#' A common measure of the strength of stock assessment retrospective
+#' patterns is Mohn's rho. This function does not carry out the calculation
+#' but returns a matrix with the metrics value for the n restrospective
+#' runs, in columns, and n + 2 years, in rows.
+#'
+#' @param stocks An FLstocks object from a restrospective analysis
+#' @param metric Metric to be computed, as a character vector or function
+#'
+#' @return A metrics of n + 2 x n, where n is the numbers of objects in stocks.
+
+mohnMatrix <- function(stocks, metric="fbar") {
+
+  # LAST year in stocks
+  syrs <- unname(unlist(lapply(stocks, function(x) dims(x)$maxyear)))
+  yrs <- seq(max(yrs), by=-1, length=length(yrs))
+
+  # IF no sequence from last, stop
+  if(!all.equal(syrs, yrs))
+    stop("maxyear of FLStock objects must be a sequence from last.")
+
+  peels <- length(stocks) - 1
+  
+  end <- dims(stocks[[1]])$maxyear
+  start <- dims(stocks[[peels + 1]])$maxyear - 2
+
+  # EXTRACT quantity for given years
+  mm <- as.data.frame(lapply(stocks,
+    function(x) c(window(do.call(metric, list(x)), start=start, end=end))))
+  rownames(mm) <- seq(start, end)
+  colnames(mm) <- c("base", as.character(-seq(1, length=peels)))
+
+  return(mm)
+} # }}}
