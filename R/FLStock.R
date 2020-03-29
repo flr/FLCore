@@ -1170,7 +1170,7 @@ mohnMatrix <- function(stocks, metric="fbar") {
 
   # LAST year in stocks
   syrs <- unname(unlist(lapply(stocks, function(x) dims(x)$maxyear)))
-  yrs <- seq(max(yrs), by=-1, length=length(yrs))
+  yrs <- seq(max(syrs), by=-1, length=length(syrs))
 
   # IF no sequence from last, stop
   if(!all.equal(syrs, yrs))
