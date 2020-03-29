@@ -4,6 +4,8 @@
 
 - qapply() now has a simplify argument to call unlist() on the output and
   return a vector. Deafults to simplify=FALSE
+- windows accepts a negative value for end and will substract that number
+  of years from the object.
 
 ## NEW FEATURES
 
