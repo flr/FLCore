@@ -237,6 +237,7 @@ setGeneric("FLStocks", function(object, ...) standardGeneric("FLStocks"))
 #' # To see the methods defined by createFLAccessors, run, for example
 #' getMethod('catch', 'FLS')
 #'
+NULL
 
 # name, name<-
 #' @rdname accessors

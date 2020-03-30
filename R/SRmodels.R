@@ -168,6 +168,7 @@
 #' # or (3) the function itself that returns this list
 #'   model(nsher) <- bevholt
 #'
+NULL
 
 # ricker {{{
 
