@@ -161,14 +161,14 @@ setMethod("FLQuants", "missing", function(...){
 
 #' @rdname FLQuants
 #' @aliases FLQuants,list-method
-setMethod("FLQuants", "list", function(object){
-	new("FLQuants", object)
+setMethod("FLQuants", "list", function(object, ...){
+	new("FLQuants", c(object, list(...)))
 })
 
 #' @rdname FLQuants
 #' @aliases FLQuants,FLQuants-method
-setMethod("FLQuants", "FLQuants", function(object){
-	return(object)
+setMethod("FLQuants", "FLQuants", function(object, ...){
+  return(FLQuants(c(object, list(...))))
 }) # }}}
 
 # FLCohorts {{{
