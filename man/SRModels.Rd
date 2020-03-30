@@ -2,7 +2,6 @@
 % Please edit documentation in R/SRmodels.R
 \name{SRModels}
 \alias{SRModels}
-\alias{ricker}
 \alias{ab2sv}
 \alias{bevholt}
 \alias{bevholt.ar1}
@@ -14,6 +13,7 @@
 \alias{Bevholt.SV}
 \alias{geomean}
 \alias{logl.ar1}
+\alias{ricker}
 \alias{ricker.ar1}
 \alias{ricker.c.a}
 \alias{ricker.c.b}

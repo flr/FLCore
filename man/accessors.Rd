@@ -2,6 +2,7 @@
 % Please edit documentation in R/genericMethods.R, R/FLS.R
 \name{accessors}
 \alias{accessors}
+\alias{name}
 \alias{name,}
 \alias{name<-}
 \alias{name<-<-}

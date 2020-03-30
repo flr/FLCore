@@ -9,7 +9,7 @@
 \usage{
 metrics(object, metrics, ...)
 
-\S4method{metrics}{FLComp,list}(object, metrics)
+\S4method{metrics}{FLComp,list}(object, metrics, ...)
 
 \S4method{metrics}{FLS,missing}(object, metrics, ...)
 }
@@ -33,8 +33,9 @@ metrics(ple4)
 metrics(ple4, metrics=function(x) FLQuants(SSB=ssb(x), REC=rec(x),
   F=fbar(x), SSBREC=ssb(x) / rec(x)))
 # metrics = formula
-metrics(ple4, metrics=SSB~ssb)
 metrics(ple4, metrics=~ssb)
+metrics(ple4, metrics=list(SSB=~ssb))
+metrics(ple4, metrics=list(SBMSY=~ssb/SBMSY), FLPar(SBMSY=3.87e4))
 # metrics = list
 metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
 metrics(ple4, metrics=list(SSB=~ssb, REC=rec, F=fbar))

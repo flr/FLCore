@@ -6,6 +6,8 @@
   return a vector. Deafults to simplify=FALSE
 - windows accepts a negative value for end and will substract that number
   of years from the object.
+- metrics() can now handle formulas combining object functions and vector or
+  FLPar elements, e.g. metrics(ple4, ~ssb/Blim, FLPar(Blim=300000))
 
  NEW FEATURES
 
