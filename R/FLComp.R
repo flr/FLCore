@@ -597,17 +597,19 @@ setMethod("vecage", "FLComp", function(object){
 #' metrics(ple4, metrics=function(x) FLQuants(SSB=ssb(x), REC=rec(x),
 #'   F=fbar(x), SSBREC=ssb(x) / rec(x)))
 #' # metrics = formula
-#' metrics(ple4, metrics=SSB~ssb)
 #' metrics(ple4, metrics=~ssb)
+#' metrics(ple4, metrics=list(SSB=~ssb))
+#' metrics(ple4, metrics=list(SBMSY=~ssb/SBMSY), FLPar(SBMSY=3.87e4))
 #' # metrics = list
 #' metrics(ple4, metrics=list(SSB=ssb, REC=rec, F=fbar))
 #' metrics(ple4, metrics=list(SSB=~ssb, REC=rec, F=fbar))
 
 setMethod("metrics", signature(object="FLComp", metrics="list"),
-  function(object, metrics) {
-    return(FLQuants(lapply(metrics, function(x)
+  function(object, metrics, ...) {
+    return(FLQuants(lapply(metrics, function(x) {
       # CALL each function
-      do.call("metrics", list(object=object, metrics=x)))))
+      do.call("metrics", list(object=object, metrics=x, ...))
+    })))
   }
 )
 
@@ -619,15 +621,42 @@ setMethod("metrics", signature(object="FLComp", metrics="function"),
 )
 
 setMethod("metrics", signature(object="FLComp", metrics="formula"),
-  function(object, metrics) {
-    if(is(metrics[[length(metrics)]], "name"))
-        # CALL function
-          return(do.call(as.character(metrics[[length(metrics)]]), list(object)))
+  function(object, metrics, ...) {
+    
+    args <- list(...)
+
+    # PARSE ...'s FLPar objects and vectors
+    if(length(args) > 0) {
+      
+      names(args)[length(names(args)) == 0] <- "a"
+      
+      args <-  mapply(function(x, y) {
+        if(is(x, "FLPar"))
+          as(x, "list")
         else
-          # EVAL formula
-          return(eval(metrics[[length(metrics)]], list(object)))
+          setNames(list(x), y)
+      }, args, names(args), SIMPLIFY=FALSE)
+
+      # COERCE into single-depth named list
+      if(length(args) == 1)
+        args <- args[[1]]
+      else
+        args <- do.call(append, unname(args))
+    }
+
+    # EVAL functions in metrics
+    funs <- all.vars(metrics)[!all.vars(metrics) %in% names(args)]
+    mets <- setNames(lapply(funs, do.call, list(object)), funs)
+
+    # EVALUATE formula w/ object, mets and args
+    res <- eval(metrics[[2]], c(object, mets, args)) 
+
+    return(res)
   }
-) # }}}
+)
+
+
+# }}}
 
 # slim {{{
 
