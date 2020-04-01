@@ -1378,6 +1378,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
     }
 
     har[is.na(har)] <- 0
+    har[har < 0] <- 0
     units(har) <- "f"
 
     return(har)
