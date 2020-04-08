@@ -1284,7 +1284,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
     har <- m
     har[] <- NA
 
-    # dims, ages and years - 1
+    # dims, ages - last 2, years - last 1
     dm <- dim(har)
     aa <- seq(1, dm[1] - 2)
     yy <- seq(1, dm[2] - 1)
@@ -1302,18 +1302,18 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
 
       # a-1 ages and y-1 years
       n0 <- object[aa, yy]
-      n1 <- object[aa+1, yy + 1]
-      har[aa,yy] <- log(n0/n1) - m[aa,yy]
+      n1 <- object[aa + 1, yy + 1]
+      har[aa, yy] <- -(log(n1) - log(n0)) - m[aa, yy]
 
       # LOOP over ages for last year, by unit & area
       for(i in seq(dm[1])) {
         for(k in seq(dm[3])) {
           for(mm in seq(dm[5])) {
             res <- optimise(f=foo, interval = log(c(1e-8,3)),
-              n=c(object[i,dm[2],k,,mm]),
-              c=c(catch[i,dm[2],k,,mm]),
-              m=c(m[i,dm[2],k,,mm]))$minimum
-          har[i,dm[2],k,,mm] <- exp(res)
+              n=c(object[i, dm[2], k,, mm]),
+              c=c(catch[i, dm[2], k,, mm]),
+              m=c(m[i, dm[2], k,, mm]))$minimum
+          har[i, dm[2], k,, mm] <- exp(res)
           }
         }
       }
