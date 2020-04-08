@@ -247,8 +247,7 @@ one unit. Lowestoft VPA can't handle this unfortunately.")
 #' Reads a single file with one year of data in VPA format as output by
 #' ICES intercatch
 #'
-#' @param file Itercatch VPA to load
-#'
+#' @param file Intercatch VPA file to load
 #' @return An object of class FLQuant.
 
 readVPAInterCatch <- function(file) {
