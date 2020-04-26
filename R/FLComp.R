@@ -748,6 +748,24 @@ setMethod("verify", signature(object="FLComp"),
     return(all(res$valid))
 }) # }}}
 
+# divide {{{
+setMethod("divide", signature(object="FLComp"),
+  function(object, names=dimnames(object)$iter) {
+
+    its <- dims(object)$iter
+
+    if(its == 1)
+      return(object)
+
+    res <- lapply(seq(its), iter, obj=object)
+
+    names(res) <- names
+ 
+    return(do.call(getPlural(res[[1]]), res))
+
+  }
+) # }}}
+
 # combine {{{
 setMethod('combine', signature(x='FLComp', y='FLComp'),
   function(x, y, ..., check=FALSE) {

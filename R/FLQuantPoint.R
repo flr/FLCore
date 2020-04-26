@@ -1,9 +1,8 @@
 # FLQuantPoint - FLQuant class summarizing iters
 # FLCore/R/FLQuantPoint.R
 
-# Copyright 2003-2015 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
-# $Id: FLQuantPoint.R 1779 2012-11-23 09:39:31Z imosqueira $
+# Copyright 2003-2020 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira (WMR) <iago.mosqueira@wur.nl>
 
 # FLQuantPoint()	{{{
 

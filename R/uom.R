@@ -185,6 +185,7 @@ uomTable[c('+','-'), 'thousands', 'thousands'] <- 'thousands'
 uomTable['*', 'thousands', 'thousands'] <- '1e6'
 uomTable['/', 'thousands', 'thousands'] <- ''
 uomTable['*', 'thousands', 'kg'] <- 'tonnes'
+uomTable['*', 'kg', 'thousands'] <- 'tonnes'
 
 # tonnes / 1000 = kg
 uomTable['/', 'tonnes', c('1000', '1e3', '10^3', 'thousands')] <- 'kg'

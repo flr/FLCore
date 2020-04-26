@@ -15,3 +15,6 @@ stk <- ple4[1,]
 dimnames(stk) <- list(age='all')
 
 validObject(stk)
+
+expect_validclass(ssb(ple4), "FLQuant")
+

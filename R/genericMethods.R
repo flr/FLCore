@@ -1864,3 +1864,7 @@ setGeneric("standardUnits", function(object, ...)
 
 setGeneric("setPlusGroup", function(x, plusgroup, ...)
 standardGeneric("setPlusGroup"))
+
+# divide
+setGeneric("divide", function(object, ...)
+		standardGeneric("divide"))

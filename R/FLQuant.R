@@ -1069,6 +1069,24 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
   }
 ) # }}}
 
+# divide {{{
+setMethod("divide", signature(object="FLQuant"),
+  function(object, names=dimnames(object)$iter) {
+
+    its <- dims(object)$iter
+
+    if(its == 1)
+      return(object)
+
+    res <- lapply(seq(its), iter, obj=object)
+
+    names(res) <- names
+ 
+    return(do.call(getPlural(res[[1]]), res))
+
+  }
+) # }}}
+
 # combine {{{
 setMethod('combine', signature(x='FLQuant', y='FLQuant'),
   function(x, y, ...) {
@@ -1386,7 +1404,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
 ) # }}}
 
 # knit_print.FLQuant{{{
-knit_print.FLQuant <- function(object, options, cols=5) {
+knit_print.FLQuant <- function(object, options, cols=5, inline=FALSE) {
 
     # dims
     do <- dim(object)
@@ -1418,7 +1436,10 @@ knit_print.FLQuant <- function(object, options, cols=5) {
       cat("      [ ... ", do[2] - cols*2,"years]\n\n")
       print(array(x2v3, dim=dim(x2)[1:2], dimnames=dimnames(x2)[1:2]), quote=FALSE)
     } else {
-      print(object)
+      if(inline)
+        print(c(object))
+      else
+        print(object)
     }
 } # }}}
 
@@ -1606,6 +1627,8 @@ setMethod("rstudent", signature(model="FLQuant"),
 # rpress(FLQ, FLQ)
 # rcholesky(FLQ, FLQ)
 # https://www.tandfonline.com/doi/abs/10.1198/016214504000000403
+
+# }}}
 
 # fwd(FLQuant) {{{
 
