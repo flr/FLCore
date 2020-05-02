@@ -1534,8 +1534,8 @@ setMethod("append", signature(x="FLQuant", values="FLQuant"),
 #' rstudent(catch(ple4), fit)
 
 setMethod("residuals", signature(object="FLQuant"),
-  function(object, fit, type="log") {
-
+  function(object, fit, type="log", ...) {
+    
     # MAP glm residuals names with methods
     method <- switch(type[1],
       log="rlogstandard",
@@ -1543,7 +1543,7 @@ setMethod("residuals", signature(object="FLQuant"),
       pearson="rstandard",
       student="rstudent")
 
-    do.call(method, list(object, fit))
+    do.call(method, list(object, fit, ...))
   }
 )
 
@@ -1563,7 +1563,7 @@ setGeneric("rlogstandard", function(obs, fit, ...)
 		standardGeneric("rlogstandard"))
 setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
   function(obs, fit, sdlog=sqrt(yearVars(flq))) {
-  
+
     flq <- log(Reduce("/", intersect(obs, fit)))
     is.na(flq) <- !is.finite(flq)
 
