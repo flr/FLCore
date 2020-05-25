@@ -162,6 +162,12 @@ setMethod("lowq<-", signature(x="FLQuantPoint", value="ANY"),
 	}
 ) # }}}
 
+# cv {{{
+setMethod("cv", signature(x="FLQuantPoint"),
+	function(x, ...)
+		return(sqrt(var(x)) / mean(x))
+) # }}}
+
 # quantile   {{{
 setMethod("quantile", signature(x="FLQuantPoint"),
 	function(x, probs=0.25, na.rm=FALSE, dim=1:5, ...) {
