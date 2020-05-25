@@ -1268,9 +1268,9 @@ setMethod("$", signature(x="FLQuant"),
 
 # catch.n {{{
 
-#' catch.n method
+#' catch.n calculation method
 #'
-#' Calculate catch.n (catch-at-age/length) from abundances using the catch equation
+#' Calculate catch.n (catch-at-age/length) from abundances, F and M using the catch equation
 #' 
 #' The catch-at-age/length, commonly found in the catch.n slot of an
 #' `FLStock` object, can be simply calculated from abundances-at-age/length,
@@ -1278,8 +1278,7 @@ setMethod("$", signature(x="FLQuant"),
 #' equation
 #' \deqn{C = N \cdot F \frac{F}{M+F} \cdot (1 - {\rm e}^(-M-F))}{C = N *F/(M+F) * (1-exp(-M-F))}
 #'
-#' @name catch.n
-#' @rdname catch.n
+#' @aliases catch.n,FLQuant-method
 #' @docType methods
 #' @author The FLR Team
 #' @seealso \linkS4class{FLStock}
@@ -1565,9 +1564,12 @@ setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
   function(obs, fit, sdlog=sqrt(yearVars(flq))) {
 
     flq <- log(Reduce("/", intersect(obs, fit)))
-    is.na(flq) <- !is.finite(flq)
-
-	  res <- flq %/% sdlog
+	  
+    res <- flq %/% sdlog
+ 
+    # TODO HANDLE NaNs   
+    res[!is.finite(res)] <- NA
+    
     units(res) <- ""
 
     return(res)
@@ -1633,7 +1635,9 @@ setMethod("rstudent", signature(model="FLQuant"),
 # fwd(FLQuant) {{{
 
 setMethod("fwd", signature(object="FLQuant", fishery="missing", control="missing"),
-  function(object) {
+  function(object, rec=NA) {
+
+    # TODO ADD z, m, f
 
     # ADD plusgroup
     dms <- dims(object)
@@ -1642,8 +1646,8 @@ setMethod("fwd", signature(object="FLQuant", fishery="missing", control="missing
     # MOVE other ages
     object[seq(dms$min + 1, dms$max - 1), ] <- object[seq(dms$min, dms$max - 2), ]
 
-    # SET rec to NA
-    object[1, ] <- NA
+    # SET rec to rec
+    object[1, ] <- rec
 
     # CHANGE dimnames
     dimnames(object)$year <- as.numeric(dimnames(object)$year) + 1
