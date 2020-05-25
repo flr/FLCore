@@ -2,6 +2,9 @@
 
  USER-VISIBLE CHANGES
 
+- FLCore now imports ggplot2 to avoid the clash over the %+% operator veings defined in 
+  both packages. FLCore now uses ggplot::%+% as basis for the method generic. Only this 
+  function is imported, as FLCore does not use any other ggplot2 method.
 - qapply() now has a simplify argument to call unlist() on the output and
   return a vector. Deafults to simplify=FALSE
 - windows accepts a negative value for end and will substract that number
@@ -16,6 +19,17 @@
 - readVPAInterCatch creates an FLQuant from a VPA file in the format exported
   by ICES Intercatch system.
 - fwd(FLQuant) to move one year forward a population vector.
+- fwd(FLStock) calculates survivors and places them one year one age ahead.
+- qapply can simplify output, calling unlist.
+- divide() separates object along iters into list.
+- cv(FLQuantPoint) returns std/mean.
+- New as.data.frame method for FLQuantPoint.
+- '1000 t' is now accepted by uom().
+
+ BUG FIXES
+
+- iter<- method for FLBiol and predictModel.
+- logrstandard can now deal with NaN
 
  FLCore 2.6.14
 

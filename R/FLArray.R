@@ -1,5 +1,5 @@
 # FLArray- Base class for FLQuant and FLCohort
-# FLCore/R/FLarray.R
+# FLCore/R/FLArray.R
 
 # Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC
