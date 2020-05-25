@@ -1194,8 +1194,9 @@ setGeneric("catchSel", function(object, ...){
 # %+%
 #' @rdname operators
 #' @aliases %+% % %+%-methods
-setGeneric("%+%", function(e1, e2)
-  standardGeneric("%+%"))
+#setGeneric("%+%", function(e1, e2)
+#  standardGeneric("%+%"))
+setGeneric("%+%", useAsDefault = ggplot2::`%+%`)
 
 # %-%
 #' @rdname operators
@@ -1810,7 +1811,7 @@ setGeneric("refpts", function(object, ...)
 #' @aliases dbind dbind-methods
 #'
 #' @author Iago Mosqueira (EC JRC)
-#' @seealso [`FLQuant`] [`FLarray`]
+#' @seealso [`FLQuant`] [`FLArray`]
 #' @keywords methods
 #' @md
 

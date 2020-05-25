@@ -1,4 +1,6 @@
 import("methods")
+importFrom("ggplot2",
+  "%+%")
 importFrom("iterators",
   "iter")
 importFrom("utils",
@@ -94,6 +96,7 @@ importFrom("grid",
   "unit",
   "viewport")
 export(
+  "%^%",
   "abind",
   "abModel",
   "abPars",
