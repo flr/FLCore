@@ -7,9 +7,9 @@
 #' Convert Objects Between Classes
 #'
 #' Objects of various **FLCore** classes can be converted into other classes,
-#' both basic R ones, like `data.frame`, and defined in the package. For the
-#' specifics of the precise calculations carried out for each pair of classes,
-#' see Details.
+#' both basic R ones, like `data.frame`, and others defined in the package. For
+#' the specifics of the precise calculations carried out for each pair of
+#' classes, see below.
 #' 
 #' @param object Object to be converted.
 #' @param Class Name of the class to convert the object to, `character`.
@@ -29,7 +29,6 @@ NULL
 
 #' @rdname coerce-methods
 #' @name coerce-methods
-#' @aliases coerce,FLArray,data.frame-method
 #' @section FLArray to data.frame:
 #'  The six dimensions of an `FLArray` are converted into seven columns, named
 #'  `quant` (or any other name given to the first dimension in the object),
@@ -40,7 +39,7 @@ NULL
 #' @examples
 #' # from FLQuant to data.frame
 #' as(FLQuant(rnorm(100), dim=c(5, 20)), "data.frame")
-#'
+
 setAs('FLArray', 'data.frame',
   function(from)
   {
@@ -69,7 +68,6 @@ setAs('FLArray', 'data.frame',
 
 #' @rdname coerce-methods
 #' @name coerce-methods
-#' @aliases coerce,FLPar,data.frame-method
 #' @section FLPar to data.frame:
 #'  The two or more dimensions of an *FLPar* objects are converted into three or
 #'  more columns. For a 2D objects, they are named *params*, *iter* and *data*.
@@ -78,20 +76,20 @@ setAs('FLArray', 'data.frame',
 #' @examples
 #' # from FLPar to data.frame
 #' as(FLPar(phi=rnorm(10), rho=rlnorm(10)), "data.frame")
-#'
+
 setAs('FLPar', 'data.frame',
   function(from)
   {
     return(data.frame(expand.grid(dimnames(from)), data=as.vector(from@.Data),
       stringsAsFactors = FALSE))
   }
-) # }}}
+)
+
+# }}}
 
 # TO FLQuant {{{
 
 #' @rdname coerce-methods
-#' @name coerce-methods
-#' @aliases coerce,data.frame,FLQuant-method
 #' @section data.frame to FLQuant:
 #'  A *data.frame* with the right column names is converted into an *FLQuant*
 #'  object with missing values being added. Missing columns are assumed to
@@ -99,7 +97,7 @@ setAs('FLPar', 'data.frame',
 #' @examples
 #' # from data.frame to FLQuant
 #' as(data.frame(age=rep(1:4, each=3), year=2011:2013, data=rnorm(12)), "FLQuant")
-#'
+
 setAs("data.frame", "FLQuant",
   function(from) {
     # get data.frame names and compare
@@ -160,7 +158,6 @@ setAs("data.frame", "FLQuant",
 # TO FLStock {{{
 
 #' @rdname coerce-methods
-#' @name coerce-methods
 #' @aliases coerce,FLBiol,FLStock-method
 #' @section *FLBiol* to *FLStock*:
 #'  - *n* = *stock.n*
@@ -168,6 +165,11 @@ setAs("data.frame", "FLQuant",
 #'  - *m* = *m*
 #'  - *mat* = *mat()*
 #'  - *m.spwm*, *harvest.spwn* = *spwn*
+#' @examples
+#' # from FLBiol to FLStock
+#' data(ple4.biol)
+#' fls <- as(ple4.biol, 'FLStock')
+
 setAs('FLBiol', 'FLStock',
   function(from)
   {
@@ -185,6 +187,17 @@ setAs('FLBiol', 'FLStock',
   }
 )
 
+#' @rdname coerce-methods
+#' @aliases coerce,data.frame,FLStock-method
+#' @section *data.frame* to *FLStock*:
+#'  A *data.frame* with the right column names is converted into an *FLStock*
+#'  object with missing values being added.
+#' @examples
+#' # from data.frame to FLStock
+#' df <- data.frame(slot="m", age=rep(1:5, each=5), year=rep(2000:2004, 5),
+#'   data=0.2, units="m")
+#' fls <- as(df, 'FLStock')
+
 setAs('data.frame', 'FLStock',
   function(from) {
     slots <- as.character(unique(from$slot))
@@ -201,24 +214,27 @@ setAs('data.frame', 'FLStock',
 )
 
 setMethod('as.FLStock', signature(object='data.frame'),
-    function(object, units=missing, ...) {
+  function(object, units=missing, ...) {
 
-        res <- as(object, 'FLStock')
+    res <- as(object, 'FLStock')
 
-        # units
-        if(!missing(units))
-            units(res) <- units
+    # units
+    if(!missing(units))
+      units(res) <- units
 
-        # args
-        args <- list(...)
+    # args
+    args <- list(...)
 
-        if(length(args) > 0)
-          for(i in names(args))
-            slot(res, i) <- args[[i]]
+    if(length(args) > 0)
+      for(i in names(args))
+        slot(res, i) <- args[[i]]
 
-        return(res)
+    return(res)
     }
 )
+
+
+
 
 # }}}
 
@@ -434,6 +450,14 @@ setAs("predictModel", "list",
 # }}}
 
 # TO FLQuants  {{{
+
+#' @rdname coerce-methods
+#' @aliases coerce,FLStock,FLQuants-method
+#' @section FLComp to FLQuant:
+#'  A *data.frame* with the right column names is converted into an *FLQuant*
+#' @examples
+#' # from data.frame to FLQuant
+
 setAs('FLComp', 'FLQuants',
   function(from)
   {
@@ -448,7 +472,6 @@ setAs('FLComp', 'FLQuants',
     return(FLQuants(res))
   }
 )
-
 
 setAs('data.frame', 'FLQuants',
   function(from)
@@ -468,6 +491,16 @@ setAs('data.frame', 'FLQuants',
 # }}}
 
 # TO FLSR {{{
+
+#' @rdname coerce-methods
+#' @section FLBiol to FLSR:
+#'  Slots `rec` and `ssb` in `FLSR` are populated from `n[1,]` and the result of
+#'  `ssb()`, adjusted from recruitment age. Note `ssb(FLBiol)` only corrects for
+#'  natural mortality (`m`) to time of spanwing (`spwn`).
+#' @examples
+#' # from FLBiol to FLSR
+#' as(ple4.biol, "FLSR")
+
 setAs('FLBiol', 'FLSR',
   function(from) {
 
@@ -502,6 +535,17 @@ setAs('predictModel', 'FLSR',
 # }}}
 
 # TO predictModel {{{
+
+#' @rdname coerce-methods
+#' @section FLSR to predictModel:
+#'  Places the `model` and `params` slots the same-named slots of `predictModel`.
+#'  The `residuals` `FLQuant` is stored under that name in the base `FLQuants`
+#'  slot.
+#' @examples
+#' # from FLSR to predictModel
+#' data(nsher)
+#' as(nsher, 'predictModel')
+
 setAs('FLSR', 'predictModel',
   function(from) {
 
