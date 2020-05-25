@@ -20,9 +20,9 @@ FLQuants(object, ...)
 
 \S4method{FLQuants}{missing}(object, ...)
 
-\S4method{FLQuants}{list}(object)
+\S4method{FLQuants}{list}(object, ...)
 
-\S4method{FLQuants}{FLQuants}(object)
+\S4method{FLQuants}{FLQuants}(object, ...)
 }
 \arguments{
 \item{object}{unnamed object to be added to the list}

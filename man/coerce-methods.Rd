@@ -3,10 +3,6 @@
 \docType{methods}
 \name{coerce-methods}
 \alias{coerce-methods}
-\alias{coerce,FLArray,data.frame-method}
-\alias{coerce,FLPar,data.frame-method}
-\alias{coerce,data.frame,FLQuant-method}
-\alias{coerce,FLBiol,FLStock-method}
 \title{Convert Objects Between Classes}
 \arguments{
 \item{object}{Object to be converted.}
@@ -18,9 +14,9 @@ An object of the requested class.
 }
 \description{
 Objects of various \strong{FLCore} classes can be converted into other classes,
-both basic R ones, like \code{data.frame}, and defined in the package. For the
-specifics of the precise calculations carried out for each pair of classes,
-see Details.
+both basic R ones, like \code{data.frame}, and others defined in the package. For
+the specifics of the precise calculations carried out for each pair of
+classes, see below.
 }
 \section{FLArray to data.frame}{
 
@@ -40,32 +36,11 @@ see Details.
  type `numeric`, while all others are `factor`.
 }
 
-\section{data.frame to FLQuant}{
-
- A *data.frame* with the right column names is converted into an *FLQuant*
- object with missing values being added. Missing columns are assumed to
- contain the default dimnames in *FLQuant*.
-}
-
-\section{*FLBiol* to *FLStock*}{
-
- - *n* = *stock.n*
- - *wt* = *stock.wt*
- - *m* = *m*
- - *mat* = *mat()*
- - *m.spwm*, *harvest.spwn* = *spwn*
-}
-
 \examples{
 # from FLQuant to data.frame
 as(FLQuant(rnorm(100), dim=c(5, 20)), "data.frame")
-
 # from FLPar to data.frame
 as(FLPar(phi=rnorm(10), rho=rlnorm(10)), "data.frame")
-
-# from data.frame to FLQuant
-as(data.frame(age=rep(1:4, each=3), year=2011:2013, data=rnorm(12)), "FLQuant")
-
 }
 \seealso{
 \link[base:as]{base::as}, \link[base:coerce]{base::coerce}

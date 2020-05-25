@@ -4,7 +4,7 @@
 \alias{residuals-FLQuant}
 \title{residuals}
 \usage{
-\S4method{residuals}{FLQuant}(object, fit, type = "log")
+\S4method{residuals}{FLQuant}(object, fit, type = "log", ...)
 }
 \description{
 residuals

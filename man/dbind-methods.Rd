@@ -82,7 +82,7 @@ y <- FLQuant(2, dimnames=list(year=1:10, season=3:4))
 sbind(x, y)
 }
 \seealso{
-\code{\link{FLQuant}} \code{\link{FLarray}}
+\code{\link{FLQuant}} \code{\link{FLArray}}
 }
 \author{
 Iago Mosqueira (EC JRC)
