@@ -21,3 +21,13 @@
 - Alex TIDD
 - Clara ULRICH
 - Ibrahim UMAR
+Iago Mosqueira <iago@mosqueira.eu>
+iagomosqueira <iago.mosqueira@gmail.com>
+Laurence Kell <flr-team@flr-project.org>
+drfinlayscott <drfinlayscott@gmail.com>
+Ernesto <ernesto.jardim@jrc.ec.europa.eu>
+Finlay Scott <finlay.scott@jrc.ec.europa.eu>
+Arni Magnusson <arnima@hafro.is>
+Colin Millar <colinpmillar@gmail.com>
+colinpmillar <colin.millar@jrc.ec.europa.eu>
+lauriekell <laurie@kell.es>
