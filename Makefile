@@ -46,19 +46,19 @@ build: README.md NEWS
 
 buildNV: README.md NEWS
 	cd ..;\
-	R CMD build $(PKGSRC) --no-build-vignettes
+	R --vanilla CMD build $(PKGSRC) --no-build-vignettes
 
 install: ../$(PKGNAME)_$(PKGVERS).tar.gz
 	cd ..;\
-	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
+	R --vanilla CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
 
 checkCRAN: ../$(PKGNAME)_$(PKGVERS).tar.gz
 	cd ..;\
-	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz --as-cran
+	R --vanilla CMD check $(PKGNAME)_$(PKGVERS).tar.gz --as-cran
 
 check: ../$(PKGNAME)_$(PKGVERS).tar.gz
 	cd ..;\
-	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz
+	R --vanilla CMD check $(PKGNAME)_$(PKGVERS).tar.gz
 
 clean:
 	cd ..;\
