@@ -202,7 +202,7 @@ setMethod('predict', signature(object='predictModel'),
     pars <- dimnames(params(object))$params
     args <- setNames(lapply(pars, function(x) params(object)[x,]), pars)
 
-    # ADD FLQUant(s)
+    # ADD FLQuant(s)
     args <- c(args, object)
 
     # ADD extra arguments
@@ -222,7 +222,11 @@ setMethod('predict', signature(object='predictModel'),
       exnum <- lapply(exnum, as, 'FLQuant')
 
     args <- c(args, exflq, expar, exnum)
-    
+
+    # SUBSET args in formula
+    fargs <- all.vars(object@model[[length(object@model)]])
+    args <- args[fargs]
+
     # No. iters
     nits <- unlist(lapply(args, function(x) dims(x)$iter))
 

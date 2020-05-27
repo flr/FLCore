@@ -1189,28 +1189,3 @@ mohnMatrix <- function(stocks, metric="fbar") {
 
   return(mm)
 } # }}}
-
-# fwd(FLStock) {{{
-
-setMethod("fwd", signature(object="FLStock", fishery="missing", control="missing"),
-  function(object, rec=NA, ...) {
-    
-    dms <- dims(object)
-
-    res <- window(object, start=dms$minyear + 1, end=dms$maxyear + 1)
-    
-    # ADD plusgroup
-    stock.n(res)[dms$max,] <- quantSums(stock.n(object)[seq(dms$max - 1, dms$max),] *
-      exp(-z(object)[seq(dms$max - 1, dms$max),]))
-    
-    # MOVE other ages
-    stock.n(res)[seq(dms$min + 1, dms$max - 1), ] <-
-      stock.n(object)[seq(dms$min, dms$max - 2), ] *
-        exp(-z(object)[seq(dms$min, dms$max - 2), ])
-
-    # SET rec to rec
-    stock.n(res)[1, ] <- rec
-
-    return(res)
-  })
-# }}}
