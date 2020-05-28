@@ -749,7 +749,7 @@ setMethod("rnorm", signature(n="numeric", mean="FLQuant", sd="FLQuant"),
       stop("mean or sd can only have iter=1")
     if(any(dim(mean) != dim(sd)))
       stop("dims of mean and sd must be equal")
-    FLQuant(array(rnorm(prod(dim(mean)[-6])*n, rep(iter(mean, 1)[drop=TRUE], n),
+    FLQuant(array(rnorm(prod(dim(mean)[-6]) * n, rep(iter(mean, 1)[drop=TRUE], n),
       rep(iter(sd, 1)[drop=TRUE], n)), dim=c(dim(mean)[-6], n)),
       dimnames=c(dimnames(mean)[-6], list(iter=seq(n))), units=units(mean))
   }
@@ -798,38 +798,24 @@ setMethod("rnorm", signature(n="missing", mean="FLQuant", sd="FLQuant"),
 # }}}
 
 # rlnorm {{{
-setMethod("rlnorm", signature(n='numeric', meanlog="FLQuant", sdlog="FLQuant"),
+setMethod("rlnorm", signature(n="numeric", meanlog="FLQuant", sdlog="FLQuant"),
   function(n=1, meanlog, sdlog) {
 
-    dms <- c(n, dim(meanlog)[6], dim(sdlog)[6])
-    len <- max(prod(dim(meanlog)[-6]), prod(dim(sdlog)[-6]))
+    # CHECK iters match
+    if(!all(dim(meanlog)[6] %in% c(1, n), dim(sdlog)[6] %in% c(1, n)))
+      stop("meanlog or sdlog can only have iter=1 or n")
 
-    # CHECK 1 vs. N
-    if(!all(dms %in% c(1, max(dms))))
-      stop("dims of meanlog and sdlog must be equal")
+    # CHECK dims match
+    if(any(dim(meanlog)[-6] != dim(sdlog)[-6]))
+      stop("dims of mean and sd, except iter, must be equal")
 
-    # rep() INDICES
-    n <- max(dms)
-    
-    if(dms[2] == n) m <- 1
-    else m <- n
-    
-    if(dms[3] == n) s <- 1
-    else s <- n
- 
-    # CALL rlnorm   
-    arr <- rlnorm(
-      # n
-      n * len,
-      # meanlog
-      rep(c(meanlog), m * len),
-      # sdlog
-      rep(c(sdlog), s * len))
+    mlog <- rep(c(meanlog), n / dim(meanlog)[6])
+    slog <- rep(c(sdlog), n / dim(sdlog)[6])
+    ns <- prod(dim(meanlog)[-6]) * n
 
-    res <- propagate(meanlog, n)
-    res[] <- arr
-
-    return(res)
+    return(FLQuant(array(rlnorm(ns, mlog, slog)), dim=c(dim(meanlog)[-6], n),
+      dimnames=c(dimnames(meanlog)[-6], list(iter=seq(n))),
+      units=units(meanlog)))
   }
 )
 
@@ -866,7 +852,7 @@ setMethod("rlnorm", signature(n="missing", meanlog="FLQuant", sdlog="ANY"),
 )
 setMethod("rlnorm", signature(n="missing", meanlog="FLQuant", sdlog="FLQuant"),
   function(meanlog, sdlog) {
-    if(!all(dim(meanlog) == dim(sdlog)))
+    if(!all(dim(meanlog)[-6] == dim(sdlog)[-6]))
       stop("dimensions of 'meanlog' and 'sdlog' must be the same")
     meanlog[] <- rlnorm(length(meanlog), c(meanlog), c(sdlog))
     return(meanlog)
