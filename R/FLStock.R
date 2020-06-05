@@ -790,12 +790,12 @@ setMethod('sp', signature(stock='FLQuant', catch='FLQuant', harvest='missing'),
     rng1 <- dmns[-length(dmns)]
     rng2 <- dmns[-1]
 
-    deltaB <- stock[,rng1] - stock[,rng2]
+    deltaB <- stock[, rng1] - stock[, rng2]
 
-    res <- deltaB + catch[,rng1]
+    res <- deltaB + catch[, rng1]
 
     if (rel)
-      return(res/stock[,rng1])
+      return(res / stock[, rng1])
      else
       return(res)
   }
