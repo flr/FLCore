@@ -251,7 +251,7 @@ uom <- function(op, u1, u2) {
 		return(sprintf("%s %s %s", u1, op, u2))
 
   # REMOVE trailing and leading spaces and ENSURE string
-  u <- sprintf("%s", gsub(" ", "", c(u1, u2)))
+  u <- trimws(c(u1, u2))
 	idx <- match(u, uoms)
 
     # PARSE and SOLVE if '/' in u and op = '*'
