@@ -1,3 +1,10 @@
+# FLCore 2.6.16
+
+## BUG FIXES
+
+- uom() does not strip spaces inside the string, makes '1000 t' work.
+- Products of t and multiples of 10 return correct units #62 
+
 # FLCore 2.6.15
 
 ## USER-VISIBLE CHANGES

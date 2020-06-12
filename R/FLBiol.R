@@ -747,7 +747,7 @@ setMethod("ssb", signature(object="FLBiol"),
 setMethod("tsb", signature(object="FLBiol"),
   function(object, ...)
   {
-    res <- quantSums(n(object) * wt(object) * exp(-spwn(object) %*%
+    res <- quantSums((n(object) * wt(object)) * exp(-spwn(object) %*%
       m(object)), na.rm=FALSE)
     return(res)
   }
