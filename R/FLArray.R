@@ -596,17 +596,19 @@ setMethod('expand', signature(x='FLArray'),
 #'
 setMethod("Arith", #  "+", "-", "*", "^", "%%", "%/%", "/"
   signature(e1 = "numeric", e2 = "FLArray"),
-  function(e1, e2)
-  {
-    return(new(class(e2), callGeneric(e1, e2@.Data), units=units(e2)))
+  function(e1, e2) {
+    if(length(e1) == 1 & !is.na(match(as.character(e1)[1], uoms[nums])))
+      units <- uom(as.character(get('.Generic')), as.character(e1), units(e2))
+    else
+      units <- units(e2)
+    return(new(class(e2), callGeneric(e1, e2@.Data), units=units))
   }
 )
 
 #' @rdname Arith-methods
 setMethod("Arith",
   signature(e1 = "FLArray", e2 = "numeric"),
-  function(e1, e2)
-  {
+  function(e1, e2) {
     if(length(e2) == 1 & !is.na(match(as.character(e2)[1], uoms[nums])))
       units <- uom(as.character(get('.Generic')), units(e1), as.character(e2))
     else
