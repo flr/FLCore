@@ -107,7 +107,14 @@ invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # 
 # rec {{{
 setMethod('rec', signature('FLBiol'),
   function(object, what=TRUE, ...) {
-    return(returnPredictModelSlot(object, what=what, slot="rec", ...))
+    
+    rec <- returnPredictModelSlot(object, what=what, slot="rec", ...)
+
+    # CORRECT dimnames$year by rec.age
+    dimnames(rec)[["year"]] <- 
+      as.numeric(dimnames(rec)[["year"]]) + as.numeric(dimnames(n(object))[["age"]])[1]
+
+    return(rec)
   })
 # }}}
 
@@ -713,6 +720,9 @@ setMethod("ssb", signature(object="FLBiol"),
   function(object, ...)
   {
     args <- list(...)
+
+    if(length(args) > 1)
+      stop("Only one extra argument allowed: 'catch.n', 'harvest', 'f' or 'hr'.")
     
     # NO catch data
     if(length(args) == 0) {

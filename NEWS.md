@@ -5,6 +5,10 @@
 - uom() does not strip spaces inside the string, makes '1000 t' work.
 - Products of t and multiples of 10 return correct units #62 
 
+## USER-VISIBLE CHANGES
+
+- uom() is not called anymore on FLQuant - numeric operations.
+
 # FLCore 2.6.15
 
 ## USER-VISIBLE CHANGES
