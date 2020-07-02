@@ -23,12 +23,12 @@ setMethod('getPlural', signature(object='FLCohort'),
 		return('FLCohorts')})
 
 # FLStock -> FLStocks
-setMethod('getPlural', signature(object='FLStock'),
+setMethod('getPlural', signature(object='FLS'),
 	function(object) {
 		return('FLStocks')})
 
 # FLIndex -> FLIndices
-setMethod('getPlural', signature(object='FLIndex'),
+setMethod('getPlural', signature(object='FLI'),
 	function(object) {
 		return('FLIndices')})
 
