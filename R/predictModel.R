@@ -429,10 +429,13 @@ returnPredictModelSlot <- function(object, what=TRUE, slot, ...) {
       return(evalPredictModel(object, slot=slot(object, slot), ...))
     # character, extract
     else if(is.character(what)) {
+      # @model, @param
       if(any(what %in% c("model", "params")))
         return(slot(slot(object, slot), what))
+      # FLQuants elements
       else if(length(what) == 1)
         return(slot(object, slot)@.Data[[names(object@mat) == what]])
+      # FLQuants element
       else {
         res <- slot(object, slot)@.Data[names(object@mat) == what]
         names(res) <- what

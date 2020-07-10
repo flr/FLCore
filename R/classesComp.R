@@ -332,8 +332,8 @@ setClass("FLStock",
 	names <- names(getSlots('FLStock')[getSlots('FLStock')=="FLQuant"])
 	for(i in names){
 		# all dimnames but iter are the same
-		if(!identical(unlist(dimnames(object@catch.n)[2:5]),
-			unlist(dimnames(slot(object, i))[2:5])))
+		if(!identical(unlist(dimnames(object@catch.n)[c(2,3,4)]),
+			unlist(dimnames(slot(object, i))[c(2,3,4)])))
 			return(paste('All elements must share dimensions 2 to 5: Error in FLStock@', i))
 		# no. iter are equal or one
 	}
