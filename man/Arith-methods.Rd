@@ -47,7 +47,7 @@ flq + flq
 flq / flp
 }
 \seealso{
-\link[methods:Arith]{methods::Arith} \link[base:Arithmetic]{base::Arithmetic}
+\link[methods:S4groupGeneric]{methods::Arith} \link[base:Arithmetic]{base::Arithmetic}
 }
 \author{
 The FLR Team

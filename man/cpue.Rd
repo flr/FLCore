@@ -3,14 +3,15 @@
 \name{cpue}
 \alias{cpue}
 \alias{cpue-methods}
+\alias{cpue,FLStock,missing-method}
 \alias{cpue,FLStock-method}
 \alias{survey,FLStock-method}
 \alias{cpue-FLStock-method}
 \title{cpue, a method to generate an observation of a CPUE index of abundance}
 \usage{
-cpue(object, ...)
+cpue(object, index, ...)
 
-\S4method{cpue}{FLStock}(
+\S4method{cpue}{FLStock,missing}(
   object,
   sel.pattern = harvest(object),
   effort = units(harvest(object)),

@@ -88,7 +88,7 @@ x \%^\% y
 Arithmetic operations between two \linkS4class{FLQuant} objects using the
 standars operators (`+`, `-`, `*`, `/`, `^`, see \link{Arith}) need all
 dimensions in both objects to match. This requirement is relaxed by using
-the percent version of those four oeprators: `%+%`, `%-%`, `%*%`, `%/%` and
+the percent version of those five operators: `%+%`, `%-%`, `%*%`, `%/%` and
 `%^%`.
 }
 \details{
@@ -97,8 +97,9 @@ longer, the dimensions will be extended and the element-by-element operation
 then conducted. Dimensions and dimnames of the output will be those of the
 larger object. See the examples to observe their behaviour.
 
-Please note that this behaviour is present on the \link{Arith} methods for
-\linkS4class{FLArray}-derived classes but only on the 6th, `iter`, dimension.
+Please note that this behaviour is already present on the \link{Arith}
+methods for \linkS4class{FLArray}-derived classes but only on the 6th,
+`iter`, dimension.
 
 The original use of the `%*%` operator, as vector product, is not available
 for \linkS4class{FLQuant} objects, but can be applied to the \link{array}

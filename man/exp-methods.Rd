@@ -13,7 +13,7 @@
 Compute the exponential and logarithmic functions
 }
 \details{
-This method simply calls R's \link[base:exp]{base::exp} and \link[base:drop]{base::drop}, but take care of
+This method simply calls R's \link[base:Log]{base::exp} and \link[base:drop]{base::drop}, but take care of
 returning the right units of measurement, that is "" or character(1).
 }
 \examples{
@@ -22,7 +22,7 @@ log(x)
 units(log(x))
 }
 \seealso{
-\link[base:exp]{base::exp} \link[base:log]{base::log}
+\link[base:Log]{base::exp} \link[base:Log]{base::log}
 }
 \author{
 The FLR Team
