@@ -42,20 +42,22 @@
 #'   hr=quantSums(cpue(ple4, effort="hr"))))
 #' }
 
-setGeneric("cpue", function(object, ...) standardGeneric("cpue"))
+setGeneric("cpue", function(object, index, ...) standardGeneric("cpue"))
 
 #' @rdname cpue
 #' @aliases cpue,FLStock-method
 
-setMethod('cpue', signature(object='FLStock'),
+setMethod('cpue', signature(object='FLStock', index="missing"),
   function(object, sel.pattern=harvest(object), effort = units(harvest(object)),
     mass = TRUE) {
     
     # EFFORT from F or HR
     if (effort[1] == "hr")
       E <- catch(object) / stock(object)
-    else  
+    else if (effort[1] == "f") 
       E <- fbar(object)
+    else 
+      E <- fbar(object) %=% effort
     
     cpue <- (catch.n(object) %*% sel.pattern) %/% E
 
