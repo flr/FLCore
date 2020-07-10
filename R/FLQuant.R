@@ -1057,15 +1057,22 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
 
 # divide {{{
 setMethod("divide", signature(object="FLQuant"),
-  function(object, names=dimnames(object)$iter) {
+  function(object, dim=6, names=dimnames(object)[[dim]]) {
+    
+    # LENGTH in dim
+    idx <- dim(object)[dim]
 
-    its <- dims(object)$iter
-
-    if(its == 1)
+    if(idx == 1)
       return(object)
 
-    res <- lapply(seq(its), iter, obj=object)
+    # CALL [ on dim
+    res <- lapply(seq(idx), function(i) {
+      args <- list(x=object, d=i)
+      names(args)[2] <- c("i", "j", "k", "l", "m", "n")[dim]
+      do.call("[", args)
+    })
 
+    # RENAME
     names(res) <- names
  
     return(do.call(getPlural(res[[1]]), res))
