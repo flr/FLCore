@@ -107,12 +107,21 @@ invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # 
 # rec {{{
 setMethod('rec', signature('FLBiol'),
   function(object, what=TRUE, ...) {
+
+    rec.age <- as.numeric(dimnames(n(object))[["age"]])[1]
     
     rec <- returnPredictModelSlot(object, what=what, slot="rec", ...)
+    
+    # CORRECT dimnames if computed rec
+    if(isTRUE(what)) {
 
-    # CORRECT dimnames$year by rec.age
-    dimnames(rec)[["year"]] <- 
-      as.numeric(dimnames(rec)[["year"]]) + as.numeric(dimnames(n(object))[["age"]])[1]
+      # CORRECT dimnames$year by rec.age
+      dimnames(rec)[["year"]] <- 
+        as.numeric(dimnames(rec)[["year"]]) + rec.age
+    
+      # CORRECT dimnames$age
+      dimnames(rec)[["age"]] <- rec.age
+    }
 
     return(rec)
   })
@@ -798,12 +807,11 @@ setMethod('harvest', signature(object='FLBiol', catch='missing'),
     # last age as previous
     res[dims[1],] <- res[dims[1]-1,]
 
-    # trim out last year
-    res <- res[,1:(dims[2]-1)]-m(object)[,1:(dims[2]-1)]
+    # SUBSTRACT m
+    res[, 1:(dims[2]-1)] <- res[, 1:(dims[2]-1)] - m(object)[, 1:(dims[2]-1)]
 
   ##Plusgroup stuff
-  pgF<-function(object, hrvst, a=1)
-  {
+  pgF<-function(object, hrvst, a=1) {
 
     #deriv(y~n1*exp(-f-m2)+n2*exp(-f*a-m2)-n3,"f")
     d.<-function(f,n1,n2,n3,m1,m2,a=1){
@@ -848,7 +856,10 @@ setMethod('harvest', signature(object='FLBiol', catch='missing'),
     }
 
     if (("plusgroup" %in% names(range(object)) && !is.na(range(object,"plusgroup"))))
-     res<-pgF(object, res, a=fratio)
+     res[, 1:(dims[2]-1)] <-pgF(object, res[, 1:(dims[2]-1)], a=fratio)
+    
+    # NA last year
+    res[, dims[2]] <- NA
 
     units(res) <- 'f'
 
