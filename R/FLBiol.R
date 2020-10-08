@@ -666,6 +666,42 @@ setMethod("iter<-", signature(object="FLBiol", value="FLBiol"),
   }
 ) # }}}
 
+# fwdWindow {{{
+setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
+  function(x, end=dims(x)$maxyear, nsq=3) {
+
+    # EXTEND x with window
+    res <- window(x, end=end, extend=TRUE, frequency=1)
+
+    # NEW window years
+    wyrs <- seq(dim(m(x))[2] + 1, dim(m(res))[2])
+    sqyrs <- seq(dim(m(x))[2] - nsq + 1, dim(m(x))[2])
+
+    # m
+    m(res)[, wyrs] <- yearMeans(m(res)[, sqyrs])
+
+    # wt
+    wt(res)[, wyrs] <- yearMeans(wt(res)[, sqyrs])
+
+    # spwn
+    spwn(res)[, wyrs] <- yearMeans(spwn(res)[, sqyrs])
+
+    # mat
+    res@mat@.Data <- lapply(mat(res, FALSE), function(x) {
+      x[, wyrs] <- yearMeans(x[, sqyrs])
+      return(x)
+      })
+
+    # fec
+    res@fec@.Data <- lapply(fec(res, FALSE), function(x) {
+      x[, wyrs] <- yearMeans(x[, sqyrs])
+      return(x)
+      })
+
+    return(res)
+  }
+) # }}}
+
 # ---
 
 # meanLifespan {{{
