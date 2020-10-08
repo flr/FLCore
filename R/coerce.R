@@ -311,14 +311,8 @@ setAs('FLStock', 'FLIndex',
 setAs('FLStock', 'FLBiol',
   function(from) {
 
-    # mat as fec if > 1
-    if(max(from@mat[!is.na(from@mat)]) > 1) {
-      mat <- new("predictModel", FLQuants(mat=from@mat%=%1), model=~mat)
-      fec <- new("predictModel", FLQuants(fec=from@mat), model=~fec)
-    } else {
-      mat <- new("predictModel", FLQuants(mat=from@mat), model=~mat)
-      fec <- new("predictModel", FLQuants(fec=from@mat%=%1), model=~fec)
-    }
+    mat <- new("predictModel", FLQuants(mat=from@mat), model=~mat)
+    fec <- new("predictModel", FLQuants(fec=from@mat %=% 1), model=~fec)
 
     out <- FLBiol(n=from@stock.n, wt=from@stock.wt, m=from@m,
       spwn=from@m.spwn[1,], mat=mat, fec=fec,
