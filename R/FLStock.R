@@ -541,27 +541,29 @@ setMethod("[<-", signature(x="FLStock", value="FLStock"),
 	function(x, i, j, k, l, m, n, ..., value) {
 
     if (missing(i))
-			i  <-  dimnames(x@stock.n)[1][[1]]
+			i <- dimnames(x@stock.n)[1][[1]]
 		if (missing(j))
-			j  <-  dimnames(x@stock.n)[2][[1]]
+			j <- dimnames(x@stock.n)[2][[1]]
  		if (missing(k))
-   			k  <-  dimnames(x@stock.n)[3][[1]]
+   		k <- dimnames(x@stock.n)[3][[1]]
 		if (missing(l))
-			l  <-  dimnames(x@stock.n)[4][[1]]
+			l <- dimnames(x@stock.n)[4][[1]]
 		if (missing(m))
-			m  <-  dimnames(x@stock.n)[5][[1]]
+		  m <- dimnames(x@stock.n)[5][[1]]
 		if (missing(n))
-			n  <-  dimnames(x@stock.n)[6][[1]]
+			n <- dimnames(x@stock.n)[6][[1]]
 
 	  quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", "landings.n",
 		  "landings.wt", "stock.n", "stock.wt", "m", "mat", "harvest", "harvest.spwn",
       "m.spwn")
-    for(q in quants)
+    for(q in quants) {
       slot(x, q)[i,j,k,l,m,n] <- slot(value, q)
+    }
 
     quants <- list("catch", "landings", "discards", "stock")
-    for(q in quants)
+    for(q in quants){
       slot(x, q)[1,j,k,l,m,n] <- slot(value,q)
+    }
 
     if(validObject(x))
       return(x)
@@ -1146,7 +1148,16 @@ setMethod("append", signature(x="FLStock", values="FLStock"),
     if(after + dims(values)$year > dims(x)$maxyear)
       x <- window(x, end=after + dims(values)$year)
 
-    x[, ac(seq(after + 1, length=dims(values)$year))] <- values
+    yrs <- ac(seq(after + 1, length=dims(values)$year))
+    
+  	quants <- c("catch.n", "catch.wt", "discards.n", "discards.wt",
+      "landings.n", "landings.wt", "stock.n", "stock.wt", "m", "mat",
+      "harvest", "harvest.spwn", "m.spwn", "catch", "landings", "discards",
+      "stock")
+
+    for(q in quants) {
+      slot(x, q)[, yrs] <- slot(values, q)
+    }
 
     return(x)
   }
@@ -1167,6 +1178,9 @@ setMethod("append", signature(x="FLStock", values="FLStock"),
 #' @return A metrics of n + 2 x n, where n is the numbers of objects in stocks.
 
 mohnMatrix <- function(stocks, metric="fbar") {
+
+  if(!is(stocks, "FLStocks"))
+    stop("Input object must be of class 'FLStocks'")
 
   # LAST year in stocks
   syrs <- unname(unlist(lapply(stocks, function(x) dims(x)$maxyear)))

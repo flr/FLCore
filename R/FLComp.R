@@ -324,8 +324,7 @@ setMethod('[', signature(x='FLComp'),
 #' @rdname Extract
 #' @aliases [<-,FLComp,ANY,ANY,ANY-method
 setMethod("[<-", signature(x="FLComp"),
-	function(x, i, j, k, l, m, n, ..., value="missing")
-  {
+	function(x, i, j, k, l, m, n, ..., value="missing") {
     # SLOTS to work on
 		qnames <- getSlotNamesClass(x, 'FLArray')
 
