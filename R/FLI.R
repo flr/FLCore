@@ -129,3 +129,28 @@ setReplaceMethod("effort", signature(object="FLI", value="FLQuant"),
     return(object)
   })
 # }}}
+
+# fwdWindow (FLIndex) {{{
+setMethod("fwdWindow", signature(x="FLI", y="missing"),
+  function(x, end=dims(x)$maxyear, nsq=3) {
+
+    if(end <= dims(x)$maxyear)
+      return(window(x, end=end))
+
+    res <- window(x, end=end)
+
+    # YEARS for mean
+    myrs <- tail(dimnames(index(x))$year, nsq)
+    # NEW years
+    nyrs <- ac(seq(dims(x)$maxyear + 1, end))
+
+    # AVERAGE for 3 years
+
+    index.var(res)[, nyrs] <- yearMeans(index.var(res)[, myrs])
+    sel.pattern(res)[, nyrs] <- yearMeans(sel.pattern(res)[, myrs])
+    catch.wt(res)[, nyrs] <- yearMeans(catch.wt(res)[, myrs])
+    index.q(res)[, nyrs] <- yearMeans(index.q(res)[, myrs])
+
+    return(res)
+  }
+) # }}}
