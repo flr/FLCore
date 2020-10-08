@@ -100,12 +100,29 @@ setMethod('cpue', signature(object='FLStock', index="missing"),
 #'  cpue=quantSums(cpue(ple4)), hr=quantSums(cpue(ple4, effort="hr"))))
 #' }
 
-setGeneric("survey", function(object, ...) standardGeneric("survey"))
+setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
 
 #' @rdname cpue
 #' @aliases cpue-FLStock-method
 
-setMethod("survey",   signature(object="FLStock"),
+
+setMethod("survey",   signature(object="FLStock", index="FLIndex"),
+  function(object, index, sel=sel.pattern(index), mass = FALSE,
+    timing = mean(range(index)[c("startf", "endf")]),
+    index.q = index.q(index)) {
+
+    # GET abundance
+    abnd <- survey(object, sel=sel, timing=timing, mass=mass)
+
+    # APPLY Q
+    res <- abnd %*% index.q
+
+    return(res)
+
+  }
+)
+
+setMethod("survey",   signature(object="FLStock", index="missing"),
   function(object, sel=stock.n(object) %=% 1, timing = 0.5, mass = FALSE) {
   
     # timing MUST BE 0 - 1
@@ -114,7 +131,7 @@ setMethod("survey",   signature(object="FLStock"),
     # CORRECT abundances for timing
     stock.n <- stock.n(object) *
       exp(-(harvest(object) * timing - m(object) * timing))
- 
+    
     # APPLY survey selectivity
     survey <- stock.n %*% sel
 
