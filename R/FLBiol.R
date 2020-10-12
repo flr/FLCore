@@ -697,6 +697,12 @@ setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
       x[, wyrs] <- yearMeans(x[, sqyrs])
       return(x)
       })
+    
+    # rec: EXTEND only
+    res@rec@.Data <- lapply(rec(x, FALSE), function(y) {
+      return(window(y, end=end))
+      })
+    names(res@rec) <- names(x@rec)
 
     return(res)
   }
