@@ -937,3 +937,17 @@ matchDimnames <- function(dnp, dnq) {
 
   return(sx)
 } # }}}
+
+# %++% {{{
+
+"%++%" <- function(x, y) {
+  
+  dy <- dimnames(y)
+
+  names(dy) <- c("i", "j", "k", "l", "m", "n")
+
+  value <- do.call("[", c(list(x=x), dy)) + y
+  res <- do.call("[<-", c(list(x=x, value=value), dy))
+
+  return(res)
+} # }}}

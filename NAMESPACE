@@ -97,6 +97,7 @@ importFrom("grid",
   "viewport")
 export(
   "%^%",
+  "%++%",
   "abind",
   "abModel",
   "abPars",
