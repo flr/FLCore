@@ -54,8 +54,8 @@ setAs('FLArray', 'data.frame',
     if(!any(is.na(suppressWarnings(as.numeric(dnames[[1]])))))
       dnames[[1]] <- as.numeric(dnames[[1]])
 
-    # CONVERT dim[c(1,3:6)] to factors
-    dnames[c(3:6)] <- lapply(dnames[c(3:6)], as.factor)
+    # CONVERT dim[c(3:5)] to factors
+    dnames[c(3:5)] <- lapply(dnames[c(3:5)], as.factor)
 
     df <- data.frame(do.call(expand.grid, list(dnames,
       stringsAsFactors = FALSE)), data=c(from), stringsAsFactors = FALSE)

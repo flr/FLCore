@@ -537,25 +537,3 @@ exportMethods(
   "vecyear",
   "vecage",
   "wireframe")
-
-export(
-  "flq",
-  "flqp",
-  "flqd",
-  "flc",
-  "flp",
-  "fls",
-  "flsl",
-  "fli",
-  "flib",
-  "flsr",
-  "flq",
-  "flcs",
-  "flss",
-  "flis",
-  "flps",
-  "flb",
-  "flbs",
-  "flms",
-  "flmss",
-  "pm")
