@@ -1781,6 +1781,9 @@ setGeneric("fwdWindow", function(x, y, ...)
 setGeneric("refpts", function(object, ...)
 		standardGeneric("refpts"))
 
+setGeneric("refpts<-", function(object, ..., value)
+		standardGeneric("refpts<-"))
+
 # dbind {{{
 
 #' Methods for binding objects of array classes along a given dimension
