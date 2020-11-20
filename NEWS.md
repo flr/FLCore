@@ -11,6 +11,10 @@
 
 - uom() is not called anymore on FLQuant - numeric operations.
 
+## NEW FEATURES
+- survivors(FLStock) function calculates the population survivors and returns
+  them as an FLQuant.
+
 # FLCore 2.6.15
 
 ## USER-VISIBLE CHANGES

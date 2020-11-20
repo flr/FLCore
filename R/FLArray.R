@@ -986,7 +986,7 @@ setMethod("log", signature(x="FLQuant"),
     return(res)
   }) # }}}
 
-# dbind {{{
+# dbind: qbind, ybind, ubind, sbind, abind, ibind  {{{
 
 #' @rdname dbind-methods
 #' @param dim Dimension to bind on, *numeric* or *character*.

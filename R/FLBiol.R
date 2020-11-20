@@ -708,56 +708,18 @@ setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
   }
 ) # }}}
 
-# ---
-
-# meanLifespan {{{
-setMethod("meanLifespan", signature(x="FLBiol"),
-  function(x, ref.age = 'missing',...) {
-
-    # checks
-    if(missing(ref.age))
-      ref.age <- dims(m(x))$min
-
-    if(ref.age >= dims(m(x))$max)
-      stop("Error in mean.lifespan: reference age greater than last true age")
-    mm <- trim(m(x),age=ref.age:dims(m(x))$max)
-    mm <- yearMeans(mm)
-    mm <- seasonSums(mm)
-
-    # assuming last true age's M is the future M
-    # apply the actuarial formula for mean lifspan
-    # ::
-    # function m.lf to be applied to unit, seas
-
-    m.lf <- function(x) {
-      xx <- array(rep(NA,1000))
-      xx[1:length(x)] <- x[]
-      xx[(length(x)+1):1000] <- x[length(x)]
-      lf <- 0
-      for(i in 1:1000)
-          lf <- lf + prod(exp(-xx[1:i]))
-      return(lf)
-    }
-
-    mm <- apply(mm,2:6,m.lf)
-
-    # return the FLQuant age/year aggregated but with unit, area and iter
-    # specific values of the mean lifespan
-
-    return(mm)
-  }
-)# }}}
-
 # ssb  {{{
 
 #' @rdname ssb
 #' @details Objects of the *FLBiol* class do not contain any information on
-#' catch or fishing mortality, so a call to `ssb()` will only correct abdunaces
+#' catch or fishing mortality, so a call to `ssb()` will only correct abundances
 #' for natural mortality to the moment of spawning. The method can also take
-#' information on catches or fishing mortality and use them when calcualting
-#' abudances at spawning time. An *FLQuant* named either 'catch.n', 'f', 'hr' or
+#' information on catches or fishing mortality and use them when calculating
+#' abundances at spawning time. An *FLQuant* named either 'catch.n', 'f', 'hr' or
 #' 'harvest' can be used. The first three are self-explanatory, while for the last
-#' units must be either 'f' or 'hr'.
+#' units must be either 'f' or 'hr'. The quantities should refer to total yearly
+#' values, as the value in the 'spwn' slot will be used to calculate what fraction
+#' of fishing mortality to apply.
 #' @aliases ssb-FLBiol,method
 #' @examples
 #' biol <- as(ple4, "FLBiol")
@@ -803,6 +765,46 @@ setMethod("ssb", signature(object="FLBiol"),
     return(res)
   }
 )  # }}}
+
+# ---
+
+# meanLifespan {{{
+setMethod("meanLifespan", signature(x="FLBiol"),
+  function(x, ref.age = 'missing',...) {
+
+    # checks
+    if(missing(ref.age))
+      ref.age <- dims(m(x))$min
+
+    if(ref.age >= dims(m(x))$max)
+      stop("Error in mean.lifespan: reference age greater than last true age")
+    mm <- trim(m(x),age=ref.age:dims(m(x))$max)
+    mm <- yearMeans(mm)
+    mm <- seasonSums(mm)
+
+    # assuming last true age's M is the future M
+    # apply the actuarial formula for mean lifspan
+    # ::
+    # function m.lf to be applied to unit, seas
+
+    m.lf <- function(x) {
+      xx <- array(rep(NA,1000))
+      xx[1:length(x)] <- x[]
+      xx[(length(x)+1):1000] <- x[length(x)]
+      lf <- 0
+      for(i in 1:1000)
+          lf <- lf + prod(exp(-xx[1:i]))
+      return(lf)
+    }
+
+    mm <- apply(mm,2:6,m.lf)
+
+    # return the FLQuant age/year aggregated but with unit, area and iter
+    # specific values of the mean lifespan
+
+    return(mm)
+  }
+)# }}}
 
 # tsb  {{{
 setMethod("tsb", signature(object="FLBiol"),
