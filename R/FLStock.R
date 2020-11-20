@@ -494,8 +494,8 @@ setMethod("ssbpurec",signature(object="FLStock"),
 #' @rdname Extract
 #' @aliases [,FLStock,ANY,ANY,ANY-method
 setMethod('[', signature(x='FLStock'),
-	function(x, i, j, k, l, m, n, ..., drop=FALSE)
-  {
+	function(x, i, j, k, l, m, n, ..., drop=FALSE) {
+
 		dx <- dim(slot(x, 'stock.n'))
     args <- list(drop=FALSE)
 
@@ -1202,4 +1202,45 @@ mohnMatrix <- function(stocks, metric="fbar") {
   colnames(mm) <- c("base", as.character(-seq(1, length=peels)))
 
   return(mm)
+} # }}}
+
+# survivors {{{
+
+#' Calculate the survivors of a stock to the next year.
+#'
+#' An FLStock object containing estimates of adundance at age ('stock.n') and
+#' harvest level at age ('harvest'), is used to bring forward the population
+#' by applying the total mortality at age ('z'). No calculation is made on
+#' recruitment, so abundances for the first age will be set as 'NA'.
+#'
+#' @param object An FLStock with estimated harvest and abundances
+#'
+#' @return The abundances at age of the survivors, 'FLQuant'.
+#'
+#' @examples
+#' data(ple4)
+#' stock.n(ple4[, ac(2002:2006)])
+#' survivors(ple4[, ac(2002:2006)])
+
+survivors <- function(object) {
+
+  dms <- dims(object)
+
+  # MOVE to one year more
+  res <- window(stock.n(object) %=% as.numeric(NA),
+    start=dms$minyear + 1, end=dms$maxyear + 1)
+
+  ages <- dimnames(res)$age
+  
+  # SURVIVORS at end of year
+  survs <- stock.n(object) * exp(-z(object))
+
+  # MOVE to age + 1, year + 1
+  res[ages[-1], ] <- survs[ages[-length(ages)], ]
+
+  # PLUSGROUP
+  res[ages[length(ages)]] <- res[ages[length(ages)]] +
+    survs[ages[length(ages)], ]
+
+  return(res)
 } # }}}
