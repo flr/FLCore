@@ -254,8 +254,9 @@ setMethod("iter<-", signature(object="FLPar", value="numeric"),
 #' @rdname summary-methods
 #' @aliases summary,FLPar-method
 setMethod('summary', signature(object='FLPar'),
-  function(object, ...) {
-    cat("An object of class \"", class(object), "\"\n\n", sep="")
+  function(object, title=TRUE, ...) {
+    if(title)
+      cat("An object of class \"", class(object), "\"\n\n", sep="")
     if(dim(object)[length(dim(object))] == 1)
       return(object)
     else
