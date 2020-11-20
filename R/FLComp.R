@@ -69,8 +69,8 @@ setMethod('print', signature(x='FLComp'),
 setMethod("window", signature(x="FLComp"),
 	  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1) {
       x <- qapply(x, window, start=start, end=end, extend=extend, frequency=frequency)
-  		x@range["minyear"] <- start
-	  	x@range["maxyear"] <- end
+  		x@range["minyear"] <- as.numeric(start)
+	  	x@range["maxyear"] <- as.numeric(end)
 
 		return(x)
 	}
