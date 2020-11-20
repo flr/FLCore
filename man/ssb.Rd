@@ -55,12 +55,14 @@ where \eqn{H_{a,y}}{H_ay} is the harvest rate (proportion of catch in weight
 over total biomass).
 
 Objects of the *FLBiol* class do not contain any information on
-catch or fishing mortality, so a call to `ssb()` will only correct abdunaces
+catch or fishing mortality, so a call to `ssb()` will only correct abundances
 for natural mortality to the moment of spawning. The method can also take
-information on catches or fishing mortality and use them when calcualting
-abudances at spawning time. An *FLQuant* named either 'catch.n', 'f', 'hr' or
+information on catches or fishing mortality and use them when calculating
+abundances at spawning time. An *FLQuant* named either 'catch.n', 'f', 'hr' or
 'harvest' can be used. The first three are self-explanatory, while for the last
-units must be either 'f' or 'hr'.
+units must be either 'f' or 'hr'. The quantities should refer to total yearly
+values, as the value in the 'spwn' slot will be used to calculate what fraction
+of fishing mortality to apply.
 }
 \examples{
 

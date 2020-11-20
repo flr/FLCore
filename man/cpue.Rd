@@ -5,7 +5,7 @@
 \alias{cpue-methods}
 \alias{cpue,FLStock,missing-method}
 \alias{cpue,FLStock-method}
-\alias{survey,FLStock-method}
+\alias{survey,FLStock,FLIndex-method}
 \alias{cpue-FLStock-method}
 \title{cpue, a method to generate an observation of a CPUE index of abundance}
 \usage{
@@ -18,9 +18,16 @@ cpue(object, index, ...)
   mass = TRUE
 )
 
-survey(object, ...)
+survey(object, index, ...)
 
-\S4method{survey}{FLStock}(object, sel = stock.n(object) \%=\% 1, timing = 0.5, mass = FALSE)
+\S4method{survey}{FLStock,FLIndex}(
+  object,
+  index,
+  sel = sel.pattern(index),
+  mass = FALSE,
+  timing = mean(range(index)[c("startf", "endf")]),
+  index.q = index.q(index)
+)
 }
 \arguments{
 \item{object}{The object on which to draw the observation}

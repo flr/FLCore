@@ -21,7 +21,7 @@
 
 \S4method{summary}{FLQuantPoint}(object, ...)
 
-\S4method{summary}{FLPar}(object, ...)
+\S4method{summary}{FLPar}(object, title = TRUE, ...)
 
 \S4method{summary}{FLComp}(object, ...)
 
