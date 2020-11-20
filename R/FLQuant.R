@@ -1319,11 +1319,16 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
       for(i in seq(dm[1])) {
         for(k in seq(dm[3])) {
           for(mm in seq(dm[5])) {
-            res <- optimise(f=foo, interval = log(c(1e-8,3)),
-              n=c(object[i, dm[2], k,, mm]),
-              c=c(catch[i, dm[2], k,, mm]),
-              m=c(m[i, dm[2], k,, mm]))$minimum
-          har[i, dm[2], k,, mm] <- exp(res)
+            n <- c(object[i, dm[2], k,, mm])
+            if(is.na(n))
+              har[i, dm[2], k,, mm] <- n
+            else {
+              res <- optimise(f=foo, interval = log(c(1e-8,4)),
+                n=n,
+                c=c(catch[i, dm[2], k,, mm]),
+                m=c(m[i, dm[2], k,, mm]))$minimum
+              har[i, dm[2], k,, mm] <- exp(res)
+            }
           }
         }
       }
@@ -1333,11 +1338,16 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
         for(k in seq(dm[3])) {
           for(mm in seq(dm[5])) {
             for(i in c(dm[1]-1, dm[1])) {
-              res <- optimise(f=foo, interval = log(c(1e-8,3)),
-                n=c(object[i,j,k,,mm]),
-                c=c(catch[i,j,k,,mm]),
-                m=c(m[i,j,k,,mm]))$minimum
-              har[i,j,k,,mm] <- exp(res)
+              n <- c(object[i,j,k,,mm])
+              if(is.na(n))
+                har[i,j,k,,mm] <- n
+              else {
+                res <- optimise(f=foo, interval = log(c(1e-8, 4)),
+                  n=n,
+                  c=c(catch[i,j,k,,mm]),
+                  m=c(m[i,j,k,,mm]))$minimum
+                har[i,j,k,,mm] <- exp(res)
+              }
             }
           }
         }
@@ -1369,25 +1379,35 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
         # LOOP over years and last 2 ages
         for(y in seq(dm[2]-1)) {
           for(a in c(dm[1]-1, dm[1])) {
-            res <- optimise(f=foo, interval = log(c(1e-8,3)),
-              n=c(object[a,y,u,4]),
-              c=c(catch[a,y,u,4]),
-              m=c(m[a,y,u,4]))$minimum
-            har[a,y,u,4] <- exp(res)
+            n <- c(object[a,y,u,4])
+            if(is.na(n))
+              har[a,y,u,4] <- n
+            else {
+              res <- optimise(f=foo, interval = log(c(1e-8,3)),
+                n=n,
+                c=c(catch[a,y,u,4]),
+                m=c(m[a,y,u,4]))$minimum
+              har[a,y,u,4] <- exp(res)
+            }
           }
         }
         # LOOP over ages for last year and season
         for(a in seq(dm[1])) {
-          res <- optimise(f=foo, interval = log(c(1e-8,3)),
-            n=c(object[a,dm[2],u,4]),
-            c=c(catch[a,dm[2],u,4]),
-            m=c(m[a,dm[2],u,4]))$minimum
-          har[a,dm[2],u,4] <- exp(res)
+          n <- c(object[a,dm[2],u,4])
+          if(is.na(n))
+            har[a,dm[2],u,4] <- n
+          else {
+            res <- optimise(f=foo, interval = log(c(1e-8,3)),
+              n=n,
+              c=c(catch[a,dm[2],u,4]),
+              m=c(m[a,dm[2],u,4]))$minimum
+            har[a,dm[2],u,4] <- exp(res)
+          }
         }
       }
     }
 
-    har[is.na(har)] <- 0
+    # har[is.na(har)] <- 0
     har[har < 0] <- 0
     units(har) <- "f"
 
