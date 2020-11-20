@@ -196,3 +196,12 @@ setMethod('combine', signature(x='FLQuants', y='FLQuants'),
     return(FLQuants(res))
   }
 ) # }}}
+
+# dbind {{{
+setMethod("dbind", signature(x="FLQuants", y="missing"),
+  function(x, dim=1) {
+    res <- Reduce(function(a, b) dbind(a, b, dim=dim), x)
+    dimnames(res)[[dim]] <- names(x)
+    return(res)
+  })
+# }}}
