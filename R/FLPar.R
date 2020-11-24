@@ -498,10 +498,8 @@ setMethod("print", signature(x="FLPar"),
 
     if(reduced) {
       if(length(dimnames(x)[['iter']]) == 1) {
-        cat("Parameters: \n")
         print(t(x@.Data), digits=3)
       } else {
-        cat("Parameters median(mad): \n")
         v1 <- apply(x@.Data, 1, median, na.rm=TRUE)
         v2 <- apply(x@.Data, 1, mad, na.rm=TRUE)
         v3 <- paste(format(v1, digits=3),"(", format(v2, digits=3), ")", sep="")
