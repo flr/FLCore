@@ -1320,7 +1320,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
         for(k in seq(dm[3])) {
           for(mm in seq(dm[5])) {
             n <- c(object[i, dm[2], k,, mm])
-            if(is.na(n))
+            if(all(is.na(n)))
               har[i, dm[2], k,, mm] <- n
             else {
               res <- optimise(f=foo, interval = log(c(1e-8,4)),
@@ -1339,7 +1339,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
           for(mm in seq(dm[5])) {
             for(i in c(dm[1]-1, dm[1])) {
               n <- c(object[i,j,k,,mm])
-              if(is.na(n))
+              if(all(is.na(n)))
                 har[i,j,k,,mm] <- n
               else {
                 res <- optimise(f=foo, interval = log(c(1e-8, 4)),
@@ -1380,7 +1380,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
         for(y in seq(dm[2]-1)) {
           for(a in c(dm[1]-1, dm[1])) {
             n <- c(object[a,y,u,4])
-            if(is.na(n))
+            if(all(is.na(n)))
               har[a,y,u,4] <- n
             else {
               res <- optimise(f=foo, interval = log(c(1e-8,3)),
@@ -1394,7 +1394,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
         # LOOP over ages for last year and season
         for(a in seq(dm[1])) {
           n <- c(object[a,dm[2],u,4])
-          if(is.na(n))
+          if(all(is.na(n)))
             har[a,dm[2],u,4] <- n
           else {
             res <- optimise(f=foo, interval = log(c(1e-8,3)),
