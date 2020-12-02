@@ -384,9 +384,7 @@ setAs('data.frame', 'FLPar',
 
       dmns <- dmns[idx]
 
-      x <- from$data[do.call(order, as.list(from[, rev(names(dmns))]))]
-
-      return(FLPar(x, dimnames=dmns, units="NA"))
+      return(FLPar(from$data, dimnames=dmns, units="NA"))
     }
   }
 )
