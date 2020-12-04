@@ -32,6 +32,10 @@ setMethod("computeDiscards", signature(object="FLS"),
 #' computeCatch,FLStockLen-method
 setMethod("computeCatch", signature(object="FLS"),
   function(object, slot="catch", na.rm=TRUE) {
+
+    # PROPAGATE in case iters differ among slots
+    object <- propagate(object, dims(object)$iter)
+
     if(slot == "n"){
     # NA to 0
       if(na.rm)
@@ -46,9 +50,10 @@ setMethod("computeCatch", signature(object="FLS"),
         landings.n(object)[is.na(landings.n(object))] <- 1
         discards.wt(object)[is.na(discards.n(object))] <- 0
         discards.n(object)[is.na(discards.n(object))] <- 1
-      res <- ((landings.wt(object) * (landings.n(object) + 1e-16)) +
-      (discards.wt(object) * (discards.n(object) + 1e-16))) / 
-        (landings.n(object) + discards.n(object) + 1e-16)
+
+        res <- ((landings.wt(object) * (landings.n(object) + 1e-16)) +
+          (discards.wt(object) * (discards.n(object) + 1e-16))) / 
+          (landings.n(object) + discards.n(object) + 1e-16)
     }
     else if (slot == "all") {
       ctch.n     <-computeCatch(object, slot="n")
