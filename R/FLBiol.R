@@ -127,6 +127,13 @@ setMethod('rec', signature('FLBiol'),
   })
 # }}}
 
+# sr {{{
+setMethod("sr", signature(object="FLBiol"),
+  function(object) {
+    return(slot(object, "rec"))
+  }
+) # }}}
+
 # rec<- {{{
 
 # rec<- predictModel
@@ -744,6 +751,7 @@ setMethod("ssb", signature(object="FLBiol"),
     } else {
       res <- switch(names(args),
         # catch.n
+        # DEBUG How good is this f approximation?
         "catch.n" = quantSums(ssb(object, f=-log(1-args$catch.n / n(object))),
           na.rm=FALSE),
         # hr
