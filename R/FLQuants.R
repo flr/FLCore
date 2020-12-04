@@ -195,7 +195,10 @@ setMethod('combine', signature(x='FLQuants', y='FLQuants'),
 	names(res) <- names(x)
     return(FLQuants(res))
   }
-) # }}}
+)
+
+# TODO combine(FLQuants, FLQuant)
+# }}}
 
 # dbind {{{
 setMethod("dbind", signature(x="FLQuants", y="missing"),

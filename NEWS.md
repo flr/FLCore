@@ -6,6 +6,9 @@
 - Products of t and multiples of 10 return correct units #62 
 - getPlural ignored derived classes, like FLIndexBiomass, now dispatches on
   FLI and FLS.
+- harvest(FLQ) now runs optimize for one year objects, handles well iters.
+- computeCatch(FLStock) propagates slots if not matching. Logical subsetting
+  fails otherwise.
 
 ## USER-VISIBLE CHANGES
 
@@ -14,6 +17,7 @@
 ## NEW FEATURES
 - survivors(FLStock) function calculates the population survivors and returns
   them as an FLQuant.
+- sr(FLBiol) to access full @rec slot.
 
 # FLCore 2.6.15
 
