@@ -1463,7 +1463,7 @@ setGeneric("tS", function(object, step, ...) standardGeneric("tS"))
 setGeneric("tS<-", function(object, step, ..., value) standardGeneric("tS<-"))
 
 # sr
-setGeneric("sr", function(object, step, ...) standardGeneric("sr"))
+setGeneric("sr", function(object, ...) standardGeneric("sr"))
 
 # slots
 setGeneric("slots", function(object, name, ...) standardGeneric("slots"))
