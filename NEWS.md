@@ -18,6 +18,9 @@
 - survivors(FLStock) function calculates the population survivors and returns
   them as an FLQuant.
 - sr(FLBiol) to access full @rec slot.
+- Methods have been defined for aithmetic operations element by element between
+  two FLQuants objects, and for dividing each of an FLQuants by each of an FLPars
+  of the same length.
 
 # FLCore 2.6.15
 

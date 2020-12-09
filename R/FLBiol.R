@@ -769,6 +769,8 @@ setMethod("ssb", signature(object="FLBiol"),
     }
     if(is.null(res))
       stop("catch information must be one of 'catch.n', 'f', 'hr' or 'harvest'")
+    
+    # units(res) <- uom("*", units(n(object)), units(wt(object)))
 
     return(res)
   }
