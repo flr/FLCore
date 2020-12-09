@@ -908,6 +908,105 @@ setMethod("*", signature(e1="FLQuants", e2="FLPar"),
 
 # }}}
 
+# FLQuants, FLPars {{{
+
+#' @rdname operators
+#' @aliases /,FLQuants,FLPars-method
+#' @examples
+#' # Divide each FLQuants element by each in FLPars
+#' FLQuants(A=FLQuant(2303), B=FLQuant(1287)) /
+#'   FLPars(A=FLPar(SBMSY=1560), B=FLPar(SBMSY=1000))
+
+setMethod("/", signature(e1="FLQuants", e2="FLPars"),
+	function(e1, e2) {
+
+    res <- mapply("/", e1, e2, SIMPLIFY=FALSE)
+    names(res) <- names(e1)
+    return(FLQuants(res))
+  }
+)
+
+#' @rdname operators
+#' @aliases *,FLQuants,FLPars-method
+#' @examples
+#' # Divide each FLQuants element by each in FLPars
+#' FLQuants(A=FLQuant(2303), B=FLQuant(1287)) *
+#'   FLPars(A=FLPar(SBMSY=1560), B=FLPar(SBMSY=1000))
+setMethod("*", signature(e1="FLQuants", e2="FLPars"),
+	function(e1, e2) {
+
+    res <- mapply("*", e1, e2, SIMPLIFY=FALSE)
+    names(res) <- names(e1)
+    return(FLQuants(res))
+  }
+)
+# }}}
+
+# FLQuants, FLQuants {{{
+
+#' @rdname operators
+#' @aliases /,FLQuants,FLQuants-method
+#' @examples
+#' # Divide each FLQuants element by each in FLPars
+#' FLQuants(A=FLQuant(300), B=FLQuant(200)) /
+#'   FLQuants(A=FLQuant(3), B=FLQuant(2))
+
+setMethod("/", signature(e1="FLQuants", e2="FLQuants"),
+	function(e1, e2) {
+
+    res <- mapply("/", e1, e2, SIMPLIFY=FALSE)
+    names(res) <- names(e1)
+    return(FLQuants(res))
+  }
+)
+
+#' @rdname operators
+#' @aliases *,FLQuants,FLQuants-method
+#' @examples
+#' # Divide each FLQuants element by each in FLPars
+#' FLQuants(A=FLQuant(100), B=FLQuant(200)) *
+#'   FLQuants(A=FLQuant(3), B=FLQuant(2))
+setMethod("*", signature(e1="FLQuants", e2="FLQuants"),
+	function(e1, e2) {
+
+    res <- mapply("*", e1, e2, SIMPLIFY=FALSE)
+    names(res) <- names(e1)
+    return(FLQuants(res))
+  }
+)
+
+#' @rdname operators
+#' @aliases +,FLQuants,FLQuants-method
+#' @examples
+#' # Divide each FLQuants element by each in FLPars
+#' FLQuants(A=FLQuant(100), B=FLQuant(200)) *
+#'   FLQuants(A=FLQuant(3), B=FLQuant(2))
+setMethod("+", signature(e1="FLQuants", e2="FLQuants"),
+	function(e1, e2) {
+
+    res <- mapply("+", e1, e2, SIMPLIFY=FALSE)
+    names(res) <- names(e1)
+    return(FLQuants(res))
+  }
+)
+
+#' @rdname operators
+#' @aliases -,FLQuants,FLQuants-method
+#' @examples
+#' # Divide each FLQuants element by each in FLPars
+#' FLQuants(A=FLQuant(100), B=FLQuant(200)) *
+#'   FLQuants(A=FLQuant(3), B=FLQuant(2))
+setMethod("-", signature(e1="FLQuants", e2="FLQuants"),
+	function(e1, e2) {
+
+    res <- mapply("-", e1, e2, SIMPLIFY=FALSE)
+    names(res) <- names(e1)
+    return(FLQuants(res))
+  }
+)
+
+# }}}
+
 # %=% {{{
 setMethod("%=%", signature(object="FLArray", value="numeric"),
   function(object, value) {
