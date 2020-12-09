@@ -32,6 +32,12 @@
 \alias{\%^\%,FLPar,FLPar-method}
 \alias{/,FLQuants,FLPar-method}
 \alias{*,FLQuants,FLPar-method}
+\alias{/,FLQuants,FLPars-method}
+\alias{*,FLQuants,FLPars-method}
+\alias{/,FLQuants,FLQuants-method}
+\alias{*,FLQuants,FLQuants-method}
+\alias{+,FLQuants,FLQuants-method}
+\alias{-,FLQuants,FLQuants-method}
 \title{FLQuant arithmetic operators that extend objects}
 \usage{
 e1 \%+\% e2
@@ -83,6 +89,18 @@ x \%^\% y
 \S4method{/}{FLQuants,FLPar}(e1, e2)
 
 \S4method{*}{FLQuants,FLPar}(e1, e2)
+
+\S4method{/}{FLQuants,FLPars}(e1, e2)
+
+\S4method{*}{FLQuants,FLPars}(e1, e2)
+
+\S4method{/}{FLQuants,FLQuants}(e1, e2)
+
+\S4method{*}{FLQuants,FLQuants}(e1, e2)
+
+\S4method{+}{FLQuants,FLQuants}(e1, e2)
+
+\S4method{-}{FLQuants,FLQuants}(e1, e2)
 }
 \description{
 Arithmetic operations between two \linkS4class{FLQuant} objects using the
@@ -139,6 +157,24 @@ FLQuants(SSB=FLQuant(2303), F=FLQuant(0.8)) / FLPar(SSB=1560, F=0.4)
 
 # Product of each FLQuants element by a 'param' in FLPar
 FLQuants(SSB=FLQuant(2303), F=FLQuant(0.8)) * FLPar(SSB=1560, F=0.4)
+# Divide each FLQuants element by each in FLPars
+FLQuants(A=FLQuant(2303), B=FLQuant(1287)) /
+  FLPars(A=FLPar(SBMSY=1560), B=FLPar(SBMSY=1000))
+# Divide each FLQuants element by each in FLPars
+FLQuants(A=FLQuant(2303), B=FLQuant(1287)) *
+  FLPars(A=FLPar(SBMSY=1560), B=FLPar(SBMSY=1000))
+# Divide each FLQuants element by each in FLPars
+FLQuants(A=FLQuant(300), B=FLQuant(200)) /
+  FLQuants(A=FLQuant(3), B=FLQuant(2))
+# Divide each FLQuants element by each in FLPars
+FLQuants(A=FLQuant(100), B=FLQuant(200)) *
+  FLQuants(A=FLQuant(3), B=FLQuant(2))
+# Divide each FLQuants element by each in FLPars
+FLQuants(A=FLQuant(100), B=FLQuant(200)) *
+  FLQuants(A=FLQuant(3), B=FLQuant(2))
+# Divide each FLQuants element by each in FLPars
+FLQuants(A=FLQuant(100), B=FLQuant(200)) *
+  FLQuants(A=FLQuant(3), B=FLQuant(2))
 }
 \seealso{
 \code{\linkS4class{FLQuant}}, \code{\link[base]{matmult}}
