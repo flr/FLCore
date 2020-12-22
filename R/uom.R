@@ -280,7 +280,7 @@ uom <- function(op, u1, u2) {
   }
 
   # PARSE and SOLVE number products
-  if(grepl("*", u, fixed=TRUE) && op == "*") {
+  if(any(grepl("*", u, fixed=TRUE)) && op == "*") {
     us <- unlist(lapply(u, function(x) gsub("[[:space:]]", "",
       unlist(strsplit(x, "*", fixed=TRUE)))))
     idp <- us %in% uoms[nums]
