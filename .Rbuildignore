@@ -9,3 +9,4 @@ Makefile
 _pkgdown.yml
 CONTRIBUTORS.md
 CONTRIBUTING.md
+^\.github$

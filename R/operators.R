@@ -919,7 +919,7 @@ setMethod("*", signature(e1="FLQuants", e2="FLPar"),
 
 setMethod("/", signature(e1="FLQuants", e2="FLPars"),
 	function(e1, e2) {
-
+    
     res <- mapply("/", e1, e2, SIMPLIFY=FALSE)
     names(res) <- names(e1)
     return(FLQuants(res))

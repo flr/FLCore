@@ -29,8 +29,7 @@ or directly from the github repository by using:
 - Kell, L. T., I. Mosqueira, P. Grosjean, J-M. Fromentin, D. Garcia, R. Hillary, E. Jardim, S. Mardle, M. A. Pastoors, J. J. Poos, F. Scott, R. D. Scott. 2007. FLR: an open-source framework for the evaluation and development of management strategies. *ICES J Mar Sci*, 64 (4): 640-646. doi: [10.1093/icesjms/fsm012](https://doi.org/10.1093/icesjms/fsm012)
 
 ## Build Status
-[![Travis Build Status](https://travis-ci.org/flr/FLCore.svg?branch=master)](https://travis-ci.org/flr/FLCore)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/flr/FLCore?branch=master&svg=true)](https://ci.appveyor.com/project/flr/FLCore)
+[![R-CMD-check](https://github.com/flr/FLCore/workflows/R-CMD-check/badge.svg)](https://github.com/flr/FLCore/actions)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/FLCore)](https://cran.r-project.org/package=FLCore)
 
 ## Releases
