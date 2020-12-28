@@ -6,7 +6,7 @@
 #
 # Distributed under the terms of the EURpean Union Public Licence (EUPL) V.1.1.
 
-# CONTEXT
+# --- CONTEXT: product for complex units
 context("uom for product and complex units")
 
 # TEST product of denominator returns numerator
@@ -38,6 +38,28 @@ test_that("leading and trailing spaces are ignored", {
     units(FLQuant(units=" kg ") * FLQuant(units="1000")), "t")
 
 })
+
+
+# --- CONTEXT numeric values with different styles
+context("uom for numeric values different styles")
+
+# TEST 
+test_that("", {
+
+  a1 <- FLQuant(1, units="1000")
+  a2 <- FLQuant(1, units="1e3")
+  a3 <- FLQuant(1, units="1e+03")
+  b <- FLQuant(1, units="10")
+  
+  # EXPECT 100 / 10 = 100
+  expect_equal(units(a1 / b), "100")
+  expect_equal(units(a2 / b), "100")
+  expect_equal(units(a3 / b), "100")
+
+})
+
+
+# ---
 
 # DOES NOT PARSE:
 FLQuant(126, units="kg / d") * FLQuant(2350, units="EUR / kg / d")

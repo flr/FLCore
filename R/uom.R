@@ -6,70 +6,111 @@
 #
 # Distributed under the terms of the European Union Public Licence (EUPL) V.1.1.
 
+# uomTable --
+#
+# uoms = c(nums, nnums)
+#
+# 1 --------- nn -----|
+# |   nums    | nnums |
+# |           |       |
+# |           |       |
+# nn -------- | ------|
+
+#' Table for conversions and operations between units of measurement
+#'
+#' - uom defaults to NA unless defined below.
+#' - unit +/- itself, returns the same unit (e.g. kg + kg = kg)
+#' - numeric unit * 1 returns same unit (e.g. 1e4 * 1 = 1e4)
+#' - numeric unit * numeric unit returns product (e.g. 10 * 100 = 1000)
+#' - unit / unit returns "" (e.g. 100 / 100 = "")
+#' - numeric unit / smaller numeric unit returns division (e.g. 100 / 10 = 10)
+#' - 100 times kg returns t
+#' - numeric unit * 'kg' returns the product in tonnes (e.g. kg * 1e4 = t * 10)
+#' - units with divisions are parsed (e.g. days/boat * boat = days)
+#' -
+#' -
+#' 
+#' @docType data
+#' @keywords datasets
+#' @format An object of class array
+#' @name uomTable
+#' @rdname uomTable
+NULL
+
 # uomTable {{{
 
 uoms <- c(
 	'1','10','100','1000','10000','100000','1000000','10000000','100000000', '1000000000',
 	'10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8', '10^9',
 	'1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8', '1e9',
+	'1e+00', '1e+01', '1e+02', '1e+03', '1e+04', '1e+05', '1e+06', '1e+07', '1e+08', '1e+09',
 	'kg', 't', '1000 t', 'tonnes', 'thousands', 'm', 'f', 'z', 'hr', 'NA', '',
   'EUR', 'eur', '\u20AC', 'USD', 'usd', '\u0024',
   'd', 'h', 'vessel', 'boat', 'cm')
 puoms <- seq(length(uoms))
 # numeric units
-nums <- c(1:30)
+nums <- c(1:40)
 # non-numeric units
 nnums <- seq(max(nums) + 1, length(uoms))
 # prefered versions of numeric units
 snums <- c(1, 2, 3, 4, 25, 26, 27, 28, 29, 30)
 # no unit (nu)
 nu <- which(uoms == "")
+# No. numbers styles
+nn <- length(nums) / 10
 
-# NA: not available or unitless
-uomTable <- array('NA', dimnames=list(op=c('*', '/', '+', '-'), e1=uoms, e2=uoms), dim=c(4, length(uoms), length(uoms)))
+# NA: not available or unitless, default
+uomTable <- array('NA', dimnames=list(op=c('*', '/', '+', '-'),
+  e1=uoms, e2=uoms), dim=c(4, length(uoms), length(uoms)))
 
-#
+# numeric unit +/- previous, a + b
 for(i in seq(length(uoms))) {
   uomTable['+', i, -i] <- paste(uoms[i], '+', uoms[-i])
   uomTable['-', i, -i] <- paste(uoms[i], '+', uoms[-i])
 }
 
 # N +- N = N
-diag(uomTable['+',nums,nums]) <- rep(uoms[snums], 3)
-diag(uomTable['-',nums,nums]) <- rep(uoms[snums], 3)
+diag(uomTable['+',nums,nums]) <- rep(uoms[snums], nn)
+diag(uomTable['-',nums,nums]) <- rep(uoms[snums], nn)
 diag(uomTable['+',nnums,nnums]) <- uoms[nnums]
 diag(uomTable['-',nnums,nnums]) <- uoms[nnums]
 
 # 1 * N = N
-uomTable['*', c('1', '1e0', '10^0'), nums] <- rep(rep(uoms[snums], 3), each=3)
-uomTable['*', nums, c('1', '1e0', '10^0')] <- rep(uoms[snums], 9)
+uomTable['*', c('1', '1e0', '10^0', '1e+00'), nums] <- rep(rep(uoms[snums], nn), each=nn)
+uomTable['*', nums, c('1', '1e0', '10^0', '1e+00')] <- rep(uoms[snums], nn^2)
 
 # N * N = NN TODO Turn into loop
 # 10
-uomTable['*', c(2, 12, 22), nums[-c(1, 11, 21, 10, 20, 30)]] <- 
-	rep(uoms[snums][-c(1,2)], each=3)
-uomTable['*', nums[-c(1, 11, 21, 10, 20, 30)], c(2, 12, 22)] <-
-	rep(uoms[snums][-c(1,2)], 9)
+uomTable['*', c(2, 12, 22, 32), nums[-c(1, 11, 21, 31, 10, 20, 30, 40)]] <- 
+	rep(uoms[snums][-c(1,2)], each=nn)
+uomTable['*', nums[-c(1, 11, 21, 31, 10, 20, 30, 40)], c(2, 12, 22, 32)] <-
+	rep(uoms[snums][-c(1,2)], nn ^ 2)
 # 100
-uomTable['*', c(3, 13, 23), nums[-c(1, 11, 21, 2, 12, 22, 9, 19, 29, 10, 20, 30)]] <- 
-	rep(uoms[snums][-c(1,2,3,4)], each=3)
-uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 9, 19, 29, 10, 20, 30)], c(3, 13, 23)] <- 
-	rep(uoms[snums][-c(1,2,3,4)], 9)
+uomTable['*', c(3, 13, 23, 33), nums[-c(1, 11, 21, 31, 2, 12, 22, 32, 9, 19,
+  29, 39, 10, 20, 30, 40)]] <-  rep(uoms[snums][-c(1,2,3,4)], each=nn)
+uomTable['*', nums[-c(1, 11, 21, 31, 2, 12, 22, 32, 9, 19, 29, 39, 10, 20, 30,
+  40)], c(3, 13, 23, 33)] <- rep(uoms[snums][-c(1,2,3,4)], nn ^ 2)
 # 1000
-uomTable['*', c(4, 14, 24), nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 8, 18, 28, 9, 19, 29, 10, 20, 30)]] <- 
-	rep(uoms[snums][-c(1,2,3,4,5,6)], each=3)
-uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 8, 18, 28, 9, 19, 29, 10, 20, 30)], c(4, 14, 24)] <- 
-	rep(uoms[snums][-c(1,2,3,4,5,6)], 9)
+uomTable['*', c(4, 14, 24, 34), nums[-c(1, 11, 21, 31, 2, 12, 22, 32, 3, 13, 23,
+  33, 8, 18, 28, 38, 9, 19, 29, 39, 10, 20, 30, 40)]] <-
+    rep(uoms[snums][-c(1,2,3,4,5,6)], each=nn)
+uomTable['*', nums[-c(1, 11, 21, 31, 2, 12, 22, 32, 3, 13, 23, 33, 8, 18, 28, 38,
+  9, 19, 29, 39, 10, 20, 30, 40)], c(4, 14, 24, 34)] <- 
+	rep(uoms[snums][-c(1,2,3,4,5,6)], nn ^ 2)
 # 1e4
-uomTable['*', c(5, 15, 25), nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 7, 17, 27, 8, 18, 28, 9, 19, 29, 10, 20, 30)]] <- 
-	rep(uoms[snums][-c(1,2,3,4,5,6,7,8)], each=3)
-uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 8, 18, 28, 9, 19, 29, 10, 20, 30)], c(4, 14, 24)] <- 
-	rep(uoms[snums][-c(1,2,3,4,5,6)], 9)
+uomTable['*', c(5, 15, 25, 35), nums[-c(1, 11, 21, 31, 2, 12, 22, 32, 3, 13, 23,
+  33, 4, 14, 24, 34, 7, 17, 27, 37, 8, 18, 28, 38, 9, 19, 29, 39, 10, 20, 30, 40)]] <- 
+	rep(uoms[snums][-c(1,2,3,4,5,6,7,8)], each=nn)
+uomTable['*', nums[-c(1, 11, 21, 31, 2, 12, 22, 32, 3, 13, 23, 33, 8, 18, 28, 38,
+  9, 19, 29, 39, 10, 20, 30, 40)], c(4, 14, 24, 34)] <- 
+	rep(uoms[snums][-c(1,2,3,4,5,6)], nn ^ 2)
 # 1e5
-uomTable['*', c(6, 16, 26), nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 6, 16, 26, 7, 17, 27, 8, 18, 28, 9, 19, 29, 10, 20, 30)]] <-
-	rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], each=3)
-uomTable['*', nums[-c(1, 11, 21, 2, 12, 22, 3, 13, 23, 4, 14, 24, 6, 16, 26, 7, 17, 27, 8, 18, 28, 9, 19, 29, 10, 20, 30)], c(6, 16, 26)] <-
-	rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], 9)
+uomTable['*', c(6, 16, 26, 36), nums[-c(1, 11, 21, 31, 2, 12, 22, 32, 3, 13, 23, 33,
+  4, 14, 24, 34, 6, 16, 26, 36, 7, 17, 27, 37, 8, 18, 28, 38, 9, 19, 29, 39,
+  10, 20, 30, 40)]] <- rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], each=nn)
+uomTable['*', nums[-c(1, 11, 21, 31, 2, 12, 22, 32, 3, 13, 23, 33, 4, 14, 24, 34,
+  6, 16, 26, 36, 7, 17, 27, 37, 8, 18, 28, 38, 9, 19, 29, 39, 10, 20, 30, 40)],
+  c(6, 16, 26, 36)] <- rep(uoms[snums][-c(1,2,3,4,5,6,7,8,9)], nn ^ 2)
 
 # U / U = ""
 diag(uomTable['/', puoms, puoms]) <- ""
@@ -77,21 +118,31 @@ diag(uomTable['/', puoms, puoms]) <- ""
 # Equivalent numbers
 diag(uomTable['/', 1:10, 11:20]) <- ""
 diag(uomTable['/', 1:10, 21:30]) <- ""
+diag(uomTable['/', 1:10, 31:40]) <- ""
 diag(uomTable['/', 11:20, 1:10]) <- ""
 diag(uomTable['/', 11:20, 21:30]) <- ""
+diag(uomTable['/', 11:20, 31:40]) <- ""
 diag(uomTable['/', 21:30, 1:10]) <- ""
 diag(uomTable['/', 21:30, 11:20]) <- ""
+diag(uomTable['/', 21:30, 31:40]) <- ""
+diag(uomTable['/', 31:40, 1:10]) <- ""
+diag(uomTable['/', 31:40, 11:20]) <- ""
+diag(uomTable['/', 31:40, 21:30]) <- ""
 
-# 1000 / 100 = 10 et al
-diag(uomTable['/', 3:10, 2:9]) <- "10"
-diag(uomTable['/', 4:10, 2:8]) <- "100"
-diag(uomTable['/', 5:10, 2:7]) <- "1000"
-diag(uomTable['/', 3:10, 12:19]) <- "10"
-diag(uomTable['/', 4:10, 12:18]) <- "100"
-diag(uomTable['/', 5:10, 12:17]) <- "1000"
-diag(uomTable['/', 3:10, 22:29]) <- "10"
-diag(uomTable['/', 4:10, 22:28]) <- "100"
-diag(uomTable['/', 5:10, 22:27]) <- "1000"
+# 1000 / 100 = 10
+for(i in c(0, 10, 20, 30))
+  for(j in c(0, 10, 20, 30))
+    diag(uomTable['/', i + (3:10), j + (2:9)]) <- "10"
+
+# 1000 / 10 = 100
+for(i in c(0, 10, 20, 30))
+  for(j in c(0, 10, 20, 30))
+    diag(uomTable['/', i + (4:10), j + (2:8)]) <- "100"
+
+# 10000 / 10 = 1000
+for(i in c(0, 10, 20, 30))
+  for(j in c(0, 10, 20, 30))
+    diag(uomTable['/', i + (5:10), j + (2:7)]) <- "1000"
 
 # U / 1 = U
 uomTable['/', puoms, c('1', '10^0', '1e0')] <- uoms[puoms]
@@ -128,40 +179,40 @@ uomTable['*', 'kg', c('1', '1e0', '10^0')] <- 'kg'
 uomTable['*', c('1', '1e0', '10^0'), 'kg'] <- 'kg'
 
 # kg * Numbers = t * Numbers/1000
-uomTable['*', 'kg', c('10000', '1e4', '10^4')] <- 't * 10'
-uomTable['*', c('10000', '1e4', '10^4'), 'kg'] <- 't * 10'
-uomTable['*', 'kg', c('100000', '1e5', '10^5')] <- 't * 100'
-uomTable['*', c('100000', '1e5', '10^5'), 'kg'] <- 't * 100'
-uomTable['*', 'kg', c('1000000', '1e6', '10^6')] <- 't * 1000'
-uomTable['*', c('1000000', '1e6', '10^6'), 'kg'] <- 't * 1000'
-uomTable['*', 'kg', c('10000000', '1e7', '10^7')] <- 't * 1e4'
-uomTable['*', c('10000000', '1e7', '10^7'), 'kg'] <- 't * 1e4'
-uomTable['*', 'kg', c('100000000', '1e8', '10^8')] <- 't * 1e5'
-uomTable['*', 'kg', c('100000000', '1e8', '10^8')] <- 't * 1e5'
-uomTable['*', c('1000000000', '1e9', '10^9'), 'kg'] <- 't * 1e6'
-uomTable['*', c('1000000000', '1e9', '10^9'), 'kg'] <- 't * 1e6'
+uomTable['*', 'kg', c('10000', '1e4', '10^4', '1e+04')] <- 't * 10'
+uomTable['*', c('10000', '1e4', '10^4', '1e+04'), 'kg'] <- 't * 10'
+uomTable['*', 'kg', c('100000', '1e5', '10^5', '1e+05')] <- 't * 100'
+uomTable['*', c('100000', '1e5', '10^5', '1e+05'), 'kg'] <- 't * 100'
+uomTable['*', 'kg', c('1000000', '1e6', '10^6', '1e+06')] <- 't * 1000'
+uomTable['*', c('1000000', '1e6', '10^6', '1e+06'), 'kg'] <- 't * 1000'
+uomTable['*', 'kg', c('10000000', '1e7', '10^7', '1e+07')] <- 't * 1e4'
+uomTable['*', c('10000000', '1e7', '10^7', '1e+07'), 'kg'] <- 't * 1e4'
+uomTable['*', 'kg', c('100000000', '1e8', '10^8', '1e+08')] <- 't * 1e5'
+uomTable['*', c('100000000', '1e8', '10^8', '1e+08'), 'kg'] <- 't * 1e5'
+uomTable['*', 'kg', c('1000000000', '1e9', '10^9', '1e+09')] <- 't * 1e6'
+uomTable['*', c('1000000000', '1e9', '10^9', '1e+09'), 'kg'] <- 't * 1e6'
 
 # t * 1000 = Mt
-uomTable['*', 't', c('1000', '1e3', '10^3')] <- '1000 t'
-uomTable['*', c('1000', '1e3', '10^3'), 't'] <- '1000 t'
+uomTable['*', 't', c('1000', '1e3', '10^3', '1e+03')] <- '1000 t'
+uomTable['*', c('1000', '1e3', '10^3', '1e+03'), 't'] <- '1000 t'
 
-uomTable['*', c('1000000', '1e6', '10^6'), 'kg'] <- '1000 t'
-uomTable['*', 'kg', c('1000000', '1e6', '10^6')] <- '1000 t'
+uomTable['*', c('1000000', '1e6', '10^6', '1e+06'), 'kg'] <- '1000 t'
+uomTable['*', 'kg', c('1000000', '1e6', '10^6', '1e+06')] <- '1000 t'
 
-uomTable['*', 't', c('100', '1e2', '10^2')] <- 't * 100'
-uomTable['*', c('100', '1e1', '10^2'), 't'] <- 't * 100'
+uomTable['*', 't', c('100', '1e2', '10^2', '1e+02')] <- 't * 100'
+uomTable['*', c('100', '1e1', '10^2', '1e+02'), 't'] <- 't * 100'
 
-uomTable['*', 't', c('10', '1e1', '10^1')] <- 't * 10'
-uomTable['*', c('10', '1e1', '10^1'), 't'] <- 't * 10'
+uomTable['*', 't', c('10', '1e1', '10^1', '1e+01')] <- 't * 10'
+uomTable['*', c('10', '1e1', '10^1', '1e+01'), 't'] <- 't * 10'
 
 # Mt / 1000 = t
 # DEBUG
-uomTable['/', '1000 t', c('1000', '1e3', '10^3')] <- 't'
-uomTable['/', '1000 t', c('1000000', '1e6', '10^6')] <- 'kg'
+uomTable['/', '1000 t', c('1000', '1e3', '10^3', '1e+03')] <- 't'
+uomTable['/', '1000 t', c('1000000', '1e6', '10^6', '1e+06')] <- 'kg'
 
 # U */ "" = U
-uomTable[c('*','/'), nu, nums] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*','/'), nums, nu] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*','/'), nu, nums] <- rep(rep(uoms[snums], each=2), nn)
+uomTable[c('*','/'), nums, nu] <- rep(rep(uoms[snums], each=2), nn)
 uomTable[c('*','/'), nnums, nu] <- rep(uoms[nnums], each=2)
 uomTable[c('*','/'), nu, nnums] <- rep(uoms[nnums], each=2)
 
@@ -173,22 +224,22 @@ uomTable['-', 'z', 'm'] <- 'f'
 
 # m,f,z
 uomTable['/', c('z','f','m'), c('z','f','m')] <- 'NA'
-uomTable[c('*', '/'), nums, 'f'] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*', '/'), nums, 'm'] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*', '/'), nums, 'z'] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*', '/'), nums, 'hr'] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*', '/'), 'f', nums] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*', '/'), 'm', nums] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*', '/'), 'z', nums] <- rep(rep(uoms[snums], each=2), 3)
-uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), 3)
+uomTable[c('*', '/'), nums, 'f'] <- rep(rep(uoms[snums], each=2), nn)
+uomTable[c('*', '/'), nums, 'm'] <- rep(rep(uoms[snums], each=2), nn)
+uomTable[c('*', '/'), nums, 'z'] <- rep(rep(uoms[snums], each=2), nn)
+uomTable[c('*', '/'), nums, 'hr'] <- rep(rep(uoms[snums], each=2), nn)
+uomTable[c('*', '/'), 'f', nums] <- rep(rep(uoms[snums], each=2), nn)
+uomTable[c('*', '/'), 'm', nums] <- rep(rep(uoms[snums], each=2), nn)
+uomTable[c('*', '/'), 'z', nums] <- rep(rep(uoms[snums], each=2), nn)
+uomTable[c('*', '/'), 'hr', nums] <- rep(rep(uoms[snums], each=2), nn)
 
 # EUR * 1000 = 1000 EUR
-uomTable['*', c('EUR', 'eur', '\u20AC'), c('1000', '1e3', '10^3')] <- '1000 EUR'
-uomTable['*', c('1000', '1e3', '10^3'), c('EUR', 'eur', '\u20AC')] <- '1000 EUR'
+uomTable['*', c('EUR', 'eur', '\u20AC'), c('1000', '1e3', '10^3', '1e+03')] <- '1000 EUR'
+uomTable['*', c('1000', '1e3', '10^3', '1e+03'), c('EUR', 'eur', '\u20AC')] <- '1000 EUR'
 
 # USD * 1000 = 1000 USD
-uomTable['*', c('USD', 'usd', '\u0024'), c('1000', '1e3', '10^3')] <- '1000 USD'
-uomTable['*', c('1000', '1e3', '10^3'), c('USD', 'usd', '\u0024')] <- '1000 USD'
+uomTable['*', c('USD', 'usd', '\u0024'), c('1000', '1e3', '10^3', '1e+03')] <- '1000 USD'
+uomTable['*', c('1000', '1e3', '10^3', '1e+03'), c('USD', 'usd', '\u0024')] <- '1000 USD'
 
 # TODO Check if this is OK
 uomTable['+', 'NA',] <- uoms
@@ -197,7 +248,7 @@ uomTable['-', 'NA',] <- uoms
 uomTable['-', , 'NA'] <- uoms
 
 # thousands
-uomTable['*', 'thousands', c('1', '10^0', '1e0')] <- 'thousands'
+uomTable['*', 'thousands', c('1', '10^0', '1e0', '1e+00')] <- 'thousands'
 uomTable[c('+','-'), 'thousands', 'thousands'] <- 'thousands'
 uomTable['*', 'thousands', 'thousands'] <- '1e6'
 uomTable['/', 'thousands', 'thousands'] <- ''
@@ -205,8 +256,8 @@ uomTable['*', 'thousands', 'kg'] <- 'tonnes'
 uomTable['*', 'kg', 'thousands'] <- 'tonnes'
 
 # tonnes / 1000 = kg
-uomTable['/', 'tonnes', c('1000', '1e3', '10^3', 'thousands')] <- 'kg'
-uomTable['/', 'tonnes', c('1000', '1e3', '10^3', 'thousands')] <- 'kg'
+uomTable['/', 'tonnes', c('1000', '1e3', '10^3', '1e+03', 'thousands')] <- 'kg'
+uomTable['/', 'tonnes', c('1000', '1e3', '10^3', '1e+03', 'thousands')] <- 'kg'
 
 	
 # }}}
