@@ -7,6 +7,8 @@
 - Repository: <https://github.com/flr/FLCore/>
 - Bug reports: <https://github.com/flr/FLCore/issues>
 
+[![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+
 ## Overview
 FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R.
 
