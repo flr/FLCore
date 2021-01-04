@@ -15,6 +15,7 @@
 - uom() is not called anymore on FLQuant - numeric operations.
 
 ## NEW FEATURES
+
 - survivors(FLStock) function calculates the population survivors and returns
   them as an FLQuant.
 - sr(FLBiol) to access full @rec slot.
