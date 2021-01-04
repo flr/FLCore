@@ -1060,7 +1060,7 @@ setMethod("divide", signature(object="FLQuant"),
   function(object, dim=6, names=dimnames(object)[[dim]]) {
     
     # LENGTH in dim
-    idx <- dim(object)[dim]
+    idx <- dim(object)[dim[1]]
 
     if(idx == 1)
       return(object)
@@ -1068,7 +1068,7 @@ setMethod("divide", signature(object="FLQuant"),
     # CALL [ on dim
     res <- lapply(seq(idx), function(i) {
       args <- list(x=object, d=i)
-      names(args)[2] <- c("i", "j", "k", "l", "m", "n")[dim]
+      names(args)[2] <- c("i", "j", "k", "l", "m", "n")[dim[1]]
       do.call("[", args)
     })
 
@@ -1580,7 +1580,8 @@ setMethod("residuals", signature(object="FLQuant"),
       log="rlogstandard",
       standard="rstandard",
       pearson="rstandard",
-      student="rstudent")
+      student="rstudent",
+      raw="rraw")
 
     do.call(method, list(object, fit, ...))
   }
@@ -1602,14 +1603,14 @@ setGeneric("rlogstandard", function(obs, fit, ...)
 		standardGeneric("rlogstandard"))
 setMethod("rlogstandard", signature(obs="FLQuant", fit="FLQuant"),
   function(obs, fit, sdlog=sqrt(yearVars(flq))) {
-
-    flq <- log(Reduce("/", intersect(obs, fit)))
+    
+    flq <- Reduce("-", lapply(intersect(obs, fit), log))
+    
+    # DEAL with Inf
+    is.na(flq) <- !is.finite(flq)
 	  
     res <- flq %/% sdlog
  
-    # TODO HANDLE NaNs   
-    res[!is.finite(res)] <- NA
-    
     units(res) <- ""
 
     return(res)
@@ -1625,8 +1626,12 @@ setMethod("rstandard", signature(model="FLQuant"),
       stop("Both objects must be of class 'FLQuant'")
 	
     flq <- Reduce("/", intersect(model, fit))
+    
+    # DEAL with Inf
     is.na(flq) <- !is.finite(flq)
-	  res <- flq / sd
+	  
+    res <- flq / sd
+    
     units(res) <- ""
 
     return(res)
@@ -1639,7 +1644,7 @@ setMethod("rstudent", signature(model="FLQuant"),
   function(model, fit, internal=TRUE) {
 
     if(!is(fit, "FLQuant"))
-      stop("Both objects must be of class 'FLQuant'")
+      stop("Both fit and observation must be of class 'FLQuant'")
 	
     mmodel <- mean(model)
     mfit <- mean(fit)
