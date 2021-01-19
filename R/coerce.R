@@ -10,7 +10,7 @@
 #' both basic R ones, like `data.frame`, and others defined in the package. For
 #' the specifics of the precise calculations carried out for each pair of
 #' classes, see below.
-#' 
+#'
 #' @param object Object to be converted.
 #' @param Class Name of the class to convert the object to, `character`.
 #'
@@ -84,6 +84,17 @@ setAs('FLPar', 'data.frame',
       stringsAsFactors = FALSE))
   }
 )
+
+setAs('FLPars', 'data.frame',
+  function(from)
+  {
+    dfs <- lapply(from, as, "data.frame")
+    dfs <- lapply(names(dfs), function(x) cbind(dfs[[x]], data.frame(qname=x)))
+
+    return(do.call(rbind, dfs))
+  }
+)
+
 
 # }}}
 
