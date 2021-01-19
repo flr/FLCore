@@ -1864,6 +1864,13 @@ setGeneric("compare", function(result, target, ...)
 setGeneric("standardUnits", function(object, ...)
   standardGeneric("standardUnits"))
 
+#' @rdname standardUnits-methods
+
+setMethod("standardUnits", signature(object="character"),
+  function(object, ...) {
+    standardUnits(new(object))
+  })
+
 # }}}
 
 setGeneric("setPlusGroup", function(x, plusgroup, ...)
