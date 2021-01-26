@@ -525,7 +525,11 @@ setMethod('[', signature(x='FLStock'),
 
     # range
     x@range['min'] <- dims(slot(x, 'stock.n'))$min
+    if(x@range['minfbar'] < x@range['min'])
+      x@range['minfbar'] <- x@range['min']
     x@range['max'] <- dims(slot(x, 'stock.n'))$max
+    if(x@range['maxfbar'] > x@range['max'])
+      x@range['maxfbar'] <- x@range['max']
     x@range['plusgroup'] <- min(x@range['plusgroup'], dims(slot(x, 'stock.n'))$max)
     x@range['minyear'] <- dims(slot(x, 'stock.n'))$minyear
     x@range['maxyear'] <- dims(slot(x, 'stock.n'))$maxyear
