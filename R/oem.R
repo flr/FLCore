@@ -327,3 +327,85 @@ ar1rlnorm <- function(rho, years, iters=1, margSD=0.6) {
   return(FLQuant(array(res, dim=c(1,n,1,1,1,iters)),
     dimnames=list(year=years, iter=seq(1, iters))))
   } # }}}
+
+# mase {{{
+
+#' Compute mean absolute scaled error (MASE)
+#'
+#' Franses, PH. "A note on the Mean Absolute Scaled Error". International Journal of Forecasting. 32 (1): 20–22. doi:10.1016/j.ijforecast.2015.03.008.
+#'
+#' @param ref Reference or naive prediction.
+#' @param preds Predicitions to compare to reference.
+#' @param order Are predictions in 'inverse' (default) or 'ahead' order.
+#' @param ... Extra arguments.
+#'
+#' @return A numeric vector of the same length as 'preds'.
+
+setGeneric("mase", function(ref, preds, ...) standardGeneric('mase'))
+
+#' @rdname mase
+
+setMethod("mase", signature(ref="FLQuant", preds="FLQuants"),
+  function(ref, preds, order=c("inverse", "ahead")) {
+
+    # SET dims
+    fy <- dims(ref)$maxyear
+    nyears <- length(preds)
+
+    # REVERSE if ahead
+    if(order[1] == "ahead")
+      preds <- preds[rev(seq(length(preds)))]
+
+    # ADD names if missing
+    if(is.null(names(preds)))
+      names(preds) <- seq(fy - 1, fy - nyears)
+    
+    # \sum_{t=T-h+1}^{T} |\hat{y}_t - y_t|
+    num  <- abs(log(mapply(function(x, y) x[, y], preds,
+      y=ac(seq(fy, fy - nyears + 1)), SIMPLIFY=TRUE)) -
+      log(ref[, ac(seq(fy, fy - nyears + 1))]))
+
+    # \sum_{t=T-h+1}^{T} |y_t - y_{t-1}|
+    den <- abs(log(ref[, ac(seq(fy, fy - nyears + 1))]) -
+      log(ref[, ac(seq(fy - 1, fy - nyears))]))
+
+    mase <- (1 / nyears * sum(num)) / (1 / nyears * sum(den))
+
+    return(mase)
+  }
+)
+
+#' @rdname mase
+#' @param wt Mean weights-at-age to use with indices.
+
+setMethod("mase", signature(ref="FLIndices", preds="list"),
+  function(ref, preds, order="inverse", wt="missing") {
+
+    # CHECK classes in list
+    if(!all(unlist(lapply(preds, is, "FLIndices"))))
+      stop("All elements in 'preds' list must be of class 'FLIndices'.")
+
+    if(!all(unlist(lapply(preds, length)) == length(ref)))
+      stop("'FLIndices' in 'preds' must have the same length as 'ref'.")
+
+    # TODO CHECK names and warn if first matches last year of ref
+
+    indices <- c(list(ref), preds)
+
+    # TODO PARSE wt and add to indices
+
+    res <- unlist(lapply(setNames(nm=names(indices[[1]])), function(i) {
+      # COMPUTE index in biomass
+      flqs <- lapply(indices, function(x) {
+        if(is(x, "FLIndexBiomass"))
+          index(x[[i]])
+        else
+          quantSums(index(x[[i]]) * catch.wt(x[[i]]))
+      })
+      mase(flqs[[1]], FLQuants(flqs[-1]), order=order)
+    }))
+
+    return(res)
+  }
+)
+# }}}

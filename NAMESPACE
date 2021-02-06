@@ -382,6 +382,7 @@ exportMethods(
   "m<-",
   "m.spwn",
   "m.spwn<-",
+  "mase",
   "mass",
   "mat",
   "mat<-",
