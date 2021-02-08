@@ -512,27 +512,47 @@ setMethod('[', signature(x='FLStock'),
 		if (!missing(n))
       args <- c(args, list(n=n))
 
+    # SUBSET at-age slots
 	  quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", "landings.n",
 		  "landings.wt", "stock.n", "stock.wt", "m", "mat", "harvest", "harvest.spwn",
     	"m.spwn")
     for(q in quants)
       slot(x, q) <- do.call('[', c(list(x=slot(x,q)), args))
 
+    # SUBSET aggregated slots
 	  quants <- list("catch", "landings", "discards", "stock")
     args[['i']] <- 1
     for(q in quants)
       slot(x, q) <- do.call('[', c(list(x=slot(x,q)), args))
+    
+    ds <- dims(x)
+    
+    # range for non-aggregated FLStock
+    if(!is.na(dims(x)$min)) {
 
-    # range
-    x@range['min'] <- dims(slot(x, 'stock.n'))$min
-    if(x@range['minfbar'] < x@range['min'])
-      x@range['minfbar'] <- x@range['min']
-    x@range['max'] <- dims(slot(x, 'stock.n'))$max
-    if(x@range['maxfbar'] > x@range['max'])
-      x@range['maxfbar'] <- x@range['max']
-    x@range['plusgroup'] <- min(x@range['plusgroup'], dims(slot(x, 'stock.n'))$max)
-    x@range['minyear'] <- dims(slot(x, 'stock.n'))$minyear
-    x@range['maxyear'] <- dims(slot(x, 'stock.n'))$maxyear
+      # min
+      x@range["min"] <- ds$min
+
+      # max
+      x@range["max"] <- ds$max
+
+      # minfbar < min
+      if(x@range["minfbar"] < ds$min)
+        x@range["minfbar"] <- ds$min
+
+      # maxfbar > max
+      if(x@range["maxfbar"] < ds$max)
+        x@range["maxfbar"] <- ds$max
+
+      # plusgroup > max
+      if(x@range["plusgroup"] < ds$max)
+        x@range["plusgroup"] <- ds$max
+
+      }
+
+    # year
+    x@range['minyear'] <- ds$minyear
+    x@range['maxyear'] <- ds$maxyear
 
     return(x)
     }
