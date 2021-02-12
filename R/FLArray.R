@@ -1063,6 +1063,20 @@ setMethod('dbind', signature(x='FLArray', y='FLArray'),
   }
 )
 
+setMethod('dbind', signature(x='list', y='missing'),
+  function(x, dim=1) {
+
+    do.call(dbind, c(x, list(dim=dim)))
+  }
+)
+
+
+setMethod('dbind', signature(x='FLArray', y='missing'),
+  function(x, dim=1) {
+    return(x)
+  }
+)
+
 #' @rdname dbind-methods
 #' @aliases qbind
 qbind <- function(...)
