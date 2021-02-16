@@ -970,7 +970,8 @@ setMethod("simplify", signature(object="FLStock"),
     }
     
 
-    if("unit" %in% dims) {
+    # AVERAGE mat
+    if("unit" %in% dims & identical(dimnames(mat(object))$unit, c("F", "M"))) {
       if("season" %in% dims) {
         mat <- foo(mat(object)[,,'F', spwn.season], dims=dms, FUN=mean)
       } else {
