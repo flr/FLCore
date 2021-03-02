@@ -2,11 +2,14 @@
 % Please edit documentation in R/genericMethods.R, R/FLS.R, R/FLBiol.R
 \name{standardUnits}
 \alias{standardUnits}
+\alias{standardUnits,character-method}
 \alias{standardUnits,FLS-method}
 \alias{standardUnits,FLBiol-method}
 \title{Standard units of measurement for a complex class object}
 \usage{
 standardUnits(object, ...)
+
+\S4method{standardUnits}{character}(object, ...)
 
 \S4method{standardUnits}{FLS}(object, ...)
 

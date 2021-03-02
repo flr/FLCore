@@ -744,7 +744,7 @@ setMethod("propagate", signature(object="FLQuant"),
 # rnorm{{{
 setMethod("rnorm", signature(n="numeric", mean="FLQuant", sd="FLQuant"),
   function(n=1, mean, sd) {
-    if(dim(mean)[6] > 1 | dim(sd)[6] > 1)
+    if(!dim(mean)[6] %in% c(1, n) | !dim(sd)[6]  %in% c(1, n))
       stop("mean or sd can only have iter=1")
     if(any(dim(mean) != dim(sd)))
       stop("dims of mean and sd must be equal")
@@ -1055,6 +1055,7 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
 ) # }}}
 
 # divide {{{
+
 setMethod("divide", signature(object="FLQuant"),
   function(object, dim=6, names=dimnames(object)[[dim]]) {
     
@@ -1078,6 +1079,42 @@ setMethod("divide", signature(object="FLQuant"),
 
   }
 ) # }}}
+
+# split {{{
+
+#' splits *x* along the *iter* dimension into the groups defined by *f*.
+#'
+#' Similar to  base::split, but working along the 6th, *iter*, dimension of
+#' any singular FLR object. The object is divided into as many objects as
+#' unique values in *f*, and returned as an FLlst-derived object, e.g. an
+#' FLQuants object when applied to an FLQuant.
+#'
+#' @param x The object to be split.
+#' @param f The vector of group names.
+#'
+#' @return An object of the corresponding plural class (FLQuants from FLQuant).
+#'
+#' @name split-methods
+#' @rdname split
+#'
+#' @author Iago Mosqueira (WMR).
+#' @keywords methods
+#' @md
+#' @examples
+#' # FROM FLQuant to FLQuants
+#' flq <- rlnorm(20, FLQuant(seq(0.1, 0.8, length=10)), 0.2)
+#' split(flq, c(rep(1, 5), rep(2,15)))
+
+setMethod("split", signature(x="FLQuant", f="vector"),
+  function(x, f) {
+  FLQuants(lapply(setNames(nm=unique(f)),
+    function(i) {
+      iter(x, f == i)
+    }
+  ))
+})
+
+# }}}
 
 # combine {{{
 setMethod('combine', signature(x='FLQuant', y='FLQuant'),

@@ -468,6 +468,7 @@ exportMethods(
   "show",
   "slots",
   "sp",
+  "split",
   "splom",
   "spr0",
   "spwn",

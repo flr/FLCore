@@ -990,3 +990,17 @@ setMethod("window", signature(x="FLPar"),
     do.call('[<-', c(list(x=res, value=x), dimnames))
   }
 )   # }}}
+
+# divide {{{
+
+#' @example
+#' divide(FLPar(FMSY=0.21, BMSY=120012), names=c(F="FMSY", B="BMSY"))
+
+setMethod("divide", signature(object="FLPar"),
+  function(object, dim=1, names=setNames(nm=dimnames(object)[[dim]])) {
+  return(lapply(names, function(x) object[x,]))
+  }
+)
+
+# }}}
+

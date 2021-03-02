@@ -47,7 +47,7 @@
 #' # If a variable is missing from the spread object, function will fail
 #' \dontrun{foo(list(x=4))}
 #' # Unless the variable is already defined in the calling environment,
-#' #in this case <environment: R_GlobalEnv>
+#' # in this case <environment: R_GlobalEnv>
 #' y <- 45
 #' foo(params=list(x=4))
 

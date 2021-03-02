@@ -922,7 +922,7 @@ setMethod("vb", signature(x="FLStock", sel="FLQuant"),
 #' @aliases simplify,FLStock-method
 
 setMethod("simplify", signature(object="FLStock"),
-  function(object, dims=c("unit", "season", "area"),
+  function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
     spwn.season=1, stock.season=1, calcF=TRUE) {
     
     # TODO: check spwn.season vs. mat

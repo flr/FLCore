@@ -765,6 +765,22 @@ setMethod("divide", signature(object="FLComp"),
   }
 ) # }}}
 
+# split {{{
+
+#' @rdname split
+
+setMethod("split", signature(x="FLComp", f="vector"),
+  function(x, f) {
+
+  return(do.call(getPlural(x), lapply(setNames(nm=unique(f)),
+    function(i) {
+      iter(x, f == i)
+    }
+  )))
+
+  }
+) # }}}
+
 # combine {{{
 setMethod('combine', signature(x='FLComp', y='FLComp'),
   function(x, y, ..., check=FALSE) {
