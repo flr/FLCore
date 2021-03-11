@@ -114,6 +114,8 @@ export(
   "createFLAccesors",
   "cushing",
   "evalPredictModel",
+  "Fwanted",
+  "Funwanted",
   "ibind",
   "is.FLQuant",
   "is.FLStock",
