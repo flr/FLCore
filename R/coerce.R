@@ -400,6 +400,14 @@ setAs('data.frame', 'FLPar',
   }
 )
 
+setAs('data.frame', 'FLPars',
+  function(from) {
+
+  return(do.call(rbind, c(Map(function(x, y) cbind(y, qname=x),
+      x=setNames(nm=names(from)), y=lapply(from, as, "data.frame")),
+      make.row.names = FALSE)))
+  })
+
 # }}}
 
 # TO list {{{
