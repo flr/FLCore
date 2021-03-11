@@ -1269,3 +1269,32 @@ survivors <- function(object) {
 
   return(res)
 } # }}}
+
+# Funwanted, Fwanted {{{
+
+#' Calculate the discards and landings-associated fishing mortalities
+#'
+#' Computes the fishing mortality at age (harvest) associated with either
+#' landings (*Fwanted*) or discards (*Funwanted*) through the respective
+#' proportions at age. The function names reflect the convention used in
+#' ICES.
+#'
+#' @param x An FLStock object, with harvest
+#' @param ages Ages over which the respective Fbar calculation applies
+#'
+#' @return An FLQuant
+#'
+#' @examples
+#' data(ple4)
+#' Fwanted(ple4, ages=2:6)
+#' Funwanted(ple4, ages=1:3)
+
+Funwanted <- function(x, ages=dimnames(x)$age) {
+  quantMeans((discards.n(x)[ac(ages),] / catch.n(x)[ac(ages),]) *
+    harvest(x)[ac(ages)])
+}
+
+Fwanted <- function(x, ages=dimnames(x)$age) {
+quantMeans((landings.n(x)[ac(ages),] / catch.n(x)[ac(ages),]) *
+    harvest(x)[ac(ages)])
+} # }}}
