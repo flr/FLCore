@@ -914,7 +914,27 @@ setMethod('$', signature(x='FLPar'),
   function(x, name) {
     return(x[name,])
   }
-) # }}}
+) 
+
+#' @rdname Extract
+#' @aliases $<-,FLPar,ANY-method
+setReplaceMethod("$", signature(x="FLPar", value="ANY"),
+  function(x, name, value) {
+    # SUBSTITUTE existing param
+    if(name %in% dimnames(x)$params) {
+      x[name,] <- value
+    # or ADD new one
+    } else {
+      value <- FLPar(value)
+      dimnames(value)$params <- name
+      x <- rbind(x, value)
+    }
+    return(x)
+  }
+) 
+
+
+# }}}
 
 # expand {{{
 setMethod('expand', signature(x='FLPar'),
@@ -998,7 +1018,7 @@ setMethod("window", signature(x="FLPar"),
 
 setMethod("divide", signature(object="FLPar"),
   function(object, dim=1, names=setNames(nm=dimnames(object)[[dim]])) {
-  return(lapply(names, function(x) object[x,]))
+  return(FLPars(lapply(names, function(x) object[x,])))
   }
 )
 

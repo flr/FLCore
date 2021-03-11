@@ -195,6 +195,7 @@ exportClasses(
 exportMethods(
   "iter",
   "$",
+  "$<-",
   "+",
   "%*%",
   "%+%",
