@@ -969,7 +969,6 @@ setMethod("simplify", signature(object="FLStock"),
       stwt <- foo(stock.wt(object), dims=dms, FUN=mean)
     }
     
-
     # AVERAGE mat
     if("unit" %in% dims & identical(dimnames(mat(object))$unit, c("F", "M"))) {
       if("season" %in% dims) {
@@ -1298,3 +1297,121 @@ Fwanted <- function(x, ages=dimnames(x)$age) {
 quantMeans((landings.n(x)[ac(ages),] / catch.n(x)[ac(ages),]) *
     harvest(x)[ac(ages)])
 } # }}}
+
+# ssb_next {{{
+
+#' Calculate next yera's SSB from survivors and Fbar
+#'
+#' The spawning stock biomass (SSB) of the stock gets calculated from the
+#' survivors of the previous year. This provides a value for the first year
+#' after the end of the object. Weights-at-age, maturity in this extra year are
+#' calculated as everages over the last *wts.nyears*.
+#'
+#' For stocks spawning later in the year, a value for the avreage fishing
+#' mortality, *fbar*, expected in that year can be provided. Mortality until
+#' spawning is then calculated with M and selectivity assumed in the extra year
+#' to be an average of the last *fbar.nyears*.
+#'
+#' @param x An FLStock object containing estimates of abundance and harvesting.
+#' @param fbar The Fbar rate assumed on the extra year. Defaults to 0.
+#' @param wts.nyears Number of years in calculation of mean weight-at-age and maturity for the extra year.
+#' @param fbar.nyears Number of years in calculation of mean selectivity, natural mortality and fraction of F abnd M before spawning for the extra year.
+#'
+#' @return An FLQuant.
+#'
+#' @examples
+#' data(ple4)
+#' ssb_next(ple4)
+#' # Compare with ssb()
+#' ssb(ple4)[, ac(2014:2017)] / ssb_next(ple4)[, ac(2014:2017)]
+
+ssb_next <- function(x, fbar=0, wts.nyears=3, fbar.nyears=3) {
+
+  my <- dims(x)$maxyear
+  fages <- range(x, c("minfbar", "maxfbar"))
+  
+  # EXTEND slots and COMPUTE wts.nyears average for extra year
+
+  # mat
+  xmat <- window(mat(x)[,-1], end=my + 1)
+  xmat[, ac(my + 1)] <- yearMeans(xmat[, ac(seq(my - wts.nyears, my))])
+
+  # wt
+  xwt <- window(stock.wt(x)[,-1], end=my + 1)
+  xwt[, ac(my + 1)] <- yearMeans(xwt[, ac(seq(my - wts.nyears, my))])
+
+  # SOLVE for fmultiplier, returns harvest from fbar and catch.sel
+
+  if(fbar > 0) {
+
+    f <- function(i) {
+      abs(c(quantMeans(i * yearMeans(catch.sel(x)[ac(seq(fages[1], fages[2])),
+        ac(seq(my - fbar.nyears, my))])) - c(fbar)))
+    }
+
+    fmu <- optimize(f, c(fbar / 5, fbar * 5))$minimum
+
+  } else {
+
+    fmu <- 0
+  }
+  
+  # EXTEND slots and COMPUTE fbar.nyears average for extra year
+
+  # harvest
+  har <- window(harvest(x)[,-1], end=my + 1)
+  cs <- yearMeans(catch.sel(x)[, ac(seq(my - fbar.nyears + 1, my))])
+  har[, ac(my + 1)] <- cs %/% quantMeans(cs[ac(seq(fages[1], fages[2])),]) * fbar
+
+  # DEBUG
+  # har[, ac(my + 1)] <- yearMeans(catch.sel(x)[, ac(seq(my - fbar.nyears, my))]) * fmu
+  
+  # m
+  mn <- window(m(x)[,-1], end=my + 1)
+  mn[, ac(my + 1)] <- yearMeans(mn[, ac(seq(my - fbar.nyears, my))])
+
+  # m.spawn
+  ms <- window(m.spwn(x)[,-1], end=my + 1)
+  ms[, ac(my + 1)] <- yearMeans(ms[, ac(seq(my - fbar.nyears, my))])
+
+  # harvest.spawn
+  hs <- window(harvest.spwn(x)[,-1], end=my + 1)
+  hs[, ac(my + 1)] <- yearMeans(hs[, ac(seq(my - fbar.nyears, my))])
+
+  return(list(ssb=quantSums(survivors(x) * exp(- (har * hs) - (mn * ms)) * xwt * xmat),
+    n=survivors(x), har=har, hs=hs, mn=mn, ms=ms, xwt=xwt, xmat=xmat))
+
+  return(quantSums(survivors(x) * exp(- (har * hs) - (mn * ms)) * xwt * xmat))
+
+} # }}}
+
+# targets {{{
+ssb_end <- function(x) {
+  m.spwn(x) <- 1
+  harvest.spwn(x) <- 1
+  return(ssb(x))
+}
+
+ssb_start <- function(x) {
+  m.spwn(x) <- 0
+  harvest.spwn(x) <- 0
+  return(ssb(x))
+}
+
+biomass_end <- function(x) {
+  m.spwn(x) <- 1
+  harvest.spwn(x) <- 1
+	return(quantSums(stock.n(x) * exp(-(harvest(x) *
+    harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
+  }
+
+biomass_spawn <- function(x) {
+	return(quantSums(stock.n(x) * exp(-(harvest(x) *
+    harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
+}
+
+biomass <- function(x) {
+  stock(x)
+}
+
+# }}}
