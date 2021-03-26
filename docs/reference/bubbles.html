@@ -76,7 +76,7 @@ Positive and negative values have separate colours." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@ Positive and negative values have separate colours." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -130,16 +130,16 @@ Positive and negative values have separate colours.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for formula,FLQuant</span>
-<span class='fu'>bubbles</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>bub.scale</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"red"</span>), <span class='no'>...</span>)
+<span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, bub.scale <span class='op'>=</span> <span class='fl'>2.5</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for formula,data.frame</span>
-<span class='fu'>bubbles</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>bub.scale</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"red"</span>), <span class='no'>...</span>)
+<span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, bub.scale <span class='op'>=</span> <span class='fl'>2.5</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"blue"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for formula,FLCohort</span>
-<span class='fu'>bubbles</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>bub.scale</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='no'>...</span>)
+<span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, bub.scale <span class='op'>=</span> <span class='fl'>2.5</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for formula,FLQuants</span>
-<span class='fu'>bubbles</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>bub.scale</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>bub.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>gray</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.1</span>)), <span class='no'>...</span>)</pre>
+<span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, bub.scale <span class='op'>=</span> <span class='fl'>2.5</span>, bub.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/gray.html'>gray</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
@@ -149,18 +149,26 @@ Positive and negative values have separate colours.</p>
 
     <div class='dont-index'><p><a href='https://rdrr.io/pkg/lattice/man/Lattice.html'>lattice</a>, <code><a href='FLQuant.html'>FLQuant</a></code>,
 <code><a href='FLQuants.html'>FLQuants</a></code>,<code><a href='FLCohort.html'>FLCohort</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
-<span class='fu'>bubbles</span>(<span class='no'>age</span>~<span class='no'>year</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>))</div><div class='img'><img src='bubbles-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>bubbles</span>(<span class='no'>age</span>~<span class='no'>year</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>), <span class='kw'>bub.scale</span><span class='kw'>=</span><span class='fl'>5</span>)</div><div class='img'><img src='bubbles-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>bubbles</span>(<span class='no'>age</span>~<span class='no'>cohort</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='fu'><a href='FLCohort.html'>FLCohort</a></span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)), <span class='kw'>bub.scale</span><span class='kw'>=</span><span class='fl'>5</span>)</div><div class='img'><img src='bubbles-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>qt01</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>)+<span class='fl'>1</span>)
-<span class='no'>qt02</span> <span class='kw'>&lt;-</span> <span class='no'>qt01</span>+<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>qt01</span>))
-<span class='no'>flqs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuants.html'>FLQuants</a></span>(<span class='kw'>qt01</span><span class='kw'>=</span><span class='no'>qt01</span>, <span class='kw'>qt02</span><span class='kw'>=</span><span class='no'>qt02</span>)
-<span class='fu'>bubbles</span>(<span class='no'>age</span>~<span class='no'>year</span><span class='kw'>|</span><span class='no'>qname</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>flqs</span>, <span class='kw'>bub.scale</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='img'><img src='bubbles-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>qt03</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>),<span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>),
-  <span class='kw'>year</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)))
-<span class='fu'>bubbles</span>(<span class='no'>age</span>~<span class='no'>year</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>qt03</span>, <span class='kw'>bub.scale</span><span class='kw'>=</span><span class='fl'>7</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>,<span class='st'>"red"</span>), <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>16</span>)</div><div class='img'><img src='bubbles-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>age</span><span class='op'>~</span><span class='va'>year</span>, data<span class='op'>=</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='bubbles-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>age</span><span class='op'>~</span><span class='va'>year</span>, data<span class='op'>=</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>, bub.scale<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='img'><img src='bubbles-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>age</span><span class='op'>~</span><span class='va'>cohort</span>, data<span class='op'>=</span><span class='fu'><a href='FLCohort.html'>FLCohort</a></span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>, bub.scale<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
+</div><div class='img'><img src='bubbles-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>qt01</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>qt02</span> <span class='op'>&lt;-</span> <span class='va'>qt01</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>qt01</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>flqs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>qt01<span class='op'>=</span><span class='va'>qt01</span>, qt02<span class='op'>=</span><span class='va'>qt02</span><span class='op'>)</span>
+<span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>age</span><span class='op'>~</span><span class='va'>year</span><span class='op'>|</span><span class='va'>qname</span>, data<span class='op'>=</span><span class='va'>flqs</span>, bub.scale<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='img'><img src='bubbles-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>qt03</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>,dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>,
+  year<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>bubbles</span><span class='op'>(</span><span class='va'>age</span><span class='op'>~</span><span class='va'>year</span>, data<span class='op'>=</span><span class='va'>qt03</span>, bub.scale<span class='op'>=</span><span class='fl'>7</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='st'>"red"</span><span class='op'>)</span>, pch<span class='op'>=</span><span class='fl'>16</span><span class='op'>)</span>
+</div><div class='img'><img src='bubbles-5.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -177,7 +185,7 @@ Positive and negative values have separate colours.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

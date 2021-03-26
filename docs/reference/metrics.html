@@ -75,7 +75,7 @@ calls and formulas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ calls and formulas." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -127,13 +127,13 @@ methods allow for simple specification of those metrics by means of function
 calls and formulas.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>metrics</span>(<span class='no'>object</span>, <span class='no'>metrics</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>metrics</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLComp,list</span>
-<span class='fu'>metrics</span>(<span class='no'>object</span>, <span class='no'>metrics</span>, <span class='no'>...</span>)
+<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>metrics</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLS,missing</span>
-<span class='fu'>metrics</span>(<span class='no'>object</span>, <span class='no'>metrics</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>metrics</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,11 +150,15 @@ calls and formulas.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='FLComp.html'>FLComp</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
 <span class='co'># missing</span>
-<span class='fu'>metrics</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; $ Rec 
+<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ Rec 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -266,8 +270,9 @@ calls and formulas.</p>
 #&gt; 
 #&gt; units:  f 
 #&gt; </div><div class='input'><span class='co'># metrics = function</span>
-<span class='fu'>metrics</span>(<span class='no'>ple4</span>, <span class='kw'>metrics</span><span class='kw'>=</span><span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='FLQuants.html'>FLQuants</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span>(<span class='no'>x</span>), <span class='kw'>REC</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>rec</a></span>(<span class='no'>x</span>),
-  <span class='kw'>F</span><span class='kw'>=</span><span class='fu'>fbar</span>(<span class='no'>x</span>), <span class='kw'>SSBREC</span><span class='kw'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span>(<span class='no'>x</span>) / <span class='fu'><a href='accessors.html'>rec</a></span>(<span class='no'>x</span>)))</div><div class='output co'>#&gt; $ SSB 
+<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, REC<span class='op'>=</span><span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>,
+  F<span class='op'>=</span><span class='fu'>fbar</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, SSBREC<span class='op'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ SSB 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -382,7 +387,8 @@ calls and formulas.</p>
 #&gt; 
 #&gt; units:  kg 
 #&gt; </div><div class='input'><span class='co'># metrics = formula</span>
-<span class='fu'>metrics</span>(<span class='no'>ple4</span>, <span class='kw'>metrics</span><span class='kw'>=</span>~<span class='no'>ssb</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -407,7 +413,8 @@ calls and formulas.</p>
 #&gt; age   2017  
 #&gt;   all 913290
 #&gt; 
-#&gt; units:  t </div><div class='input'><span class='fu'>metrics</span>(<span class='no'>ple4</span>, <span class='kw'>metrics</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span>~<span class='no'>ssb</span>))</div><div class='output co'>#&gt; $ SSB 
+#&gt; units:  t </div><div class='input'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ SSB 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -434,7 +441,8 @@ calls and formulas.</p>
 #&gt;   all 913290
 #&gt; 
 #&gt; units:  t 
-#&gt; </div><div class='input'><span class='fu'>metrics</span>(<span class='no'>ple4</span>, <span class='kw'>metrics</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>SBMSY</span><span class='kw'>=</span>~<span class='no'>ssb</span>/<span class='no'>SBMSY</span>), <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>SBMSY</span><span class='kw'>=</span><span class='fl'>3.87e4</span>))</div><div class='output co'>#&gt; $ SBMSY 
+#&gt; </div><div class='input'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>/</span><span class='va'>SBMSY</span><span class='op'>)</span>, <span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='fl'>3.87e4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ SBMSY 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -462,7 +470,8 @@ calls and formulas.</p>
 #&gt; 
 #&gt; units:  t 
 #&gt; </div><div class='input'><span class='co'># metrics = list</span>
-<span class='fu'>metrics</span>(<span class='no'>ple4</span>, <span class='kw'>metrics</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='no'>ssb</span>, <span class='kw'>REC</span><span class='kw'>=</span><span class='no'>rec</span>, <span class='kw'>F</span><span class='kw'>=</span><span class='no'>fbar</span>))</div><div class='output co'>#&gt; $ SSB 
+<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='va'>ssb</span>, REC<span class='op'>=</span><span class='va'>rec</span>, F<span class='op'>=</span><span class='va'>fbar</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ SSB 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -545,7 +554,8 @@ calls and formulas.</p>
 #&gt;   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871
 #&gt; 
 #&gt; units:  f 
-#&gt; </div><div class='input'><span class='fu'>metrics</span>(<span class='no'>ple4</span>, <span class='kw'>metrics</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span>~<span class='no'>ssb</span>, <span class='kw'>REC</span><span class='kw'>=</span><span class='no'>rec</span>, <span class='kw'>F</span><span class='kw'>=</span><span class='no'>fbar</span>))</div><div class='output co'>#&gt; $ SSB 
+#&gt; </div><div class='input'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span>, REC<span class='op'>=</span><span class='va'>rec</span>, F<span class='op'>=</span><span class='va'>fbar</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ SSB 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -644,7 +654,7 @@ calls and formulas.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

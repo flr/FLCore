@@ -73,7 +73,7 @@ and/or &quot;area&quot; dimensions according to the type of data they contain." 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ and/or &quot;area&quot; dimensions according to the type of data they contain." 
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -123,16 +123,16 @@ and/or &quot;area&quot; dimensions according to the type of data they contain." 
 and/or "area" dimensions according to the type of data they contain.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>simplify</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>simplify</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLStock</span>
-<span class='fu'>simplify</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>dims</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"unit"</span>, <span class='st'>"season"</span>, <span class='st'>"area"</span>),
-  <span class='kw'>spwn.season</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>stock.season</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>calcF</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>simplify</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  dims <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"unit"</span>, <span class='st'>"season"</span>, <span class='st'>"area"</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span> <span class='op'>&gt;</span> <span class='fl'>1</span><span class='op'>]</span>,
+  spwn.season <span class='op'>=</span> <span class='fl'>1</span>,
+  stock.season <span class='op'>=</span> <span class='fl'>1</span>,
+  calcF <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,6 +146,9 @@ and/or "area" dimensions according to the type of data they contain.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An object of the same class as the input.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -162,7 +165,7 @@ and/or "area" dimensions according to the type of data they contain.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

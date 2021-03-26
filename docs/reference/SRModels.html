@@ -73,7 +73,7 @@ are provided in FLCore." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ are provided in FLCore." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -123,35 +123,35 @@ are provided in FLCore." />
 are provided in FLCore.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ricker</span>()
+    <pre class="usage"><span class='fu'>ricker</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>bevholt</span>()
+<span class='fu'>bevholt</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>bevholtss3</span>()
+<span class='fu'>bevholtss3</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>segreg</span>()
+<span class='fu'>segreg</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>geomean</span>()
+<span class='fu'>geomean</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>shepherd</span>()
+<span class='fu'>shepherd</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>cushing</span>()
+<span class='fu'>cushing</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>rickerSV</span>()
+<span class='fu'>rickerSV</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>bevholtSV</span>()
+<span class='fu'>bevholtSV</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>shepherdSV</span>()
+<span class='fu'>shepherdSV</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>bevholtAR1</span>()
+<span class='fu'>bevholtAR1</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>rickerAR1</span>()
+<span class='fu'>rickerAR1</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>segregAR1</span>()
+<span class='fu'>segregAR1</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>rickerCa</span>()
+<span class='fu'>rickerCa</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>survRec</span>(<span class='no'>ssf</span>, <span class='no'>R0</span>, <span class='no'>Sfrac</span>, <span class='no'>beta</span>, <span class='kw'>SF0</span> <span class='kw'>=</span> <span class='no'>ssf</span>[, <span class='fl'>1</span>])</pre>
+<span class='fu'>survRec</span><span class='op'>(</span><span class='va'>ssf</span>, <span class='va'>R0</span>, <span class='va'>Sfrac</span>, <span class='va'>beta</span>, SF0 <span class='op'>=</span> <span class='va'>ssf</span><span class='op'>[</span>, <span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,7 +201,7 @@ elements as follows:
 - initial: Function to provide initial values for all parameters to the
   minimization algorithms called by <code>fmle</code> or
   <code><a href='https://rdrr.io/r/stats/nls.html'>nls</a></code>. If required, this function also has two attributes,
-  <code><a href='upperlower-methods.html'>lower</a></code> and <code><a href='upperlower-methods.html'>upper</a></code>, that give lower and upper limits
+  <code><a href='upperlower.html'>lower</a></code> and <code><a href='upperlower.html'>upper</a></code>, that give lower and upper limits
   for the parameter values, respectively. This is used by some of the methods
   defined in <code><a href='https://rdrr.io/r/stats/optim.html'>optim</a></code>, like <code>"L-BFGS-B"</code>.</p>
 <p>The <em>model&lt;-</em> method for <code><a href='FLModel.html'>FLModel</a></code> can then be called
@@ -297,48 +297,56 @@ Explor. Mer 40, 67-75.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='FLSR.html'>FLSR</a>, <a href='FLModel.html'>FLModel</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># inspect the output of one of the model functions</span>
-  <span class='fu'>bevholt</span>()</div><div class='output co'>#&gt; $logl
+  <span class='fu'>bevholt</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $logl
 #&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;bytecode: 0x55797b5132f0&gt;
-#&gt; &lt;environment: 0x5579829048d0&gt;
+#&gt; &lt;bytecode: 0x55f155354a88&gt;
+#&gt; &lt;environment: 0x55f153e6a138&gt;
 #&gt; 
 #&gt; $model
 #&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x5579829048d0&gt;
+#&gt; &lt;environment: 0x55f153e6a138&gt;
 #&gt; 
 #&gt; $initial
 #&gt; function(rec, ssb) {
 #&gt;     a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))
 #&gt;     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #&gt;     return(FLPar(a = a, b = a/b))}
-#&gt; &lt;bytecode: 0x55797b50e410&gt;
-#&gt; &lt;environment: 0x5579829048d0&gt;
+#&gt; &lt;bytecode: 0x55f15535ce68&gt;
+#&gt; &lt;environment: 0x55f153e6a138&gt;
 #&gt; attr(,"lower")
 #&gt; [1] -Inf -Inf
 #&gt; attr(,"upper")
 #&gt; [1] Inf Inf
-#&gt; </div><div class='input'>  <span class='fu'><a href='names.html'>names</a></span>(<span class='fu'>bevholt</span>())</div><div class='output co'>#&gt; [1] "logl"    "model"   "initial"</div><div class='input'>  <span class='fu'>bevholt</span>()$<span class='no'>logl</span></div><div class='output co'>#&gt; function(a, b, rec, ssb)
+#&gt; </div><div class='input'>  <span class='fu'><a href='names.html'>names</a></span><span class='op'>(</span><span class='fu'>bevholt</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "logl"    "model"   "initial"</div><div class='input'>  <span class='fu'>bevholt</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>logl</span>
+</div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;bytecode: 0x55797b5132f0&gt;
-#&gt; &lt;environment: 0x55797f9a7838&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x55f155354a88&gt;
+#&gt; &lt;environment: 0x55f153cabea0&gt;</div><div class='input'>
 <span class='co'># once an FLSR model is in the workspace ...</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>nsher</span>)
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span>
 
 <span class='co'># the three model-definition slots can be modified</span>
 <span class='co'># at once by calling 'model&lt;-' with</span>
 <span class='co'># (1) a list</span>
-  <span class='fu'><a href='accessors.html'>model</a></span>(<span class='no'>nsher</span>) <span class='kw'>&lt;-</span> <span class='fu'>bevholt</span>()
+  <span class='fu'><a href='accessors.html'>model</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>bevholt</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># (2) the name of the function returning this list</span>
-  <span class='fu'><a href='accessors.html'>model</a></span>(<span class='no'>nsher</span>) <span class='kw'>&lt;-</span> <span class='st'>'bevholt'</span>
+  <span class='fu'><a href='accessors.html'>model</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'bevholt'</span>
 
 <span class='co'># or (3) the function itself that returns this list</span>
-  <span class='fu'><a href='accessors.html'>model</a></span>(<span class='no'>nsher</span>) <span class='kw'>&lt;-</span> <span class='no'>bevholt</span></div></pre>
+  <span class='fu'><a href='accessors.html'>model</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>bevholt</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -354,7 +362,7 @@ Explor. Mer 40, 67-75.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

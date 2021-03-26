@@ -6,10 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title><code>FLSRS</code> is a class that extends <code>list</code> through <code>FLlst</code> but
+<title>FLSRS is a class that extends list through FLlst but
 implements a set of features that give a little bit more structure to list
-objects. The elements of <code>FLSRs</code> must all be of class
-<code>FLSR</code>. It implements a lock mechanism that, when turned on, does
+objects. The elements of FLSRs must all be of class
+FLSR. It implements a lock mechanism that, when turned on, does
 not allow the user to increase or decrease the object length. — FLSRs • FLCore</title>
 
 
@@ -43,10 +43,10 @@ not allow the user to increase or decrease the object length. — FLSRs • FLCo
 
 
 
-<meta property="og:title" content="<code>FLSRS</code> is a class that extends <code>list</code> through <code>FLlst</code> but
+<meta property="og:title" content="FLSRS is a class that extends list through FLlst but
 implements a set of features that give a little bit more structure to list
-objects. The elements of <code>FLSRs</code> must all be of class
-<code>FLSR</code>. It implements a lock mechanism that, when turned on, does
+objects. The elements of FLSRs must all be of class
+FLSR. It implements a lock mechanism that, when turned on, does
 not allow the user to increase or decrease the object length. — FLSRs" />
 <meta property="og:description" content="FLSRS is a class that extends list through FLlst but
 implements a set of features that give a little bit more structure to list
@@ -84,7 +84,7 @@ not allow the user to increase or decrease the object length." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@ not allow the user to increase or decrease the object length." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -141,21 +141,21 @@ objects. The elements of <code>FLSRs</code> must all be of class
 not allow the user to increase or decrease the object length.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FLSRs</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>FLSRs</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLSR</span>
-<span class='fu'>FLSRs</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>FLSRs</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for missing</span>
-<span class='fu'>FLSRs</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>FLSRs</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for list</span>
-<span class='fu'>FLSRs</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>FLSRs</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
 <dt>.Data</dt><dd><p>The data. <code>list</code>.</p></dd>
 <dt>names</dt><dd><p>Names of the list elements. <code>character</code>.</p></dd>
 <dt>desc</dt><dd><p>Description of the object. <code>character</code>.</p></dd> <dt>lock</dt><dd><p>Lock
@@ -166,13 +166,17 @@ or removing elements. <code>logical</code>.</p></dd>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='FLlst.html'>FLlst</a>, <a href='https://rdrr.io/r/base/list.html'>list</a>, <a href='FLSR.html'>FLSR</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>nsher</span>)
-<span class='no'>bnsher</span> <span class='kw'>&lt;-</span> <span class='no'>nsher</span>
-<span class='fu'><a href='accessors.html'>model</a></span>(<span class='no'>bnsher</span>) <span class='kw'>&lt;-</span> <span class='no'>bevholt</span>
-<span class='no'>bnsher</span> <span class='kw'>&lt;-</span> <span class='fu'>fmle</span>(<span class='no'>bnsher</span>)</div><div class='output co'>#&gt;   Nelder-Mead direct search function minimizer
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span>
+<span class='va'>bnsher</span> <span class='op'>&lt;-</span> <span class='va'>nsher</span>
+<span class='fu'><a href='accessors.html'>model</a></span><span class='op'>(</span><span class='va'>bnsher</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>bevholt</span>
+<span class='va'>bnsher</span> <span class='op'>&lt;-</span> <span class='fu'>fmle</span><span class='op'>(</span><span class='va'>bnsher</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   Nelder-Mead direct search function minimizer
 #&gt; function value for initial parameters = -10.336211
 #&gt;   Scaled convergence tolerance is 1.54022e-07
 #&gt; Stepsize computed as 501.110000
@@ -205,8 +209,9 @@ or removing elements. <code>logical</code>.</p></dd>
 #&gt; HI-REDUCTION      63 -12.200179 -12.200179
 #&gt; HI-REDUCTION      65 -12.200179 -12.200179
 #&gt; Exiting from Nelder Mead minimizer
-#&gt;     67 function evaluations used</div><div class='input'><span class='no'>fls</span> <span class='kw'>&lt;-</span> <span class='fu'>FLSRs</span>(<span class='kw'>Ricker</span><span class='kw'>=</span><span class='no'>nsher</span>, <span class='kw'>BevHolt</span><span class='kw'>=</span><span class='no'>bnsher</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fls</span>)</div><div class='output co'>#&gt; An object of class "FLSRs"
+#&gt;     67 function evaluations used</div><div class='input'><span class='va'>fls</span> <span class='op'>&lt;-</span> <span class='fu'>FLSRs</span><span class='op'>(</span>Ricker<span class='op'>=</span><span class='va'>nsher</span>, BevHolt<span class='op'>=</span><span class='va'>bnsher</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fls</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLSRs"
 #&gt; 
 #&gt; Elements: Ricker BevHolt 
 #&gt; 
@@ -238,7 +243,7 @@ or removing elements. <code>logical</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

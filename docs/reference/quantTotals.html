@@ -77,7 +77,7 @@ selected dimension." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@ selected dimension." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -131,7 +131,7 @@ be noted that what each method really returns are the totals over the
 selected dimension.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>quantTotals</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>quantTotals</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
@@ -141,11 +141,15 @@ selected dimension.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='FLQuant.html'>FLQuant</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>100</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fl'>10</span>))
-<span class='fu'>quantTotals</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>quantTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -162,7 +166,8 @@ selected dimension.</p>
 #&gt;    10 33.210 33.210 33.210 33.210 33.210 33.210 33.210 33.210 33.210 33.210
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># See how the values obtained by yearSums are being replicated</span>
-  <span class='fu'><a href='dimSummaries.html'>yearSums</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+  <span class='fu'><a href='dimSummaries.html'>yearSums</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -179,7 +184,8 @@ selected dimension.</p>
 #&gt;    10 33.210
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># Get the proportions by quant</span>
-  <span class='no'>flq</span> / <span class='fu'>quantTotals</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+  <span class='va'>flq</span> <span class='op'>/</span> <span class='fu'>quantTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -208,7 +214,8 @@ selected dimension.</p>
 #&gt;    10 0.1499777 0.0362433 0.0591815
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># or year</span>
-  <span class='no'>flq</span> / <span class='fu'>yearTotals</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+  <span class='va'>flq</span> <span class='op'>/</span> <span class='fu'>yearTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -252,7 +259,7 @@ selected dimension.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

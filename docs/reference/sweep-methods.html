@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -122,10 +122,10 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for FLArray</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span>(<span class='no'>x</span>, <span class='no'>MARGIN</span>, <span class='no'>STATS</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>check.margin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>MARGIN</span>, <span class='va'>STATS</span>, FUN <span class='op'>=</span> <span class='st'>"-"</span>, check.margin <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLPar</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span>(<span class='no'>x</span>, <span class='no'>MARGIN</span>, <span class='no'>STATS</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>check.margin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>MARGIN</span>, <span class='va'>STATS</span>, FUN <span class='op'>=</span> <span class='st'>"-"</span>, check.margin <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -138,24 +138,28 @@ that the returned object is of same class.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>90</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>10</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>)
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>10</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span>
 <span class='co'># Get ratio of max value by year</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span>(<span class='no'>flq</span>, <span class='fl'>2</span>, <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>flq</span>, <span class='fl'>2</span>, <span class='no'>max</span>), <span class='st'>"/"</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>flq</span>, <span class='fl'>2</span>, <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>flq</span>, <span class='fl'>2</span>, <span class='va'>max</span><span class='op'>)</span>, <span class='st'>"/"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;     1 0.557913 0.041438 1.000000 1.000000 1.000000 0.603209 0.103144 0.194408
-#&gt;     2 1.000000 1.000000 0.536867 0.247774 0.071106 1.000000 0.057120 0.205908
-#&gt;     3 0.701483 0.124447 0.072326 0.050407 0.155818 0.302047 1.000000 1.000000
+#&gt;     1 0.182223 1.000000 0.124979 0.355932 0.688139 0.709450 0.205573 0.179706
+#&gt;     2 1.000000 0.282458 1.000000 0.067351 1.000000 1.000000 0.172354 1.000000
+#&gt;     3 0.023670 0.380482 0.559747 1.000000 0.422414 0.340876 1.000000 0.361829
 #&gt;      year
 #&gt; quant 9        10      
-#&gt;     1 1.000000 0.099767
-#&gt;     2 0.212493 0.282905
-#&gt;     3 0.040591 1.000000
+#&gt;     1 1.000000 0.466359
+#&gt;     2 0.181226 1.000000
+#&gt;     3 0.144421 0.371779
 #&gt; 
 #&gt; units:  kg </div></pre>
   </div>
@@ -173,7 +177,7 @@ that the returned object is of same class.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

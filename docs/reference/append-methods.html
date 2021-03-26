@@ -73,7 +73,7 @@ and substituting sections of them." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ and substituting sections of them." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -124,10 +124,10 @@ and substituting sections of them.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for FLQuant,FLQuant</span>
-<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>x</span>, <span class='no'>values</span>, <span class='kw'>after</span> <span class='kw'>=</span> <span class='fu'><a href='dims.html'>dims</a></span>(<span class='no'>values</span>)$<span class='no'>minyear</span> - <span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>values</span>, after <span class='op'>=</span> <span class='fu'><a href='dims.html'>dims</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>)</span><span class='op'>$</span><span class='va'>minyear</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLStock,FLStock</span>
-<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>x</span>, <span class='no'>values</span>, <span class='kw'>after</span> <span class='kw'>=</span> <span class='fu'><a href='dims.html'>dims</a></span>(<span class='no'>values</span>)$<span class='no'>minyear</span> - <span class='fl'>1</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>values</span>, after <span class='op'>=</span> <span class='fu'><a href='dims.html'>dims</a></span><span class='op'>(</span><span class='va'>values</span><span class='op'>)</span><span class='op'>$</span><span class='va'>minyear</span> <span class='op'>-</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,15 +161,19 @@ first argument, unless the necessary chnages to dimnames$year</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rdrr.io/r/base/append.html'>base::append</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># append(FLQuant, FLQuant)</span>
-<span class='no'>fq1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>1</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2010</span>))
-<span class='no'>fq2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>2</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2011</span>:<span class='fl'>2012</span>))
-<span class='no'>fq3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>2</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2014</span>:<span class='fl'>2016</span>))
+<span class='va'>fq1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2010</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>fq2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>2011</span><span class='op'>:</span><span class='fl'>2012</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>fq3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>2014</span><span class='op'>:</span><span class='fl'>2016</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Appends by dimnames$year</span>
-<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>fq1</span>, <span class='no'>fq2</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>fq1</span>, <span class='va'>fq2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
@@ -179,7 +183,8 @@ first argument, unless the necessary chnages to dimnames$year</p>
 #&gt;   3 1    1    1    1    1    1    1    1    1    1    1    2    2   
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># Appends by dimnames$year with gap (2011:2013)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>fq1</span>, <span class='no'>fq3</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>fq1</span>, <span class='va'>fq3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
@@ -194,7 +199,8 @@ first argument, unless the necessary chnages to dimnames$year</p>
 #&gt;   3  2    2  
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># Appends inside x</span>
-<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>fq1</span>, <span class='no'>fq2</span>, <span class='kw'>after</span><span class='kw'>=</span><span class='fl'>2009</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>fq1</span>, <span class='va'>fq2</span>, after<span class='op'>=</span><span class='fl'>2009</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
@@ -204,7 +210,8 @@ first argument, unless the necessary chnages to dimnames$year</p>
 #&gt;   3 1    1    1    1    1    1    1    1    1    1    2    2   
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># Appends after end of x</span>
-<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>fq1</span>, <span class='no'>fq2</span>, <span class='kw'>after</span><span class='kw'>=</span><span class='fl'>2013</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>fq1</span>, <span class='va'>fq2</span>, after<span class='op'>=</span><span class='fl'>2013</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
@@ -220,13 +227,14 @@ first argument, unless the necessary chnages to dimnames$year</p>
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># append(FLStock, FLStock)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
-<span class='no'>fs1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span>(<span class='no'>ple4</span>, <span class='kw'>end</span><span class='kw'>=</span><span class='fl'>2001</span>)
-<span class='no'>fs2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span>(<span class='no'>ple4</span>, <span class='kw'>start</span><span class='kw'>=</span><span class='fl'>2002</span>)
-<span class='no'>fs3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span>(<span class='no'>ple4</span>, <span class='kw'>start</span><span class='kw'>=</span><span class='fl'>2005</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='va'>fs1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span><span class='op'>(</span><span class='va'>ple4</span>, end<span class='op'>=</span><span class='fl'>2001</span><span class='op'>)</span>
+<span class='va'>fs2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span><span class='op'>(</span><span class='va'>ple4</span>, start<span class='op'>=</span><span class='fl'>2002</span><span class='op'>)</span>
+<span class='va'>fs3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span><span class='op'>(</span><span class='va'>ple4</span>, start<span class='op'>=</span><span class='fl'>2005</span><span class='op'>)</span>
 
 <span class='co'># Appends by dimnames$year</span>
-<span class='fu'><a href='accessors.html'>stock.n</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>fs1</span>, <span class='no'>fs2</span>))</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='accessors.html'>stock.n</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>fs1</span>, <span class='va'>fs2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;     year
@@ -340,7 +348,8 @@ first argument, unless the necessary chnages to dimnames$year</p>
 #&gt; 
 #&gt; units:  1000 </div><div class='input'>
 <span class='co'># Appends by dimnames$year with gap (2011:2013)</span>
-<span class='fu'><a href='accessors.html'>stock.n</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>fs1</span>, <span class='no'>fs3</span>))</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='accessors.html'>stock.n</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>fs1</span>, <span class='va'>fs3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;     year
@@ -454,7 +463,8 @@ first argument, unless the necessary chnages to dimnames$year</p>
 #&gt; 
 #&gt; units:  1000 </div><div class='input'>
 <span class='co'># Appends inside x</span>
-<span class='fu'><a href='accessors.html'>stock.n</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>fs1</span>, <span class='no'>fs3</span>, <span class='kw'>after</span><span class='kw'>=</span><span class='fl'>2000</span>))</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='accessors.html'>stock.n</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>fs1</span>, <span class='va'>fs3</span>, after<span class='op'>=</span><span class='fl'>2000</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;     year
@@ -567,7 +577,8 @@ first argument, unless the necessary chnages to dimnames$year</p>
 #&gt;   10  443492.0
 #&gt; 
 #&gt; units:  1000 </div><div class='input'><span class='co'># Appends after end of x</span>
-<span class='fu'><a href='accessors.html'>stock.n</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span>(<span class='no'>fs1</span>, <span class='no'>fs3</span>, <span class='kw'>after</span><span class='kw'>=</span><span class='fl'>2005</span>))</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='accessors.html'>stock.n</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/append.html'>append</a></span><span class='op'>(</span><span class='va'>fs1</span>, <span class='va'>fs3</span>, after<span class='op'>=</span><span class='fl'>2005</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;     year
@@ -695,7 +706,7 @@ first argument, unless the necessary chnages to dimnames$year</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

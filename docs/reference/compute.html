@@ -75,7 +75,7 @@ stock biomass from age or length-structured numbers and mean weights." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ stock biomass from age or length-structured numbers and mean weights." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -127,33 +127,33 @@ stock biomass from age or length-structured numbers and mean weights.</p>
 stock biomass from age or length-structured numbers and mean weights.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>computeLandings</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>computeLandings</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>computeDiscards</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>computeDiscards</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>computeCatch</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>computeStock</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>computeStock</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>computeLandings</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>computeLandings</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>computeDiscards</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>computeDiscards</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>computeCatch</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>computeStock</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S4 method for FLS</span>
-<span class='fu'>computeLandings</span>(<span class='no'>object</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>computeStock</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLS</span>
-<span class='fu'>computeDiscards</span>(<span class='no'>object</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>computeLandings</span><span class='op'>(</span><span class='va'>object</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLS</span>
-<span class='fu'>computeCatch</span>(<span class='no'>object</span>, <span class='kw'>slot</span> <span class='kw'>=</span> <span class='st'>"catch"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>computeDiscards</span><span class='op'>(</span><span class='va'>object</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLS</span>
-<span class='fu'>computeStock</span>(<span class='no'>object</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>object</span>, slot <span class='op'>=</span> <span class='st'>"catch"</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'># S4 method for FLS</span>
+<span class='fu'>computeStock</span><span class='op'>(</span><span class='va'>object</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -207,11 +207,16 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 
     <div class='dont-index'><p><a href='FLComp.html'>FLComp</a></p>
 <p><a href='FLComp.html'>FLComp</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
+<p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'>computeLandings</span>(<span class='no'>ple4</span>))</div><div class='output co'>#&gt; An object of class "FLQuant" with:
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>computeLandings</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  1 61 1 1 1 1 
 #&gt; quant:  age 
 #&gt; units:  t 
@@ -222,7 +227,8 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 #&gt; Median :  103161.8 
 #&gt; 3rd Qu.:  130443 
 #&gt; Max    :  187666.1 
-#&gt; NAs    :  0 %</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>))</div><div class='output co'>#&gt; An object of class "FLQuants"
+#&gt; NAs    :  0 %</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>ple4</span>, slot<span class='op'>=</span><span class='st'>"all"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuants"
 #&gt; 
 #&gt; Elements: catch.wt catch.n catch 
 #&gt; 
@@ -261,14 +267,15 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 #&gt; 	Median :  149389.9 
 #&gt; 	3rd Qu.:  175881.4 
 #&gt; 	Max    :  315244.7 
-#&gt; 	NAs    :  0 %</div><div class='input'><span class='fu'><a href='accessors.html'>stock</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeStock</span>(<span class='no'>ple4</span>)
-<span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeLandings</span>(<span class='no'>ple4</span>)
-<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"n"</span>)
-<span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)
+#&gt; 	NAs    :  0 %</div><div class='input'><span class='fu'><a href='accessors.html'>stock</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>computeStock</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'><a href='accessors.html'>landings</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>computeLandings</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>ple4</span>, slot<span class='op'>=</span><span class='st'>"n"</span><span class='op'>)</span>
+<span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>ple4</span>, slot<span class='op'>=</span><span class='st'>"all"</span><span class='op'>)</span>
 
 
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'>computeLandings</span>(<span class='no'>ple4</span>))</div><div class='output co'>#&gt; An object of class "FLQuant" with:
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>computeLandings</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  1 61 1 1 1 1 
 #&gt; quant:  age 
 #&gt; units:  t 
@@ -279,7 +286,8 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 #&gt; Median :  103161.8 
 #&gt; 3rd Qu.:  130443 
 #&gt; Max    :  187666.1 
-#&gt; NAs    :  0 %</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>))</div><div class='output co'>#&gt; An object of class "FLQuants"
+#&gt; NAs    :  0 %</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>ple4</span>, slot<span class='op'>=</span><span class='st'>"all"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuants"
 #&gt; 
 #&gt; Elements: catch.wt catch.n catch 
 #&gt; 
@@ -318,10 +326,12 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 #&gt; 	Median :  149389.9 
 #&gt; 	3rd Qu.:  175881.4 
 #&gt; 	Max    :  315244.7 
-#&gt; 	NAs    :  0 %</div><div class='input'><span class='fu'><a href='accessors.html'>stock</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeStock</span>(<span class='no'>ple4</span>)
-<span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeLandings</span>(<span class='no'>ple4</span>)
-<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"n"</span>)
-<span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>computeCatch</span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)</div></pre>
+#&gt; 	NAs    :  0 %</div><div class='input'><span class='fu'><a href='accessors.html'>stock</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>computeStock</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'><a href='accessors.html'>landings</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>computeLandings</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>ple4</span>, slot<span class='op'>=</span><span class='st'>"n"</span><span class='op'>)</span>
+<span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>computeCatch</span><span class='op'>(</span><span class='va'>ple4</span>, slot<span class='op'>=</span><span class='st'>"all"</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -337,7 +347,7 @@ directly to the <code>catch&lt;-</code> replacement method.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

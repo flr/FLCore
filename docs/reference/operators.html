@@ -43,7 +43,7 @@
 <meta property="og:description" content="Arithmetic operations between two FLQuant objects using the
 standars operators (`+`, `-`, `*`, `/`, `^`, see Arith) need all
 dimensions in both objects to match. This requirement is relaxed by using
-the percent version of those four oeprators: `
+the percent version of those five operators: `
 `" />
 
 
@@ -76,7 +76,7 @@ the percent version of those four oeprators: `
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@ the percent version of those four oeprators: `
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -125,7 +125,7 @@ the percent version of those four oeprators: `
     <p>Arithmetic operations between two <a href='FLQuant.html'>FLQuant</a> objects using the
 standars operators (`+`, `-`, `*`, `/`, `^`, see Arith) need all
 dimensions in both objects to match. This requirement is relaxed by using
-the percent version of those four oeprators: `<!-- %+%`, `%-%`, `%*%`, `%/%` and -->
+the percent version of those five operators: `<!-- %+%`, `%-%`, `%*%`, `%/%` and -->
 `<!-- %^%`. --></p>
     </div>
 
@@ -199,7 +199,25 @@ x %^% y
 /(e1, e2)
 
 # S4 method for FLQuants,FLPar
-*(e1, e2)</pre>
+*(e1, e2)
+
+# S4 method for FLQuants,FLPars
+/(e1, e2)
+
+# S4 method for FLQuants,FLPars
+*(e1, e2)
+
+# S4 method for FLQuants,FLQuants
+/(e1, e2)
+
+# S4 method for FLQuants,FLQuants
+*(e1, e2)
+
+# S4 method for FLQuants,FLQuants
++(e1, e2)
+
+# S4 method for FLQuants,FLQuants
+-(e1, e2)</pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -208,8 +226,9 @@ x %^% y
 longer, the dimensions will be extended and the element-by-element operation
 then conducted. Dimensions and dimnames of the output will be those of the
 larger object. See the examples to observe their behaviour.</p>
-<p>Please note that this behaviour is present on the Arith methods for
-<a href='FLArray.html'>FLArray</a>-derived classes but only on the 6th, `iter`, dimension.</p>
+<p>Please note that this behaviour is already present on the Arith
+methods for <a href='FLArray.html'>FLArray</a>-derived classes but only on the 6th,
+`iter`, dimension.</p>
 <p>The original use of the `<!-- %*%` operator, as vector product, is not available -->
 for <a href='FLQuant.html'>FLQuant</a> objects, but can be applied to the <a href='https://rdrr.io/r/base/array.html'>array</a>
 inside them, as in the example below.</p>
@@ -222,16 +241,20 @@ regardless of position.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='FLQuant.html'>FLQuant</a></code>, <code><a href='https://rdrr.io/r/base/matmult.html'>matmult</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>2</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>))
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>3</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>1</span>))
+<span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>3</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># This should fail</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>)  <span class='no'>a</span> * <span class='no'>b</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>  <span class='va'>a</span> <span class='op'>*</span> <span class='va'>b</span> 
 
-<span class='no'>a</span> <span class='kw'>%*%</span> <span class='no'>b</span></div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='va'>a</span> <span class='op'>%*%</span> <span class='va'>b</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = 1, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -248,7 +271,8 @@ regardless of position.</p>
 #&gt;     2 6 6 6
 #&gt;     3 6 6 6
 #&gt; 
-#&gt; units:  NA </div><div class='input'><span class='no'>a</span> <span class='kw'>%+%</span> <span class='no'>b</span></div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; units:  NA </div><div class='input'><span class='va'>a</span> <span class='op'>%+%</span> <span class='va'>b</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = 1, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -266,20 +290,23 @@ regardless of position.</p>
 #&gt;     3 5 5 5
 #&gt; 
 #&gt; units:  NA </div><div class='input'><span class='co'># To use base's %*% vector product, apply it to a matrix from @.Data</span>
-<span class='no'>b</span>@<span class='kw'>.Data</span>[,,,,,] <span class='kw'>%*%</span> <span class='fl'>1</span>:<span class='fl'>3</span></div><div class='output co'>#&gt;      
+<span class='va'>b</span><span class='op'>@</span><span class='va'>.Data</span><span class='op'>[</span>,,,,,<span class='op'>]</span> <span class='op'>%*%</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>
+</div><div class='output co'>#&gt;      
 #&gt; quant [,1]
 #&gt;     1   18
 #&gt;     2   18
 #&gt;     3   18</div><div class='input'><span class='co'># or</span>
-<span class='no'>b</span>[,,<span class='kw'>drop</span><span class='kw'>=</span><span class='fl'>TRUE</span>] <span class='kw'>%*%</span> <span class='fl'>1</span>:<span class='fl'>3</span></div><div class='output co'>#&gt;      
+<span class='va'>b</span><span class='op'>[</span>,,drop<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>]</span> <span class='op'>%*%</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>
+</div><div class='output co'>#&gt;      
 #&gt; quant [,1]
 #&gt;     1   18
 #&gt;     2   18
 #&gt;     3   18</div><div class='input'>
 <span class='co'># FLPar vs. FLQuant works by dimnames' names</span>
-<span class='no'>flp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='fl'>2</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>params</span><span class='kw'>=</span><span class='st'>'a'</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>, <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>1</span>))
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>3</span>, <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2005</span>))
-<span class='no'>flp</span> <span class='kw'>%*%</span> <span class='no'>flq</span></div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='va'>flp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>params<span class='op'>=</span><span class='st'>'a'</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2005</span>, iter<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>3</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2005</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>flp</span> <span class='op'>%*%</span> <span class='va'>flq</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -289,7 +316,8 @@ regardless of position.</p>
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># Divide each FLQuants element by a 'param' in FLPar, e.g. time series</span>
 <span class='co'># divide by reference points</span>
-<span class='fu'><a href='FLQuants.html'>FLQuants</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>2303</span>), <span class='kw'>F</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>0.8</span>)) / <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fl'>1560</span>, <span class='kw'>F</span><span class='kw'>=</span><span class='fl'>0.4</span>)</div><div class='output co'>#&gt; $ SSB 
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2303</span><span class='op'>)</span>, F<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='fl'>1560</span>, F<span class='op'>=</span><span class='fl'>0.4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ SSB 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -310,7 +338,8 @@ regardless of position.</p>
 #&gt; units:  NA 
 #&gt; </div><div class='input'>
 <span class='co'># Product of each FLQuants element by a 'param' in FLPar</span>
-<span class='fu'><a href='FLQuants.html'>FLQuants</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>2303</span>), <span class='kw'>F</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>0.8</span>)) * <span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>SSB</span><span class='kw'>=</span><span class='fl'>1560</span>, <span class='kw'>F</span><span class='kw'>=</span><span class='fl'>0.4</span>)</div><div class='output co'>#&gt; $ SSB 
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2303</span><span class='op'>)</span>, F<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>0.8</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='fl'>1560</span>, F<span class='op'>=</span><span class='fl'>0.4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ SSB 
 #&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
@@ -329,6 +358,138 @@ regardless of position.</p>
 #&gt;   all 0.32
 #&gt; 
 #&gt; units:  NA 
+#&gt; </div><div class='input'><span class='co'># Divide each FLQuants element by each in FLPars</span>
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2303</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1287</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span>
+  <span class='fu'><a href='FLPars.html'>FLPars</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='fl'>1560</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ A 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1     
+#&gt;   all 1.4763
+#&gt; 
+#&gt; units:  NA 
+#&gt; 
+#&gt; $ B 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1    
+#&gt;   all 1.287
+#&gt; 
+#&gt; units:  NA 
+#&gt; </div><div class='input'><span class='co'># Divide each FLQuants element by each in FLPars</span>
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2303</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1287</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span>
+  <span class='fu'><a href='FLPars.html'>FLPars</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='fl'>1560</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ A 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1      
+#&gt;   all 3592680
+#&gt; 
+#&gt; units:  NA 
+#&gt; 
+#&gt; $ B 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1      
+#&gt;   all 1287000
+#&gt; 
+#&gt; units:  NA 
+#&gt; </div><div class='input'><span class='co'># Divide each FLQuants element by each in FLPars</span>
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>300</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span>
+  <span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ A 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1  
+#&gt;   all 100
+#&gt; 
+#&gt; units:  NA 
+#&gt; 
+#&gt; $ B 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1  
+#&gt;   all 100
+#&gt; 
+#&gt; units:  NA 
+#&gt; </div><div class='input'><span class='co'># Divide each FLQuants element by each in FLPars</span>
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span>
+  <span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ A 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1  
+#&gt;   all 300
+#&gt; 
+#&gt; units:  NA 
+#&gt; 
+#&gt; $ B 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1  
+#&gt;   all 400
+#&gt; 
+#&gt; units:  NA 
+#&gt; </div><div class='input'><span class='co'># Divide each FLQuants element by each in FLPars</span>
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span>
+  <span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ A 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1  
+#&gt;   all 300
+#&gt; 
+#&gt; units:  NA 
+#&gt; 
+#&gt; $ B 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1  
+#&gt;   all 400
+#&gt; 
+#&gt; units:  NA 
+#&gt; </div><div class='input'><span class='co'># Divide each FLQuants element by each in FLPars</span>
+<span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span>
+  <span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>A<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, B<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $ A 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1  
+#&gt;   all 300
+#&gt; 
+#&gt; units:  NA 
+#&gt; 
+#&gt; $ B 
+#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; quant 1  
+#&gt;   all 400
+#&gt; 
+#&gt; units:  NA 
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -345,7 +506,7 @@ regardless of position.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

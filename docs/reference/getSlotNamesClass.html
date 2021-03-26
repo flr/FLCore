@@ -74,7 +74,7 @@ is done using is(), so class inheritance is matched." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ is done using is(), so class inheritance is matched." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -125,7 +125,7 @@ S4 object that are of the class specified by the 'class' argument. Comparison
 is done using is(), so class inheritance is matched.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getSlotNamesClass</span>(<span class='no'>object</span>, <span class='no'>class</span>)</pre>
+    <pre class="usage"><span class='fu'>getSlotNamesClass</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>class</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,10 +140,14 @@ is done using is(), so class inheritance is matched.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
-<span class='fu'>getSlotNamesClass</span>(<span class='no'>ple4</span>, <span class='st'>'FLQuant'</span>)</div><div class='output co'>#&gt;  [1] "catch"        "catch.n"      "catch.wt"     "discards"     "discards.n"  
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'>getSlotNamesClass</span><span class='op'>(</span><span class='va'>ple4</span>, <span class='st'>'FLQuant'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "catch"        "catch.n"      "catch.wt"     "discards"     "discards.n"  
 #&gt;  [6] "discards.wt"  "landings"     "landings.n"   "landings.wt"  "stock"       
 #&gt; [11] "stock.n"      "stock.wt"     "m"            "mat"          "harvest"     
 #&gt; [16] "harvest.spwn" "m.spwn"      </div><div class='input'>
@@ -163,7 +167,7 @@ is done using is(), so class inheritance is matched.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

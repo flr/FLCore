@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -352,12 +352,6 @@ not allow the user to increase or decrease the object length.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="aliases.html">flq()</a></code> <code><a href="aliases.html">flqp()</a></code> <code><a href="aliases.html">flqd()</a></code> <code><a href="aliases.html">flc()</a></code> <code><a href="aliases.html">flp()</a></code> <code><a href="aliases.html">fls()</a></code> <code><a href="aliases.html">flsl()</a></code> <code><a href="aliases.html">fli()</a></code> <code><a href="aliases.html">flib()</a></code> <code><a href="aliases.html">flsr()</a></code> <code><a href="aliases.html">flqs()</a></code> <code><a href="aliases.html">flcs()</a></code> <code><a href="aliases.html">flss()</a></code> <code><a href="aliases.html">flis()</a></code> <code><a href="aliases.html">flps()</a></code> <code><a href="aliases.html">flb()</a></code> <code><a href="aliases.html">flbs()</a></code> <code><a href="aliases.html">flms()</a></code> <code><a href="aliases.html">flmss()</a></code> <code><a href="aliases.html">pm()</a></code> </p>
-        </td>
-        <td><p>Short aliases for most FLCore classes construction methods</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="append-methods.html">append(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="append-methods.html">append(<i>&lt;FLStock&gt;</i>,<i>&lt;FLStock&gt;</i>)</a></code> </p>
         </td>
         <td><p>Append objects along the year dimension</p></td>
@@ -490,6 +484,12 @@ not allow the user to increase or decrease the object length.</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="mase.html">mase()</a></code> </p>
+        </td>
+        <td><p>Compute mean absolute scaled error (MASE)</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="metrics.html">metrics()</a></code> </p>
         </td>
         <td><p>Extract simply-defined metrics from compex objects</p></td>
@@ -514,7 +514,7 @@ not allow the user to increase or decrease the object length.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="operators.html">`%+%`</a></code> <code><a href="operators.html">`%-%`</a></code> <code><a href="operators.html">`%^%`</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`/`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`*`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> </p>
+          <p><code><a href="operators.html">`%+%`</a></code> <code><a href="operators.html">`%-%`</a></code> <code><a href="operators.html">`%^%`</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLQuant&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLQuant&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%*%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`%/%`(<i>&lt;FLPar&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`/`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`*`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLPar&gt;</i>)</a></code> <code><a href="operators.html">`/`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLPars&gt;</i>)</a></code> <code><a href="operators.html">`*`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLPars&gt;</i>)</a></code> <code><a href="operators.html">`/`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLQuants&gt;</i>)</a></code> <code><a href="operators.html">`*`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLQuants&gt;</i>)</a></code> <code><a href="operators.html">`+`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLQuants&gt;</i>)</a></code> <code><a href="operators.html">`-`(<i>&lt;FLQuants&gt;</i>,<i>&lt;FLQuants&gt;</i>)</a></code> </p>
         </td>
         <td><p>FLQuant arithmetic operators that extend objects</p></td>
       </tr><tr>
@@ -593,6 +593,12 @@ ICES Intercatch</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="split.html">split(<i>&lt;FLQuant&gt;</i>,<i>&lt;vector&gt;</i>)</a></code> <code><a href="split.html">split(<i>&lt;FLComp&gt;</i>,<i>&lt;vector&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>splits <em>x</em> along the <em>iter</em> dimension into the groups defined by <em>f</em>.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="splom.html">splom(<i>&lt;FLPar&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> </p>
         </td>
         <td><p>Method splom</p></td>
@@ -623,6 +629,12 @@ ICES Intercatch</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="survivors.html">survivors()</a></code> </p>
+        </td>
+        <td><p>Calculate the survivors of a stock to the next year.</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="sweep-methods.html">sweep(<i>&lt;FLArray&gt;</i>)</a></code> <code><a href="sweep-methods.html">sweep(<i>&lt;FLPar&gt;</i>)</a></code> </p>
         </td>
         <td><p>Method sweep for FLCore classes</p></td>
@@ -644,6 +656,12 @@ ICES Intercatch</p></td>
           <p><code><a href="uom.html">uom()</a></code> <code><a href="uom.html">uomUnits()</a></code> </p>
         </td>
         <td><p>uom Units of Measurement</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="uomTable.html">uomTable</a></code> </p>
+        </td>
+        <td><p>Table for conversions and operations between units of measurement</p></td>
       </tr><tr>
         
         <td>
@@ -687,7 +705,7 @@ ICES Intercatch</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

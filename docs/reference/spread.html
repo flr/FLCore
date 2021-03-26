@@ -77,7 +77,7 @@ in the call stack." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@ in the call stack." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -131,7 +131,7 @@ make it to the environment from which the function was called, or further up
 in the call stack.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spread</span>(<span class='no'>object</span>, <span class='kw'>FORCE</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>spread</span><span class='op'>(</span><span class='va'>object</span>, FORCE <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,28 +156,34 @@ with the same name as any list element, unles FORCE=TRUE</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rdrr.io/r/base/sys.parent.html'>sys.nframe</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># EXAMPLE function</span>
-<span class='no'>foo</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span> (<span class='no'>params</span>) {
-  <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'>spread</span>(<span class='no'>params</span>)
- <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>a</span>)
- <span class='no'>x</span>*<span class='no'>y</span>
-}
+<span class='va'>foo</span> <span class='op'>&lt;-</span> <span class='kw'>function</span> <span class='op'>(</span><span class='va'>params</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='fu'>spread</span><span class='op'>(</span><span class='va'>params</span><span class='op'>)</span>
+ <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>a</span><span class='op'>)</span>
+ <span class='va'>x</span><span class='op'>*</span><span class='va'>y</span>
+<span class='op'>}</span>
 <span class='co'># x and y are accesible to the internal calculation</span>
-<span class='fu'>foo</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>3.5</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>9</span>))</div><div class='output co'>#&gt; [1] "x" "y"</div><div class='output co'>#&gt; [1] 31.5</div><div class='input'>
+<span class='fu'>foo</span><span class='op'>(</span>params<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>3.5</span>, y<span class='op'>=</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "x" "y"</div><div class='output co'>#&gt; [1] 31.5</div><div class='input'>
 <span class='co'># Works with FLPar</span>
-<span class='fu'>foo</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>3L</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>0.99238</span>))</div><div class='output co'>#&gt; [1] "x" "y"</div><div class='output co'>#&gt; [1] 2.97714</div><div class='input'>
+<span class='fu'>foo</span><span class='op'>(</span>params<span class='op'>=</span><span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>3L</span>, y<span class='op'>=</span><span class='fl'>0.99238</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "x" "y"</div><div class='output co'>#&gt; [1] 2.97714</div><div class='input'>
 <span class='co'># Elements in object must be named</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>foo</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>3</span>, <span class='kw'>y</span><span class='kw'>=</span><span class='fl'>0.99238</span>))
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>foo</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fl'>3</span>, y<span class='op'>=</span><span class='fl'>0.99238</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># If a variable is missing from the spread object, function will fail</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>foo</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>4</span>))
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>foo</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># Unless the variable is already defined in the calling environment,</span>
-<span class='co'>#in this case &lt;environment: R_GlobalEnv&gt;</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>45</span>
-<span class='fu'>foo</span>(<span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fl'>4</span>))</div><div class='output co'>#&gt; [1] "x"</div><div class='output co'>#&gt; [1] 180</div></pre>
+<span class='co'># in this case &lt;environment: R_GlobalEnv&gt;</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>45</span>
+<span class='fu'>foo</span><span class='op'>(</span>params<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "x"</div><div class='output co'>#&gt; [1] 180</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -193,7 +199,7 @@ with the same name as any list element, unles FORCE=TRUE</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

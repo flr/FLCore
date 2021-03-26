@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -115,13 +115,45 @@
       <small>Source: <a href='https://github.com/flr/FLCore/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="flcore-2616" class="section level1">
+<h1 class="page-header" data-toc-text="2.6.16">
+<a href="#flcore-2616" class="anchor"></a>FLCore 2.6.16<small> Unreleased </small>
+</h1>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h2>
+<ul>
+<li>uom() does not strip spaces inside the string, makes ‘1000 t’ work.</li>
+<li>Products of t and multiples of 10 return correct units <a href='https://github.com/flr/FLCore/issues/62'>#62</a></li>
+<li>getPlural ignored derived classes, like FLIndexBiomass, now dispatches on FLI and FLS.</li>
+<li>harvest(FLQ) now runs optimize for one year objects, handles well iters.</li>
+<li>computeCatch(FLStock) propagates slots if not matching. Logical subsetting fails otherwise.</li>
+</ul>
+</div>
+<div id="user-visible-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#user-visible-changes" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<ul>
+<li>uom() is not called anymore on FLQuant - numeric operations.</li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<ul>
+<li>survivors(FLStock) function calculates the population survivors and returns them as an FLQuant.</li>
+<li>sr(FLBiol) to access full <a href='https://github.com/rec'>@rec</a> slot.</li>
+<li>Methods have been defined for aithmetic operations element by element between two FLQuants objects, and for dividing each of an FLQuants by each of an FLPars of the same length.</li>
+</ul>
+</div>
+</div>
     <div id="flcore-2615" class="section level1">
 <h1 class="page-header" data-toc-text="2.6.15">
 <a href="#flcore-2615" class="anchor"></a>FLCore 2.6.15<small> Unreleased </small>
 </h1>
-<div id="user-visible-changes" class="section level2">
+<div id="user-visible-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-1" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>FLCore now imports ggplot2 to avoid the clash over the %+% operator veings defined in both packages. FLCore now uses ggplot::%+% as basis for the method generic. Only this function is imported, as FLCore does not use any other ggplot2 method.</li>
 <li>qapply() now has a simplify argument to call unlist() on the output and return a vector. Deafults to simplify=FALSE</li>
@@ -129,9 +161,9 @@
 <li>metrics() can now handle formulas combining object functions and vector or FLPar elements, e.g. metrics(ple4, ~ssb/Blim, FLPar(Blim=300000))</li>
 </ul>
 </div>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>mohnMatrix to construct a table of metrics to compute Mohn’s rho from an FLStocks object obtained from a restrospective analysis.</li>
 <li>readVPAInterCatch creates an FLQuant from a VPA file in the format exported by ICES Intercatch system.</li>
@@ -144,9 +176,9 @@
 <li>‘1000 t’ is now accepted by uom().</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>iter&lt;- method for FLBiol and predictModel.</li>
 <li>logrstandard can now deal with NaN</li>
@@ -157,9 +189,9 @@
 <h1 class="page-header" data-toc-text="2.6.14">
 <a href="#flcore-2614" class="anchor"></a>FLCore 2.6.14<small> Unreleased </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>intersect method called on two FLQuants returns them subset to only the common dimension names.</li>
 <li>standardUnits provides a possible set of standard units of measurement in complex object. Set now for FLS/FLStock, using 1000, kg, t, m, and f, as in data(ple4).</li>
@@ -178,9 +210,9 @@
 <li>flc2flq has been deprecated. Use as(object, ‘FLQuant’) instead.</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Fix to iter(vector) after addition of iterators dependency.</li>
 </ul>
@@ -190,25 +222,25 @@
 <h1 class="page-header" data-toc-text="2.6.11">
 <a href="#flcore-2611" class="anchor"></a>FLCore 2.6.11<small> Unreleased </small>
 </h1>
-<div id="new-features-2" class="section level2">
+<div id="new-features-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-2" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>dimnames(FLComp) method defined, returns dimnames corresponding to maximum length per dimension.</li>
 </ul>
 </div>
-<div id="user-visible-changes-1" class="section level2">
+<div id="user-visible-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-1" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-2" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>combine(FLQuant) and combine (FLComp) can now accept multiple objects, useful for using with foreach’s .multicombine.</li>
 <li>Replacement method for FLlst elements ([[&lt;-) now allows extending it.</li>
 <li>Dependency added on iterators package. iter() method was overwritten when iterators was loaded.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>
 <a href="mailto:FLStock@mat" class="email">FLStock@mat</a> conversion to <a href="mailto:FLBiol@mat/fec" class="email">FLBiol@mat/fec</a> now works with NAs</li>
@@ -219,9 +251,9 @@
 <h1 class="page-header" data-toc-text="2.6.10">
 <a href="#flcore-2610" class="anchor"></a>FLCore 2.6.10<small> Unreleased </small>
 </h1>
-<div id="new-features-3" class="section level2">
+<div id="new-features-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-3" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>window(FLQuantDistr) method added to deal with <a href='https://github.com/var'>@var</a> slot</li>
 <li>Method %*% for FLQuants,FLPar added</li>
@@ -229,9 +261,9 @@
 <li>show() for FLComp-derived classes will call summary instead of printDefault. print() will still show the full object</li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>propagate(FLPar) placed the original object in the matching dimname$iter, instead of iter=1</li>
 <li>Methods for %^% and ^ did not deal properly with units. Exponentation now returns the units of the base</li>
@@ -242,18 +274,18 @@
 <h1 class="page-header" data-toc-text="2.6.9">
 <a href="#flcore-269" class="anchor"></a>FLCore 2.6.9<small> Unreleased </small>
 </h1>
-<div id="new-features-4" class="section level2">
+<div id="new-features-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-4" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>survSRR implements Taylor et al (2013, doi: 10.1016/j.fishres.2012.04.018) model for low fecundity species.</li>
 <li>ssf(FLStock) method returns the Spawning Stock Fecundity, as stock.n times mat, where mat holds fecundity by individual</li>
 <li>spread() function to make available inside a function a list of parameters</li>
 </ul>
 </div>
-<div id="user-visible-changes-2" class="section level2">
+<div id="user-visible-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-2" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-3" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>Added calcF=TRUE to simplify(), to speed it up when harvest is not needed</li>
 </ul>
@@ -263,16 +295,16 @@
 <h1 class="page-header" data-toc-text="2.6.7">
 <a href="#flcore-267" class="anchor"></a>FLCore 2.6.7<small> Unreleased </small>
 </h1>
-<div id="new-features-5" class="section level2">
+<div id="new-features-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-5" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>Added iterProb(FLQuant) method</li>
 </ul>
 </div>
-<div id="user-visible-changes-3" class="section level2">
+<div id="user-visible-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-3" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-4" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>writeADMB now accepts append=TRUE/FALSE</li>
 <li>Added generics from mpb and FLRP</li>
@@ -280,9 +312,9 @@
 <li>predict(predictModel) now accepts numeric vectors and FLPar objects in …</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Corrected simplify(FLStock) to use unweighted means for wts</li>
 <li>Added … to msy et al generics</li>
@@ -299,9 +331,9 @@
 <h1 class="page-header" data-toc-text="2.6.6">
 <a href="#flcore-266" class="anchor"></a>FLCore 2.6.6<small> Unreleased </small>
 </h1>
-<div id="new-features-6" class="section level2">
+<div id="new-features-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-6" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>window(FLStocks) method to apply same window call across all elements.</li>
 <li>combine(FLStocks) method collapses all elements into a single FLStock object. with as many iters as elements in the list, must all have 1 iter.</li>
@@ -313,17 +345,17 @@
 <li>iter() method for FLlst, lapplies it along the list</li>
 </ul>
 </div>
-<div id="user-visible-changes-4" class="section level2">
+<div id="user-visible-changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-4" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-5" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>propagate(FLPar) to return object if iter == iters <a href='https://github.com/flr/FLCore/issues/45'>#45</a>.</li>
 <li>Ratios of numbers written in alternative ways now also return an empty character.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level2">
+<div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>dimnames&lt;- for FLStock with no ages failed when changing age name <a href='https://github.com/flr/FLCore/issues/42'>#42</a>.</li>
 <li>uom can now handle better products with units containing divisions.</li>
@@ -347,25 +379,25 @@
 <h1 class="page-header" data-toc-text="2.6.5">
 <a href="#flcore-265" class="anchor"></a>FLCore 2.6.5<small> Unreleased </small>
 </h1>
-<div id="new-features-7" class="section level2">
+<div id="new-features-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-7" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-8" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>New harvest method for stock.n, catch.n and m, by minimizing diff in catch.</li>
 <li>survey and cpue methods to generate observations from an operating model</li>
 <li>knit_print.FLQuant method for the printr package, better printing of FLQuant objects in knitr documents</li>
 </ul>
 </div>
-<div id="user-visible-changes-5" class="section level2">
+<div id="user-visible-changes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-5" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-6" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>FLStock creator uses empty object for sizing, keeps iters but drops them if object(s) are named.</li>
 </ul>
 </div>
-<div id="bug-fixes-6" class="section level2">
+<div id="bug-fixes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>Add tiny value to landings and discards to ensure no division by zero in computeCatch.</li>
 <li>Added reduced version to print(FLPar, reduced=TRUE) to reuse in summary methods</li>
@@ -376,9 +408,9 @@
 <h1 class="page-header" data-toc-text="2.6.4">
 <a href="#flcore-264" class="anchor"></a>FLCore 2.6.4<small> Unreleased </small>
 </h1>
-<div id="new-features-8" class="section level2">
+<div id="new-features-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-8" class="anchor"></a>NEW FEATURES</h2>
+<a href="#new-features-9" class="anchor"></a>NEW FEATURES</h2>
 <ul>
 <li>
 <code>%=%</code> operator to modify on thed fly the content of an FLQuant/FLArray. Object structure can be reused with contents being changed, e.g. FLQuant(2, dim=c(3,10)) %=% 0 will return the object with zeros.</li>
@@ -401,9 +433,9 @@
 <li>Added vb method for vulnerable biomass</li>
 </ul>
 </div>
-<div id="user-visible-changes-6" class="section level2">
+<div id="user-visible-changes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#user-visible-changes-6" class="anchor"></a>USER-VISIBLE CHANGES</h2>
+<a href="#user-visible-changes-7" class="anchor"></a>USER-VISIBLE CHANGES</h2>
 <ul>
 <li>model.frame(FLComp) now has an mcf=TRUE argument to correct slots of different dim</li>
 <li>computeLogLik method added to FLModel. Will return a logLik object calculated with the data and params in the object</li>
@@ -437,9 +469,9 @@
 <li>Dropped redundant Sums and Products methods for FLQuants, use Reduce(“+”, …) instead</li>
 </ul>
 </div>
-<div id="bug-fixes-7" class="section level2">
+<div id="bug-fixes-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor"></a>BUG FIXES</h2>
+<a href="#bug-fixes-8" class="anchor"></a>BUG FIXES</h2>
 <ul>
 <li>coerce of data.frame to FLPar deals rightly with multiple params and no iters in wide format.</li>
 <li>iterMeans(FLQuant) was not operating along the 6th dim</li>
@@ -504,7 +536,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

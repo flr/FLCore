@@ -73,7 +73,7 @@ of any FLArray-based class, like FLQuant or FLCohort." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ of any FLArray-based class, like FLQuant or FLCohort." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -123,13 +123,13 @@ of any FLArray-based class, like FLQuant or FLCohort." />
 of any FLArray-based class, like <code><a href='FLQuant.html'>FLQuant</a></code> or <code><a href='FLCohort.html'>FLCohort</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>quant</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>quant</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLArray</span>
-<span class='fu'>quant</span>(<span class='no'>object</span>)
+<span class='fu'>quant</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLArray,character</span>
-<span class='fu'>quant</span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+<span class='fu'>quant</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
 
 
     <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
@@ -138,14 +138,20 @@ of any FLArray-based class, like <code><a href='FLQuant.html'>FLQuant</a></code>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='FLQuant.html'>FLQuant</a>, <a href='FLCohort.html'>FLCohort</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># quant is 'quant' by default</span>
-  <span class='fu'>quant</span>(<span class='fu'><a href='FLQuant.html'>FLQuant</a></span>())</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>80</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>20</span>), <span class='kw'>quant</span><span class='kw'>=</span><span class='st'>'age'</span>)
-<span class='fu'>quant</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; [1] "age"</div><div class='input'><span class='fu'>quant</span>(<span class='no'>flq</span>) <span class='kw'>&lt;-</span> <span class='st'>'length'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
+  <span class='fu'>quant</span><span class='op'>(</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span><span class='op'>)</span>, quant<span class='op'>=</span><span class='st'>'age'</span><span class='op'>)</span>
+<span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "age"</div><div class='input'><span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'length'</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  4 20 1 1 1 1 
 #&gt; quant:  length 
 #&gt; units:  NA 
@@ -159,10 +165,13 @@ of any FLArray-based class, like <code><a href='FLQuant.html'>FLQuant</a></code>
 #&gt; NAs    :  0 %</div><div class='input'>
 
 <span class='co'># quant is 'quant' by default</span>
-  <span class='fu'>quant</span>(<span class='fu'><a href='FLQuant.html'>FLQuant</a></span>())</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>80</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>20</span>), <span class='kw'>quant</span><span class='kw'>=</span><span class='st'>'age'</span>)
-<span class='fu'>quant</span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; [1] "age"</div><div class='input'><span class='fu'>quant</span>(<span class='no'>flq</span>) <span class='kw'>&lt;-</span> <span class='st'>'length'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
+  <span class='fu'>quant</span><span class='op'>(</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span><span class='op'>)</span>, quant<span class='op'>=</span><span class='st'>'age'</span><span class='op'>)</span>
+<span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "age"</div><div class='input'><span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'length'</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  4 20 1 1 1 1 
 #&gt; quant:  length 
 #&gt; units:  NA 
@@ -190,7 +199,7 @@ of any FLArray-based class, like <code><a href='FLQuant.html'>FLQuant</a></code>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

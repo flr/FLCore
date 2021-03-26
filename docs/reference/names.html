@@ -73,7 +73,7 @@ some classes, the names attribute can be modified directly using names&amp;lt;-.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ some classes, the names attribute can be modified directly using names&amp;lt;-.
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -124,13 +124,13 @@ some classes, the names attribute can be modified directly using names&lt;-.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for FLArray</span>
-<span class='fu'>names</span>(<span class='no'>x</span>)
+<span class='fu'>names</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLPar</span>
-<span class='fu'>names</span>(<span class='no'>x</span>)
+<span class='fu'>names</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLPar,character</span>
-<span class='fu'>names</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+<span class='fu'>names</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
 
 
     <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
@@ -139,13 +139,18 @@ some classes, the names attribute can be modified directly using names&lt;-.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://rdrr.io/r/base/names.html'>names</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># FLQuant</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
-<span class='fu'>names</span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>))</div><div class='output co'>#&gt; [1] "age"    "year"   "unit"   "season" "area"   "iter"  </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'>names</span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "age"    "year"   "unit"   "season" "area"   "iter"  </div><div class='input'>
 <span class='co'># Contrast this with</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>))</div><div class='output co'>#&gt; $age
+<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $age
 #&gt;  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
 #&gt; 
 #&gt; $year
@@ -185,7 +190,7 @@ some classes, the names attribute can be modified directly using names&lt;-.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

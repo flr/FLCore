@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -121,7 +121,7 @@
     <p>A class for storing parameters of a model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FLPar</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>FLPar</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -134,7 +134,7 @@ statistics of the sample (mean, median etc.) and for plotting the parameter
 samples.</p>
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
 <dt>.Data</dt><dd><p>Describe slot. <code>array</code>.</p></dd>
 <dt>units</dt><dd><p>Units of measurement. <code>character</code>.</p></dd> 
 </dl>
@@ -147,16 +147,21 @@ iter&lt;-, <a href='https://rdrr.io/r/base/mean.html'>mean</a>, <a href='https:/
 <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='https://rdrr.io/pkg/lattice/man/splom.html'>splom</a>, <a href='https://rdrr.io/r/base/summary.html'>summary</a>,
 <a href='units-FLCore.html'>units,FLPar-method</a>, units&lt;-,FLPar,character-method,
 <a href='https://rdrr.io/r/stats/cor.html'>var</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>FLPar</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>4</span>), <span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'a'</span>,<span class='st'>'b'</span>,<span class='st'>'c'</span>,<span class='st'>'sigma2'</span>))</div><div class='output co'>#&gt; An object of class "FLPar"
+<span class='fu'>FLPar</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>, params<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'a'</span>,<span class='st'>'b'</span>,<span class='st'>'c'</span>,<span class='st'>'sigma2'</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLPar"
 #&gt; params
 #&gt;       a       b       c  sigma2 
 #&gt;  1.2404  0.6857 -0.0268  0.3096 
 #&gt; units:  NA NA NA NA </div><div class='input'>
-<span class='fu'>FLPar</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'a'</span>,<span class='st'>'b'</span>), <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1990</span>:<span class='fl'>1999</span>, <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>1</span>),
-  <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'NA'</span>)</div><div class='output co'>#&gt; An object of class "FLPar"
+<span class='fu'>FLPar</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>params<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'a'</span>,<span class='st'>'b'</span><span class='op'>)</span>, year<span class='op'>=</span><span class='fl'>1990</span><span class='op'>:</span><span class='fl'>1999</span>, iter<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>,
+  units<span class='op'>=</span><span class='st'>'NA'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLPar"
 #&gt;       year
 #&gt; params 1990     1991     1992     1993     1994     1995     1996     1997    
 #&gt;      a  0.24986  0.59938  0.09072 -0.48178 -0.85954  1.21506 -0.08591 -0.21826
@@ -167,7 +172,8 @@ iter&lt;-, <a href='https://rdrr.io/r/base/mean.html'>mean</a>, <a href='https:/
 #&gt;      b -1.40997  0.29587
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># with iters</span>
-  <span class='fu'>FLPar</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>80</span>), <span class='kw'>params</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'a'</span>, <span class='st'>'b'</span>), <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>40</span>)</div><div class='output co'>#&gt; An object of class "FLPar"
+  <span class='fu'>FLPar</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>)</span>, params<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'a'</span>, <span class='st'>'b'</span><span class='op'>)</span>, iter<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>40</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLPar"
 #&gt; iters:  40 
 #&gt; 
 #&gt; params
@@ -190,7 +196,7 @@ iter&lt;-, <a href='https://rdrr.io/r/base/mean.html'>mean</a>, <a href='https:/
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

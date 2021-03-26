@@ -74,7 +74,7 @@ descriptive statistics." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ descriptive statistics." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -125,13 +125,13 @@ object with multiple iterations along its sixth dimension using a number of
 descriptive statistics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FLQuantPoint</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>FLQuantPoint</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for missing</span>
-<span class='fu'>FLQuantPoint</span>(<span class='no'>...</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)
+<span class='fu'>FLQuantPoint</span><span class='op'>(</span><span class='va'>...</span>, units <span class='op'>=</span> <span class='st'>"NA"</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLQuant</span>
-<span class='fu'>FLQuantPoint</span>(<span class='no'>object</span>, <span class='no'>...</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>)</pre>
+<span class='fu'>FLQuantPoint</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span>, units <span class='op'>=</span> <span class='st'>"NA"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,7 +158,7 @@ various statistics are calculated along the <em>iter</em> dimension of the
 original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.html'>apply</a></code>.</p>
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
  <dt>.Data</dt><dd><p>The main array holding the computed statistics. <code>array</code>.</p></dd>
  <dt>units</dt><dd><p>Units of measurement. <code>character</code>.</p></dd>
 
@@ -166,7 +166,7 @@ original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.
 
     <h2 class="hasAnchor" id="accesors"><a class="anchor" href="#accesors"></a>Accesors</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
  <dt>mean,mean&lt;-:</dt><dd><p>'mean' element on 6th dimension, arithmetic mean.</p></dd>
  <dt>median,median&lt;-:</dt><dd><p>'median' element on 6th dimension, median.</p></dd>
  <dt>var,var&lt;-:</dt><dd><p>'var' element on 6th dimension, variance.</p></dd>
@@ -180,14 +180,14 @@ original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.
 
     
 
-<p>Inputs can be of class:</p><dl'>
+<p>Inputs can be of class:</p><dl>
    <dt><code>FLQuant</code>:</dt><dd><p>An FLQuant object with iters (i.e. dim[6] &gt; 1)</p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="validity"><a class="anchor" href="#validity"></a>Validity</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
  <dt>iter:</dt><dd><p>iter dimension is of length 5.</p></dd>
  <dt>Dimnames:</dt><dd><p>iter dimnames are 'mean', 'median', 'var', 'uppq' and'lowq'</p></dd>
 
@@ -196,12 +196,16 @@ original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='FLQuant.html'>FLQuant</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>2000</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>200</span>))
-<span class='no'>flqp</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuantPoint</span>(<span class='no'>flq</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>flqp</span>)</div><div class='output co'>#&gt; An object of class "FLQuantPoint" with:
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>2000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>flqp</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuantPoint</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuantPoint" with:
 #&gt; dim  :  10 20 1 1 1 5 
 #&gt; quant:  quant 
 #&gt; units:  NA 
@@ -210,7 +214,8 @@ original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.
 #&gt; Mean   :  0.01413314 
 #&gt; Median :  -0.008228988 
 #&gt; Var    :  0.8691388 
-#&gt; 3rd Qu.:  0.6466926 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>flqp</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; 3rd Qu.:  0.6466926 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -262,7 +267,8 @@ original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.
 #&gt;    9   0.47030294  0.07049626
 #&gt;    10 -0.22026766 -0.23956130
 #&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span>(<span class='no'>flqp</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -302,7 +308,8 @@ original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.
 #&gt;    9  0.78534 1.40781
 #&gt;    10 0.71568 1.66275
 #&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>200</span>, <span class='no'>flqp</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='va'>flqp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; iters:  200 
 #&gt; 
 #&gt; , , unit = unique, season = all, area = unique
@@ -385,7 +392,7 @@ original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

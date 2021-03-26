@@ -74,7 +74,7 @@ modelling." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ modelling." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -125,53 +125,53 @@ designed to store most quantitative data used in fisheries and population
 modelling.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>FLQuant</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for missing</span>
-<span class='fu'>FLQuant</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
-  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>,
-  <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>
-)
+<span class='fu'>FLQuant</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>6</span><span class='op'>)</span>,
+  dimnames <span class='op'>=</span> <span class='st'>"missing"</span>,
+  quant <span class='op'>=</span> <span class='cn'>NULL</span>,
+  units <span class='op'>=</span> <span class='st'>"NA"</span>,
+  iter <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for vector</span>
-<span class='fu'>FLQuant</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
-  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>,
-  <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>fill.iter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+<span class='fu'>FLQuant</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>6</span><span class='op'>)</span>,
+  dimnames <span class='op'>=</span> <span class='st'>"missing"</span>,
+  quant <span class='op'>=</span> <span class='cn'>NULL</span>,
+  units <span class='op'>=</span> <span class='st'>"NA"</span>,
+  iter <span class='op'>=</span> <span class='fl'>1</span>,
+  fill.iter <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for array</span>
-<span class='fu'>FLQuant</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
-  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>,
-  <span class='kw'>quant</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"NA"</span>,
-  <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>fill.iter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+<span class='fu'>FLQuant</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>6</span><span class='op'>)</span>,
+  dimnames <span class='op'>=</span> <span class='st'>"missing"</span>,
+  quant <span class='op'>=</span> <span class='cn'>NULL</span>,
+  units <span class='op'>=</span> <span class='st'>"NA"</span>,
+  iter <span class='op'>=</span> <span class='fl'>1</span>,
+  fill.iter <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for matrix</span>
-<span class='fu'>FLQuant</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>dimnames</span>, <span class='no'>length</span>), <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='st'>"missing"</span>, <span class='no'>...</span>)
+<span class='fu'>FLQuant</span><span class='op'>(</span><span class='va'>object</span>, dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>dimnames</span>, <span class='va'>length</span><span class='op'>)</span>, dimnames <span class='op'>=</span> <span class='st'>"missing"</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLQuant</span>
-<span class='fu'>FLQuant</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>quant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"quant"</span>]],
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"units"</span>]],
-  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"dimnames"</span>]],
-  <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>object</span>)[<span class='fl'>6</span>],
-  <span class='kw'>fill.iter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span>(<span class='no'>object</span>)<span class='kw'>[[</span><span class='st'>"dim"</span>]]
-)</pre>
+<span class='fu'>FLQuant</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  quant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"quant"</span><span class='op'>]</span><span class='op'>]</span>,
+  units <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"units"</span><span class='op'>]</span><span class='op'>]</span>,
+  dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"dimnames"</span><span class='op'>]</span><span class='op'>]</span>,
+  iter <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>6</span><span class='op'>]</span>,
+  fill.iter <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  dim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attributes.html'>attributes</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"dim"</span><span class='op'>]</span><span class='op'>]</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -227,14 +227,14 @@ class <code><a href='https://rdrr.io/r/base/character.html'>character</a></code>
 measurement relevant to the data.</p>
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
   <dt>.Data</dt><dd><p>A 6-D array for numeric data. <code><a href='https://rdrr.io/r/base/array.html'>array</a></code>.</p></dd>
  <dt>units</dt><dd><p>Units of measurement. <code><a href='https://rdrr.io/r/base/character.html'>character</a></code>.</p></dd> 
 </dl>
 
     <h2 class="hasAnchor" id="validity"><a class="anchor" href="#validity"></a>Validity</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
  <dt>Dimensions:</dt><dd><p>Array must have 6 dimensions</p></dd>
  <dt>Content:</dt><dd><p>Array must be of class <code>numeric</code></p></dd>
  <dt>Dimnames:</dt><dd><p>Dimensions 2 to 6 must be named "year", "unit", "season", "area" and "iter"</p></dd>
@@ -246,14 +246,14 @@ measurement relevant to the data.</p>
     
 
 <p>The <code>FLQuant</code> method provides a flexible constructor for objects of the class.
- Inputs can be of class:</p><dl'>
+ Inputs can be of class:</p><dl>
    <dt><code>vector</code>:</dt><dd><p>A numeric vector will be placed along the year dimension by default.</p></dd>
    <dt><code>matrix</code>:</dt><dd><p>A matrix will be placed along dimensions 1 and 2, unless otherwise specified by 'dim'. The matrix dimnames will be used unless overriden by 'dimnames'.</p></dd>
    <dt><a href='https://rdrr.io/r/base/array.html'>array</a>:</dt><dd><p>As above</p></dd>
    <dt><a href='https://rdrr.io/r/base/missing.html'>missing</a>:</dt><dd><p>If no input is given, an empty <code>FLQuant</code>  (NA) is returned, but dimensions and dimnames can still be specified.</p></dd> 
 </dl>
 
-<p>Additional arguments to the constructor:</p><dl'>
+<p>Additional arguments to the constructor:</p><dl>
     <dt>units:</dt><dd><p>The units of measurement, a <code><a href='https://rdrr.io/r/base/character.html'>character</a></code> string.</p></dd>
     <dt>dim:</dt><dd><p>The dimensions of the object, a <code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> vector of length 6.</p></dd>
     <dt>dimnames:</dt><dd><p>A <code><a href='https://rdrr.io/r/base/list.html'>list</a></code> object providing the dimnames of the array. Only those different from the default ones need to be specified.</p></dd>
@@ -263,13 +263,17 @@ measurement relevant to the data.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>FLQuant</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># creating a new FLQuant</span>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>()
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>5</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuant</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuant</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  2 5 1 1 1 1 
 #&gt; quant:  quant 
 #&gt; units:  NA 
@@ -282,9 +286,12 @@ measurement relevant to the data.</p>
 #&gt; Max    :  10 
 #&gt; NAs    :  0 %</div><div class='input'>
 <span class='co'># Vectors are used column first...</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='fu'>FLQuant</span>(<span class='fl'>1</span>:<span class='fl'>10</span>))</div><div class='output co'>#&gt; [1]  1 10  1  1  1  1</div><div class='input'><span class='co'># ...while matrices go row first.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='fu'>FLQuant</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)))</div><div class='output co'>#&gt; [1] 10  1  1  1  1  1</div><div class='input'>
-<span class='fu'>FLQuant</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>), <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>20</span>))</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>FLQuant</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  1 10  1  1  1  1</div><div class='input'><span class='co'># ...while matrices go row first.</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 10  1  1  1  1  1</div><div class='input'>
+<span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, ncol<span class='op'>=</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -310,7 +317,8 @@ measurement relevant to the data.</p>
 #&gt;     5 -1.116561  2.750765 -0.163564 -0.855413 -1.902304 -0.416476
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
-<span class='fu'>FLQuant</span>(<span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>10</span>)))</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; iters:  10 
 #&gt; 
 #&gt; , , unit = unique, season = all, area = unique
@@ -323,7 +331,8 @@ measurement relevant to the data.</p>
 #&gt;     4 -0.51552(0.419) -0.46943(0.615)
 #&gt;     5 -0.23508(0.617)  0.39845(0.978)
 #&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'>FLQuant</span>(<span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>2</span>)), <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; units:  NA </div><div class='input'><span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>, iter<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; iters:  10 
 #&gt; 
 #&gt; , , unit = unique, season = all, area = unique
@@ -338,8 +347,9 @@ measurement relevant to the data.</p>
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># working with FLQuant objects</span>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuant</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>200</span>), <span class='kw'>dimnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>age</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2000</span>:<span class='fl'>2008</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'diff'</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; An object of class "FLQuant" with:
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2008</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'diff'</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  5 9 1 1 1 1 
 #&gt; quant:  age 
 #&gt; units:  diff 
@@ -351,7 +361,8 @@ measurement relevant to the data.</p>
 #&gt; 3rd Qu.:  0.5949239 
 #&gt; Max    :  1.915691 
 #&gt; NAs    :  0 %</div><div class='input'>
-<span class='no'>flq</span>[<span class='fl'>1</span>,]</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='va'>flq</span><span class='op'>[</span><span class='fl'>1</span>,<span class='op'>]</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
@@ -361,7 +372,8 @@ measurement relevant to the data.</p>
 #&gt; age 2008    
 #&gt;   1 -0.45863
 #&gt; 
-#&gt; units:  diff </div><div class='input'><span class='no'>flq</span>[,<span class='fl'>1</span>]</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; units:  diff </div><div class='input'><span class='va'>flq</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;    year
@@ -372,19 +384,24 @@ measurement relevant to the data.</p>
 #&gt;   4 -0.98534
 #&gt;   5 -1.49119
 #&gt; 
-#&gt; units:  diff </div><div class='input'><span class='no'>flq</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+#&gt; units:  diff </div><div class='input'><span class='va'>flq</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/difftime.html'>units</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; [1] "diff"</div><div class='input'><span class='fu'><a href='quant.html'>quant</a></span>(<span class='no'>flq</span>)</div><div class='output co'>#&gt; [1] "age"</div><div class='input'>
-<span class='fu'><a href='plot.html'>plot</a></span>(<span class='no'>flq</span>)</div><div class='img'><img src='FLQuant-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/difftime.html'>units</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "diff"</div><div class='input'><span class='fu'><a href='quant.html'>quant</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "age"</div><div class='input'>
+<span class='fu'><a href='plot.html'>plot</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+</div><div class='img'><img src='FLQuant-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
-<span class='fu'>FLQuant</span>()</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'>FLQuant</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1 
 #&gt;   all NA
 #&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'>FLQuant</span>())</div><div class='output co'>#&gt; An object of class "FLQuant" with:
+#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>FLQuant</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant" with:
 #&gt; dim  :  1 1 1 1 1 1 
 #&gt; quant:  quant 
 #&gt; units:  NA 
@@ -396,7 +413,8 @@ measurement relevant to the data.</p>
 #&gt; 3rd Qu.:  NA
 #&gt; Max    :  NA
 #&gt; NAs    :  100 %</div><div class='input'>
-<span class='fu'>FLQuant</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'>FLQuant</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -404,7 +422,8 @@ measurement relevant to the data.</p>
 #&gt;   all  1  2  3  4  5  6  7  8  9 10
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
-<span class='fu'>FLQuant</span>(<span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>9</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>)))</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>9</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = 1, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -430,7 +449,8 @@ measurement relevant to the data.</p>
 #&gt;     3  1.604180 -0.823788  0.304062
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
-<span class='fu'>FLQuant</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>12</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>3</span>, <span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>3</span>))</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>3</span>, ncol<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -440,7 +460,8 @@ measurement relevant to the data.</p>
 #&gt;     3  0.824156 -0.366949 -0.583969
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
-<span class='fu'>FLQuant</span>(<span class='fu'>FLQuant</span>(<span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>9</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>)), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'kg'</span>), <span class='kw'>units</span><span class='kw'>=</span><span class='st'>'t'</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>9</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'t'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = 1, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -481,7 +502,7 @@ measurement relevant to the data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

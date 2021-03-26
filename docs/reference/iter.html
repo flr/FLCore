@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -121,10 +121,10 @@
     <p>Select or modify iterations of an FLR object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>iter</span>(<span class='no'>obj</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>iter</span><span class='op'>(</span><span class='va'>obj</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLArray</span>
-<span class='fu'>iter</span>(<span class='no'>obj</span>, <span class='no'>iter</span>)</pre>
+<span class='fu'>iter</span><span class='op'>(</span><span class='va'>obj</span>, <span class='va'>iter</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -135,7 +135,7 @@ the <code>iter</code> and <code>iter&lt;-</code> methods can be used.</p>
 checks whether individual slots contain more than one iteration, i.e.
 <code>dims(object)[6] &gt; 1</code>. If a particular slot contains a single
 iteration, that is returned, otherwise the chosen iteration is selected.
-This is in contrast with the subset operator <code>[</code>, which does not carry
+This is in contrast with the subset operator <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code>, which does not carry
 out this check.</p>
 <p>For objects of class <code><a href='FLModel.html'>FLModel</a></code>, iters are extracted for slots of
 classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
@@ -145,12 +145,16 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='FLComp.html'>FLComp</a>, <a href='FLQuant.html'>FLQuant</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># For an FLQuant</span>
-  <span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>800</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span>), <span class='kw'>iter</span><span class='kw'>=</span><span class='fl'>10</span>)
-  <span class='fu'>iter</span>(<span class='no'>flq</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+  <span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>800</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span><span class='op'>)</span>, iter<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+  <span class='fu'>iter</span><span class='op'>(</span><span class='va'>flq</span>, <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = 1, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -183,8 +187,9 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># For the more complex FLStock object</span>
-  <span class='no'>fls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLStock.html'>FLStock</a></span>(<span class='kw'>catch.n</span><span class='kw'>=</span><span class='no'>flq</span>, <span class='kw'>m</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>0.2</span>, <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span>)))
-  <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fls</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
+  <span class='va'>fls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLStock.html'>FLStock</a></span><span class='op'>(</span>catch.n<span class='op'>=</span><span class='va'>flq</span>, m<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>0.2</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>10</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fls</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name:  
 #&gt; Description:  
@@ -213,8 +218,9 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 #&gt; harvest.spwn  : [ 4 10 2 1 1 1 ], units =   
 #&gt; m.spwn        : [ 4 10 2 1 1 1 ], units =   </div><div class='input'>
   <span class='co'># Extraction using iter...</span>
-    <span class='no'>fls2</span> <span class='kw'>&lt;-</span> <span class='fu'>iter</span>(<span class='no'>fls</span>, <span class='fl'>2</span>)
-    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fls2</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
+    <span class='va'>fls2</span> <span class='op'>&lt;-</span> <span class='fu'>iter</span><span class='op'>(</span><span class='va'>fls</span>, <span class='fl'>2</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fls2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name:  
 #&gt; Description:  
@@ -242,7 +248,9 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 #&gt; harvest       : [ 4 10 2 1 1 1 ], units =  NA 
 #&gt; harvest.spwn  : [ 4 10 2 1 1 1 ], units =   
 #&gt; m.spwn        : [ 4 10 2 1 1 1 ], units =   </div><div class='input'>  <span class='co'># ...in contrast to using [ which returns an error</span>
-    <span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>fls</span>[,,,,,<span class='fl'>2</span>]</div></pre>
+    <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>fls</span><span class='op'>[</span>,,,,,<span class='fl'>2</span><span class='op'>]</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -258,7 +266,7 @@ classes <code>FLQuant</code>, <code>FLCohort</code> and <code>FLPar</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

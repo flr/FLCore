@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -121,16 +121,16 @@
     <p>A class for modelling a fish stock.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FLStock</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>FLStock</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLQuant</span>
-<span class='fu'>FLStock</span>(<span class='no'>object</span>, <span class='kw'>plusgroup</span> <span class='kw'>=</span> <span class='fu'><a href='dims.html'>dims</a></span>(<span class='no'>object</span>)$<span class='no'>max</span>, <span class='no'>...</span>)
+<span class='fu'>FLStock</span><span class='op'>(</span><span class='va'>object</span>, plusgroup <span class='op'>=</span> <span class='fu'><a href='dims.html'>dims</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>max</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for missing</span>
-<span class='fu'>FLStock</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>FLStock</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLQuants</span>
-<span class='fu'>FLStock</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>FLStock</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,7 +160,7 @@ of abundance and removal rates) .</p>
 
     
 
-<dl'>
+<dl>
  <dt>catch</dt><dd><p>Total catch weight (<code>FLQuant</code>).</p></dd>
  <dt>catch.n</dt><dd><p>Catch numbers (<code>FLQuant</code>).</p></dd>
  <dt>catch.wt</dt><dd><p>Mean catch weights (<code>FLQuant</code>).</p></dd>
@@ -219,11 +219,15 @@ landings.n&lt;-, <a href='accessors.html'>landings.wt</a>, landings.wt&lt;-, <a 
 m&lt;-, <a href='accessors.html'>mat</a>, <a href='accessors.html'>m.spwn</a>, <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='ssb.html'>ssb</a>,
 ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</a>, <a href='accessors.html'>stock.wt</a>, <a href='trim.html'>trim</a>,
 <a href='FLComp.html'>FLComp</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name: PLE 
 #&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
@@ -252,7 +256,8 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 #&gt; harvest.spwn  : [ 10 61 1 1 1 1 ], units =   
 #&gt; m.spwn        : [ 10 61 1 1 1 1 ], units =   </div><div class='input'>
 <span class='co'># get the landings slot and assign values to it</span>
-  <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+  <span class='fu'><a href='accessors.html'>landings</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -277,18 +282,19 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 #&gt; age   2017  
 #&gt;   all  84750
 #&gt; 
-#&gt; units:  t </div><div class='input'>  <span class='fu'><a href='accessors.html'>landings</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='fu'><a href='accessors.html'>landings.n</a></span>(<span class='no'>ple4</span>)*<span class='fu'><a href='accessors.html'>landings.wt</a></span>(<span class='no'>ple4</span>),<span class='fl'>2</span>,<span class='no'>sum</span>)
+#&gt; units:  t </div><div class='input'>  <span class='fu'><a href='accessors.html'>landings</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='fu'><a href='accessors.html'>landings.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='accessors.html'>landings.wt</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>,<span class='fl'>2</span>,<span class='va'>sum</span><span class='op'>)</span>
 
 <span class='co'># perform similar calculation as the preceding apply function</span>
-  <span class='fu'><a href='accessors.html'>discards</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span>(<span class='no'>ple4</span>)
-  <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>ple4</span>)
-  <span class='fu'><a href='accessors.html'>catch</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)
+  <span class='fu'><a href='accessors.html'>discards</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+  <span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+  <span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span><span class='op'>(</span><span class='va'>ple4</span>, slot<span class='op'>=</span><span class='st'>"all"</span><span class='op'>)</span>
 
 <span class='co'># set the units of the harvest slot of an FLStock object</span>
-  <span class='fu'><a href='accessors.html'>harvest</a></span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='st'>'f'</span>
+  <span class='fu'><a href='accessors.html'>harvest</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'f'</span>
 
 <span class='co'># subset and trim the FLStock</span>
-  <span class='no'>ple4</span>[,<span class='fl'>1</span>]</div><div class='output co'>#&gt; An object of class "FLStock"
+  <span class='va'>ple4</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name: PLE 
 #&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
@@ -297,7 +303,7 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 #&gt; 	10	1	1	1	1	1	
 #&gt; 
 #&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
-#&gt; 	1	10	10	1957	1957	2	6	
+#&gt; 	1	10	10	1957	1957	2	10	
 #&gt; 
 #&gt; catch         : [ 1 1 1 1 1 1 ], units =  t 
 #&gt; catch.n       : [ 10 1 1 1 1 1 ], units =  1000 
@@ -315,7 +321,8 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 #&gt; mat           : [ 10 1 1 1 1 1 ], units =   
 #&gt; harvest       : [ 10 1 1 1 1 1 ], units =  f 
 #&gt; harvest.spwn  : [ 10 1 1 1 1 1 ], units =   
-#&gt; m.spwn        : [ 10 1 1 1 1 1 ], units =   </div><div class='input'>  <span class='fu'><a href='trim.html'>trim</a></span>(<span class='no'>ple4</span>, <span class='kw'>age</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>6</span>, <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>1980</span>:<span class='fl'>1990</span>)</div><div class='output co'>#&gt; An object of class "FLStock"
+#&gt; m.spwn        : [ 10 1 1 1 1 1 ], units =   </div><div class='input'>  <span class='fu'><a href='trim.html'>trim</a></span><span class='op'>(</span><span class='va'>ple4</span>, age<span class='op'>=</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>6</span>, year<span class='op'>=</span><span class='fl'>1980</span><span class='op'>:</span><span class='fl'>1990</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLStock"
 #&gt; 
 #&gt; Name: PLE 
 #&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
@@ -344,7 +351,8 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 #&gt; harvest.spwn  : [ 5 11 1 1 1 1 ], units =   
 #&gt; m.spwn        : [ 5 11 1 1 1 1 ], units =   </div><div class='input'>
 <span class='co'># Calculate SSB, and SSB per recruit at zero fishing mortality</span>
-  <span class='fu'><a href='ssb.html'>ssb</a></span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+  <span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -369,7 +377,8 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 #&gt; age   2017  
 #&gt;   all 913290
 #&gt; 
-#&gt; units:  t </div><div class='input'>  <span class='fu'>ssbpurec</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; units:  t </div><div class='input'>  <span class='fu'>ssbpurec</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -378,10 +387,12 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># Coerce an FLStock to an FLBiol</span>
-  <span class='no'>biol</span> <span class='kw'>&lt;-</span> <span class='fu'>as</span>(<span class='no'>ple4</span>, <span class='st'>"FLBiol"</span>)
+  <span class='va'>biol</span> <span class='op'>&lt;-</span> <span class='fu'>as</span><span class='op'>(</span><span class='va'>ple4</span>, <span class='st'>"FLBiol"</span><span class='op'>)</span>
 
 <span class='co'># Initialise an FLSR object from an FLStock</span>
-  <span class='no'>flsr</span> <span class='kw'>&lt;-</span> <span class='fu'>as.FLSR</span>(<span class='no'>ple4</span>)</div></pre>
+  <span class='va'>flsr</span> <span class='op'>&lt;-</span> <span class='fu'>as.FLSR</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -397,7 +408,7 @@ ssbpurec, <a href='accessors.html'>stock</a>, <a href='accessors.html'>stock.n</
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

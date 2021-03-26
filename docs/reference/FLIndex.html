@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -121,13 +121,13 @@
     <p>A class for modelling abundance indices.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>FLIndex</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLQuant</span>
-<span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='kw'>plusgroup</span> <span class='kw'>=</span> <span class='fu'><a href='dims.html'>dims</a></span>(<span class='no'>object</span>)$<span class='no'>max</span>, <span class='no'>...</span>)
+<span class='fu'>FLIndex</span><span class='op'>(</span><span class='va'>object</span>, plusgroup <span class='op'>=</span> <span class='fu'><a href='dims.html'>dims</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span><span class='op'>$</span><span class='va'>max</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for missing</span>
-<span class='fu'>FLIndex</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>FLIndex</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -136,7 +136,7 @@
 indices.</p>
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
 <dt>type</dt><dd><p>Type of index (<code>character</code>).</p></dd>
 <dt>distribution</dt><dd><p>Statistical distribution of the index values
 (<code>character</code>).</p></dd> <dt>index</dt><dd><p>Index values (<code>FLQuant</code>).</p></dd>
@@ -157,12 +157,16 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
     <div class='dont-index'><p><a href='compute.html'>computeCatch</a>, <a href='dims.html'>dims</a>, <a href='iter.html'>iter</a>,
 <a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a>, <a href='propagate.html'>propagate</a>, <a href='https://rdrr.io/r/base/summary.html'>summary</a>,
 <a href='https://rdrr.io/r/base/transform.html'>transform</a>, <a href='trim.html'>trim</a>, <a href='https://rdrr.io/r/stats/window.html'>window</a>, <a href='FLComp.html'>FLComp</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Create an FLIndex object.</span>
-<span class='no'>fli</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>8</span>), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>8</span>)), <span class='kw'>name</span><span class='kw'>=</span><span class='st'>"myTestFLindex"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class "FLIndex"
+<span class='va'>fli</span> <span class='op'>&lt;-</span> <span class='fu'>FLIndex</span><span class='op'>(</span>index<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>8</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>, name<span class='op'>=</span><span class='st'>"myTestFLindex"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fli</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLIndex"
 #&gt; 
 #&gt; Name: myTestFLindex 
 #&gt; Description:  
@@ -181,7 +185,8 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
 #&gt; catch.wt      : [ 1 8 1 1 1 1 ], units =  NA 
 #&gt; effort        : [ 1 8 1 1 1 1 ], units =  NA 
 #&gt; sel.pattern   : [ 1 8 1 1 1 1 ], units =  NA 
-#&gt; index.q       : [ 1 8 1 1 1 1 ], units =  NA </div><div class='input'><span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; index.q       : [ 1 8 1 1 1 1 ], units =  NA </div><div class='input'><span class='fu'><a href='accessors.html'>index</a></span><span class='op'>(</span><span class='va'>fli</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -190,11 +195,13 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='co'># Creat an FLIndex object using an existing FLQuant object.</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
   <span class='co'># Create a perfect index of abundance from abundance at age</span>
-    <span class='no'>fli2</span> <span class='kw'>&lt;-</span> <span class='fu'>FLIndex</span>(<span class='kw'>index</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>stock.n</a></span>(<span class='no'>ple4</span>))
+    <span class='va'>fli2</span> <span class='op'>&lt;-</span> <span class='fu'>FLIndex</span><span class='op'>(</span>index<span class='op'>=</span><span class='fu'><a href='accessors.html'>stock.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
   <span class='co'># Add some noise around the signal</span>
-    <span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli2</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli2</span>)*<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1</span>, <span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli2</span>)-<span class='fu'><a href='accessors.html'>index</a></span>(<span class='no'>fli2</span>), <span class='fl'>0.1</span>))</div></pre>
+    <span class='fu'><a href='accessors.html'>index</a></span><span class='op'>(</span><span class='va'>fli2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='accessors.html'>index</a></span><span class='op'>(</span><span class='va'>fli2</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fu'><a href='accessors.html'>index</a></span><span class='op'>(</span><span class='va'>fli2</span><span class='op'>)</span><span class='op'>-</span><span class='fu'><a href='accessors.html'>index</a></span><span class='op'>(</span><span class='va'>fli2</span><span class='op'>)</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -210,7 +217,7 @@ as proportions of a year, that corresponds to the index (<code>numeric</code>).<
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

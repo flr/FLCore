@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -122,13 +122,13 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for FLQuant</span>
-<span class='fu'>jackknife</span>(<span class='no'>object</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>jackknife</span><span class='op'>(</span><span class='va'>object</span>, dim <span class='op'>=</span> <span class='st'>"year"</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLQuants</span>
-<span class='fu'>jackknife</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>jackknife</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLModel</span>
-<span class='fu'>jackknife</span>(<span class='no'>object</span>, <span class='no'>slot</span>)</pre>
+<span class='fu'>jackknife</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>slot</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -146,12 +146,16 @@ number of elements in the original object that are not <code>NA</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='FLQuantJK.html'>FLQuantJK</a></code> <code><a href='FLParJK.html'>FLParJK</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>flq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span>(<span class='fl'>1</span>:<span class='fl'>8</span>)
-<span class='no'>flj</span> <span class='kw'>&lt;-</span> <span class='fu'>jackknife</span>(<span class='no'>flq</span>)
-<span class='fu'>iters</span>(<span class='no'>flj</span>)</div><div class='output co'>#&gt; -- iter:  1 
+<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>)</span>
+<span class='va'>flj</span> <span class='op'>&lt;-</span> <span class='fu'>jackknife</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
+<span class='fu'>iters</span><span class='op'>(</span><span class='va'>flj</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; -- iter:  1 
 #&gt;  1  2  3  4  5  6  7  8 
 #&gt; NA  2  3  4  5  6  7  8 
 #&gt; -- iter:  2 
@@ -193,7 +197,7 @@ number of elements in the original object that are not <code>NA</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

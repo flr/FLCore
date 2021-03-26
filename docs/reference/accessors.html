@@ -75,7 +75,7 @@ value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ value." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -127,112 +127,112 @@ content of the slot, for the accessor method, or modify it with the provided
 value.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>name</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>name</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>desc</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>desc</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span>(<span class='no'>x</span>, <span class='no'>i</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>i</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>catch</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>catch</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>catch.n</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'>catch.n</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>catch.wt</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>catch.wt</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>discards</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>discards</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>discards.n</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>discards.n</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>discards.wt</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>discards.wt</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>landings</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>landings</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>landings.n</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>landings.n</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>landings.wt</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>landings.wt</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>m</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>m</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>stock</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>stock</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>stock.n</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>stock.n</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>stock.wt</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>stock.wt</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>m.spwn</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>m.spwn</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>harvest</span>(<span class='no'>object</span>, <span class='no'>catch</span>, <span class='no'>...</span>)
+<span class='fu'>harvest</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>catch</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>harvest.spwn</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>harvest.spwn</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>mat</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>mat</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>n</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>n</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>m</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>m</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>wt</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>wt</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>fec</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>fec</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>spwn</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>spwn</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>effort</span>(<span class='no'>object</span>, <span class='no'>metier</span>, <span class='no'>...</span>)
+<span class='fu'>effort</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>metier</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>type</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>type</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>distr</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>distr</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>distribution</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>distribution</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>index</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>index</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>index.var</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>index.var</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>catch.n</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>catch.n</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>catch.wt</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>catch.wt</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>sel.pattern</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>sel.pattern</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>index.q</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>index.q</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>model</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>model</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>logl</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>logl</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gr</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>gr</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>initial</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>initial</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>logLik</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>logLik</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>vcov</span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'>vcov</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>hessian</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>hessian</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>logerror</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>logerror</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>details</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>details</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>residuals</a></span>(<span class='no'>object</span>, <span class='no'>...</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/residuals.html'>residuals</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>fitted</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>fitted</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>rec</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>rec</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>rec.obs</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>rec.obs</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>catch.q</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>catch.q</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>discards.sel</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>discards.sel</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>landings.sel</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>landings.sel</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>params</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>params</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLS,FLQuants</span>
-<span class='fu'>catch</span>(<span class='no'>object</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
+<span class='fu'>catch</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -278,13 +278,17 @@ assigned directly to an object using <em>catch&lt;-</em>.</p>
 
     <div class='dont-index'><p><code><a href='FLQuant.html'>FLQuant</a></code>, <code><a href='FLStock.html'>FLStock</a></code>, <code><a href='FLIndex.html'>FLIndex</a></code>,
 <code><a href='FLBiol.html'>FLBiol</a></code>, <code><a href='predictModel.html'>predictModel</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
 
 <span class='co'># To access the catch slot in an FLStock, use</span>
-<span class='fu'>catch</span>(<span class='no'>ple4</span>)</div><div class='output co'>#&gt; An object of class "FLQuant"
+<span class='fu'>catch</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
@@ -311,15 +315,16 @@ assigned directly to an object using <em>catch&lt;-</em>.</p>
 #&gt; 
 #&gt; units:  t </div><div class='input'>
 <span class='co'># while to modify it, do</span>
-<span class='fu'>catch</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'>catch</span>(<span class='no'>ple4</span>) * <span class='fl'>2</span>
+<span class='fu'>catch</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'>catch</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>2</span>
 
 <span class='co'># A number can be used as input, to be recycled</span>
-<span class='fu'>m</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fl'>0.3</span>
+<span class='fu'>m</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>0.3</span>
 <span class='co'># same as a longer vector, by age</span>
-<span class='fu'>m</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fl'>0.4</span>^(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='kw'>length</span><span class='kw'>=</span><span class='fl'>10</span>))
+<span class='fu'>m</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>0.4</span><span class='op'>^</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, length<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># To see the methods defined by createFLAccessors, run, for example</span>
-<span class='fu'>getMethod</span>(<span class='st'>'catch'</span>, <span class='st'>'FLS'</span>)</div><div class='output co'>#&gt; Method Definition:
+<span class='fu'>getMethod</span><span class='op'>(</span><span class='st'>'catch'</span>, <span class='st'>'FLS'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Method Definition:
 #&gt; 
 #&gt; function (object, ...) 
 #&gt; {
@@ -327,15 +332,16 @@ assigned directly to an object using <em>catch&lt;-</em>.</p>
 #&gt;     return(slot(object, "catch"))
 #&gt;     .local(object, ...)
 #&gt; }
-#&gt; &lt;bytecode: 0x55796dcdf578&gt;
-#&gt; &lt;environment: 0x557970b22548&gt;
+#&gt; &lt;bytecode: 0x55f14f72fc98&gt;
+#&gt; &lt;environment: 0x55f14f752ba0&gt;
 #&gt; 
 #&gt; Signatures:
 #&gt;         object
 #&gt; target  "FLS" 
 #&gt; defined "FLS" </div><div class='input'>
 <span class='co'># Assign the 3 catch slots</span>
-<span class='fu'>catch</span>(<span class='no'>ple4</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span>(<span class='no'>ple4</span>, <span class='kw'>slot</span><span class='kw'>=</span><span class='st'>"all"</span>)</div></pre>
+<span class='fu'>catch</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span><span class='op'>(</span><span class='va'>ple4</span>, slot<span class='op'>=</span><span class='st'>"all"</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -351,7 +357,7 @@ assigned directly to an object using <em>catch&lt;-</em>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

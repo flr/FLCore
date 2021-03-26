@@ -76,7 +76,7 @@ or decrease the object length." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@ or decrease the object length." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -129,7 +129,7 @@ a lock mechanism that, when turned on, does not allow the user to increase
 or decrease the object length.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FLlst</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>FLlst</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,7 +146,7 @@ or decrease the object length.</p>
 
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-    <p></p><dl'>
+    <p></p><dl>
   <dt>.Data</dt><dd><p>The data. <code>list</code>.</p></dd>
   <dt>names</dt><dd><p>Names of the list elements. <code>character</code>.</p></dd>
   <dt>desc</dt><dd><p>Description of the object. <code>character</code>.</p></dd>
@@ -165,16 +165,20 @@ any of the list elements.</p>
     <div class='dont-index'><p><a href='https://rdrr.io/r/base/Extract.html'>[</a>, [&lt;-, [[&lt;-,
 $&lt;-, <a href='https://rdrr.io/r/methods/setAs.html'>coerce</a>, <a href='https://rdrr.io/r/base/lapply.html'>lapply</a>,
 <a href='https://rdrr.io/r/stats/window.html'>window</a>, <a href='https://rdrr.io/r/base/list.html'>list</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>fll01</span> <span class='kw'>&lt;-</span> <span class='fu'>new</span>(<span class='st'>"FLlst"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='fl'>10</span>:<span class='fl'>20</span>))
-<span class='no'>fll02</span> <span class='kw'>&lt;-</span> <span class='fu'>new</span>(<span class='st'>"FLlst"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>10</span>:<span class='fl'>20</span>), <span class='kw'>names</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>,<span class='st'>"b"</span>))
-<span class='no'>fll03</span> <span class='kw'>&lt;-</span> <span class='fu'>FLlst</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='fl'>10</span>:<span class='fl'>20</span>)
-<span class='no'>fll04</span> <span class='kw'>&lt;-</span> <span class='fu'>FLlst</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='fl'>10</span>:<span class='fl'>20</span>))
-<span class='no'>fll05</span> <span class='kw'>&lt;-</span> <span class='fu'>FLlst</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>:<span class='fl'>20</span>))
-<span class='fu'><a href='names.html'>names</a></span>(<span class='no'>fll05</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='names.html'>names</a></span>(<span class='no'>fll01</span>)
-<span class='fu'><a href='names.html'>names</a></span>(<span class='no'>fll01</span>)</div><div class='output co'>#&gt; [1] "a" "b"</div><div class='input'>
+<span class='va'>fll01</span> <span class='op'>&lt;-</span> <span class='fu'>new</span><span class='op'>(</span><span class='st'>"FLlst"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>a<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, b<span class='op'>=</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>fll02</span> <span class='op'>&lt;-</span> <span class='fu'>new</span><span class='op'>(</span><span class='st'>"FLlst"</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>10</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>, names<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>,<span class='st'>"b"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>fll03</span> <span class='op'>&lt;-</span> <span class='fu'>FLlst</span><span class='op'>(</span>a<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, b<span class='op'>=</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>fll04</span> <span class='op'>&lt;-</span> <span class='fu'>FLlst</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>a<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, b<span class='op'>=</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>fll05</span> <span class='op'>&lt;-</span> <span class='fu'>FLlst</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='names.html'>names</a></span><span class='op'>(</span><span class='va'>fll05</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='names.html'>names</a></span><span class='op'>(</span><span class='va'>fll01</span><span class='op'>)</span>
+<span class='fu'><a href='names.html'>names</a></span><span class='op'>(</span><span class='va'>fll01</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a" "b"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -191,7 +195,7 @@ $&lt;-, <a href='https://rdrr.io/r/methods/setAs.html'>coerce</a>, <a href='http
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

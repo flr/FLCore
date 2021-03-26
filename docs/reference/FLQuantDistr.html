@@ -74,7 +74,7 @@ for example, random numbers with those mean and variances." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.15</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ for example, random numbers with those mean and variances." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
     Source
   </a>
@@ -125,13 +125,13 @@ median) and of dispersion (tipically variance), to be later used to generate,
 for example, random numbers with those mean and variances.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>FLQuantDistr</span>(<span class='no'>object</span>, <span class='no'>var</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>FLQuantDistr</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>var</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ANY,ANY</span>
-<span class='fu'>FLQuantDistr</span>(<span class='no'>object</span>, <span class='no'>var</span>, <span class='no'>...</span>)
+<span class='fu'>FLQuantDistr</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>var</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for FLQuant,FLQuant</span>
-<span class='fu'>FLQuantDistr</span>(<span class='no'>object</span>, <span class='no'>var</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='no'>object</span>@<span class='kw'>units</span>, <span class='kw'>distr</span> <span class='kw'>=</span> <span class='st'>"norm"</span>)</pre>
+<span class='fu'>FLQuantDistr</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>var</span>, units <span class='op'>=</span> <span class='va'>object</span><span class='op'>@</span><span class='va'>units</span>, distr <span class='op'>=</span> <span class='st'>"norm"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,7 +150,7 @@ for example, random numbers with those mean and variances.</p>
 
     
 
-<p></p><dl'>
+<p></p><dl>
     <dt>.Data</dt><dd><p>Unnamed slot for storing the mean (or other measure of
       expectation) (<code>FLQuant</code>).</p></dd>
     <dt>var</dt><dd><p>Variance, or other measure of dispersion, (<code>FLQuant</code>).</p></dd>
@@ -164,7 +164,7 @@ for example, random numbers with those mean and variances.</p>
     
 
 
-<p></p><dl'>
+<p></p><dl>
     <dt>slot dims</dt><dd><p>.Data and var slots must have the same dimensions.</p></dd>
     <dt>slot dimnames</dt><dd><p>.Data and var slots must have the same dimnames.</p></dd>
 
@@ -197,7 +197,7 @@ for the .Data slot.</p>
     
 
 <p>Methods exist for various calculations based on values stored in the class:</p>
-<dl'>
+<dl>
     <dt>Arith</dt><dd><p>.</p></dd>
 
 </dl>
@@ -209,7 +209,7 @@ for the .Data slot.</p>
 <p>The methods under the <em>Arith</em> group have been defined for objects of
 this class, both for operations between two <code>FLQuantDistr</code> objects and
 with objects of class <code>FLQuant</code> (<code>FLArray</code>) as follows:</p>
-<dl'>
+<dl>
     <dt>+, FLQuantDistr,FLArray</dt><dd><p>.</p></dd>
     <dt>-, FLQuantDistr,FLArray</dt><dd><p>.</p></dd>
     <dt>*, FLQuantDistr,FLArray</dt><dd><p>.</p></dd>
@@ -223,11 +223,16 @@ with objects of class <code>FLQuant</code> (<code>FLArray</code>) as follows:</p
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='FLQuant.html'>FLQuant</a></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ple4</span>)
-<span class='no'>fqd</span> <span class='kw'>&lt;-</span> <span class='fu'>FLQuantDistr</span>(<span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>), <span class='kw'>var</span><span class='kw'>=</span><span class='fu'><a href='accessors.html'>catch.n</a></span>(<span class='no'>ple4</span>) * <span class='fl'>10</span>, <span class='kw'>distr</span><span class='kw'>=</span><span class='st'>'norm'</span>)</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='va'>fqd</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuantDistr</span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>, var<span class='op'>=</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>10</span>, distr<span class='op'>=</span><span class='st'>'norm'</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -243,7 +248,7 @@ with objects of class <code>FLQuant</code> (<code>FLArray</code>) as follows:</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
