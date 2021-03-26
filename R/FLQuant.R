@@ -325,7 +325,7 @@ setAs("vector", "FLQuant", function(from)
 
 # as.FLQuant(data.frame){{{
 setMethod("as.FLQuant", signature(x="data.frame"),
-function(x, units="missing", ...) {
+function(x, units="NA", ...) {
 
     # get data.frame names and compare
     names(x) <- tolower(names(x))
