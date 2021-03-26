@@ -1349,7 +1349,7 @@ ssb_next <- function(x, fbar=0, wts.nyears=3, fbar.nyears=3) {
         ac(seq(my - fbar.nyears, my))])) - c(fbar)))
     }
 
-    fmu <- optimize(f, c(fbar / 5, fbar * 5))$minimum
+    fmu <- optimise(f, c(fbar / 5, fbar * 5))$minimum
 
   } else {
 
