@@ -545,8 +545,9 @@ setMethod('[', signature(x='FLStock'),
         x@range["maxfbar"] <- ds$max
 
       # plusgroup > max
-      if(x@range["plusgroup"] < ds$max)
-        x@range["plusgroup"] <- ds$max
+      if(!is.na(x@range["plusgroup"]))
+        if(x@range["plusgroup"] < ds$max)
+          x@range["plusgroup"] <- ds$max
 
       }
 
