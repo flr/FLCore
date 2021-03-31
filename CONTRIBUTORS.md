@@ -22,3 +22,4 @@
 - Alex TIDD
 - Clara ULRICH
 - Ibrahim UMAR
+- Henning WINKER
