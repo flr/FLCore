@@ -69,8 +69,8 @@ setMethod('print', signature(x='FLComp'),
 setMethod("window", signature(x="FLComp"),
 	  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1) {
       x <- qapply(x, window, start=start, end=end, extend=extend, frequency=frequency)
-  		x@range["minyear"] <- as.numeric(start)
-	  	x@range["maxyear"] <- as.numeric(end)
+  		x@range["minyear"] <- as.numeric(dims(x)$minyear)
+	  	x@range["maxyear"] <- as.numeric(dims(x)$maxyear)
 
 		return(x)
 	}
@@ -731,10 +731,11 @@ setMethod("verify", signature(object="FLComp"),
     })
 
   # CONVERT list to data.frame
-  res <- data.frame(do.call(rbind, lapply(res, function(x)
+  res <- data.frame(do.call(rbind, lapply(res, function(x) {
     # CREATE result summary vector
     c(items=length(x), passes=sum(x, na.rm=TRUE), fails=sum(!x, na.rm=TRUE),
-      NAs=sum(is.na(x))))),
+      NAs=sum(is.na(x)))
+    })),
     row.names=seq(1, length(res)))
 
   # data.frame: name, items, passes, fails, NAs, valid, rule
