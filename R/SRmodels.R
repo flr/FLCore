@@ -570,6 +570,7 @@ survSRR <- function() {
 setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
    function(ssb, rec, fbar)
   {
+
     if  (any(dim(ssb)[3:5]>1)) "stop multiple units, seasons, areas not allowed yet"
     if  (any(dim(rec)[3:5]>1)) "stop multiple units, seasons, areas not allowed yet"
     if  (any(dim(fbar)[3:5]>1)) "stop multiple units, seasons, areas not allowed yet"
@@ -594,19 +595,32 @@ setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
 )
 
 setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
-  function(ssb)
-  {
-    # rec
-    sr <- as.FLSR(ssb)
+  function(ssb) {
+    
+    ssb <- window(ssb, start=dims(ssb)$maxyear - 2)
 
-    # spr0
-    spr0(ssb=ssb(ssb), rec=rec(sr), fbar=fbar(ssb))
+    nages <- dim(ssb)[1]
+    
+    # FLQuant for NPR0
+    npr0 <- stock.n(ssb)[,1,1,1,1]
+    npr0[1] <- 1
+
+    for(a in seq(2, nages)){
+      npr0[a] <- npr0[a - 1] * exp(-mean(m(ssb)[a, ]))
+    }
+
+    # ADD with plusgroup
+    npr0[nages] = npr0[nages] / (1 - exp(-mean(m(ssb)[a, ])))
+
+    return(sum(npr0 * exp(-(apply(m(ssb), 1, mean) * apply(m.spwn(ssb), 1, mean))) *
+  apply(stock.wt(ssb),1,mean) * apply(mat(ssb),1,mean)))
   }
 )
 
 setMethod('spr0', signature(ssb='FLSR', rec='missing', fbar='FLQuant'),
   function(ssb, fbar)
   {
+
     # spr0
     spr0(ssb=ssb(ssb), rec=rec(ssb), fbar=fbar)
   }
