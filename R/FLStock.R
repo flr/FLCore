@@ -1197,7 +1197,7 @@ setMethod("append", signature(x="FLStock", values="FLStock"),
 #' but returns a matrix with the metrics value for the n restrospective
 #' runs, in columns, and n + 2 years, in rows.
 #'
-#' @param stocks An FLstocks object from a restrospective analysis
+#' @param stocks An FLStocks object from a restrospective analysis
 #' @param metric Metric to be computed, as a character vector or function
 #'
 #' @return A metrics of n + 2 x n, where n is the numbers of objects in stocks.

@@ -1613,7 +1613,8 @@ setMethod("residuals", signature(object="FLQuant"),
     
     # MAP glm residuals names with methods
     method <- switch(type[1],
-      log="rlogstandard",
+      log="rlog",
+      logstandard="rlogstandard",
       standard="rstandard",
       pearson="rstandard",
       student="rstudent",
@@ -1629,6 +1630,17 @@ setGeneric("rraw", function(obs, fit, ...)
 setMethod("rraw", signature(obs="FLQuant", fit="FLQuant"),
   function(obs, fit) {
     res <- obs - fit
+    units(res) <- units(obs)
+    return(res)
+  }
+)
+
+# rlog(FLQ, FLQ)
+setGeneric("rlog", function(obs, fit, ...)
+		standardGeneric("rlog"))
+setMethod("rlog", signature(obs="FLQuant", fit="FLQuant"),
+  function(obs, fit) {
+    res <- log(obs) - log(fit)
     units(res) <- units(obs)
     return(res)
   }

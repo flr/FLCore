@@ -456,6 +456,7 @@ exportMethods(
   "rightbound",
   "rlnoise",
   "rlnorm",
+  "rlog",
   "rlogstandard",
   "rnoise",
   "rnorm",
