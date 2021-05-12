@@ -7,7 +7,7 @@
 mohnMatrix(stocks, metric = "fbar")
 }
 \arguments{
-\item{stocks}{An FLstocks object from a restrospective analysis}
+\item{stocks}{An FLStocks object from a restrospective analysis}
 
 \item{metric}{Metric to be computed, as a character vector or function}
 }

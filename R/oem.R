@@ -415,3 +415,249 @@ ar1rlnorm <- function(rho, years, iters=1, mean=0, margSD=0.6) {
 		dimnames=list(year=years, iter=seq(1, iters))))
 }
 # }}}
+
+# runstest {{{
+
+#' Computes Runs Test p-values
+#'
+#' @param fit The result of a model fit.
+#' @param obs The observations used in the fit.
+#' @param combine Should ages be combined by addition, defaults to TRUE.
+#' @param ... Extra arguments.
+#'
+#' @return A list with elements 'p.values' and 'pass'.
+    
+setGeneric("runstest", function(fit, obs, ...)
+  standardGeneric("runstest"))
+
+#' @rdname runstest
+#' @examples
+#' data(nsher)
+#' runstest(fitted(nsher), rec(nsher))
+
+setMethod("runstest", signature(fit="FLQuants", obs="missing"),
+  function(fit, combine=TRUE) {
+
+    # COMBINE
+    if(combine) {
+      fit <- lapply(fit, quantSums)
+    }
+    
+    # RESIDUALS
+    res <- fit
+  
+    # sigma3, by index
+    if(combine) {
+      s3s <- lapply(res, sigma3)
+      # or index and age
+    } else {
+      s3s <- lapply(res, function(x) {
+        rbindlist(lapply(divide(x, 1), sigma3), idcol="age")
+      })
+    }
+ 
+    # MERGE
+    s3dat <- do.call(rbind, c(Map(function(x, y)
+      cbind(x, qname=y), lapply(s3s, as.data.frame), names(s3s)),
+      make.row.names = FALSE))
+    
+    # p.value >= 0.05 -> TRUE, green
+    s3dat$pass <- s3dat$p.value >= 0.05
+
+    return(data.table(s3dat))
+  }
+)
+
+#' @rdname runstest
+
+setMethod("runstest", signature(fit="FLQuants", obs="FLQuants"),
+  function(fit, obs, combine=TRUE) {
+    
+    # COMBINE
+    if(combine) {
+      fit <- lapply(fit, quantSums)
+      obs <- lapply(obs, quantSums)
+    }
+    
+    # RESIDUALS
+    res <- FLQuants(Map(residuals, obs, fit, type="log"))
+    
+    return(runstest(res, combine=combine))
+  }
+)
+
+#' @rdname runstest
+
+setMethod("runstest", signature(fit="FLQuant", obs="FLQuant"),
+  function(fit, obs, combine=TRUE) {
+    
+    fit <- FLQuants(A=fit)
+    obs <- FLQuants(A=obs)
+    
+    return(runstest(fit, obs, combine=combine))
+  }
+)
+
+#' @rdname runstest
+#' @examples
+#' runstest(ssb(nsher))
+#' runstest(rnorm(1, FLQuant(1, dimnames=list(year=1973:2021))))
+
+setMethod("runstest", signature(fit="FLQuant", obs="missing"),
+  function(fit, combine=TRUE) {
+    return(runstest(FLQuants(A=fit), combine=combine))
+  }
+)
+
+# }}}
+
+# sigma3 (FLQuant) {{{
+
+#' Compute the 3-sigma limits and the corresponding p-value
+#'
+#' @param x An object of class FLQuant.
+#' @param mixing Alternative hypothesis to be tested. One of "two.sided", "less" (default) or "greater".
+#'
+#' @return A list with elements 'lcl', 'ucl' and 'p.value'.
+#'
+#' @examples
+#' data(ple4)
+#' sigma3(catch.n(ple4))
+#' data(nsher)
+#' sigma3(residuals(nsher))
+
+sigma3 <- function(x, mixing="less", type="residual") {
+
+  # COMPUTE average moving rate
+
+  mr <- abs(diff(x - 0))
+  amr <- mean(mr, na.rm=TRUE)
+  
+  # COMPUTE upper limit for moving ranges
+
+  ulmr <- 3.267 * amr
+
+  # REMOVE moving ranges greater than ulmr and recalculate amr, Nelson 1982
+
+  mr  <- c(mr)[c(mr) < ulmr]
+  amr <- mean(mr, na.rm = TRUE)
+
+  # Calculate standard deviation, Montgomery, 6.33
+
+  stdev <- amr / 1.128
+
+  # Calculate control limits
+  lcl <- -3 * stdev
+  ucl <- 3 * stdev
+
+  # SET alternative
+  alternative <- c("two.sided", "left.sided")[which(c("two.sided", "less") %in% mixing)]
+
+  if(nlevels(factor(sign(x))) > 1) {
+
+    # Make the runs test non-parametric
+    y <- ifelse(x < 0, -1, 1)
+    
+    #
+    runstest <- .runs.test(c(y), threshold = 0, alternative = alternative)
+    
+    if(is.na(runstest$p.value)) {
+      p.value <- 0.001 
+    } else {
+      pvalue <- round(runstest$p.value, 3)
+    }
+
+  } else {
+    pvalue <- 0.001
+  }
+ 
+return(list(lcl = lcl, ucl = ucl, p.value = pvalue))
+}
+
+.runs.test <- function(x, alternative="two.sided", threshold=median(x), pvalue="normal", plot=FALSE){
+
+  # Performs the Runs Test for Randomness.
+  #
+  # Args:
+  #   x: a numeric vector containing the data.
+  #   alternative hypothesis, must be one of "two.sided" (default), "left.sided" or "right.sided"
+  #   threshold: 
+  #
+  # Returns:
+  #   statistic: the (normalized) value of the statistic test.
+  #   n: the sample size, after the remotion of consecutive duplicate values.
+  #   p.value: the asymptotic p-value.
+  #
+druns <- function(x, n1, n2, log = FALSE){
+  stopifnot(is.numeric(x))
+  x <- ifelse(x == round(x),x,1)
+  r0 <- ifelse(x %% 2==0, 2*choose(n1-1, round(x/2)-1)*choose(n2-1, round(x/2)-1), 
+             choose(n1-1, round((x-1)/2))*choose(n2-1, round((x-3)/2))+choose(n1-1, round((x-3)/2))*choose(n2-1, round((x-1)/2)))  
+  r0<-r0/choose(n1+n2, n1)
+# if TRUE, probabilities p are given as log(p).  
+ifelse(log,return(log(r0)),return(r0))  
+}
+
+  dname <- deparse(substitute(x))
+  if (alternative == "t"){alternative <- "two.sided"} 
+  if (alternative == "l"){alternative <- "left.sided"}
+  if (alternative == "r"){alternative <- "right.sided"}    
+  if (alternative != "two.sided" & alternative != "left.sided" & alternative != "right.sided")
+    {stop("must give a valid alternative")}
+  # Remove NAs
+  x <- na.omit(x)
+  stopifnot(is.numeric(x))
+  # Remove values equal to the level
+  x <- x[x!=threshold]
+  s <- sign(x-threshold)
+  n1 <- length(s[s>0]) 
+  n2 <- length(s[s<0])
+  runs <- rle(s)
+  r1 <- length(runs$lengths[runs$values==1])
+  r2 <- length(runs$lengths[runs$values==-1])  
+  n <- n1+n2
+  mu <- 1 + 2*n1*n2/(n1+n2)
+  vr <- 2*n1*n2*(2*n1*n2-n1-n2)/(n^2*(n-1))
+  rr <- r1+r2
+  #
+  # Plot the data if requested by the user
+  if (plot){
+    plot((1:n)[s>0],x[s>0], xlim=c(1,n), ylim=c(min(x),max(x)), xlab="", ylab=dname)
+    points((1:n)[s<0],x[s<0], col="red")
+    abline(h=threshold, col=gray(.4))
+    for (i in 1:(n-1)){
+      if (s[i]*s[i+1]<0){abline(v=i+0.5, lty=2)}
+    }
+  }
+  #
+  # Computes the p-value
+  pv <- 0
+  if (pvalue == "exact"){    
+    if (alternative=="two.sided"){
+      pv1<-sum(druns(1:rr,n1,n2))
+      pv2<-sum(druns(rr:(n1+n2),n1,n2))
+      pv <- 2*min(pv1,pv2)
+    }
+    if (alternative=="left.sided"){pv<-sum(druns(2:rr,n1,n2))}
+    if (alternative=="right.sided") {pv<-sum(druns(rr:(n1+n2),n1,n2))}    
+  }
+  if (pvalue=="normal"){
+    pv0 <- pnorm((rr - mu) / sqrt(vr))
+    if (alternative=="two.sided"){pv <- 2*min(pv0,1-pv0)}
+    if (alternative=="left.sided"){pv <- pv0}
+    if (alternative=="right.sided") {pv <- 1-pv0}
+  }  
+  if (alternative=="two.sided"){alternative<-"nonrandomness"}
+  if (alternative=="left.sided"){alternative<-"trend"}
+  if (alternative=="right.sided") {alternative<-"first-order negative autocorrelation"}
+  #
+  rval <- list(statistic = c(statistic=(rr - mu) / sqrt(vr)), p.value = pv, runs=rr, mu=mu, var=vr,  
+               method = "Runs Test", data.name = dname, parameter=c(runs=rr, n1=n1,n2=n2,n=n), alternative=alternative)  
+  class(rval) <- "htest"
+  return(rval)
+}
+
+
+
+
+# }}}

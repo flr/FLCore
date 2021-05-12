@@ -1306,11 +1306,11 @@ quantMeans((landings.n(x)[ac(ages),] / catch.n(x)[ac(ages),]) *
 #' The spawning stock biomass (SSB) of the stock gets calculated from the
 #' survivors of the previous year. This provides a value for the first year
 #' after the end of the object. Weights-at-age, maturity in this extra year are
-#' calculated as everages over the last *wts.nyears*.
+#' calculated as averages over the last *wts.nyears*.
 #'
-#' For stocks spawning later in the year, a value for the avreage fishing
+#' For stocks spawning later in the year, a value for the average fishing
 #' mortality, *fbar*, expected in that year can be provided. Mortality until
-#' spawning is then calculated with M and selectivity assumed in the extra year
+#' spawning is then calculated, with M and selectivity assumed in the extra year
 #' to be an average of the last *fbar.nyears*.
 #'
 #' @param x An FLStock object containing estimates of abundance and harvesting.
@@ -1378,9 +1378,6 @@ ssb_next <- function(x, fbar=0, wts.nyears=3, fbar.nyears=3) {
   # harvest.spawn
   hs <- window(harvest.spwn(x)[,-1], end=my + 1)
   hs[, ac(my + 1)] <- yearMeans(hs[, ac(seq(my - fbar.nyears, my))])
-
-  return(list(ssb=quantSums(survivors(x) * exp(- (har * hs) - (mn * ms)) * xwt * xmat),
-    n=survivors(x), har=har, hs=hs, mn=mn, ms=ms, xwt=xwt, xmat=xmat))
 
   return(quantSums(survivors(x) * exp(- (har * hs) - (mn * ms)) * xwt * xmat))
 

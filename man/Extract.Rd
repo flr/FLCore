@@ -18,6 +18,8 @@
 \alias{[,FLPar,array,missing,missing-method}
 \alias{[<-,FLPar,ANY,ANY,ANY-method}
 \alias{$,FLPar-method}
+\alias{$<-,FLPar-method}
+\alias{$<-,FLPar,ANY-method}
 \alias{[,FLComp,ANY,ANY,ANY-method}
 \alias{[<-,FLComp,ANY,ANY,ANY-method}
 \alias{[,FLStock,ANY,ANY,ANY-method}
@@ -53,6 +55,8 @@
 \S4method{[}{FLPar,ANY,ANY,ANY}(x, i, j, k, l, m, n, ...) <- value
 
 \S4method{$}{FLPar}(x, name)
+
+\S4method{$}{FLPar}(x, name) <- value
 
 \S4method{[}{FLComp,ANY,ANY,ANY}(x, i, j, k, l, m, n, ..., drop = FALSE)
 
