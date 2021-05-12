@@ -155,6 +155,7 @@ export(
   "SRModelName",
   "SRNameCode",
   "ssb_end",
+  "ssb_next",
   "ssb_start",
   "survivors",
   "survSRR",
