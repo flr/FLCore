@@ -428,6 +428,7 @@ exportMethods(
   "price",
   "price<-",
   "print",
+  "production",
   "profile",
   "profit",
   "propagate",
