@@ -1413,3 +1413,39 @@ biomass <- function(x) {
 }
 
 # }}}
+
+# production {{{
+
+#' @details Production can be calculated for an FLStock based on the spawning stock
+#' biomass ("ssb"), total biomass ("biomass"), or exploitation ("exploitation").
+#' @rdname production
+#' @param what One of the production options: "ssb", "biomass", or "exploitation".
+#' @examples
+#' data(ple4)
+#' # For SSB
+#' production(ple4, "ssb")
+#' # For total biomass
+#' production(ple4, "biomass")
+
+setMethod("production", signature(object="FLStock"),
+  function(object, what="ssb", ...) {
+
+    miny <- dims(object)$minyear
+    maxy <- dims(object)$maxyear
+
+    switch(tolower(substr(what, 1, 1)),
+      # ssb
+      s = computeCatch(object) + window(ssb(object), start=miny+1, end=maxy+1) -
+        ssb(object),
+      # biomass
+      b = computeCatch(object) + window(stock(object), start=miny+1, end=maxy+1) -
+        stock(object),
+      # exploitation
+      e = {
+        biomass <- apply(catch.wt(object) * stock.n(object) * 
+          catch.sel(object) %/% apply(catch.sel(object), 1, max), seq(6)[-1], sum)
+        computeCatch(object) + window(biomass(object), start=miny+1, end=maxy+1) -
+          biomass(object)
+      })
+  }
+)

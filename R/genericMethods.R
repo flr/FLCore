@@ -1880,3 +1880,18 @@ standardGeneric("setPlusGroup"))
 # divide
 setGeneric("divide", function(object, ...)
 		standardGeneric("divide"))
+
+# production {{{
+
+#' Returns the computed yearly production
+#'
+#' @param object An object with biomass and catch data.
+#' @return The production by year, of class FLQuant.
+#' @name production
+#' @author Laurie Kell (Sea++), Iago Mosqueira (WMR)
+#' @keywords methods
+#' @md
+
+setGeneric("production", function(object, ...)
+  standardGeneric("production"))
+# }}}
