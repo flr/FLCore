@@ -4,7 +4,7 @@
 \alias{sigma3}
 \title{Compute the 3-sigma limits and the corresponding p-value}
 \usage{
-sigma3(x, mixing = "less")
+sigma3(x, mixing = "less", type = "residual")
 }
 \arguments{
 \item{x}{An object of class FLQuant.}
@@ -19,5 +19,7 @@ Compute the 3-sigma limits and the corresponding p-value
 }
 \examples{
 data(ple4)
-sigma3(catch(ple4))
+sigma3(catch.n(ple4))
+data(nsher)
+sigma3(residuals(nsher))
 }

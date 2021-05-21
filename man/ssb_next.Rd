@@ -22,12 +22,12 @@ An FLQuant.
 The spawning stock biomass (SSB) of the stock gets calculated from the
 survivors of the previous year. This provides a value for the first year
 after the end of the object. Weights-at-age, maturity in this extra year are
-calculated as everages over the last *wts.nyears*.
+calculated as averages over the last *wts.nyears*.
 }
 \details{
-For stocks spawning later in the year, a value for the avreage fishing
+For stocks spawning later in the year, a value for the average fishing
 mortality, *fbar*, expected in that year can be provided. Mortality until
-spawning is then calculated with M and selectivity assumed in the extra year
+spawning is then calculated, with M and selectivity assumed in the extra year
 to be an average of the last *fbar.nyears*.
 }
 \examples{

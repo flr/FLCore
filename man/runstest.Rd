@@ -2,15 +2,21 @@
 % Please edit documentation in R/oem.R
 \name{runstest}
 \alias{runstest}
+\alias{runstest,FLQuants,missing-method}
 \alias{runstest,FLQuants,FLQuants-method}
 \alias{runstest,FLQuant,FLQuant-method}
+\alias{runstest,FLQuant,missing-method}
 \title{Computes Runs Test p-values}
 \usage{
 runstest(fit, obs, ...)
 
+\S4method{runstest}{FLQuants,missing}(fit, combine = TRUE)
+
 \S4method{runstest}{FLQuants,FLQuants}(fit, obs, combine = TRUE)
 
 \S4method{runstest}{FLQuant,FLQuant}(fit, obs, combine = TRUE)
+
+\S4method{runstest}{FLQuant,missing}(fit, combine = TRUE)
 }
 \arguments{
 \item{fit}{The result of a model fit.}
@@ -26,4 +32,10 @@ A list with elements 'p.values' and 'pass'.
 }
 \description{
 Computes Runs Test p-values
+}
+\examples{
+data(nsher)
+runstest(fitted(nsher), rec(nsher))
+runstest(ssb(nsher))
+runstest(rnorm(1, FLQuant(1, dimnames=list(year=1973:2021))))
 }
