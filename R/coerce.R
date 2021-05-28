@@ -296,15 +296,15 @@ setAs('FLStock', 'FLIndex',
     dmns$age<-"all"
 
     res<-FLIndex(index       =from@stock.n,
-                 catch.n     =from@catch.n,
-                 catch.wt    =from@catch.wt,
-                 effort      =FLQuant(1,dimnames=dmns),
-                 index.q     =FLQuant(1,dimnames=dmns),
-                 index.var   =FLQuant(NA, dimnames=dimnames(from@stock.n)),
-                 range       =c(from@range, startf=0, endf=1),
-                 type        ="number",
-                 name        =from@name,
-                 desc        =paste("Coerced from FLStock:",from@desc))
+      catch.n     =from@catch.n,
+      catch.wt    =from@catch.wt,
+      effort      =FLQuant(1,dimnames=dmns),
+      index.q     =FLQuant(1,dimnames=dmns),
+      index.var   =FLQuant(NA, dimnames=dimnames(from@stock.n)),
+      range       =c(from@range, startf=0, endf=1),
+      type        ="number",
+      name        =from@name,
+      desc        =paste("Coerced from FLStock:",from@desc))
 
     if(units(harvest(from)) == 'f')
       sel.pattern(res) <- sweep(from@harvest,2:6,fbar(from),"/")
@@ -564,3 +564,9 @@ setAs('FLSR', 'predictModel',
       model=model(from), params=params(from)))
 
   } )# }}}
+
+# TODO TO FLIndexBiomass
+# FLIndex - FLIndexBiomass
+# FLStock - FLIndexBiomass
+# as.FLIndexBiomass
+
