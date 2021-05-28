@@ -105,11 +105,10 @@ setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
 #' @rdname cpue
 #' @aliases cpue-FLStock-method
 
-
 setMethod("survey",   signature(object="FLStock", index="FLIndex"),
   function(object, index, sel=sel.pattern(index), mass = FALSE,
-    timing = mean(range(index)[c("startf", "endf")]),
-    index.q = index.q(index)) {
+    timing = mean(range(index, c("startf", "endf"))),
+    index.q = index@index.q) {
 
     # GET abundance
     abnd <- survey(object, sel=sel, timing=timing, mass=mass)
@@ -122,26 +121,52 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
   }
 )
 
+setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
+  function(object, index, sel=sel.pattern(index),
+    ages=ac(seq(range(index, c('min')), range(index, c('max')))),
+    timing = mean(range(index, c("startf", "endf"))),
+    index.q = index@index.q) {
+
+    # CHECK for ages
+    
+    # GET abundance
+    abnd <- survey(object[ages, ], sel=sel[ages, ], timing=timing, mass=TRUE)
+
+    # APPLY Q
+    res <- quantSums(abnd) %*% index.q
+
+    return(res)
+
+  }
+)
+
 setMethod("survey",   signature(object="FLStock", index="missing"),
-  function(object, sel=stock.n(object) %=% 1, timing = 0.5, mass = FALSE) {
-  
+  function(object, sel=stock.n(object) %=% 1, ages=dimnames(object)$age,
+    timing = 0.5, mass = FALSE) {
+    
     # timing MUST BE 0 - 1
     timing <- pmax(pmin(timing, 1.0), 0.0)
+
+    # GET index years
+    yrs <- dimnames(sel)$year
 
     # CORRECT abundances for timing
     stock.n <- stock.n(object) *
       exp(-(harvest(object) * timing - m(object) * timing))
     
     # APPLY survey selectivity
-    survey <- stock.n %*% sel
+    res <- stock.n[, yrs] %*% sel
 
     # SET units as stock.n
-    units(survey) <- units(stock.n)
+    units(res) <- units(stock.n)
+
+    # SELECT ages
+    res <- res[ages,]
   
     if (mass)
-      survey <- survey * stock.wt(object)
+      res <- res * stock.wt(object)[, yrs]
 
-    return(survey)
+    return(res)
   }
 ) # }}}
 
