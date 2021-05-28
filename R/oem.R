@@ -141,13 +141,13 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
 )
 
 setMethod("survey",   signature(object="FLStock", index="missing"),
-  function(object, sel=stock.n(object) %=% 1, ages=dimnames(object)$age,
+  function(object, sel=stock.n(object) %=% 1, ages=dimnames(sel)$age,
     timing = 0.5, mass = FALSE) {
-    
+
     # timing MUST BE 0 - 1
     timing <- pmax(pmin(timing, 1.0), 0.0)
 
-    # GET index years
+    # GET index years & ages
     yrs <- dimnames(sel)$year
 
     # CORRECT abundances for timing
@@ -155,7 +155,7 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
       exp(-(harvest(object) * timing - m(object) * timing))
     
     # APPLY survey selectivity
-    res <- stock.n[, yrs] %*% sel
+    res <- stock.n[ages, yrs] %*% sel
 
     # SET units as stock.n
     units(res) <- units(stock.n)
