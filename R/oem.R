@@ -477,7 +477,7 @@ setMethod("runstest", signature(fit="FLQuants", obs="missing"),
       # or index and age
     } else {
       s3s <- lapply(res, function(x) {
-        rbindlist(lapply(divide(x, 1), sigma3), idcol="age")
+        cbind(Reduce(rbind, lapply(divide(x, 1), sigma3)), age=dimnames(x)$age)
       })
     }
  
