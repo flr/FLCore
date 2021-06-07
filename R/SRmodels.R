@@ -254,11 +254,11 @@ segreg <- function(){
 
     loglAR1(log(rec), FLQuant(log(ifelse(c(ssb)<=b,a*c(ssb),a*b)),dimnames=dimnames(ssb)))}
 
-  model <- rec ~ FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))
+  model <- rec ~ ifelse(ssb <= b, a * ssb, a * b)
 
   initial <- structure(function(rec, ssb){
     return(FLPar(a=median(c(rec)/c(ssb),na.rm=TRUE), b=median(c(ssb),na.rm=TRUE)))},
-    lower=rep(  0, 0),
+    lower=rep(0, 0),
     upper=rep(Inf, 2))
 
 	return(list(logl=logl, model=model, initial=initial))
@@ -489,7 +489,7 @@ segregAR1 <- function(){
     logl <- function(a, b, rho, rec, ssb){
        loglAR1(log(rec), FLQuant(log(ifelse(c(ssb)<=b,a*c(ssb),a*b)),dimnames=dimnames(ssb)),rho=rho)}
 
-    model <- rec ~ FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))
+    model <- rec ~ ifelse(ssb <= b, a * ssb, a * b)
 
     initial <- structure(function(rec, ssb){
       return(FLPar(a=median(c(rec/ssb),na.rm=TRUE), b=median(c(ssb),na.rm=TRUE),rho=0))},
@@ -699,6 +699,7 @@ SRModelName <- function(model){
       "a*ssb/(b+ssb)"                     = "bevholt",
       "a*ssb/(1+(ssb/b)^c)"               = "shepherd",
       "a*ssb^b"                           = "cushing",
+      "ifelse(ssb<=b,a*ssb,a*b)" = "segreg",
       "FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))" = "segreg",
       "FLQuant(ifelse(c(ssb)<=c(b),c(a)*c(ssb),c(a)*c(b)),dimnames=dimnames(ssb))" = "segreg",
       "a+ssb/ssb-1"                       = "mean",

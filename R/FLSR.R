@@ -209,10 +209,9 @@ setMethod("as.FLSR", signature(object="FLStock"),
     if((dim(rec)[2]-1) <= rec.age)
       stop("FLStock recruitment data set too short")
 
-    rec <- rec[,(1+rec.age):dim(rec)[2]]
-    units(rec) <- units(slot(object, "stock.n"))
-    ssb <- ssb[,1:(dim(ssb)[2] - rec.age)]
-		units(ssb) <- units(slot(object, "stock.wt"))
+    # SET rec and ssb time lags
+    rec <- rec[, (1 + rec.age) : dim(rec)[2]]
+    ssb <- ssb[, 1 : (dim(ssb)[2] - rec.age)]
 
     # create the FLSR object
     sr <- FLSR(rec=rec, ssb=ssb, name=object@name,

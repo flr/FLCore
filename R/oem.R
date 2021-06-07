@@ -489,7 +489,7 @@ setMethod("runstest", signature(fit="FLQuants", obs="missing"),
     # p.value >= 0.05 -> TRUE, green
     s3dat$pass <- s3dat$p.value >= 0.05
 
-    return(data.table(s3dat))
+    return(s3dat)
   }
 )
 
@@ -681,8 +681,5 @@ ifelse(log,return(log(r0)),return(r0))
   class(rval) <- "htest"
   return(rval)
 }
-
-
-
 
 # }}}
