@@ -645,15 +645,6 @@ ifelse(log,return(log(r0)),return(r0))
   vr <- 2*n1*n2*(2*n1*n2-n1-n2)/(n^2*(n-1))
   rr <- r1+r2
   #
-  # Plot the data if requested by the user
-  if (plot){
-    plot((1:n)[s>0],x[s>0], xlim=c(1,n), ylim=c(min(x),max(x)), xlab="", ylab=dname)
-    points((1:n)[s<0],x[s<0], col="red")
-    abline(h=threshold, col=gray(.4))
-    for (i in 1:(n-1)){
-      if (s[i]*s[i+1]<0){abline(v=i+0.5, lty=2)}
-    }
-  }
   #
   # Computes the p-value
   pv <- 0
