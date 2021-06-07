@@ -25,8 +25,8 @@ survey(object, index, ...)
   index,
   sel = sel.pattern(index),
   mass = FALSE,
-  timing = mean(range(index)[c("startf", "endf")]),
-  index.q = index.q(index)
+  timing = mean(range(index, c("startf", "endf"))),
+  index.q = index@index.q
 )
 }
 \arguments{

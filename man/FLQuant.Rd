@@ -162,8 +162,7 @@ summary(FLQuant())
 FLQuant(1:10)
 
 FLQuant(array(rnorm(9), dim=c(3,3,3)))
-
-FLQuant(matrix(rnorm(12), nrow=3, ncol=3))
+FLQuant(matrix(rnorm(12), nrow=4, ncol=3))
 
 FLQuant(FLQuant(array(rnorm(9), dim=c(3,3,3)), units='kg'), units='t')
 }

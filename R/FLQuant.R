@@ -195,8 +195,7 @@ function(object, dim=rep(1,6), dimnames="missing", quant=NULL, units="NA",
 #' @rdname FLQuant
 #' @aliases FLQuant,matrix-method
 #' @examples
-#'
-#' FLQuant(matrix(rnorm(12), nrow=3, ncol=3))
+#' FLQuant(matrix(rnorm(12), nrow=4, ncol=3))
 
 setMethod("FLQuant", signature(object="matrix"),
   function(object, dim=lapply(dimnames, length), dimnames="missing", ...) {
