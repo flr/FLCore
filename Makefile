@@ -1,6 +1,8 @@
 PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
 PKGDATE := $(shell sed -n "s/Date: *\([^ ]*\)/\1/p" DESCRIPTION)
+PKGDATE := $(shell git log -1 --format=%cd --date=format:'%d-%m-%Y')
+
 PKGSRC  := $(shell basename `pwd`)
 
 GITDATE=$(shell (git log -1 --date=short --pretty=format:"%ad"))
