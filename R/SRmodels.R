@@ -595,9 +595,9 @@ setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
 )
 
 setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
-  function(ssb) {
+  function(ssb, nyears=3) {
     
-    ssb <- window(ssb, start=dims(ssb)$maxyear - 2)
+    ssb <- window(ssb, start=dims(ssb)$maxyear - nyears + 1)
 
     nages <- dim(ssb)[1]
     
@@ -618,9 +618,7 @@ setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
 )
 
 setMethod('spr0', signature(ssb='FLSR', rec='missing', fbar='FLQuant'),
-  function(ssb, fbar)
-  {
-
+  function(ssb, fbar) {
     # spr0
     spr0(ssb=ssb(ssb), rec=rec(ssb), fbar=fbar)
   }
