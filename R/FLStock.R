@@ -1449,3 +1449,46 @@ setMethod("production", signature(object="FLStock"),
       })
   }
 )
+
+# }}}
+
+# fwdWindow {{{
+setMethod("fwdWindow", signature(x="FLStock", y="missing"),
+  function(x, end=dims(x)$maxyear, nsq=3) {
+
+    # EXTEND x with window
+    res <- window(x, end=end, extend=TRUE, frequency=1)
+
+    # NEW window years
+    wyrs <- seq(dim(m(x))[2] + 1, dim(m(res))[2])
+    sqyrs <- seq(dim(m(x))[2] - nsq + 1, dim(m(x))[2])
+
+    # wt
+    stock.wt(res)[, wyrs] <- yearMeans(stock.wt(res)[, sqyrs])
+    catch.wt(res)[, wyrs] <- yearMeans(catch.wt(res)[, sqyrs])
+    landings.wt(res)[, wyrs] <- yearMeans(landings.wt(res)[, sqyrs])
+    discards.wt(res)[, wyrs] <- yearMeans(discards.wt(res)[, sqyrs])
+
+    # n (ratios)
+    landings.n(res)[, wyrs] <- yearMeans(landings.n(res)[, sqyrs] /
+      (catch.n(res)[, sqyrs] + 1e-16))
+
+    discards.n(res)[, wyrs] <- yearMeans(discards.n(res)[, sqyrs] /
+      (catch.n(res)[, sqyrs] + 1e-16))
+
+    # m
+    m(res)[, wyrs] <- yearMeans(m(res)[, sqyrs])
+
+    # mat
+    mat(res)[, wyrs] <- yearMeans(mat(res)[, sqyrs])
+
+    # harvest
+    harvest(res)[, wyrs] <- yearMeans(harvest(res)[, sqyrs])
+
+    # spwn
+    m.spwn(res)[, wyrs] <- yearMeans(m.spwn(res)[, sqyrs])
+    harvest.spwn(res)[, wyrs] <- yearMeans(harvest.spwn(res)[, sqyrs])
+
+    return(res)
+  }
+) # }}}
