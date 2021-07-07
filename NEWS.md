@@ -9,6 +9,7 @@
 - harvest(FLQ) now runs optimize for one year objects, handles well iters.
 - computeCatch(FLStock) propagates slots if not matching. Logical subsetting
   fails otherwise.
+- runstest made safer.
 
 ## USER-VISIBLE CHANGES
 
@@ -22,6 +23,7 @@
 - Methods have been defined for aithmetic operations element by element between
   two FLQuants objects, and for dividing each of an FLQuants by each of an FLPars
   of the same length.
+- fwdWindow(FLStock) method to extend with same syntax as for other classes.
 
 # FLCore 2.6.15
 
