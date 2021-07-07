@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Method wireframe — wireframe • FLCore</title>
+<title>Calculate next yera's SSB from survivors and Fbar — ssb_next • FLCore</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Method wireframe — wireframe" />
-<meta property="og:description" content="3D plot for FLQuant objects" />
+<meta property="og:title" content="Calculate next yera's SSB from survivors and Fbar — ssb_next" />
+<meta property="og:description" content="The spawning stock biomass (SSB) of the stock gets calculated from the
+survivors of the previous year. This provides a value for the first year
+after the end of the object. Weights-at-age, maturity in this extra year are
+calculated as averages over the last *wts.nyears*." />
 
 
 
@@ -112,48 +115,89 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Method wireframe</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
-    <div class="hidden name"><code>wireframe.Rd</code></div>
+    <h1>Calculate next yera's SSB from survivors and Fbar</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/FLStock.R'><code>R/FLStock.R</code></a></small>
+    <div class="hidden name"><code>ssb_next.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>3D plot for FLQuant objects</p>
+    <p>The spawning stock biomass (SSB) of the stock gets calculated from the
+survivors of the previous year. This provides a value for the first year
+after the end of the object. Weights-at-age, maturity in this extra year are
+calculated as averages over the last *wts.nyears*.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for formula,FLQuant</span>
-<span class='fu'>wireframe</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>ssb_next</span><span class='op'>(</span><span class='va'>x</span>, fbar <span class='op'>=</span> <span class='fl'>0</span>, wts.nyears <span class='op'>=</span> <span class='fl'>3</span>, fbar.nyears <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>a <code>formula</code> formula for lattice</p></td>
+      <td><p>An FLStock object containing estimates of abundance and harvesting.</p></td>
     </tr>
     <tr>
-      <th>data</th>
-      <td><p>a <code>FLQuant</code> object with the values</p></td>
+      <th>fbar</th>
+      <td><p>The Fbar rate assumed on the extra year. Defaults to 0.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional argument list to be passed to <code>wireframe</code></p></td>
+      <th>wts.nyears</th>
+      <td><p>Number of years in calculation of mean weight-at-age and maturity for the extra year.</p></td>
+    </tr>
+    <tr>
+      <th>fbar.nyears</th>
+      <td><p>Number of years in calculation of mean selectivity, natural mortality and fraction of F abnd M before spawning for the extra year.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>wireframe</code> plot</p>
+    <p>An FLQuant.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Method to plot 3D representations of FLQuant objects</p>
+    <p>For stocks spawning later in the year, a value for the average fishing
+mortality, *fbar*, expected in that year can be provided. Mortality until
+spawning is then calculated, with M and selectivity assumed in the extra year
+to be an average of the last *fbar.nyears*.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='fu'>wireframe</span><span class='op'>(</span><span class='va'>data</span><span class='op'>~</span><span class='va'>age</span><span class='op'>+</span><span class='va'>year</span>, data<span class='op'>=</span><span class='fu'><a href='accessors.html'>harvest</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='wireframe-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='fu'>ssb_next</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; age   1958   1959   1960   1961   1962   1963   1964   1965   1966   1967  
+#&gt;   all 355374 362120 380052 391385 482245 440658 430475 383583 404516 473937
+#&gt;      year
+#&gt; age   1968   1969   1970   1971   1972   1973   1974   1975   1976   1977  
+#&gt;   all 458977 402865 370473 361610 366129 302365 298094 301757 328726 329116
+#&gt;      year
+#&gt; age   1978   1979   1980   1981   1982   1983   1984   1985   1986   1987  
+#&gt;   all 327543 302271 319089 290780 284211 339238 367251 394666 407972 470953
+#&gt;      year
+#&gt; age   1988   1989   1990   1991   1992   1993   1994   1995   1996   1997  
+#&gt;   all 424696 448230 396458 356947 311431 279962 233481 222203 203391 204948
+#&gt;      year
+#&gt; age   1998   1999   2000   2001   2002   2003   2004   2005   2006   2007  
+#&gt;   all 237863 219149 230902 234211 221902 248312 233477 253737 284447 293330
+#&gt;      year
+#&gt; age   2008   2009   2010   2011   2012   2013   2014   2015   2016   2017  
+#&gt;   all 371837 453027 554244 575459 617538 709948 823276 774157 836453 913289
+#&gt;      year
+#&gt; age   2018  
+#&gt;   all 980986
+#&gt; 
+#&gt; units:  t </div><div class='input'><span class='co'># Compare with ssb()</span>
+<span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>[</span>, <span class='fu'>ac</span><span class='op'>(</span><span class='fl'>2014</span><span class='op'>:</span><span class='fl'>2017</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>/</span> <span class='fu'>ssb_next</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>[</span>, <span class='fu'>ac</span><span class='op'>(</span><span class='fl'>2014</span><span class='op'>:</span><span class='fl'>2017</span><span class='op'>)</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; age   2014 2015 2016 2017
+#&gt;   all 1    1    1    1   
+#&gt; 
+#&gt; units:   </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

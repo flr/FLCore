@@ -86,7 +86,7 @@ libero. Pellentesque molestie mi sed orci feugiat, non mollis enim tristique." /
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
     Source
   </a>
@@ -151,8 +151,8 @@ libero. Pellentesque molestie mi sed orci feugiat, non mollis enim tristique.</p
   <span class='va'>index</span>,
   sel <span class='op'>=</span> <span class='fu'><a href='accessors.html'>sel.pattern</a></span><span class='op'>(</span><span class='va'>index</span><span class='op'>)</span>,
   mass <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  timing <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>index</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"startf"</span>, <span class='st'>"endf"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>,
-  index.q <span class='op'>=</span> <span class='fu'><a href='accessors.html'>index.q</a></span><span class='op'>(</span><span class='va'>index</span><span class='op'>)</span>
+  timing <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>index</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"startf"</span>, <span class='st'>"endf"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+  index.q <span class='op'>=</span> <span class='va'>index</span><span class='op'>@</span><span class='va'>index.q</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>

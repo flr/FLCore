@@ -82,7 +82,7 @@ modelling." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
     Source
   </a>
@@ -448,16 +448,16 @@ measurement relevant to the data.</p>
 #&gt;     2 -0.579663 -0.514857 -0.093491
 #&gt;     3  1.604180 -0.823788  0.304062
 #&gt; 
-#&gt; units:  NA </div><div class='input'>
-<span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>3</span>, ncol<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+#&gt; units:  NA </div><div class='input'><span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='fl'>4</span>, ncol<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
 #&gt; quant 1         2         3        
-#&gt;     1 -0.476508 -1.555644 -0.129409
-#&gt;     2 -0.241312  0.093501  0.407796
-#&gt;     3  0.824156 -0.366949 -0.583969
+#&gt;     1 -0.476508  0.093501 -0.583969
+#&gt;     2 -0.241312 -0.366949 -0.193450
+#&gt;     3  0.824156 -0.129409 -0.269547
+#&gt;     4 -1.555644  0.407796  0.073658
 #&gt; 
 #&gt; units:  NA </div><div class='input'>
 <span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'>FLQuant</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>9</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'t'</span><span class='op'>)</span>

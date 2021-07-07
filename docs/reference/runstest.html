@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Method wireframe — wireframe • FLCore</title>
+<title>Computes Runs Test p-values — runstest • FLCore</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Method wireframe — wireframe" />
-<meta property="og:description" content="3D plot for FLQuant objects" />
+<meta property="og:title" content="Computes Runs Test p-values — runstest" />
+<meta property="og:description" content="Computes Runs Test p-values" />
 
 
 
@@ -112,48 +112,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Method wireframe</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
-    <div class="hidden name"><code>wireframe.Rd</code></div>
+    <h1>Computes Runs Test p-values</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/oem.R'><code>R/oem.R</code></a></small>
+    <div class="hidden name"><code>runstest.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>3D plot for FLQuant objects</p>
+    <p>Computes Runs Test p-values</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for formula,FLQuant</span>
-<span class='fu'>wireframe</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>runstest</span><span class='op'>(</span><span class='va'>fit</span>, <span class='va'>obs</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S4 method for FLQuants,missing</span>
+<span class='fu'>runstest</span><span class='op'>(</span><span class='va'>fit</span>, combine <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'># S4 method for FLQuants,FLQuants</span>
+<span class='fu'>runstest</span><span class='op'>(</span><span class='va'>fit</span>, <span class='va'>obs</span>, combine <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'># S4 method for FLQuant,FLQuant</span>
+<span class='fu'>runstest</span><span class='op'>(</span><span class='va'>fit</span>, <span class='va'>obs</span>, combine <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='co'># S4 method for FLQuant,missing</span>
+<span class='fu'>runstest</span><span class='op'>(</span><span class='va'>fit</span>, combine <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>a <code>formula</code> formula for lattice</p></td>
+      <th>fit</th>
+      <td><p>The result of a model fit.</p></td>
     </tr>
     <tr>
-      <th>data</th>
-      <td><p>a <code>FLQuant</code> object with the values</p></td>
+      <th>obs</th>
+      <td><p>The observations used in the fit.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional argument list to be passed to <code>wireframe</code></p></td>
+      <td><p>Extra arguments.</p></td>
+    </tr>
+    <tr>
+      <th>combine</th>
+      <td><p>Should ages be combined by addition, defaults to TRUE.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>wireframe</code> plot</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Method to plot 3D representations of FLQuant objects</p>
+    <p>A list with elements 'p.values' and 'pass'.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='fu'>wireframe</span><span class='op'>(</span><span class='va'>data</span><span class='op'>~</span><span class='va'>age</span><span class='op'>+</span><span class='va'>year</span>, data<span class='op'>=</span><span class='fu'><a href='accessors.html'>harvest</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='wireframe-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span>
+<span class='fu'>runstest</span><span class='op'>(</span><span class='fu'><a href='accessors.html'>fitted</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span>, <span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         lcl      ucl p.value qname pass
+#&gt; 1 -1.189247 1.189247   0.234     A TRUE</div><div class='input'><span class='fu'>runstest</span><span class='op'>(</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         lcl      ucl p.value qname  pass
+#&gt; 1 -37.36636 37.36636   0.001     A FALSE</div><div class='input'><span class='fu'>runstest</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>year<span class='op'>=</span><span class='fl'>1973</span><span class='op'>:</span><span class='fl'>2021</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         lcl      ucl p.value qname pass
+#&gt; 1 -3.078476 3.078476     0.5     A TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Method wireframe — wireframe • FLCore</title>
+<title>Returns the computed yearly production — production • FLCore</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Method wireframe — wireframe" />
-<meta property="og:description" content="3D plot for FLQuant objects" />
+<meta property="og:title" content="Returns the computed yearly production — production" />
+<meta property="og:description" content="Returns the computed yearly production" />
 
 
 
@@ -112,48 +112,104 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Method wireframe</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/plot.R'><code>R/plot.R</code></a></small>
-    <div class="hidden name"><code>wireframe.Rd</code></div>
+    <h1>Returns the computed yearly production</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/genericMethods.R'><code>R/genericMethods.R</code></a>, <a href='https://github.com/flr/FLCore/blob/master/R/FLStock.R'><code>R/FLStock.R</code></a></small>
+    <div class="hidden name"><code>production.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>3D plot for FLQuant objects</p>
+    <p>Returns the computed yearly production</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for formula,FLQuant</span>
-<span class='fu'>wireframe</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>production</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S4 method for FLStock</span>
+<span class='fu'>production</span><span class='op'>(</span><span class='va'>object</span>, what <span class='op'>=</span> <span class='st'>"ssb"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>a <code>formula</code> formula for lattice</p></td>
+      <th>object</th>
+      <td><p>An object with biomass and catch data.</p></td>
     </tr>
     <tr>
-      <th>data</th>
-      <td><p>a <code>FLQuant</code> object with the values</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional argument list to be passed to <code>wireframe</code></p></td>
+      <th>what</th>
+      <td><p>One of the production options: "ssb", "biomass", or "exploitation".</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>wireframe</code> plot</p>
+    <p>The production by year, of class FLQuant.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Method to plot 3D representations of FLQuant objects</p>
+    <p>Production can be calculated for an FLStock based on the spawning stock
+biomass ("ssb"), total biomass ("biomass"), or exploitation ("exploitation").</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Laurie Kell (Sea++), Iago Mosqueira (WMR)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='fu'>wireframe</span><span class='op'>(</span><span class='va'>data</span><span class='op'>~</span><span class='va'>age</span><span class='op'>+</span><span class='va'>year</span>, data<span class='op'>=</span><span class='fu'><a href='accessors.html'>harvest</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='wireframe-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='co'># For SSB</span>
+<span class='fu'>production</span><span class='op'>(</span><span class='va'>ple4</span>, <span class='st'>"ssb"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
+#&gt;   all  91512  95530 123119 129308 210400  84703 130632 100648 172340 231689
+#&gt;      year
+#&gt; age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
+#&gt;   all 139513  93708 113785 127757 145745  85625 147244 161657 192360 176272
+#&gt;      year
+#&gt; age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
+#&gt;   all 164270 152893 189471 156381 177925 247466 240644 255680 260378 342209
+#&gt;      year
+#&gt; age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
+#&gt;   all 262223 338779 240262 211093 172667 161222 133093 139970 113817 133277
+#&gt;      year
+#&gt; age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
+#&gt;   all 185109 152527 182415 149306 115799 170217 139195 160315 145261 120747
+#&gt;      year
+#&gt; age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
+#&gt;   all 183276 194586 216921 140039 161798 224281 254384  90631 199634 208053
+#&gt;      year
+#&gt; age   2017  
+#&gt;   all     NA
+#&gt; 
+#&gt; units:  t </div><div class='input'><span class='co'># For total biomass</span>
+<span class='fu'>production</span><span class='op'>(</span><span class='va'>ple4</span>, <span class='st'>"biomass"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; An object of class "FLQuant"
+#&gt; , , unit = unique, season = all, area = unique
+#&gt; 
+#&gt;      year
+#&gt; age   1957     1958     1959     1960     1961     1962     1963     1964    
+#&gt;   all  97057.5 124335.9 134193.7 131624.1 195830.9  84314.2 156283.4 106620.6
+#&gt;      year
+#&gt; age   1965     1966     1967     1968     1969     1970     1971     1972    
+#&gt;   all 184772.0 168397.4 135624.4 103680.5 116318.4 135301.9 137680.9  98870.1
+#&gt;      year
+#&gt; age   1973     1974     1975     1976     1977     1978     1979     1980    
+#&gt;   all 177708.0 199229.7 182733.9 171714.1 160913.2 160718.4 182691.4 144393.8
+#&gt;      year
+#&gt; age   1981     1982     1983     1984     1985     1986     1987     1988    
+#&gt;   all 236823.4 256090.8 250806.2 257466.2 367166.4 307643.1 241038.8 255692.8
+#&gt;      year
+#&gt; age   1989     1990     1991     1992     1993     1994     1995     1996    
+#&gt;   all 216385.9 200280.0 151334.7 142125.9 122293.1 150908.2 118295.2 198090.3
+#&gt;      year
+#&gt; age   1997     1998     1999     2000     2001     2002     2003     2004    
+#&gt;   all 158178.3 143119.1 145741.4 159858.4 160431.2 150072.8 156416.2 123678.8
+#&gt;      year
+#&gt; age   2005     2006     2007     2008     2009     2010     2011     2012    
+#&gt;   all 164460.6 123874.2 198506.5 214558.2 221034.4 134974.6 172571.2 232425.2
+#&gt;      year
+#&gt; age   2013     2014     2015     2016     2017    
+#&gt;   all 263438.5   3241.5 198078.0 219445.0       NA
+#&gt; 
+#&gt; units:  t </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

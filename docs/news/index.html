@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
     Source
   </a>
@@ -128,6 +128,7 @@
 <li>getPlural ignored derived classes, like FLIndexBiomass, now dispatches on FLI and FLS.</li>
 <li>harvest(FLQ) now runs optimize for one year objects, handles well iters.</li>
 <li>computeCatch(FLStock) propagates slots if not matching. Logical subsetting fails otherwise.</li>
+<li>runstest made safer.</li>
 </ul>
 </div>
 <div id="user-visible-changes" class="section level2">
@@ -144,6 +145,7 @@
 <li>survivors(FLStock) function calculates the population survivors and returns them as an FLQuant.</li>
 <li>sr(FLBiol) to access full <a href='https://github.com/rec'>@rec</a> slot.</li>
 <li>Methods have been defined for aithmetic operations element by element between two FLQuants objects, and for dividing each of an FLQuants by each of an FLPars of the same length.</li>
+<li>fwdWindow(FLStock) method to extend with same syntax as for other classes.</li>
 </ul>
 </div>
 </div>

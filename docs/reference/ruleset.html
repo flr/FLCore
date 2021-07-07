@@ -81,7 +81,7 @@ object of a given class." />
       <ul class="nav navbar-nav">
         <li>
   <a href="http://github.com/flr/FLCore">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
     Source
   </a>
@@ -167,46 +167,46 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt; $anyna$anyna
 #&gt; function(x)
 #&gt;       unlist(qapply(x, function(y) sum(is.na(y), na.rm=TRUE) &gt; 0))
-#&gt; &lt;bytecode: 0x55f14f2918f0&gt;
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;bytecode: 0x56314806c528&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; 
 #&gt; $catch.wt
 #&gt; ~catch.wt &gt; 0
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $landings.wt
 #&gt; ~landings.wt &gt; 0
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $discards.wt
 #&gt; ~discards.wt &gt; 0
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $stock.wt
 #&gt; ~stock.wt &gt; 0
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $mat
 #&gt; ~mat &lt;= 1 &amp; mat &gt;= 0
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $harvest.spwn
 #&gt; ~harvest.spwn &lt;= 1 &amp; harvest.spwn &gt;= 0
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $m.spwn
 #&gt; ~m.spwn &lt;= 1 &amp; m.spwn &gt;= 0
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $harvest
 #&gt; ~harvest &gt;= 0
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $cohorts
 #&gt; $cohorts$rule
 #&gt; ~ccohorts(stock.n)
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; $cohorts$ccohorts
 #&gt; function(x) {
@@ -217,8 +217,8 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt;         # CHECK cohort change in abundances
 #&gt;         return((x[-1, ] / x[-dim(x)[1],]) &lt; 1)
 #&gt;       }
-#&gt; &lt;bytecode: 0x55f14f281788&gt;
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;bytecode: 0x5631480543c0&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; 
 #&gt; $uoms
@@ -228,8 +228,8 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt; $uoms$uoms
 #&gt; function(x)
 #&gt;       uomUnits(unlist(units(x)))
-#&gt; &lt;bytecode: 0x55f14f265548&gt;
-#&gt; &lt;environment: 0x55f14fe29c88&gt;
+#&gt; &lt;bytecode: 0x5631480317b0&gt;
+#&gt; &lt;environment: 0x563147bc6348&gt;
 #&gt; 
 #&gt; </div><div class='input'><span class='co'># Extract single rule by name</span>
 <span class='fu'>ruleset</span><span class='op'>(</span><span class='va'>ple4</span>, <span class='st'>'anyna'</span><span class='op'>)</span>
@@ -240,8 +240,8 @@ verify method. The included rules are (with names in italics) check that:</p>
 #&gt; $anyna$anyna
 #&gt; function(x)
 #&gt;       unlist(qapply(x, function(y) sum(is.na(y), na.rm=TRUE) &gt; 0))
-#&gt; &lt;bytecode: 0x55f14f2918f0&gt;
-#&gt; &lt;environment: 0x55f154e1f458&gt;
+#&gt; &lt;bytecode: 0x56314806c528&gt;
+#&gt; &lt;environment: 0x56314753a088&gt;
 #&gt; 
 #&gt; </div></pre>
   </div>
