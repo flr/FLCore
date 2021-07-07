@@ -459,6 +459,8 @@ setGeneric("runstest", function(fit, obs, ...)
 #' @examples
 #' data(nsher)
 #' runstest(fitted(nsher), rec(nsher))
+#' data(ple4)
+#' runstest(catch.n(ple4), landings.n(ple4), combine=FALSE)
 
 setMethod("runstest", signature(fit="FLQuants", obs="missing"),
   function(fit, combine=TRUE) {
@@ -477,10 +479,11 @@ setMethod("runstest", signature(fit="FLQuants", obs="missing"),
       # or index and age
     } else {
       s3s <- lapply(res, function(x) {
-        cbind(Reduce(rbind, lapply(divide(x, 1), sigma3)), age=dimnames(x)$age)
+        cbind(do.call(rbind, lapply(divide(x, 1),
+          function(y) unlist(sigma3(y)))),
+          data.frame(age=an(dimnames(x)$age)))
       })
     }
- 
     # MERGE
     s3dat <- do.call(rbind, c(Map(function(x, y)
       cbind(x, qname=y), lapply(s3s, as.data.frame), names(s3s)),
