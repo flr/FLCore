@@ -606,11 +606,11 @@ setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
     npr0[1] <- 1
 
     for(a in seq(2, nages)){
-      npr0[a] <- npr0[a - 1] * exp(-mean(m(ssb)[a, ]))
+      npr0[a] <- npr0[a - 1] * exp(-mean(m(ssb)[a - 1, ]))
     }
 
     # ADD with plusgroup
-    npr0[nages] = npr0[nages] / (1 - exp(-mean(m(ssb)[a, ])))
+    npr0[nages] = npr0[nages] / (1 - exp(-mean(m(ssb)[nages, ])))
 
     return(sum(npr0 * exp(-(apply(m(ssb), 1, mean) * apply(m.spwn(ssb), 1, mean))) *
   apply(stock.wt(ssb),1,mean) * apply(mat(ssb),1,mean)))
