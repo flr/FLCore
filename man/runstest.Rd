@@ -36,6 +36,8 @@ Computes Runs Test p-values
 \examples{
 data(nsher)
 runstest(fitted(nsher), rec(nsher))
+data(ple4)
+runstest(catch.n(ple4), landings.n(ple4), combine=FALSE)
 runstest(ssb(nsher))
 runstest(rnorm(1, FLQuant(1, dimnames=list(year=1973:2021))))
 }

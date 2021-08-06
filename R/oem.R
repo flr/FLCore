@@ -437,12 +437,8 @@ setMethod("mase", signature(ref="FLIndices", preds="list"),
 #' @seealso \link{rlnorm}
 #' @keywords classes
 #' @examples
-#' resid <- ar1rlnorm(rho=0.6, years=2000:2030, iter=300, mean=0, margSD=0.6)
+#' resid <- ar1rlnorm(rho=0.6, years=2000:2030, iter=500, mean=0, margSD=0.6)
 #' plot(resid)
-#' mean(resid)
-#' sd(resid)
-
-
 
 ar1rlnorm <- function(rho, years, iters=1, mean=0, margSD=0.6) {
 
