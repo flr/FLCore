@@ -421,19 +421,41 @@ setMethod("mase", signature(ref="FLIndices", preds="list"),
 
 # ar1rlnorm {{{
 
+#' Generates a time series of bias-corrected lognormal autocorrelated random values
+#'
+#' Thorston, 2020.
+#'
+#' @param rho Autocorrelation coefficient.
+#' @param years Vector of year names.
+#' @param iters Number of iterations.
+#' @param mean Mean of the series in log space.
+#' @param margSD
+#'
+#' @return An FLQuant object
+#'
+#' @author Iago Mosqueira (WMR), Henning Winker (JRC).
+#' @seealso \link{rlnorm}
+#' @keywords classes
+#' @examples
+#' resid <- ar1rlnorm(rho=0.6, years=2000:2030, iter=300, mean=0, margSD=0.6)
+#' plot(resid)
+#' mean(resid)
+#' sd(resid)
+
+
+
 ar1rlnorm <- function(rho, years, iters=1, mean=0, margSD=0.6) {
 
-  #
+  # DIMs
 	n <- length(years)
-	rhosq <- rho ^ 2
 	
   #
-  res <- matrix(rnorm(n*iters, mean=mean, sd=margSD), nrow=n, ncol=iters)
+  res <- matrix(rnorm(n * iters, mean=mean, sd=margSD), nrow=n, ncol=iters)
 
 	res <- apply(res, 2, function(x) {
 		for(i in 2:n)
-			x[i] <- sqrt(rhosq) * x[i-1] + sqrt(1-rhosq) * x[i]
-		return(exp(x))
+			x[i] <- rho * x[i-1] + x[i]
+		return(exp(x - 0.5 * margSD ^ 2))
 	})
 
 	return(FLQuant(array(res, dim=c(1,n,1,1,1,iters)),

@@ -1747,3 +1747,39 @@ setMethod("fwd", signature(object="FLQuant", fishery="missing", control="missing
     return(object)
   })
 # }}}
+
+# iav {{{
+
+#' Compute the inter-annual variability of a time series
+#'
+#' The inter-annual variability of a time series stored in an FLQuant object,
+#' is computed as \eqn{|x_y - x_{y-1}) / x_{y-1}|}. The resulting object will
+#' be one year shorter than the input. The first year will be missing as values
+#' are assigned to the final year of each pair.
+#'
+#' @return An object of the same class as object.
+#'
+#' @name iav
+#' @rdname iav
+#' @author The FLR Team
+#' @keywords methods
+#' @md
+#' @examples
+#' data(ple4)
+#' # Compute inter-annual variability in catch
+#' iav(catch(ple4))
+
+iav <- function(object) {
+
+  # GET object dims
+  dm <- dim(object)
+
+  # CALCULATE annual variation
+  res <- abs(object[, -dm[2]] - object[, -1]) / object[, -dm[2]]
+
+  # ASSIGN values to last year
+  dimnames(res) <- list(year=dimnames(object)$year[-1])
+
+  return(res)
+
+} # }}}

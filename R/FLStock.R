@@ -955,9 +955,9 @@ setMethod("simplify", signature(object="FLStock"),
       cawt <- foo(catch.wt(object), dims=dms, FUN=mean)
       lawt <- foo(landings.wt(object), dims=dms, FUN=mean)
       diwt <- foo(discards.wt(object), dims=dms, FUN=mean)
-      stwt <- foo(stock.wt(object)[,,,stock.season], dims=dms, FUN=mean)
+      stwt <- foo(stock.wt(object)[,,, stock.season], dims=dms, FUN=mean)
 
-      mat <- mat(object)[,,,spwn.season]
+      mat <- seasonSums(mat(object)[,,,spwn.season])
 
     } else {
 
@@ -977,8 +977,6 @@ setMethod("simplify", signature(object="FLStock"),
       } else {
       mat <- foo(mat(object)[,,'F'], dims=dms, FUN=mean)
       }
-    } else {
-      mat <- foo(mat(object), dims=dms, FUN=mean)
     }
 
     # SET new dimnames

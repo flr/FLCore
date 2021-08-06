@@ -121,6 +121,7 @@ export(
   "evalPredictModel",
   "Fwanted",
   "Funwanted",
+  "iav",
   "ibind",
   "is.FLQuant",
   "is.FLStock",
