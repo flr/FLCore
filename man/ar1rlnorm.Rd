@@ -2,9 +2,9 @@
 % Please edit documentation in R/oem.R
 \name{ar1rlnorm}
 \alias{ar1rlnorm}
-\title{Generates a time series of bias-corrected lognormal autocorrelated random values}
+\title{Generates a time series of possible bias-corrected lognormal autocorrelated random values}
 \usage{
-ar1rlnorm(rho, years, iters = 1, mean = 0, margSD = 0.6)
+ar1rlnorm(rho, years, iters = 1, meanlog = 0, sdlog = 1, bias.correct = TRUE)
 }
 \arguments{
 \item{rho}{Autocorrelation coefficient.}
@@ -13,9 +13,11 @@ ar1rlnorm(rho, years, iters = 1, mean = 0, margSD = 0.6)
 
 \item{iters}{Number of iterations.}
 
-\item{mean}{Mean of the series in log space.}
+\item{meanlog}{Mean of the series in log space.}
 
-\item{margSD}{}
+\item{sdlog}{Marginal standard deviation in log space.}
+
+\item{bias.correct}{Should bias-correction be applied? Defaults to TRUE.}
 }
 \value{
 An FLQuant object
@@ -24,8 +26,11 @@ An FLQuant object
 Thorston, 2020.
 }
 \examples{
-resid <- ar1rlnorm(rho=0.6, years=2000:2030, iter=500, mean=0, margSD=0.6)
-plot(resid)
+devs <- ar1rlnorm(rho=0.6, years=2000:2030, iter=500, meanlog=0, sdlog=1)
+plot(devs)
+}
+\references{
+Thorson, J. T. Predicting recruitment density dependence and intrinsic growth rate for all fishes worldwide using a data-integrated life-history model. Fish Fish. 2020; 21: 237– 251. https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427
 }
 \seealso{
 \link{rlnorm}

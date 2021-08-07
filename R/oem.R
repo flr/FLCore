@@ -421,37 +421,48 @@ setMethod("mase", signature(ref="FLIndices", preds="list"),
 
 # ar1rlnorm {{{
 
-#' Generates a time series of bias-corrected lognormal autocorrelated random values
+#' Generates a time series of possible bias-corrected lognormal autocorrelated random values
 #'
 #' Thorston, 2020.
 #'
 #' @param rho Autocorrelation coefficient.
 #' @param years Vector of year names.
 #' @param iters Number of iterations.
-#' @param mean Mean of the series in log space.
-#' @param margSD
+#' @param meanlog Mean of the series in log space.
+#' @param sdlog Marginal standard deviation in log space.
+#' @param bias.correct Should bias-correction be applied? Defaults to TRUE.
 #'
 #' @return An FLQuant object
 #'
 #' @author Iago Mosqueira (WMR), Henning Winker (JRC).
 #' @seealso \link{rlnorm}
 #' @keywords classes
+#' @references  Thorson, J. T. Predicting recruitment density dependence and intrinsic growth rate for all fishes worldwide using a data-integrated life-history model. Fish Fish. 2020; 21: 237– 251. https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427
 #' @examples
-#' resid <- ar1rlnorm(rho=0.6, years=2000:2030, iter=500, mean=0, margSD=0.6)
-#' plot(resid)
+#' devs <- ar1rlnorm(rho=0.6, years=2000:2030, iter=500, meanlog=0, sdlog=1)
+#' plot(devs)
 
-ar1rlnorm <- function(rho, years, iters=1, mean=0, margSD=0.6) {
+ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
+  bias.correct=TRUE) {
 
   # DIMs
 	n <- length(years)
-	
+
+  # BIAS correction
+  logbias <- 0
+
+  if(bias.correct)
+    logbias <- 0.5 * sdlog ^ 2
+
+  rhosq <- rho ^ 2
+
   #
-  res <- matrix(rnorm(n * iters, mean=mean, sd=margSD), nrow=n, ncol=iters)
+  res <- matrix(rnorm(n * iters, mean=meanlog, sd=sdlog), nrow=n, ncol=iters)
 
 	res <- apply(res, 2, function(x) {
 		for(i in 2:n)
-			x[i] <- rho * x[i-1] + x[i]
-		return(exp(x - 0.5 * margSD ^ 2))
+			x[i] <- rho * x[i-1] + sqrt(1 - rhosq) * x[i]
+		return(exp(x - logbias))
 	})
 
 	return(FLQuant(array(res, dim=c(1,n,1,1,1,iters)),

@@ -1207,6 +1207,33 @@ setMethod("ifelse", signature(test="ANY", yes="FLQuant", no="ANY"),
 # }}}
 
 # tail {{{
+
+#' Returns the first and last parts of an FLQuant.
+#'
+#' Standard tail and head methods can be applied along any dimension of an
+#' FLQuant object.
+#'
+#' @param x The object to extract from, FLQuant.
+#' @param n The number of elements to extract, numeric.
+#' @param dim Dimension to extract from, defaults to 2, 'year'.
+#'
+#' @return An FLQuant with the extracted elements.
+#'
+#' @rdname tail
+#'
+#' @author Iago Mosqueira (WMR)
+#' @seealso [base::tail]
+#' @keywords methods
+#' @md
+#' @examples
+#' x <- FLQuant(1:10)
+#' 
+#' # Extract the last 3 years
+#' tail(x, 3)
+#' 
+#' # Extract all but the first 3 years
+#' tail(x, -3)
+
 setMethod("tail", signature(x="FLQuant"),
   function(x, n=1, dim=2, ...) {
 
@@ -1229,6 +1256,41 @@ setMethod("tail", signature(x="FLQuant"),
     return(do.call('[', c(list(x=x), idx)))
   }
 ) # }}}
+
+# head {{{
+
+#' @rdname tail
+#' @examples
+#'
+#' # Extract the first 3 years
+#' head(x, 3)
+#'
+#' # Extract all but the last 3 years
+#' head(x, -3)
+
+setMethod("head", signature(x="FLQuant"),
+  function(x, n=1, dim=2, ...) {
+
+    # dim of length 1
+    if(length(dim) > 1)
+      stop("head(FLQuant) can only apply to a single dim(ension)")
+
+    # character dim
+    if(is(dim, 'character'))
+      dim <- which(dim == names(x))
+
+    # named list of dimension vectors
+    idx <- lapply(as.list(dim(x)), seq)
+    names(idx) <- c('i','j','k','l','m','n')
+
+    # tail dimension set by dim
+    idx[[dim]] <- head(idx[[dim]], n=n)
+
+    # apply '['
+    return(do.call('[', c(list(x=x), idx)))
+  }
+) # }}}
+
 
 # tS, tS<- {{{
 setMethod("tS", signature(object="FLQuant", step="numeric"),
