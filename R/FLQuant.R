@@ -1291,7 +1291,6 @@ setMethod("head", signature(x="FLQuant"),
   }
 ) # }}}
 
-
 # tS, tS<- {{{
 setMethod("tS", signature(object="FLQuant", step="numeric"),
   function(object, step) {

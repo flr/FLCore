@@ -45,7 +45,15 @@ setClass("FLComp",
     name=character(1),
     desc=character(1),
     range  = unlist(list(min=0, max=0, minyear=1, maxyear=1))),
+
   validity=function(object){
+
+  # desc and name must have length 1
+  if(length(desc(object)) > 1)
+    return("desc can only be of length 1")
+
+  if(length(name(object)) > 1)
+    return("name can only be of length 1")
 
   # range must be named ...
   nms <- names(range(object))
