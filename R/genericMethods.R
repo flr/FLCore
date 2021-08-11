@@ -1896,3 +1896,18 @@ setGeneric("divide", function(object, ...)
 setGeneric("production", function(object, ...)
   standardGeneric("production"))
 # }}}
+
+# properties {{{
+
+#' Returns a series of properties of the fisheries element represented by the class.
+#'
+#' @param object An object from which properties can be extracted.
+#' @return The correspodning properties, an FLPar.
+#' @name properties
+#' @author Laurie Kell (Sea++), Iago Mosqueira (WMR)
+#' @keywords methods
+#' @md
+
+setGeneric("properties", function(object, ...)
+  standardGeneric("properties"))
+# }}}`
