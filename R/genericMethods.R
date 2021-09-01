@@ -1911,3 +1911,8 @@ setGeneric("production", function(object, ...)
 setGeneric("properties", function(object, ...)
   standardGeneric("properties"))
 # }}}`
+
+
+# adjust
+setGeneric("adjust", function(object, ...)
+		standardGeneric("adjust"))

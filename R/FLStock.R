@@ -1631,9 +1631,9 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
   }
 ) # }}}
 
-# fwd {{{
+# adjust {{{
 
-#' Project forward to reconstruct abundances from F and M
+#' Recalculate to adjust abundances to F and M
 #' 
 #' An FLStock object is projected forward using the initial abundances and
 #' the total mortality-at-age per timestep. New values for the stock.n and
@@ -1648,10 +1648,11 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
 #' @docType methods
 #' @examples
 #' data(ple4)
-#' test <- fwd(ple4)
+#' test <- adjust(ple4)
+#' # Difference in catch due to estimation error
 #' plot(FLStocks(PLE=ple4, TEST=test))
 
-setMethod("fwd", signature(object="FLStock", fishery="missing", control="missing"),
+setMethod("adjust", signature(object="FLStock"),
   function(object) {
 
     # DIMS
@@ -1681,8 +1682,11 @@ setMethod("fwd", signature(object="FLStock", fishery="missing", control="missing
       }
     }
 
+  # RECONSTRUCT n
   stock.n(object) <- sn
   
+  # and catches/landings/discards
+
   catch.n(object) <- sn * sf / (sm + sf) * (1 - exp(-sf - sm))
   landings.n(object)[is.na(landings.n(object))] <- 0
   discards.n(object)[is.na(discards.n(object))] <- 0
