@@ -70,7 +70,7 @@ setMethod('cpue', signature(object='FLStock', index="missing"),
 
 # survey {{{
 
-#' survey, a method to generate an observation of abundance at age
+#' A method to generate observations of abundance at age.
 #'
 #' Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend
 #' odio ac rutrum luctus. Aenean placerat porttitor commodo. Pellentesque eget porta
@@ -104,14 +104,19 @@ setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
 
 #' @rdname cpue
 #' @aliases cpue-FLStock-method
+#' @examples
+#' data(ple4)
+#' data(ple4.index)
+#' #
+#' survey(ple4, ple4.index)
 
 setMethod("survey",   signature(object="FLStock", index="FLIndex"),
-  function(object, index, sel=sel.pattern(index), mass = FALSE,
+  function(object, index, mass = FALSE,
     timing = mean(range(index, c("startf", "endf"))),
     index.q = index@index.q) {
 
     # GET abundance
-    abnd <- survey(object, sel=sel, timing=timing, mass=mass)
+    abnd <- survey(object, sel=sel.pattern(index), timing=timing, mass=mass)
 
     # APPLY Q
     res <- abnd %*% index.q
@@ -120,6 +125,11 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
 
   }
 )
+
+#' @rdname cpue
+#' @aliases cpue-FLStock-method
+#' @examples
+#' 
 
 setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
   function(object, index, sel=sel.pattern(index),
@@ -164,9 +174,9 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
     res <- res[ages,]
   
     if (mass)
-      res <- res * stock.wt(object)[, yrs]
+      return(unitSums(res * stock.wt(object)[, yrs]))
 
-    return(res)
+    return(unitSums(res))
   }
 ) # }}}
 
@@ -706,3 +716,5 @@ ifelse(log,return(log(r0)),return(r0))
 }
 
 # }}}
+
+# indexqv

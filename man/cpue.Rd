@@ -7,6 +7,7 @@
 \alias{cpue,FLStock-method}
 \alias{survey,FLStock,FLIndex-method}
 \alias{cpue-FLStock-method}
+\alias{survey,FLStock,FLIndexBiomass-method}
 \title{cpue, a method to generate an observation of a CPUE index of abundance}
 \usage{
 cpue(object, index, ...)
@@ -23,8 +24,16 @@ survey(object, index, ...)
 \S4method{survey}{FLStock,FLIndex}(
   object,
   index,
-  sel = sel.pattern(index),
   mass = FALSE,
+  timing = mean(range(index, c("startf", "endf"))),
+  index.q = index@index.q
+)
+
+\S4method{survey}{FLStock,FLIndexBiomass}(
+  object,
+  index,
+  sel = sel.pattern(index),
+  ages = ac(seq(range(index, c("min")), range(index, c("max")))),
   timing = mean(range(index, c("startf", "endf"))),
   index.q = index@index.q
 )
@@ -77,6 +86,11 @@ plot(FLQuants(om=stock(ple4), cpue=quantSums(cpue(ple4)),
 plot(FLQuants(om=stock(ple4), survey=quantSums(survey(ple4) * stock.wt(ple4)),
  cpue=quantSums(cpue(ple4)), hr=quantSums(cpue(ple4, effort="hr"))))
 }
+data(ple4)
+data(ple4.index)
+#
+survey(ple4, ple4.index)
+
 }
 \seealso{
 \link{FLComp}

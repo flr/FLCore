@@ -901,6 +901,8 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
     maxx <- apply(har, 2:6, max)
     vn <- stock.n(x) * ((har %-% minx) %/% (maxx-minx))
     vb <- quantSums(vn * stock.wt(x))
+
+    units(vb) <- units(stock(x))
     
     return(vb)
   }
@@ -909,7 +911,9 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
 setMethod("vb", signature(x="FLStock", sel="FLQuant"),
   function(x, sel) {
     
-    vb <- quantSums(stock.n(x) * sel * stock.wt(x))
+    vb <- quantSums(stock.n(x) * stock.wt(x) %*% sel)
+
+    units(vb) <- units(stock(x))
     
     return(vb)
   }
@@ -919,6 +923,143 @@ setMethod("vb", signature(x="FLStock", sel="FLQuant"),
 
 # simplify {{{
 
+# noseason {{{
+
+noseason <- function(stock) {
+
+  old <- stock
+
+  # Q1: n, mat, spwn, swt
+  stock <- stock[,,,1]
+  dimnames(stock) <- list(season="all")
+  
+  # means: wt
+  catch.wt(stock) <- seasonMeans(catch.wt(old))
+  landings.wt(stock) <- seasonMeans(landings.wt(old))
+  discards.wt(stock) <- seasonMeans(discards.wt(old))
+  
+  # sums: m, catch
+  m(stock) <- seasonSums(m(old))
+  catch.n(stock) <- seasonSums(catch.n(old))
+  discards.n(stock) <- seasonSums(discards.n(old))
+  landings.n(stock) <- seasonSums(landings.n(old))
+  
+  catch(stock) <- computeCatch(stock)
+  landings(stock) <- computeLandings(stock)
+  discards(stock) <- computeDiscards(stock)
+  stock(stock) <- computeStock(stock)
+  
+  harvest(stock) <- harvest(stock.n(stock), catch.n(stock), m(stock))
+  harvest(stock)[catch.n(stock) == 0] <- 0
+  
+  return(stock)
+
+}
+ # }}}
+
+# nounit {{{
+
+nounit <- function(stock) {
+
+  old <- stock
+
+  stock <- stock[,,1]
+  dimnames(stock) <- list(unit="unique")
+
+  # sum: *.n
+
+  stock.n(stock) <- unitSums(stock.n(old))
+  catch.n(stock) <- unitSums(catch.n(old))
+  landings.n(stock) <- unitSums(landings.n(old))
+  discards.n(stock) <- unitSums(discards.n(old))
+
+  # weighted mean: *.wt, m
+  
+  stock.wt(stock) <- unitSums(stock.wt(old) * stock.n(old)) / unitSums(stock.n(old))
+  stock.wt(stock)[is.na(stock.wt(stock))] <- unitMeans(stock.wt(old))
+
+  catch.wt(stock) <- unitSums(catch.wt(old) * catch.n(old)) / unitSums(catch.n(old))
+  catch.wt(stock)[is.na(catch.wt(stock))] <- unitMeans(catch.wt(old))
+
+  landings.wt(stock) <- unitSums(landings.wt(old) * landings.n(old)) /
+    unitSums(landings.n(old))
+  landings.wt(stock)[is.na(landings.wt(stock))] <- unitMeans(landings.wt(old))
+
+  discards.wt(stock) <- unitSums(discards.wt(old) * discards.n(old)) /
+    unitSums(discards.n(old))
+  discards.wt(stock)[is.na(discards.wt(stock))] <- unitMeans(discards.wt(old))
+
+  m(stock) <- unitSums(m(old) * stock.n(old)) /
+    unitSums(stock.n(old))
+  m(stock)[is.na(m(stock))] <- unitMeans(m(old))
+
+  # COMPUTE
+
+  catch(stock) <- computeCatch(stock)
+  landings(stock) <- computeLandings(stock)
+  discards(stock) <- computeDiscards(stock)
+  stock(stock) <- computeStock(stock)
+
+  harvest(stock) <- harvest(stock.n(stock), catch.n(stock), m(stock))
+  harvest(stock)[catch.n(stock) == 0] <- 0
+
+  return(stock)
+}
+
+# }}}
+
+# noarea {{{
+
+noarea <- function(stock) {
+
+  old <- stock
+
+  stock <- stock[,,,,1]
+  dimnames(stock) <- list(area="unique")
+
+  # sum: *.n
+
+  stock.n(stock) <- areaSums(stock.n(old))
+  catch.n(stock) <- areaSums(catch.n(old))
+  landings.n(stock) <- areaSums(landings.n(old))
+  discards.n(stock) <- areaSums(discards.n(old))
+
+  # weighted mean: *.wt, m
+  
+  stock.wt(stock) <- areaSums(stock.wt(old) * stock.n(old)) / areaSums(stock.n(old))
+  stock.wt(stock)[is.na(stock.wt(stock))] <- areaMeans(stock.wt(old))
+
+  catch.wt(stock) <- areaSums(catch.wt(old) * catch.n(old)) / areaSums(catch.n(old))
+  catch.wt(stock)[is.na(catch.wt(stock))] <- areaMeans(catch.wt(old))
+
+  landings.wt(stock) <- areaSums(landings.wt(old) * landings.n(old)) /
+    areaSums(landings.n(old))
+  landings.wt(stock)[is.na(landings.wt(stock))] <- areaMeans(landings.wt(old))
+
+  discards.wt(stock) <- areaSums(discards.wt(old) * discards.n(old)) /
+    areaSums(discards.n(old))
+  discards.wt(stock)[is.na(discards.wt(stock))] <- areaMeans(discards.wt(old))
+
+  m(stock) <- areaSums(m(old) * stock.n(old)) /
+    areaSums(stock.n(old))
+  m(stock)[is.na(m(stock))] <- areaMeans(m(old))
+
+  # COMPUTE
+
+  catch(stock) <- computeCatch(stock)
+  landings(stock) <- computeLandings(stock)
+  discards(stock) <- computeDiscards(stock)
+  stock(stock) <- computeStock(stock)
+
+  harvest(stock) <- harvest(stock.n(stock), catch.n(stock), m(stock))
+  harvest(stock)[catch.n(stock) == 0] <- 0
+
+  return(stock)
+}
+
+# }}}
+
+
 #' @rdname simplify
 #' @aliases simplify,FLStock-method
 
@@ -926,15 +1067,14 @@ setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
     spwn.season=1, stock.season=1, calcF=TRUE) {
     
-    # TODO: check spwn.season vs. mat
     
     # DIMS to operate on, inverse of dims
     dms <- seq(1,6)[-(match(dims, c("unit", "season", "area")) + 2)]
   	dmns <- list(season="all", unit="unique", area="unique")[dims]
 
     last.season <- dims(object)$season
-  
-    # sum along dms
+ 
+    # operate along dms
     foo <- function(x, dims=dms, FUN=sum) {
       return(apply(x, dims, function(x){
       z <- x[!is.na(x)]; ifelse(length(z), FUN(z, na.rm=TRUE), NA)}))
@@ -1488,5 +1628,72 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     harvest.spwn(res)[, wyrs] <- yearMeans(harvest.spwn(res)[, sqyrs])
 
     return(res)
+  }
+) # }}}
+
+# fwd {{{
+
+#' Project forward to reconstruct abundances from F and M
+#' 
+#' An FLStock object is projected forward using the initial abundances and
+#' the total mortality-at-age per timestep. New values for the stock.n and
+#' catch.n slots are calculated, assuming that harvest and m are correct.
+#' This calculation provides a test of the internal consistency of the object.
+#'
+#' @param object an \code{FLStock} object
+#' @return \code{FLStock} object
+#'
+#' @seealso \code{\link{harvest}}
+#'
+#' @docType methods
+#' @examples
+#' data(ple4)
+#' test <- fwd(ple4)
+#' plot(FLStocks(PLE=ple4, TEST=test))
+
+setMethod("fwd", signature(object="FLStock", fishery="missing", control="missing"),
+  function(object) {
+
+    # DIMS
+    dm <- dim(object)
+
+    # EXTRACT slots
+    sn <- stock.n(object)
+    sm <- m(object)
+    sf <- harvest(object)
+
+    # PLUSGROUP
+    pg <- sn[dm[1],,, dm[4]] * exp(-sf[dm[1],,, dm[4]] - sm[dm[1],,, dm[4]])
+ 
+    # LOOP over years
+    for (i in seq(dm[2] - 1)) {
+      # and seasons
+      for (j in seq(dm[4])) {
+        # IF not last season
+        if (j != dm[4]) {
+          sn[, i,, j+1] <- sn[, i,, j] * exp(-sf[,i,,j] - sm[,i,,j])
+        # IF last season
+        } else {
+          sn[-1, i+1,, 1] <- sn[-dm[1], i,, j] * exp(-sf[-dm[1], i,, j] - 
+            sm[-dm[1], i,, j])
+          sn[dm[1], i+1,, 1] <- sn[dm[1], i+1,, 1] + pg[, i,, 1]
+        }
+      }
+    }
+
+  stock.n(object) <- sn
+  
+  catch.n(object) <- sn * sf / (sm + sf) * (1 - exp(-sf - sm))
+  landings.n(object)[is.na(landings.n(object))] <- 0
+  discards.n(object)[is.na(discards.n(object))] <- 0
+  
+  landings.n(object) <- catch.n(object) * discards.n(object) / 
+    (discards.n(object) + landings.n(object))
+
+  discards.n(object) <- catch.n(object) - landings.n(object)
+  
+  catch(object) <- computeCatch(object,"all")  
+
+  return(object)
   }
 ) # }}}
