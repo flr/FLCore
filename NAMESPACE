@@ -205,7 +205,6 @@ exportClasses(
   "predictModel")
 
 exportMethods(
-  "iter",
   "$",
   "$<-",
   "+",
@@ -218,6 +217,7 @@ exportMethods(
   "[",
   "[<-",
   "ab",
+  "adjust",
   "AIC",
   "apply",
   "append",
