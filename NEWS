@@ -24,6 +24,8 @@
   two FLQuants objects, and for dividing each of an FLQuants by each of an FLPars
   of the same length.
 - fwdWindow(FLStock) method to extend with same syntax as for other classes.
+- fwd(FLStock) method projects forward from iniial timestep to reconstruct
+  abundances from F and M.
 
  FLCore 2.6.15
 
