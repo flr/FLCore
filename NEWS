@@ -10,6 +10,7 @@
 - computeCatch(FLStock) propagates slots if not matching. Logical subsetting
   fails otherwise.
 - runstest made safer.
+- vb(FLStock) now uses directly catch.sel().
 
  USER-VISIBLE CHANGES
 
