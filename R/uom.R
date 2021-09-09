@@ -44,7 +44,7 @@ uoms <- c(
 	'10^0', '10^1', '10^2', '10^3', '10^4', '10^5', '10^6', '10^7', '10^8', '10^9',
 	'1e0', '1e1', '1e2', '1e3', '1e4', '1e5', '1e6', '1e7', '1e8', '1e9',
 	'1e+00', '1e+01', '1e+02', '1e+03', '1e+04', '1e+05', '1e+06', '1e+07', '1e+08', '1e+09',
-	'kg', 't', '1000 t', 'tonnes', 'thousands', 'm', 'f', 'z', 'hr', 'NA', '',
+	'g', 'kg', 't', '1000 t', 'tonnes', 'thousands', 'm', 'f', 'z', 'hr', 'NA', '',
   'EUR', 'eur', '\u20AC', 'USD', 'usd', '\u0024',
   'd', 'h', 'vessel', 'boat', 'cm')
 puoms <- seq(length(uoms))
@@ -159,9 +159,16 @@ uomTable[c('/', '*'), puoms, nu] <- uoms
 # "" */ U = U
 uomTable[c('/', '*'), nu, puoms] <- uoms
 
+# g * 1000 = kg
+uomTable['*', 'g', c('1000', '1e3', '10^3')] <- 'kg'
+uomTable['*', c('1000', '1e3', '10^3'), 'g'] <- 'kg'
+
 # kg * 1000 = t
 uomTable['*', 'kg', c('1000', '1e3', '10^3')] <- 't'
 uomTable['*', c('1000', '1e3', '10^3'), 'kg'] <- 't'
+
+# kg / 1000 = g
+uomTable['/', 'kg', c('1000', '1e3', '10^3')] <- 'g'
 
 # t / 1000 = kg
 uomTable['/', 't', c('1000', '1e3', '10^3')] <- 'kg'
@@ -210,6 +217,10 @@ uomTable['*', c('10', '1e1', '10^1', '1e+01'), 't'] <- 't * 10'
 uomTable['/', '1000 t', c('1000', '1e3', '10^3', '1e+03')] <- 't'
 uomTable['/', '1000 t', c('1000000', '1e6', '10^6', '1e+06')] <- 'kg'
 
+# tonnes / 1000 = kg
+uomTable['/', 'tonnes', c('1000', '1e3', '10^3', '1e+03', 'thousands')] <- 'kg'
+uomTable['/', 'tonnes', c('1000', '1e3', '10^3', '1e+03', 'thousands')] <- 'kg'
+	
 # U */ "" = U
 uomTable[c('*','/'), nu, nums] <- rep(rep(uoms[snums], each=2), nn)
 uomTable[c('*','/'), nums, nu] <- rep(rep(uoms[snums], each=2), nn)
@@ -255,11 +266,6 @@ uomTable['/', 'thousands', 'thousands'] <- ''
 uomTable['*', 'thousands', 'kg'] <- 'tonnes'
 uomTable['*', 'kg', 'thousands'] <- 'tonnes'
 
-# tonnes / 1000 = kg
-uomTable['/', 'tonnes', c('1000', '1e3', '10^3', '1e+03', 'thousands')] <- 'kg'
-uomTable['/', 'tonnes', c('1000', '1e3', '10^3', '1e+03', 'thousands')] <- 'kg'
-
-	
 # }}}
 
 # uom {{{
