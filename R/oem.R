@@ -111,12 +111,12 @@ setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
 #' survey(ple4, ple4.index)
 
 setMethod("survey",   signature(object="FLStock", index="FLIndex"),
-  function(object, index, mass = FALSE,
+  function(object, index, sel=sel.pattern(index), mass = FALSE,
     timing = mean(range(index, c("startf", "endf"))),
     index.q = index@index.q) {
-
+    
     # GET abundance
-    abnd <- survey(object, sel=sel.pattern(index), timing=timing, mass=mass)
+    abnd <- survey(object, sel=sel, timing=timing, mass=mass)
 
     # APPLY Q
     res <- abnd %*% index.q
