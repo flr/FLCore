@@ -24,6 +24,7 @@ survey(object, index, ...)
 \S4method{survey}{FLStock,FLIndex}(
   object,
   index,
+  sel = sel.pattern(index),
   mass = FALSE,
   timing = mean(range(index, c("startf", "endf"))),
   index.q = index@index.q
@@ -88,8 +89,7 @@ plot(FLQuants(om=stock(ple4), survey=quantSums(survey(ple4) * stock.wt(ple4)),
 }
 data(ple4)
 data(ple4.index)
-#
-survey(ple4, ple4.index)
+# survey(ple4, ple4.index)
 
 }
 \seealso{
