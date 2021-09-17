@@ -90,12 +90,13 @@ setAs('FLPars', 'data.frame',
   {
     dfs <- lapply(from, as, "data.frame")
     dfs <- lapply(names(dfs), function(x) cbind(dfs[[x]], data.frame(qname=x)))
+    dfs <- do.call(rbind, dfs)
 
-    return(do.call(rbind, dfs))
+    dfs$qname <- factor(dfs$qname, levels=names(from))
+
+    return(dfs)
   }
 )
-
-
 # }}}
 
 # TO FLQuant {{{

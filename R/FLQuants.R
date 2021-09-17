@@ -122,9 +122,9 @@ setMethod("mcf", signature(object="list"), function(object){
 
 # as.data.frame	{{{
 setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="missing"),
-  function(x, row.names, drop=FALSE, qname="qname", ...)
-	{
-		# names
+  function(x, row.names, drop=FALSE, qname="qname", ...) {
+		
+    # names
 		if(is.null(names(x)))
 			flqnames <- paste("v", 1:length(x), sep="")
 		else if(any(is.na(names(x))))
