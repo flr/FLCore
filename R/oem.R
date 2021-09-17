@@ -107,8 +107,7 @@ setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
 #' @examples
 #' data(ple4)
 #' data(ple4.index)
-#' #
-#' survey(ple4, ple4.index)
+#' # survey(ple4, ple4.index)
 
 setMethod("survey",   signature(object="FLStock", index="FLIndex"),
   function(object, index, sel=sel.pattern(index), mass = FALSE,
