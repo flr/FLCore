@@ -139,7 +139,8 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     # CHECK for ages
     
     # GET abundance
-    abnd <- survey(object[ages, ], sel=sel[ages, ], timing=timing, mass=TRUE)
+    abnd <- survey(object[ages, ], sel=sel[ages, ], timing=timing, mass=TRUE,
+      biomass=TRUE)
 
     # APPLY Q
     res <- quantSums(abnd) %*% index.q
@@ -151,7 +152,7 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
 
 setMethod("survey",   signature(object="FLStock", index="missing"),
   function(object, sel=stock.n(object) %=% 1, ages=dimnames(sel)$age,
-    timing = 0.5, mass = FALSE) {
+    timing = 0.5, mass = FALSE, biomass=FALSE) {
 
     # timing MUST BE 0 - 1
     timing <- pmax(pmin(timing, 1.0), 0.0)
@@ -173,7 +174,9 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
     res <- res[ages,]
   
     if (mass)
-      return(unitSums(res * stock.wt(object)[, yrs]))
+      res <- unitSums(res * stock.wt(object)[, yrs])
+    if(biomass)
+      res <- quantSums(res)
 
     return(unitSums(res))
   }
