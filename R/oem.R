@@ -173,8 +173,11 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
     # SELECT ages
     res <- res[ages,]
   
+    # CONVERT to mass
     if (mass)
       res <- unitSums(res * stock.wt(object)[, yrs])
+
+    # AGGREGATE
     if(biomass)
       res <- quantSums(res)
 
