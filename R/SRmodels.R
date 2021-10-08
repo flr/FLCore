@@ -585,21 +585,28 @@ setMethod('spr0', signature(ssb='FLQuant', rec='FLQuant', fbar='FLQuant'),
     maxyear <- min(unlist(lapply(list(fbar=fbar, ssb=ssb, rec=rec),
       function(x) max(as.numeric(dimnames(x)$year)))))
 
-    # ssb & f
-    ssb  <- ssb[1, as.character(seq(minyear, maxyear)), drop=TRUE]
-    rec  <- rec[1, as.character(seq(minyear, maxyear)), drop=TRUE]
-    fbar <- fbar[1, as.character(seq(minyear, maxyear)), drop=TRUE]
+    its <- max(c(dim(ssb)[6], dim(rec)[6], dim(fbar)[6]))
 
-    # spr0
-    spr0 <- lm(c(ssb/rec)~c(fbar))$coefficients[1]
-    names(spr0) <- "spr0"
+    spr0 <- FLPar(NA, dimnames=list(params="spr0", iter=seq(its)))
+
+    # ssb & f
+    for(i in seq(dim(ssb)[6])) {
+      ss  <- iter(ssb, i)[1, as.character(seq(minyear, maxyear)), drop=TRUE]
+      re  <- iter(rec, i)[1, as.character(seq(minyear, maxyear)), drop=TRUE]
+      fb <- iter(fbar, i)[1, as.character(seq(minyear, maxyear)), drop=TRUE]
+
+      # spr0
+      spr0["spr0", i] <- lm(c(ss/re)~c(fb))$coefficients[1]
+    }
 
     return(spr0)
   }
 )
 
 setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
-  function(ssb, nyears=3) {
+ function(ssb, nyears=3) {
+
+   return(spr0(ssb(ssb), rec(ssb), fbar(ssb)))
     
     ssb <- window(ssb, start=dims(ssb)$maxyear - nyears + 1)
 
@@ -615,8 +622,8 @@ setMethod('spr0', signature(ssb='FLStock', rec='missing', fbar='missing'),
 
     # ADD with plusgroup
     npr0[nages] = npr0[nages] / (1 - exp(-mean(m(ssb)[nages, ])))
-
-    return(sum(npr0 * exp(-(apply(m(ssb), 1, mean) * apply(m.spwn(ssb), 1, mean))) *
+    
+    return(quantSums(npr0 * exp(-(apply(m(ssb), 1, mean) * apply(m.spwn(ssb), 1, mean))) *
   apply(stock.wt(ssb),1,mean) * apply(mat(ssb),1,mean)))
   }
 )

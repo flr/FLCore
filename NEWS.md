@@ -1,3 +1,21 @@
+# FLCore 2.6.17
+
+## BUG FIXES
+
+- qname in data.frame from FLPars is now a factor to not brake geom_flpar.  
+- sel as argument in survey(FLStock, FLIndex).
+- vb(FLStock) now uses directly catch.sel().
+- segreg simplified to play better with plots.
+
+## USER-VISIBLE CHANGES
+
+- Added g (gram) as recognized uom
+- Added uoms operations for g (gram).
+- New fwd(FLStock) method projects from first year's N for F and M.
+- Renamed fwd(FLStock) as adjust.
+- Reformulated survey() methods, now works for both FLIndex and FLIndexBiomass.
+- oem(biomass=TRUE) returns an aggregated index ib biomass.
+
 # FLCore 2.6.16
 
 ## BUG FIXES

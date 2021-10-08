@@ -897,11 +897,11 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
   function(x) {
  
     # DEBUG   
-    har <- harvest(x)
-    minx <- apply(har, 2:6, min)
-    maxx <- apply(har, 2:6, max)
-    vn <- stock.n(x) * ((har %-% minx) %/% (maxx-minx))
-    vb <- quantSums(vn * stock.wt(x))
+#    har <- harvest(x)
+#    minx <- apply(har, 2:6, min)
+#    maxx <- apply(har, 2:6, max)
+#    vn <- stock.n(x) * ((har %-% minx) %/% (maxx-minx))
+#    vb <- quantSums(vn * stock.wt(x))
 
     vb <- quantSums(stock.n(x) * stock.wt(x) * catch.sel(x))
     units(vb) <- units(stock(x))

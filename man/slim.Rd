@@ -28,7 +28,6 @@ The test for whether an slot can be slimmed is based on checking if the sum
 of the variance along the 6th dimensions is equal to zero.
 }
 \examples{
-
 data(ple4)
 # Extend all of ple4 to 50 iters
 ple4 <- propagate(ple4, 50)

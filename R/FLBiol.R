@@ -747,7 +747,7 @@ setMethod("ssb", signature(object="FLBiol"),
     # NO catch data
     if(length(args) == 0) {
       res <- quantSums(n(object) * wt(object) * mat(object) %*%
-        exp(-spwn(object) %*%    m(object)), na.rm=FALSE)
+        exp(-spwn(object) %*% m(object)), na.rm=FALSE)
     } else {
       res <- switch(names(args),
         # catch.n

@@ -663,7 +663,6 @@ setMethod("metrics", signature(object="FLComp", metrics="formula"),
 
 #' @rdname slim
 #' @examples
-#'
 #' data(ple4)
 #' # Extend all of ple4 to 50 iters
 #' ple4 <- propagate(ple4, 50)
