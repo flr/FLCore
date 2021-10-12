@@ -458,7 +458,7 @@ setMethod("mase", signature(ref="FLIndices", preds="list"),
 #' plot(devs)
 
 ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
-  bias.correct=TRUE) {
+  bias.correct=TRUE, ...) {
 
   # DIMs
 	n <- length(years)
@@ -481,7 +481,7 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 	})
 
 	return(FLQuant(array(res, dim=c(1,n,1,1,1,iters)),
-		dimnames=list(year=years, iter=seq(1, iters))))
+		dimnames=list(year=years, iter=seq(1, iters), ...)))
 }
 # }}}
 
