@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Method sweep for FLCore classes — sweep,FLArray-method • FLCore</title>
+<title>Compute the inter-annual variability of a time series — iav • FLCore</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Method sweep for FLCore classes — sweep,FLArray-method" />
-<meta property="og:description" content="Use R's sweep method on FLCore classes" />
+<meta property="og:title" content="Compute the inter-annual variability of a time series — iav" />
+<meta property="og:description" content="The inter-annual variability of a time series stored in an FLQuant object,
+is computed as \(|x_y - x_{y-1}) / x_{y-1}|\). The resulting object will
+be one year shorter than the input. The first year will be missing as values
+are assigned to the final year of each pair." />
 
 
 
@@ -112,56 +115,64 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Method sweep for FLCore classes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/FLArray.R'><code>R/FLArray.R</code></a>, <a href='https://github.com/flr/FLCore/blob/master/R/FLPar.R'><code>R/FLPar.R</code></a></small>
-    <div class="hidden name"><code>sweep-methods.Rd</code></div>
+    <h1>Compute the inter-annual variability of a time series</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/FLQuant.R'><code>R/FLQuant.R</code></a></small>
+    <div class="hidden name"><code>iav.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Use R's sweep method on FLCore classes</p>
+    <p>The inter-annual variability of a time series stored in an FLQuant object,
+is computed as \(|x_y - x_{y-1}) / x_{y-1}|\). The resulting object will
+be one year shorter than the input. The first year will be missing as values
+are assigned to the final year of each pair.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for FLArray</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>MARGIN</span>, <span class='va'>STATS</span>, FUN <span class='op'>=</span> <span class='st'>"-"</span>, check.margin <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S4 method for FLPar</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>MARGIN</span>, <span class='va'>STATS</span>, FUN <span class='op'>=</span> <span class='st'>"-"</span>, check.margin <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>iav</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>These methods call base R <code><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></code> method on **FLCore** classes and then ensure
-that the returned object is of same class.</p>
-    <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
-
-    <p>sweep(x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></p></div>
+    <p>An object of the same class as object.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>10</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span>
-<span class='co'># Get ratio of max value by year</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>flq</span>, <span class='fl'>2</span>, <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>flq</span>, <span class='fl'>2</span>, <span class='va'>max</span><span class='op'>)</span>, <span class='st'>"/"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
+<span class='co'># Compute inter-annual variability in catch</span>
+<span class='fu'>iav</span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; An object of class "FLQuant"
 #&gt; , , unit = unique, season = all, area = unique
 #&gt; 
 #&gt;      year
-#&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;     1 0.562479 1.000000 1.000000 0.485132 0.331780 1.000000 0.313568 0.391928
-#&gt;     2 1.000000 0.520903 0.268488 1.000000 1.000000 0.137016 1.000000 0.766118
-#&gt;     3 0.387160 0.914085 0.067462 0.928273 0.097139 0.046744 0.422703 1.000000
+#&gt; age   1958      1959      1960      1961      1962      1963      1964     
+#&gt;   all 0.1330372 0.1847259 0.1215789 0.0132751 0.0564642 0.1150058 0.0477615
 #&gt;      year
-#&gt; quant 9        10      
-#&gt;     1 1.000000 1.000000
-#&gt;     2 0.444913 0.313297
-#&gt;     3 0.750168 0.604475
+#&gt; age   1965      1966      1967      1968      1969      1970      1971     
+#&gt;   all 0.0262144 0.0717180 0.0480213 0.0301291 0.0243120 0.0653893 0.0337214
+#&gt;      year
+#&gt; age   1972      1973      1974      1975      1976      1977      1978     
+#&gt;   all 0.0578063 0.0142249 0.0427618 0.0468241 0.0634222 0.0570740 0.0743023
+#&gt;      year
+#&gt; age   1979      1980      1981      1982      1983      1984      1985     
+#&gt;   all 0.0309460 0.0697257 0.0010639 0.0430649 0.1049299 0.0735235 0.0823874
+#&gt;      year
+#&gt; age   1986      1987      1988      1989      1990      1991      1992     
+#&gt;   all 0.1301530 0.1047575 0.0219299 0.0736247 0.1418697 0.1293683 0.1168393
+#&gt;      year
+#&gt; age   1993      1994      1995      1996      1997      1998      1999     
+#&gt;   all 0.0680792 0.1577328 0.1231082 0.0068560 0.1554476 0.1251388 0.0033755
+#&gt;      year
+#&gt; age   2000      2001      2002      2003      2004      2005      2006     
+#&gt;   all 0.1445205 0.1225443 0.1225586 0.0710821 0.0907169 0.1821103 0.0234528
+#&gt;      year
+#&gt; age   2007      2008      2009      2010      2011      2012      2013     
+#&gt;   all 0.0634175 0.0823385 0.0203357 0.0269798 0.0075226 0.1015176 0.0696424
+#&gt;      year
+#&gt; age   2014      2015      2016      2017     
+#&gt;   all 0.0092539 0.0172577 0.0445777 0.0479687
 #&gt; 
-#&gt; units:  kg </div></pre>
+#&gt; units:   </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

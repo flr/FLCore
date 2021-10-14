@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Method sweep for FLCore classes — sweep,FLArray-method • FLCore</title>
+<title>Generates a time series of possible bias-corrected lognormal autocorrelated random values — ar1rlnorm • FLCore</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Method sweep for FLCore classes — sweep,FLArray-method" />
-<meta property="og:description" content="Use R's sweep method on FLCore classes" />
+<meta property="og:title" content="Generates a time series of possible bias-corrected lognormal autocorrelated random values — ar1rlnorm" />
+<meta property="og:description" content="Thorston, 2020." />
 
 
 
@@ -112,56 +112,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Method sweep for FLCore classes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/FLArray.R'><code>R/FLArray.R</code></a>, <a href='https://github.com/flr/FLCore/blob/master/R/FLPar.R'><code>R/FLPar.R</code></a></small>
-    <div class="hidden name"><code>sweep-methods.Rd</code></div>
+    <h1>Generates a time series of possible bias-corrected lognormal autocorrelated random values</h1>
+    <small class="dont-index">Source: <a href='https://github.com/flr/FLCore/blob/master/R/oem.R'><code>R/oem.R</code></a></small>
+    <div class="hidden name"><code>ar1rlnorm.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Use R's sweep method on FLCore classes</p>
+    <p>Thorston, 2020.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for FLArray</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>MARGIN</span>, <span class='va'>STATS</span>, FUN <span class='op'>=</span> <span class='st'>"-"</span>, check.margin <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>ar1rlnorm</span><span class='op'>(</span><span class='va'>rho</span>, <span class='va'>years</span>, iters <span class='op'>=</span> <span class='fl'>1</span>, meanlog <span class='op'>=</span> <span class='fl'>0</span>, sdlog <span class='op'>=</span> <span class='fl'>1</span>, bias.correct <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
-<span class='co'># S4 method for FLPar</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>MARGIN</span>, <span class='va'>STATS</span>, FUN <span class='op'>=</span> <span class='st'>"-"</span>, check.margin <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>rho</th>
+      <td><p>Autocorrelation coefficient.</p></td>
+    </tr>
+    <tr>
+      <th>years</th>
+      <td><p>Vector of year names.</p></td>
+    </tr>
+    <tr>
+      <th>iters</th>
+      <td><p>Number of iterations.</p></td>
+    </tr>
+    <tr>
+      <th>meanlog</th>
+      <td><p>Mean of the series in log space.</p></td>
+    </tr>
+    <tr>
+      <th>sdlog</th>
+      <td><p>Marginal standard deviation in log space.</p></td>
+    </tr>
+    <tr>
+      <th>bias.correct</th>
+      <td><p>Should bias-correction be applied? Defaults to TRUE.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>An FLQuant object</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>These methods call base R <code><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></code> method on **FLCore** classes and then ensure
-that the returned object is of same class.</p>
-    <h2 class="hasAnchor" id="generic-function"><a class="anchor" href="#generic-function"></a>Generic function</h2>
-
-    <p>sweep(x, MARGIN, STATS, FUN = "-", check.margin = TRUE, ...)</p>
+    <p>Thorson, J. T. Predicting recruitment density dependence and intrinsic growth rate for all fishes worldwide using a data-integrated life-history model. Fish Fish. 2020; 21: 237– 251. https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></p></div>
+    <div class='dont-index'><p><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>The FLR Team</p>
+    <p>Iago Mosqueira (WMR), Henning Winker (JRC).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>10</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span>
-<span class='co'># Get ratio of max value by year</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sweep.html'>sweep</a></span><span class='op'>(</span><span class='va'>flq</span>, <span class='fl'>2</span>, <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>flq</span>, <span class='fl'>2</span>, <span class='va'>max</span><span class='op'>)</span>, <span class='st'>"/"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;     1 0.562479 1.000000 1.000000 0.485132 0.331780 1.000000 0.313568 0.391928
-#&gt;     2 1.000000 0.520903 0.268488 1.000000 1.000000 0.137016 1.000000 0.766118
-#&gt;     3 0.387160 0.914085 0.067462 0.928273 0.097139 0.046744 0.422703 1.000000
-#&gt;      year
-#&gt; quant 9        10      
-#&gt;     1 1.000000 1.000000
-#&gt;     2 0.444913 0.313297
-#&gt;     3 0.750168 0.604475
-#&gt; 
-#&gt; units:  kg </div></pre>
+    <pre class="examples"><div class='input'><span class='va'>devs</span> <span class='op'>&lt;-</span> <span class='fu'>ar1rlnorm</span><span class='op'>(</span>rho<span class='op'>=</span><span class='fl'>0.6</span>, years<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2030</span>, iter<span class='op'>=</span><span class='fl'>500</span>, meanlog<span class='op'>=</span><span class='fl'>0</span>, sdlog<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='plot.html'>plot</a></span><span class='op'>(</span><span class='va'>devs</span><span class='op'>)</span>
+</div><div class='img'><img src='ar1rlnorm-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

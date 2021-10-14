@@ -73,7 +73,7 @@ are provided in FLCore." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
       </span>
     </div>
 
@@ -308,20 +308,20 @@ Explor. Mer 40, 67-75.</p>
 </div><div class='output co'>#&gt; $logl
 #&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;bytecode: 0x56314c4be6d8&gt;
-#&gt; &lt;environment: 0x563156b20fe0&gt;
+#&gt; &lt;bytecode: 0x55791be22ae0&gt;
+#&gt; &lt;environment: 0x557925739378&gt;
 #&gt; 
 #&gt; $model
 #&gt; rec ~ a * ssb/(b + ssb)
-#&gt; &lt;environment: 0x563156b20fe0&gt;
+#&gt; &lt;environment: 0x557925739378&gt;
 #&gt; 
 #&gt; $initial
 #&gt; function(rec, ssb) {
 #&gt;     a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))
 #&gt;     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #&gt;     return(FLPar(a = a, b = a/b))}
-#&gt; &lt;bytecode: 0x56314c4a8a50&gt;
-#&gt; &lt;environment: 0x563156b20fe0&gt;
+#&gt; &lt;bytecode: 0x55791be18db8&gt;
+#&gt; &lt;environment: 0x557925739378&gt;
 #&gt; attr(,"lower")
 #&gt; [1] -Inf -Inf
 #&gt; attr(,"upper")
@@ -330,8 +330,8 @@ Explor. Mer 40, 67-75.</p>
 </div><div class='output co'>#&gt; [1] "logl"    "model"   "initial"</div><div class='input'>  <span class='fu'>bevholt</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>logl</span>
 </div><div class='output co'>#&gt; function(a, b, rec, ssb)
 #&gt;       loglAR1(log(rec), log(a*ssb/(b+ssb)))
-#&gt; &lt;bytecode: 0x56314c4be6d8&gt;
-#&gt; &lt;environment: 0x5631569d3070&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x55791be22ae0&gt;
+#&gt; &lt;environment: 0x557925607228&gt;</div><div class='input'>
 <span class='co'># once an FLSR model is in the workspace ...</span>
   <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span>
 
