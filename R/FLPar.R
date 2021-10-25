@@ -695,7 +695,7 @@ setMethod('rbind2', signature(x='FLPar', y='FLPar'),
       stop("FLPar object to rbind must share number of dimensions")
 
     # CHECK all have same dim[-1]
-    dms <- apply(matrix(unlist(dimar), nrow=length(args)), 1,
+    dms <- apply(matrix(unlist(dimar), byrow=TRUE, nrow=length(args)), 2,
       function(x) length(unique(x)))
     if(any(dms[-1] != 1))
       stop("FLPar object to rbind must share number of dimensions except params")
