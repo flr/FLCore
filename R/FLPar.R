@@ -705,11 +705,11 @@ setMethod('rbind2', signature(x='FLPar', y='FLPar'),
        stop("Names of dimnames must match")
 
     # CHECK dimnames[-c(1, iter)] match
-    onms <- lapply(dnms, `[`, -c(1, length(dimar[[1]])))
-    for(i in names(onms[[1]])) {
-      if(length(unique(unlist(lapply(onms, `[[`, i)))) > 1)
-        stop(paste0("dimnames across objects must match for dimension '", i, "'"))
-    }
+    #onms <- lapply(dnms, `[`, -c(1, length(dimar[[1]])))
+    #for(i in names(onms[[1]])) {
+    #  if(length(unique(unlist(lapply(onms, `[[`, i)))) > 1)
+    #    stop(paste0("dimnames across objects must match for dimension '", i, "'"))
+    #}
 
     # params names
     nargs <- lapply(lapply(args, dimnames), `[`, 1)
