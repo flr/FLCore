@@ -704,6 +704,7 @@ setMethod('rbind2', signature(x='FLPar', y='FLPar'),
     if(!all.equal(Reduce(intersect, lapply(dnms, names)), names(dnms[[1]])))
        stop("Names of dimnames must match")
 
+    # TODO
     # CHECK dimnames[-c(1, iter)] match
     #onms <- lapply(dnms, `[`, -c(1, length(dimar[[1]])))
     #for(i in names(onms[[1]])) {
@@ -723,8 +724,13 @@ setMethod('rbind2', signature(x='FLPar', y='FLPar'),
 
     # dimnames
     dimnames(res) <- c(list(params=unlist(nargs, use.names=FALSE)), dimnames(x)[-1])
+
+    res <- FLPar(res, units=units(args[[1]]))
+
+    # keep names of x
+    names(res) <- names(x)
    
-    return(FLPar(res, units=units(args[[1]])))
+    return(res)
   }
 ) # }}}
 
