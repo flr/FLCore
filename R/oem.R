@@ -118,9 +118,9 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
     abnd <- survey(object, sel=sel, timing=timing, mass=mass)
 
     # APPLY Q
-    res <- abnd %*% index.q
+    index(index) <- abnd %*% index.q
 
-    return(res)
+    return(index)
 
   }
 )
@@ -143,9 +143,9 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
       biomass=TRUE)
 
     # APPLY Q
-    res <- quantSums(abnd) %*% index.q
+    index(index) <- quantSums(abnd) %*% index.q
 
-    return(res)
+    return(index)
 
   }
 )
