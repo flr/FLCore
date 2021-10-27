@@ -1,3 +1,11 @@
+ FLCore 2.6.18
+
+ BUG FIXES
+
+- survey(FLStock, FLIndex) returns full FLIndex object.
+- rbind(FLPar, FLPar) will keep dimnames' names to those of first element, e.g.
+  'refpts'
+
  FLCore 2.6.17
 
  BUG FIXES
