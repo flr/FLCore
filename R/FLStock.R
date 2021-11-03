@@ -925,15 +925,73 @@ setMethod("vb", signature(x="FLStock", sel="FLQuant"),
 
 # simplify {{{
 
-# noseason {{{
+# nounit {{{
 
-noseason <- function(stock) {
+nounit <- function(stock) {
 
   old <- stock
 
-  # Q1: n, mat, spwn, swt
+  stock <- stock[,,1]
+  dimnames(stock) <- list(unit="unique")
+
+  # sum: *.n
+
+  stock.n(stock) <- unitSums(stock.n(old))
+  catch.n(stock) <- unitSums(catch.n(old))
+  landings.n(stock) <- unitSums(landings.n(old))
+  discards.n(stock) <- unitSums(discards.n(old))
+
+  # weighted mean: *.wt, m
+  
+  stock.wt(stock) <- unitSums(stock.wt(old) * stock.n(old)) / unitSums(stock.n(old))
+  stock.wt(stock)[is.na(stock.wt(stock))] <- unitMeans(stock.wt(old))[is.na(stock.wt(stock))]
+
+  catch.wt(stock) <- unitSums(catch.wt(old) * catch.n(old)) / unitSums(catch.n(old))
+  catch.wt(stock)[is.na(catch.wt(stock))] <- unitMeans(catch.wt(old))[is.na(catch.wt(stock))]
+
+  landings.wt(stock) <- unitSums(landings.wt(old) * landings.n(old)) /
+    unitSums(landings.n(old))
+  landings.wt(stock)[is.na(landings.wt(stock))] <- unitMeans(landings.wt(old))[is.na(landings.wt(stock))]
+
+  discards.wt(stock) <- unitSums(discards.wt(old) * discards.n(old)) /
+    unitSums(discards.n(old))
+  discards.wt(stock)[is.na(discards.wt(stock))] <- unitMeans(discards.wt(old))[is.na(discards.wt(stock))]
+
+  m(stock) <- unitSums(m(old) * stock.n(old)) /
+    unitSums(stock.n(old))
+  m(stock)[is.na(m(stock))] <- unitMeans(m(old))[is.na(m(stock))]
+
+  # COMPUTE
+
+  catch(stock) <- computeCatch(stock)
+  landings(stock) <- computeLandings(stock)
+  discards(stock) <- computeDiscards(stock)
+  stock(stock) <- computeStock(stock)
+
+  harvest(stock) <- harvest(stock.n(stock), catch.n(stock), m(stock))
+  harvest(stock)[catch.n(stock) == 0] <- 0
+
+  return(stock)
+}
+
+# }}}
+
+# noseason {{{
+
+noseason <- function(stock, spwn.season=1) {
+
+  old <- stock
+
+  # S1: n
   stock <- stock[,,,1]
   dimnames(stock) <- list(season="all")
+  
+  # mat
+  mat(stock)[] <- mat(old)[,,,spwn.season]
+
+  # spwn
+  m.spwn(stock)[] <- ((spwn.season - 1) / dim(old)[4])
+  harvest.spwn(stock) <- m.spwn(stock)
   
   # means: wt
   catch.wt(stock) <- seasonMeans(catch.wt(old))
@@ -958,57 +1016,6 @@ noseason <- function(stock) {
 
 }
  # }}}
-
-# nounit {{{
-
-nounit <- function(stock) {
-
-  old <- stock
-
-  stock <- stock[,,1]
-  dimnames(stock) <- list(unit="unique")
-
-  # sum: *.n
-
-  stock.n(stock) <- unitSums(stock.n(old))
-  catch.n(stock) <- unitSums(catch.n(old))
-  landings.n(stock) <- unitSums(landings.n(old))
-  discards.n(stock) <- unitSums(discards.n(old))
-
-  # weighted mean: *.wt, m
-  
-  stock.wt(stock) <- unitSums(stock.wt(old) * stock.n(old)) / unitSums(stock.n(old))
-  stock.wt(stock)[is.na(stock.wt(stock))] <- unitMeans(stock.wt(old))
-
-  catch.wt(stock) <- unitSums(catch.wt(old) * catch.n(old)) / unitSums(catch.n(old))
-  catch.wt(stock)[is.na(catch.wt(stock))] <- unitMeans(catch.wt(old))
-
-  landings.wt(stock) <- unitSums(landings.wt(old) * landings.n(old)) /
-    unitSums(landings.n(old))
-  landings.wt(stock)[is.na(landings.wt(stock))] <- unitMeans(landings.wt(old))
-
-  discards.wt(stock) <- unitSums(discards.wt(old) * discards.n(old)) /
-    unitSums(discards.n(old))
-  discards.wt(stock)[is.na(discards.wt(stock))] <- unitMeans(discards.wt(old))
-
-  m(stock) <- unitSums(m(old) * stock.n(old)) /
-    unitSums(stock.n(old))
-  m(stock)[is.na(m(stock))] <- unitMeans(m(old))
-
-  # COMPUTE
-
-  catch(stock) <- computeCatch(stock)
-  landings(stock) <- computeLandings(stock)
-  discards(stock) <- computeDiscards(stock)
-  stock(stock) <- computeStock(stock)
-
-  harvest(stock) <- harvest(stock.n(stock), catch.n(stock), m(stock))
-  harvest(stock)[catch.n(stock) == 0] <- 0
-
-  return(stock)
-}
-
-# }}}
 
 # noarea {{{
 
@@ -1061,123 +1068,34 @@ noarea <- function(stock) {
 
 # }}}
 
-
 #' @rdname simplify
 #' @aliases simplify,FLStock-method
 
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
-    spwn.season=1, stock.season=1, calcF=TRUE) {
-    
-    
-    # DIMS to operate on, inverse of dims
-    dms <- seq(1,6)[-(match(dims, c("unit", "season", "area")) + 2)]
-  	dmns <- list(season="all", unit="unique", area="unique")[dims]
+    spwn.season=1) {
 
-    last.season <- dims(object)$season
- 
-    # operate along dms
-    foo <- function(x, dims=dms, FUN=sum) {
-      return(apply(x, dims, function(x){
-      z <- x[!is.na(x)]; ifelse(length(z), FUN(z, na.rm=TRUE), NA)}))
-    }
+  old <- object
 
-    # SUMS for catch.n, landings.n and discards.n
-    can <- foo(catch.n(object), dims=dms)
-    lan <- foo(landings.n(object), dims=dms)
-    din <- foo(discards.n(object), dims=dms)
+  # ORDER: season(unit(area))
+  if(any(c("area", 5) %in% dims))
+    object <- noarea(object)
 
-    if("season" %in% dims) {
-      
-      # GET stock.n at stock.season
-    	stn <- foo(stock.n(object)[,,, stock.season], dims=dms)
-	    dimnames(stn) <- list(season="all")
-      
-      # TODO ADD mean weighted by abundance
-      cawt <- foo(catch.wt(object), dims=dms, FUN=mean)
-      lawt <- foo(landings.wt(object), dims=dms, FUN=mean)
-      diwt <- foo(discards.wt(object), dims=dms, FUN=mean)
-      stwt <- foo(stock.wt(object)[,,, stock.season], dims=dms, FUN=mean)
+  if(any(c("unit", 3) %in% dims))
+    object <- nounit(object)
 
-      mat <- seasonSums(mat(object)[,,,spwn.season])
+  if(any(c("season", 4) %in% dims))
+    object <- noseason(object)
 
-    } else {
+  # harvest  
+  har <- harvest(stock.n(object), catch.n(object), m(object))
 
-      # SUM stock.n
-      stn <- foo(stock.n(object))
-      
-      cawt <- foo(catch.wt(object), dims=dms, FUN=mean)
-      lawt <- foo(landings.wt(object), dims=dms, FUN=mean)
-      diwt <- foo(discards.wt(object), dims=dms, FUN=mean)
-      stwt <- foo(stock.wt(object), dims=dms, FUN=mean)
-    }
-    
-    # AVERAGE mat
-    if("unit" %in% dims & identical(dimnames(mat(object))$unit, c("F", "M"))) {
-      if("season" %in% dims) {
-        mat <- foo(mat(object)[,,'F', spwn.season], dims=dms, FUN=mean)
-      } else {
-      mat <- foo(mat(object)[,,'F'], dims=dms, FUN=mean)
-      }
-    }
+  harvest(object) <- har
 
-    # SET new dimnames
-    dimnames(cawt) <- dmns
-    dimnames(lawt) <- dmns
-    dimnames(diwt) <- dmns
-    dimnames(stwt) <- dmns
-    dimnames(mat) <- dmns
-  	
-    if("area" %in% dims)
-    	mat <- areaMeans(mat)
-  	
-    # M: weighted mean?
-    m <- m(object)
-    if("unit" %in% dims)
-      m <- unitMeans(m)
-    if("season" %in% dims)
-      m <- seasonSums(m)
-    if("area" %in% dims)
-      m <- areaMeans(m)
-    
-    dimnames(m) <- dmns
-  
-    # harvest  
-    har <- harvest(stn, can, m)
-    har[stn == 0] <- 0
-    har[can == 0] <- 0
-	
-    # harvest.spwn & m.spwn
-    harvest.spwn <- m.spwn <- m
-    units(harvest.spwn) <- units(m.spwn) <- ""
-    
-    # TODO CHECK all options
-    if("unit" %in% dims) {
-      harvest.spwn[] <- seasonSums(unitSums(catch(object)[,,,seq(1,spwn.season-1)])) %/%
-        seasonSums(unitSums(catch(object)))
-    } else if("season" %in% dims) {
-      harvest.spwn[] <- seasonSums(catch(object)[,,,seq(1,spwn.season-1)]) %/%
-        seasonSums(catch(object))
-    } else {
-      harvest.spwn <- areaMeans(harvest.spwn(object))
-    }
+  return(object)
 
-    m.spwn[] <- ((spwn.season - 1) / last.season)
-    harvest.spwn[] <- ((spwn.season - 1) / last.season)
-  
-    res <- FLStock(name=name(object), desc=desc(object), range=range(object),
-      catch.n=can, catch.wt=cawt, landings.n=lan, landings.wt=lawt,
-      discards.n=din, discards.wt=diwt, stock.n=stn, stock.wt=stwt,
-      mat=mat, m=m, m.spwn=m.spwn, harvest=har, harvest.spwn=harvest.spwn)
-
-    landings(res) <- computeLandings(res)
-    discards(res) <- computeDiscards(res)
-    catch(res) <- computeCatch(res)
-    stock(res) <- computeStock(res)
-
-    return(res)
-  } 
-) # }}}
+})
+# }}}
 
 # verify {{{
 
