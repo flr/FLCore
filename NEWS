@@ -1,3 +1,15 @@
+ FLCore 2.6.19
+
+ NEW FEATURES
+
+- New method for vb(FLBiol, sel=FLQuant)
+
+ BUG FIXES
+
+- simplify(FLStock) recoded in a simpler waym suppoorted by noseason/unit/area functions.
+- Ensure harvest(FLQuant) returns 0 when catch or n are 0.
+- Further improvements to simplify. nounit, noseason and noarea do nmot call harvest().
+
  FLCore 2.6.18
 
  BUG FIXES
