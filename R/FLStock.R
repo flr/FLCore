@@ -896,13 +896,6 @@ setMethod("dim", signature(x="FLStock"),
 setMethod("vb", signature(x="FLStock", sel="missing"),
   function(x) {
  
-    # DEBUG   
-#    har <- harvest(x)
-#    minx <- apply(har, 2:6, min)
-#    maxx <- apply(har, 2:6, max)
-#    vn <- stock.n(x) * ((har %-% minx) %/% (maxx-minx))
-#    vb <- quantSums(vn * stock.wt(x))
-
     vb <- quantSums(stock.n(x) * stock.wt(x) * catch.sel(x))
     units(vb) <- units(stock(x))
     
@@ -929,47 +922,44 @@ setMethod("vb", signature(x="FLStock", sel="FLQuant"),
 
 nounit <- function(stock) {
 
-  old <- stock
+  # DIMS
+  dis <- dim(stock)
+  nun <- dis[3]
+ 
+  # DIVISION vectors
+  div <- rep(rep(seq(dis[3]), each=prod(dis[1:2])), prod(dis[4:6]))
 
+  # CONVERT to vectors
+  dat <- qapply(stock, c)
+
+  # SUBSET and rename
   stock <- stock[,,1]
   dimnames(stock) <- list(unit="unique")
 
   # sum: *.n
-
-  stock.n(stock) <- unitSums(stock.n(old))
-  catch.n(stock) <- unitSums(catch.n(old))
-  landings.n(stock) <- unitSums(landings.n(old))
-  discards.n(stock) <- unitSums(discards.n(old))
+  stock.n(stock)[] <- Reduce('+', split(dat$stock.n, div))
+  catch.n(stock)[] <- Reduce('+', split(dat$catch.n, div))
+  landings.n(stock)[] <- Reduce('+', split(dat$landings.n, div))
+  discards.n(stock)[] <- Reduce('+', split(dat$discards.n, div))
 
   # weighted mean: *.wt, m
-  
-  stock.wt(stock) <- unitSums(stock.wt(old) * stock.n(old)) / unitSums(stock.n(old))
-  stock.wt(stock)[is.na(stock.wt(stock))] <- unitMeans(stock.wt(old))[is.na(stock.wt(stock))]
+  stock.wt(stock) <- Reduce('+', split(dat$stock.wt *
+    (dat$stock.n + 1e-8), div))  / (c(stock.n(stock)) + 1e-8 * nun)
+  catch.wt(stock) <- Reduce('+', split(dat$catch.wt *
+    (dat$catch.n + 1e-8), div))  / (c(catch.n(stock)) + 1e-8 * nun)
+  landings.wt(stock) <- Reduce('+', split(dat$landings.wt *
+    (dat$landings.n + 1e-8), div))  / (c(landings.n(stock)) + 1e-8 * nun)
+  discards.wt(stock) <- Reduce('+', split(dat$discards.wt *
+    (dat$discards.n + 1e-8), div))  / (c(discards.n(stock)) + 1e-8 * nun)
 
-  catch.wt(stock) <- unitSums(catch.wt(old) * catch.n(old)) / unitSums(catch.n(old))
-  catch.wt(stock)[is.na(catch.wt(stock))] <- unitMeans(catch.wt(old))[is.na(catch.wt(stock))]
-
-  landings.wt(stock) <- unitSums(landings.wt(old) * landings.n(old)) /
-    unitSums(landings.n(old))
-  landings.wt(stock)[is.na(landings.wt(stock))] <- unitMeans(landings.wt(old))[is.na(landings.wt(stock))]
-
-  discards.wt(stock) <- unitSums(discards.wt(old) * discards.n(old)) /
-    unitSums(discards.n(old))
-  discards.wt(stock)[is.na(discards.wt(stock))] <- unitMeans(discards.wt(old))[is.na(discards.wt(stock))]
-
-  m(stock) <- unitSums(m(old) * stock.n(old)) /
-    unitSums(stock.n(old))
-  m(stock)[is.na(m(stock))] <- unitMeans(m(old))[is.na(m(stock))]
-
+  m(stock) <- Reduce('+', split(dat$m * dat$stock.n, div)) / c(stock.n(stock))
+ 
   # COMPUTE
 
   catch(stock) <- computeCatch(stock)
   landings(stock) <- computeLandings(stock)
   discards(stock) <- computeDiscards(stock)
   stock(stock) <- computeStock(stock)
-
-  harvest(stock) <- harvest(stock.n(stock), catch.n(stock), m(stock))
-  harvest(stock)[catch.n(stock) == 0] <- 0
 
   return(stock)
 }
@@ -980,37 +970,44 @@ nounit <- function(stock) {
 
 noseason <- function(stock, spwn.season=1) {
 
-  old <- stock
+  # TODO SET default spwn.season
 
-  # S1: n
+  # DIMS
+  dis <- dim(stock)
+  nse <- dis[4]
+ 
+  # DIVISION vectors
+  div <- rep(rep(seq(dis[4]), each=prod(dis[1:3])), prod(dis[5:6]))
+
+  # CONVERT to vectors
+  dat <- qapply(stock, c)
+
+  # SUBSET and rename, n as in season 1
   stock <- stock[,,,1]
   dimnames(stock) <- list(season="all")
-  
+
   # mat
-  mat(stock)[] <- mat(old)[,,,spwn.season]
+  mat(stock)[] <- split(dat$mat, div)[[spwn.season]]
 
   # spwn
-  m.spwn(stock)[] <- ((spwn.season - 1) / dim(old)[4])
-  harvest.spwn(stock) <- m.spwn(stock)
+  harvest.spwn(stock)[] <- m.spwn(stock)[] <- ((spwn.season - 1) / nse)
   
   # means: wt
-  catch.wt(stock) <- seasonMeans(catch.wt(old))
-  landings.wt(stock) <- seasonMeans(landings.wt(old))
-  discards.wt(stock) <- seasonMeans(discards.wt(old))
+  stock.wt(stock) <- Reduce('+', split(dat$stock.wt, div)) / nse
+  catch.wt(stock) <- Reduce('+', split(dat$catch.wt, div)) / nse
+  landings.wt(stock) <- Reduce('+', split(dat$landings.wt, div)) / nse
+  discards.wt(stock) <- Reduce('+', split(dat$discards.wt, div)) / nse
   
   # sums: m, catch
-  m(stock) <- seasonSums(m(old))
-  catch.n(stock) <- seasonSums(catch.n(old))
-  discards.n(stock) <- seasonSums(discards.n(old))
-  landings.n(stock) <- seasonSums(landings.n(old))
+  m(stock) <- Reduce('+', split(dat$m, div))
+  catch.n(stock) <- Reduce('+', split(dat$catch.n, div))
+  landings.n(stock) <- Reduce('+', split(dat$landings.n, div))
+  discards.n(stock) <- Reduce('+', split(dat$discards.n, div))
   
   catch(stock) <- computeCatch(stock)
   landings(stock) <- computeLandings(stock)
   discards(stock) <- computeDiscards(stock)
   stock(stock) <- computeStock(stock)
-  
-  harvest(stock) <- harvest(stock.n(stock), catch.n(stock), m(stock))
-  harvest(stock)[catch.n(stock) == 0] <- 0
   
   return(stock)
 
@@ -1059,9 +1056,6 @@ noarea <- function(stock) {
   landings(stock) <- computeLandings(stock)
   discards(stock) <- computeDiscards(stock)
   stock(stock) <- computeStock(stock)
-
-  harvest(stock) <- harvest(stock.n(stock), catch.n(stock), m(stock))
-  harvest(stock)[catch.n(stock) == 0] <- 0
 
   return(stock)
 }
@@ -1621,3 +1615,39 @@ setMethod("adjust", signature(object="FLStock"),
   return(object)
   }
 ) # }}}
+
+# qapply		{{{
+setMethod('qapply', signature(X='FLStock', FUN='function'),
+	function(X, FUN, ..., exclude=missing, simplify=FALSE) {
+		
+    FUN <- match.fun(FUN)
+  
+    slots <- c("catch", "catch.n", "catch.wt", "discards", "discards.n",
+      "discards.wt", "landings", "landings.n", "landings.wt", "stock",
+      "stock.n", "stock.wt", "m",  "mat", "harvest", "harvest.spwn", "m.spwn")
+
+		if(!missing(exclude))
+      slots <- slots[!slots %in% exclude]
+
+    res <- setNames(as.list(slots), nm=slots)
+
+    for(i in seq(slots))
+      res[[i]] <- do.call(FUN, list(slot(X, slots[i]), ...))
+    # RETURN list if not FLQuant elements
+    if(is(res[[1]], "FLQuant")) {
+    
+      dims <- dims(res[[2]])
+      range <- c(min=dims$min, max=dims$max, plusgroup=min(dims$max, X@range['plusgroup']),
+		    minyear=dims$minyear, maxyear=dims$maxyear, minfbar=dims$min,
+        maxfbar=dims$max)
+
+      res <- do.call(new, c(res, list(Class="FLStock", name=X@name,
+        desc=X@desc, range=range)))
+    }
+
+    if(simplify)
+      res <- unlist(res)
+
+		return(res)
+	}
+)   # }}}
