@@ -14,9 +14,9 @@ setMethod('FLStock', signature(object='FLQuant'),
     args <- list(...)
 
     # empty object
-    # object <- iter(FLQuant(object), 1)
     object[] <- NA
     units(object) <- 'NA'
+    quant(object) <- 'age'
     qobject <- quantSums(object)
     dims <- dims(object)
 
@@ -416,6 +416,41 @@ setMethod("fbar", signature(object="FLStock"),
 	stop("Correct units (f or hr) not specified in the harvest slot")
 	}
 )	# }}}
+
+# mbar {{{
+
+#' Computes the mean natural mortality acros the fully selected ages
+#'
+#' Equivalent to the mean fishing mortality metric returned by 'fbar', 'mbar'
+#' calculates the mean natural mortality across the ages inside the range defined
+#' by 'minfbar' and 'maxfbar'.
+#'
+#' @param object An object of class 'FLStock'.
+#'
+#' @return An object of class 'FLQuant'.
+#'
+#' @author The FLR Team, proposal by H. Winker.
+#' @seealso \link{fbar}
+#' @examples
+#' data(ple4)
+#' mbar(ple4)
+
+mbar <- function(object, ...) {
+  
+  rng <- range(object)
+  
+  if (is.na(rng["minfbar"]))
+    rng["minfbar"] <- rng["min"]
+ 
+  if (is.na(rng["maxfbar"]))
+    rng["maxfbar"] <- rng["max"]
+
+  rng["minfbar"] <- max(rng["min"], min(rng["max"], rng["minfbar"]))
+  rng["maxfbar"] <- max(rng["min"], min(rng["max"], rng["maxfbar"]))
+
+  return(quantMeans(m(object)[as.character(rng["minfbar"]:rng["maxfbar"]),]))
+}	
+# }}}
 
 # sop	{{{
 sop <- function(stock, slot="catch") {
@@ -925,6 +960,10 @@ nounit <- function(stock) {
   # DIMS
   dis <- dim(stock)
   nun <- dis[3]
+
+  # END if no units
+  if(nun == 1)
+    return(stock)
  
   # DIVISION vectors
   div <- rep(rep(seq(dis[3]), each=prod(dis[1:2])), prod(dis[4:6]))
@@ -975,6 +1014,10 @@ noseason <- function(stock, spwn.season=1) {
   # DIMS
   dis <- dim(stock)
   nse <- dis[4]
+ 
+  # END if no seasons
+  if(nse == 1)
+    return(stock)
  
   # DIVISION vectors
   div <- rep(rep(seq(dis[4]), each=prod(dis[1:3])), prod(dis[5:6]))
@@ -1651,3 +1694,27 @@ setMethod('qapply', signature(X='FLStock', FUN='function'),
 		return(res)
 	}
 )   # }}}
+
+# summary {{{
+setMethod("summary", signature(object="FLStock"),
+	function(object, ...){
+
+    callNextMethod()
+
+    # Values
+    cat("Metrics: \n")
+
+    metrics <- c("rec", "ssb", "catch", "fbar")
+
+    for(i in metrics) {
+      met <- try(iterMedians(do.call(i, list(object))), silent=TRUE)
+      if(is(met, "FLQuant"))
+        cat(" ", paste0(i, ":"),
+          paste(format(range(met), trim=TRUE, digits=2), collapse=' - '),
+          paste0(" (", units(met), ")"),
+          "\n")
+      else
+        cat(" ", paste0(i, ": NA - NA (NA)\n"))
+    }
+  }
+) # }}}
