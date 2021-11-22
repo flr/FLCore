@@ -4,7 +4,15 @@
 \alias{ar1rlnorm}
 \title{Generates a time series of possible bias-corrected lognormal autocorrelated random values}
 \usage{
-ar1rlnorm(rho, years, iters = 1, meanlog = 0, sdlog = 1, bias.correct = TRUE)
+ar1rlnorm(
+  rho,
+  years,
+  iters = 1,
+  meanlog = 0,
+  sdlog = 1,
+  bias.correct = TRUE,
+  ...
+)
 }
 \arguments{
 \item{rho}{Autocorrelation coefficient.}

@@ -3,12 +3,17 @@
  NEW FEATURES
 
 - New method for vb(FLBiol, sel=FLQuant)
+- mbar(FLStock) returns the mean natural mortality, M, over the fully selected age range.
 
  BUG FIXES
 
 - simplify(FLStock) recoded in a simpler waym suppoorted by noseason/unit/area functions.
 - Ensure harvest(FLQuant) returns 0 when catch or n are 0.
 - Further improvements to simplify. nounit, noseason and noarea do nmot call harvest().
+
+ USER-VISIBLE CHANGES
+
+- FLStock() constructor defaults to 'age' as quant.
 
  FLCore 2.6.18
 

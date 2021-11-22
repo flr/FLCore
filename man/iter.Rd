@@ -35,21 +35,15 @@ classes \code{FLQuant}, \code{FLCohort} and \code{FLPar}.
 }
 
 \examples{
-
 # For an FLQuant
   flq <- FLQuant(rnorm(800), dim=c(4,10,2), iter=10)
   iter(flq, 2)
-
 # For the more complex FLStock object
-  fls <- FLStock(catch.n=flq, m=FLQuant(0.2, dim=c(4,10,2)))
-  summary(fls)
-
+  data(ple4)
+  fls <- propagate(ple4, 10)
   # Extraction using iter...
     fls2 <- iter(fls, 2)
     summary(fls2)
-  # ...in contrast to using [ which returns an error
-    \dontrun{fls[,,,,,2]}
-
 }
 \seealso{
 \linkS4class{FLComp}, \linkS4class{FLQuant}

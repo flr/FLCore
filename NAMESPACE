@@ -130,6 +130,7 @@ export(
   "getSlotNamesClass",
   "loglAR1",
   "knit_print.FLQuant",
+  "mbar",
   "mohnMatrix",
   "noarea",
   "noseason",

@@ -1703,7 +1703,7 @@ setGeneric("rlog", function(obs, fit, ...)
 		standardGeneric("rlog"))
 setMethod("rlog", signature(obs="FLQuant", fit="FLQuant"),
   function(obs, fit) {
-    res <- log(obs) / log(fit)
+    res <- log(obs) - log(fit)
     units(res) <- units(obs)
     return(res)
   }

@@ -125,8 +125,7 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
   }
 )
 
-#' @rdname cpue
-#' @aliases cpue-FLStock-method
+#' @rdname survey
 #' @examples
 #' 
 

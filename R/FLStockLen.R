@@ -20,7 +20,7 @@ setMethod("FLStockLen", signature(object="FLQuant"),
 
     # empty object
     object[] <- NA
-    units(object) <- "NA"
+    units(object) <- "len"
     qobject <- quantSums(object)
 
     dims <- dims(object)
