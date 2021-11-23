@@ -34,4 +34,4 @@ You are welcome to:
 - Send a pull request on: <https://github.com/flr/FLCore/>
 - Compose a friendly e-mail to: <flrteam@flr-project.org>
 - Author: FLR Team and various [contributors](CONTRIBUTORS.md).
-- Maintainer: Iago Mosqueira <iago.mosqueira@wur.nl>
+- Maintainer: Iago Mosqueira (WMR) <iago.mosqueira@wur.nl>
