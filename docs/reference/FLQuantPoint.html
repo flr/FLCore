@@ -74,7 +74,7 @@ descriptive statistics." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -201,182 +201,186 @@ original <code>FLQuant</code> using <code><a href='https://rdrr.io/r/base/apply.
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>2000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>flqp</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuantPoint</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuantPoint" with:
-#&gt; dim  :  10 20 1 1 1 5 
-#&gt; quant:  quant 
-#&gt; units:  NA 
-#&gt; 
-#&gt; 1st Qu.:  -0.6197558 
-#&gt; Mean   :  0.01413314 
-#&gt; Median :  -0.008228988 
-#&gt; Var    :  0.8691388 
-#&gt; 3rd Qu.:  0.6466926 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1           2           3           4           5           6          
-#&gt;    1   0.29641699  0.34624233 -0.28694353  0.03168592 -0.25757398 -0.25906436
-#&gt;    2   0.10101683  0.58816153  0.01742627 -0.62145437 -0.31765380  0.29410069
-#&gt;    3  -0.11891523 -0.43629545  0.33732513 -0.37556023  0.82125653 -0.19374382
-#&gt;    4  -0.14306703  0.12499462  0.29528338 -0.10452224  0.14441325 -0.41629471
-#&gt;    5  -0.14823305  0.26820625 -0.54693871 -0.33877737  0.42870022  0.12919634
-#&gt;    6   0.38450931  0.45985513  0.28499344 -0.22591195 -0.13320400  0.33899226
-#&gt;    7   0.33039821 -0.21047980 -0.14895055  0.59438115 -0.40315032  0.34719435
-#&gt;    8  -0.08164356 -0.12202251 -0.11902322  0.13590398  0.32739049 -0.11858868
-#&gt;    9   0.29132905  0.10488066 -0.01541988  0.43311874  0.17378030  0.35678343
-#&gt;    10  0.34131155  0.18105978  0.15738914 -0.27111656  0.11397275  0.02301453
-#&gt;      year
-#&gt; quant 7           8           9           10          11          12         
-#&gt;    1  -0.34713347 -0.11163960  0.14901626  0.11295545 -0.62107908 -0.05592006
-#&gt;    2  -0.24721253  0.39614164  0.43116523 -0.27906919 -0.67788073 -0.05587734
-#&gt;    3   0.15743007  0.12130926  0.25610296 -0.03161868  0.11528657  0.28777128
-#&gt;    4   0.09412206 -0.43359809  0.39249499 -0.22495448  0.32620173 -0.27449118
-#&gt;    5   0.10606188 -0.10807963 -0.19725720 -0.47086028  0.33793631  0.11197772
-#&gt;    6   0.20169798 -0.13302720 -0.50939202 -0.11311096  0.24244730  0.02648393
-#&gt;    7   0.21443343  0.10632060 -0.03611630  0.01423771 -0.35402241  0.06142614
-#&gt;    8  -0.90419868  0.05742521  0.08747626 -0.02327547 -0.00254537  0.17798596
-#&gt;    9   0.07089216  0.11228892 -0.17231017 -0.36815765  0.78977610 -0.35799302
-#&gt;    10 -0.42953936 -0.34530196 -0.02873700 -0.31296077 -0.06097834  0.04483257
-#&gt;      year
-#&gt; quant 13          14          15          16          17          18         
-#&gt;    1  -0.12771395 -0.58086783  0.22747962  0.08841000 -0.19042456  0.46543384
-#&gt;    2   0.02948397  0.27992492  1.26465716  0.50212129 -0.32132000  0.12126534
-#&gt;    3   0.26348653 -0.33546639 -0.41366273  0.06684510  0.19098780  0.60729952
-#&gt;    4  -0.14643247 -0.17715567  0.31857377 -0.04174202  0.21816327 -0.32771860
-#&gt;    5   0.33527427  0.08907671  0.21226621  0.06551851  0.06801647 -0.20686691
-#&gt;    6  -0.45325514  0.32981345 -0.05882497 -0.55686341  0.21202361 -0.38837873
-#&gt;    7  -0.01207464 -0.14796462  0.28819506  0.22284158  0.34363142  0.35380576
-#&gt;    8   0.21295875  0.60902753 -0.23995540  0.00094918  0.22610054  0.58546489
-#&gt;    9  -0.20708228  0.11077632  0.07831676 -0.16792604  0.21897027 -0.13358723
-#&gt;    10 -0.25813724 -0.09590231 -0.33772842  0.18780476  0.08304526 -0.39308897
-#&gt;      year
-#&gt; quant 19          20         
-#&gt;    1  -0.16318835 -0.23740630
-#&gt;    2   0.29392229  0.32416184
-#&gt;    3   0.18995509 -0.05082101
-#&gt;    4   0.00511013  0.15874584
-#&gt;    5  -0.26337938 -0.12788049
-#&gt;    6   0.11761729 -0.18199176
-#&gt;    7  -0.29518252 -0.19983705
-#&gt;    8  -0.12350123 -0.36402985
-#&gt;    9   0.47030294  0.07049626
-#&gt;    10 -0.22026766 -0.23956130
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1       2       3       4       5       6       7       8       9      
-#&gt;    1  0.51063 1.41869 0.50844 1.54095 1.31908 0.92801 0.74840 0.80968 0.65983
-#&gt;    2  0.42215 1.16364 0.76223 0.46309 1.14747 0.85395 1.07045 0.37282 0.30034
-#&gt;    3  1.34478 1.68113 0.58479 0.54475 0.62934 0.55163 0.89113 1.17558 0.27153
-#&gt;    4  0.95882 0.70593 1.47989 0.45686 1.89709 1.01710 0.84840 0.55337 0.53452
-#&gt;    5  0.57015 0.81146 0.91691 1.06767 0.86556 0.63386 0.34861 0.43725 1.11523
-#&gt;    6  0.95953 0.84170 0.76557 1.12857 1.11107 0.88891 0.18405 0.61128 1.28471
-#&gt;    7  0.29544 0.55104 0.78750 0.31982 0.93807 1.26539 0.72346 0.48790 0.94181
-#&gt;    8  0.38206 0.64430 0.86014 0.74235 0.95293 1.26090 1.26279 1.39187 1.26932
-#&gt;    9  0.84747 0.36377 1.11663 0.64719 1.29541 0.62341 0.89983 0.77210 0.35475
-#&gt;    10 1.90164 0.57194 1.18992 0.65361 0.92974 0.82435 0.69208 2.32104 0.96411
-#&gt;      year
-#&gt; quant 10      11      12      13      14      15      16      17      18     
-#&gt;    1  0.74248 0.60421 1.50089 0.59809 0.76508 1.09017 0.88126 0.25440 0.52096
-#&gt;    2  0.64899 1.17378 0.49990 1.00603 0.58169 0.37960 0.48438 0.85291 1.04453
-#&gt;    3  0.98026 1.41465 1.18489 1.07775 0.52561 1.59726 0.51880 0.82997 1.33384
-#&gt;    4  0.88253 0.56674 1.00660 0.36657 1.66607 1.01997 0.97405 0.46710 0.93030
-#&gt;    5  0.67708 0.47583 1.14288 0.62910 0.23684 0.57332 0.57439 0.84238 1.22670
-#&gt;    6  1.11328 0.70014 0.21379 1.04160 0.66910 1.41512 1.23596 0.73061 0.43722
-#&gt;    7  2.00522 0.66122 1.54428 1.36145 1.02263 0.62468 1.77650 1.05517 0.54599
-#&gt;    8  0.51725 1.08146 0.49940 0.77326 1.09608 0.31118 0.63386 1.44625 0.33779
-#&gt;    9  0.48130 0.98335 0.80279 0.62911 0.90246 1.29713 1.32779 0.98230 0.60325
-#&gt;    10 1.55286 0.49325 0.87586 1.13825 1.61433 0.52255 0.91216 0.55863 0.43502
-#&gt;      year
-#&gt; quant 19      20     
-#&gt;    1  0.20765 0.69188
-#&gt;    2  0.58500 0.39924
-#&gt;    3  0.46716 0.85342
-#&gt;    4  0.61094 0.44575
-#&gt;    5  0.56525 1.69142
-#&gt;    6  1.78768 0.86120
-#&gt;    7  1.25644 0.21792
-#&gt;    8  0.66479 1.92212
-#&gt;    9  0.78534 1.40781
-#&gt;    10 0.71568 1.66275
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='va'>flqp</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; iters:  200 
-#&gt; 
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1                 2                 3                 4                
-#&gt;    1   0.3228610(0.828)  0.2430866(1.072) -0.2813924(0.673)  0.2291230(1.239)
-#&gt;    2  -0.0124413(0.547)  0.5404234(1.027) -0.0772763(0.827) -0.5484350(0.733)
-#&gt;    3  -0.3863210(1.047) -0.3263063(1.100)  0.3045225(0.695) -0.4696520(0.760)
-#&gt;    4  -0.0740275(0.957)  0.1214345(0.857)  0.2579835(1.208) -0.1590226(0.592)
-#&gt;    5  -0.1882146(0.770)  0.2938117(0.885) -0.6052647(0.803) -0.4394011(1.161)
-#&gt;    6   0.2243348(0.835)  0.4443637(0.969)  0.3407879(0.900) -0.2640885(0.943)
-#&gt;    7   0.3322256(0.524) -0.1377334(0.753) -0.1244541(0.955)  0.6146499(0.570)
-#&gt;    8  -0.1519509(0.649) -0.0740032(0.732) -0.1240520(0.886)  0.0612556(0.932)
-#&gt;    9   0.2904789(1.045)  0.1167395(0.600) -0.1678008(1.012)  0.4736507(0.845)
-#&gt;    10  0.2603241(1.302)  0.2567880(0.809) -0.0857289(1.212) -0.3165808(0.770)
-#&gt;      year
-#&gt; quant 5                 6                 7                 8                
-#&gt;    1  -0.3586260(1.314) -0.3060764(0.860) -0.4013298(0.832) -0.0624736(0.897)
-#&gt;    2  -0.3385395(1.122)  0.2764016(0.959) -0.2369804(0.884)  0.3754087(0.617)
-#&gt;    3   0.8794401(0.701) -0.1537964(0.724)  0.1126123(1.051)  0.0623404(1.148)
-#&gt;    4   0.0817703(1.237) -0.4542557(1.011)  0.0552092(0.848) -0.3653056(0.712)
-#&gt;    5   0.4977049(0.842)  0.2088621(0.778)  0.0757360(0.588) -0.0917594(0.675)
-#&gt;    6  -0.2549198(0.958)  0.3656230(0.961)  0.1976535(0.390) -0.2054717(0.764)
-#&gt;    7  -0.3959780(0.950)  0.2871651(1.121)  0.1592403(0.923)  0.1239317(0.679)
-#&gt;    8   0.4482555(1.062)  0.0443793(1.170) -0.8449451(1.179) -0.0975166(1.264)
-#&gt;    9   0.1076932(1.129)  0.3415919(0.739)  0.1914845(1.020)  0.1665389(0.951)
-#&gt;    10 -0.0323128(1.043)  0.0855369(0.885) -0.3666522(0.823) -0.1825117(1.619)
-#&gt;      year
-#&gt; quant 9                 10                11                12               
-#&gt;    1   0.1022008(0.780)  0.0973348(0.875) -0.7090935(0.819)  0.0021606(1.212)
-#&gt;    2   0.4560235(0.543) -0.2052906(0.746) -0.6081302(1.148)  0.0109231(0.807)
-#&gt;    3   0.3020237(0.534)  0.0090542(1.047) -0.0288837(1.130)  0.3578044(1.145)
-#&gt;    4   0.4647554(0.691) -0.2460258(0.981)  0.2765144(0.679) -0.2549800(1.023)
-#&gt;    5  -0.1660400(1.050) -0.5199344(0.695)  0.3113995(0.712)  0.1131597(1.080)
-#&gt;    6  -0.6567664(1.076) -0.1301302(1.101)  0.0283481(0.934)  0.0676062(0.415)
-#&gt;    7   0.0064857(1.002) -0.0049548(1.240) -0.3409091(0.841)  0.1231926(1.227)
-#&gt;    8  -0.1026718(1.160) -0.0022571(0.712)  0.0926064(0.886)  0.1142343(0.651)
-#&gt;    9  -0.1472060(0.630) -0.3494540(0.671)  0.5937458(1.096) -0.4818325(0.894)
-#&gt;    10 -0.1337178(1.069) -0.4587590(1.373) -0.0279526(0.693)  0.0529381(0.863)
-#&gt;      year
-#&gt; quant 13                14                15                16               
-#&gt;    1  -0.2405410(0.778) -0.6449655(0.795)  0.1879574(1.129)  0.0617249(0.996)
-#&gt;    2   0.0802999(1.105)  0.2058839(0.688)  1.1785264(0.568)  0.5039077(0.763)
-#&gt;    3   0.2635441(1.043) -0.3694936(0.849) -0.5102385(1.290)  0.1397962(0.762)
-#&gt;    4  -0.1318728(0.649) -0.1764308(1.292)  0.2220988(1.161) -0.1131964(0.977)
-#&gt;    5   0.3705193(0.893)  0.0635661(0.483)  0.2912975(0.808) -0.0080675(0.686)
-#&gt;    6  -0.3809270(1.166)  0.3280499(0.814) -0.1825767(1.328) -0.6958328(1.143)
-#&gt;    7  -0.0351814(1.135) -0.0667843(1.086)  0.3673513(0.766)  0.1866381(1.236)
-#&gt;    8   0.2654242(0.741)  0.6914999(1.129) -0.2283432(0.518) -0.0460217(0.782)
-#&gt;    9  -0.2922881(0.924)  0.2102176(1.027)  0.1915900(1.168) -0.2769191(1.115)
-#&gt;    10 -0.1655970(1.222) -0.0302775(1.194) -0.4591083(0.734)  0.1616819(1.057)
-#&gt;      year
-#&gt; quant 17                18                19                20               
-#&gt;    1  -0.2055949(0.473)  0.5070335(0.631) -0.2131247(0.521) -0.2895898(0.781)
-#&gt;    2  -0.4181364(0.972) -0.0424989(1.113)  0.3778267(0.694)  0.3252219(0.564)
-#&gt;    3   0.1325233(0.931)  0.4865409(1.098)  0.2533186(0.788) -0.1628701(0.825)
-#&gt;    4   0.1798282(0.777) -0.3887641(0.923) -0.0106165(0.772)  0.2212516(0.691)
-#&gt;    5   0.2707569(1.073) -0.3317319(1.102) -0.2747598(0.766) -0.3647958(1.489)
-#&gt;    6   0.1978215(0.840) -0.3241564(0.546)  0.2787587(1.291) -0.0564271(0.914)
-#&gt;    7   0.4442799(1.002)  0.4451969(0.767) -0.2676956(1.096) -0.1213912(0.455)
-#&gt;    8   0.2233675(1.128)  0.5023951(0.645) -0.2531467(0.912) -0.4198132(1.233)
-#&gt;    9   0.3246747(0.970) -0.1039405(0.710)  0.6398434(0.968)  0.0120318(1.291)
-#&gt;    10  0.1269961(0.612) -0.4388251(0.626) -0.2017447(0.863) -0.2478252(1.132)
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>2000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>20</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>200</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>flqp</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuantPoint</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuantPoint" with:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dim  :  10 20 1 1 1 5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant:  quant </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1st Qu.:  -0.6197558 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean   :  0.01413314 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median :  -0.008228988 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Var    :  0.8691388 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3rd Qu.:  0.6466926 </span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1   0.29641699  0.34624233 -0.28694353  0.03168592 -0.25757398 -0.25906436</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2   0.10101683  0.58816153  0.01742627 -0.62145437 -0.31765380  0.29410069</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  -0.11891523 -0.43629545  0.33732513 -0.37556023  0.82125653 -0.19374382</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  -0.14306703  0.12499462  0.29528338 -0.10452224  0.14441325 -0.41629471</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  -0.14823305  0.26820625 -0.54693871 -0.33877737  0.42870022  0.12919634</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6   0.38450931  0.45985513  0.28499344 -0.22591195 -0.13320400  0.33899226</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7   0.33039821 -0.21047980 -0.14895055  0.59438115 -0.40315032  0.34719435</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  -0.08164356 -0.12202251 -0.11902322  0.13590398  0.32739049 -0.11858868</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9   0.29132905  0.10488066 -0.01541988  0.43311874  0.17378030  0.35678343</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10  0.34131155  0.18105978  0.15738914 -0.27111656  0.11397275  0.02301453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 7           8           9           10          11          12         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  -0.34713347 -0.11163960  0.14901626  0.11295545 -0.62107908 -0.05592006</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  -0.24721253  0.39614164  0.43116523 -0.27906919 -0.67788073 -0.05587734</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3   0.15743007  0.12130926  0.25610296 -0.03161868  0.11528657  0.28777128</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4   0.09412206 -0.43359809  0.39249499 -0.22495448  0.32620173 -0.27449118</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5   0.10606188 -0.10807963 -0.19725720 -0.47086028  0.33793631  0.11197772</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6   0.20169798 -0.13302720 -0.50939202 -0.11311096  0.24244730  0.02648393</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7   0.21443343  0.10632060 -0.03611630  0.01423771 -0.35402241  0.06142614</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  -0.90419868  0.05742521  0.08747626 -0.02327547 -0.00254537  0.17798596</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9   0.07089216  0.11228892 -0.17231017 -0.36815765  0.78977610 -0.35799302</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 -0.42953936 -0.34530196 -0.02873700 -0.31296077 -0.06097834  0.04483257</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 13          14          15          16          17          18         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  -0.12771395 -0.58086783  0.22747962  0.08841000 -0.19042456  0.46543384</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2   0.02948397  0.27992492  1.26465716  0.50212129 -0.32132000  0.12126534</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3   0.26348653 -0.33546639 -0.41366273  0.06684510  0.19098780  0.60729952</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  -0.14643247 -0.17715567  0.31857377 -0.04174202  0.21816327 -0.32771860</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5   0.33527427  0.08907671  0.21226621  0.06551851  0.06801647 -0.20686691</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  -0.45325514  0.32981345 -0.05882497 -0.55686341  0.21202361 -0.38837873</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  -0.01207464 -0.14796462  0.28819506  0.22284158  0.34363142  0.35380576</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8   0.21295875  0.60902753 -0.23995540  0.00094918  0.22610054  0.58546489</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  -0.20708228  0.11077632  0.07831676 -0.16792604  0.21897027 -0.13358723</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 -0.25813724 -0.09590231 -0.33772842  0.18780476  0.08304526 -0.39308897</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 19          20         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  -0.16318835 -0.23740630</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2   0.29392229  0.32416184</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3   0.18995509 -0.05082101</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4   0.00511013  0.15874584</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  -0.26337938 -0.12788049</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6   0.11761729 -0.18199176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  -0.29518252 -0.19983705</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  -0.12350123 -0.36402985</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9   0.47030294  0.07049626</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 -0.22026766 -0.23956130</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>var</a></span><span class='op'>(</span><span class='va'>flqp</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1       2       3       4       5       6       7       8       9      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  0.51063 1.41869 0.50844 1.54095 1.31908 0.92801 0.74840 0.80968 0.65983</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  0.42215 1.16364 0.76223 0.46309 1.14747 0.85395 1.07045 0.37282 0.30034</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  1.34478 1.68113 0.58479 0.54475 0.62934 0.55163 0.89113 1.17558 0.27153</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  0.95882 0.70593 1.47989 0.45686 1.89709 1.01710 0.84840 0.55337 0.53452</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  0.57015 0.81146 0.91691 1.06767 0.86556 0.63386 0.34861 0.43725 1.11523</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  0.95953 0.84170 0.76557 1.12857 1.11107 0.88891 0.18405 0.61128 1.28471</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  0.29544 0.55104 0.78750 0.31982 0.93807 1.26539 0.72346 0.48790 0.94181</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  0.38206 0.64430 0.86014 0.74235 0.95293 1.26090 1.26279 1.39187 1.26932</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  0.84747 0.36377 1.11663 0.64719 1.29541 0.62341 0.89983 0.77210 0.35475</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 1.90164 0.57194 1.18992 0.65361 0.92974 0.82435 0.69208 2.32104 0.96411</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 10      11      12      13      14      15      16      17      18     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  0.74248 0.60421 1.50089 0.59809 0.76508 1.09017 0.88126 0.25440 0.52096</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  0.64899 1.17378 0.49990 1.00603 0.58169 0.37960 0.48438 0.85291 1.04453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  0.98026 1.41465 1.18489 1.07775 0.52561 1.59726 0.51880 0.82997 1.33384</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  0.88253 0.56674 1.00660 0.36657 1.66607 1.01997 0.97405 0.46710 0.93030</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  0.67708 0.47583 1.14288 0.62910 0.23684 0.57332 0.57439 0.84238 1.22670</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  1.11328 0.70014 0.21379 1.04160 0.66910 1.41512 1.23596 0.73061 0.43722</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  2.00522 0.66122 1.54428 1.36145 1.02263 0.62468 1.77650 1.05517 0.54599</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  0.51725 1.08146 0.49940 0.77326 1.09608 0.31118 0.63386 1.44625 0.33779</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  0.48130 0.98335 0.80279 0.62911 0.90246 1.29713 1.32779 0.98230 0.60325</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 1.55286 0.49325 0.87586 1.13825 1.61433 0.52255 0.91216 0.55863 0.43502</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 19      20     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  0.20765 0.69188</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  0.58500 0.39924</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  0.46716 0.85342</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  0.61094 0.44575</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  0.56525 1.69142</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  1.78768 0.86120</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  1.25644 0.21792</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  0.66479 1.92212</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  0.78534 1.40781</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 0.71568 1.66275</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='va'>flqp</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> iters:  200 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1   0.3228610(0.828)  0.2430866(1.072) -0.2813924(0.673)  0.2291230(1.239)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  -0.0124413(0.547)  0.5404234(1.027) -0.0772763(0.827) -0.5484350(0.733)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  -0.3863210(1.047) -0.3263063(1.100)  0.3045225(0.695) -0.4696520(0.760)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  -0.0740275(0.957)  0.1214345(0.857)  0.2579835(1.208) -0.1590226(0.592)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  -0.1882146(0.770)  0.2938117(0.885) -0.6052647(0.803) -0.4394011(1.161)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6   0.2243348(0.835)  0.4443637(0.969)  0.3407879(0.900) -0.2640885(0.943)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7   0.3322256(0.524) -0.1377334(0.753) -0.1244541(0.955)  0.6146499(0.570)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  -0.1519509(0.649) -0.0740032(0.732) -0.1240520(0.886)  0.0612556(0.932)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9   0.2904789(1.045)  0.1167395(0.600) -0.1678008(1.012)  0.4736507(0.845)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10  0.2603241(1.302)  0.2567880(0.809) -0.0857289(1.212) -0.3165808(0.770)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  -0.3586260(1.314) -0.3060764(0.860) -0.4013298(0.832) -0.0624736(0.897)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  -0.3385395(1.122)  0.2764016(0.959) -0.2369804(0.884)  0.3754087(0.617)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3   0.8794401(0.701) -0.1537964(0.724)  0.1126123(1.051)  0.0623404(1.148)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4   0.0817703(1.237) -0.4542557(1.011)  0.0552092(0.848) -0.3653056(0.712)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5   0.4977049(0.842)  0.2088621(0.778)  0.0757360(0.588) -0.0917594(0.675)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  -0.2549198(0.958)  0.3656230(0.961)  0.1976535(0.390) -0.2054717(0.764)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  -0.3959780(0.950)  0.2871651(1.121)  0.1592403(0.923)  0.1239317(0.679)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8   0.4482555(1.062)  0.0443793(1.170) -0.8449451(1.179) -0.0975166(1.264)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9   0.1076932(1.129)  0.3415919(0.739)  0.1914845(1.020)  0.1665389(0.951)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 -0.0323128(1.043)  0.0855369(0.885) -0.3666522(0.823) -0.1825117(1.619)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 9                 10                11                12               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1   0.1022008(0.780)  0.0973348(0.875) -0.7090935(0.819)  0.0021606(1.212)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2   0.4560235(0.543) -0.2052906(0.746) -0.6081302(1.148)  0.0109231(0.807)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3   0.3020237(0.534)  0.0090542(1.047) -0.0288837(1.130)  0.3578044(1.145)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4   0.4647554(0.691) -0.2460258(0.981)  0.2765144(0.679) -0.2549800(1.023)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  -0.1660400(1.050) -0.5199344(0.695)  0.3113995(0.712)  0.1131597(1.080)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  -0.6567664(1.076) -0.1301302(1.101)  0.0283481(0.934)  0.0676062(0.415)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7   0.0064857(1.002) -0.0049548(1.240) -0.3409091(0.841)  0.1231926(1.227)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  -0.1026718(1.160) -0.0022571(0.712)  0.0926064(0.886)  0.1142343(0.651)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  -0.1472060(0.630) -0.3494540(0.671)  0.5937458(1.096) -0.4818325(0.894)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 -0.1337178(1.069) -0.4587590(1.373) -0.0279526(0.693)  0.0529381(0.863)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 13                14                15                16               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  -0.2405410(0.778) -0.6449655(0.795)  0.1879574(1.129)  0.0617249(0.996)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2   0.0802999(1.105)  0.2058839(0.688)  1.1785264(0.568)  0.5039077(0.763)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3   0.2635441(1.043) -0.3694936(0.849) -0.5102385(1.290)  0.1397962(0.762)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  -0.1318728(0.649) -0.1764308(1.292)  0.2220988(1.161) -0.1131964(0.977)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5   0.3705193(0.893)  0.0635661(0.483)  0.2912975(0.808) -0.0080675(0.686)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  -0.3809270(1.166)  0.3280499(0.814) -0.1825767(1.328) -0.6958328(1.143)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  -0.0351814(1.135) -0.0667843(1.086)  0.3673513(0.766)  0.1866381(1.236)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8   0.2654242(0.741)  0.6914999(1.129) -0.2283432(0.518) -0.0460217(0.782)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  -0.2922881(0.924)  0.2102176(1.027)  0.1915900(1.168) -0.2769191(1.115)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 -0.1655970(1.222) -0.0302775(1.194) -0.4591083(0.734)  0.1616819(1.057)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 17                18                19                20               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  -0.2055949(0.473)  0.5070335(0.631) -0.2131247(0.521) -0.2895898(0.781)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  -0.4181364(0.972) -0.0424989(1.113)  0.3778267(0.694)  0.3252219(0.564)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3   0.1325233(0.931)  0.4865409(1.098)  0.2533186(0.788) -0.1628701(0.825)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4   0.1798282(0.777) -0.3887641(0.923) -0.0106165(0.772)  0.2212516(0.691)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5   0.2707569(1.073) -0.3317319(1.102) -0.2747598(0.766) -0.3647958(1.489)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6   0.1978215(0.840) -0.3241564(0.546)  0.2787587(1.291) -0.0564271(0.914)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7   0.4442799(1.002)  0.4451969(0.767) -0.2676956(1.096) -0.1213912(0.455)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8   0.2233675(1.128)  0.5023951(0.645) -0.2531467(0.912) -0.4198132(1.233)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9   0.3246747(0.970) -0.1039405(0.710)  0.6398434(0.968)  0.0120318(1.291)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10  0.1269961(0.612) -0.4388251(0.626) -0.2017447(0.863) -0.2478252(1.132)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

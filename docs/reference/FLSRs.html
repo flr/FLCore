@@ -84,7 +84,7 @@ not allow the user to increase or decrease the object length." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -171,63 +171,73 @@ or removing elements. <code>logical</code>.</p></dd>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span>
-<span class='va'>bnsher</span> <span class='op'>&lt;-</span> <span class='va'>nsher</span>
-<span class='fu'><a href='accessors.html'>model</a></span><span class='op'>(</span><span class='va'>bnsher</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>bevholt</span>
-<span class='va'>bnsher</span> <span class='op'>&lt;-</span> <span class='fu'>fmle</span><span class='op'>(</span><span class='va'>bnsher</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   Nelder-Mead direct search function minimizer
-#&gt; function value for initial parameters = -10.336211
-#&gt;   Scaled convergence tolerance is 1.54022e-07
-#&gt; Stepsize computed as 501.110000
-#&gt; BUILD              3 44.842344 -11.603908</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION       5 31.685209 -11.603908</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION       7 17.913114 -11.603908</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION       9 5.415279 -11.603908</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; HI-REDUCTION      11 -3.412974 -11.603908
-#&gt; HI-REDUCTION      13 -8.018030 -11.603908
-#&gt; LO-REDUCTION      15 -10.336211 -11.603908
-#&gt; LO-REDUCTION      17 -11.081040 -11.603908
-#&gt; EXTENSION         19 -11.295930 -12.061705
-#&gt; LO-REDUCTION      21 -11.603908 -12.061705
-#&gt; REFLECTION        23 -11.813826 -12.087620
-#&gt; REFLECTION        25 -12.061705 -12.199591
-#&gt; LO-REDUCTION      27 -12.087620 -12.199591
-#&gt; LO-REDUCTION      29 -12.158184 -12.199591
-#&gt; LO-REDUCTION      31 -12.191726 -12.199591
-#&gt; HI-REDUCTION      33 -12.192269 -12.199591
-#&gt; HI-REDUCTION      35 -12.197784 -12.199591
-#&gt; LO-REDUCTION      37 -12.198015 -12.199591
-#&gt; HI-REDUCTION      39 -12.199555 -12.199776
-#&gt; REFLECTION        41 -12.199591 -12.200058
-#&gt; HI-REDUCTION      43 -12.199776 -12.200092
-#&gt; HI-REDUCTION      45 -12.200058 -12.200142
-#&gt; HI-REDUCTION      47 -12.200092 -12.200155
-#&gt; HI-REDUCTION      49 -12.200142 -12.200160
-#&gt; HI-REDUCTION      51 -12.200155 -12.200177
-#&gt; HI-REDUCTION      53 -12.200160 -12.200177
-#&gt; LO-REDUCTION      55 -12.200171 -12.200179
-#&gt; HI-REDUCTION      57 -12.200177 -12.200179
-#&gt; HI-REDUCTION      59 -12.200178 -12.200179
-#&gt; HI-REDUCTION      61 -12.200179 -12.200179
-#&gt; HI-REDUCTION      63 -12.200179 -12.200179
-#&gt; HI-REDUCTION      65 -12.200179 -12.200179
-#&gt; Exiting from Nelder Mead minimizer
-#&gt;     67 function evaluations used</div><div class='input'><span class='va'>fls</span> <span class='op'>&lt;-</span> <span class='fu'>FLSRs</span><span class='op'>(</span>Ricker<span class='op'>=</span><span class='va'>nsher</span>, BevHolt<span class='op'>=</span><span class='va'>bnsher</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fls</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLSRs"
-#&gt; 
-#&gt; Elements: Ricker BevHolt 
-#&gt; 
-#&gt; Name:  
-#&gt; 	Description:  
-#&gt; 	Range:	 min	minyear	max	maxyear 
-#&gt; 		0	1960	0	2004	
-#&gt; 	Quant: age 
-#&gt; 	dim: 1 45 1 1 1 
-#&gt; Name:  
-#&gt; 	Description:  
-#&gt; 	Range:	 min	minyear	max	maxyear 
-#&gt; 		0	1960	0	2004	
-#&gt; 	Quant: age 
-#&gt; 	dim: 1 45 1 1 1 </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>bnsher</span> <span class='op'>&lt;-</span> <span class='va'>nsher</span></span>
+<span class='r-in'><span class='fu'><a href='accessors.html'>model</a></span><span class='op'>(</span><span class='va'>bnsher</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>bevholt</span></span>
+<span class='r-in'><span class='va'>bnsher</span> <span class='op'>&lt;-</span> <span class='fu'>fmle</span><span class='op'>(</span><span class='va'>bnsher</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Nelder-Mead direct search function minimizer</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> function value for initial parameters = -10.336211</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Scaled convergence tolerance is 1.54022e-07</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Stepsize computed as 501.110000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> BUILD              3 44.842344 -11.603908</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>NaNs produced</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION       5 31.685209 -11.603908</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>NaNs produced</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION       7 17.913114 -11.603908</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>NaNs produced</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION       9 5.415279 -11.603908</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>NaNs produced</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      11 -3.412974 -11.603908</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      13 -8.018030 -11.603908</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> LO-REDUCTION      15 -10.336211 -11.603908</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> LO-REDUCTION      17 -11.081040 -11.603908</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> EXTENSION         19 -11.295930 -12.061705</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> LO-REDUCTION      21 -11.603908 -12.061705</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> REFLECTION        23 -11.813826 -12.087620</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> REFLECTION        25 -12.061705 -12.199591</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> LO-REDUCTION      27 -12.087620 -12.199591</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> LO-REDUCTION      29 -12.158184 -12.199591</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> LO-REDUCTION      31 -12.191726 -12.199591</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      33 -12.192269 -12.199591</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      35 -12.197784 -12.199591</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> LO-REDUCTION      37 -12.198015 -12.199591</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      39 -12.199555 -12.199776</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> REFLECTION        41 -12.199591 -12.200058</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      43 -12.199776 -12.200092</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      45 -12.200058 -12.200142</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      47 -12.200092 -12.200155</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      49 -12.200142 -12.200160</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      51 -12.200155 -12.200177</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      53 -12.200160 -12.200177</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> LO-REDUCTION      55 -12.200171 -12.200179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      57 -12.200177 -12.200179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      59 -12.200178 -12.200179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      61 -12.200179 -12.200179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      63 -12.200179 -12.200179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> HI-REDUCTION      65 -12.200179 -12.200179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Exiting from Nelder Mead minimizer</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     67 function evaluations used</span>
+<span class='r-in'><span class='va'>fls</span> <span class='op'>&lt;-</span> <span class='fu'>FLSRs</span><span class='op'>(</span>Ricker<span class='op'>=</span><span class='va'>nsher</span>, BevHolt<span class='op'>=</span><span class='va'>bnsher</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fls</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLSRs"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Elements: Ricker BevHolt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Description:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Range:	 min	minyear	max	maxyear </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 		0	1960	0	2004	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	dim: 1 45 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Description:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Range:	 min	minyear	max	maxyear </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 		0	1960	0	2004	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	dim: 1 45 1 1 1 </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

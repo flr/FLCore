@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -183,134 +183,138 @@ names related to the dimensions name they operate on (e.g. ybind for <em>year</e
     <p>Iago Mosqueira (EC JRC)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># By iter</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>iter<span class='op'>=</span><span class='fl'>1001</span><span class='op'>:</span><span class='fl'>2000</span><span class='op'>)</span>
-<span class='fu'>ibind</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; iters:  2000 
-#&gt; 
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1                  2                  3                 
-#&gt;     1 -3.7713e-02(0.995) -1.2687e-02(0.973)  1.5154e-02(1.032)
-#&gt;     2 -1.3224e-02(0.966) -1.0555e-02(0.991) -2.2550e-02(1.025)
-#&gt;     3  2.1750e-02(0.980)  2.9565e-02(0.962)  4.1459e-02(0.968)
-#&gt;     4 -2.7687e-03(0.988)  1.7678e-02(1.008)  7.2145e-03(1.012)
-#&gt;      year
-#&gt; quant 4                  5                  6                 
-#&gt;     1 -2.1827e-02(0.976) -1.5798e-03(0.959)  2.1379e-03(0.986)
-#&gt;     2  8.8087e-03(1.045) -5.8764e-04(0.965) -5.9665e-02(0.963)
-#&gt;     3 -3.6916e-02(0.948)  8.5833e-03(0.959)  1.8116e-03(1.009)
-#&gt;     4  1.0848e-02(0.984) -3.1862e-03(0.992) -3.4453e-03(1.000)
-#&gt;      year
-#&gt; quant 7                  8                  9                 
-#&gt;     1  4.6533e-03(1.007) -2.2287e-02(1.022)  1.6809e-02(1.012)
-#&gt;     2 -3.8107e-03(0.962) -2.3684e-02(0.974) -3.8052e-03(0.976)
-#&gt;     3 -1.9502e-02(0.991)  2.6237e-03(0.967) -4.0798e-02(0.942)
-#&gt;     4  7.3690e-03(1.062) -1.6125e-02(1.001) -4.2905e-02(1.006)
-#&gt;      year
-#&gt; quant 10                 11                 12                
-#&gt;     1  1.8675e-02(1.055) -4.4969e-02(0.985)  1.9186e-02(0.996)
-#&gt;     2 -7.7795e-03(0.987) -5.8027e-02(1.008)  1.1617e-02(1.012)
-#&gt;     3  1.5719e-02(1.008)  2.4876e-02(1.011) -7.7333e-03(1.017)
-#&gt;     4 -5.6523e-04(1.078) -2.0627e-02(1.025) -4.3050e-02(1.036)
-#&gt;      year
-#&gt; quant 13                 14                 15                
-#&gt;     1  1.0276e-02(1.011) -2.6703e-02(1.029)  1.9256e-02(0.990)
-#&gt;     2  6.7860e-03(1.017) -2.5926e-02(1.021) -4.5632e-03(1.023)
-#&gt;     3 -5.3129e-02(1.004)  6.1973e-03(0.963)  6.4984e-02(0.993)
-#&gt;     4 -3.2984e-02(0.992) -1.4362e-02(0.999)  1.3916e-02(1.006)
-#&gt;      year
-#&gt; quant 16                 17                 18                
-#&gt;     1  1.8445e-02(0.990)  3.4325e-02(0.993)  8.2225e-03(0.982)
-#&gt;     2 -2.7584e-02(0.958)  2.8200e-02(1.038) -2.9007e-02(0.954)
-#&gt;     3  2.9244e-02(1.028) -1.5645e-02(1.007)  1.5251e-02(0.984)
-#&gt;     4  1.6419e-02(0.983)  1.1332e-03(0.931)  1.8837e-02(0.956)
-#&gt;      year
-#&gt; quant 19                 20                
-#&gt;     1  1.0350e-02(0.991)  3.4880e-02(1.013)
-#&gt;     2 -3.0215e-03(1.013) -9.9286e-03(0.995)
-#&gt;     3  1.2160e-02(0.995) -5.7102e-04(0.987)
-#&gt;     4  6.6341e-06(1.015) -8.8421e-03(0.961)
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-<span class='co'># By quant (age)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>12</span>, year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>qbind</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  1 2 3 4 5 6 7 8 9 10
-#&gt;   1  1 1 1 1 1 1 1 1 1 1 
-#&gt;   2  1 1 1 1 1 1 1 1 1 1 
-#&gt;   3  1 1 1 1 1 1 1 1 1 1 
-#&gt;   4  2 2 2 2 2 2 2 2 2 2 
-#&gt;   5  2 2 2 2 2 2 2 2 2 2 
-#&gt;   6  2 2 2 2 2 2 2 2 2 2 
-#&gt;   7  2 2 2 2 2 2 2 2 2 2 
-#&gt;   8  2 2 2 2 2 2 2 2 2 2 
-#&gt;   9  2 2 2 2 2 2 2 2 2 2 
-#&gt;   10 2 2 2 2 2 2 2 2 2 2 
-#&gt;   11 2 2 2 2 2 2 2 2 2 2 
-#&gt;   12 2 2 2 2 2 2 2 2 2 2 
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-<span class='co'># By year</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>3</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>21</span><span class='op'>:</span><span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>ybind</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28
-#&gt;   1 1 1 1 1 1 1 1 1 1 1  2  2  2  2  2  2  2  2  2  2  3  3  3  3  3  3  3  3 
-#&gt;   2 1 1 1 1 1 1 1 1 1 1  2  2  2  2  2  2  2  2  2  2  3  3  3  3  3  3  3  3 
-#&gt;   3 1 1 1 1 1 1 1 1 1 1  2  2  2  2  2  2  2  2  2  2  3  3  3  3  3  3  3  3 
-#&gt;    year
-#&gt; age 29 30
-#&gt;   1 3  3 
-#&gt;   2 3  3 
-#&gt;   3 3  3 
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-<span class='co'># By season</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, season<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, season<span class='op'>=</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>sbind</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = 1, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1 2 3 4 5 6 7 8 9 10
-#&gt;   all 1 1 1 1 1 1 1 1 1 1 
-#&gt; 
-#&gt; , , unit = unique, season = 2, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1 2 3 4 5 6 7 8 9 10
-#&gt;   all 1 1 1 1 1 1 1 1 1 1 
-#&gt; 
-#&gt; , , unit = unique, season = 3, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1 2 3 4 5 6 7 8 9 10
-#&gt;   all 2 2 2 2 2 2 2 2 2 2 
-#&gt; 
-#&gt; , , unit = unique, season = 4, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1 2 3 4 5 6 7 8 9 10
-#&gt;   all 2 2 2 2 2 2 2 2 2 2 
-#&gt; 
-#&gt; units:  NA </div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># By iter</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>iter<span class='op'>=</span><span class='fl'>1001</span><span class='op'>:</span><span class='fl'>2000</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>ibind</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> iters:  2000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1                  2                  3                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1 -3.7713e-02(0.995) -1.2687e-02(0.973)  1.5154e-02(1.032)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2 -1.3224e-02(0.966) -1.0555e-02(0.991) -2.2550e-02(1.025)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3  2.1750e-02(0.980)  2.9565e-02(0.962)  4.1459e-02(0.968)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4 -2.7687e-03(0.988)  1.7678e-02(1.008)  7.2145e-03(1.012)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 4                  5                  6                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1 -2.1827e-02(0.976) -1.5798e-03(0.959)  2.1379e-03(0.986)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2  8.8087e-03(1.045) -5.8764e-04(0.965) -5.9665e-02(0.963)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3 -3.6916e-02(0.948)  8.5833e-03(0.959)  1.8116e-03(1.009)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4  1.0848e-02(0.984) -3.1862e-03(0.992) -3.4453e-03(1.000)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 7                  8                  9                 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1  4.6533e-03(1.007) -2.2287e-02(1.022)  1.6809e-02(1.012)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2 -3.8107e-03(0.962) -2.3684e-02(0.974) -3.8052e-03(0.976)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3 -1.9502e-02(0.991)  2.6237e-03(0.967) -4.0798e-02(0.942)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4  7.3690e-03(1.062) -1.6125e-02(1.001) -4.2905e-02(1.006)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 10                 11                 12                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1  1.8675e-02(1.055) -4.4969e-02(0.985)  1.9186e-02(0.996)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2 -7.7795e-03(0.987) -5.8027e-02(1.008)  1.1617e-02(1.012)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3  1.5719e-02(1.008)  2.4876e-02(1.011) -7.7333e-03(1.017)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4 -5.6523e-04(1.078) -2.0627e-02(1.025) -4.3050e-02(1.036)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 13                 14                 15                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1  1.0276e-02(1.011) -2.6703e-02(1.029)  1.9256e-02(0.990)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2  6.7860e-03(1.017) -2.5926e-02(1.021) -4.5632e-03(1.023)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3 -5.3129e-02(1.004)  6.1973e-03(0.963)  6.4984e-02(0.993)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4 -3.2984e-02(0.992) -1.4362e-02(0.999)  1.3916e-02(1.006)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 16                 17                 18                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1  1.8445e-02(0.990)  3.4325e-02(0.993)  8.2225e-03(0.982)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2 -2.7584e-02(0.958)  2.8200e-02(1.038) -2.9007e-02(0.954)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3  2.9244e-02(1.028) -1.5645e-02(1.007)  1.5251e-02(0.984)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4  1.6419e-02(0.983)  1.1332e-03(0.931)  1.8837e-02(0.956)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 19                 20                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1  1.0350e-02(0.991)  3.4880e-02(1.013)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2 -3.0215e-03(1.013) -9.9286e-03(0.995)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3  1.2160e-02(0.995) -5.7102e-04(0.987)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4  6.6341e-06(1.015) -8.8421e-03(0.961)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># By quant (age)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>12</span>, year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>qbind</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age  1 2 3 4 5 6 7 8 9 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1 1 1 1 1 1 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1 1 1 1 1 1 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1 1 1 1 1 1 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   6  2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   7  2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   8  2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   9  2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   10 2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   11 2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   12 2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># By year</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>3</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, year<span class='op'>=</span><span class='fl'>21</span><span class='op'>:</span><span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>ybind</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>z</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1 1 1 1 1 1 1 1 1 1  2  2  2  2  2  2  2  2  2  2  3  3  3  3  3  3  3  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 1 1 1 1 1 1 1 1 1 1  2  2  2  2  2  2  2  2  2  2  3  3  3  3  3  3  3  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 1 1 1 1 1 1 1 1 1 1  2  2  2  2  2  2  2  2  2  2  3  3  3  3  3  3  3  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 29 30</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 3  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 3  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 3  3 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># By season</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, season<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>year<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, season<span class='op'>=</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>sbind</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 1, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1 2 3 4 5 6 7 8 9 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 1 1 1 1 1 1 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 2, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1 2 3 4 5 6 7 8 9 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 1 1 1 1 1 1 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 3, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1 2 3 4 5 6 7 8 9 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 4, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1 2 3 4 5 6 7 8 9 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 2 2 2 2 2 2 2 2 2 2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

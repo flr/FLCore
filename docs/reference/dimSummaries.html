@@ -76,7 +76,7 @@ to operate along." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -350,453 +350,460 @@ dimSums(x), dimMeans(x), dimVars(x)</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>4000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>10</span><span class='op'>)</span>, quant<span class='op'>=</span><span class='st'>'age'</span><span class='op'>)</span>
-
-<span class='fu'>quantSums</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; iters:  10 
-#&gt; 
-#&gt; , , unit = 1, season = 1, area = 1
-#&gt; 
-#&gt;      year
-#&gt; age   1                2                3                4               
-#&gt;   all -1.476721(2.606) -0.332862(2.154) -0.937370(2.784) -0.680696(2.203)
-#&gt;      year
-#&gt; age   5                6                7                8               
-#&gt;   all -0.403291(2.466) -0.861787(1.673) -0.033123(3.440) -0.067224(1.501)
-#&gt;      year
-#&gt; age   9                10              
-#&gt;   all  1.210317(2.962) -0.827674(4.459)
-#&gt; 
-#&gt; , , unit = 2, season = 1, area = 1
-#&gt; 
-#&gt;      year
-#&gt; age   1                2                3                4               
-#&gt;   all -0.023503(1.951)  0.947065(1.837)  1.182005(3.496) -0.084561(1.860)
-#&gt;      year
-#&gt; age   5                6                7                8               
-#&gt;   all -0.248202(1.272) -0.790756(1.542)  1.060758(1.878)  1.031011(1.422)
-#&gt;      year
-#&gt; age   9                10              
-#&gt;   all  0.695817(1.449)  1.139104(2.218)
-#&gt; 
-#&gt; , , unit = 1, season = 2, area = 1
-#&gt; 
-#&gt;      year
-#&gt; age   1                2                3                4               
-#&gt;   all  0.372650(1.176)  0.610384(1.728) -0.381136(0.886)  0.657504(3.222)
-#&gt;      year
-#&gt; age   5                6                7                8               
-#&gt;   all -0.418326(1.998)  0.341671(1.039) -0.908939(3.436)  0.598591(2.562)
-#&gt;      year
-#&gt; age   9                10              
-#&gt;   all -1.080371(2.737)  0.310561(1.415)
-#&gt; 
-#&gt; , , unit = 2, season = 2, area = 1
-#&gt; 
-#&gt;      year
-#&gt; age   1                2                3                4               
-#&gt;   all  0.808285(0.811)  0.920526(1.725) -0.831073(1.383)  2.157116(1.522)
-#&gt;      year
-#&gt; age   5                6                7                8               
-#&gt;   all  0.949810(2.472)  0.781566(2.603)  0.224637(1.573)  0.496233(1.928)
-#&gt;      year
-#&gt; age   9                10              
-#&gt;   all  0.825861(2.646) -0.238428(1.411)
-#&gt; 
-#&gt; , , unit = 1, season = 1, area = 2
-#&gt; 
-#&gt;      year
-#&gt; age   1                2                3                4               
-#&gt;   all -0.381693(2.909) -0.095693(3.093) -0.293061(1.217)  0.020456(2.273)
-#&gt;      year
-#&gt; age   5                6                7                8               
-#&gt;   all  0.092717(1.779) -1.124509(2.149) -0.826676(2.574) -0.024669(2.391)
-#&gt;      year
-#&gt; age   9                10              
-#&gt;   all -0.865928(1.438) -0.682361(1.648)
-#&gt; 
-#&gt; , , unit = 2, season = 1, area = 2
-#&gt; 
-#&gt;      year
-#&gt; age   1                2                3                4               
-#&gt;   all  0.207336(1.704) -1.646678(1.761) -0.534961(2.752)  1.354510(1.630)
-#&gt;      year
-#&gt; age   5                6                7                8               
-#&gt;   all -0.622381(2.338)  1.236903(0.956)  0.386943(2.099)  0.042592(0.881)
-#&gt;      year
-#&gt; age   9                10              
-#&gt;   all  0.298229(2.369)  0.063914(1.290)
-#&gt; 
-#&gt; , , unit = 1, season = 2, area = 2
-#&gt; 
-#&gt;      year
-#&gt; age   1                2                3                4               
-#&gt;   all  0.187481(2.581)  1.167155(2.387) -0.020265(2.802) -0.415563(1.964)
-#&gt;      year
-#&gt; age   5                6                7                8               
-#&gt;   all -0.301292(2.128)  1.054142(1.602) -0.523299(1.268)  1.267266(1.877)
-#&gt;      year
-#&gt; age   9                10              
-#&gt;   all  1.333761(3.389) -0.508602(1.669)
-#&gt; 
-#&gt; , , unit = 2, season = 2, area = 2
-#&gt; 
-#&gt;      year
-#&gt; age   1                2                3                4               
-#&gt;   all -0.129244(1.939) -0.713706(3.618) -0.244747(2.467) -0.201415(3.050)
-#&gt;      year
-#&gt; age   5                6                7                8               
-#&gt;   all -0.974318(1.280) -0.073944(1.860) -1.223494(1.422) -0.870046(1.411)
-#&gt;      year
-#&gt; age   9                10              
-#&gt;   all  0.270513(2.377) -0.250027(4.086)
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'>quantMeans</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; iters:  10 
-#&gt; 
-#&gt; , , unit = 1, season = 1, area = 1
-#&gt; 
-#&gt;      year
-#&gt; age   1                 2                 3                 4                
-#&gt;   all -0.2953442(0.521) -0.0665725(0.431) -0.1874740(0.557) -0.1361392(0.441)
-#&gt;      year
-#&gt; age   5                 6                 7                 8                
-#&gt;   all -0.0806582(0.493) -0.1723574(0.335) -0.0066246(0.688) -0.0134449(0.300)
-#&gt;      year
-#&gt; age   9                 10               
-#&gt;   all  0.2420633(0.592) -0.1655347(0.892)
-#&gt; 
-#&gt; , , unit = 2, season = 1, area = 1
-#&gt; 
-#&gt;      year
-#&gt; age   1                 2                 3                 4                
-#&gt;   all -0.0047006(0.390)  0.1894129(0.367)  0.2364010(0.699) -0.0169122(0.372)
-#&gt;      year
-#&gt; age   5                 6                 7                 8                
-#&gt;   all -0.0496404(0.254) -0.1581513(0.308)  0.2121516(0.376)  0.2062023(0.284)
-#&gt;      year
-#&gt; age   9                 10               
-#&gt;   all  0.1391634(0.290)  0.2278208(0.444)
-#&gt; 
-#&gt; , , unit = 1, season = 2, area = 1
-#&gt; 
-#&gt;      year
-#&gt; age   1                 2                 3                 4                
-#&gt;   all  0.0745300(0.235)  0.1220768(0.346) -0.0762271(0.177)  0.1315009(0.644)
-#&gt;      year
-#&gt; age   5                 6                 7                 8                
-#&gt;   all -0.0836652(0.400)  0.0683342(0.208) -0.1817878(0.687)  0.1197182(0.512)
-#&gt;      year
-#&gt; age   9                 10               
-#&gt;   all -0.2160743(0.547)  0.0621123(0.283)
-#&gt; 
-#&gt; , , unit = 2, season = 2, area = 1
-#&gt; 
-#&gt;      year
-#&gt; age   1                 2                 3                 4                
-#&gt;   all  0.1616570(0.162)  0.1841051(0.345) -0.1662147(0.277)  0.4314232(0.304)
-#&gt;      year
-#&gt; age   5                 6                 7                 8                
-#&gt;   all  0.1899621(0.494)  0.1563132(0.521)  0.0449275(0.315)  0.0992466(0.386)
-#&gt;      year
-#&gt; age   9                 10               
-#&gt;   all  0.1651723(0.529) -0.0476856(0.282)
-#&gt; 
-#&gt; , , unit = 1, season = 1, area = 2
-#&gt; 
-#&gt;      year
-#&gt; age   1                 2                 3                 4                
-#&gt;   all -0.0763387(0.582) -0.0191387(0.619) -0.0586123(0.243)  0.0040911(0.455)
-#&gt;      year
-#&gt; age   5                 6                 7                 8                
-#&gt;   all  0.0185433(0.356) -0.2249018(0.430) -0.1653352(0.515) -0.0049338(0.478)
-#&gt;      year
-#&gt; age   9                 10               
-#&gt;   all -0.1731857(0.288) -0.1364723(0.330)
-#&gt; 
-#&gt; , , unit = 2, season = 1, area = 2
-#&gt; 
-#&gt;      year
-#&gt; age   1                 2                 3                 4                
-#&gt;   all  0.0414672(0.341) -0.3293356(0.352) -0.1069922(0.550)  0.2709021(0.326)
-#&gt;      year
-#&gt; age   5                 6                 7                 8                
-#&gt;   all -0.1244762(0.468)  0.2473806(0.191)  0.0773885(0.420)  0.0085183(0.176)
-#&gt;      year
-#&gt; age   9                 10               
-#&gt;   all  0.0596459(0.474)  0.0127828(0.258)
-#&gt; 
-#&gt; , , unit = 1, season = 2, area = 2
-#&gt; 
-#&gt;      year
-#&gt; age   1                 2                 3                 4                
-#&gt;   all  0.0374962(0.516)  0.2334309(0.477) -0.0040530(0.560) -0.0831126(0.393)
-#&gt;      year
-#&gt; age   5                 6                 7                 8                
-#&gt;   all -0.0602585(0.426)  0.2108285(0.320) -0.1046598(0.254)  0.2534533(0.375)
-#&gt;      year
-#&gt; age   9                 10               
-#&gt;   all  0.2667523(0.678) -0.1017204(0.334)
-#&gt; 
-#&gt; , , unit = 2, season = 2, area = 2
-#&gt; 
-#&gt;      year
-#&gt; age   1                 2                 3                 4                
-#&gt;   all -0.0258488(0.388) -0.1427413(0.724) -0.0489494(0.493) -0.0402829(0.610)
-#&gt;      year
-#&gt; age   5                 6                 7                 8                
-#&gt;   all -0.1948636(0.256) -0.0147889(0.372) -0.2446989(0.284) -0.1740092(0.282)
-#&gt;      year
-#&gt; age   9                 10               
-#&gt;   all  0.0541027(0.475) -0.0500054(0.817)
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'>yearSums</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; iters:  10 
-#&gt; 
-#&gt; , , unit = 1, season = 1, area = 1
-#&gt; 
-#&gt;    year
-#&gt; age 1               
-#&gt;   1 -0.453046(2.683)
-#&gt;   2 -0.858712(2.835)
-#&gt;   3  1.262139(2.858)
-#&gt;   4 -0.517698(2.899)
-#&gt;   5 -2.574219(2.545)
-#&gt; 
-#&gt; , , unit = 2, season = 1, area = 1
-#&gt; 
-#&gt;    year
-#&gt; age 1               
-#&gt;   1  1.975911(2.332)
-#&gt;   2 -0.040903(1.468)
-#&gt;   3  1.329686(2.791)
-#&gt;   4  1.295434(3.968)
-#&gt;   5  0.234355(4.839)
-#&gt; 
-#&gt; , , unit = 1, season = 2, area = 1
-#&gt; 
-#&gt;    year
-#&gt; age 1               
-#&gt;   1  0.524242(2.618)
-#&gt;   2  0.343936(2.979)
-#&gt;   3 -1.180131(4.172)
-#&gt;   4  2.172125(1.202)
-#&gt;   5  0.315649(2.183)
-#&gt; 
-#&gt; , , unit = 2, season = 2, area = 1
-#&gt; 
-#&gt;    year
-#&gt; age 1               
-#&gt;   1  0.730413(5.109)
-#&gt;   2  1.652417(2.416)
-#&gt;   3  1.704377(2.837)
-#&gt;   4 -0.429285(1.851)
-#&gt;   5  1.239743(4.828)
-#&gt; 
-#&gt; , , unit = 1, season = 1, area = 2
-#&gt; 
-#&gt;    year
-#&gt; age 1               
-#&gt;   1 -0.745577(1.851)
-#&gt;   2 -1.893032(0.537)
-#&gt;   3 -1.696050(1.973)
-#&gt;   4 -0.770141(2.490)
-#&gt;   5 -0.065305(2.513)
-#&gt; 
-#&gt; , , unit = 2, season = 1, area = 2
-#&gt; 
-#&gt;    year
-#&gt; age 1               
-#&gt;   1 -0.241152(2.239)
-#&gt;   2 -1.450671(2.886)
-#&gt;   3  1.535035(2.570)
-#&gt;   4  0.572407(3.687)
-#&gt;   5  0.840019(3.356)
-#&gt; 
-#&gt; , , unit = 1, season = 2, area = 2
-#&gt; 
-#&gt;    year
-#&gt; age 1               
-#&gt;   1 -0.486389(3.589)
-#&gt;   2 -0.303532(2.371)
-#&gt;   3  0.058484(2.619)
-#&gt;   4  0.208881(0.725)
-#&gt;   5  3.688478(2.013)
-#&gt; 
-#&gt; , , unit = 2, season = 2, area = 2
-#&gt; 
-#&gt;    year
-#&gt; age 1               
-#&gt;   1  1.173944(5.532)
-#&gt;   2 -0.742442(4.742)
-#&gt;   3 -2.513914(4.532)
-#&gt;   4 -0.823072(2.642)
-#&gt;   5 -0.393057(1.958)
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'>iterMeans</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = 1, season = 1, area = 1
-#&gt; 
-#&gt;    year
-#&gt; age 1           2           3           4           5           6          
-#&gt;   1 -2.5596e-02 -3.1421e-01  3.5796e-01 -2.8836e-01 -6.0114e-02  2.3703e-01
-#&gt;   2  3.0533e-02  4.8929e-03  1.1261e-01  1.9915e-02 -8.9331e-02 -2.7219e-01
-#&gt;   3 -2.8597e-01 -3.7785e-01 -3.2963e-01  1.2018e-01  1.2093e-02  1.1868e-01
-#&gt;   4 -4.9263e-01  2.8548e-01 -6.4398e-01  4.4132e-01 -1.9207e-01 -4.9117e-01
-#&gt;   5 -3.7096e-01  4.2715e-02 -1.5241e-01 -8.5655e-01 -4.2708e-01 -3.4140e-01
-#&gt;    year
-#&gt; age 7           8           9           10         
-#&gt;   1  7.2284e-02  1.1185e-05  2.0823e-01 -1.5669e-02
-#&gt;   2 -1.1729e-02 -6.4483e-01  6.3224e-01 -5.9165e-01
-#&gt;   3  2.4731e-01  1.6373e-01  3.7604e-01  3.6644e-01
-#&gt;   4  2.7047e-01  3.4008e-01  1.3205e-01 -2.7098e-01
-#&gt;   5 -5.5068e-01 -1.4055e-01 -3.5936e-02 -3.8283e-01
-#&gt; 
-#&gt; , , unit = 2, season = 1, area = 1
-#&gt; 
-#&gt;    year
-#&gt; age 1           2           3           4           5           6          
-#&gt;   1  3.5992e-02  1.4675e-01  1.5069e-01 -6.4208e-02  7.1639e-01  1.4233e-01
-#&gt;   2  4.0199e-01 -5.4621e-01  2.7121e-01  2.2613e-01  6.7918e-02 -3.0330e-01
-#&gt;   3 -5.6962e-02  1.2309e-01 -7.2679e-01 -2.5106e-01  6.3318e-01  4.4261e-02
-#&gt;   4 -1.8704e-01  3.5762e-01  2.1506e-01  1.4011e-01  8.8054e-02  2.1349e-01
-#&gt;   5 -1.3349e-01  4.5189e-01  3.4632e-01  1.7205e-01 -6.0728e-01 -2.4552e-01
-#&gt;    year
-#&gt; age 7           8           9           10         
-#&gt;   1  7.7198e-02  4.2300e-01 -3.0248e-01  1.8913e-01
-#&gt;   2  7.0998e-01  3.1157e-02 -2.8285e-01 -5.2359e-02
-#&gt;   3  2.8560e-01  8.4691e-02  5.2627e-01  3.0126e-01
-#&gt;   4 -1.5714e-01  6.4096e-01 -4.2187e-01  3.1421e-01
-#&gt;   5  2.0758e-01  3.3934e-01 -4.8025e-01 -3.0575e-01
-#&gt; 
-#&gt; , , unit = 1, season = 2, area = 1
-#&gt; 
-#&gt;    year
-#&gt; age 1           2           3           4           5           6          
-#&gt;   1  9.5079e-02 -4.4012e-01 -2.3057e-01  3.3224e-01  5.8890e-01  1.3670e-01
-#&gt;   2 -4.6010e-02 -1.3690e-01  4.4358e-01  9.3749e-02 -5.9642e-01  2.3588e-01
-#&gt;   3 -1.5972e-01 -1.0183e-01 -3.6836e-01  1.0896e-01  6.0380e-02  1.1044e-01
-#&gt;   4  8.6189e-02  4.5501e-01 -2.4297e-01  5.5829e-01  2.8685e-02 -3.2634e-02
-#&gt;   5  2.7655e-02  3.8286e-01 -2.6931e-01 -3.2403e-01 -6.8363e-01  9.4661e-02
-#&gt;    year
-#&gt; age 7           8           9           10         
-#&gt;   1  2.6424e-01 -2.1043e-03  8.0877e-02  4.8653e-01
-#&gt;   2  3.8072e-02  2.4654e-01 -9.5477e-02 -3.4334e-01
-#&gt;   3 -3.4377e-01  2.5481e-01 -8.4467e-02 -7.0995e-01
-#&gt;   4  5.0257e-02  3.4136e-01  2.6264e-02  2.6555e-01
-#&gt;   5  6.0273e-01  6.0633e-01 -1.7886e-01  2.3726e-01
-#&gt; 
-#&gt; , , unit = 2, season = 2, area = 1
-#&gt; 
-#&gt;    year
-#&gt; age 1           2           3           4           5           6          
-#&gt;   1  2.2382e-01  3.6807e-01  3.5981e-01  3.0160e-01  3.0079e-01 -1.1940e-01
-#&gt;   2 -1.0586e-01  1.9730e-01 -2.0065e-01  3.2678e-01  1.1712e-01  4.8431e-01
-#&gt;   3  6.3326e-02 -5.7304e-01 -2.4050e-01  5.6148e-01  6.2491e-01  4.2937e-01
-#&gt;   4 -7.4662e-02  1.4374e-01  4.2017e-01 -1.1848e-01  1.7196e-01  5.0264e-02
-#&gt;   5  3.0282e-01  4.5473e-01 -7.1355e-03  1.5270e-01 -2.6724e-02  2.3033e-01
-#&gt;    year
-#&gt; age 7           8           9           10         
-#&gt;   1 -1.7526e-01 -1.3111e-02  1.8802e-01 -4.3040e-01
-#&gt;   2 -1.7377e-01  1.5901e-01  8.0099e-01 -8.3459e-02
-#&gt;   3  2.6809e-01  4.2213e-01 -3.0038e-01  3.5395e-02
-#&gt;   4  3.7460e-01 -9.0443e-03  1.8614e-01 -4.9214e-01
-#&gt;   5 -4.0226e-02  3.2100e-01 -1.9912e-01  5.8885e-02
-#&gt; 
-#&gt; , , unit = 1, season = 1, area = 2
-#&gt; 
-#&gt;    year
-#&gt; age 1           2           3           4           5           6          
-#&gt;   1 -1.0150e-01  3.4950e-02 -6.0169e-01 -7.1558e-02 -3.7815e-01 -3.0096e-02
-#&gt;   2 -2.6661e-01  1.9786e-01  2.2461e-02  5.8363e-02 -2.7297e-01 -7.5724e-01
-#&gt;   3  1.6199e-01  2.6556e-01 -1.1657e-01 -2.1499e-01  1.0515e-01  5.5607e-02
-#&gt;   4  2.4270e-01 -6.3726e-01 -3.8011e-01  5.3341e-01  3.1374e-01 -3.2178e-01
-#&gt;   5  1.6954e-01 -1.6001e-01  3.5186e-01  6.4553e-02 -3.7849e-03  9.1998e-02
-#&gt;    year
-#&gt; age 7           8           9           10         
-#&gt;   1  4.4574e-01  4.9337e-01 -7.4821e-02 -3.9503e-01
-#&gt;   2  1.9104e-01 -4.2562e-01 -3.9759e-01 -2.9641e-01
-#&gt;   3 -7.0967e-01  2.6751e-01  1.4274e-01 -8.7616e-01
-#&gt;   4  1.4026e-01  6.9314e-03 -1.6503e-01  5.1654e-02
-#&gt;   5 -1.9790e-01 -3.6281e-02 -4.3105e-01 -8.2133e-03
-#&gt; 
-#&gt; , , unit = 2, season = 1, area = 2
-#&gt; 
-#&gt;    year
-#&gt; age 1           2           3           4           5           6          
-#&gt;   1 -2.9862e-01 -4.5773e-01 -2.3659e-01  1.4961e-01  3.3329e-01  2.0133e-02
-#&gt;   2  3.4917e-01 -3.9025e-01  2.7194e-01 -5.5923e-01 -3.2817e-01 -3.6404e-03
-#&gt;   3  1.8983e-01 -3.3218e-01 -9.2659e-02  5.8883e-01 -7.7019e-02  2.9198e-01
-#&gt;   4  1.5424e-01 -4.3012e-02 -7.3499e-01  7.0200e-03 -2.2557e-01  1.4796e-01
-#&gt;   5 -6.2182e-01  5.8137e-02 -2.9609e-01  9.6969e-01  1.0009e-01  4.7719e-01
-#&gt;    year
-#&gt; age 7           8           9           10         
-#&gt;   1  2.3571e-01 -1.1497e-01  6.5258e-03  5.5506e-02
-#&gt;   2  1.5380e-01  4.7475e-02 -5.8833e-03 -3.2991e-01
-#&gt;   3  7.7053e-02  2.9167e-01 -2.4935e-02 -1.6871e-01
-#&gt;   4  1.3631e-01  3.3649e-01  2.3468e-01  3.9104e-01
-#&gt;   5  2.7294e-01 -5.7290e-01  1.0030e-01  1.3632e-01
-#&gt; 
-#&gt; , , unit = 1, season = 2, area = 2
-#&gt; 
-#&gt;    year
-#&gt; age 1           2           3           4           5           6          
-#&gt;   1 -2.1342e-01  7.1789e-01 -2.6289e-01 -5.2887e-01 -2.0141e-01  4.2307e-01
-#&gt;   2  2.6695e-02 -6.6024e-02 -1.0870e-01  8.2334e-02 -3.1156e-01  1.6966e-01
-#&gt;   3  8.3261e-02 -9.1858e-02 -6.3092e-02  1.6977e-01 -1.5631e-01 -2.8049e-01
-#&gt;   4  1.6148e-01  2.7784e-01  1.1408e-01 -1.1857e-01  2.0479e-01  4.9643e-01
-#&gt;   5  2.7213e-01  1.1047e-01 -2.1958e-03  3.5385e-01  2.9398e-01  3.9062e-02
-#&gt;    year
-#&gt; age 7           8           9           10         
-#&gt;   1 -5.2137e-01  1.5284e-01  4.7018e-01 -3.2020e-01
-#&gt;   2  2.1607e-01 -1.5912e-01 -3.6545e-01 -4.6965e-01
-#&gt;   3  4.7265e-02  2.0275e-01 -1.4381e-01  2.4078e-01
-#&gt;   4 -3.2431e-01  4.7721e-01 -9.2953e-02  9.0610e-02
-#&gt;   5  2.3515e-01  1.8140e-01  2.0313e-01  2.7131e-01
-#&gt; 
-#&gt; , , unit = 2, season = 2, area = 2
-#&gt; 
-#&gt;    year
-#&gt; age 1           2           3           4           5           6          
-#&gt;   1  2.8748e-01  2.5721e-02 -1.0500e-01  1.1833e-01 -4.4675e-01  4.0842e-01
-#&gt;   2 -4.3708e-01 -1.5027e-01  2.3270e-01 -1.6205e-01 -1.1660e-01  4.8094e-01
-#&gt;   3 -2.9469e-01 -3.9566e-01  1.0014e-01  1.2334e-01 -5.4484e-01 -3.6306e-01
-#&gt;   4  2.6355e-01 -4.1417e-02 -2.0809e-01 -2.9005e-01 -4.5380e-02 -4.9284e-01
-#&gt;   5  8.1672e-02 -1.2236e-04 -4.5403e-02 -2.1440e-01  5.5582e-02  1.6217e-01
-#&gt;    year
-#&gt; age 7           8           9           10         
-#&gt;   1 -1.2720e-02 -2.2318e-01  1.4263e-01 -2.1030e-01
-#&gt;   2 -3.3004e-01 -1.5000e-01  4.2823e-02  4.8706e-01
-#&gt;   3 -2.2328e-01 -2.6071e-01 -1.7482e-01 -5.1463e-01
-#&gt;   4 -2.6761e-01 -2.4131e-02  8.0640e-02 -6.6638e-02
-#&gt;   5 -3.4958e-01 -1.5941e-01  5.6130e-02  3.9109e-02
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>quantSums</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  1 10  2  2  2 10</div><div class='input'>
-<span class='co'># NA dims stay as NA when summed along</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span>, <span class='cn'>NA</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>quantSums</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1       2       3      
-#&gt;   all      NA 0.40061 0.47592
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='co'># although in fact a sum of no elements (as na.rm=TRUE) is zero</span>
-<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>6</span>, <span class='va'>sum</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1       2       3      
-#&gt;   all 0.00000 0.40061 0.47592
-#&gt; 
-#&gt; units:  NA </div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>4000</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>10</span><span class='op'>)</span>, quant<span class='op'>=</span><span class='st'>'age'</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>quantSums</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> iters:  10 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 1, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                2                3                4               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -1.476721(2.606) -0.332862(2.154) -0.937370(2.784) -0.680696(2.203)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                6                7                8               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.403291(2.466) -0.861787(1.673) -0.033123(3.440) -0.067224(1.501)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                10              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  1.210317(2.962) -0.827674(4.459)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 1, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                2                3                4               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.023503(1.951)  0.947065(1.837)  1.182005(3.496) -0.084561(1.860)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                6                7                8               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.248202(1.272) -0.790756(1.542)  1.060758(1.878)  1.031011(1.422)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                10              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.695817(1.449)  1.139104(2.218)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 2, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                2                3                4               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.372650(1.176)  0.610384(1.728) -0.381136(0.886)  0.657504(3.222)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                6                7                8               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.418326(1.998)  0.341671(1.039) -0.908939(3.436)  0.598591(2.562)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                10              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -1.080371(2.737)  0.310561(1.415)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 2, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                2                3                4               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.808285(0.811)  0.920526(1.725) -0.831073(1.383)  2.157116(1.522)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                6                7                8               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.949810(2.472)  0.781566(2.603)  0.224637(1.573)  0.496233(1.928)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                10              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.825861(2.646) -0.238428(1.411)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 1, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                2                3                4               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.381693(2.909) -0.095693(3.093) -0.293061(1.217)  0.020456(2.273)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                6                7                8               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.092717(1.779) -1.124509(2.149) -0.826676(2.574) -0.024669(2.391)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                10              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.865928(1.438) -0.682361(1.648)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 1, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                2                3                4               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.207336(1.704) -1.646678(1.761) -0.534961(2.752)  1.354510(1.630)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                6                7                8               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.622381(2.338)  1.236903(0.956)  0.386943(2.099)  0.042592(0.881)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                10              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.298229(2.369)  0.063914(1.290)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 2, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                2                3                4               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.187481(2.581)  1.167155(2.387) -0.020265(2.802) -0.415563(1.964)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                6                7                8               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.301292(2.128)  1.054142(1.602) -0.523299(1.268)  1.267266(1.877)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                10              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  1.333761(3.389) -0.508602(1.669)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 2, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                2                3                4               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.129244(1.939) -0.713706(3.618) -0.244747(2.467) -0.201415(3.050)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                6                7                8               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.974318(1.280) -0.073944(1.860) -1.223494(1.422) -0.870046(1.411)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                10              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.270513(2.377) -0.250027(4.086)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='fu'>quantMeans</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> iters:  10 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 1, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.2953442(0.521) -0.0665725(0.431) -0.1874740(0.557) -0.1361392(0.441)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.0806582(0.493) -0.1723574(0.335) -0.0066246(0.688) -0.0134449(0.300)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                 10               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.2420633(0.592) -0.1655347(0.892)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 1, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.0047006(0.390)  0.1894129(0.367)  0.2364010(0.699) -0.0169122(0.372)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.0496404(0.254) -0.1581513(0.308)  0.2121516(0.376)  0.2062023(0.284)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                 10               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.1391634(0.290)  0.2278208(0.444)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 2, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.0745300(0.235)  0.1220768(0.346) -0.0762271(0.177)  0.1315009(0.644)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.0836652(0.400)  0.0683342(0.208) -0.1817878(0.687)  0.1197182(0.512)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                 10               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.2160743(0.547)  0.0621123(0.283)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 2, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.1616570(0.162)  0.1841051(0.345) -0.1662147(0.277)  0.4314232(0.304)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.1899621(0.494)  0.1563132(0.521)  0.0449275(0.315)  0.0992466(0.386)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                 10               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.1651723(0.529) -0.0476856(0.282)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 1, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.0763387(0.582) -0.0191387(0.619) -0.0586123(0.243)  0.0040911(0.455)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.0185433(0.356) -0.2249018(0.430) -0.1653352(0.515) -0.0049338(0.478)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                 10               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.1731857(0.288) -0.1364723(0.330)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 1, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.0414672(0.341) -0.3293356(0.352) -0.1069922(0.550)  0.2709021(0.326)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.1244762(0.468)  0.2473806(0.191)  0.0773885(0.420)  0.0085183(0.176)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                 10               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.0596459(0.474)  0.0127828(0.258)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 2, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.0374962(0.516)  0.2334309(0.477) -0.0040530(0.560) -0.0831126(0.393)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.0602585(0.426)  0.2108285(0.320) -0.1046598(0.254)  0.2534533(0.375)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                 10               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.2667523(0.678) -0.1017204(0.334)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 2, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1                 2                 3                 4                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.0258488(0.388) -0.1427413(0.724) -0.0489494(0.493) -0.0402829(0.610)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   5                 6                 7                 8                </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all -0.1948636(0.256) -0.0147889(0.372) -0.2446989(0.284) -0.1740092(0.282)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   9                 10               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  0.0541027(0.475) -0.0500054(0.817)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='fu'>yearSums</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> iters:  10 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 1, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.453046(2.683)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -0.858712(2.835)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1.262139(2.858)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -0.517698(2.899)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -2.574219(2.545)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 1, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1.975911(2.332)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -0.040903(1.468)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1.329686(2.791)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  1.295434(3.968)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  0.234355(4.839)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 2, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  0.524242(2.618)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  0.343936(2.979)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -1.180131(4.172)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  2.172125(1.202)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  0.315649(2.183)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 2, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  0.730413(5.109)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.652417(2.416)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1.704377(2.837)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -0.429285(1.851)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  1.239743(4.828)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 1, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.745577(1.851)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -1.893032(0.537)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -1.696050(1.973)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -0.770141(2.490)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -0.065305(2.513)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 1, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.241152(2.239)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -1.450671(2.886)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1.535035(2.570)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  0.572407(3.687)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  0.840019(3.356)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 2, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.486389(3.589)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -0.303532(2.371)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  0.058484(2.619)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  0.208881(0.725)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  3.688478(2.013)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 2, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1               </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1.173944(5.532)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -0.742442(4.742)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -2.513914(4.532)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -0.823072(2.642)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -0.393057(1.958)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='fu'>iterMeans</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 1, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -2.5596e-02 -3.1421e-01  3.5796e-01 -2.8836e-01 -6.0114e-02  2.3703e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  3.0533e-02  4.8929e-03  1.1261e-01  1.9915e-02 -8.9331e-02 -2.7219e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -2.8597e-01 -3.7785e-01 -3.2963e-01  1.2018e-01  1.2093e-02  1.1868e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -4.9263e-01  2.8548e-01 -6.4398e-01  4.4132e-01 -1.9207e-01 -4.9117e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -3.7096e-01  4.2715e-02 -1.5241e-01 -8.5655e-01 -4.2708e-01 -3.4140e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 7           8           9           10         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  7.2284e-02  1.1185e-05  2.0823e-01 -1.5669e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -1.1729e-02 -6.4483e-01  6.3224e-01 -5.9165e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  2.4731e-01  1.6373e-01  3.7604e-01  3.6644e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  2.7047e-01  3.4008e-01  1.3205e-01 -2.7098e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -5.5068e-01 -1.4055e-01 -3.5936e-02 -3.8283e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 1, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  3.5992e-02  1.4675e-01  1.5069e-01 -6.4208e-02  7.1639e-01  1.4233e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  4.0199e-01 -5.4621e-01  2.7121e-01  2.2613e-01  6.7918e-02 -3.0330e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -5.6962e-02  1.2309e-01 -7.2679e-01 -2.5106e-01  6.3318e-01  4.4261e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -1.8704e-01  3.5762e-01  2.1506e-01  1.4011e-01  8.8054e-02  2.1349e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -1.3349e-01  4.5189e-01  3.4632e-01  1.7205e-01 -6.0728e-01 -2.4552e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 7           8           9           10         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  7.7198e-02  4.2300e-01 -3.0248e-01  1.8913e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  7.0998e-01  3.1157e-02 -2.8285e-01 -5.2359e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  2.8560e-01  8.4691e-02  5.2627e-01  3.0126e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -1.5714e-01  6.4096e-01 -4.2187e-01  3.1421e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  2.0758e-01  3.3934e-01 -4.8025e-01 -3.0575e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 2, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  9.5079e-02 -4.4012e-01 -2.3057e-01  3.3224e-01  5.8890e-01  1.3670e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -4.6010e-02 -1.3690e-01  4.4358e-01  9.3749e-02 -5.9642e-01  2.3588e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -1.5972e-01 -1.0183e-01 -3.6836e-01  1.0896e-01  6.0380e-02  1.1044e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  8.6189e-02  4.5501e-01 -2.4297e-01  5.5829e-01  2.8685e-02 -3.2634e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  2.7655e-02  3.8286e-01 -2.6931e-01 -3.2403e-01 -6.8363e-01  9.4661e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 7           8           9           10         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  2.6424e-01 -2.1043e-03  8.0877e-02  4.8653e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  3.8072e-02  2.4654e-01 -9.5477e-02 -3.4334e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -3.4377e-01  2.5481e-01 -8.4467e-02 -7.0995e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  5.0257e-02  3.4136e-01  2.6264e-02  2.6555e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  6.0273e-01  6.0633e-01 -1.7886e-01  2.3726e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 2, area = 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  2.2382e-01  3.6807e-01  3.5981e-01  3.0160e-01  3.0079e-01 -1.1940e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -1.0586e-01  1.9730e-01 -2.0065e-01  3.2678e-01  1.1712e-01  4.8431e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  6.3326e-02 -5.7304e-01 -2.4050e-01  5.6148e-01  6.2491e-01  4.2937e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -7.4662e-02  1.4374e-01  4.2017e-01 -1.1848e-01  1.7196e-01  5.0264e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  3.0282e-01  4.5473e-01 -7.1355e-03  1.5270e-01 -2.6724e-02  2.3033e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 7           8           9           10         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -1.7526e-01 -1.3111e-02  1.8802e-01 -4.3040e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -1.7377e-01  1.5901e-01  8.0099e-01 -8.3459e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  2.6809e-01  4.2213e-01 -3.0038e-01  3.5395e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  3.7460e-01 -9.0443e-03  1.8614e-01 -4.9214e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -4.0226e-02  3.2100e-01 -1.9912e-01  5.8885e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 1, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -1.0150e-01  3.4950e-02 -6.0169e-01 -7.1558e-02 -3.7815e-01 -3.0096e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -2.6661e-01  1.9786e-01  2.2461e-02  5.8363e-02 -2.7297e-01 -7.5724e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1.6199e-01  2.6556e-01 -1.1657e-01 -2.1499e-01  1.0515e-01  5.5607e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  2.4270e-01 -6.3726e-01 -3.8011e-01  5.3341e-01  3.1374e-01 -3.2178e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  1.6954e-01 -1.6001e-01  3.5186e-01  6.4553e-02 -3.7849e-03  9.1998e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 7           8           9           10         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  4.4574e-01  4.9337e-01 -7.4821e-02 -3.9503e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.9104e-01 -4.2562e-01 -3.9759e-01 -2.9641e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -7.0967e-01  2.6751e-01  1.4274e-01 -8.7616e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  1.4026e-01  6.9314e-03 -1.6503e-01  5.1654e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -1.9790e-01 -3.6281e-02 -4.3105e-01 -8.2133e-03</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 1, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -2.9862e-01 -4.5773e-01 -2.3659e-01  1.4961e-01  3.3329e-01  2.0133e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  3.4917e-01 -3.9025e-01  2.7194e-01 -5.5923e-01 -3.2817e-01 -3.6404e-03</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1.8983e-01 -3.3218e-01 -9.2659e-02  5.8883e-01 -7.7019e-02  2.9198e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  1.5424e-01 -4.3012e-02 -7.3499e-01  7.0200e-03 -2.2557e-01  1.4796e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -6.2182e-01  5.8137e-02 -2.9609e-01  9.6969e-01  1.0009e-01  4.7719e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 7           8           9           10         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  2.3571e-01 -1.1497e-01  6.5258e-03  5.5506e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.5380e-01  4.7475e-02 -5.8833e-03 -3.2991e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  7.7053e-02  2.9167e-01 -2.4935e-02 -1.6871e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  1.3631e-01  3.3649e-01  2.3468e-01  3.9104e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  2.7294e-01 -5.7290e-01  1.0030e-01  1.3632e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 1, season = 2, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -2.1342e-01  7.1789e-01 -2.6289e-01 -5.2887e-01 -2.0141e-01  4.2307e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  2.6695e-02 -6.6024e-02 -1.0870e-01  8.2334e-02 -3.1156e-01  1.6966e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  8.3261e-02 -9.1858e-02 -6.3092e-02  1.6977e-01 -1.5631e-01 -2.8049e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  1.6148e-01  2.7784e-01  1.1408e-01 -1.1857e-01  2.0479e-01  4.9643e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  2.7213e-01  1.1047e-01 -2.1958e-03  3.5385e-01  2.9398e-01  3.9062e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 7           8           9           10         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -5.2137e-01  1.5284e-01  4.7018e-01 -3.2020e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  2.1607e-01 -1.5912e-01 -3.6545e-01 -4.6965e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  4.7265e-02  2.0275e-01 -1.4381e-01  2.4078e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -3.2431e-01  4.7721e-01 -9.2953e-02  9.0610e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  2.3515e-01  1.8140e-01  2.0313e-01  2.7131e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = 2, season = 2, area = 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1           2           3           4           5           6          </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  2.8748e-01  2.5721e-02 -1.0500e-01  1.1833e-01 -4.4675e-01  4.0842e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -4.3708e-01 -1.5027e-01  2.3270e-01 -1.6205e-01 -1.1660e-01  4.8094e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -2.9469e-01 -3.9566e-01  1.0014e-01  1.2334e-01 -5.4484e-01 -3.6306e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  2.6355e-01 -4.1417e-02 -2.0809e-01 -2.9005e-01 -4.5380e-02 -4.9284e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  8.1672e-02 -1.2236e-04 -4.5403e-02 -2.1440e-01  5.5582e-02  1.6217e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 7           8           9           10         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -1.2720e-02 -2.2318e-01  1.4263e-01 -2.1030e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -3.3004e-01 -1.5000e-01  4.2823e-02  4.8706e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -2.2328e-01 -2.6071e-01 -1.7482e-01 -5.1463e-01</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -2.6761e-01 -2.4131e-02  8.0640e-02 -6.6638e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5 -3.4958e-01 -1.5941e-01  5.6130e-02  3.9109e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='fu'>quantSums</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  1 10  2  2  2 10</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># NA dims stay as NA when summed along</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='cn'>NA</span>, <span class='cn'>NA</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>quantSums</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1       2       3      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all      NA 0.40061 0.47592</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='co'># although in fact a sum of no elements (as na.rm=TRUE) is zero</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>6</span>, <span class='va'>sum</span>, na.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1       2       3      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.00000 0.40061 0.47592</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

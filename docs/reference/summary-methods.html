@@ -73,7 +73,7 @@ object. The method invisibly returns the data.frame shown on screen." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -162,79 +162,66 @@ object. The method invisibly returns the data.frame shown on screen.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>10</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant" with:
-#&gt; dim  :  3 10 1 1 1 1 
-#&gt; quant:  quant 
-#&gt; units:  kg 
-#&gt; 
-#&gt; Min    :  0.09354125 
-#&gt; 1st Qu.:  0.6299479 
-#&gt; Mean   :  1.692007 
-#&gt; Median :  1.209898 
-#&gt; 3rd Qu.:  2.115661 
-#&gt; Max    :  7.679538 
-#&gt; NAs    :  0 %</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLStock"
-#&gt; 
-#&gt; Name: PLE 
-#&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
-#&gt; Quant: age 
-#&gt; Dims:  age 	year	unit	season	area	iter
-#&gt; 	10	61	1	1	1	1	
-#&gt; 
-#&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
-#&gt; 	1	10	10	1957	2017	2	6	
-#&gt; 
-#&gt; catch         : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; catch.n       : [ 10 61 1 1 1 1 ], units =  1000 
-#&gt; catch.wt      : [ 10 61 1 1 1 1 ], units =  kg 
-#&gt; discards      : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; discards.n    : [ 10 61 1 1 1 1 ], units =  1000 
-#&gt; discards.wt   : [ 10 61 1 1 1 1 ], units =  kg 
-#&gt; landings      : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; landings.n    : [ 10 61 1 1 1 1 ], units =  1000 
-#&gt; landings.wt   : [ 10 61 1 1 1 1 ], units =  kg 
-#&gt; stock         : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; stock.n       : [ 10 61 1 1 1 1 ], units =  1000 
-#&gt; stock.wt      : [ 10 61 1 1 1 1 ], units =  kg 
-#&gt; m             : [ 10 61 1 1 1 1 ], units =  m 
-#&gt; mat           : [ 10 61 1 1 1 1 ], units =   
-#&gt; harvest       : [ 10 61 1 1 1 1 ], units =  f 
-#&gt; harvest.spwn  : [ 10 61 1 1 1 1 ], units =   
-#&gt; m.spwn        : [ 10 61 1 1 1 1 ], units =   </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLSR"
-#&gt; 
-#&gt; Name:  
-#&gt; Description:  
-#&gt; Quant: age 
-#&gt; Dims:  age 	year	unit	season	area	iter
-#&gt; 	1	45	1	1	1	1	
-#&gt; 
-#&gt; Range:  min	minyear	max	maxyear 
-#&gt; 	0	1960	0	2004	
-#&gt; 
-#&gt; rec           : [ 1 45 1 1 1 1 ], units =  1000 
-#&gt; ssb           : [ 1 45 1 1 1 1 ], units =  kt 
-#&gt; residuals     : [ 1 45 1 1 1 1 ], units =   
-#&gt; fitted        : [ 1 45 1 1 1 1 ], units =  1000 
-#&gt; 
-#&gt; Model: 	rec ~ a * ssb * exp(-b * ssb)
-#&gt;     params
-#&gt; iter   a       b
-#&gt;    1 119 0.00945
-#&gt; Log-likelihood:  15.862(0) 
-#&gt; Variance-covariance:    
-#&gt;               a            b
-#&gt;   a 255.3388181 1.808870e-02
-#&gt;   b   0.0180887 1.992659e-06</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>10</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant" with:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dim  :  3 10 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant:  quant </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  kg </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Min    :  0.09354125 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1st Qu.:  0.6299479 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean   :  1.692007 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median :  1.209898 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3rd Qu.:  2.115661 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Max    :  7.679538 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NAs    :  0 %</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLStock"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: PLE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Description: Plaice in IV. ICES WGNSSK 2018. FLAAP </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dims:  age 	year	unit	season	area	iter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	10	61	1	1	1	1	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1	10	10	1957	2017	2	6	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Metrics: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   rec: 367450 - 4303680  (1000) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ssb: 203391 - 913290  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   catch: 78360 - 315245  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   fbar: 0.20 - 0.72  (f) </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>nsher</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLSR"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Description:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dims:  age 	year	unit	season	area	iter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1	45	1	1	1	1	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Range:  min	minyear	max	maxyear </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	0	1960	0	2004	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Model: 	rec ~ a * ssb * exp(-b * ssb)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     params</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> iter   a       b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1 119 0.00945</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Log-likelihood:  15.862(0) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Variance-covariance:    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               a            b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   a 255.3388181 1.808870e-02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   b   0.0180887 1.992659e-06</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

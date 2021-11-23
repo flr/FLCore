@@ -73,7 +73,7 @@ of any FLArray-based class, like FLQuant or FLCohort." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -143,47 +143,53 @@ of any FLArray-based class, like <code><a href='FLQuant.html'>FLQuant</a></code>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># quant is 'quant' by default</span>
-  <span class='fu'>quant</span><span class='op'>(</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span><span class='op'>)</span>, quant<span class='op'>=</span><span class='st'>'age'</span><span class='op'>)</span>
-<span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "age"</div><div class='input'><span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'length'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant" with:
-#&gt; dim  :  4 20 1 1 1 1 
-#&gt; quant:  length 
-#&gt; units:  NA 
-#&gt; 
-#&gt; Min    :  -2.038674 
-#&gt; 1st Qu.:  -0.7678287 
-#&gt; Mean   :  -0.02533876 
-#&gt; Median :  -0.178143 
-#&gt; 3rd Qu.:  0.6618582 
-#&gt; Max    :  2.482254 
-#&gt; NAs    :  0 %</div><div class='input'>
-
-<span class='co'># quant is 'quant' by default</span>
-  <span class='fu'>quant</span><span class='op'>(</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "quant"</div><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span><span class='op'>)</span>, quant<span class='op'>=</span><span class='st'>'age'</span><span class='op'>)</span>
-<span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "age"</div><div class='input'><span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'length'</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant" with:
-#&gt; dim  :  4 20 1 1 1 1 
-#&gt; quant:  length 
-#&gt; units:  NA 
-#&gt; 
-#&gt; Min    :  -2.199154 
-#&gt; 1st Qu.:  -0.6647429 
-#&gt; Mean   :  -0.001814164 
-#&gt; Median :  -0.02983788 
-#&gt; 3rd Qu.:  0.7307501 
-#&gt; Max    :  2.269152 
-#&gt; NAs    :  0 %</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># quant is 'quant' by default</span></span>
+<span class='r-in'>  <span class='fu'>quant</span><span class='op'>(</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "quant"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span><span class='op'>)</span>, quant<span class='op'>=</span><span class='st'>'age'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "age"</span>
+<span class='r-in'><span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'length'</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant" with:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dim  :  4 20 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant:  length </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Min    :  -2.038674 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1st Qu.:  -0.7678287 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean   :  -0.02533876 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median :  -0.178143 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3rd Qu.:  0.6618582 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Max    :  2.482254 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NAs    :  0 %</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># quant is 'quant' by default</span></span>
+<span class='r-in'>  <span class='fu'>quant</span><span class='op'>(</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "quant"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>80</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>,<span class='fl'>20</span><span class='op'>)</span>, quant<span class='op'>=</span><span class='st'>'age'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "age"</span>
+<span class='r-in'><span class='fu'>quant</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>'length'</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant" with:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dim  :  4 20 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant:  length </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Min    :  -2.199154 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1st Qu.:  -0.6647429 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean   :  -0.001814164 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median :  -0.02983788 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3rd Qu.:  0.7307501 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Max    :  2.269152 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NAs    :  0 %</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

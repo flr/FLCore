@@ -76,7 +76,7 @@ any slot where all iters are identical and keeping only yhe first iter." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -158,70 +158,48 @@ of the variance along the 6th dimensions is equal to zero.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='co'># Extend all of ple4 to 50 iters</span>
-<span class='va'>ple4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='propagate.html'>propagate</a></span><span class='op'>(</span><span class='va'>ple4</span>, <span class='fl'>50</span><span class='op'>)</span>
-<span class='co'># Add variability in catch.n</span>
-<span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rnoise,numeric,FLQuant-method.html'>rlnoise</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLStock"
-#&gt; 
-#&gt; Name: PLE 
-#&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
-#&gt; Quant: age 
-#&gt; Dims:  age 	year	unit	season	area	iter
-#&gt; 	10	61	1	1	1	50	
-#&gt; 
-#&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
-#&gt; 	1	10	10	1957	2017	2	6	
-#&gt; 
-#&gt; catch         : [ 1 61 1 1 1 50 ], units =  t 
-#&gt; catch.n       : [ 10 61 1 1 1 50 ], units =   
-#&gt; catch.wt      : [ 10 61 1 1 1 50 ], units =  kg 
-#&gt; discards      : [ 1 61 1 1 1 50 ], units =  t 
-#&gt; discards.n    : [ 10 61 1 1 1 50 ], units =  1000 
-#&gt; discards.wt   : [ 10 61 1 1 1 50 ], units =  kg 
-#&gt; landings      : [ 1 61 1 1 1 50 ], units =  t 
-#&gt; landings.n    : [ 10 61 1 1 1 50 ], units =  1000 
-#&gt; landings.wt   : [ 10 61 1 1 1 50 ], units =  kg 
-#&gt; stock         : [ 1 61 1 1 1 50 ], units =  t 
-#&gt; stock.n       : [ 10 61 1 1 1 50 ], units =  1000 
-#&gt; stock.wt      : [ 10 61 1 1 1 50 ], units =  kg 
-#&gt; m             : [ 10 61 1 1 1 50 ], units =  m 
-#&gt; mat           : [ 10 61 1 1 1 50 ], units =   
-#&gt; harvest       : [ 10 61 1 1 1 50 ], units =  f 
-#&gt; harvest.spwn  : [ 10 61 1 1 1 50 ], units =   
-#&gt; m.spwn        : [ 10 61 1 1 1 50 ], units =   </div><div class='input'><span class='co'># slim object by dropping identical iters</span>
-<span class='va'>sple4</span> <span class='op'>&lt;-</span> <span class='fu'>slim</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>sple4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLStock"
-#&gt; 
-#&gt; Name: PLE 
-#&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
-#&gt; Quant: age 
-#&gt; Dims:  age 	year	unit	season	area	iter
-#&gt; 	10	61	1	1	1	50	
-#&gt; 
-#&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
-#&gt; 	1	10	10	1957	2017	2	6	
-#&gt; 
-#&gt; catch         : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; catch.n       : [ 10 61 1 1 1 50 ], units =   
-#&gt; catch.wt      : [ 10 61 1 1 1 1 ], units =  kg 
-#&gt; discards      : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; discards.n    : [ 10 61 1 1 1 1 ], units =  1000 
-#&gt; discards.wt   : [ 10 61 1 1 1 1 ], units =  kg 
-#&gt; landings      : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; landings.n    : [ 10 61 1 1 1 1 ], units =  1000 
-#&gt; landings.wt   : [ 10 61 1 1 1 1 ], units =  kg 
-#&gt; stock         : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; stock.n       : [ 10 61 1 1 1 1 ], units =  1000 
-#&gt; stock.wt      : [ 10 61 1 1 1 1 ], units =  kg 
-#&gt; m             : [ 10 61 1 1 1 1 ], units =  m 
-#&gt; mat           : [ 10 61 1 1 1 1 ], units =   
-#&gt; harvest       : [ 10 61 1 1 1 1 ], units =  f 
-#&gt; harvest.spwn  : [ 10 61 1 1 1 1 ], units =   
-#&gt; m.spwn        : [ 10 61 1 1 1 1 ], units =   </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Extend all of ple4 to 50 iters</span></span>
+<span class='r-in'><span class='va'>ple4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='propagate.html'>propagate</a></span><span class='op'>(</span><span class='va'>ple4</span>, <span class='fl'>50</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Add variability in catch.n</span></span>
+<span class='r-in'><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rnoise,numeric,FLQuant-method.html'>rlnoise</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='accessors.html'>catch.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLStock"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: PLE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Description: Plaice in IV. ICES WGNSSK 2018. FLAAP </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dims:  age 	year	unit	season	area	iter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	10	61	1	1	1	50	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1	10	10	1957	2017	2	6	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Metrics: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   rec: 367450 - 4303680  (1000) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ssb: 203391 - 913290  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   catch: 78360 - 315245  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   fbar: 0.20 - 0.72  (f) </span>
+<span class='r-in'><span class='co'># slim object by dropping identical iters</span></span>
+<span class='r-in'><span class='va'>sple4</span> <span class='op'>&lt;-</span> <span class='fu'>slim</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>sple4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLStock"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: PLE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Description: Plaice in IV. ICES WGNSSK 2018. FLAAP </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dims:  age 	year	unit	season	area	iter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	10	61	1	1	1	50	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1	10	10	1957	2017	1	10	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Metrics: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   rec: 367450 - 4303680  (1000) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ssb: 203391 - 913290  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   catch: 78360 - 315245  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   fbar: 0.12 - 0.58  (f) </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

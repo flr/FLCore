@@ -75,7 +75,7 @@ calls and formulas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -155,490 +155,497 @@ calls and formulas.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='co'># missing</span>
-<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $ Rec 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   1  477074  710748  874712  797702  870799  615691  610017 2449900  664500
-#&gt;    year
-#&gt; age 1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   1  579075  428110  418228  666902  671454  433599  367450 1391430 1074920
-#&gt;    year
-#&gt; age 1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   1  787372  674010 1033740  879043  915553 1078660  999968 1935350 1375880
-#&gt;    year
-#&gt; age 1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   1 1302060 1792220 4303680 1910200 1774940 1250510 1083810  981356  854841
-#&gt;    year
-#&gt; age 1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   1  550376  566448  932162  893056 2431310  778427  683151  857525  634808
-#&gt;    year
-#&gt; age 2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   1 1792880  557844 1235790  863893  875191 1379750 1135050 1088820 1444570
-#&gt;    year
-#&gt; age 2011    2012    2013    2014    2015    2016    2017   
-#&gt;   1 1608190 1278010 1455050 1640700  895620 1211320 1823000
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; $ SSB 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
-#&gt;   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516
-#&gt;      year
-#&gt; age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
-#&gt;   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726
-#&gt;      year
-#&gt; age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
-#&gt;   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972
-#&gt;      year
-#&gt; age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
-#&gt;   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391
-#&gt;      year
-#&gt; age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
-#&gt;   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447
-#&gt;      year
-#&gt; age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
-#&gt;   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453
-#&gt;      year
-#&gt; age   2017  
-#&gt;   all 913290
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; $ Catch 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
-#&gt;   all  78360  88785 105186 117975 119541 126290 140815 147540 151408 162266
-#&gt;      year
-#&gt; age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
-#&gt;   all 154474 149820 146178 136619 141226 149390 151515 157994 165392 175881
-#&gt;      year
-#&gt; age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
-#&gt;   all 165843 178166 172652 184690 184494 192439 212632 228265 247071 279228
-#&gt;      year
-#&gt; age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
-#&gt;   all 308480 315245 292035 250604 218184 192691 179573 151248 132629 131719
-#&gt;      year
-#&gt; age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
-#&gt;   all 152195 171240 170662 145998 128107 143807 154029 140056 114551 111864
-#&gt;      year
-#&gt; age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
-#&gt;   all 104770 113397 115703 118824 119718 131872 141055 139750 137338 131216
-#&gt;      year
-#&gt; age   2017  
-#&gt;   all 124922
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; $ F 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   all 0.24168 0.27866 0.31084 0.32448 0.32519 0.33559 0.36653 0.39417 0.38771
-#&gt;      year
-#&gt; age   1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   all 0.36207 0.34807 0.35412 0.36429 0.36324 0.36702 0.39909 0.45156 0.48039
-#&gt;      year
-#&gt; age   1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   all 0.46091 0.43693 0.44859 0.48847 0.52582 0.54200 0.54057 0.52644 0.51509
-#&gt;      year
-#&gt; age   1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   all 0.52277 0.55052 0.58629 0.61605 0.62993 0.62175 0.60550 0.60009 0.60749
-#&gt;      year
-#&gt; age   1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   all 0.61025 0.59803 0.59798 0.64233 0.71240 0.72432 0.65004 0.58241 0.57161
-#&gt;      year
-#&gt; age   2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   all 0.59392 0.57077 0.47697 0.38686 0.33299 0.29622 0.25465 0.21573 0.19643
-#&gt;      year
-#&gt; age   2011    2012    2013    2014    2015    2016    2017   
-#&gt;   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871
-#&gt; 
-#&gt; units:  f 
-#&gt; </div><div class='input'><span class='co'># metrics = function</span>
-<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, REC<span class='op'>=</span><span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>,
-  F<span class='op'>=</span><span class='fu'>fbar</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, SSBREC<span class='op'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $ SSB 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
-#&gt;   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516
-#&gt;      year
-#&gt; age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
-#&gt;   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726
-#&gt;      year
-#&gt; age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
-#&gt;   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972
-#&gt;      year
-#&gt; age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
-#&gt;   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391
-#&gt;      year
-#&gt; age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
-#&gt;   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447
-#&gt;      year
-#&gt; age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
-#&gt;   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453
-#&gt;      year
-#&gt; age   2017  
-#&gt;   all 913290
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; $ REC 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   1  477074  710748  874712  797702  870799  615691  610017 2449900  664500
-#&gt;    year
-#&gt; age 1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   1  579075  428110  418228  666902  671454  433599  367450 1391430 1074920
-#&gt;    year
-#&gt; age 1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   1  787372  674010 1033740  879043  915553 1078660  999968 1935350 1375880
-#&gt;    year
-#&gt; age 1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   1 1302060 1792220 4303680 1910200 1774940 1250510 1083810  981356  854841
-#&gt;    year
-#&gt; age 1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   1  550376  566448  932162  893056 2431310  778427  683151  857525  634808
-#&gt;    year
-#&gt; age 2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   1 1792880  557844 1235790  863893  875191 1379750 1135050 1088820 1444570
-#&gt;    year
-#&gt; age 2011    2012    2013    2014    2015    2016    2017   
-#&gt;   1 1608190 1278010 1455050 1640700  895620 1211320 1823000
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; $ F 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   all 0.24168 0.27866 0.31084 0.32448 0.32519 0.33559 0.36653 0.39417 0.38771
-#&gt;      year
-#&gt; age   1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   all 0.36207 0.34807 0.35412 0.36429 0.36324 0.36702 0.39909 0.45156 0.48039
-#&gt;      year
-#&gt; age   1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   all 0.46091 0.43693 0.44859 0.48847 0.52582 0.54200 0.54057 0.52644 0.51509
-#&gt;      year
-#&gt; age   1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   all 0.52277 0.55052 0.58629 0.61605 0.62993 0.62175 0.60550 0.60009 0.60749
-#&gt;      year
-#&gt; age   1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   all 0.61025 0.59803 0.59798 0.64233 0.71240 0.72432 0.65004 0.58241 0.57161
-#&gt;      year
-#&gt; age   2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   all 0.59392 0.57077 0.47697 0.38686 0.33299 0.29622 0.25465 0.21573 0.19643
-#&gt;      year
-#&gt; age   2011    2012    2013    2014    2015    2016    2017   
-#&gt;   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871
-#&gt; 
-#&gt; units:  f 
-#&gt; 
-#&gt; $ SSBREC 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957     1958     1959     1960     1961     1962     1963     1964    
-#&gt;   all 0.717338 0.500001 0.413987 0.476434 0.449456 0.783258 0.722370 0.175711
-#&gt;      year
-#&gt; age   1965     1966     1967     1968     1969     1970     1971     1972    
-#&gt;   all 0.577251 0.698555 1.107047 1.097433 0.604084 0.551747 0.833974 0.996406
-#&gt;      year
-#&gt; age   1973     1974     1975     1976     1977     1978     1979     1980    
-#&gt;   all 0.217305 0.277317 0.383246 0.487716 0.318374 0.372614 0.330151 0.295820
-#&gt;      year
-#&gt; age   1981     1982     1983     1984     1985     1986     1987     1988    
-#&gt;   all 0.290790 0.146853 0.246561 0.282054 0.220210 0.094796 0.246546 0.239273
-#&gt;      year
-#&gt; age   1989     1990     1991     1992     1993     1994     1995     1996    
-#&gt;   all 0.358438 0.365800 0.363728 0.364314 0.508673 0.412185 0.238374 0.227747
-#&gt;      year
-#&gt; age   1997     1998     1999     2000     2001     2002     2003     2004    
-#&gt;   all 0.084295 0.305568 0.320792 0.269266 0.368947 0.123769 0.445128 0.188930
-#&gt;      year
-#&gt; age   2005     2006     2007     2008     2009     2010     2011     2012    
-#&gt;   all 0.293713 0.325012 0.212597 0.327595 0.416071 0.383674 0.357830 0.483203
-#&gt;      year
-#&gt; age   2013     2014     2015     2016     2017    
-#&gt;   all 0.487920 0.501783 0.864381 0.690530 0.500982
-#&gt; 
-#&gt; units:  kg 
-#&gt; </div><div class='input'><span class='co'># metrics = formula</span>
-<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
-#&gt;   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516
-#&gt;      year
-#&gt; age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
-#&gt;   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726
-#&gt;      year
-#&gt; age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
-#&gt;   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972
-#&gt;      year
-#&gt; age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
-#&gt;   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391
-#&gt;      year
-#&gt; age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
-#&gt;   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447
-#&gt;      year
-#&gt; age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
-#&gt;   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453
-#&gt;      year
-#&gt; age   2017  
-#&gt;   all 913290
-#&gt; 
-#&gt; units:  t </div><div class='input'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $ SSB 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
-#&gt;   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516
-#&gt;      year
-#&gt; age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
-#&gt;   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726
-#&gt;      year
-#&gt; age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
-#&gt;   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972
-#&gt;      year
-#&gt; age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
-#&gt;   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391
-#&gt;      year
-#&gt; age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
-#&gt;   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447
-#&gt;      year
-#&gt; age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
-#&gt;   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453
-#&gt;      year
-#&gt; age   2017  
-#&gt;   all 913290
-#&gt; 
-#&gt; units:  t 
-#&gt; </div><div class='input'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>/</span><span class='va'>SBMSY</span><span class='op'>)</span>, <span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='fl'>3.87e4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $ SBMSY 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   all  8.8430  9.1828  9.3571  9.8205 10.1133 12.4611 11.3865 11.1234  9.9117
-#&gt;      year
-#&gt; age   1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   all 10.4526 12.2465 11.8599 10.4099  9.5729  9.3439  9.4607  7.8130  7.7027
-#&gt;      year
-#&gt; age   1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   all  7.7973  8.4942  8.5043  8.4637  7.8106  8.2452  7.5137  7.3440  8.7658
-#&gt;      year
-#&gt; age   1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   all  9.4897 10.1981 10.5419 12.1693 10.9741 11.5822 10.2444  9.2234  8.0473
-#&gt;      year
-#&gt; age   1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   all  7.2342  6.0331  5.7417  5.2556  5.2958  6.1463  5.6628  5.9665  6.0520
-#&gt;      year
-#&gt; age   2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   all  5.7339  6.4163  6.0330  6.5565  7.3501  7.5796  9.6082 11.7061 14.3216
-#&gt;      year
-#&gt; age   2011    2012    2013    2014    2015    2016    2017   
-#&gt;   all 14.8697 15.9571 18.3449 21.2733 20.0041 21.6138 23.5992
-#&gt; 
-#&gt; units:  t 
-#&gt; </div><div class='input'><span class='co'># metrics = list</span>
-<span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='va'>ssb</span>, REC<span class='op'>=</span><span class='va'>rec</span>, F<span class='op'>=</span><span class='va'>fbar</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $ SSB 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
-#&gt;   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516
-#&gt;      year
-#&gt; age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
-#&gt;   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726
-#&gt;      year
-#&gt; age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
-#&gt;   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972
-#&gt;      year
-#&gt; age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
-#&gt;   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391
-#&gt;      year
-#&gt; age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
-#&gt;   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447
-#&gt;      year
-#&gt; age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
-#&gt;   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453
-#&gt;      year
-#&gt; age   2017  
-#&gt;   all 913290
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; $ REC 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   1  477074  710748  874712  797702  870799  615691  610017 2449900  664500
-#&gt;    year
-#&gt; age 1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   1  579075  428110  418228  666902  671454  433599  367450 1391430 1074920
-#&gt;    year
-#&gt; age 1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   1  787372  674010 1033740  879043  915553 1078660  999968 1935350 1375880
-#&gt;    year
-#&gt; age 1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   1 1302060 1792220 4303680 1910200 1774940 1250510 1083810  981356  854841
-#&gt;    year
-#&gt; age 1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   1  550376  566448  932162  893056 2431310  778427  683151  857525  634808
-#&gt;    year
-#&gt; age 2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   1 1792880  557844 1235790  863893  875191 1379750 1135050 1088820 1444570
-#&gt;    year
-#&gt; age 2011    2012    2013    2014    2015    2016    2017   
-#&gt;   1 1608190 1278010 1455050 1640700  895620 1211320 1823000
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; $ F 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   all 0.24168 0.27866 0.31084 0.32448 0.32519 0.33559 0.36653 0.39417 0.38771
-#&gt;      year
-#&gt; age   1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   all 0.36207 0.34807 0.35412 0.36429 0.36324 0.36702 0.39909 0.45156 0.48039
-#&gt;      year
-#&gt; age   1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   all 0.46091 0.43693 0.44859 0.48847 0.52582 0.54200 0.54057 0.52644 0.51509
-#&gt;      year
-#&gt; age   1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   all 0.52277 0.55052 0.58629 0.61605 0.62993 0.62175 0.60550 0.60009 0.60749
-#&gt;      year
-#&gt; age   1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   all 0.61025 0.59803 0.59798 0.64233 0.71240 0.72432 0.65004 0.58241 0.57161
-#&gt;      year
-#&gt; age   2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   all 0.59392 0.57077 0.47697 0.38686 0.33299 0.29622 0.25465 0.21573 0.19643
-#&gt;      year
-#&gt; age   2011    2012    2013    2014    2015    2016    2017   
-#&gt;   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871
-#&gt; 
-#&gt; units:  f 
-#&gt; </div><div class='input'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span>, REC<span class='op'>=</span><span class='va'>rec</span>, F<span class='op'>=</span><span class='va'>fbar</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $ SSB 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
-#&gt;   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516
-#&gt;      year
-#&gt; age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
-#&gt;   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726
-#&gt;      year
-#&gt; age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
-#&gt;   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972
-#&gt;      year
-#&gt; age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
-#&gt;   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391
-#&gt;      year
-#&gt; age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
-#&gt;   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447
-#&gt;      year
-#&gt; age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
-#&gt;   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453
-#&gt;      year
-#&gt; age   2017  
-#&gt;   all 913290
-#&gt; 
-#&gt; units:  t 
-#&gt; 
-#&gt; $ REC 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   1  477074  710748  874712  797702  870799  615691  610017 2449900  664500
-#&gt;    year
-#&gt; age 1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   1  579075  428110  418228  666902  671454  433599  367450 1391430 1074920
-#&gt;    year
-#&gt; age 1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   1  787372  674010 1033740  879043  915553 1078660  999968 1935350 1375880
-#&gt;    year
-#&gt; age 1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   1 1302060 1792220 4303680 1910200 1774940 1250510 1083810  981356  854841
-#&gt;    year
-#&gt; age 1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   1  550376  566448  932162  893056 2431310  778427  683151  857525  634808
-#&gt;    year
-#&gt; age 2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   1 1792880  557844 1235790  863893  875191 1379750 1135050 1088820 1444570
-#&gt;    year
-#&gt; age 2011    2012    2013    2014    2015    2016    2017   
-#&gt;   1 1608190 1278010 1455050 1640700  895620 1211320 1823000
-#&gt; 
-#&gt; units:  1000 
-#&gt; 
-#&gt; $ F 
-#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; age   1957    1958    1959    1960    1961    1962    1963    1964    1965   
-#&gt;   all 0.24168 0.27866 0.31084 0.32448 0.32519 0.33559 0.36653 0.39417 0.38771
-#&gt;      year
-#&gt; age   1966    1967    1968    1969    1970    1971    1972    1973    1974   
-#&gt;   all 0.36207 0.34807 0.35412 0.36429 0.36324 0.36702 0.39909 0.45156 0.48039
-#&gt;      year
-#&gt; age   1975    1976    1977    1978    1979    1980    1981    1982    1983   
-#&gt;   all 0.46091 0.43693 0.44859 0.48847 0.52582 0.54200 0.54057 0.52644 0.51509
-#&gt;      year
-#&gt; age   1984    1985    1986    1987    1988    1989    1990    1991    1992   
-#&gt;   all 0.52277 0.55052 0.58629 0.61605 0.62993 0.62175 0.60550 0.60009 0.60749
-#&gt;      year
-#&gt; age   1993    1994    1995    1996    1997    1998    1999    2000    2001   
-#&gt;   all 0.61025 0.59803 0.59798 0.64233 0.71240 0.72432 0.65004 0.58241 0.57161
-#&gt;      year
-#&gt; age   2002    2003    2004    2005    2006    2007    2008    2009    2010   
-#&gt;   all 0.59392 0.57077 0.47697 0.38686 0.33299 0.29622 0.25465 0.21573 0.19643
-#&gt;      year
-#&gt; age   2011    2012    2013    2014    2015    2016    2017   
-#&gt;   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871
-#&gt; 
-#&gt; units:  f 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># missing</span></span>
+<span class='r-in'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ Rec </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  477074  710748  874712  797702  870799  615691  610017 2449900  664500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  579075  428110  418228  666902  671454  433599  367450 1391430 1074920</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  787372  674010 1033740  879043  915553 1078660  999968 1935350 1375880</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1302060 1792220 4303680 1910200 1774940 1250510 1083810  981356  854841</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  550376  566448  932162  893056 2431310  778427  683151  857525  634808</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1792880  557844 1235790  863893  875191 1379750 1135050 1088820 1444570</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1608190 1278010 1455050 1640700  895620 1211320 1823000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  1000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ SSB </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2017  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 913290</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ Catch </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  78360  88785 105186 117975 119541 126290 140815 147540 151408 162266</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 154474 149820 146178 136619 141226 149390 151515 157994 165392 175881</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 165843 178166 172652 184690 184494 192439 212632 228265 247071 279228</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 308480 315245 292035 250604 218184 192691 179573 151248 132629 131719</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 152195 171240 170662 145998 128107 143807 154029 140056 114551 111864</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 104770 113397 115703 118824 119718 131872 141055 139750 137338 131216</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2017  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 124922</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ F </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.24168 0.27866 0.31084 0.32448 0.32519 0.33559 0.36653 0.39417 0.38771</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.36207 0.34807 0.35412 0.36429 0.36324 0.36702 0.39909 0.45156 0.48039</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.46091 0.43693 0.44859 0.48847 0.52582 0.54200 0.54057 0.52644 0.51509</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.52277 0.55052 0.58629 0.61605 0.62993 0.62175 0.60550 0.60009 0.60749</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.61025 0.59803 0.59798 0.64233 0.71240 0.72432 0.65004 0.58241 0.57161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.59392 0.57077 0.47697 0.38686 0.33299 0.29622 0.25465 0.21573 0.19643</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># metrics = function</span></span>
+<span class='r-in'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='FLQuants.html'>FLQuants</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, REC<span class='op'>=</span><span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>,</span>
+<span class='r-in'>  F<span class='op'>=</span><span class='fu'>fbar</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, SSBREC<span class='op'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ SSB </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2017  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 913290</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ REC </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  477074  710748  874712  797702  870799  615691  610017 2449900  664500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  579075  428110  418228  666902  671454  433599  367450 1391430 1074920</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  787372  674010 1033740  879043  915553 1078660  999968 1935350 1375880</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1302060 1792220 4303680 1910200 1774940 1250510 1083810  981356  854841</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  550376  566448  932162  893056 2431310  778427  683151  857525  634808</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1792880  557844 1235790  863893  875191 1379750 1135050 1088820 1444570</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1608190 1278010 1455050 1640700  895620 1211320 1823000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  1000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ F </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.24168 0.27866 0.31084 0.32448 0.32519 0.33559 0.36653 0.39417 0.38771</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.36207 0.34807 0.35412 0.36429 0.36324 0.36702 0.39909 0.45156 0.48039</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.46091 0.43693 0.44859 0.48847 0.52582 0.54200 0.54057 0.52644 0.51509</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.52277 0.55052 0.58629 0.61605 0.62993 0.62175 0.60550 0.60009 0.60749</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.61025 0.59803 0.59798 0.64233 0.71240 0.72432 0.65004 0.58241 0.57161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.59392 0.57077 0.47697 0.38686 0.33299 0.29622 0.25465 0.21573 0.19643</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ SSBREC </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957     1958     1959     1960     1961     1962     1963     1964    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.717338 0.500001 0.413987 0.476434 0.449456 0.783258 0.722370 0.175711</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1965     1966     1967     1968     1969     1970     1971     1972    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.577251 0.698555 1.107047 1.097433 0.604084 0.551747 0.833974 0.996406</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1973     1974     1975     1976     1977     1978     1979     1980    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.217305 0.277317 0.383246 0.487716 0.318374 0.372614 0.330151 0.295820</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1981     1982     1983     1984     1985     1986     1987     1988    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.290790 0.146853 0.246561 0.282054 0.220210 0.094796 0.246546 0.239273</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1989     1990     1991     1992     1993     1994     1995     1996    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.358438 0.365800 0.363728 0.364314 0.508673 0.412185 0.238374 0.227747</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1997     1998     1999     2000     2001     2002     2003     2004    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.084295 0.305568 0.320792 0.269266 0.368947 0.123769 0.445128 0.188930</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2005     2006     2007     2008     2009     2010     2011     2012    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.293713 0.325012 0.212597 0.327595 0.416071 0.383674 0.357830 0.483203</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2013     2014     2015     2016     2017    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.487920 0.501783 0.864381 0.690530 0.500982</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  kg </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># metrics = formula</span></span>
+<span class='r-in'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2017  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 913290</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  t </span>
+<span class='r-in'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ SSB </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2017  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 913290</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span><span class='op'>/</span><span class='va'>SBMSY</span><span class='op'>)</span>, <span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>SBMSY<span class='op'>=</span><span class='fl'>3.87e4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ SBMSY </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  8.8430  9.1828  9.3571  9.8205 10.1133 12.4611 11.3865 11.1234  9.9117</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 10.4526 12.2465 11.8599 10.4099  9.5729  9.3439  9.4607  7.8130  7.7027</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  7.7973  8.4942  8.5043  8.4637  7.8106  8.2452  7.5137  7.3440  8.7658</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  9.4897 10.1981 10.5419 12.1693 10.9741 11.5822 10.2444  9.2234  8.0473</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  7.2342  6.0331  5.7417  5.2556  5.2958  6.1463  5.6628  5.9665  6.0520</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all  5.7339  6.4163  6.0330  6.5565  7.3501  7.5796  9.6082 11.7061 14.3216</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 14.8697 15.9571 18.3449 21.2733 20.0041 21.6138 23.5992</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># metrics = list</span></span>
+<span class='r-in'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='va'>ssb</span>, REC<span class='op'>=</span><span class='va'>rec</span>, F<span class='op'>=</span><span class='va'>fbar</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ SSB </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2017  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 913290</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ REC </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  477074  710748  874712  797702  870799  615691  610017 2449900  664500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  579075  428110  418228  666902  671454  433599  367450 1391430 1074920</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  787372  674010 1033740  879043  915553 1078660  999968 1935350 1375880</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1302060 1792220 4303680 1910200 1774940 1250510 1083810  981356  854841</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  550376  566448  932162  893056 2431310  778427  683151  857525  634808</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1792880  557844 1235790  863893  875191 1379750 1135050 1088820 1444570</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1608190 1278010 1455050 1640700  895620 1211320 1823000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  1000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ F </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.24168 0.27866 0.31084 0.32448 0.32519 0.33559 0.36653 0.39417 0.38771</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.36207 0.34807 0.35412 0.36429 0.36324 0.36702 0.39909 0.45156 0.48039</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.46091 0.43693 0.44859 0.48847 0.52582 0.54200 0.54057 0.52644 0.51509</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.52277 0.55052 0.58629 0.61605 0.62993 0.62175 0.60550 0.60009 0.60749</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.61025 0.59803 0.59798 0.64233 0.71240 0.72432 0.65004 0.58241 0.57161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.59392 0.57077 0.47697 0.38686 0.33299 0.29622 0.25465 0.21573 0.19643</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>metrics</span><span class='op'>(</span><span class='va'>ple4</span>, metrics<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>SSB<span class='op'>=</span><span class='op'>~</span><span class='va'>ssb</span>, REC<span class='op'>=</span><span class='va'>rec</span>, F<span class='op'>=</span><span class='va'>fbar</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ SSB </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 342223 355375 362119 380052 391386 482245 440658 430475 383583 404516</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 473938 458977 402865 370472 361610 366129 302365 298094 301757 328726</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 329116 327544 302271 319090 290780 284211 339238 367251 394666 407972</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 470952 424696 448230 396458 356947 311431 279962 233481 222203 203391</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 204948 237863 219149 230902 234211 221902 248312 233478 253737 284447</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 293330 371837 453026 554245 575459 617539 709948 823276 774157 836453</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2017  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 913290</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ REC </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  477074  710748  874712  797702  870799  615691  610017 2449900  664500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  579075  428110  418228  666902  671454  433599  367450 1391430 1074920</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  787372  674010 1033740  879043  915553 1078660  999968 1935350 1375880</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1302060 1792220 4303680 1910200 1774940 1250510 1083810  981356  854841</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  550376  566448  932162  893056 2431310  778427  683151  857525  634808</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1792880  557844 1235790  863893  875191 1379750 1135050 1088820 1444570</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 1608190 1278010 1455050 1640700  895620 1211320 1823000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  1000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $ F </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1957    1958    1959    1960    1961    1962    1963    1964    1965   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.24168 0.27866 0.31084 0.32448 0.32519 0.33559 0.36653 0.39417 0.38771</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1966    1967    1968    1969    1970    1971    1972    1973    1974   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.36207 0.34807 0.35412 0.36429 0.36324 0.36702 0.39909 0.45156 0.48039</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1975    1976    1977    1978    1979    1980    1981    1982    1983   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.46091 0.43693 0.44859 0.48847 0.52582 0.54200 0.54057 0.52644 0.51509</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1984    1985    1986    1987    1988    1989    1990    1991    1992   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.52277 0.55052 0.58629 0.61605 0.62993 0.62175 0.60550 0.60009 0.60749</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   1993    1994    1995    1996    1997    1998    1999    2000    2001   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.61025 0.59803 0.59798 0.64233 0.71240 0.72432 0.65004 0.58241 0.57161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2002    2003    2004    2005    2006    2007    2008    2009    2010   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.59392 0.57077 0.47697 0.38686 0.33299 0.29622 0.25465 0.21573 0.19643</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age   2011    2012    2013    2014    2015    2016    2017   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   all 0.19815 0.20738 0.20971 0.20537 0.20084 0.19878 0.19871</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

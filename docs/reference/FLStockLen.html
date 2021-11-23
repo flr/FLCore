@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -180,98 +180,67 @@ assessment (i.e. estimates of abundance and removal rates).</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>stkl</span> <span class='op'>&lt;-</span> <span class='fu'>FLStockLen</span><span class='op'>(</span>m<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>0.2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>len<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>50</span>, by<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>, year<span class='op'>=</span><span class='fl'>2015</span><span class='op'>:</span><span class='fl'>2020</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>stkl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLStockLen"
-#&gt; 
-#&gt; Name:  
-#&gt; Description:  
-#&gt; Quant: len 
-#&gt; Dims:  len 	year	unit	season	area	iter
-#&gt; 	23	6	1	1	1	1	
-#&gt; 
-#&gt; Range:  min	max	minyear	maxyear	minfbar	maxfbar 
-#&gt; 	5	49	2015	2020	5	49	
-#&gt; 
-#&gt; catch         : [ 1 6 1 1 1 1 ], units =  NA 
-#&gt; catch.n       : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; catch.wt      : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; discards      : [ 1 6 1 1 1 1 ], units =  NA 
-#&gt; discards.n    : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; discards.wt   : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; landings      : [ 1 6 1 1 1 1 ], units =  NA 
-#&gt; landings.n    : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; landings.wt   : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; stock         : [ 1 6 1 1 1 1 ], units =  NA 
-#&gt; stock.n       : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; stock.wt      : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; m             : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; mat           : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; harvest       : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; harvest.spwn  : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; m.spwn        : [ 23 6 1 1 1 1 ], units =  NA </div><div class='input'>
-<span class='co'># Unnamed FLQuant used for sizing</span>
-<span class='va'>stkl</span> <span class='op'>&lt;-</span> <span class='fu'>FLStockLen</span><span class='op'>(</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>0.2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>len<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>50</span>, by<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>, year<span class='op'>=</span><span class='fl'>2015</span><span class='op'>:</span><span class='fl'>2020</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>stkl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLStockLen"
-#&gt; 
-#&gt; Name:  
-#&gt; Description:  
-#&gt; Quant: len 
-#&gt; Dims:  len 	year	unit	season	area	iter
-#&gt; 	23	6	1	1	1	1	
-#&gt; 
-#&gt; Range:  min	max	minyear	maxyear	minfbar	maxfbar 
-#&gt; 	5	49	2015	2020	5	49	
-#&gt; 
-#&gt; catch         : [ 1 6 1 1 1 1 ], units =  NA 
-#&gt; catch.n       : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; catch.wt      : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; discards      : [ 1 6 1 1 1 1 ], units =  NA 
-#&gt; discards.n    : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; discards.wt   : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; landings      : [ 1 6 1 1 1 1 ], units =  NA 
-#&gt; landings.n    : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; landings.wt   : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; stock         : [ 1 6 1 1 1 1 ], units =  NA 
-#&gt; stock.n       : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; stock.wt      : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; m             : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; mat           : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; harvest       : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; harvest.spwn  : [ 23 6 1 1 1 1 ], units =  NA 
-#&gt; m.spwn        : [ 23 6 1 1 1 1 ], units =  NA </div><div class='input'><span class='fu'><a href='accessors.html'>m</a></span><span class='op'>(</span><span class='va'>stkl</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; len  2015 2016 2017 2018 2019 2020
-#&gt;   5  NA   NA   NA   NA   NA   NA  
-#&gt;   7  NA   NA   NA   NA   NA   NA  
-#&gt;   9  NA   NA   NA   NA   NA   NA  
-#&gt;   11 NA   NA   NA   NA   NA   NA  
-#&gt;   13 NA   NA   NA   NA   NA   NA  
-#&gt;   15 NA   NA   NA   NA   NA   NA  
-#&gt;   17 NA   NA   NA   NA   NA   NA  
-#&gt;   19 NA   NA   NA   NA   NA   NA  
-#&gt;   21 NA   NA   NA   NA   NA   NA  
-#&gt;   23 NA   NA   NA   NA   NA   NA  
-#&gt;   25 NA   NA   NA   NA   NA   NA  
-#&gt;   27 NA   NA   NA   NA   NA   NA  
-#&gt;   29 NA   NA   NA   NA   NA   NA  
-#&gt;   31 NA   NA   NA   NA   NA   NA  
-#&gt;   33 NA   NA   NA   NA   NA   NA  
-#&gt;   35 NA   NA   NA   NA   NA   NA  
-#&gt;   37 NA   NA   NA   NA   NA   NA  
-#&gt;   39 NA   NA   NA   NA   NA   NA  
-#&gt;   41 NA   NA   NA   NA   NA   NA  
-#&gt;   43 NA   NA   NA   NA   NA   NA  
-#&gt;   45 NA   NA   NA   NA   NA   NA  
-#&gt;   47 NA   NA   NA   NA   NA   NA  
-#&gt;   49 NA   NA   NA   NA   NA   NA  
-#&gt; 
-#&gt; units:  NA </div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>stkl</span> <span class='op'>&lt;-</span> <span class='fu'>FLStockLen</span><span class='op'>(</span>m<span class='op'>=</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>0.2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>len<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>50</span>, by<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>, year<span class='op'>=</span><span class='fl'>2015</span><span class='op'>:</span><span class='fl'>2020</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>stkl</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLStockLen"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Description:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Quant: len </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dims:  len 	year	unit	season	area	iter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	23	6	1	1	1	1	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Range:  min	max	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	5	49	2015	2020	5	49	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Unnamed FLQuant used for sizing</span></span>
+<span class='r-in'><span class='va'>stkl</span> <span class='op'>&lt;-</span> <span class='fu'>FLStockLen</span><span class='op'>(</span><span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>0.2</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>len<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>50</span>, by<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>, year<span class='op'>=</span><span class='fl'>2015</span><span class='op'>:</span><span class='fl'>2020</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>stkl</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLStockLen"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Description:  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Quant: len </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dims:  len 	year	unit	season	area	iter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	23	6	1	1	1	1	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Range:  min	max	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	5	49	2015	2020	5	49	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'><a href='accessors.html'>m</a></span><span class='op'>(</span><span class='va'>stkl</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> len  2015 2016 2017 2018 2019 2020</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5  NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   7  NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   9  NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   11 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   13 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   15 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   17 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   19 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   21 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   23 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   25 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   27 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   29 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   31 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   33 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   35 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   37 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   39 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   41 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   43 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   45 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   47 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   49 NA   NA   NA   NA   NA   NA  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  len </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

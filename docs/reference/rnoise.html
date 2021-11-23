@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -196,38 +196,38 @@ s is a normally distributed random variable with mean = 0
 b is the autocorrelation parameter</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, quant<span class='op'>=</span><span class='st'>"age"</span><span class='op'>)</span>
-<span class='va'>white</span> <span class='op'>&lt;-</span> <span class='fu'>rnoise</span><span class='op'>(</span><span class='fl'>100</span>,<span class='va'>flq</span>,sd<span class='op'>=</span><span class='fl'>.3</span>,b<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
-<span class='fu'><a href='plot.html'>plot</a></span><span class='op'>(</span><span class='va'>white</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/acf.html'>acf</a></span><span class='op'>(</span><span class='va'>white</span><span class='op'>)</span>
-
-<span class='va'>red</span> <span class='op'>&lt;-</span> <span class='fu'>rnoise</span><span class='op'>(</span><span class='fl'>100</span>,<span class='va'>flq</span>,sd<span class='op'>=</span><span class='fl'>.3</span>,b<span class='op'>=</span><span class='fl'>0.7</span><span class='op'>)</span>
-<span class='fu'><a href='plot.html'>plot</a></span><span class='op'>(</span><span class='va'>red</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/acf.html'>acf</a></span><span class='op'>(</span><span class='va'>red</span><span class='op'>)</span>
-
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>rnoise</span><span class='op'>(</span><span class='fl'>100</span>,<span class='va'>flq</span>,sd<span class='op'>=</span><span class='fl'>.3</span>,b<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
-
-<span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>year</span>,<span class='va'>age</span>,size<span class='op'>=</span><span class='va'>data</span><span class='op'>)</span>,
-    data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>, <span class='va'>data</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-<span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>year</span>,<span class='va'>age</span>,size<span class='op'>=</span><span class='op'>-</span><span class='va'>data</span><span class='op'>)</span>,
-            data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>,<span class='va'>data</span><span class='op'>&lt;=</span><span class='fl'>0</span><span class='op'>)</span>,colour<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span><span class='op'>+</span>
-<span class='fu'>scale_size_area</span><span class='op'>(</span>max_size<span class='op'>=</span><span class='fl'>4</span>, guide<span class='op'>=</span><span class='st'>"none"</span><span class='op'>)</span><span class='op'>+</span>
-<span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span><span class='va'>iter</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>rnoise</span><span class='op'>(</span><span class='fl'>4</span>,<span class='fu'><a href='accessors.html'>m</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>,burn<span class='op'>=</span><span class='fl'>10</span>,b<span class='op'>=</span><span class='fl'>0.9</span>,what<span class='op'>=</span><span class='st'>"cohort"</span><span class='op'>)</span>
-<span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
-<span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>year</span>,<span class='va'>age</span>,size<span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span>,
-          data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>,<span class='va'>data</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
-<span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>year</span>,<span class='va'>age</span>,size<span class='op'>=</span><span class='op'>-</span><span class='va'>data</span><span class='op'>)</span>,
-          data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>,<span class='va'>data</span><span class='op'>&lt;=</span><span class='fl'>0</span><span class='op'>)</span>,colour<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span><span class='op'>+</span>
-<span class='fu'>scale_size_area</span><span class='op'>(</span>max_size<span class='op'>=</span><span class='fl'>4</span>, guide<span class='op'>=</span><span class='st'>"none"</span><span class='op'>)</span><span class='op'>+</span>
-<span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span><span class='va'>iter</span><span class='op'>)</span>
-
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>100</span>, quant<span class='op'>=</span><span class='st'>"age"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>white</span> <span class='op'>&lt;-</span> <span class='fu'>rnoise</span><span class='op'>(</span><span class='fl'>100</span>,<span class='va'>flq</span>,sd<span class='op'>=</span><span class='fl'>.3</span>,b<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='plot.html'>plot</a></span><span class='op'>(</span><span class='va'>white</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/acf.html'>acf</a></span><span class='op'>(</span><span class='va'>white</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>red</span> <span class='op'>&lt;-</span> <span class='fu'>rnoise</span><span class='op'>(</span><span class='fl'>100</span>,<span class='va'>flq</span>,sd<span class='op'>=</span><span class='fl'>.3</span>,b<span class='op'>=</span><span class='fl'>0.7</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='plot.html'>plot</a></span><span class='op'>(</span><span class='va'>red</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/acf.html'>acf</a></span><span class='op'>(</span><span class='va'>red</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>rnoise</span><span class='op'>(</span><span class='fl'>100</span>,<span class='va'>flq</span>,sd<span class='op'>=</span><span class='fl'>.3</span>,b<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'>  <span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>year</span>,<span class='va'>age</span>,size<span class='op'>=</span><span class='va'>data</span><span class='op'>)</span>,</span>
+<span class='r-in'>    data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>, <span class='va'>data</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span class='r-in'><span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>year</span>,<span class='va'>age</span>,size<span class='op'>=</span><span class='op'>-</span><span class='va'>data</span><span class='op'>)</span>,</span>
+<span class='r-in'>            data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>,<span class='va'>data</span><span class='op'>&lt;=</span><span class='fl'>0</span><span class='op'>)</span>,colour<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'><span class='fu'>scale_size_area</span><span class='op'>(</span>max_size<span class='op'>=</span><span class='fl'>4</span>, guide<span class='op'>=</span><span class='st'>"none"</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'><span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span><span class='va'>iter</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'>rnoise</span><span class='op'>(</span><span class='fl'>4</span>,<span class='fu'><a href='accessors.html'>m</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>,burn<span class='op'>=</span><span class='fl'>10</span>,b<span class='op'>=</span><span class='fl'>0.9</span>,what<span class='op'>=</span><span class='st'>"cohort"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>ggplot</span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'><span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>year</span>,<span class='va'>age</span>,size<span class='op'>=</span> <span class='va'>data</span><span class='op'>)</span>,</span>
+<span class='r-in'>          data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>,<span class='va'>data</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'><span class='fu'>geom_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span><span class='va'>year</span>,<span class='va'>age</span>,size<span class='op'>=</span><span class='op'>-</span><span class='va'>data</span><span class='op'>)</span>,</span>
+<span class='r-in'>          data<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>,<span class='va'>data</span><span class='op'>&lt;=</span><span class='fl'>0</span><span class='op'>)</span>,colour<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'><span class='fu'>scale_size_area</span><span class='op'>(</span>max_size<span class='op'>=</span><span class='fl'>4</span>, guide<span class='op'>=</span><span class='st'>"none"</span><span class='op'>)</span><span class='op'>+</span></span>
+<span class='r-in'><span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span><span class='va'>iter</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

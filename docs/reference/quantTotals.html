@@ -77,7 +77,7 @@ selected dimension." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -146,104 +146,108 @@ selected dimension.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>quantTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1      2      3      4      5      6      7      8      9      10    
-#&gt;    1  16.209 16.209 16.209 16.209 16.209 16.209 16.209 16.209 16.209 16.209
-#&gt;    2  26.465 26.465 26.465 26.465 26.465 26.465 26.465 26.465 26.465 26.465
-#&gt;    3  14.844 14.844 14.844 14.844 14.844 14.844 14.844 14.844 14.844 14.844
-#&gt;    4  16.844 16.844 16.844 16.844 16.844 16.844 16.844 16.844 16.844 16.844
-#&gt;    5  11.483 11.483 11.483 11.483 11.483 11.483 11.483 11.483 11.483 11.483
-#&gt;    6  14.587 14.587 14.587 14.587 14.587 14.587 14.587 14.587 14.587 14.587
-#&gt;    7  27.367 27.367 27.367 27.367 27.367 27.367 27.367 27.367 27.367 27.367
-#&gt;    8  13.632 13.632 13.632 13.632 13.632 13.632 13.632 13.632 13.632 13.632
-#&gt;    9  12.128 12.128 12.128 12.128 12.128 12.128 12.128 12.128 12.128 12.128
-#&gt;    10 17.925 17.925 17.925 17.925 17.925 17.925 17.925 17.925 17.925 17.925
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='co'># See how the values obtained by yearSums are being replicated</span>
-  <span class='fu'><a href='dimSummaries.html'>yearSums</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1     
-#&gt;    1  16.209
-#&gt;    2  26.465
-#&gt;    3  14.844
-#&gt;    4  16.844
-#&gt;    5  11.483
-#&gt;    6  14.587
-#&gt;    7  27.367
-#&gt;    8  13.632
-#&gt;    9  12.128
-#&gt;    10 17.925
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='co'># Get the proportions by quant</span>
-  <span class='va'>flq</span> <span class='op'>/</span> <span class='fu'>quantTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;    1  0.2497635 0.2058009 0.0337005 0.0155815 0.3503807 0.0461866 0.0190504
-#&gt;    2  0.0212926 0.0226310 0.0782168 0.6124777 0.0047139 0.0101764 0.1202873
-#&gt;    3  0.0335430 0.3695958 0.1133043 0.1859330 0.0216383 0.0036856 0.0257384
-#&gt;    4  0.0341373 0.0503159 0.1594226 0.1563479 0.2533902 0.0375913 0.1639330
-#&gt;    5  0.0477196 0.1297126 0.0527786 0.0202636 0.5335427 0.0030375 0.0895161
-#&gt;    6  0.0444914 0.0185366 0.3875156 0.0375306 0.0729187 0.0813906 0.0062151
-#&gt;    7  0.0783561 0.3925173 0.0680749 0.1067364 0.0386176 0.0893218 0.0497134
-#&gt;    8  0.0377336 0.0086277 0.0223027 0.0840032 0.3133743 0.1086742 0.1162591
-#&gt;    9  0.4030879 0.1041242 0.0868423 0.1940958 0.0452601 0.0645231 0.0166893
-#&gt;    10 0.0690799 0.0722811 0.1293420 0.0363324 0.1137285 0.0063995 0.0125352
-#&gt;      year
-#&gt; quant 8         9         10       
-#&gt;    1  0.0310464 0.0314328 0.0170568
-#&gt;    2  0.0307190 0.0931764 0.0063089
-#&gt;    3  0.0264539 0.1720691 0.0480386
-#&gt;    4  0.0930636 0.0187341 0.0330641
-#&gt;    5  0.0303117 0.0769902 0.0161274
-#&gt;    6  0.2595788 0.0325147 0.0593080
-#&gt;    7  0.0047661 0.1326026 0.0392937
-#&gt;    8  0.0359293 0.1731280 0.0999678
-#&gt;    9  0.0407272 0.0075644 0.0370857
-#&gt;    10 0.1436416 0.0847158 0.3319441
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='co'># or year</span>
-  <span class='va'>flq</span> <span class='op'>/</span> <span class='fu'>yearTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1         2         3         4         5         6         7        
-#&gt;    1  0.2583958 0.1310895 0.0290852 0.0085017 0.2227157 0.0965839 0.0277520
-#&gt;    2  0.0359668 0.0235365 0.1102182 0.5456365 0.0048923 0.0347454 0.2861055
-#&gt;    3  0.0317805 0.2156006 0.0895541 0.0929085 0.0125961 0.0070584 0.0343379
-#&gt;    4  0.0367016 0.0333062 0.1429836 0.0886519 0.1673786 0.0816913 0.2481737
-#&gt;    5  0.0349758 0.0585352 0.0322708 0.0078330 0.2402673 0.0045001 0.0923860
-#&gt;    6  0.0414223 0.0106256 0.3009737 0.0184283 0.0417112 0.1531673 0.0081478
-#&gt;    7  0.1368704 0.4221430 0.0991981 0.0983307 0.0414453 0.3153747 0.1222767
-#&gt;    8  0.0328310 0.0046219 0.0161880 0.0385471 0.1675225 0.1911237 0.1424348
-#&gt;    9  0.3120201 0.0496248 0.0560783 0.0792390 0.0215255 0.1009556 0.0181909
-#&gt;    10 0.0790356 0.0509167 0.1234500 0.0219233 0.0799456 0.0147996 0.0201947
-#&gt;      year
-#&gt; quant 8         9         10       
-#&gt;    1  0.0453361 0.0344183 0.0238299
-#&gt;    2  0.0732414 0.1665824 0.0143911
-#&gt;    3  0.0353774 0.1725488 0.0614637
-#&gt;    4  0.1412255 0.0213176 0.0480045
-#&gt;    5  0.0313587 0.0597251 0.0159626
-#&gt;    6  0.3411186 0.0320397 0.0745661
-#&gt;    7  0.0117510 0.2451539 0.0926892
-#&gt;    8  0.0441247 0.1594311 0.1174586
-#&gt;    9  0.0444985 0.0061974 0.0387667
-#&gt;    10 0.2319682 0.1025855 0.5128676
-#&gt; 
-#&gt; units:  NA </div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>quantTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1      2      3      4      5      6      7      8      9      10    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  16.209 16.209 16.209 16.209 16.209 16.209 16.209 16.209 16.209 16.209</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  26.465 26.465 26.465 26.465 26.465 26.465 26.465 26.465 26.465 26.465</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  14.844 14.844 14.844 14.844 14.844 14.844 14.844 14.844 14.844 14.844</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  16.844 16.844 16.844 16.844 16.844 16.844 16.844 16.844 16.844 16.844</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  11.483 11.483 11.483 11.483 11.483 11.483 11.483 11.483 11.483 11.483</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  14.587 14.587 14.587 14.587 14.587 14.587 14.587 14.587 14.587 14.587</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  27.367 27.367 27.367 27.367 27.367 27.367 27.367 27.367 27.367 27.367</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  13.632 13.632 13.632 13.632 13.632 13.632 13.632 13.632 13.632 13.632</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  12.128 12.128 12.128 12.128 12.128 12.128 12.128 12.128 12.128 12.128</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 17.925 17.925 17.925 17.925 17.925 17.925 17.925 17.925 17.925 17.925</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='co'># See how the values obtained by yearSums are being replicated</span></span>
+<span class='r-in'>  <span class='fu'><a href='dimSummaries.html'>yearSums</a></span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  16.209</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  26.465</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  14.844</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  16.844</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  11.483</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  14.587</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  27.367</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  13.632</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  12.128</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 17.925</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='co'># Get the proportions by quant</span></span>
+<span class='r-in'>  <span class='va'>flq</span> <span class='op'>/</span> <span class='fu'>quantTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1         2         3         4         5         6         7        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  0.2497635 0.2058009 0.0337005 0.0155815 0.3503807 0.0461866 0.0190504</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  0.0212926 0.0226310 0.0782168 0.6124777 0.0047139 0.0101764 0.1202873</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  0.0335430 0.3695958 0.1133043 0.1859330 0.0216383 0.0036856 0.0257384</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  0.0341373 0.0503159 0.1594226 0.1563479 0.2533902 0.0375913 0.1639330</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  0.0477196 0.1297126 0.0527786 0.0202636 0.5335427 0.0030375 0.0895161</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  0.0444914 0.0185366 0.3875156 0.0375306 0.0729187 0.0813906 0.0062151</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  0.0783561 0.3925173 0.0680749 0.1067364 0.0386176 0.0893218 0.0497134</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  0.0377336 0.0086277 0.0223027 0.0840032 0.3133743 0.1086742 0.1162591</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  0.4030879 0.1041242 0.0868423 0.1940958 0.0452601 0.0645231 0.0166893</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 0.0690799 0.0722811 0.1293420 0.0363324 0.1137285 0.0063995 0.0125352</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 8         9         10       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  0.0310464 0.0314328 0.0170568</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  0.0307190 0.0931764 0.0063089</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  0.0264539 0.1720691 0.0480386</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  0.0930636 0.0187341 0.0330641</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  0.0303117 0.0769902 0.0161274</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  0.2595788 0.0325147 0.0593080</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  0.0047661 0.1326026 0.0392937</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  0.0359293 0.1731280 0.0999678</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  0.0407272 0.0075644 0.0370857</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 0.1436416 0.0847158 0.3319441</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='co'># or year</span></span>
+<span class='r-in'>  <span class='va'>flq</span> <span class='op'>/</span> <span class='fu'>yearTotals</span><span class='op'>(</span><span class='va'>flq</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1         2         3         4         5         6         7        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  0.2583958 0.1310895 0.0290852 0.0085017 0.2227157 0.0965839 0.0277520</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  0.0359668 0.0235365 0.1102182 0.5456365 0.0048923 0.0347454 0.2861055</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  0.0317805 0.2156006 0.0895541 0.0929085 0.0125961 0.0070584 0.0343379</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  0.0367016 0.0333062 0.1429836 0.0886519 0.1673786 0.0816913 0.2481737</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  0.0349758 0.0585352 0.0322708 0.0078330 0.2402673 0.0045001 0.0923860</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  0.0414223 0.0106256 0.3009737 0.0184283 0.0417112 0.1531673 0.0081478</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  0.1368704 0.4221430 0.0991981 0.0983307 0.0414453 0.3153747 0.1222767</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  0.0328310 0.0046219 0.0161880 0.0385471 0.1675225 0.1911237 0.1424348</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  0.3120201 0.0496248 0.0560783 0.0792390 0.0215255 0.1009556 0.0181909</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 0.0790356 0.0509167 0.1234500 0.0219233 0.0799456 0.0147996 0.0201947</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 8         9         10       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    1  0.0453361 0.0344183 0.0238299</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    2  0.0732414 0.1665824 0.0143911</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    3  0.0353774 0.1725488 0.0614637</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    4  0.1412255 0.0213176 0.0480045</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    5  0.0313587 0.0597251 0.0159626</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    6  0.3411186 0.0320397 0.0745661</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    7  0.0117510 0.2451539 0.0926892</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    8  0.0441247 0.1594311 0.1174586</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    9  0.0444985 0.0061974 0.0387667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    10 0.2319682 0.1025855 0.5128676</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

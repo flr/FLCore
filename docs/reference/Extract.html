@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -249,217 +249,224 @@ formulas.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>4</span>, year<span class='op'>=</span><span class='fl'>1991</span><span class='op'>:</span><span class='fl'>2000</span>,
-  season<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Extracting by position...</span>
-  <span class='va'>flq</span><span class='op'>[</span><span class='fl'>1</span>,<span class='op'>]</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = 1, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  0.022295 -1.146200  0.454342
-#&gt; 
-#&gt; , , unit = unique, season = 2, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0 -0.162676  1.321781  0.429147  0.677684 -1.900061 -0.788259 -0.102909
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  1.035931 -1.041668  1.993110
-#&gt; 
-#&gt; , , unit = unique, season = 3, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  1.233390  0.237425 -0.639535
-#&gt; 
-#&gt; , , unit = unique, season = 4, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0 -0.902815  1.382911 -0.830214 -0.828604  0.149679 -2.102152  0.060899
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  1.877744  1.012002  1.129835
-#&gt; 
-#&gt; units:  NA </div><div class='input'>  <span class='va'>flq</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = 1, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0  0.4241876  1.6728826 -0.3872136 -0.6905379 -0.2088827
-#&gt;   1  1.0631020 -0.3543612 -0.7854327 -0.5585420 -1.3994105
-#&gt;   2  1.0487126  0.9463479 -1.0567369 -0.5366633  0.2585373
-#&gt;   3 -0.0381029  1.3168264 -0.7955414  0.2271271 -0.4417995
-#&gt;   4  0.4861489 -0.2966400 -1.7562754  0.9784549  0.5685999
-#&gt; 
-#&gt; , , unit = unique, season = 2, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0 -0.1626763  1.3217810  0.4291474  0.6776836 -1.9000608
-#&gt;   1 -0.8273102 -1.1197108  0.1221034  0.0384995  0.9357843
-#&gt;   2  1.8765056  0.5145998 -1.1380124 -0.3563812 -0.3090515
-#&gt;   3  0.7664402 -1.5090998 -0.5580151  0.7828441  0.2630667
-#&gt;   4  0.9799567  1.5327415  1.0525385  0.8044116 -1.7905919
-#&gt; 
-#&gt; , , unit = unique, season = 3, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0  1.1238388  0.1329921 -0.4293801  0.0654866 -1.1533984
-#&gt;   1 -0.3970015  0.3764993  1.3604613 -1.0985089 -0.3406379
-#&gt;   2 -0.8232612  1.1387077 -0.0708574 -0.6331782  0.7863626
-#&gt;   3 -0.5788846  1.2412631 -0.2721537 -2.0636545 -1.2705131
-#&gt;   4  1.7637894  0.6120909 -2.4466800  2.6489320  0.5421415
-#&gt; 
-#&gt; , , unit = unique, season = 4, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991       1992       1993       1994       1995      
-#&gt;   0 -0.9028149  1.3829109 -0.8302143 -0.8286035  0.1496794
-#&gt;   1  1.3176337  0.0031259 -0.5035929  0.2897745 -1.4333211
-#&gt;   2  1.1001897 -0.0778868 -1.1936412 -0.4800535 -0.0103033
-#&gt;   3  1.2037678  0.4414282 -0.7517233 -0.6048294 -0.2122360
-#&gt;   4 -1.4312708  0.1289229  1.4558414  1.4601102 -0.9063402
-#&gt; 
-#&gt; units:  NA </div><div class='input'>  <span class='va'>flq</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,,,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = 1, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369
-#&gt;   1  1.063102 -0.354361 -0.785433 -0.558542 -1.399410  0.424858  0.449454
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  0.022295 -1.146200  0.454342
-#&gt;   1  0.603611  0.846185 -0.855203
-#&gt; 
-#&gt; , , unit = unique, season = 3, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936
-#&gt;   1 -0.397001  0.376499  1.360461 -1.098509 -0.340638  0.558514 -0.075574
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  1.233390  0.237425 -0.639535
-#&gt;   1  0.340424 -1.312814 -0.845196
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-<span class='co'># ...by dimnames</span>
-  <span class='va'>flq</span><span class='op'>[</span><span class='st'>'0'</span>,<span class='op'>]</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = 1, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  0.022295 -1.146200  0.454342
-#&gt; 
-#&gt; , , unit = unique, season = 2, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0 -0.162676  1.321781  0.429147  0.677684 -1.900061 -0.788259 -0.102909
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  1.035931 -1.041668  1.993110
-#&gt; 
-#&gt; , , unit = unique, season = 3, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  1.233390  0.237425 -0.639535
-#&gt; 
-#&gt; , , unit = unique, season = 4, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995      1996      1997     
-#&gt;   0 -0.902815  1.382911 -0.830214 -0.828604  0.149679 -2.102152  0.060899
-#&gt;    year
-#&gt; age 1998      1999      2000     
-#&gt;   0  1.877744  1.012002  1.129835
-#&gt; 
-#&gt; units:  NA </div><div class='input'>  <span class='va'>flq</span><span class='op'>[</span>,<span class='st'>'1991'</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = 1, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991     
-#&gt;   0  0.424188
-#&gt;   1  1.063102
-#&gt;   2  1.048713
-#&gt;   3 -0.038103
-#&gt;   4  0.486149
-#&gt; 
-#&gt; , , unit = unique, season = 2, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991     
-#&gt;   0 -0.162676
-#&gt;   1 -0.827310
-#&gt;   2  1.876506
-#&gt;   3  0.766440
-#&gt;   4  0.979957
-#&gt; 
-#&gt; , , unit = unique, season = 3, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991     
-#&gt;   0  1.123839
-#&gt;   1 -0.397001
-#&gt;   2 -0.823261
-#&gt;   3 -0.578885
-#&gt;   4  1.763789
-#&gt; 
-#&gt; , , unit = unique, season = 4, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991     
-#&gt;   0 -0.902815
-#&gt;   1  1.317634
-#&gt;   2  1.100190
-#&gt;   3  1.203768
-#&gt;   4 -1.431271
-#&gt; 
-#&gt; units:  NA </div><div class='input'>  <span class='va'>flq</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fl'>1991</span><span class='op'>:</span><span class='fl'>1995</span><span class='op'>)</span>,,<span class='st'>'1'</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = 1, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 1991      1992      1993      1994      1995     
-#&gt;   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883
-#&gt;   1  1.063102 -0.354361 -0.785433 -0.558542 -1.399410
-#&gt;   2  1.048713  0.946348 -1.056737 -0.536663  0.258537
-#&gt;   3 -0.038103  1.316826 -0.795541  0.227127 -0.441799
-#&gt;   4  0.486149 -0.296640 -1.756275  0.978455  0.568600
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-<span class='co'># Dimensions of length one can be drop</span>
-  <span class='va'>flq</span><span class='op'>[</span><span class='fl'>1</span>, drop<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; [1] 0.4241876</div><div class='input'>
-<span class='co'># Replacing part of the object</span>
-  <span class='va'>flq</span><span class='op'>[</span><span class='st'>'0'</span>,,,<span class='fl'>1</span><span class='op'>]</span><span class='op'>&lt;-</span><span class='fl'>0</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>200</span><span class='op'>)</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>4</span>, year<span class='op'>=</span><span class='fl'>1991</span><span class='op'>:</span><span class='fl'>2000</span>,</span>
+<span class='r-in'>  season<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Extracting by position...</span></span>
+<span class='r-in'>  <span class='va'>flq</span><span class='op'>[</span><span class='fl'>1</span>,<span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 1, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.022295 -1.146200  0.454342</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 2, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0 -0.162676  1.321781  0.429147  0.677684 -1.900061 -0.788259 -0.102909</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.035931 -1.041668  1.993110</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 3, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.233390  0.237425 -0.639535</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 4, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0 -0.902815  1.382911 -0.830214 -0.828604  0.149679 -2.102152  0.060899</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.877744  1.012002  1.129835</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'>  <span class='va'>flq</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 1, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991       1992       1993       1994       1995      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.4241876  1.6728826 -0.3872136 -0.6905379 -0.2088827</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1.0631020 -0.3543612 -0.7854327 -0.5585420 -1.3994105</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.0487126  0.9463479 -1.0567369 -0.5366633  0.2585373</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -0.0381029  1.3168264 -0.7955414  0.2271271 -0.4417995</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  0.4861489 -0.2966400 -1.7562754  0.9784549  0.5685999</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 2, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991       1992       1993       1994       1995      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0 -0.1626763  1.3217810  0.4291474  0.6776836 -1.9000608</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.8273102 -1.1197108  0.1221034  0.0384995  0.9357843</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.8765056  0.5145998 -1.1380124 -0.3563812 -0.3090515</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  0.7664402 -1.5090998 -0.5580151  0.7828441  0.2630667</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  0.9799567  1.5327415  1.0525385  0.8044116 -1.7905919</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 3, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991       1992       1993       1994       1995      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.1238388  0.1329921 -0.4293801  0.0654866 -1.1533984</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.3970015  0.3764993  1.3604613 -1.0985089 -0.3406379</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -0.8232612  1.1387077 -0.0708574 -0.6331782  0.7863626</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -0.5788846  1.2412631 -0.2721537 -2.0636545 -1.2705131</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  1.7637894  0.6120909 -2.4466800  2.6489320  0.5421415</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 4, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991       1992       1993       1994       1995      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0 -0.9028149  1.3829109 -0.8302143 -0.8286035  0.1496794</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1.3176337  0.0031259 -0.5035929  0.2897745 -1.4333211</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.1001897 -0.0778868 -1.1936412 -0.4800535 -0.0103033</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1.2037678  0.4414282 -0.7517233 -0.6048294 -0.2122360</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -1.4312708  0.1289229  1.4558414  1.4601102 -0.9063402</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'>  <span class='va'>flq</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,,,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 1, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1.063102 -0.354361 -0.785433 -0.558542 -1.399410  0.424858  0.449454</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.022295 -1.146200  0.454342</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  0.603611  0.846185 -0.855203</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 3, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.397001  0.376499  1.360461 -1.098509 -0.340638  0.558514 -0.075574</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.233390  0.237425 -0.639535</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  0.340424 -1.312814 -0.845196</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># ...by dimnames</span></span>
+<span class='r-in'>  <span class='va'>flq</span><span class='op'>[</span><span class='st'>'0'</span>,<span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 1, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883  2.126850  2.039369</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.022295 -1.146200  0.454342</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 2, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0 -0.162676  1.321781  0.429147  0.677684 -1.900061 -0.788259 -0.102909</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.035931 -1.041668  1.993110</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 3, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.123839  0.132992 -0.429380  0.065487 -1.153398  0.075106 -0.338936</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.233390  0.237425 -0.639535</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 4, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995      1996      1997     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0 -0.902815  1.382911 -0.830214 -0.828604  0.149679 -2.102152  0.060899</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1998      1999      2000     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.877744  1.012002  1.129835</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'>  <span class='va'>flq</span><span class='op'>[</span>,<span class='st'>'1991'</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 1, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.424188</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1.063102</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.048713</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -0.038103</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  0.486149</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 2, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0 -0.162676</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.827310</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.876506</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  0.766440</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  0.979957</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 3, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  1.123839</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -0.397001</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -0.823261</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -0.578885</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  1.763789</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 4, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0 -0.902815</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1.317634</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.100190</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  1.203768</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4 -1.431271</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'>  <span class='va'>flq</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fl'>1991</span><span class='op'>:</span><span class='fl'>1995</span><span class='op'>)</span>,,<span class='st'>'1'</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = 1, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 1991      1992      1993      1994      1995     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   0  0.424188  1.672883 -0.387214 -0.690538 -0.208883</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1.063102 -0.354361 -0.785433 -0.558542 -1.399410</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1.048713  0.946348 -1.056737 -0.536663  0.258537</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3 -0.038103  1.316826 -0.795541  0.227127 -0.441799</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4  0.486149 -0.296640 -1.756275  0.978455  0.568600</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Dimensions of length one can be drop</span></span>
+<span class='r-in'>  <span class='va'>flq</span><span class='op'>[</span><span class='fl'>1</span>, drop<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>]</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.4241876</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Replacing part of the object</span></span>
+<span class='r-in'>  <span class='va'>flq</span><span class='op'>[</span><span class='st'>'0'</span>,,,<span class='fl'>1</span><span class='op'>]</span><span class='op'>&lt;-</span><span class='fl'>0</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

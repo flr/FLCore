@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -73,29 +73,23 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="flcore" class="section level1">
+<div id="flcore-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#flcore" class="anchor"></a>FLCore</h1></div>
-<ul>
-<li>Version: 2.6.17.9001</li>
-<li>Date: 12-10-2021</li>
-<li>Author: FLR Team and various <a href="CONTRIBUTORS.html">contributors</a>.</li>
-<li>Maintainer: Iago Mosqueira <a href="mailto:iago.mosqueira@wur.nl" class="email">iago.mosqueira@wur.nl</a>
-</li>
-<li>Repository: <a href="https://github.com/flr/FLCore/" class="uri">https://github.com/flr/FLCore/</a>
-</li>
-<li>Bug reports: <a href="https://github.com/flr/FLCore/issues" class="uri">https://github.com/flr/FLCore/issues</a>
-</li>
-</ul>
+<a href="#flcore-" class="anchor"></a>FLCore <img src="reference/figures/flcore.png" align="right" width="120">
+</h1></div>
+
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p>To install this package, start R and enter:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">"FLCore"</span>, <span class="dt">repos=</span><span class="st">"http://flr-project.org/R"</span>)</span></code></pre></div>
 <p>or directly from the github repository by using:</p>
-<pre><code><a href="https://devtools.r-lib.org/">  library(devtools)
-  install_github("flr/FLCore")</a></code></pre>
+<pre><code>  remotes::install_github("flr/FLCore")</code></pre>
 </div>
 <div id="documentation" class="section level2">
 <h2 class="hasAnchor">
@@ -104,31 +98,15 @@
 <li><a href="http://flr-project.org/FLCore">Help pages</a></li>
 </ul>
 </div>
-<div id="bibliography" class="section level2">
+<div id="citation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bibliography" class="anchor"></a>Bibliography</h2>
-<ul>
-<li>Kell, L. T., I. Mosqueira, P. Grosjean, J-M. Fromentin, D. Garcia, R. Hillary, E. Jardim, S. Mardle, M. A. Pastoors, J. J. Poos, F. Scott, R. D. Scott. 2007. FLR: an open-source framework for the evaluation and development of management strategies. <em>ICES J Mar Sci</em>, 64 (4): 640-646. doi: <a href="https://doi.org/10.1093/icesjms/fsm012">10.1093/icesjms/fsm012</a>
-</li>
-</ul>
-</div>
-<div id="build-status" class="section level2">
-<h2 class="hasAnchor">
-<a href="#build-status" class="anchor"></a>Build Status</h2>
-<p><a href="https://github.com/flr/FLCore/actions"><img src="https://github.com/flr/FLCore/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://cran.r-project.org/package=FLCore"><img src="http://www.r-pkg.org/badges/version/FLCore" alt="CRAN_Status_Badge"></a></p>
-</div>
-<div id="releases" class="section level2">
-<h2 class="hasAnchor">
-<a href="#releases" class="anchor"></a>Releases</h2>
-<ul>
-<li><a href="https://github.com/flr/R/releases/latest">Latest release</a></li>
-<li><a href="https://github.com/flr/R/releases/">All releases</a></li>
-</ul>
+<a href="#citation" class="anchor"></a>Citation</h2>
+<p>Kell, L. T., I. Mosqueira, P. Grosjean, J-M. Fromentin, D. Garcia, R. Hillary, E. Jardim, S. Mardle, M. A. Pastoors, J. J. Poos, F. Scott, R. D. Scott. 2007. FLR: an open-source framework for the evaluation and development of management strategies. <em>ICES J Mar Sci</em>, 64 (4): 640-646. doi: <a href="https://doi.org/10.1093/icesjms/fsm012">10.1093/icesjms/fsm012</a></p>
 </div>
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h2>
-<p>Copyright (c) 2004-2017 The FLR Team. Released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL v2</a>.</p>
+<p>Copyright (c) 2004-2021 The FLR Team. Released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL v2</a>.</p>
 </div>
 <div id="contact" class="section level2">
 <h2 class="hasAnchor">
@@ -140,6 +118,9 @@
 <li>Send a pull request on: <a href="https://github.com/flr/FLCore/" class="uri">https://github.com/flr/FLCore/</a>
 </li>
 <li>Compose a friendly e-mail to: <a href="mailto:flrteam@flr-project.org" class="email">flrteam@flr-project.org</a>
+</li>
+<li>Author: FLR Team and various <a href="CONTRIBUTORS.html">contributors</a>.</li>
+<li>Maintainer: Iago Mosqueira <a href="mailto:iago.mosqueira@wur.nl" class="email">iago.mosqueira@wur.nl</a>
 </li>
 </ul>
 </div>
@@ -188,6 +169,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://github.com/flr/FLCore/actions"><img src="https://github.com/flr/FLCore/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://www.gnu.org/licenses/gpl-2.0.html"><img src="https://eddelbuettel.github.io/badges/GPL2+.svg" alt="License"></a></li>
 </ul>
 </div>

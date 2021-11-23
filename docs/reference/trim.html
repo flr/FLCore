@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -164,123 +164,104 @@ counterparts are modified along the first dimension.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2016</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>trim</span><span class='op'>(</span><span class='va'>flq</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2005</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  2000      2001      2002      2003      2004      2005     
-#&gt;   1  -2.032646 -0.724999  1.555174  1.242276  0.214104  0.598786
-#&gt;   2  -0.351096 -1.265922  1.280646  2.123085  0.262199  1.276250
-#&gt;   3  -1.299799  0.099816  0.286134 -0.024518  0.529516  0.559080
-#&gt;   4   0.241729  0.245009 -0.581133 -0.558707  0.522573 -0.127533
-#&gt;   5   0.877515 -0.180798 -0.045927 -1.011290  0.019584 -3.390313
-#&gt;   6   1.134226  2.717186  0.333056 -0.364291 -1.191729 -0.727006
-#&gt;   7  -0.782119 -0.494108 -0.762869 -0.334059  0.561591  0.075924
-#&gt;   8  -2.389758 -1.673071 -0.940227  0.195709  0.351618 -0.642884
-#&gt;   9   0.310010  0.378752 -1.404900  1.186946 -0.747597 -0.511863
-#&gt;   10 -0.461716 -0.714793 -0.290961  0.199370  0.558315  0.182232
-#&gt; 
-#&gt; units:  NA </div><div class='input'><span class='co'># which is equivalent to</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span><span class='op'>(</span><span class='va'>flq</span>, start<span class='op'>=</span><span class='fl'>2000</span>, end<span class='op'>=</span><span class='fl'>2005</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  2000      2001      2002      2003      2004      2005     
-#&gt;   1  -2.032646 -0.724999  1.555174  1.242276  0.214104  0.598786
-#&gt;   2  -0.351096 -1.265922  1.280646  2.123085  0.262199  1.276250
-#&gt;   3  -1.299799  0.099816  0.286134 -0.024518  0.529516  0.559080
-#&gt;   4   0.241729  0.245009 -0.581133 -0.558707  0.522573 -0.127533
-#&gt;   5   0.877515 -0.180798 -0.045927 -1.011290  0.019584 -3.390313
-#&gt;   6   1.134226  2.717186  0.333056 -0.364291 -1.191729 -0.727006
-#&gt;   7  -0.782119 -0.494108 -0.762869 -0.334059  0.561591  0.075924
-#&gt;   8  -2.389758 -1.673071 -0.940227  0.195709  0.351618 -0.642884
-#&gt;   9   0.310010  0.378752 -1.404900  1.186946 -0.747597 -0.511863
-#&gt;   10 -0.461716 -0.714793 -0.290961  0.199370  0.558315  0.182232
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-<span class='fu'>trim</span><span class='op'>(</span><span class='va'>flq</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2005</span>, age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;    year
-#&gt; age 2000     2001     2002     2003     2004     2005    
-#&gt;   1 -2.03265 -0.72500  1.55517  1.24228  0.21410  0.59879
-#&gt;   2 -0.35110 -1.26592  1.28065  2.12309  0.26220  1.27625
-#&gt; 
-#&gt; units:  NA </div><div class='input'>
-
-<span class='co'># Now on an FLStock</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>trim</span><span class='op'>(</span><span class='va'>ple4</span>, year<span class='op'>=</span><span class='fl'>1990</span><span class='op'>:</span><span class='fl'>1995</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLStock"
-#&gt; 
-#&gt; Name: PLE 
-#&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
-#&gt; Quant: age 
-#&gt; Dims:  age 	year	unit	season	area	iter
-#&gt; 	10	6	1	1	1	1	
-#&gt; 
-#&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
-#&gt; 	1	10	10	1990	1995	2	6	
-#&gt; 
-#&gt; catch         : [ 1 6 1 1 1 1 ], units =  t 
-#&gt; catch.n       : [ 10 6 1 1 1 1 ], units =  1000 
-#&gt; catch.wt      : [ 10 6 1 1 1 1 ], units =  kg 
-#&gt; discards      : [ 1 6 1 1 1 1 ], units =  t 
-#&gt; discards.n    : [ 10 6 1 1 1 1 ], units =  1000 
-#&gt; discards.wt   : [ 10 6 1 1 1 1 ], units =  kg 
-#&gt; landings      : [ 1 6 1 1 1 1 ], units =  t 
-#&gt; landings.n    : [ 10 6 1 1 1 1 ], units =  1000 
-#&gt; landings.wt   : [ 10 6 1 1 1 1 ], units =  kg 
-#&gt; stock         : [ 1 6 1 1 1 1 ], units =  t 
-#&gt; stock.n       : [ 10 6 1 1 1 1 ], units =  1000 
-#&gt; stock.wt      : [ 10 6 1 1 1 1 ], units =  kg 
-#&gt; m             : [ 10 6 1 1 1 1 ], units =  m 
-#&gt; mat           : [ 10 6 1 1 1 1 ], units =   
-#&gt; harvest       : [ 10 6 1 1 1 1 ], units =  f 
-#&gt; harvest.spwn  : [ 10 6 1 1 1 1 ], units =   
-#&gt; m.spwn        : [ 10 6 1 1 1 1 ], units =   </div><div class='input'>
-<span class='co'># If 'age' is trimmed in ple4, catch, landings and discards need to be</span>
-<span class='co'># recalculated</span>
-  <span class='va'>shpl4</span> <span class='op'>&lt;-</span> <span class='fu'>trim</span><span class='op'>(</span><span class='va'>ple4</span>, age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span>
-  <span class='fu'><a href='accessors.html'>landings</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeLandings</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span>
-  <span class='fu'><a href='accessors.html'>discards</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span>
-  <span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLStock"
-#&gt; 
-#&gt; Name: PLE 
-#&gt; Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
-#&gt; Quant: age 
-#&gt; Dims:  age 	year	unit	season	area	iter
-#&gt; 	4	61	1	1	1	1	
-#&gt; 
-#&gt; Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
-#&gt; 	1	4	NA	1957	2017	2	4	
-#&gt; 
-#&gt; catch         : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; catch.n       : [ 4 61 1 1 1 1 ], units =  1000 
-#&gt; catch.wt      : [ 4 61 1 1 1 1 ], units =  kg 
-#&gt; discards      : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; discards.n    : [ 4 61 1 1 1 1 ], units =  1000 
-#&gt; discards.wt   : [ 4 61 1 1 1 1 ], units =  kg 
-#&gt; landings      : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; landings.n    : [ 4 61 1 1 1 1 ], units =  1000 
-#&gt; landings.wt   : [ 4 61 1 1 1 1 ], units =  kg 
-#&gt; stock         : [ 1 61 1 1 1 1 ], units =  t 
-#&gt; stock.n       : [ 4 61 1 1 1 1 ], units =  1000 
-#&gt; stock.wt      : [ 4 61 1 1 1 1 ], units =  kg 
-#&gt; m             : [ 4 61 1 1 1 1 ], units =  m 
-#&gt; mat           : [ 4 61 1 1 1 1 ], units =   
-#&gt; harvest       : [ 4 61 1 1 1 1 ], units =  f 
-#&gt; harvest.spwn  : [ 4 61 1 1 1 1 ], units =   
-#&gt; m.spwn        : [ 4 61 1 1 1 1 ], units =   </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dimnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2016</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>trim</span><span class='op'>(</span><span class='va'>flq</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2005</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age  2000      2001      2002      2003      2004      2005     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  -2.032646 -0.724999  1.555174  1.242276  0.214104  0.598786</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  -0.351096 -1.265922  1.280646  2.123085  0.262199  1.276250</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  -1.299799  0.099816  0.286134 -0.024518  0.529516  0.559080</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4   0.241729  0.245009 -0.581133 -0.558707  0.522573 -0.127533</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5   0.877515 -0.180798 -0.045927 -1.011290  0.019584 -3.390313</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   6   1.134226  2.717186  0.333056 -0.364291 -1.191729 -0.727006</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   7  -0.782119 -0.494108 -0.762869 -0.334059  0.561591  0.075924</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   8  -2.389758 -1.673071 -0.940227  0.195709  0.351618 -0.642884</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   9   0.310010  0.378752 -1.404900  1.186946 -0.747597 -0.511863</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   10 -0.461716 -0.714793 -0.290961  0.199370  0.558315  0.182232</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'><span class='co'># which is equivalent to</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span><span class='op'>(</span><span class='va'>flq</span>, start<span class='op'>=</span><span class='fl'>2000</span>, end<span class='op'>=</span><span class='fl'>2005</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age  2000      2001      2002      2003      2004      2005     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  -2.032646 -0.724999  1.555174  1.242276  0.214104  0.598786</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  -0.351096 -1.265922  1.280646  2.123085  0.262199  1.276250</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3  -1.299799  0.099816  0.286134 -0.024518  0.529516  0.559080</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4   0.241729  0.245009 -0.581133 -0.558707  0.522573 -0.127533</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5   0.877515 -0.180798 -0.045927 -1.011290  0.019584 -3.390313</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   6   1.134226  2.717186  0.333056 -0.364291 -1.191729 -0.727006</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   7  -0.782119 -0.494108 -0.762869 -0.334059  0.561591  0.075924</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   8  -2.389758 -1.673071 -0.940227  0.195709  0.351618 -0.642884</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   9   0.310010  0.378752 -1.404900  1.186946 -0.747597 -0.511863</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   10 -0.461716 -0.714793 -0.290961  0.199370  0.558315  0.182232</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>trim</span><span class='op'>(</span><span class='va'>flq</span>, year<span class='op'>=</span><span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2005</span>, age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age 2000     2001     2002     2003     2004     2005    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1 -2.03265 -0.72500  1.55517  1.24228  0.21410  0.59879</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2 -0.35110 -1.26592  1.28065  2.12309  0.26220  1.27625</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  NA </span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Now on an FLStock</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'>trim</span><span class='op'>(</span><span class='va'>ple4</span>, year<span class='op'>=</span><span class='fl'>1990</span><span class='op'>:</span><span class='fl'>1995</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLStock"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: PLE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Description: Plaice in IV. ICES WGNSSK 2018. FLAAP </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dims:  age 	year	unit	season	area	iter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	10	6	1	1	1	1	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1	10	10	1990	1995	2	6	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Metrics: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   rec: 550376 - 1083810  (1000) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ssb: 222203 - 396458  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   catch: 132629 - 250604  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   fbar: 0.60 - 0.61  (f) </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># If 'age' is trimmed in ple4, catch, landings and discards need to be</span></span>
+<span class='r-in'><span class='co'># recalculated</span></span>
+<span class='r-in'>  <span class='va'>shpl4</span> <span class='op'>&lt;-</span> <span class='fu'>trim</span><span class='op'>(</span><span class='va'>ple4</span>, age<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='accessors.html'>landings</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeLandings</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='accessors.html'>discards</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeDiscards</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='compute.html'>computeCatch</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>shpl4</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLStock"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: PLE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Description: Plaice in IV. ICES WGNSSK 2018. FLAAP </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Dims:  age 	year	unit	season	area	iter</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	4	61	1	1	1	1	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Range:  min	max	pgroup	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1	4	NA	1957	2017	2	4	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Metrics: </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   rec: 367450 - 4303680  (1000) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ssb: 91016 - 316967  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   catch: 36219 - 253152  (t) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   fbar: 0.22 - 0.71  (f) </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

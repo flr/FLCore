@@ -76,7 +76,7 @@ FLQuant." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -186,66 +186,68 @@ any of the list elements.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># Compute various FLStock indicators</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-  <span class='va'>fqs</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuants</span><span class='op'>(</span>ssb<span class='op'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>, catch<span class='op'>=</span><span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>, rec<span class='op'>=</span><span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>,
-    f<span class='op'>=</span><span class='fu'>fbar</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fqs</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuants"
-#&gt; 
-#&gt; Elements: ssb catch rec f 
-#&gt; 
-#&gt; Name: ssb 
-#&gt; 	dim  :  1 61 1 1 1 1 
-#&gt; 	quant:  age 
-#&gt; 	units:  t 
-#&gt; 
-#&gt; 	Min    :  203390.9 
-#&gt; 	1st Qu.:  290780.2 
-#&gt; 	Mean   :  387524 
-#&gt; 	Median :  361610.5 
-#&gt; 	3rd Qu.:  430475.2 
-#&gt; 	Max    :  913289.6 
-#&gt; 	NAs    :  0 %
-#&gt; Name: catch 
-#&gt; 	dim  :  1 61 1 1 1 1 
-#&gt; 	quant:  age 
-#&gt; 	units:  t 
-#&gt; 
-#&gt; 	Min    :  78360.36 
-#&gt; 	1st Qu.:  131216.1 
-#&gt; 	Mean   :  160583.9 
-#&gt; 	Median :  149389.9 
-#&gt; 	3rd Qu.:  175881.4 
-#&gt; 	Max    :  315244.7 
-#&gt; 	NAs    :  0 %
-#&gt; Name: rec 
-#&gt; 	dim  :  1 61 1 1 1 1 
-#&gt; 	quant:  age 
-#&gt; 	units:  1000 
-#&gt; 
-#&gt; 	Min    :  367450 
-#&gt; 	1st Qu.:  674010 
-#&gt; 	Mean   :  1108991 
-#&gt; 	Median :  915553 
-#&gt; 	3rd Qu.:  1375880 
-#&gt; 	Max    :  4303680 
-#&gt; 	NAs    :  0 %
-#&gt; Name: f 
-#&gt; 	dim  :  1 61 1 1 1 1 
-#&gt; 	quant:  age 
-#&gt; 	units:  f 
-#&gt; 
-#&gt; 	Min    :  0.1964252 
-#&gt; 	1st Qu.:  0.3251898 
-#&gt; 	Mean   :  0.4379137 
-#&gt; 	Median :  0.448585 
-#&gt; 	3rd Qu.:  0.5824118 
-#&gt; 	Max    :  0.72432 
-#&gt; 	NAs    :  0 %</div><div class='input'>  <span class='fu'>xyplot</span><span class='op'>(</span><span class='va'>data</span><span class='op'>~</span><span class='va'>year</span><span class='op'>|</span><span class='va'>qname</span>, <span class='va'>fqs</span>, type<span class='op'>=</span><span class='st'>'b'</span>, scales<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>relation<span class='op'>=</span><span class='st'>'free'</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='FLQuants-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># Compute various FLStock indicators</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>fqs</span> <span class='op'>&lt;-</span> <span class='fu'>FLQuants</span><span class='op'>(</span>ssb<span class='op'>=</span><span class='fu'><a href='ssb.html'>ssb</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>, catch<span class='op'>=</span><span class='fu'><a href='accessors.html'>catch</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>, rec<span class='op'>=</span><span class='fu'><a href='accessors.html'>rec</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>,</span>
+<span class='r-in'>    f<span class='op'>=</span><span class='fu'>fbar</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fqs</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuants"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Elements: ssb catch rec f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: ssb </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	dim  :  1 61 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	quant:  age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Min    :  203390.9 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1st Qu.:  290780.2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Mean   :  387524 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Median :  361610.5 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	3rd Qu.:  430475.2 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Max    :  913289.6 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	NAs    :  0 %</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: catch </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	dim  :  1 61 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	quant:  age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	units:  t </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Min    :  78360.36 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1st Qu.:  131216.1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Mean   :  160583.9 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Median :  149389.9 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	3rd Qu.:  175881.4 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Max    :  315244.7 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	NAs    :  0 %</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: rec </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	dim  :  1 61 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	quant:  age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	units:  1000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Min    :  367450 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1st Qu.:  674010 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Mean   :  1108991 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Median :  915553 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	3rd Qu.:  1375880 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Max    :  4303680 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	NAs    :  0 %</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	dim  :  1 61 1 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	quant:  age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	units:  f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Min    :  0.1964252 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	1st Qu.:  0.3251898 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Mean   :  0.4379137 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Median :  0.448585 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	3rd Qu.:  0.5824118 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Max    :  0.72432 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	NAs    :  0 %</span>
+<span class='r-in'>  <span class='fu'>xyplot</span><span class='op'>(</span><span class='va'>data</span><span class='op'>~</span><span class='va'>year</span><span class='op'>|</span><span class='va'>qname</span>, <span class='va'>fqs</span>, type<span class='op'>=</span><span class='st'>'b'</span>, scales<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>relation<span class='op'>=</span><span class='st'>'free'</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='FLQuants-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

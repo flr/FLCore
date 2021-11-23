@@ -76,7 +76,7 @@ not allow the user to increase or decrease the object length." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -177,27 +177,28 @@ any of the list elements.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='va'>fls</span> <span class='op'>&lt;-</span> <span class='fu'>FLStocks</span><span class='op'>(</span>sa<span class='op'>=</span><span class='va'>ple4</span>, sb<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span><span class='op'>(</span><span class='va'>ple4</span>, end<span class='op'>=</span><span class='fl'>1980</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fls</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLStocks"
-#&gt; 
-#&gt; Elements: sa sb 
-#&gt; 
-#&gt; Name: PLE 
-#&gt; 	Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
-#&gt; 	Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
-#&gt; 		1	10	10	1957	2017	2	6	
-#&gt; 	Quant: age 
-#&gt; 	dim: 10 61 1 1 1 
-#&gt; Name: PLE 
-#&gt; 	Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
-#&gt; 	Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar 
-#&gt; 		1	10	10	1957	1980	2	6	
-#&gt; 	Quant: age 
-#&gt; 	dim: 10 24 1 1 1 </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>fls</span> <span class='op'>&lt;-</span> <span class='fu'>FLStocks</span><span class='op'>(</span>sa<span class='op'>=</span><span class='va'>ple4</span>, sb<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/window.html'>window</a></span><span class='op'>(</span><span class='va'>ple4</span>, end<span class='op'>=</span><span class='fl'>1980</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>fls</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLStocks"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Elements: sa sb </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: PLE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Description: Plaice in IV. ICES WGNSSK 2018. FLAAP </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 		1	10	10	1957	2017	2	6	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	dim: 10 61 1 1 1 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Name: PLE </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Description: Plaice in IV. ICES WGNSSK 2018. FLAAP </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Range:	 min	max	pgroup	minyear	maxyear	minfbar	maxfbar </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 		1	10	10	1957	1980	1	10	</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Quant: age </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	dim: 10 24 1 1 1 </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

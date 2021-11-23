@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -156,60 +156,63 @@ case <code><a href='FLQuant.html'>FLQuant</a></code>.</p>
     <p>The FLR Team</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>10</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span>
-<span class='va'>flp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>a<span class='op'>=</span><span class='fl'>99</span><span class='op'>)</span>
-
-<span class='co'># FLQuant and numeric</span>
-<span class='va'>flq</span> <span class='op'>*</span> <span class='fl'>25</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;     1   6.1647  24.8611   4.0433  18.8435 197.1374   3.8801  43.0289  35.9391
-#&gt;     2  32.2718  46.5454  19.5222  14.3705   4.8934  14.8331  10.0222   6.7824
-#&gt;     3   2.1850  78.8295  19.5833  46.8925  41.7334  23.7189  39.9261  52.2820
-#&gt;      year
-#&gt; quant 9        10      
-#&gt;     1 165.2370  24.6044
-#&gt;     2  22.6788  10.9363
-#&gt;     3   9.8063   5.5095
-#&gt; 
-#&gt; units:  kg </div><div class='input'><span class='co'># Two FLQuant objects</span>
-<span class='va'>flq</span> <span class='op'>+</span> <span class='va'>flq</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1        2        3        4        5        6        7        8       
-#&gt;     1  0.49317  1.98889  0.32346  1.50748 15.77099  0.31041  3.44231  2.87513
-#&gt;     2  2.58174  3.72363  1.56177  1.14964  0.39147  1.18665  0.80177  0.54259
-#&gt;     3  0.17480  6.30636  1.56666  3.75140  3.33868  1.89752  3.19409  4.18256
-#&gt;      year
-#&gt; quant 9        10      
-#&gt;     1 13.21896  1.96835
-#&gt;     2  1.81430  0.87490
-#&gt;     3  0.78451  0.44076
-#&gt; 
-#&gt; units:  kg </div><div class='input'>
-<span class='co'># FLQuant and FLPar</span>
-<span class='va'>flq</span> <span class='op'>/</span> <span class='va'>flp</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;      year
-#&gt; quant 1          2          3          4          5          6         
-#&gt;     1 0.00249077 0.01004489 0.00163365 0.00761355 0.07965146 0.00156772
-#&gt;     2 0.01303910 0.01880623 0.00788774 0.00580626 0.00197713 0.00599318
-#&gt;     3 0.00088283 0.03185031 0.00791244 0.01894647 0.01686200 0.00958341
-#&gt;      year
-#&gt; quant 7          8          9          10        
-#&gt;     1 0.01738542 0.01452087 0.06676242 0.00994117
-#&gt;     2 0.00404937 0.00274037 0.00916315 0.00441870
-#&gt;     3 0.01613176 0.02112404 0.00396216 0.00222607
-#&gt; 
-#&gt; units:  kg </div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLQuant.html'>FLQuant</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>10</span><span class='op'>)</span>, units<span class='op'>=</span><span class='st'>'kg'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>flp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='FLPar.html'>FLPar</a></span><span class='op'>(</span>a<span class='op'>=</span><span class='fl'>99</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># FLQuant and numeric</span></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>*</span> <span class='fl'>25</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1        2        3        4        5        6        7        8       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1   6.1647  24.8611   4.0433  18.8435 197.1374   3.8801  43.0289  35.9391</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2  32.2718  46.5454  19.5222  14.3705   4.8934  14.8331  10.0222   6.7824</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3   2.1850  78.8295  19.5833  46.8925  41.7334  23.7189  39.9261  52.2820</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 9        10      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1 165.2370  24.6044</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2  22.6788  10.9363</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3   9.8063   5.5095</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  kg </span>
+<span class='r-in'><span class='co'># Two FLQuant objects</span></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>+</span> <span class='va'>flq</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1        2        3        4        5        6        7        8       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1  0.49317  1.98889  0.32346  1.50748 15.77099  0.31041  3.44231  2.87513</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2  2.58174  3.72363  1.56177  1.14964  0.39147  1.18665  0.80177  0.54259</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3  0.17480  6.30636  1.56666  3.75140  3.33868  1.89752  3.19409  4.18256</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 9        10      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1 13.21896  1.96835</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2  1.81430  0.87490</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3  0.78451  0.44076</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  kg </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># FLQuant and FLPar</span></span>
+<span class='r-in'><span class='va'>flq</span> <span class='op'>/</span> <span class='va'>flp</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 1          2          3          4          5          6         </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1 0.00249077 0.01004489 0.00163365 0.00761355 0.07965146 0.00156772</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2 0.01303910 0.01880623 0.00788774 0.00580626 0.00197713 0.00599318</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3 0.00088283 0.03185031 0.00791244 0.01894647 0.01686200 0.00958341</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> quant 7          8          9          10        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1 0.01738542 0.01452087 0.06676242 0.00994117</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2 0.00404937 0.00274037 0.00916315 0.00441870</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3 0.01613176 0.02112404 0.00396216 0.00222607</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  kg </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

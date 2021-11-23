@@ -75,7 +75,7 @@ recruitment, so abundances for the first age will be set as 'NA'." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FLCore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.17.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.18.9004</span>
       </span>
     </div>
 
@@ -143,42 +143,44 @@ recruitment, so abundances for the first age will be set as 'NA'.</p>
     <p>The abundances at age of the survivors, 'FLQuant'.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span>
-<span class='fu'><a href='accessors.html'>stock.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>[</span>, <span class='fu'>ac</span><span class='op'>(</span><span class='fl'>2002</span><span class='op'>:</span><span class='fl'>2006</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  2002      2003      2004      2005      2006     
-#&gt;   1  1792880.0  557844.0 1235790.0  863893.0  875191.0
-#&gt;   2   481832.0 1362670.0  417612.0  894667.0  618023.0
-#&gt;   3   413685.0  272903.0  729522.0  238706.0  552652.0
-#&gt;   4   181506.0  185801.0  118238.0  365617.0  136058.0
-#&gt;   5    98489.7   90505.8   97419.1   66113.3  219194.0
-#&gt;   6   106479.0   49763.0   49696.3   57107.9   41505.0
-#&gt;   7    13278.2   51718.8   26043.7   29565.3   37777.6
-#&gt;   8     7752.1    7045.7   28478.9   16720.1   21233.8
-#&gt;   9     3675.4    4964.1    4649.5   20533.5   12941.5
-#&gt;   10    9308.9    9758.3   11423.5   12764.9   27199.2
-#&gt; 
-#&gt; units:  1000 </div><div class='input'><span class='fu'>survivors</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>[</span>, <span class='fu'>ac</span><span class='op'>(</span><span class='fl'>2002</span><span class='op'>:</span><span class='fl'>2006</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; An object of class "FLQuant"
-#&gt; , , unit = unique, season = all, area = unique
-#&gt; 
-#&gt;     year
-#&gt; age  2003      2004      2005      2006      2007     
-#&gt;   1         NA        NA        NA        NA        NA
-#&gt;   2  1362673.1  417612.2  894668.0  618023.2  651006.8
-#&gt;   3   272903.6  729521.1  238706.3  552652.0  393106.5
-#&gt;   4   185801.5  118237.7  365617.1  136057.6  326369.0
-#&gt;   5    90505.7   97418.9   66113.3  219193.4   87128.7
-#&gt;   6    49763.0   49696.3   57107.9   41505.0  148406.1
-#&gt;   7    51718.9   26043.7   29565.3   37777.6   29245.6
-#&gt;   8     7045.7   28478.9   16720.1   21233.8   28310.9
-#&gt;   9     4964.1    4649.5   20533.5   12941.5   17026.1
-#&gt;   10    9758.3   11423.5   12764.9   27199.1   33875.0
-#&gt; 
-#&gt; units:  1000 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='accessors.html'>stock.n</a></span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>[</span>, <span class='fu'>ac</span><span class='op'>(</span><span class='fl'>2002</span><span class='op'>:</span><span class='fl'>2006</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age  2002      2003      2004      2005      2006     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1  1792880.0  557844.0 1235790.0  863893.0  875191.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2   481832.0 1362670.0  417612.0  894667.0  618023.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3   413685.0  272903.0  729522.0  238706.0  552652.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4   181506.0  185801.0  118238.0  365617.0  136058.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5    98489.7   90505.8   97419.1   66113.3  219194.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   6   106479.0   49763.0   49696.3   57107.9   41505.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   7    13278.2   51718.8   26043.7   29565.3   37777.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   8     7752.1    7045.7   28478.9   16720.1   21233.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   9     3675.4    4964.1    4649.5   20533.5   12941.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   10    9308.9    9758.3   11423.5   12764.9   27199.2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  1000 </span>
+<span class='r-in'><span class='fu'>survivors</span><span class='op'>(</span><span class='va'>ple4</span><span class='op'>[</span>, <span class='fu'>ac</span><span class='op'>(</span><span class='fl'>2002</span><span class='op'>:</span><span class='fl'>2006</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> An object of class "FLQuant"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     year</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> age  2003      2004      2005      2006      2007     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1         NA        NA        NA        NA        NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2  1362673.1  417612.2  894668.0  618023.2  651006.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3   272903.6  729521.1  238706.3  552652.0  393106.5</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4   185801.5  118237.7  365617.1  136057.6  326369.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5    90505.7   97418.9   66113.3  219193.4   87128.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   6    49763.0   49696.3   57107.9   41505.0  148406.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   7    51718.9   26043.7   29565.3   37777.6   29245.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   8     7045.7   28478.9   16720.1   21233.8   28310.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   9     4964.1    4649.5   20533.5   12941.5   17026.1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   10    9758.3   11423.5   12764.9   27199.1   33875.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> units:  1000 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
