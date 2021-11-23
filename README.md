@@ -10,13 +10,13 @@ FLCore contains the core classes and methods for FLR, a framework for fisheries 
 To install this package, start R and enter:
 
 ```
-install.packages("FLCore", repos="http://flr-project.org/R")
+  install.packages("FLCore", repos="http://flr-project.org/R")
 ```
 
 or directly from the github repository by using:
 
 ```
-remotes::install_github("flr/FLCore")
+  remotes::install_github("flr/FLCore")
 ```
 
 ## Documentation
