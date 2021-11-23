@@ -19,7 +19,12 @@ or directly from the github repository by using:
 ```
 
 ## Documentation
-- [Help pages](http://flr-project.org/FLCore)
+- [A quick introduction to FLR](http://www.flr-project.org/doc/A_quick_introduction_to_FLR.html)
+- [An overview of the FLCore classes](http://www.flr-project.org/doc/An_overview_of_the_FLCore_classes.html)
+- [Loading your data into FLR](http://www.flr-project.org/doc/Loading_your_data_into_FLR.html)
+- [Modelling stock recruitment with FLSR](http://www.flr-project.org/doc/Modelling_stock_recruitment_with_FLSR.html)
+- [Plotting FLR objects using lattice](https://flr-project.org/doc/Plotting_FLR_objects_using_lattice.html)
+- [Help pages](https://flr-project.org/FLCore/reference/index.html)
 
 ## Citation
 Kell, L. T., I. Mosqueira, P. Grosjean, J-M. Fromentin, D. Garcia, R. Hillary, E. Jardim, S. Mardle, M. A. Pastoors, J. J. Poos, F. Scott, R. D. Scott. 2007. FLR: an open-source framework for the evaluation and development of management strategies. *ICES J Mar Sci*, 64 (4): 640-646. doi: [10.1093/icesjms/fsm012](https://doi.org/10.1093/icesjms/fsm012)
