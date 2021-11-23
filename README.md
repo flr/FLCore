@@ -1,7 +1,10 @@
 
-# FLCore
-- Version: 2.6.18.9004
-- Date: 22-11-2021
+# FLCore <img src="man/figures/flcore.png" align="right" width="120" />
+
+[![R-CMD-check](https://github.com/flr/FLCore/workflows/R-CMD-check/badge.svg)](https://github.com/flr/FLCore/actions)
+
+- Version: 2.6.18
+- Date: 03-11-2021
 - Author: FLR Team and various [contributors](CONTRIBUTORS.md).
 - Maintainer: Iago Mosqueira <iago.mosqueira@wur.nl>
 - Repository: <https://github.com/flr/FLCore/>
@@ -19,27 +22,19 @@ To install this package, start R and enter:
 or directly from the github repository by using:
 
 ```
-  library(devtools)
-  install_github("flr/FLCore")
+  remotes::install_github("flr/FLCore")
 ```
 
 ## Documentation
 - [Help pages](http://flr-project.org/FLCore)
 
-## Bibliography
+## Citation
 
 - Kell, L. T., I. Mosqueira, P. Grosjean, J-M. Fromentin, D. Garcia, R. Hillary, E. Jardim, S. Mardle, M. A. Pastoors, J. J. Poos, F. Scott, R. D. Scott. 2007. FLR: an open-source framework for the evaluation and development of management strategies. *ICES J Mar Sci*, 64 (4): 640-646. doi: [10.1093/icesjms/fsm012](https://doi.org/10.1093/icesjms/fsm012)
 
-## Build Status
-[![R-CMD-check](https://github.com/flr/FLCore/workflows/R-CMD-check/badge.svg)](https://github.com/flr/FLCore/actions)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/FLCore)](https://cran.r-project.org/package=FLCore)
-
-## Releases
-- [Latest release](https://github.com/flr/R/releases/latest)
-- [All releases](https://github.com/flr/R/releases/)
 
 ## License
-Copyright (c) 2004-2017 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
+Copyright (c) 2004-2021 The FLR Team. Released under the [GPL v2](http://www.gnu.org/licenses/gpl-2.0.html).
 
 ## Contact
 You are welcome to:
