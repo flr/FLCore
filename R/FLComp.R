@@ -71,7 +71,6 @@ setMethod("window", signature(x="FLComp"),
       x <- qapply(x, window, start=start, end=end, extend=extend, frequency=frequency)
   		x@range["minyear"] <- as.numeric(dims(x)$minyear)
 	  	x@range["maxyear"] <- as.numeric(dims(x)$maxyear)
-
 		return(x)
 	}
 )	# }}}

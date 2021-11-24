@@ -1681,8 +1681,8 @@ setMethod('qapply', signature(X='FLStock', FUN='function'),
     
       dims <- dims(res[[2]])
       range <- c(min=dims$min, max=dims$max, plusgroup=min(dims$max, X@range['plusgroup']),
-		    minyear=dims$minyear, maxyear=dims$maxyear, minfbar=dims$min,
-        maxfbar=dims$max)
+		    minyear=dims$minyear, maxyear=dims$maxyear, minfbar=unname(range(X)['minfbar']),
+        maxfbar=unname(range(X)['maxfbar']))
 
       res <- do.call(new, c(res, list(Class="FLStock", name=X@name,
         desc=X@desc, range=range)))
