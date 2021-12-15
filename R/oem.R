@@ -721,4 +721,100 @@ ifelse(log,return(log(r0)),return(r0))
 
 # }}}
 
-# indexqv
+# growth models {{{
+
+# vonbert
+vonbert <- function(linf, k, t0, age) {
+  linf * (1.0 - exp((-k * (age - t0))))
+}
+
+vonbert(35, 0.352, -0.26, 1:14)
+
+# ivonbert
+ivonbert <- function(linf, k, t0, len) {
+  pmax(0, log(1 - (len / linf)) / (-k) + t0)
+}
+
+ivonbert(35, 0.352, -0.26, 1:34)
+
+# gompertz
+gompertz <- function(linf, a, k, age) {
+  linf * exp(-a * exp(log(k) * age))
+}
+
+gompertz(linf=179.13, k=0.4088, a=1.7268, age=1:12)
+
+# richards
+richards <- function(linf, k, b, m, age) {
+  linf / exp(log(1 + exp(-k * age + b)) * m)
+}
+
+richards(linf=178.63, k=0.424, b=-7.185, m=2880.4, age=1:12)
+
+# }}}
+
+# invALK {{{
+
+invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1) {
+
+    linf <- c(params['linf'])
+
+    # FOR each age
+    bins <- seq(0, ceiling(linf * lmax), bin)
+    len <- do.call(model, c(as(params, "list"), list(age=age)))
+    sd <- len * cv
+
+    probs <- Map(function(x, y) {
+      p <- c(pnorm(1, x, y),
+        dnorm(bins[-c(1, length(bins))], x, y),
+        pnorm(bins[length(bins)], x, y, lower.tail=FALSE))
+      return(p / sum(p))
+    }, x=len, y=sd)
+
+    res <- do.call(rbind, probs)
+
+    alk <- FLPar(array(res, dim=c(length(age), length(bins), 1)),
+      dimnames=list(age=age, len=bins, iter=1), units="")
+
+    return(alk)
+} 
+# }}}
+
+# lenSamples {{{
+lenSamples <- function(object, invALK, n=300) {
+  
+  # PROPAGATE invALK to match object
+  invALK <- propagate(invALK, dim(object)[6])
+
+  # DIMS
+  dmo <- dim(object)
+  dno <- dimnames(object)
+  dmi <- dim(invALK)
+  dni <- dimnames(invALK)
+
+  # RESULTS
+  res <- array(NA, dim=c(dmi[2], dmo[2], 1, 1, 1, dmo[6]))
+  ob <- unname(object)
+
+  # LOOP over iters and years
+  for(i in seq(dmo[6])) {
+    for(y in seq(dmo[2])) {
+      # GET proportions at length from invALK
+      res[,y,,,,i] <- c(ob[,y,,,,i] %*% invALK[,,i, drop=TRUE])
+      # SAMPLE from multinom
+      res[,y,,,,i] <- apply(rmultinom(n, 1, prob=c(res[,y,,,,i])), 1, sum)
+    }
+  }
+  
+  out <- FLQuant(res, dimnames=list(len=dni$len, year=dno$year, iter=dno$iter))
+
+  return(out)
+}
+# }}}
+
+# mlc {{{
+
+mlc <- function(samples) {
+  return(quantSums(as.numeric(dimnames(samples)$len) * samples)
+    / quantSums(samples))
+} # }}}
