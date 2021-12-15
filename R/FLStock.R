@@ -301,9 +301,8 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 
 # ssb		{{{
 
-#' @rdname ssb
-#' @aliases ssb-FLStock,method
-#' @details
+#' Spawning Stock Biomass
+#'
 #' For an object of class \code{\link{FLStock}}, the calculation of SSB depends
 #' on the value of the 'units' attribute in the \code{harvest} slot. If this is
 #' in terms of fishing mortality (\code{units(harvest(object)) == 'f'}), and
@@ -321,13 +320,11 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 #' For \code{\link{FLStock}} objects with other dimensions (\code{area},
 #' \code{unit}), the calculation is carried out along those dimensions too. To
 #' obtain a global value please use the corresponding summing method.
-#'
 #' If the harvest slot contains estimates in terms of harvest rates
 #' (\code{units(harvest(object)) == "hr"}), SSB will be computed as
 #' \deqn{SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot (1 - H_{a,y} \cdot Hs_{a,y}) \cdot e^{-(M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} }{SSB_y = sum_a(N_ay * (1 - H_ay * Hs_ay) * exp(-(M_ay * Ms_ay)) * W_ay * T_ay)}
 #' where \eqn{H_{a,y}}{H_ay} is the harvest rate (proportion of catch in weight
 #' over total biomass).
-#'
 #' @seealso \code{\link{areaSums}}
 #' @examples
 #'
@@ -336,6 +333,22 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
 
+    dis <- dims(object)
+
+    # DEAL with age 0 in SSB
+    if(dis$min == 0) {
+      # DROP in yearly or single spawning season
+      if(dis$season == 1 | dis$season > dis$unit)
+        object <- object[-1,]
+      # SET to 0 same unit & season
+      else if(dis$season  == dis$unit)
+        for(i in seq(dis$unit))
+          mat(object)["0", , i, i] <- 0
+    }
+
+    mat(object)[c(1,2), c(1,2)] <- 99
+
+    # CALCULATE by units
 		uns <- units(harvest(object))
 
 		if(uns == 'f') {
