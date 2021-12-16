@@ -346,8 +346,6 @@ setMethod("ssb", signature(object="FLStock"),
           mat(object)["0", , i, i] <- 0
     }
 
-    mat(object)[c(1,2), c(1,2)] <- 99
-
     # CALCULATE by units
 		uns <- units(harvest(object))
 
