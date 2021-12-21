@@ -14,7 +14,7 @@
 #' in the call stack.
 #'
 #' By default, spread() will not overwrite variables in the function environment
-#' with the same name as any list element, unles FORCE=TRUE
+#' with the same name as any list element, unless FORCE=TRUE
 #'
 #' @param object A named list or vector whose elements are to be loaded into the calling environment.
 #' @param FORCE Should existing variable with matching names be redefined?

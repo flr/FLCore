@@ -4,6 +4,8 @@
 
 - New method for vb(FLBiol, sel=FLQuant)
 - mbar(FLStock) returns the mean natural mortality, M, over the fully selected age range.
+- window(FLlst) will lapply window over all elements.
+- computeQ(FLindices, FLStock, FLQuants) computes index.q from indices and fit.
 
  BUG FIXES
 
@@ -14,6 +16,7 @@
  USER-VISIBLE CHANGES
 
 - FLStock() constructor defaults to 'age' as quant.
+- append(FLQuant, FLQuant) will propagate the first object if required.
 
  FLCore 2.6.18
 

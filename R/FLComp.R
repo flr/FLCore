@@ -41,13 +41,6 @@ setMethod("summary", signature(object="FLComp"),
     cat("Range: ", paste(sub('plusgroup', 'pgroup', names(object@range)),
       collapse="\t"), "\n")
 		cat("", object@range, "\n\n", sep="\t")
-
-#		for (s in qnames) {
-			#if (sum(!complete.cases(slot(object, s))) == length(slot(object,s)))
-			#	cat(substr(paste(s, "          "), start=1, stop=12), " : EMPTY\n") else
-#				cat(substr(paste(s, "          "), start=1, stop=12), " : [",
-#					dim(slot(object,s)),"], units = ", slot(object,s)@units, "\n")
-#		}
 	}
 )	# }}}
 
