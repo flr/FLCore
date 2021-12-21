@@ -1609,7 +1609,7 @@ return(xnames)
 #' and substituting sections of them.
 #'
 #' FLR objects are commonly manipulated along the year dimension, and the append
-#' method offers a single interface for substituting parts of an object with
+#' method offers a simple interface for substituting parts of an object with
 #' another, or combine them into one, extending them when necessary.
 #' The object to be included or added to the first will be placed as defined by
 #' the *year* dimnames, unless the *after* input argument specifies otherwise.
@@ -1644,6 +1644,10 @@ return(xnames)
 
 setMethod("append", signature(x="FLQuant", values="FLQuant"),
   function(x, values, after=dims(values)$minyear-1) {
+
+    # CHECK iters & PROPAGATE x if needed
+    if(dim(x)[6] == 1 & dim(values)[6] > 1)
+      x <- propagate(x, iter=dim(values)[6])
     
     # EXTEND x if needed
     if(after + dims(values)$year > dims(x)$maxyear)
