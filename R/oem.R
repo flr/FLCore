@@ -818,3 +818,66 @@ mlc <- function(samples) {
   return(quantSums(as.numeric(dimnames(samples)$len) * samples)
     / quantSums(samples))
 } # }}}
+
+# computeQ(FLIndices, FLStock, FLQuants) {{{
+
+setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
+  fit="FLQuants"), function(indices, stock, fit) {
+  
+  # SET iterMedians for stock
+
+  yrs <- dimnames(stock)$year
+
+  # LOOP over indices
+  res <- Map(function(x, y) {
+
+    # GET mean index timing and dimnames
+    t <- mean(range(x)[c("startf", "endf")])
+    dms <- dimnames(x)[1:2]
+ 
+    # FLIndex
+    if(is(x, "FLIndex")) {
+      # CORRECT abundances for Z
+      nay <- stock.n(stock) * exp(-z(stock) * t)
+      nay <- nay[dms[[1]], dms[[2]]]
+      
+      # COMPUTE Q
+      iq <- y / nay
+
+    # FLIndexBiomass
+    } else if(is(x, "FLIndexBiomass")) {
+      
+      # CORRECT abundances for Z
+      nay <- stock.n(stock) * exp(-z(stock) * t)
+      nay <- nay[dms[[1]], dms[[2]]]
+      
+      # SET sel.pattern if missing
+      if(all(is.na(sel.pattern(x)))) {
+        sel.pattern(x) <- 0
+        sel.pattern(x)[seq(range(x, 'min'), range(x, 'max')),] <- 1
+      }
+
+      # COMPUTE vb
+      biy <- quantSums(nay * stock.wt(stock)[dms[[1]], dms[[2]]] *
+        sel.pattern(x))
+
+      iq <- y / biy
+    }
+
+    return(iq)
+
+    }, x=indices, y=fit)
+
+  return(FLQuants(res))
+  }
+)
+
+
+setMethod("computeQ", signature=c(indices="FLIndex", stock="FLStock",
+  fit="FLQuant"), function(indices, stock, fit) {
+    
+    computeQ(indices=FLIndices(A=indices), stock=stock, fit=FLQuants(A=fit))
+
+  }
+)
+# }}}

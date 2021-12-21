@@ -1915,3 +1915,7 @@ setGeneric("properties", function(object, ...)
 # adjust
 setGeneric("adjust", function(object, ...)
 		standardGeneric("adjust"))
+
+# computeQ
+setGeneric("computeQ", function(indices, stock, fit, ...)
+  standardGeneric('computeQ'))
