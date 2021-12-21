@@ -124,14 +124,6 @@ setMethod("lapply", signature(X="FLlst"),
 	}
 )  # }}}
 
-# window  {{{
-setMethod("window", "FLlst", function(x,...){
-	args <- list(...)
-	args$FUN <- "window"
-	args$X <- x
-	do.call("lapply", args)
-})  # }}}
-
 # lock/unlock {{{
 setGeneric("lock", function(object, ...){
 	standardGeneric("lock")
@@ -302,11 +294,25 @@ setMethod("combine", signature(x="FLlst", y="FLlst"),
 ) # }}}
 
 # window {{{
-setMethod("window", signature(x="FLStocks"),
+setMethod("window", signature(x="FLlst"),
   function(x, ... ) {
     lapply(x, function(y) do.call("window", c(list(y), list(...))))
   }
 ) # }}}
+
+# fwdWindow {{{
+setMethod("fwdWindow", signature(x="FLStocks"),
+  function(x, ... ) {
+    lapply(x, function(y) do.call("fwdWindow", c(list(y), list(...))))
+  }
+) 
+
+setMethod("fwdWindow", signature(x="FLIndices"),
+  function(x, ... ) {
+    lapply(x, function(y) do.call("fwdWindow", c(list(y), list(...))))
+  }
+) 
+# }}}
 
 # iter {{{
 setMethod("iter", signature(obj="FLlst"),
@@ -314,3 +320,118 @@ setMethod("iter", signature(obj="FLlst"),
     return(lapply(obj, "iter", iter=iter))
 	  }
 ) # }}}
+
+# FLIndices accessors {{{
+
+# index
+setMethod("index", signature(object="FLIndices"),
+  function(object) {
+    return(FLQuants(lapply(object, "index")))
+  }
+)
+
+setMethod("index<-", signature(object="FLIndices", value="FLQuants"),
+  function(object, value) {
+    return(FLIndices(Map(function(x, y) {
+      index(x) <- y
+      return(x) },
+    x=object, y=value)))
+  }
+)
+
+# index.var
+setMethod("index.var", signature(object="FLIndices"),
+  function(object) {
+    return(FLQuants(lapply(object, "index.var")))
+  }
+)
+
+setMethod("index.var<-", signature(object="FLIndices", value="FLQuants"),
+  function(object, value) {
+    return(FLIndices(Map(function(x, y) {
+      index.var(x) <- y
+      return(x) },
+    x=object, y=value)))
+  }
+)
+
+# index.q
+setMethod("index.q", signature(object="FLIndices"),
+  function(object) {
+    return(FLQuants(lapply(object, "index.q")))
+  }
+)
+
+setMethod("index.q<-", signature(object="FLIndices", value="FLQuants"),
+  function(object, value) {
+    return(FLIndices(Map(function(x, y) {
+      index.q(x) <- y
+      return(x) },
+    x=object, y=value)))
+  }
+)
+
+# sel.pattern
+setMethod("sel.pattern", signature(object="FLIndices"),
+  function(object) {
+    return(FLQuants(lapply(object, "sel.pattern")))
+  }
+)
+
+setMethod("sel.pattern<-", signature(object="FLIndices", value="FLQuants"),
+  function(object, value) {
+    return(FLIndices(Map(function(x, y) {
+      sel.pattern(x) <- y
+      return(x) },
+    x=object, y=value)))
+  }
+)
+
+# catch.n
+setMethod("catch.n", signature(object="FLIndices"),
+  function(object) {
+    return(FLQuants(lapply(object, "catch.n")))
+  }
+)
+
+setMethod("catch.n<-", signature(object="FLIndices", value="FLQuants"),
+  function(object, value) {
+    return(FLIndices(Map(function(x, y) {
+      catch.n(x) <- y
+      return(x) },
+    x=object, y=value)))
+  }
+)
+
+# catch.wt
+setMethod("catch.wt", signature(object="FLIndices"),
+  function(object) {
+    return(FLQuants(lapply(object, "catch.wt")))
+  }
+)
+
+setMethod("catch.wt<-", signature(object="FLIndices", value="FLQuants"),
+  function(object, value) {
+    return(FLIndices(Map(function(x, y) {
+      catch.wt(x) <- y
+      return(x) },
+    x=object, y=value)))
+  }
+)
+
+# effort
+setMethod("effort", signature(object="FLIndices"),
+  function(object) {
+    return(FLQuants(lapply(object, "effort")))
+  }
+)
+
+setMethod("effort<-", signature(object="FLIndices", value="FLQuants"),
+  function(object, value) {
+    return(FLIndices(Map(function(x, y) {
+      effort(x) <- y
+      return(x) },
+    x=object, y=value)))
+  }
+)
+# }}}
