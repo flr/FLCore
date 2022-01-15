@@ -202,6 +202,74 @@ setReplaceMethod('rec', signature(object='FLBiol', value='list'),
   }
 ) # }}}
 
+# sr<- {{{
+
+# sr<- predictModel
+setReplaceMethod('sr', signature(object='FLBiol', value='predictModel'),
+  function(object, what, value=what) {
+    object@rec <- value
+    return(object)
+  }
+)
+
+# sr<- FLQuant: change to rec@.Data['rec']
+setReplaceMethod('sr', signature(object='FLBiol', value='FLQuant'),
+  function(object, name="rec", value) {
+    
+    # HACK Should be solved by adding name to generic
+    if(missing(value))
+      value <- FLQuants(rec=name)
+    else {
+      value <- FLQuants(rec=value)
+    }
+    object@rec@.Data <- value
+    names(object@rec) <- names(value)
+    return(object)
+  }
+)
+
+# sr<- FLQuants: assign to @.Data
+setReplaceMethod('sr', signature(object='FLBiol', value='FLQuants'),
+  function(object, value) {
+    object@rec@.Data <- value
+    names(object@rec) <- names(value)
+    return(object)
+  }
+)
+
+# sr<- formula:
+setReplaceMethod('sr', signature(object='FLBiol', value='formula'),
+  function(object, ..., value) {
+    object@rec@model <- value
+    return(object)
+  }
+)
+
+# sr<- params:
+setReplaceMethod('sr', signature(object='FLBiol', value='FLPar'),
+  function(object, value) {
+    object@rec@params <- value
+    return(object)
+  }
+) 
+
+# sr<- list:
+setReplaceMethod('sr', signature(object='FLBiol', value='list'),
+  function(object, value) {
+
+    idx <- unlist(lapply(value, is, 'FLQuant'))
+
+    for(i in names(value)[!idx])
+      object <- do.call("sr<-", list(object=object, value=value[[i]]))
+
+    value <- FLQuants(value[idx])
+ 
+    sr(object) <- value
+    
+    return(object)
+  }
+) # }}}
+
 # fec {{{
 setMethod('fec', signature('FLBiol'),
   function(object, what=TRUE, ...) {
@@ -350,28 +418,6 @@ setReplaceMethod('mat', signature(object='FLBiol', value='list'),
     
     return(object)
   }
-) # }}}
-
-# tep {{{
-setGeneric('tep', function(object, ...) standardGeneric('tep'))
-
-setMethod('tep', signature(object='FLBiol'), function(object, formula=~n*wt*fec*mat) {
-
-  args <- all.names(formula, functions=FALSE)
-
-  lis <- vector('list', length=length(args))
-  
-  for(i in args)
-      lis[[i]] <- do.call(i, list(object))
-  
-  eval(formula[[2]], lis)
-  }
-)
-
-setMethod('tep', signature(object='FLBiol'),
-	function(object) {
-		return(quantSums(n(object) %*% wt(object) %*% fec(object)))
-	}
 ) # }}}
 
 # summary {{{
@@ -761,6 +807,48 @@ setMethod("ssb", signature(object="FLBiol"),
   			"f" = quantSums(n(object) * exp(-(args$f %*%
           spwn(object) + m(object) %*% spwn(object))) *
           wt(object) * mat(object), na.rm=FALSE),
+        # harvest, units == 'f' / 'hr'
+        "harvest" = switch(units(args$harvest),
+          "f" = ssb(object, f=args$harvest),
+          "hr" = ssb(object, hr=args$harvest), NULL),
+        NULL)
+    }
+    if(is.null(res))
+      stop("catch information must be one of 'catch.n', 'f', 'hr' or 'harvest'")
+    
+    # units(res) <- uom("*", units(n(object)), units(wt(object)))
+
+    return(res)
+  }
+)  # }}}
+
+# tep  {{{
+
+setMethod("tep", signature(object="FLBiol"),
+  function(object, ...)
+  {
+    args <- list(...)
+
+    if(length(args) > 1)
+      stop("Only one extra argument allowed: 'catch.n', 'harvest', 'f' or 'hr'.")
+    
+    # NO catch data
+    if(length(args) == 0) {
+      res <- quantSums(n(object) * wt(object) * mat(object) * fec(object) %*%
+        exp(-spwn(object) %*% m(object)), na.rm=FALSE)
+    } else {
+      res <- switch(names(args),
+        # catch.n
+        # DEBUG How good is this f approximation?
+        "catch.n" = quantSums(ssb(object, f=-log(1-args$catch.n / n(object))),
+          na.rm=FALSE),
+        # hr
+        "hr" = quantSums(ssb(object, f=-log(1-args$hr)),
+          na.rm=FALSE),
+        # f
+  			"f" = quantSums(n(object) * exp(-(args$f %*%
+          spwn(object) + m(object) %*% spwn(object))) *
+          wt(object) * mat(object) * fec(object), na.rm=FALSE),
         # harvest, units == 'f' / 'hr'
         "harvest" = switch(units(args$harvest),
           "f" = ssb(object, f=args$harvest),
