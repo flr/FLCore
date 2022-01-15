@@ -563,6 +563,32 @@ survSRR <- function() {
 
 # }}}
 
+# bevholtsig {{{
+# rec = a / ((b / srp) ^c + 1)
+
+#' @name SRModels
+#' @aliases bevholtsig
+bevholtsig <- function() {
+  ## log likelihood, assuming normal log.
+  logl <- function(a, b, c, rec, ssb)
+      loglAR1(log(rec), log(a / ((b / ssb) ^ c + 1)))
+
+  ## initial parameter values
+  initial <- structure(function(rec, ssb) {
+    a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
+    b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
+    return(FLPar(a = a, b = a/b, c=1))},
+
+  ## bounds
+  lower=rep(-Inf, 2),
+	upper=rep(Inf, 2))
+
+  ## model to be fitted
+  model  <- rec~a/((b/ssb)^c+1)
+  
+	return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # methods
 
 # spr0  {{{
@@ -730,6 +756,7 @@ SRModelName <- function(model){
       "(4*s*R0*ssb)/(v*(1-s)+ssb*(5*s-1))" = "bevholtss3",
       "(4*s*R0*tep)/(v*(1-s)+tep*(5*s-1))" = "bevholtss3f",
       "survRec(ssf,R0,Sfrac,beta,SF0=ssf[,1])" = "survSRR",
+      "a/((b/ssb)^c+1)" = "bevholtsig",
       NULL))} # }}}
 
 # SRNameCode {{{
