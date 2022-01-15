@@ -1620,6 +1620,10 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
 #' # Difference in catch due to estimation error
 #' plot(FLStocks(PLE=ple4, TEST=test))
 
+# TODO ADD fbar input, ADD SRR 
+# NEEDS stock.n, m, f year 1
+
+
 setMethod("adjust", signature(object="FLStock"),
   function(object) {
 
@@ -1664,7 +1668,7 @@ setMethod("adjust", signature(object="FLStock"),
 
   discards.n(object) <- catch.n(object) - landings.n(object)
   
-  catch(object) <- computeCatch(object,"all")  
+  catch(object) <- computeCatch(object)  
 
   return(object)
   }
