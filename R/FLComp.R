@@ -801,12 +801,12 @@ setMethod('combine', signature(x='FLComp', y='FLComp'),
     its <- sum(unlist(lapply(ds, "[[", "iter")))
 
     # PROPAGATE object
-    res <- propagate(x[,,,,,1], its)
+    res <- propagate(iter(x, 1), its)
 
     # KEEP iter dimnames if unique
     itns <- unlist(lapply(args, function(x) dimnames(x)$iter))
 
-    # CHECK iter dimanmes are unique
+    # CHECK iter dimnames are unique
     if(length(itns) > length(unique(itns)))
       itns <- ac(seq(1, its))
 
