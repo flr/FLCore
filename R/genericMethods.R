@@ -846,6 +846,10 @@ setGeneric("computeStock", function(object, ...)
 	setGeneric("tsb", function(object, ...)
 		standardGeneric("tsb"))
 
+# tep
+	setGeneric("tep", function(object, ...)
+		standardGeneric("tep"))
+
 # tb
 	setGeneric("tb", function(object, ...)
 		standardGeneric("tb"))
@@ -1466,6 +1470,9 @@ setGeneric("tS<-", function(object, step, ..., value) standardGeneric("tS<-"))
 
 # sr
 setGeneric("sr", function(object, ...) standardGeneric("sr"))
+
+# sr<-
+setGeneric("sr<-", function(object, ..., value) standardGeneric("sr<-"))
 
 # slots
 setGeneric("slots", function(object, name, ...) standardGeneric("slots"))

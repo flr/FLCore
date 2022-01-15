@@ -825,7 +825,6 @@ setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
   fit="FLQuants"), function(indices, stock, fit) {
   
   # SET iterMedians for stock
-
   yrs <- dimnames(stock)$year
 
   # LOOP over indices
