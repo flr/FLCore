@@ -404,8 +404,8 @@ shepherdSV <- function()
   {
   logl <- function(s, v, spr0, c, rec, ssb)
   {
-    pars <- FLPar(abPars('shepherd', s=s, v=v, spr0=spr0, c=c)
-    loglAR1(log(rec), log(pars['a']*ssb/(1+(ssb/pars['b'])^c))))
+    pars <- FLPar(abPars('shepherd', s=s, v=v, spr0=spr0, c=c))
+    loglAR1(log(rec), log(pars['a']*ssb/(1+(ssb/pars['b'])^c)))
   }
 
   ## initial parameter values
