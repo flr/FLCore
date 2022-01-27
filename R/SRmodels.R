@@ -404,8 +404,8 @@ shepherdSV <- function()
   {
   logl <- function(s, v, spr0, c, rec, ssb)
   {
-    pars <- abPars('shepherd', s=s, v=v, spr0=spr0, c=c)
-    loglAR1(log(rec), log(pars['a']*ssb/(1+(ssb/pars['b'])^c)))
+    pars <- FLPar(abPars('shepherd', s=s, v=v, spr0=spr0, c=c)
+    loglAR1(log(rec), log(pars['a']*ssb/(1+(ssb/pars['b'])^c))))
   }
 
   ## initial parameter values
@@ -421,8 +421,8 @@ shepherdSV <- function()
 	upper=c(0.999, Inf, Inf, 10))
 
   ## model to be fitted
-  model  <- rec~abPars('shepherd', s=s, v=v, spr0=spr0, c=c)['a']*ssb /
-    (1 + (ssb / abPars('shepherd', s=s, v=v, spr0=spr0, c=c)['b']) ^ c)
+  model  <- rec~FLPar(abPars('shepherd', s=s, v=v, spr0=spr0, c=c))['a']*ssb /
+    (1 + (ssb / FLPar(abPars('shepherd', s=s, v=v, spr0=spr0, c=c))['b']) ^ c)
   
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
