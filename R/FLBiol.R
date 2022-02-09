@@ -879,6 +879,26 @@ setMethod("vb", signature(x="FLBiol", sel="FLQuant"),
 
 # }}}
 
+# combine {{{
+
+setMethod('combine', signature(x='FLBiol', y='FLBiol'),
+  function(x, y, ..., check=FALSE) {
+
+    args <- c(list(x, y), list(...))
+
+    res <- callNextMethod()
+
+    # mat
+    res@mat <- do.call(combine, lapply(args, slot, "mat"))
+
+    # fec
+    res@fec <- do.call(combine, lapply(args, slot, "fec"))
+
+    return(res)
+  }
+)
+# }}}
+
 # ---
 
 # meanLifespan {{{
