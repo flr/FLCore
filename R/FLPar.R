@@ -1030,3 +1030,24 @@ setMethod("divide", signature(object="FLPar"),
 
 # }}}
 
+# combine {{{
+
+setMethod("combine", signature(x="FLPar", y="FLPar"),
+  function(x, y, ..., check=FALSE) {
+
+    args <- c(list(x, y), list(...))
+
+    # FIND iter dim
+    dis <- dim(x)
+    dit <- length(dis)
+    dmns <- dimnames(x)
+
+    # NEW array & FLPar
+    arr <- array(unlist(lapply(args, c)), dim=c(dis[-dit], length(args) * dis[dit]))
+    res <- FLPar(arr, dimnames=c(dmns[-2], list(iter=seq(dim(arr)[dit]))),
+      units=units(x))
+
+    return(res)
+  }
+)
+# }}}

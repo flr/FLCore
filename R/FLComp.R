@@ -776,9 +776,10 @@ setMethod("split", signature(x="FLComp", f="vector"),
 ) # }}}
 
 # combine {{{
+
 setMethod('combine', signature(x='FLComp', y='FLComp'),
   function(x, y, ..., check=FALSE) {
-    
+
     args <- c(list(x, y), list(...))
 
     # CHECK input classes match exactly
@@ -814,14 +815,15 @@ setMethod('combine', signature(x='FLComp', y='FLComp'),
     ite <- cumsum(unlist(lapply(ds, "[", "iter")))
     its <- ite - unlist(lapply(ds, "[", "iter")) + 1
 
+    # ASSIGN
     for(i in seq(length(its)))
-      res[,,,,, seq(its[i], ite[i])] <- args[[i]]
+      iter(res, seq(its[i], ite[i])) <- args[[i]]
     
-    dimnames(res) <- list(iter=itns)
-
     return(res)
   }
-) # }}}
+)
+
+# }}}
 
 # dimnames {{{
 setMethod("dimnames", signature(x="FLComp"),

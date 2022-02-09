@@ -541,3 +541,18 @@ setMethod("iter<-", signature(object="predictModel", value="predictModel"),
       return(object)
 	  }
 ) # }}}
+
+# combine {{{
+
+setMethod('combine', signature(x='predictModel', y='predictModel'),
+  function(x, y, ..., check=FALSE) {
+
+    args <- c(list(x=x, y=y), list(...))
+
+    x@.Data <- do.call(Map, c(f=combine, lapply(args, slot, ".Data")))
+
+    return(x)
+
+  }
+)
+# }}}
