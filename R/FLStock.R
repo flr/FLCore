@@ -1018,9 +1018,7 @@ nounit <- function(stock) {
 
 # noseason {{{
 
-noseason <- function(stock, spwn.season=1) {
-
-  # TODO SET default spwn.season
+noseason <- function(stock, spwn.season=1, weighted=FALSE) {
 
   # DIMS
   dis <- dim(stock)
@@ -1034,7 +1032,7 @@ noseason <- function(stock, spwn.season=1) {
   div <- rep(rep(seq(dis[4]), each=prod(dis[1:3])), prod(dis[5:6]))
 
   # CONVERT to vectors
-  dat <- qapply(stock, c)
+  dat <- qapply(stock, 'c')
 
   # SUBSET and rename, n as in season 1
   stock <- stock[,,,1]
@@ -1047,10 +1045,21 @@ noseason <- function(stock, spwn.season=1) {
   harvest.spwn(stock)[] <- m.spwn(stock)[] <- ((spwn.season - 1) / nse)
   
   # means: wt
-  stock.wt(stock) <- Reduce('+', split(dat$stock.wt, div)) / nse
-  catch.wt(stock) <- Reduce('+', split(dat$catch.wt, div)) / nse
-  landings.wt(stock) <- Reduce('+', split(dat$landings.wt, div)) / nse
-  discards.wt(stock) <- Reduce('+', split(dat$discards.wt, div)) / nse
+  if(weighted) {
+    stock.wt(stock) <- Reduce("+", Map("*", split(dat$stock.wt, div),
+      split(dat$stock.n, div))) / Reduce("+", split(dat$stock.n, div))
+    catch.wt(stock) <- Reduce("+", Map("*", split(dat$catch.wt, div),
+      split(dat$catch.n, div))) / Reduce("+", split(dat$catch.n, div))
+    landings.wt(stock) <- Reduce("+", Map("*", split(dat$landings.wt, div),
+      split(dat$landings.n, div))) / Reduce("+", split(dat$landings.n, div))
+    discards.wt(stock) <- Reduce("+", Map("*", split(dat$discards.wt, div),
+      split(dat$discards.n, div))) / Reduce("+", split(dat$discards.n, div))
+  } else {
+    stock.wt(stock) <- Reduce('+', split(dat$stock.wt, div)) / nse
+    catch.wt(stock) <- Reduce('+', split(dat$catch.wt, div)) / nse
+    landings.wt(stock) <- Reduce('+', split(dat$landings.wt, div)) / nse
+    discards.wt(stock) <- Reduce('+', split(dat$discards.wt, div)) / nse
+  }
   
   # sums: m, catch
   m(stock) <- Reduce('+', split(dat$m, div))
@@ -1121,9 +1130,7 @@ noarea <- function(stock) {
 
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
-    spwn.season=1) {
-
-  old <- object
+    spwn.season=1, harvest=TRUE) {
 
   # ORDER: season(unit(area))
   if(any(c("area", 5) %in% dims))
@@ -1135,10 +1142,10 @@ setMethod("simplify", signature(object="FLStock"),
   if(any(c("season", 4) %in% dims))
     object <- noseason(object)
 
-  # harvest  
-  har <- harvest(stock.n(object), catch.n(object), m(object))
-
-  harvest(object) <- har
+  # harvest
+  if(harvest) {
+    harvest(object) <- harvest(stock.n(object), catch.n(object), m(object))
+  }
 
   return(object)
 
