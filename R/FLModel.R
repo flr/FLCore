@@ -1134,39 +1134,33 @@ setMethod("dim", signature(x="FLModel"),
 
 # combine {{{
 setMethod('combine', signature(x='FLModel', y='FLModel'),
-  function(x, y, check=FALSE) {
+  function(x, y, ...) {
 
-    if(!all.equal(is(x), is(y)))
+    args <- c(list(x=x, y=y), list(...))
+    
+    its <- unlist(lapply(args, function(x) dim(x)[6]))
+
+    if(!all(unlist(lapply(args[-1], function(x) all.equal(is(x), is(args[[1]]))))))
       stop("combine can only operate on objects of identical class")
 
-    if(check) {
-      dx <- dims(x)
-	    dy <- dims(y)
-		  idi <- names(dx)!="iter"
-
-      # COMPARE dims(x)[-'iter')]
-      if(!all.equal(dx[idi], dy[idi]))
-        stop("Object dimensions must match")
-    }
-    
-    itx <- dim(x)[6]
-    ity <- dim(y)[6]
-    
-    res <- propagate(x[,,,,,1], itx + ity, fill.iter=FALSE)
-
-		res[,,,,,seq(1, itx)] <- x
-		res[,,,,,seq(itx+1, itx+ity)] <- y
+    res <- callNextMethod()
 
     # params
-    params(res) <- cbind(params(x), params(y))
+    params(res) <- Reduce(combine, lapply(args, function(x) x@params))
 
     # vcov
-    # vcov(res) <- array(vcov(x), dim=c(dim(vcov(x))[1:2],itx + ity))
-    # vcov(res)[,,(itx+1):(itx+ity)] <- vcov(y)
+    if(length(vcov(x)) > 0) {
+      vcov(res) <- array(Reduce(c, lapply(args, vcov)),
+        dim=c(dim(vcov(x))[1:2], sum(its)),
+        dimnames=c(dimnames(vcov(x))[1:2], list(iter=seq(its))))
+    }
     
     # hessian
-    # hessian(res) <- array(hessian(x), dim=c(dim(hessian(x))[1:2],itx + ity))
-    # hessian(res)[,,(itx+1):(itx+ity)] <- hessian(y)
+    if(length(hessian(x)) > 0) {
+    hessian(res) <- array(Reduce(c, lapply(args, hessian)),
+      dim=c(dim(hessian(x))[1:2], sum(its)),
+      dimnames=c(dimnames(hessian(x))[1:2], list(iter=seq(its))))
+    }
 
     return(res)
   }
