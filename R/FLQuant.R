@@ -1408,7 +1408,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
       return(sum(cr^2))
     }
 
-    # SINGLE year, LOOP over all dims[-year]
+    # --- SINGLE year, LOOP over all dims[-year]
     if(dm[2] == 1) {
       n <- c(object)
       c <- c(catch)
@@ -1422,7 +1422,8 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
         out[i] <- exp(res)
       }
       har[] <- out
-    # YEARLY
+    
+    # --- YEARLY
     } else if(dm[4] == 1) {
 
       # a-1 ages and y-1 years

@@ -140,7 +140,7 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     # GET abundance
     abnd <- survey(object[ages, ], sel=sel[ages, ], timing=timing, mass=TRUE,
       biomass=TRUE)
-
+    
     # APPLY Q
     index(index) <- quantSums(abnd) %*% index.q
 
