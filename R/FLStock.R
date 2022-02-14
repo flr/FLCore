@@ -1032,7 +1032,7 @@ noseason <- function(stock, spwn.season=1, weighted=FALSE) {
   div <- rep(rep(seq(dis[4]), each=prod(dis[1:3])), prod(dis[5:6]))
 
   # CONVERT to vectors
-  dat <- qapply(stock, 'c')
+    dat <- qapply(stock, 'c')
 
   # SUBSET and rename, n as in season 1
   stock <- stock[,,,1]
