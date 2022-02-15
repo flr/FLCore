@@ -1143,7 +1143,7 @@ setMethod('combine', signature(x='FLModel', y='FLModel'),
     if(!all(unlist(lapply(args[-1], function(x) all.equal(is(x), is(args[[1]]))))))
       stop("combine can only operate on objects of identical class")
 
-    res <- callNextMethod()
+    res <- callNextMethod(x, y, ...)
 
     # params
     params(res) <- Reduce(combine, lapply(args, function(x) x@params))

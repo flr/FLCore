@@ -1042,8 +1042,10 @@ setMethod("combine", signature(x="FLPar", y="FLPar"),
     dit <- length(dis)
     dmns <- dimnames(x)
 
+    its <- sum(unlist(lapply(args, function(i) dim(i)[dit])))
+
     # NEW array & FLPar
-    arr <- array(unlist(lapply(args, c)), dim=c(dis[-dit], length(args) * dis[dit]))
+    arr <- array(unlist(lapply(args, c)), dim=c(dis[-dit], its))
     res <- FLPar(arr, dimnames=c(dmns[-length(dis)], list(iter=seq(dim(arr)[dit]))),
       units=units(x))
 
