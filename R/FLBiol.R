@@ -104,8 +104,16 @@ setClass("FLBiolcpp",
 
 invisible(createFLAccesors("FLBiolcpp", exclude=c('name', 'desc', 'range')))  # }}}
 
-# rec {{{
-setMethod('rec', signature('FLBiol'),
+# rec.hat {{{
+
+#' @examples
+#' data(ple4.biol)
+#' # Predict recruitment from ssb() and model & params
+#' rec.hat(ple4.biol)
+#' # Compare with
+#' rec(ple4.biol)
+
+setMethod('rec.hat', signature('FLBiol'),
   function(object, what=TRUE, ...) {
 
     rec.age <- as.numeric(dimnames(n(object))[["age"]])[1]
@@ -125,6 +133,14 @@ setMethod('rec', signature('FLBiol'),
 
     return(rec)
   })
+# }}}
+
+# rec {{{
+setMethod('rec', signature('FLBiol'),
+  function(object, what=TRUE, ...) {
+    return(n(object)[1,])
+  }
+)
 # }}}
 
 # sr {{{

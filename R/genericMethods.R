@@ -1926,3 +1926,7 @@ setGeneric("adjust", function(object, ...)
 # computeQ
 setGeneric("computeQ", function(indices, stock, fit, ...)
   standardGeneric('computeQ'))
+
+# rec.hat
+setGeneric("rec.hat", function(object, ...)
+  standardGeneric('rec.hat'))
