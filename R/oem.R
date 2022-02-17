@@ -135,7 +135,9 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     timing = mean(range(index, c("startf", "endf"))),
     index.q = index@index.q) {
 
-    # CHECK for ages
+    # CHECK timing
+    if(is.na(timing))
+      stop("Index timing not set and missing from range c('startf', 'endf')")
     
     # GET abundance
     abnd <- survey(object[ages, ], sel=sel[ages, ], timing=timing, mass=TRUE,
