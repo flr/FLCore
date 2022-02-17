@@ -6,17 +6,23 @@
 - mbar(FLStock) returns the mean natural mortality, M, over the fully selected age range.
 - window(FLlst) will lapply window over all elements.
 - computeQ(FLindices, FLStock, FLQuants) computes index.q from indices and fit.
+- comine() method now available for all (or most) classes.
+- New SRR model, bevholtisg, implements a sigmoidal Beverton-Holt model.
 
  BUG FIXES
 
 - simplify(FLStock) recoded in a simpler waym suppoorted by noseason/unit/area functions.
 - Ensure harvest(FLQuant) returns 0 when catch or n are 0.
 - Further improvements to simplify. nounit, noseason and noarea do nmot call harvest().
+- qapply now works properly in noseason.
+
 
  USER-VISIBLE CHANGES
 
 - FLStock() constructor defaults to 'age' as quant.
 - append(FLQuant, FLQuant) will propagate the first object if required.
+- noseason() can either use weighted or unweighted wt means.
+- Accessor and replacement methods sr and sr<- operate directly on the predictModel in FLBiol@rec. rec() returns the observation, from @n[1,], and rec.hat the prediction from the model params.
 
  FLCore 2.6.18
 
