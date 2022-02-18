@@ -208,3 +208,17 @@ setMethod("dbind", signature(x="FLQuants", y="missing"),
     return(res)
   })
 # }}}
+
+# means and sums {{{
+
+setMethod("unitMeans", signature(x="FLQuants"),
+  function(x) {
+    lapply(x, unitMeans)
+  })
+
+setMethod("unitSums", signature(x="FLQuants"),
+  function(x) {
+    lapply(x, unitSums)
+  })
+
+# }}}

@@ -1882,6 +1882,7 @@ setMethod("standardUnits", signature(object="character"),
 
 # }}}
 
+# setPlusGroup
 setGeneric("setPlusGroup", function(x, plusgroup, ...)
 standardGeneric("setPlusGroup"))
 

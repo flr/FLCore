@@ -12,30 +12,30 @@ object <- ple4.biol
 
 # rec(FLBiol)
 
-# RETURN calculation
+# RETURN observation
 rec(object)
 
-# RETURN predictModel slot
-rec(object, FALSE)
+# RETURN calculation
+rec.hat(object)
 
 # rec<-(FLBiol)
 
 # rec(FLBiol) <- predictModel
-rec(object) <- model(rec(object, FALSE))
+sr(object) <- model(sr(object))
 # model(rec(FLBiol)) <- formula
-model(rec(object, FALSE)) <- model(rec(object, FALSE))
+model(sr(object)) <- model(sr(object))
 
 # rec(FLBiol) <- FLPar
-rec(object) <- params(rec(object, FALSE))
+sr(object) <- params(sr(object))
 # params(rec(FLBiol)) <- FLPar
-params(rec(object, FALSE)) <- params(rec(object, FALSE))
+params(sr(object)) <- params(sr(object))
 
 # rec(FLBiol) <- FLQuant
-rec(object) <- rec(object, FALSE)
+rec(object) <- rec(object)
 rec(object, 'rec') <- rec(object)
 
 # rec(FLBiol) <- predictModel
-rec(object, 'rec') <- rec(object, FALSE)
+rec(object, 'rec') <- rec(object)
 
 # rec(FLBiol) <- FLQuants
 rec(object) <- FLQuants(rec=rec(ple4.biol))
