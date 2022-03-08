@@ -768,7 +768,7 @@ setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
       })
     
     # rec: EXTEND only
-    res@rec@.Data <- lapply(rec(x, FALSE), function(y) {
+    res@rec@.Data <- lapply(res@rec@.Data, function(y) {
       return(window(y, end=end))
       })
     names(res@rec) <- names(x@rec)
