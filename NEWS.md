@@ -11,7 +11,7 @@
 
 ## BUG FIXES
 
-- simplify(FLStock) recoded in a simpler waym suppoorted by noseason/unit/area functions.
+- simplify(FLStock) recoded in a simpler way supported by noseason/unit/area functions.
 - Ensure harvest(FLQuant) returns 0 when catch or n are 0.
 - Further improvements to simplify. nounit, noseason and noarea do nmot call harvest().
 - qapply now works properly in noseason.
@@ -29,7 +29,7 @@
 ## BUG FIXES
 
 - survey(FLStock, FLIndex) returns full FLIndex object.
-- rbind(FLPar, FLPar) will keep dimnames' names to those of first element, e.g.
+- rbind(FLPar, FLPar) will keep dimnames names to those of first element, e.g.
   'refpts'
 
 # FLCore 2.6.17
@@ -45,7 +45,7 @@
 
 - Added g (gram) as recognized uom
 - Added uoms operations for g (gram).
-- New fwd(FLStock) method projects from first year's N for F and M.
+- New fwd(FLStock) method projects from first year N for F and M.
 - Renamed fwd(FLStock) as adjust.
 - Reformulated survey() methods, now works for both FLIndex and FLIndexBiomass.
 - oem(biomass=TRUE) returns an aggregated index ib biomass.

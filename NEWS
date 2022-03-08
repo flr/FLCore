@@ -15,7 +15,7 @@
 - Ensure harvest(FLQuant) returns 0 when catch or n are 0.
 - Further improvements to simplify. nounit, noseason and noarea do nmot call harvest().
 - qapply now works properly in noseason.
-
+- fwdWindow(FLBiol) did not respect $residuals FLQuant sometimes.
 
  USER-VISIBLE CHANGES
 
