@@ -120,6 +120,9 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
     # APPLY Q
     index(index) <- abnd %*% index.q
 
+    # IF NA, for low N, set small value
+    index(index)[is.na(index(index))] <- 1e-16
+
     return(index)
 
   }
@@ -145,6 +148,9 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     
     # APPLY Q
     index(index) <- quantSums(abnd) %*% index.q
+
+    # IF NA, for low N, set small value
+    index(index)[is.na(index(index))] <- 1e-16
 
     return(index)
 
@@ -177,6 +183,9 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
     # CONVERT to mass
     if (mass)
       res <- unitSums(res * stock.wt(object)[, yrs])
+
+    # IF NA, for low N, set small value
+    res[is.na(res)] <- 1e-16
 
     # AGGREGATE
     if(biomass)
