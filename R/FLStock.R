@@ -1315,7 +1315,7 @@ setMethod("append", signature(x="FLStock", values="FLStock"),
 #'
 #' @return A metrics of n + 2 x n, where n is the numbers of objects in stocks.
 
-mohnMatrix <- function(stocks, metric="fbar") {
+mohnMatrix <- function(stocks, metric="fbar", ...) {
 
   if(!is(stocks, "FLStocks"))
     stop("Input object must be of class 'FLStocks'")
@@ -1335,7 +1335,7 @@ mohnMatrix <- function(stocks, metric="fbar") {
 
   # EXTRACT quantity for given years
   mm <- as.data.frame(lapply(stocks,
-    function(x) c(window(do.call(metric, list(x)), start=start, end=end))))
+    function(x) c(window(do.call(metric, c(list(x), args(...))), start=start, end=end))))
   rownames(mm) <- seq(start, end)
   colnames(mm) <- c("base", as.character(-seq(1, length=peels)))
 
