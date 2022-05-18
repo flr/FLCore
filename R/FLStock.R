@@ -333,19 +333,6 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
     
-    dis <- dims(object)
-
-    # DEAL with age 0 in SSB
-    if(dis$min == 0) {
-      # DROP in yearly or single spawning season
-      if(dis$season == 1 | dis$season > dis$unit)
-        object <- object[-1,]
-      # SET to 0 same unit & season, and later
-      else if(dis$season  == dis$unit)
-        for(i in seq(dis$unit))
-          mat(object)["0", , i, i] <- 0
-    }
-
     # CALCULATE by units
 		uns <- units(harvest(object))
 
