@@ -31,7 +31,7 @@ createFLAccesors <- function(class, exclude=character(1), include=missing) {
   for (x in names(slots)) {
     # check method is defined already and signatures match
   eval(
-    substitute(if(!is.null(getGeneric(x)) && names(formals(x)) != "object") {
+    substitute(if(!is.null(getGeneric(x)) && names(formals(x))[[1]] != "object") {
       warning(paste("Accesor method for", x, "conflicts with a differently defined 
       generic. Type", x, "for more information")); break}, list(x=x))
     )
