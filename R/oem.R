@@ -766,14 +766,19 @@ richards(linf=178.63, k=0.424, b=-7.185, m=2880.4, age=1:12)
 
 # invALK {{{
 
-invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1) {
+invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,
+  reflen=NULL) {
 
     linf <- c(params['linf'])
 
     # FOR each age
     bins <- seq(0, ceiling(linf * lmax), bin)
     len <- do.call(model, c(as(params, "list"), list(age=age)))
-    sd <- len * cv
+
+    if(is.null(reflen))
+      sd <- len * cv
+    else
+      sd <- reflen * cv
 
     probs <- Map(function(x, y) {
       p <- c(pnorm(1, x, y),

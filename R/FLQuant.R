@@ -370,12 +370,14 @@ function(x, units="NA", ...) {
     em[names(x)] <- x
 
     # create array
-    flq <- tapply(em[,"data"], list(factor(x = em[,qname], levels = unique(em[,qname])),
-      factor(x = em[,"year"], levels = unique(em[,"year"])),
-      factor(x = em[,"unit"], levels = unique(em[,"unit"])),
-      factor(x = em[,"season"], levels = unique(em[,"season"])),
-      factor(x = em[,"area"], levels = unique(em[,"area"])),
-      factor(x = em[,"iter"], levels = unique(em[,"iter"]))), sum)
+    flq <- tapply(em[,"data"],
+      list(factor(x = em[,qname], levels = unique(em[,qname])),
+        factor(x = em[,"year"], levels = unique(em[,"year"])),
+        factor(x = em[,"unit"], levels = unique(em[,"unit"])),
+        factor(x = em[,"season"], levels = unique(em[,"season"])),
+        factor(x = em[,"area"], levels = unique(em[,"area"])),
+        factor(x = em[,"iter"], levels = unique(em[,"iter"]))),
+      sum)
 
     # fix dimnames names
     names(dimnames(flq)) <- c(qname, 'year', 'unit', 'season', 'area', 'iter')
