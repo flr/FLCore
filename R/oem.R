@@ -775,10 +775,11 @@ invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,
     bins <- seq(0, ceiling(linf * lmax), bin)
     len <- do.call(model, c(as(params, "list"), list(age=age)))
 
-    if(is.null(reflen))
+    if(is.null(reflen)) {
       sd <- len * cv
-    else
+    } else {
       sd <- reflen * cv
+    }
 
     probs <- Map(function(x, y) {
       p <- c(pnorm(1, x, y),
