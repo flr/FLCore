@@ -61,9 +61,13 @@ setMethod('print', signature(x='FLComp'),
 # window    {{{
 setMethod("window", signature(x="FLComp"),
 	  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1) {
-      x <- qapply(x, window, start=start, end=end, extend=extend, frequency=frequency)
-  		x@range["minyear"] <- as.numeric(dims(x)$minyear)
-	  	x@range["maxyear"] <- as.numeric(dims(x)$maxyear)
+
+      x <- qapply(x, window, start=start, end=end, extend=extend,
+        frequency=frequency)
+  		
+      x@range["minyear"] <- as.numeric(dims(x)$minyear)
+	    x@range["maxyear"] <- as.numeric(dims(x)$maxyear)
+
 		return(x)
 	}
 )	# }}}
@@ -161,8 +165,8 @@ function(`_data`, ...)
 # qapply		{{{
 setMethod('qapply', signature(X='FLComp', FUN='function'),
 	function(X, FUN, ..., exclude=missing, simplify=FALSE) {
-
-		FUN <- match.fun(FUN)
+		
+    FUN <- match.fun(FUN)
 		slots <- getSlotNamesClass(X, 'FLArray')
 
 		if(!missing(exclude))
@@ -667,7 +671,7 @@ setMethod("metrics", signature(object="FLComp", metrics="formula"),
 
 setMethod("slim", signature(object="FLComp"),
   function(object, ...) {
-
+    
     # FIND repeated iters
     res   <- qapply(object, function(x) {
       # CHECK sum(var) along iters == 0
@@ -675,7 +679,7 @@ setMethod("slim", signature(object="FLComp"),
         return(x[,,,,,1])
       else
         return(x)
-      })
+      }, ...)
 
     return(res)
   }
