@@ -1683,18 +1683,26 @@ setMethod('qapply', signature(X='FLStock', FUN='function'),
 
     res <- setNames(as.list(slots), nm=slots)
 
-    for(i in seq(slots))
+    for(i in seq(slots)) {
       res[[i]] <- do.call(FUN, list(slot(X, slots[i]), ...))
-    # RETURN list if not FLQuant elements
+    }
+    # RETURN object class if FLQuant elements
     if(is(res[[1]], "FLQuant")) {
     
-      dims <- dims(res[[2]])
-      range <- c(min=dims$min, max=dims$max, plusgroup=min(dims$max, X@range['plusgroup']),
-		    minyear=dims$minyear, maxyear=dims$maxyear, minfbar=unname(range(X)['minfbar']),
+      for(i in slots) {
+        slot(X, i) <- res[[i]]
+      }
+
+      dims <- dims(X)
+      range <- c(min=dims$min, max=dims$max,
+        plusgroup=min(dims$max, X@range['plusgroup']),
+		    minyear=dims$minyear, maxyear=dims$maxyear, 
+        minfbar=unname(range(X)['minfbar']),
         maxfbar=unname(range(X)['maxfbar']))
 
-      res <- do.call(new, c(res, list(Class="FLStock", name=X@name,
-        desc=X@desc, range=range)))
+      range(X) <- range
+
+      return(X)
     }
 
     if(simplify)
