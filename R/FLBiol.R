@@ -880,21 +880,6 @@ setMethod("tep", signature(object="FLBiol"),
   }
 )  # }}}
 
-# vb = vulnerable biomass {{{
-
-setMethod("vb", signature(x="FLBiol", sel="FLQuant"),
-  function(x, sel) {
-    
-    vb <- quantSums(n(x) * wt(x) %*% sel)
-
-    units(vb) <- units(tsb(x))
-    
-    return(vb)
-  }
-)
-
-# }}}
-
 # combine {{{
 
 setMethod('combine', signature(x='FLBiol', y='FLBiol'),
@@ -914,8 +899,6 @@ setMethod('combine', signature(x='FLBiol', y='FLBiol'),
   }
 )
 # }}}
-
-# ---
 
 # meanLifespan {{{
 setMethod("meanLifespan", signature(x="FLBiol"),
