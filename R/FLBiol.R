@@ -974,6 +974,21 @@ setMethod("tb", signature(object="FLBiol"),
   }
 )  # }}}
 
+# vb = vulnerable biomass {{{
+
+setMethod("vb", signature(x="FLBiol", sel="FLQuant"),
+  function(x, sel) {
+    
+    vb <- quantSums(n(x) * wt(x) %*% sel)
+
+    units(vb) <- uom("*", units(n(x)), units(wt(x)))
+    
+    return(vb)
+  }
+)
+
+# }}}
+
 # computeStock  {{{
 setMethod("computeStock", signature(object="FLBiol"),
   function(object, ...)
