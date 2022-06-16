@@ -1164,6 +1164,19 @@ setMethod("split", signature(x="FLQuant", f="vector"),
   ))
 })
 
+setMethod("split", signature(x="FLQuant", f="missing"),
+  function(x) {
+  
+    f <- seq(dims(x)$iter)
+    FLQuants(lapply(setNames(nm=unique(f)),
+      function(i) {
+        iter(x, f == i)
+      }
+    ))
+})
+
+
+
 # }}}
 
 # combine {{{
@@ -1206,6 +1219,65 @@ setMethod('combine', signature(x='FLQuant', y='FLQuant'),
     return(res)
   }
 ) # }}}
+
+# group {{{
+
+#' @rdname group
+#' @examples
+#' # Add catch-at-age along two age groups, 'juv'eniles and 'adu'lts
+#' group(catch.n(ple4), sum, age=c('juv', 'juv', rep('adu', 8)))
+#' # An expression can use based on dimnames
+#' group(catch.n(ple4), sum, age=age < 3)
+#' # Mean by lustrum, by using 'year - year %% 5'
+#' group(catch.n(ple4), mean, year = year - year %% 5)
+
+setMethod("group", signature(x="FLQuant", FUN="function"),
+  function(x, FUN=sum, ...) {
+
+  # EXTRACT unevaluated args
+  args <- match.call(expand.dots = FALSE)$...
+
+  # FIND indices in args
+  dm <- na.omit(match(names(args), names(x), nomatch=NA))
+  ndm <- names(x)[dm]
+
+  # CHECK dimension aggregating index provided
+  if(length(dm) == 0)
+    stop("No aggregating index provided")
+
+  # CHECK dimension aggregating index is only 1
+  if(length(dm) > 1)
+    stop("group can only work over a single dimension, check argument names")
+
+  # EXTRACT indices & FUN args
+  indices <- args[[ndm]]
+  args[[ndm]] <- NULL
+ 
+  # PARSE
+  values <- lapply(dimnames(x)[dm], as.numeric)
+  indices <- eval(indices, values)
+
+  # APPLY FUN over indices subset, use extra args
+  res <- lapply(unique(indices), function(i) {
+    
+    # TRIM over dm
+    trims <- setNames(list(dimnames(x)[[ndm]][indices %in% i]), nm=ndm)
+    z <- do.call(trim, c(list(x=x), trims))
+    
+    # APPLY FUN on trimmed subset
+    y <- do.call(apply, c(list(X=z, MARGIN=seq(1, 6)[-dm], FUN=FUN), args))
+    dimnames(y)[[dm]] <- i
+
+    return(y)
+  })
+
+  out <- join(FLQuants(res))
+
+  return(out)
+}
+)
+
+# }}}
 
 # ifelse {{{
 setMethod("ifelse", signature(test="FLQuant", yes="ANY", no="ANY"),

@@ -1952,3 +1952,25 @@ setGeneric("computeQ", function(indices, stock, fit, ...)
 # rec.hat
 setGeneric("rec.hat", function(object, ...)
   standardGeneric('rec.hat'))
+
+# group
+
+#' Group objects over some index by applying a function over a single dimension
+#'
+#' Array objects (e.g. FLQuant or FLQuants) are divided along a single
+#' dimnension following a given index or expression, an aggregating
+#' function is applied to each subset, and the results are joined again.
+#' Data can be added, for example, by decade or for two age groups.
+#'
+#' @param x An object to group.
+#' @param FUN A function to apply along the chosen dimension, defaults to 'sum'.
+#' @param ... An expression or indexing vector, named as the chosen dimension. Extra arguments to FUN can also be provided, but cannmot match names in x.
+#' @return A single object with reduced dimensionality.
+#' @author Iago Mosqueira (WMR)
+#' @keywords methods
+#' @md
+#' @examples
+#' data(ple4)
+
+setGeneric("group", function(x, FUN, ...)
+		standardGeneric("group"))

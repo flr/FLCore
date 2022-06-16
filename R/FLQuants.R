@@ -218,6 +218,23 @@ setMethod('join', signature(x='FLQuants', y='missing'),
 )
 # }}}
 
+# group {{{
+
+#' @examples
+#' group(metrics(ple4), FUN=mean, year=year - year %% 5)
+
+setMethod("group", signature(x="FLQuants", FUN="function"),
+  function(x, FUN=sum, ...) {
+  
+    args <- match.call(expand.dots = FALSE)$...
+    
+    out <- lapply(x, function(i) do.call(group, c(list(x=i, FUN=FUN), args)))
+
+    return(out)
+  }
+)
+# }}}
+
 # dbind {{{
 setMethod("dbind", signature(x="FLQuants", y="missing"),
   function(x, dim=1) {

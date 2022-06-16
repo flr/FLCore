@@ -349,6 +349,7 @@ exportMethods(
   "getPlural",
   "gr",
   "gr<-",
+  "group",
   "halfwidth",
   "harvest",
   "harvest<-",
