@@ -718,6 +718,8 @@ setGeneric("upper<-", function(object, ..., value)
 #' @author The FLR Team
 #' @seealso \link{FLComp}
 #' @keywords methods
+#' @examples
+#' data(ple4)
 setGeneric('ssb', function(object, ...)
 		standardGeneric('ssb'))
 setGeneric('ssb<-', function(object, ..., value)
@@ -1889,6 +1891,25 @@ standardGeneric("setPlusGroup"))
 # divide
 setGeneric("divide", function(object, ...)
 		standardGeneric("divide"))
+
+# join {{{
+
+#' Joins objects along a dimensions where dimnames differ
+#'
+#' FLQuant objects are joined along a single dimension, on which dimnames
+#' are different. This is the reverse operation to divide.
+#'
+#' @param x An object to join
+#' @param y An object to join
+#' @return A single object
+#' @author Iago Mosqueira (WMR)
+#' @keywords methods
+#' @md
+
+setGeneric("join", function(x, y, ...)
+		standardGeneric("join"))
+
+# }}}
 
 # production {{{
 

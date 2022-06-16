@@ -200,6 +200,24 @@ setMethod('combine', signature(x='FLQuants', y='FLQuants'),
 # TODO combine(FLQuants, FLQuant)
 # }}}
 
+# join {{{
+
+#' @rdname join
+#' @examples
+#' div <- divide(catch.n(ple4), dim=1)
+#' is(div)
+#' length(div)
+#' join(div)
+#' all.equal(join(divide(catch.n(ple4), dim=1)), catch.n(ple4))
+
+setMethod('join', signature(x='FLQuants', y='missing'),
+  function(x, y) {
+
+    Reduce(join, x)
+  }
+)
+# }}}
+
 # dbind {{{
 setMethod("dbind", signature(x="FLQuants", y="missing"),
   function(x, dim=1) {

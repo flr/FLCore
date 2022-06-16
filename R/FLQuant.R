@@ -1081,6 +1081,55 @@ setMethod("divide", signature(object="FLQuant"),
   }
 ) # }}}
 
+# join {{{
+
+#' @rdname join
+#' @examples
+#' data(ple4)
+#' # JOIN over age dimension
+#' x <- catch.n(ple4)[1,]
+#' y <- catch.n(ple4)[2,]
+#' join(x, y)
+#' # JOIN over year dimension
+#' x <- catch.n(ple4)[,10:20]
+#' y <- catch.n(ple4)[,21:25]
+#' join(x, y)
+
+setMethod('join', signature(x='FLQuant', y='FLQuant'),
+  function(x, y) {
+
+    args <- c(list(x, y))
+
+    # GET dim(s) & dimnames
+    ds <- lapply(args, dim)
+    dns <- lapply(args, dimnames)
+
+    # FIND dim to join over
+    dif <- unlist(Map(function(x, y) identical(x, y),
+      x=dns[[1]], y=dns[[2]]))
+    dm <- seq(1, 6)[!dif]
+
+    # CHECK dimnames in only one dim is different
+    if(length(dm) > 1)
+      stop("Objects can only differ in one dimension.")
+
+    # SETUP new dimnames
+    ndns <- dns[[1]]
+    ndns[[dm]] <- c(dns[[1]][[dm]], dns[[2]][[dm]])
+    
+    # CREATE output object, units as in x
+    res <- FLQuant(NA, dimnames=ndns, units=units(x))
+
+    # ASSIGN by dm
+    for(i in seq(args)) {
+      pos <- setNames(dns[[i]][dm], nm=letters[9:14][dm])
+      res <- do.call("[<-", c(list(x=res, value=args[[i]]), pos))
+    }
+
+    return(res)
+  }
+) # }}}
+
 # split {{{
 
 #' splits *x* along the *iter* dimension into the groups defined by *f*.
