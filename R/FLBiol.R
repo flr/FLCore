@@ -792,7 +792,9 @@ setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
 #' @aliases ssb-FLBiol,method
 #' @examples
 #' biol <- as(ple4, "FLBiol")
+#' # SSB from FLBiol, abundances corrected only for M
 #' ssb(biol)
+#' # Provide catch-at-age, F or HR to correct N
 #' ssb(biol, catch.n=catch.n(ple4))
 #' ssb(biol, f=harvest(ple4))
 #' ssb(biol, harvest=harvest(ple4))

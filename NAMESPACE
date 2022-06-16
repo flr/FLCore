@@ -378,6 +378,7 @@ exportMethods(
   "iters",
   "jackknife",
   "jackSummary",
+  "join", 
   "landings",
   "landings<-",
   "landings.n",

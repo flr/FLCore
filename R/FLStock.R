@@ -327,8 +327,7 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 #' over total biomass).
 #' @seealso \code{\link{areaSums}}
 #' @examples
-#'
-#' data(ple4)
+#' # SSB from FLStock
 #' ssb(ple4)
 setMethod("ssb", signature(object="FLStock"),
 	function(object, ...) {
