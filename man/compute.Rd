@@ -141,7 +141,5 @@ catch(ple4) <- computeCatch(ple4, slot="all")
 }
 \author{
 The FLR Team
-
-The FLR Team
 }
 \keyword{methods}

@@ -11,7 +11,8 @@ simplify(object, ...)
 \S4method{simplify}{FLStock}(
   object,
   dims = c("unit", "season", "area")[dim(object)[3:5] > 1],
-  spwn.season = 1
+  spwn.season = 1,
+  harvest = TRUE
 )
 }
 \arguments{

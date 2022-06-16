@@ -4,7 +4,7 @@
 \alias{mohnMatrix}
 \title{Generate a matrix to compute Mohn's rho for a single metric}
 \usage{
-mohnMatrix(stocks, metric = "fbar")
+mohnMatrix(stocks, metric = "fbar", ...)
 }
 \arguments{
 \item{stocks}{An FLStocks object from a restrospective analysis}

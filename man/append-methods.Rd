@@ -25,7 +25,7 @@ and substituting sections of them.
 }
 \details{
 FLR objects are commonly manipulated along the year dimension, and the append
-method offers a single interface for substituting parts of an object with
+method offers a simple interface for substituting parts of an object with
 another, or combine them into one, extending them when necessary.
 The object to be included or added to the first will be placed as defined by
 the \emph{year} dimnames, unless the \emph{after} input argument specifies otherwise.

@@ -96,7 +96,5 @@ dims(flq)
 }
 \author{
 The FLR Team
-
-The FLR Team
 }
 \keyword{methods}

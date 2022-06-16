@@ -24,7 +24,7 @@ in the call stack.
 }
 \details{
 By default, spread() will not overwrite variables in the function environment
-with the same name as any list element, unles FORCE=TRUE
+with the same name as any list element, unless FORCE=TRUE
 }
 \examples{
 
