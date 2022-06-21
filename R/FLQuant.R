@@ -530,14 +530,14 @@ setMethod('quantSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 #' @rdname dimSummaries
 setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,3,4,5,6), function(x, NA.RM=na.rm){
-    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), as.numeric(NA))
   }))
 })
 
 #' @rdname dimSummaries
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
-    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), as.numeric(NA))
   }))
 })
 
@@ -557,7 +557,7 @@ setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   res[] <- colSums(x, dims=1, na.rm=TRUE)
 
   idx <- colSums(is.na(x), dims=1) == dim(x)[1]
-  res[idx] <- NA
+  res[idx] <- as.numeric(NA)
 
   return(res)
 })
@@ -565,14 +565,14 @@ setMethod('seasonSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 #' @rdname dimSummaries
 setMethod('areaSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,c(1,2,3,4,6), function(x, NA.RM=na.rm){
-    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), as.numeric(NA))
   }))
 })
 
 #' @rdname dimSummaries
 setMethod('iterSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x,1:5, function(x, NA.RM=na.rm){
-    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), NA)
+    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), as.numeric(NA))
   }))
 })
 
