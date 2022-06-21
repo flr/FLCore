@@ -1319,9 +1319,11 @@ mohnMatrix <- function(stocks, metric="fbar", ...) {
   end <- dims(stocks[[1]])$maxyear
   start <- dims(stocks[[peels + 1]])$maxyear - 2
 
-  # EXTRACT quantity for given years
-  mm <- as.data.frame(lapply(stocks,
-    function(x) c(window(do.call(metric, c(list(x), args(...))), start=start, end=end))))
+  # EXTRACT metric for given years
+  mm <- as.data.frame(lapply(stocks, function(x)
+      c(window(do.call(metric, c(list(x), list(...))),
+        start=start, end=end))))
+
   rownames(mm) <- seq(start, end)
   colnames(mm) <- c("base", as.character(-seq(1, length=peels)))
 
