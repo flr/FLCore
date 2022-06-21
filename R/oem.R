@@ -653,8 +653,10 @@ sigma3 <- function(x, mixing="less", type="residual") {
     pvalue <- 0.001
   }
  
-return(list(lcl = lcl, ucl = ucl, p.value = pvalue))
+  return(list(lcl = lcl, ucl = ucl, p.value = pvalue))
 }
+
+#
 
 .runs.test <- function(x, alternative="two.sided", threshold=median(x), pvalue="normal", plot=FALSE){
 
