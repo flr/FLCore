@@ -1117,7 +1117,7 @@ noarea <- function(stock) {
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
     spwn.season=1, harvest=TRUE) {
-
+  
   # ORDER: season(unit(area))
   if(any(c("area", 5) %in% dims))
     object <- noarea(object)

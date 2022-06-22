@@ -365,10 +365,10 @@ setClass("FLStock",
     # CHECK minfbar, maxfbar and plusgroup match object dimensions
     if(!is.na(dms$min) & ran["minfbar"] < dms$min)
       return("minfbar is lower than first age")
-    if(!is.na(dms$max) &ran["maxfbar"] > dms$max)
+    if(!is.na(dms$max) & ran["maxfbar"] > dms$max)
       return("maxfbar is higher than last age")
-    # if(!is.na(ran["plusgroup"]) & ran["plusgroup"] > dms$max)
-    #   return("plusgroup is higher than last age")
+    if(!is.na(ran["plusgroup"]) & ran["plusgroup"] > dms$max)
+      return("plusgroup is higher than last age")
 
 	return(TRUE)}
 ) # }}}
