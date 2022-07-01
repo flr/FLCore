@@ -414,6 +414,33 @@ setMethod("fbar", signature(object="FLStock"),
 	}
 )	# }}}
 
+# hr
+setMethod("hr", signature(object="FLStock"),
+ function(object, ...) {
+	 
+   rng <- range(object)
+
+	 if (is.na(rng["minfbar"]))
+		 rng["minfbar"] <- rng["min"]
+
+	 if (is.na(rng["maxfbar"]))
+		 rng["maxfbar"] <- rng["max"]
+
+	 rng["minfbar"] <- max(rng["min"], min(rng["max"], rng["minfbar"]))
+	 rng["maxfbar"] <- max(rng["min"], min(rng["max"], rng["maxfbar"]))
+
+   rages <- as.character(seq(rng["minfbar"], rng["maxfbar"]))
+
+   out <- (catch.n(object) * catch.wt(object)) /
+      (stock.n(object) * stock.wt(object))
+
+    units(out) <- "hr"
+
+  return(quantMeans(out[rages, ]))
+ }
+)
+
+
 # mbar {{{
 
 #' Computes the mean natural mortality acros the fully selected ages
