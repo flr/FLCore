@@ -55,7 +55,8 @@ setAs('FLArray', 'data.frame',
       dnames[[1]] <- as.numeric(dnames[[1]])
 
     # CONVERT dim[c(3:5)] to factors
-    dnames[c(3:5)] <- lapply(dnames[c(3:5)], as.factor)
+    dnames[c(3:5)] <- lapply(dnames[c(3:5)], function(x)
+      factor(x, levels=x))
 
     df <- data.frame(do.call(expand.grid, list(dnames,
       stringsAsFactors = FALSE)), data=c(from), stringsAsFactors = FALSE)
