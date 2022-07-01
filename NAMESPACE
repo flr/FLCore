@@ -209,6 +209,7 @@ exportClasses(
   "FLSRs",
   "FLS",
   "FLStock",
+  "FLStockR",
   "FLStockLen",
   "FLStocks",
   "predictModel")
