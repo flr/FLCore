@@ -129,7 +129,8 @@ setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="mi
 			flqnames <- paste("v", 1:length(x), sep="")
 		else if(any(is.na(names(x))))
 		{
-			names(x)[is.na(names(x))] <- paste("v", 1:length(x), sep="")[is.na(names(x))]
+			names(x)[is.na(names(x))] <-
+        paste("v", 1:length(x), sep="")[is.na(names(x))]
 			flqnames <- names(x)
 		}
 		else
