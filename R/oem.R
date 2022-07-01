@@ -801,6 +801,13 @@ invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,
 
 # lenSamples {{{
 
+#' @examples
+#' data(ple4)
+#' ialk <- invALK(params=c(linf = 60, k = 2.29e-01, t0 = -1.37e+00),
+#'   model=vonbert, age=1:10, lmax=1.2)
+#' lenSamples(catch.n(ple4), invALK=ialk, n=250)
+
+
 lenSamples <- function(object, invALK, n=300) {
   
   # PROPAGATE invALK to match object
