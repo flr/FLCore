@@ -992,6 +992,10 @@ setGeneric("computeStock", function(object, ...)
 	setGeneric("fbar", function(object, ...)
 		standardGeneric("fbar"))
 
+# hr
+	setGeneric("hr", function(object, ...)
+		standardGeneric("hr"))
+
 # ssbpurec
 	setGeneric("ssbpurec", function(object, ...)
 		standardGeneric("ssbpurec"))
