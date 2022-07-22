@@ -37,3 +37,20 @@ run.info <- function(pkgs) {
 
   return(info)
 }
+
+# find.original.name(s) {{{
+
+find.original.name <- function(fun) {
+  objects <- ls(envir = environment(fun))
+  
+  for (i in objects) {
+    if (identical(fun, get(i, envir = environment(fun)))) {
+      return(substr(i, rev(unlist(gregexpr(':', i)))[1] + 1, nchar(i)))
+        }
+    }
+}
+
+find.original.names <- function(funs) {
+  lapply(funs, find.original.name)
+}
+# }}}

@@ -3,8 +3,8 @@
 
 # Copyright European Union, 2017
 # Author: Iago Mosqueira (EC JRC) <iago.mosqueira@ec.europa.eu>
-#
-# Distributed under the terms of the European Union Public Licence (EUPL) V.1.1.
+
+# Observation
 
 # cpue {{{
 
@@ -71,16 +71,6 @@ setMethod('cpue', signature(object='FLStock', index="missing"),
 # survey {{{
 
 #' A method to generate observations of abundance at age.
-#'
-#' Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend
-#' odio ac rutrum luctus. Aenean placerat porttitor commodo. Pellentesque eget porta
-#' libero. Pellentesque molestie mi sed orci feugiat, non mollis enim tristique. 
-#'
-#' Details: Aliquam sagittis feugiat felis eget consequat. Praesent eleifend dolor massa, 
-#' vitae faucibus justo lacinia a. Cras sed erat et magna pharetra bibendum quis in 
-#' mi. Sed sodales mollis arcu, sit amet venenatis lorem fringilla vel. Vivamus vitae 
-#' ipsum sem. Donec malesuada purus at libero bibendum accumsan. Donec ipsum sapien, 
-#' feugiat blandit arcu in, dapibus dictum felis. 
 #'
 #' @param object The object on which to draw the observation
 #'
@@ -200,6 +190,75 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
 hyperstability <- function(object, omega=1, ref=yearMeans(object)) {
   return(ref %*% ((object %/% ref) ^ omega))
 } # }}}
+
+# computeQ(FLIndices, FLStock, FLQuants) {{{
+
+setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
+  fit="FLQuants"), function(indices, stock, fit) {
+  
+  # SET iterMedians for stock
+  yrs <- dimnames(stock)$year
+
+  # LOOP over indices
+  res <- Map(function(x, y) {
+
+    # GET mean index timing and dimnames
+    t <- mean(range(x)[c("startf", "endf")])
+    dms <- dimnames(x)[1:2]
+ 
+    # FLIndex
+    if(is(x, "FLIndex")) {
+      # CORRECT abundances for Z
+      nay <- stock.n(stock) * exp(-z(stock) * t)
+      nay <- nay[dms[[1]], dms[[2]]]
+      
+      # COMPUTE Q
+      iq <- y / nay
+
+    # FLIndexBiomass
+    } else if(is(x, "FLIndexBiomass")) {
+      
+      # CORRECT abundances for Z
+      nay <- stock.n(stock) * exp(-z(stock) * t)
+      nay <- nay[dms[[1]], dms[[2]]]
+      
+      # SET sel.pattern if missing
+      if(all(is.na(sel.pattern(x)))) {
+        sel.pattern(x) <- 0
+        sel.pattern(x)[seq(range(x, 'min'), range(x, 'max')),] <- 1
+      }
+
+      # COMPUTE vb
+      biy <- quantSums(nay * stock.wt(stock)[dms[[1]], dms[[2]]] *
+        sel.pattern(x))
+
+      iq <- y / biy
+    }
+
+    return(iq)
+
+    }, x=indices, y=fit)
+
+  return(FLQuants(res))
+  }
+)
+
+#' @examples
+#' computeQ(ple4.index, ple4, rlnorm(1, log(index(ple4.index)), 0.1))
+
+setMethod("computeQ", signature=c(indices="FLIndex", stock="FLStock",
+  fit="FLQuant"), function(indices, stock, fit) {
+    
+    res <- computeQ(indices=FLIndices(A=indices), stock=stock, 
+      fit=FLQuants(A=fit))
+
+    return(res[[1]])
+
+  }
+)
+# }}}
+
+# Noise
 
 # bias {{{
 
@@ -361,6 +420,8 @@ noiseFn <- function(len, sd=1, b=0, burn=0, trunc=0, seed=NA) {
   
   return(x)
 }# }}}
+
+# Diagnostics
 
 # mase {{{
 
@@ -732,178 +793,4 @@ ifelse(log,return(log(r0)),return(r0))
   return(rval)
 }
 
-# }}}
-
-# growth models {{{
-
-# vonbert
-vonbert <- function(linf, k, t0, age) {
-  linf * (1.0 - exp((-k * (age - t0))))
-}
-
-vonbert(35, 0.352, -0.26, 1:14)
-
-# ivonbert
-ivonbert <- function(linf, k, t0, len) {
-  pmax(0, log(1 - (len / linf)) / (-k) + t0)
-}
-
-ivonbert(35, 0.352, -0.26, 1:34)
-
-# gompertz
-gompertz <- function(linf, a, k, age) {
-  linf * exp(-a * exp(log(k) * age))
-}
-
-gompertz(linf=179.13, k=0.4088, a=1.7268, age=1:12)
-
-# richards
-richards <- function(linf, k, b, m, age) {
-  linf / exp(log(1 + exp(-k * age + b)) * m)
-}
-
-richards(linf=178.63, k=0.424, b=-7.185, m=2880.4, age=1:12)
-
-# }}}
-
-# invALK {{{
-
-invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,
-  reflen=NULL) {
-
-    linf <- c(params['linf'])
-
-    # FOR each age
-    bins <- seq(0, ceiling(linf * lmax), bin)
-    len <- do.call(model, c(as(params, "list"), list(age=age)))
-
-    if(is.null(reflen)) {
-      sd <- len * cv
-    } else {
-      sd <- reflen * cv
-    }
-
-    probs <- Map(function(x, y) {
-      p <- c(pnorm(1, x, y),
-        dnorm(bins[-c(1, length(bins))], x, y),
-        pnorm(bins[length(bins)], x, y, lower.tail=FALSE))
-      return(p / sum(p))
-    }, x=len, y=sd)
-
-    res <- do.call(rbind, probs)
-
-    alk <- FLPar(array(res, dim=c(length(age), length(bins), 1)),
-      dimnames=list(age=age, len=bins, iter=1), units="")
-
-    return(alk)
-} 
-# }}}
-
-# lenSamples {{{
-
-#' @examples
-#' data(ple4)
-#' ialk <- invALK(params=c(linf = 60, k = 2.29e-01, t0 = -1.37e+00),
-#'   model=vonbert, age=1:10, lmax=1.2)
-#' lenSamples(catch.n(ple4), invALK=ialk, n=250)
-
-
-lenSamples <- function(object, invALK, n=300) {
-  
-  # PROPAGATE invALK to match object
-  invALK <- propagate(invALK, dim(object)[6])
-
-  # DIMS
-  dmo <- dim(object)
-  dno <- dimnames(object)
-  dmi <- dim(invALK)
-  dni <- dimnames(invALK)
-
-  # RESULTS
-  res <- array(NA, dim=c(dmi[2], dmo[2], 1, 1, 1, dmo[6]))
-  ob <- unname(object)
-
-  # LOOP over iters and years
-  for(i in seq(dmo[6])) {
-    for(y in seq(dmo[2])) {
-      # GET proportions at length from invALK
-      res[,y,,,,i] <- c(ob[,y,,,,i] %*% invALK[,,i, drop=TRUE])
-      # SAMPLE from multinom
-      res[,y,,,,i] <- apply(rmultinom(n, 1, prob=c(res[,y,,,,i])), 1, sum)
-    }
-  }
-  
-  out <- FLQuant(res, dimnames=list(len=dni$len, year=dno$year, iter=dno$iter))
-
-  return(out)
-}
-# }}}
-
-# mlc {{{
-
-mlc <- function(samples) {
-  return(quantSums(as.numeric(dimnames(samples)$len) * samples)
-    / quantSums(samples))
-} # }}}
-
-# computeQ(FLIndices, FLStock, FLQuants) {{{
-
-setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
-  fit="FLQuants"), function(indices, stock, fit) {
-  
-  # SET iterMedians for stock
-  yrs <- dimnames(stock)$year
-
-  # LOOP over indices
-  res <- Map(function(x, y) {
-
-    # GET mean index timing and dimnames
-    t <- mean(range(x)[c("startf", "endf")])
-    dms <- dimnames(x)[1:2]
- 
-    # FLIndex
-    if(is(x, "FLIndex")) {
-      # CORRECT abundances for Z
-      nay <- stock.n(stock) * exp(-z(stock) * t)
-      nay <- nay[dms[[1]], dms[[2]]]
-      
-      # COMPUTE Q
-      iq <- y / nay
-
-    # FLIndexBiomass
-    } else if(is(x, "FLIndexBiomass")) {
-      
-      # CORRECT abundances for Z
-      nay <- stock.n(stock) * exp(-z(stock) * t)
-      nay <- nay[dms[[1]], dms[[2]]]
-      
-      # SET sel.pattern if missing
-      if(all(is.na(sel.pattern(x)))) {
-        sel.pattern(x) <- 0
-        sel.pattern(x)[seq(range(x, 'min'), range(x, 'max')),] <- 1
-      }
-
-      # COMPUTE vb
-      biy <- quantSums(nay * stock.wt(stock)[dms[[1]], dms[[2]]] *
-        sel.pattern(x))
-
-      iq <- y / biy
-    }
-
-    return(iq)
-
-    }, x=indices, y=fit)
-
-  return(FLQuants(res))
-  }
-)
-
-
-setMethod("computeQ", signature=c(indices="FLIndex", stock="FLStock",
-  fit="FLQuant"), function(indices, stock, fit) {
-    
-    computeQ(indices=FLIndices(A=indices), stock=stock, fit=FLQuants(A=fit))
-
-  }
-)
 # }}}

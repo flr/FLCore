@@ -599,6 +599,7 @@ setGeneric("params<-", function(object, value)
 # -- METHODS
 
 # quant, quant<- {{{
+
 #' Method quant
 #' 
 #' Function to get or set the name of the first dimension (quant) in an object
