@@ -6,7 +6,7 @@
 #
 # Distributed under the terms of the EUPL-1.2
 
-# FLStockR {{{
+# FLStockR
 
 #' @examples
 #' library(FLSRTMB)
@@ -15,12 +15,14 @@
 #' sr <- predictModel(params=params(srr), model=bevholt()$model)
 #' object <- FLStockR(ple4, refpts=FLPar(BMSY=150000), sr=sr)
 
-# FLStockR class
+# FLStockR class {{{
 
 setClass("FLStockR", representation(
   "FLStock",
   refpts="FLPar",
   sr="predictModel"))
+
+# }}}
 
 # Constructors
 
@@ -37,7 +39,7 @@ setGeneric('FLStockR', function(object, ...) standardGeneric('FLStockR'))
 setMethod("FLStockR", signature(object="FLStock"),
   function(object, ...) {
 
-    do.call("new", c(list(Class="FLStockR"), list(...)))
+    do.call("new", c(list(Class="FLStockR"), c(object, list(...))))
 
   }
 )
@@ -81,7 +83,9 @@ setMethod("FLStockR", signature(object="missing"),
   }
 )
 
-# ACCESSORS
+# }}}
+
+# ACCESSORS {{{
 
 #' @examples
 #'
@@ -159,6 +163,7 @@ setReplaceMethod("sr", signature(object="FLStockR", value="formula"),
   }
 )
 
+# }}}
 
 # predict
 
