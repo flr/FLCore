@@ -794,3 +794,66 @@ ifelse(log,return(log(r0)),return(r0))
 }
 
 # }}}
+
+# roc {{{
+
+#' @examples
+#' data(ple4)
+#' # OM 'realities' on stock status relative to refpt
+#' label <- rlnorm(100, log(ssb(ple4))[, '2017'], 0.2) < 850000
+#' # Model estimates of SSB
+#' ind <- rlnorm(100, log(ssb(ple4) * 1.05)[,'2017'], 0.6)
+#' # Compute TSS, returns data.frame
+#' roc(label, ind)
+#' ggplot(roc(label, ind), aes(x=FPR, y=TPR)) +
+#'   geom_line() +
+#'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
+#' # Multiple years are computed together, but labelled
+#' label <- rlnorm(100, log(ssb(ple4)[, 52:61]), 0.2) < 850000
+#' ind <- rlnorm(100, log(ssb(ple4)[, 52:61]), 0.6)
+#' roc(label, ind)
+#' ggplot(roc(label, ind), aes(x=TPR, y=FPR)) +
+#'   geom_line() +
+#'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
+#' ggplot(roc(label, ind), aes(x=TPR, y=FPR, group=year)) +
+#'   geom_line()
+#' # TODO: REAL example, FLXSA(ple4)
+
+roc <- function(label, ind) {
+
+  # CHECK dims match
+  if(!all.equal(dim(label), dim(ind)))
+    stop("dimensions of label and ind must match")
+
+  # CHECK label is pseudo-logical (0, 1)
+  if(!all(c(label) %in% c(0, 1)))
+    stop("label can only contain 0 and 1 for FALSE, TRUE")
+  
+  # ORDER by descending ind
+  idx <- rev(order(c(ind)))
+  label <- c(label)[idx]
+ 
+  # CALCULATE TRUE and FALSE positives
+  tp <- cumsum(label)
+  fp <- cumsum(!label)
+  
+  # CALCULATE TRUE and FALSE negatives
+  tn <- sum(!label) - fp  
+  fn <- sum(label) - tp  
+
+  # CALCULATE TRUE and FALSE positive rates
+  tpr <- cumsum(label) / sum(label) 
+  fpr <- cumsum(!label) / sum(!label)
+  
+  # COMPUTE True Skill Score
+  tss  <- (tp / (tp + fn) - fp / (fp + tn))
+
+  # CONSTRUCT output data.frame
+  out <- model.frame(FLQuants(ind=ind), drop=TRUE)[idx,]
+
+  res <- cbind(out, label=label, TP=tp, TN=tn,
+    FP=fp, FN=fn, TPR=tpr, FPR=fpr, TSS=tss)
+
+  return(res)
+}
+# }}}

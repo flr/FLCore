@@ -167,6 +167,7 @@ export(
   "rickerAR1",
   "rickerCa",
   "rickerSV",
+  "roc",
   "run.info",
   "sbind",
   "segreg",
