@@ -797,6 +797,18 @@ ifelse(log,return(log(r0)),return(r0))
 
 # roc {{{
 
+#' Receiver Operating 
+
+#' @name roc
+#' A receiver operating characteristic curve (ROC) shows the ability of a
+#' binary classifier. Here it is applied to compare two sets of values,
+#' stored as two FLQuant objects. The first is the result of aplying a logical
+#' comparison of a given state against a reference value, so it contains a 
+#' binary (0, 1) label. The second, the score, contains an alternative metric
+#' that attempts to measure the absolute value of the first.
+#' The examples below compare an observation of stock status, SSB being less 
+#' than a reference point, and an alternatuve metric, here generated from the 
+#' same with some noise.
 #' @examples
 #' data(ple4)
 #' # OM 'realities' on stock status relative to refpt
@@ -810,14 +822,11 @@ ifelse(log,return(log(r0)),return(r0))
 #'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
 #' # Multiple years are computed together, but labelled
 #' label <- rlnorm(100, log(ssb(ple4)[, 52:61]), 0.2) < 850000
-#' ind <- rlnorm(100, log(ssb(ple4)[, 52:61]), 0.6)
+#' ind <- rlnorm(100, log(ssb(ple4) * 1.05)[, 52:61], 0.6)
 #' roc(label, ind)
 #' ggplot(roc(label, ind), aes(x=TPR, y=FPR)) +
 #'   geom_line() +
 #'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
-#' ggplot(roc(label, ind), aes(x=TPR, y=FPR, group=year)) +
-#'   geom_line()
-#' # TODO: REAL example, FLXSA(ple4)
 
 roc <- function(label, ind) {
 
@@ -855,5 +864,24 @@ roc <- function(label, ind) {
     FP=fp, FN=fn, TPR=tpr, FPR=fpr, TSS=tss)
 
   return(res)
+}
+# }}}
+
+# auc {{{
+
+#' @rdname roc
+#' The area under the ROC (auc, Area under the Curve), is calculated from
+#' the true and false positive rates (TPR and FPR). The two columns
+#' returned by the `roc()` function with those names ca be passed on to this 
+#' function.
+#' @examples
+#' # Computes auc using the output of roc()
+#' with(roc(state < 1, score), auc(TPR, FPR))
+
+auc <- function(TPR, FPR){
+  # inputs already sorted, best scores first 
+  dFPR <- c(diff(FPR), 0)
+  dTPR <- c(diff(TPR), 0)
+  sum(TPR * dFPR) + sum(dTPR * dFPR)/2
 }
 # }}}

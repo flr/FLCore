@@ -106,6 +106,7 @@ export(
   "ac",
   "an",
   "ar1rlnorm",
+  "auc",
   "bevholt",
   "bevholtAR1",
   "bevholtsig",

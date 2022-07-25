@@ -137,8 +137,13 @@ NULL
 #' @examples
 #' indicators.len(ple4, indicators=c('lbar', 'lmean'),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
+#' indicators.len(ple4, indicators=c('lbar', lmean),
+#'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
+#' data(ple4.index)
 #' indicators.len(ple4.index, indicators=c('lbar', 'lmean'),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='index')
+
+# TODO: LOOP over metric
 
 indicators.len <- function (object, indicators="lbar", model=vonbert, params,
   cv=0.1, lmax=1.25, bin=1, n=500, metric=catch.n) {
@@ -184,10 +189,6 @@ indicators.len <- function (object, indicators="lbar", model=vonbert, params,
 
   return(ind)
 }
-
-
-
-
 
 # lenquantile {{{
 
@@ -360,6 +361,8 @@ lbar <- function(x) {
 #' lmean, mean length of individuals > lmode
 #' @examples
 #' lmean(samps)
+#' # Linf(ple4) = 60
+#' lmean(samp) / (0.75 * lc50(samp) + 0.25 * 60) #
 
 lmean <- function(x) {
 
