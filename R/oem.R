@@ -799,7 +799,7 @@ ifelse(log,return(log(r0)),return(r0))
 
 #' Receiver Operating 
 
-#' @name roc
+#' @rdname roc
 #' A receiver operating characteristic curve (ROC) shows the ability of a
 #' binary classifier. Here it is applied to compare two sets of values,
 #' stored as two FLQuant objects. The first is the result of aplying a logical
@@ -811,15 +811,17 @@ ifelse(log,return(log(r0)),return(r0))
 #' same with some noise.
 #' @examples
 #' data(ple4)
+#' set.seed(8723)
 #' # OM 'realities' on stock status relative to refpt
-#' label <- rlnorm(100, log(ssb(ple4))[, '2017'], 0.2) < 850000
+#' state <- rlnorm(100, log(ssb(ple4))[, ac(2010:2017)], 0.1)
 #' # Model estimates of SSB
-#' ind <- rlnorm(1, log(ssb(ple4) * 1.05)[,'2017'], 0.6)
+#' ind <- rlnorm(100, log(ssb(ple4) * 1.12)[, ac(2010:2017)], 0.2)
 #' # Compute TSS, returns data.frame
-#' roc(label, ind)
-#' ggplot(roc(label, ind), aes(x=FPR, y=TPR)) +
+#' roc(state < 850000, ind)
+#' ggplot(roc(state > 850000, ind), aes(x=FPR, y=TPR)) +
 #'   geom_line() +
 #'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
+#' with(roc(state > 850000, ind), auc(TPR, FPR))
 #' # Multiple years are computed together, but labelled
 #' label <- rlnorm(100, log(ssb(ple4)[, 52:61]), 0.2) < 850000
 #' ind <- rlnorm(100, log(ssb(ple4) * 1.05)[, 52:61], 0.6)
@@ -881,12 +883,15 @@ roc <- function(label, ind) {
 #' function.
 #' @examples
 #' # Computes auc using the output of roc()
-#' with(roc(state < 1, score), auc(TPR, FPR))
+#' with(roc(state > 850000, ind), auc(TPR, FPR))
+#' with(roc(state > 850000, state), auc(TPR, FPR))
+
 
 auc <- function(TPR, FPR){
-  # inputs already sorted, best scores first 
+
   dFPR <- c(diff(FPR), 0)
   dTPR <- c(diff(TPR), 0)
+  
   sum(TPR * dFPR) + sum(dTPR * dFPR)/2
 }
 # }}}

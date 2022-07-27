@@ -48,17 +48,6 @@ The observation of stock abundance by CPUE series from commercial fleets is an
 important step in the generation of management advice that needs to replicated
 on an Operating Model during any simulation exercise. This method gemnerates
 an observation of biomass or numbers-at-age from an FLstock being used as OM.
-
-Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend
-odio ac rutrum luctus. Aenean placerat porttitor commodo. Pellentesque eget porta
-libero. Pellentesque molestie mi sed orci feugiat, non mollis enim tristique.
-}
-\details{
-Details: Aliquam sagittis feugiat felis eget consequat. Praesent eleifend dolor massa, 
-vitae faucibus justo lacinia a. Cras sed erat et magna pharetra bibendum quis in 
-mi. Sed sodales mollis arcu, sit amet venenatis lorem fringilla vel. Vivamus vitae 
-ipsum sem. Donec malesuada purus at libero bibendum accumsan. Donec ipsum sapien, 
-feugiat blandit arcu in, dapibus dictum felis.
 }
 \examples{
 

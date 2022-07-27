@@ -31,8 +31,7 @@ where \eqn{H_{a,y}}{H_ay} is the harvest rate (proportion of catch in weight
 over total biomass).
 }
 \examples{
-
-data(ple4)
+# SSB from FLStock
 ssb(ple4)
 }
 \seealso{

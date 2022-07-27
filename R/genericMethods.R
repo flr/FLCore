@@ -1979,3 +1979,16 @@ setGeneric("rec.hat", function(object, ...)
 
 setGeneric("group", function(x, FUN, ...)
 		standardGeneric("group"))
+
+# acc {{{
+
+#' Catch curve estimates of total mortality at age (Z)
+#'
+#'
+#' @param object
+#' @examples
+#' data(ple4)
+
+setGeneric("acc", function(object, ...)
+		standardGeneric("acc"))
+# }}}

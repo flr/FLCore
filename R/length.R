@@ -6,7 +6,15 @@
 
 # growth models {{{
 
+#' Growth models
+#'
+#' @rdname growth-models
+#' @examples
+#' data(ple4)
+
 #' vonbert
+#'
+#' @rdname growth-models
 #' @examples
 #' vonbert(35, 0.352, -0.26, 1:14)
 
@@ -15,6 +23,8 @@ vonbert <- function(linf, k, t0, age) {
 }
 
 #' ivonbert
+#'
+#' @rdname growth-models
 #' @examples
 #' ivonbert(35, 0.352, -0.26, 1:34)
 
@@ -23,6 +33,8 @@ ivonbert <- function(linf, k, t0, len) {
 }
 
 #' gompertz
+#'
+#' @rdname growth-models
 #' @examples
 #' gompertz(linf=179.13, k=0.4088, a=1.7268, age=1:12)
 
@@ -31,6 +43,8 @@ gompertz <- function(linf, a, k, age) {
 }
 
 #' richards
+#'
+#' @rdname growth-models
 #' @examples
 #' richards(linf=178.63, k=0.424, b=-7.185, m=2880.4, age=1:12)
 
@@ -122,19 +136,13 @@ mlc <- function(samples) {
     / quantSums(samples))
 } # }}}
 
-#' Length-based indicators
+#' @rdname length-based-indicators
 #' @references
 #' - Kell, L.T., Minto, C., Gerritsen, H.D. 2022. Evaluation of the skill of length-based indicators to identify stock status and trends. ICES Journal of Marine Science. doiu: 10.1093/icesjms/fsac043.
 #' - ICES. 2015. Report of the Fifth Workshop on the Development of Quantitative Assessment Methodologies based on Life-history Traits, Exploitation Characteristics and other Relevant Parameters for Data-limited Stocks (WKLIFE V), 5–9 October 2015, Lisbon, Portugal. ICES CM 2015/ACOM:56. 157 pp.
 #' - ICES. 2020. Tenth Workshop on the Development of Quantitative Assessment Methodologies based on LIFE-history traits, exploitation characteristics, and other relevant parameters for data-limited stocks (WKLIFE X). ICES Scientific Reports. 2:98. 72 pp. http://doi.org/10.17895/ices.pub.5985
 #' @examples
 #' data(ple4)
-#' ialk <- invALK(params=FLPar(linf = 60, k = 2.29e-01, t0 = -1.37e+00),
-#'   model=vonbert, age=1:10, lmax=1.2)
-#' samps <- lenSamples(catch.n(ple4), invALK=ialk, n=250)
-NULL
-
-#' @examples
 #' indicators.len(ple4, indicators=c('lbar', 'lmean'),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
 #' indicators.len(ple4, indicators=c('lbar', lmean),
@@ -142,6 +150,10 @@ NULL
 #' data(ple4.index)
 #' indicators.len(ple4.index, indicators=c('lbar', 'lmean'),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='index')
+#' #
+#' ialk <- invALK(params=FLPar(linf = 60, k = 2.29e-01, t0 = -1.37e+00),
+#'   model=vonbert, age=1:10, lmax=1.2)
+#' samps <- lenSamples(catch.n(ple4), invALK=ialk, n=250)
 
 # TODO: LOOP over metric
 
@@ -192,7 +204,9 @@ indicators.len <- function (object, indicators="lbar", model=vonbert, params,
 
 # lenquantile {{{
 
-#' lenquantile: CALCULATE quantile of length distribution
+#' Calculate quantile(s) of length distribution
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' lenquantile(samps, 0.50)
 
@@ -232,6 +246,8 @@ lenquantile <- function(x, quantile=0.50) {
 # lmax5 {{{
 
 #' lmax5, Mean length of largest 5%
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' lmax5(samps)
 
@@ -256,6 +272,8 @@ lmax5 <- function(x) {
 # l95 {{{
 
 #' l95, 95% percentile
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' l95(samps)
 
@@ -276,6 +294,8 @@ l95 <- function(x) {
 # l25 {{{
 
 #' l25, 25% percentile
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' l25(samps)
 
@@ -297,6 +317,8 @@ l25 <- function(x) {
 # lc50 {{{
 
 #' lc50, Length at 50% of modal abundance
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' lc50(samps)
 
@@ -319,6 +341,8 @@ lc50 <- function(x) {
 # lmode {{{
 
 #' lmode, modal length
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' lmode(samps)
 
@@ -341,6 +365,8 @@ lmode <- function(x) {
 # lbar {{{
 
 #' lbar, mean length of individuals
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' lbar(samps)
 
@@ -359,10 +385,12 @@ lbar <- function(x) {
 # lmean {{{
 
 #' lmean, mean length of individuals > lmode
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' lmean(samps)
 #' # Linf(ple4) = 60
-#' lmean(samp) / (0.75 * lc50(samp) + 0.25 * 60) #
+#' lmean(samps) / (0.75 * lc50(samps) + 0.25 * 60) #
 
 lmean <- function(x) {
 
@@ -384,6 +412,8 @@ lmean <- function(x) {
 # lmaxy {{{
 
 #' lmaxy, length class with maximum biomass in catch
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' lenwt <- FLPar(a=0.01030, b=2.975)
 #' lmaxy(samps, lenwt)
@@ -416,6 +446,8 @@ lmaxy <- function(x, lenwt) {
 # pmega {{{
 
 #' pmega, Proportion of individuals above L opt + 10%
+#'
+#' @rdname length-based-indicators
 #' @examples
 #' pmega(samps, linf=60)
 
@@ -438,9 +470,11 @@ pmega <- function(x, linf, lopt=linf * 2/3) {
 # bheqz {{{
 
 #' bheqz, Beverton & Holt 
+#'
 #' z = (k * (linf - lmean)) / (lmean - lc)
 #' lmean = sum(naa * len) / sum(naa)
 #' lc, length at first capture
+#' @rdname length-based-indicators
 #' @examples
 #' linf <- 60
 #' k <- 2.29e-01

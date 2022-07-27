@@ -1763,3 +1763,22 @@ setMethod("summary", signature(object="FLStock"),
     }
   }
 ) # }}}
+
+# aac {{{
+
+#' @examples
+#' acc(ple4)
+
+setMethod("acc", signature(object="FLStock"),
+  function(object, metric="catch.n", 
+  ages=seq(range(x, 'minfbar'), range(x, 'plusgroup') - 1)) {
+
+  inp <- do.call(metric, list(object))[ages]
+
+  res <- acc(inp)
+
+  units(res) <- 'z'
+
+  return(res)
+})
+# }}}
