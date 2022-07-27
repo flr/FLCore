@@ -814,7 +814,7 @@ ifelse(log,return(log(r0)),return(r0))
 #' # OM 'realities' on stock status relative to refpt
 #' label <- rlnorm(100, log(ssb(ple4))[, '2017'], 0.2) < 850000
 #' # Model estimates of SSB
-#' ind <- rlnorm(100, log(ssb(ple4) * 1.05)[,'2017'], 0.6)
+#' ind <- rlnorm(1, log(ssb(ple4) * 1.05)[,'2017'], 0.6)
 #' # Compute TSS, returns data.frame
 #' roc(label, ind)
 #' ggplot(roc(label, ind), aes(x=FPR, y=TPR)) +
@@ -829,6 +829,11 @@ ifelse(log,return(log(r0)),return(r0))
 #'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
 
 roc <- function(label, ind) {
+
+  # PROPAGATE if needed
+  its <- max(dim(label)[6], dim(ind)[6])
+  label <- propagate(label, its)
+  ind <- propagate(ind, its)
 
   # CHECK dims match
   if(!all.equal(dim(label), dim(ind)))
