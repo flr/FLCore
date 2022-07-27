@@ -326,6 +326,7 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 #' where \eqn{H_{a,y}}{H_ay} is the harvest rate (proportion of catch in weight
 #' over total biomass).
 #' @seealso \code{\link{areaSums}}
+#' @rdname ssb
 #' @examples
 #' # SSB from FLStock
 #' ssb(ple4)
