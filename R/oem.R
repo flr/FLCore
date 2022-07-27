@@ -812,23 +812,18 @@ ifelse(log,return(log(r0)),return(r0))
 #' @examples
 #' data(ple4)
 #' set.seed(8723)
-#' # OM 'realities' on stock status relative to refpt
-#' state <- rlnorm(100, log(ssb(ple4))[, ac(2010:2017)], 0.1)
-#' # Model estimates of SSB
-#' ind <- rlnorm(100, log(ssb(ple4) * 1.12)[, ac(2010:2017)], 0.2)
+#' # OM 'realities' on stock status (fbar)
+#' state <- rlnorm(100, log(fbar(ple4))[, ac(2010:2017)], 0.3)
+#' # Model estimates of F
+#' ind <- acc(catch.n(ple4)[, ac(2010:2017)])
 #' # Compute TSS, returns data.frame
-#' roc(state < 850000, ind)
-#' ggplot(roc(state > 850000, ind), aes(x=FPR, y=TPR)) +
+#' roc(state < 0.22, ind)
+#' # Needs ggplotFL
+#' \dontrun{
+#' ggplot(roc(state < 0.22, ind), aes(x=FPR, y=TPR)) +
 #'   geom_line() +
 #'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
-#' with(roc(state > 850000, ind), auc(TPR, FPR))
-#' # Multiple years are computed together, but labelled
-#' label <- rlnorm(100, log(ssb(ple4)[, 52:61]), 0.2) < 850000
-#' ind <- rlnorm(100, log(ssb(ple4) * 1.05)[, 52:61], 0.6)
-#' roc(label, ind)
-#' ggplot(roc(label, ind), aes(x=TPR, y=FPR)) +
-#'   geom_line() +
-#'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
+#' }
 
 roc <- function(label, ind) {
 
@@ -883,9 +878,7 @@ roc <- function(label, ind) {
 #' function.
 #' @examples
 #' # Computes auc using the output of roc()
-#' with(roc(state > 850000, ind), auc(TPR, FPR))
-#' with(roc(state > 850000, state), auc(TPR, FPR))
-
+#' with(roc(state < 0.22, ind), auc(TPR, FPR))
 
 auc <- function(TPR, FPR){
 
