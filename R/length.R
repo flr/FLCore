@@ -16,7 +16,7 @@
 #'
 #' @rdname growth-models
 #' @examples
-#' vonbert(35, 0.352, -0.26, 1:14)
+#' vonbert(linf=35, k=0.352, t0=-0.26, age=1:14)
 
 vonbert <- function(linf, k, t0, age) {
   linf * (1.0 - exp((-k * (age - t0))))
@@ -498,4 +498,11 @@ bheqz <- function(x, linf, k, t0, lc=lc50(x)) {
 }
 # }}}
 
+# TODO: lopt (Froese, 2008, Minimizing the impact ...)
 
+#' @examples
+#' lopt(linf=35, m=0.1, k=0.352)
+
+lopt <- function(linf, m, k) {
+  return(linf * (3 / (3 + m/k)))
+}

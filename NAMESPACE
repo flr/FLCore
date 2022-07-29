@@ -148,6 +148,7 @@ export(
   "lbar",
   "lmean",
   "lmaxy",
+  "lopt",
   "pmega",
   "bheqz",
   "mbar",
