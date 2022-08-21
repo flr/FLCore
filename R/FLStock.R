@@ -415,7 +415,7 @@ setMethod("fbar", signature(object="FLStock"),
 	}
 )	# }}}
 
-# hr
+# hr {{{
 setMethod("hr", signature(object="FLStock"),
  function(object, ...) {
 	 
@@ -440,7 +440,7 @@ setMethod("hr", signature(object="FLStock"),
   return(quantMeans(out[rages, ]))
  }
 )
-
+# }}}
 
 # mbar {{{
 
