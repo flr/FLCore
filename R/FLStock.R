@@ -1686,7 +1686,7 @@ setMethod("adjust", signature(object="FLStock"),
   landings.n(object)[is.na(landings.n(object))] <- 0
   discards.n(object)[is.na(discards.n(object))] <- 0
   
-  landings.n(object) <- catch.n(object) * discards.n(object) / 
+  landings.n(object) <- catch.n(object) * landings.n(object) / 
     (discards.n(object) + landings.n(object))
 
   discards.n(object) <- catch.n(object) - landings.n(object)
