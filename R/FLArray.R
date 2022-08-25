@@ -821,7 +821,7 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 
   } else {
     
-    dms <- which(dim(tst) > 1)
+    dms <- which(dim(X) > 1)
     ddim <- c(dms[!dms %in% MARGIN], MARGIN)
 
     X[] <- aperm(data, order(ddim))
