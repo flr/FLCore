@@ -790,7 +790,7 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
 
   data <- apply(X@.Data, MARGIN, FUN, ...)
   
-  if(length(dim(data))<=length(MARGIN)){
+  if(length(dim(data)) <= length(MARGIN)) {
 
     # set dim
     dim <- c(1,1,1,1,1,1)
@@ -819,7 +819,12 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
     if(is(flq, 'FLQuant')) quant(flq) <- quant(X)
     return(flq)
   } else {
-    X[] <- data
+    
+    dims <- which(dim(tst) > 1)
+    ddim <- c(dims[!dims %in% MARGIN], MARGIN)
+
+    X[] <- aperm(data, order(ddim))
+
     return(X)
   }
 })   # }}}
