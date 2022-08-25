@@ -818,10 +818,11 @@ setMethod("apply", signature(X="FLArray", MARGIN="numeric", FUN="function"),
     # set quant
     if(is(flq, 'FLQuant')) quant(flq) <- quant(X)
     return(flq)
+
   } else {
     
-    dims <- which(dim(tst) > 1)
-    ddim <- c(dims[!dims %in% MARGIN], MARGIN)
+    dms <- which(dim(tst) > 1)
+    ddim <- c(dms[!dms %in% MARGIN], MARGIN)
 
     X[] <- aperm(data, order(ddim))
 
