@@ -28,7 +28,7 @@ richards
 data(ple4)
 vonbert
 
-vonbert(35, 0.352, -0.26, 1:14)
+vonbert(linf=35, k=0.352, t0=-0.26, age=1:14)
 ivonbert(35, 0.352, -0.26, 1:34)
 gompertz(linf=179.13, k=0.4088, a=1.7268, age=1:12)
 richards(linf=178.63, k=0.424, b=-7.185, m=2880.4, age=1:12)

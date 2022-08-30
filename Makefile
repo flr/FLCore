@@ -38,7 +38,7 @@ update:
 spell:
 	R -e "spelling::spell_check_package()"
 
-release: spell build docs
+release: NEWS.md spell docs
 	
 build: README.md NEWS
 	cd ..;\

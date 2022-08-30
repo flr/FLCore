@@ -3,11 +3,14 @@
  NEW FEATURES
 
 - New method for vb(FLBiol, sel=FLQuant)
-- mbar(FLStock) returns the mean natural mortality, M, over the fully selected age range.
+- mbar(FLStock) returns the mean natural mortality, M, over the fully selected age 
+  range.
 - window(FLlst) will lapply window over all elements.
 - computeQ(FLindices, FLStock, FLQuants) computes index.q from indices and fit.
 - comine() method now available for all (or most) classes.
 - New SRR model, bevholtisg, implements a sigmoidal Beverton-Holt model.
+- Class FLStockR contains slots for reference points (@refpts, FLPar) and stock 
+  recruitment relationship (@sr, predictModel).
 
  BUG FIXES
 
@@ -15,7 +18,7 @@
 - Ensure harvest(FLQuant) returns 0 when catch or n are 0.
 - Further improvements to simplify. nounit, noseason and noarea do nmot call harvest().
 - qapply now works properly in noseason.
-- fwdWindow(FLBiol) did not respect $residuals FLQuant sometimes.
+- fwdWindow(FLBiol) did not respect residuals FLQuant sometimes.
 
  USER-VISIBLE CHANGES
 
