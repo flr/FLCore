@@ -109,129 +109,129 @@ classes, see below.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># from FLQuant to data.frame</span></span></span>
 <span class="r-in"><span><span class="fu">as</span><span class="op">(</span><span class="fu"><a href="FLQuant.html">FLQuant</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, dim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span>, <span class="st">"data.frame"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     quant year   unit season   area iter         data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       1    1 unique    all unique    1 -0.998318378</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       2    1 unique    all unique    1 -0.750756640</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       3    1 unique    all unique    1  0.694349678</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       4    1 unique    all unique    1  1.177969367</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       5    1 unique    all unique    1 -1.343776021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       1    2 unique    all unique    1  0.784045356</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       2    2 unique    all unique    1  0.898464972</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       3    2 unique    all unique    1 -0.793644096</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       4    2 unique    all unique    1  0.003553253</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      5    2 unique    all unique    1 -0.565666314</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      1    3 unique    all unique    1  1.507908733</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      2    3 unique    all unique    1  1.551730355</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      3    3 unique    all unique    1  1.018311864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      4    3 unique    all unique    1  0.305246159</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15      5    3 unique    all unique    1  1.627606030</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16      1    4 unique    all unique    1 -0.350794318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17      2    4 unique    all unique    1 -0.083377895</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18      3    4 unique    all unique    1 -1.619366181</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19      4    4 unique    all unique    1 -1.263518699</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20      5    4 unique    all unique    1 -1.121491316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21      1    5 unique    all unique    1 -0.715618973</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22      2    5 unique    all unique    1 -0.028466532</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23      3    5 unique    all unique    1  0.575611160</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24      4    5 unique    all unique    1  1.189979870</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25      5    5 unique    all unique    1 -1.746664498</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26      1    6 unique    all unique    1  0.719010272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27      2    6 unique    all unique    1  0.624075989</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28      3    6 unique    all unique    1 -1.187019201</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29      4    6 unique    all unique    1  1.401031808</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30      5    6 unique    all unique    1  0.266998546</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31      1    7 unique    all unique    1 -0.454283680</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32      2    7 unique    all unique    1 -0.574766435</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33      3    7 unique    all unique    1  0.558501599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34      4    7 unique    all unique    1 -0.187920427</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35      5    7 unique    all unique    1 -0.175992139</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36      1    8 unique    all unique    1 -0.024242530</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37      2    8 unique    all unique    1 -0.520600257</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38      3    8 unique    all unique    1 -0.553703415</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39      4    8 unique    all unique    1 -0.863621352</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40      5    8 unique    all unique    1 -0.295159378</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41      1    9 unique    all unique    1 -0.646976460</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42      2    9 unique    all unique    1 -0.039363067</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43      3    9 unique    all unique    1  0.844185889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44      4    9 unique    all unique    1 -0.527447794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45      5    9 unique    all unique    1 -0.023664689</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46      1   10 unique    all unique    1 -1.414292714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47      2   10 unique    all unique    1  1.062937576</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48      3   10 unique    all unique    1  1.359288674</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49      4   10 unique    all unique    1 -0.202599569</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50      5   10 unique    all unique    1  1.242196800</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51      1   11 unique    all unique    1 -2.001037479</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52      2   11 unique    all unique    1  0.785533920</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53      3   11 unique    all unique    1 -1.000113212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54      4   11 unique    all unique    1  0.032301581</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55      5   11 unique    all unique    1  0.218546260</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56      1   12 unique    all unique    1  0.143100921</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57      2   12 unique    all unique    1  1.464565308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58      3   12 unique    all unique    1 -0.440446914</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59      4   12 unique    all unique    1  0.515202161</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60      5   12 unique    all unique    1  1.171888028</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61      1   13 unique    all unique    1  0.955555143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62      2   13 unique    all unique    1  0.512831796</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63      3   13 unique    all unique    1 -0.194553126</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64      4   13 unique    all unique    1 -0.636101629</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65      5   13 unique    all unique    1 -1.039109693</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66      1   14 unique    all unique    1 -0.701478815</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67      2   14 unique    all unique    1  0.355770347</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68      3   14 unique    all unique    1  1.554282166</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69      4   14 unique    all unique    1 -0.542431228</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70      5   14 unique    all unique    1  1.347899949</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71      1   15 unique    all unique    1  1.064992061</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72      2   15 unique    all unique    1  0.168350250</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73      3   15 unique    all unique    1  0.354755692</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74      4   15 unique    all unique    1  2.537079613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75      5   15 unique    all unique    1 -0.609275021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76      1   16 unique    all unique    1 -1.400162267</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77      2   16 unique    all unique    1 -0.206962696</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78      3   16 unique    all unique    1  1.104155490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79      4   16 unique    all unique    1 -0.120435024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80      5   16 unique    all unique    1 -1.267800003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81      1   17 unique    all unique    1 -0.559595172</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82      2   17 unique    all unique    1 -0.078233848</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83      3   17 unique    all unique    1 -0.563483868</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84      4   17 unique    all unique    1 -0.486674608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85      5   17 unique    all unique    1 -0.961438901</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86      1   18 unique    all unique    1  0.319437755</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87      2   18 unique    all unique    1  0.679952646</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88      3   18 unique    all unique    1  0.405212906</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89      4   18 unique    all unique    1 -0.358078487</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90      5   18 unique    all unique    1 -0.259698505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91      1   19 unique    all unique    1  1.293011712</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92      2   19 unique    all unique    1 -0.568313359</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 93      3   19 unique    all unique    1  0.893063009</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94      4   19 unique    all unique    1 -2.265115541</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95      5   19 unique    all unique    1 -0.358569741</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96      1   20 unique    all unique    1  1.472133338</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97      2   20 unique    all unique    1 -0.484490138</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 98      3   20 unique    all unique    1 -0.885213695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99      4   20 unique    all unique    1  1.347024971</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100     5   20 unique    all unique    1 -0.801857588</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       1    1 unique    all unique    1 -0.971904290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       2    1 unique    all unique    1 -0.920309240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       3    1 unique    all unique    1  0.112784256</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       4    1 unique    all unique    1  0.814959646</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       5    1 unique    all unique    1 -0.348145715</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       1    2 unique    all unique    1  1.834351127</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       2    2 unique    all unique    1  1.345839592</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       3    2 unique    all unique    1  1.075077171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9       4    2 unique    all unique    1 -0.916756085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10      5    2 unique    all unique    1 -0.388359689</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11      1    3 unique    all unique    1 -1.765808552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12      2    3 unique    all unique    1 -0.575587103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13      3    3 unique    all unique    1  0.530274794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14      4    3 unique    all unique    1  0.075310115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15      5    3 unique    all unique    1  0.380117900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16      1    4 unique    all unique    1  0.629893380</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17      2    4 unique    all unique    1 -0.269176963</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18      3    4 unique    all unique    1 -0.040169717</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19      4    4 unique    all unique    1 -0.473780135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20      5    4 unique    all unique    1  1.111027929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21      1    5 unique    all unique    1 -0.727567069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22      2    5 unique    all unique    1  0.600876811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23      3    5 unique    all unique    1 -0.868420752</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24      4    5 unique    all unique    1 -0.114403554</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25      5    5 unique    all unique    1  0.017370018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26      1    6 unique    all unique    1 -0.707514215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27      2    6 unique    all unique    1 -0.883215610</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28      3    6 unique    all unique    1 -0.475814830</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29      4    6 unique    all unique    1  1.011417120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30      5    6 unique    all unique    1 -0.326712913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31      1    7 unique    all unique    1 -0.164163753</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32      2    7 unique    all unique    1 -0.144054819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33      3    7 unique    all unique    1  0.279944358</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34      4    7 unique    all unique    1 -0.057611432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35      5    7 unique    all unique    1  0.625955675</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36      1    8 unique    all unique    1  0.024183019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37      2    8 unique    all unique    1  0.937531395</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38      3    8 unique    all unique    1  0.924879628</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39      4    8 unique    all unique    1  0.536961692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40      5    8 unique    all unique    1  0.570516933</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41      1    9 unique    all unique    1  0.349504683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42      2    9 unique    all unique    1  0.835901600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43      3    9 unique    all unique    1 -0.148895762</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44      4    9 unique    all unique    1 -0.763061416</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45      5    9 unique    all unique    1  1.930156525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46      1   10 unique    all unique    1  0.618235224</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47      2   10 unique    all unique    1  0.168878103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48      3   10 unique    all unique    1 -1.879957768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49      4   10 unique    all unique    1  0.040721634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50      5   10 unique    all unique    1 -0.988549352</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51      1   11 unique    all unique    1 -1.034635369</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52      2   11 unique    all unique    1 -0.503174445</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53      3   11 unique    all unique    1  0.478393318</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54      4   11 unique    all unique    1  0.209380248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55      5   11 unique    all unique    1 -0.808264817</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56      1   12 unique    all unique    1  1.312909089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57      2   12 unique    all unique    1  1.579021303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58      3   12 unique    all unique    1  0.006925585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59      4   12 unique    all unique    1 -0.077691086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60      5   12 unique    all unique    1  0.946595282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61      1   13 unique    all unique    1  0.324063803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62      2   13 unique    all unique    1  0.773310943</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63      3   13 unique    all unique    1  0.399921554</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64      4   13 unique    all unique    1 -1.354917785</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65      5   13 unique    all unique    1 -0.024216296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66      1   14 unique    all unique    1  0.194480430</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67      2   14 unique    all unique    1 -0.240357670</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68      3   14 unique    all unique    1  2.103750277</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69      4   14 unique    all unique    1 -1.643410992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70      5   14 unique    all unique    1  0.251751922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71      1   15 unique    all unique    1  0.402445563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72      2   15 unique    all unique    1 -1.563393477</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73      3   15 unique    all unique    1  0.387807703</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74      4   15 unique    all unique    1 -0.226803822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75      5   15 unique    all unique    1  0.398417982</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76      1   16 unique    all unique    1  0.062722277</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77      2   16 unique    all unique    1 -1.054667408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78      3   16 unique    all unique    1 -0.996071714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79      4   16 unique    all unique    1  0.727946839</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80      5   16 unique    all unique    1  0.832254114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81      1   17 unique    all unique    1 -1.293235374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82      2   17 unique    all unique    1  2.834481167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83      3   17 unique    all unique    1  0.110986298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84      4   17 unique    all unique    1 -1.611360820</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85      5   17 unique    all unique    1  0.338446429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86      1   18 unique    all unique    1 -0.661012400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87      2   18 unique    all unique    1 -1.565615294</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88      3   18 unique    all unique    1  0.619077438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89      4   18 unique    all unique    1  0.396163021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90      5   18 unique    all unique    1  0.464085846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91      1   19 unique    all unique    1 -1.052961468</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92      2   19 unique    all unique    1 -1.069160603</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93      3   19 unique    all unique    1 -0.188303536</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94      4   19 unique    all unique    1  2.077527159</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95      5   19 unique    all unique    1  0.783749767</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96      1   20 unique    all unique    1  0.962378322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97      2   20 unique    all unique    1  0.516531552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98      3   20 unique    all unique    1 -0.164192086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99      4   20 unique    all unique    1  0.273754909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100     5   20 unique    all unique    1 -0.851713993</span>
 <span class="r-in"><span><span class="co"># from FLPar to data.frame</span></span></span>
 <span class="r-in"><span><span class="fu">as</span><span class="op">(</span><span class="fu"><a href="FLPar.html">FLPar</a></span><span class="op">(</span>phi<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, rho<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Lognormal.html" class="external-link">rlnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>, <span class="st">"data.frame"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    params iter       data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     phi    1 0.39158613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     rho    1 1.97079517</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     phi    2 0.57230541</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     rho    2 0.22328967</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     phi    3 0.38101909</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     rho    3 1.41215060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     phi    4 1.64617399</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     rho    4 0.64969880</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     phi    5 1.06112140</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    rho    5 0.44706074</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    phi    6 0.03319115</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    rho    6 1.17621297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    phi    7 0.88241350</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14    rho    7 2.30267411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    phi    8 0.36587718</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16    rho    8 0.77870125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17    phi    9 1.19958622</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18    rho    9 0.53869305</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19    phi   10 0.18458684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20    rho   10 4.08874551</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    params iter         data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     phi    1  0.230041462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     rho    1  1.250644437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     phi    2 -0.916979988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     rho    2  0.891909492</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     phi    3 -0.153234163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     rho    3  1.159200049</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     phi    4 -1.200725783</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     rho    4  1.227119744</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     phi    5 -0.002197989</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    rho    5  2.869683545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    phi    6  0.705192144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    rho    6  0.842707296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    phi    7 -0.084626146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    rho    7  1.325474034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    phi    8 -0.227795958</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    rho    8  0.830076993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    phi    9  0.274141643</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    rho    9  0.281066891</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    phi   10 -1.648381367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    rho   10  0.806694042</span>
 </code></pre></div>
     </div>
   </div>
