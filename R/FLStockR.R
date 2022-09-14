@@ -169,5 +169,15 @@ setReplaceMethod("sr", signature(object="FLStockR", value="formula"),
 
 # fwd
 
+# coerce {{{
+setAs('FLStockR', 'FLStock',
+  function(from) {
+
+    res <- FLStock()
+    for(i in slotNames(res))
+      slot(res, i) <- slot(from, i)
+
+    return(res)
+  }
 # }}}
 
