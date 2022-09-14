@@ -362,7 +362,8 @@ function(x, units="NA", ...) {
     n <- dim(x)[1]
     # TODO conversion to/x factor messes up dimnames order
     em <- data.frame(quant=rep('all', n), year=rep(1,n), unit=rep('unique',n),
-      season=rep('all',n), area=rep('unique',n), iter=rep(1,n), stringsAsFactors=FALSE)
+      season=rep('all',n), area=rep('unique',n), iter=rep(1,n), 
+      stringsAsFactors=FALSE)
     names(em)[names(em)=="quant"] <- qname
 
     x[, !names(x) %in% c("data")] <- as.data.frame(x[,!names(x) %in% c("data")],
@@ -383,7 +384,7 @@ function(x, units="NA", ...) {
     names(dimnames(flq)) <- c(qname, 'year', 'unit', 'season', 'area', 'iter')
 
     # create FLQuant
-    flq <- FLQuant(flq, ...)
+    flq <- FLQuant(flq, units=units, ...)
 
     # units
     if(exists("units"))
@@ -396,7 +397,7 @@ function(x, units="NA", ...) {
       dims(flq)$maxyear))))
     {
       res <- FLQuant(dimnames=c(dimnames(flq)[1], list(year=seq(dims(flq)$minyear,
-        dims(flq)$maxyear)), dimnames(flq)[3:6]), ...)
+        dims(flq)$maxyear)), dimnames(flq)[3:6]), units=units, ...)
       res[,dimnames(flq)[['year']],] <- flq
       flq <- res
     }
