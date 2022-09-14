@@ -1,6 +1,6 @@
 Package: FLCore
 Title: Core Package of FLR, Fisheries Modelling in R
-Version: 2.6.19
+Version: 2.6.19.9001
 Authors@R: c(
   person("Iago", "Mosqueira", email = "iago.mosqueira@wur.nl",
     role = "cre", comment=c(c(ORCID = "0000-0002-3252-0591"))),
@@ -12,6 +12,7 @@ Description: Core classes and methods for FLR, a framework for fisheries
   fisheries scientists in various countries. More information can be found at
   <http://flr-project.org/>.
 X-schema.org-keywords: fisheries, flr, R
+License: GPL (>= 2)
 Depends:
   R(>= 4.0),
   lattice,
@@ -30,9 +31,7 @@ Suggests:
   testthat,
   rlang,
   hedgehog
-License: GPL (>= 2)
-Language: en-GB
-Repository: flr
+VignetteBuilder: knitr
 URL: http://flr-project.org/FLCore
 BugReports: https://github.com/flr/FLCore/issues
 Collate:
