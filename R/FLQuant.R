@@ -469,6 +469,39 @@ setMethod("dims", signature(obj="FLQuant"),
   }
 )   # }}}
 
+# ages {{{
+
+#' @examples
+#' ages(m(ple4))
+#' # Seasonal objects get decimal ages
+#' ages(expand(m(ple4), season=1:4))[,,,1]
+#' ages(expand(m(ple4), season=1:4))[,,,2]
+
+setMethod("ages", signature(object="FLQuant"),
+  function(object) {
+    
+  res <- FLQuant(an(dimnames(object)$age), dimnames=dimnames(object),
+    units="")
+
+  # TODO: DEAL with (spawning) units + seasons (e.g. SKJ)
+
+  # SEASONAL object
+  if(dim(res)[4] > 1) {
+
+    nseas <- dim(object)[4]
+    
+    seas <- do.call(expand, c(list(x=FLQuant(seq(0, length=nseas, by=1 / nseas),
+      dimnames=list(season=dimnames(object)$season), quant=quant(object), 
+      units="")), dimnames(object)[-4]))
+
+    res <- res + seas
+  }
+
+  return(res)
+  }
+)
+# }}}
+
 # is.FLQuant       {{{
 is.FLQuant  <-  function(x)
 return(is(x, "FLQuant"))

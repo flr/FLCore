@@ -178,6 +178,6 @@ setAs('FLStockR', 'FLStock',
       slot(res, i) <- slot(from, i)
 
     return(res)
-  }
+  })
 # }}}
 

@@ -798,8 +798,7 @@ ifelse(log,return(log(r0)),return(r0))
 # roc {{{
 
 #' Receiver Operating 
-
-#' @rdname roc
+#'
 #' A receiver operating characteristic curve (ROC) shows the ability of a
 #' binary classifier. Here it is applied to compare two sets of values,
 #' stored as two FLQuant objects. The first is the result of aplying a logical
@@ -871,11 +870,12 @@ roc <- function(label, ind) {
 
 # auc {{{
 
-#' @rdname roc
+#' Area under the curve
 #' The area under the ROC (auc, Area under the Curve), is calculated from
 #' the true and false positive rates (TPR and FPR). The two columns
 #' returned by the `roc()` function with those names ca be passed on to this 
 #' function.
+#' @rdname roc
 #' @examples
 #' # Computes auc using the output of roc()
 #' with(roc(state < 0.22, ind), auc(TPR, FPR))

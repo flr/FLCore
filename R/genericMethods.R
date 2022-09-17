@@ -1992,3 +1992,6 @@ setGeneric("group", function(x, FUN, ...)
 setGeneric("acc", function(object, ...)
 		standardGeneric("acc"))
 # }}}
+
+setGeneric("ages", function(object, ...)
+		standardGeneric("ages"))
