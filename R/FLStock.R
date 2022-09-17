@@ -2028,3 +2028,33 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   return(object)
 }
 # }}}
+
+# ageopt {{{
+
+#' @examples
+#' ageopt(ple4)
+
+setMethod("ageopt", signature(object="FLStock"),
+  function(object) {
+  
+  fbar <- fbar(object)%=%0
+  object <- window(object, start=dims(object)$minyear - 1)
+  
+  stock.n(object)[1] <- 1
+
+  object <- ffwd(object, fbar=fbar[, -1],
+    sr=predictModel(model="geomean", params=FLPar(a=1)))[, -1]
+  
+  res <- stock.wt(object)[,-1] * stock.n(object)[,-1]
+  
+  if (is.na(range(object, "plusgroup"))) {
+    res <- apply(res, c(2:6), function(x) as.numeric(names(x)[x == max(x)]))
+  } else {
+    res <- apply(res[-dim(res)[1]], c(2:6), function(x)
+      as.numeric(names(x)[x==max(x)]))
+  }
+  units(res) <- ""
+
+  return(res)
+})
+# }}}

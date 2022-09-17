@@ -257,6 +257,7 @@ exportMethods(
   "acc",
   "ab",
   "adjust",
+  "ageopt",
   "ages",
   "AIC",
   "apply",

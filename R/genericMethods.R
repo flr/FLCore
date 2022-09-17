@@ -1995,3 +1995,7 @@ setGeneric("acc", function(object, ...)
 
 setGeneric("ages", function(object, ...)
 		standardGeneric("ages"))
+
+setGeneric("ageopt", function(object, ...)
+  standardGeneric("ageopt"))
+
