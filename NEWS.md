@@ -1,3 +1,9 @@
+# FLCore 2.6.20
+
+## NEW FEATURES
+
+- ffwd projects an FLStock for a mean fishing mortality (fbar) target.
+
 # FLCore 2.6.19
 
 ## NEW FEATURES
