@@ -848,8 +848,8 @@ setMethod("survprob", signature(object="FLArray"),
 
 # window           {{{
 setMethod("window", signature(x="FLArray"),
-  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE, frequency=1)
-  {
+  function(x, start=dims(x)$minyear, end=dims(x)$maxyear, extend=TRUE,
+    frequency=1) {
 
     # get original min and max
     dnames <- dimnames(x)
@@ -868,9 +868,11 @@ setMethod("window", signature(x="FLArray"),
       else
         stop("'extend' is numeric and 'end' provided, don't know what to do")
 
-    # IF end is negative, substract from object
+    # IF end or start are negative, substract from object
     if(end < 0)
       end <- dims(x)$maxyear + end
+    if(start < 0)
+      start <- dims(x)$maxyear + start + 1
     
     # construct new object
     d2nms <- as.character(seq(start, end, by=frequency))
