@@ -2056,6 +2056,7 @@ setMethod("merge", signature(x="FLQuant", y="FLQuant"),
     ys <- unique(c(dnx[[2]], dny[[2]]))
 
     out <- FLQuant(NA, dimnames=c(list(quant=qs, year=ys), dnx[3:6]))
+    quant(out) <- quant(x)
 
     out[dnx[[1]], dnx[[2]]] <- x[dnx[[1]], dnx[[2]]]
     out[dny[[1]], dny[[2]]] <- y[dny[[1]], dny[[2]]]
