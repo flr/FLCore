@@ -258,3 +258,12 @@ setMethod("unitSums", signature(x="FLQuants"),
   })
 
 # }}}
+
+# merge {{{
+setMethod("merge", signature(x="FLQuants", y="FLQuants"),
+  function(x, y) {
+  return(FLQuants(Map(merge, x=x, y=y)))
+  }
+)
+
+# }}}

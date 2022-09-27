@@ -2029,3 +2029,38 @@ setMethod("acc", signature(object="FLQuant"),
 
 })
 # }}}
+
+# merge(FLQuant) {{{
+
+#' @examples
+#' # merge by year
+#' a <- FLQuant(34, dimnames=list(year=2000))
+#' b <- FLQuant(32, dimnames=list(year=2001))
+#' merge(a, b)
+#' # merge by quant
+#' a <- FLQuant(54, dimnames=list(age=1))
+#' b <- FLQuant(29, dimnames=list(age=2))
+#' merge(a, b)
+
+setMethod("merge", signature(x="FLQuant", y="FLQuant"),
+  function(x, y) {
+
+    dnx <- dimnames(x)
+    dny <- dimnames(y)
+
+    # CHECK only quant AND/OR year to be merged
+    if(!all.equal(dnx[-c(1,2)], dny[-c(1,2)]))
+      stop("merge needs FLQuant objects with equal dimnames[3:6]")
+
+    qs <- unique(c(dnx[[1]], dny[[1]]))
+    ys <- unique(c(dnx[[2]], dny[[2]]))
+
+    out <- FLQuant(NA, dimnames=c(list(quant=qs, year=ys), dnx[3:6]))
+
+    out[dnx[[1]], dnx[[2]]] <- x[dnx[[1]], dnx[[2]]]
+    out[dny[[1]], dny[[2]]] <- y[dny[[1]], dny[[2]]]
+
+    return(out)
+  }
+)
+# }}}
