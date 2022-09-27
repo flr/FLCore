@@ -448,6 +448,7 @@ exportMethods(
   "mean",
   "mean<-",
   "meanLifespan",
+  "merge",
   "metrics",
   "mcf",
   "median",

@@ -143,7 +143,7 @@ mlc <- function(samples) {
 #' - ICES. 2020. Tenth Workshop on the Development of Quantitative Assessment Methodologies based on LIFE-history traits, exploitation characteristics, and other relevant parameters for data-limited stocks (WKLIFE X). ICES Scientific Reports. 2:98. 72 pp. http://doi.org/10.17895/ices.pub.5985
 #' @examples
 #' data(ple4)
-#' indicators.len(ple4, indicators=c('lbar', 'lmean'),
+#' indicators.len(ple4, indicators=c('lbar'),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
 #' indicators.len(ple4, indicators=c('lbar', lmean),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
