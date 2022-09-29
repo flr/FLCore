@@ -1158,14 +1158,14 @@ setMethod('combine', signature(x='FLModel', y='FLModel'),
     if(length(dim(vcov(x))) >= 2) {
       vcov(res) <- array(Reduce(c, lapply(args, vcov)),
         dim=c(dim(vcov(x))[1:2], sum(its)),
-        dimnames=c(dimnames(vcov(x))[1:2], list(iter=seq(its))))
+        dimnames=c(dimnames(vcov(x))[1:2], list(iter=seq(sum(its)))))
     }
     
     # hessian
     if(length(dim(hessian(x))) >= 2) {
     hessian(res) <- array(Reduce(c, lapply(args, hessian)),
       dim=c(dim(hessian(x))[1:2], sum(its)),
-      dimnames=c(dimnames(hessian(x))[1:2], list(iter=seq(its))))
+      dimnames=c(dimnames(hessian(x))[1:2], list(iter=seq(sum(its)))))
     }
 
     return(res)
