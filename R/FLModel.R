@@ -877,15 +877,15 @@ setMethod("iter", signature(obj="FLModel"),
     # vcov
     if(length(dim(vcov(obj))) > 2)
       if(dim(vcov(obj))[3] > 1)
-        vcov(obj) <- vcov(obj)[,,it]
+        vcov(obj) <- vcov(obj)[,, it, drop = FALSE]
       else
-        vcov(obj) <- vcov(obj)[,,1]
+        vcov(obj) <- vcov(obj)[,, 1, drop = FALSE]
     # hessian
     if(length(dim(hessian(obj))) > 2)
       if(dim(hessian(obj))[3] > 1)
-        hessian(obj) <- hessian(obj)[,,it]
+        hessian(obj) <- hessian(obj)[,, it, drop = FALSE]
       else
-        hessian(obj) <- hessian(obj)[,,1]
+        hessian(obj) <- hessian(obj)[,, 1, drop = FALSE]
     # logLik
     logLik(obj) <- iter(obj@logLik, it)
 
