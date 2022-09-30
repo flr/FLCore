@@ -875,11 +875,17 @@ setMethod("iter", signature(obj="FLModel"),
     # params
     params(obj) <- iter(params(obj), it)
     # vcov
-    if(length(dim(vcov)) > 2)
-      if(dim(vcov)[3] > 1)
-        vcov(obj) <- vcov(obj)[,,it]
+    if(length(dim(vcov(obj))) > 2)
+      if(dim(vcov(obj))[3] > 1)
+        vcov(obj) <- vcov(obj)[,, it, drop = FALSE]
       else
-        vcov(obj) <- vcov(obj)[,,1]
+        vcov(obj) <- vcov(obj)[,, 1, drop = FALSE]
+    # hessian
+    if(length(dim(hessian(obj))) > 2)
+      if(dim(hessian(obj))[3] > 1)
+        hessian(obj) <- hessian(obj)[,, it, drop = FALSE]
+      else
+        hessian(obj) <- hessian(obj)[,, 1, drop = FALSE]
     # logLik
     logLik(obj) <- iter(obj@logLik, it)
 
@@ -1152,14 +1158,14 @@ setMethod('combine', signature(x='FLModel', y='FLModel'),
     if(length(dim(vcov(x))) >= 2) {
       vcov(res) <- array(Reduce(c, lapply(args, vcov)),
         dim=c(dim(vcov(x))[1:2], sum(its)),
-        dimnames=c(dimnames(vcov(x))[1:2], list(iter=seq(its))))
+        dimnames=c(dimnames(vcov(x))[1:2], list(iter=seq(sum(its)))))
     }
     
     # hessian
     if(length(dim(hessian(x))) >= 2) {
     hessian(res) <- array(Reduce(c, lapply(args, hessian)),
       dim=c(dim(hessian(x))[1:2], sum(its)),
-      dimnames=c(dimnames(hessian(x))[1:2], list(iter=seq(its))))
+      dimnames=c(dimnames(hessian(x))[1:2], list(iter=seq(sum(its)))))
     }
 
     return(res)
