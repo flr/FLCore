@@ -474,22 +474,33 @@ setMethod("summary", signature(object="FLBiol"),
 #' @rdname FLBiol
 #' @aliases FLBiol,missing-method FLBiol,FLQuant-method FLBiolcpp-class
 setMethod('FLBiol', signature(object='FLQuant'),
-  function(object, plusgroup=dims(object)$max, ...)
-  {
+  function(object, plusgroup=dims(object)$max, ...) {
+
     args <- list(...)
 
     # empty object
-    # TODO
     object[] <- NA
     units(object) <- "NA"
 
     dims <- dims(object)
 
+    # PARSE mat and rec if FLQuant
+    if(is(args$mat, "FLQuant"))
+      args$mat <- new('predictModel', FLQuants(mat=args$mat),
+        model=as.formula("~mat", env=emptyenv()))
+
+    if(is(args$rec, "FLQuant"))
+      args$rec <- new('predictModel', FLQuants(mat=args$rec),
+        model=as.formula("~rec", env=emptyenv()))
+
     res <- new("FLBiol",
       n=object, m=object, wt=object, spwn=object[1,],
-      mat = new('predictModel', FLQuants(mat=object), model=as.formula("~mat", env=emptyenv())),
-      fec = new('predictModel', FLQuants(fec=object), model=as.formula("~fec", env=emptyenv())),
-      rec = new('predictModel', FLQuants(rec=object[1,]), model=as.formula("~rec", env=emptyenv())),
+      mat = new('predictModel', FLQuants(mat=object),
+        model=as.formula("~mat", env=emptyenv())),
+      fec = new('predictModel', FLQuants(fec=object),
+        model=as.formula("~fec", env=emptyenv())),
+      rec = new('predictModel', FLQuants(rec=object[1,]),
+        model=as.formula("~rec", env=emptyenv())),
       range = unlist(list(min=dims$min, max=dims$max, plusgroup=plusgroup,
         minyear=dims$minyear, maxyear=dims$maxyear)))
 
@@ -506,18 +517,20 @@ setMethod('FLBiol', signature(object='FLQuant'),
 )
 
 setMethod('FLBiol', signature(object='missing'),
-  function(...)
-  {
+  function(...) {
     args <- list(...)
 
     slots <- unlist(lapply(args, function(x) is(x, 'FLQuant')))
     slots <- names(slots[slots])
+
     # if no FLQuant argument given, then use empty FLQuant
     if(length(slots) == 0)
       object <- FLQuant()
+    
     # if 1, use it
     else if(length(slots) == 1)
       object <- args[[slots[1]]]
+    
     # if 2+, use !spwn
     else {
       slots <- slots[!slots %in% 'spwn']
