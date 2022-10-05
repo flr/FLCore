@@ -598,8 +598,15 @@ setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
   }
 )
 
-
-
+setMethod("Compare", signature(e1 = "FLPar", e2 = "FLArray"),
+  function(e1, e2) {
+    return(c(callGeneric(c(e1), c(e2))))
+  })
+ 
+setMethod("Compare", signature(e1 = "FLArray", e2 = "FLPar"),
+  function(e1, e2) {
+    return(c(callGeneric(c(e1), c(e2))))
+  })
  
  # }}}
 
