@@ -909,6 +909,9 @@ setMethod('combine', signature(x='FLBiol', y='FLBiol'),
 
     # fec
     res@fec <- do.call(combine, lapply(args, slot, "fec"))
+    
+    # rec
+    res@rec <- do.call(combine, lapply(args, slot, "rec"))
 
     return(res)
   }
