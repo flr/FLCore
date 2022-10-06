@@ -333,3 +333,11 @@ setMethod('expand', signature(x='FLIndex'),
     return(x)
   }
 ) # }}}
+
+# biomass {{{
+setMethod("biomass", signature(x="FLIndex"),
+  function(x) {
+    quantSums(index(x) * catch.wt(x))
+  }
+)
+# }}}
