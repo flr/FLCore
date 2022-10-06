@@ -597,7 +597,9 @@ setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
     }
   }
 )
+# }}}
 
+# Compare {{{
 setMethod("Compare", signature(e1 = "FLPar", e2 = "FLArray"),
   function(e1, e2) {
     return(c(callGeneric(c(e1), c(e2))))

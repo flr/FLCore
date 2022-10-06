@@ -550,6 +550,8 @@ setMethod('combine', signature(x='predictModel', y='predictModel'),
     args <- c(list(x=x, y=y), list(...))
 
     x@.Data <- do.call(Map, c(f=combine, lapply(args, slot, ".Data")))
+    
+    x@params <- Reduce(combine, lapply(args, slot, 'params'))
 
     return(x)
 
