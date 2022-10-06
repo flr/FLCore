@@ -489,6 +489,10 @@ setMethod('FLBiol', signature(object='FLQuant'),
       args$mat <- new('predictModel', FLQuants(mat=args$mat),
         model=as.formula("~mat", env=emptyenv()))
 
+    if(is(args$fec, "FLQuant"))
+      args$fec <- new('predictModel', FLQuants(fec=args$fec),
+        model=as.formula("~fec", env=emptyenv()))
+
     if(is(args$rec, "FLQuant"))
       args$rec <- new('predictModel', FLQuants(mat=args$rec),
         model=as.formula("~rec", env=emptyenv()))
@@ -715,8 +719,10 @@ setMethod('[', signature(x='FLBiol'),
 		if (!missing(n))
       args <- c(args, list(n=n))
     
-    for(p in pnames)
-      slot(res, p) <- do.call('[', c(list(x=slot(x, p)), args))
+    for(p in pnames) {
+      if(length(slot(x, p)) > 0)
+        slot(res, p) <- do.call('[', c(list(x=slot(x, p)), args))
+    }
 
     return(res)
     }
