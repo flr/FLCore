@@ -1540,6 +1540,27 @@ setMethod("catch.n", signature(object="FLQuant"),
   }) # }}}
 
 # harvest {{{
+
+baranovCatch <- function(n, m, f) {
+  return(n * (f / (m + f)) * (1 - exp(-(m + f))))
+}
+
+solveBaranov <- function(n, m, c) {
+
+  foo <- function(logf, n, m, c) {
+    newc <- baranovCatch(n, m, exp(logf))
+    return(sum(c) - sum(newc))
+  }
+
+  f <- n
+
+  for(i in seq(length(n)))
+    f[i] <- exp(uniroot(foo, interval=log(c(1e-8,4)), extendInt = "yes",
+      n=n[i], m=m[i], c=c[i])$root)
+
+  return(f)
+}
+
 setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
   function(object, catch, m) {
     
@@ -1556,14 +1577,8 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
     dm <- dim(har)
     aa <- seq(1, dm[1] - 2)
     yy <- seq(1, dm[2] - 1)
-    
-    # MINIMIZES diff in catch
-    foo <- function(logf, n, c, m) {
-      f <- exp(logf)
-      ch <- (f / (f + m)) * (1 - exp(-f - m)) * n
-      cr <- (c - ch)
-      return(sum(cr^2))
-    }
+ 
+    # Baranov functions
 
     # --- SINGLE year, LOOP over all dims[-year]
     if(dm[2] == 1) {
@@ -1571,14 +1586,7 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
       c <- c(catch)
       m <- c(m)
       out <- n
-      for(i in seq(length(out))) {
-        res <- optimise(f=foo, interval = log(c(1e-8,4)),
-          n=n[i],
-          c=c[i],
-          m=m[i])$minimum
-        out[i] <- exp(res)
-      }
-      har[] <- out
+      har[] <- solveBaranov(n, m, c)
     
     # --- YEARLY
     } else if(dm[4] == 1) {
@@ -1597,11 +1605,8 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
               if(all(is.na(n)))
                 har[i, dm[2], k,, mm, it] <- n
               else {
-                res <- optimise(f=foo, interval = log(c(1e-8,4)),
-                  n=n,
-                  c=c(catch[i, dm[2], k,, mm, it]),
-                  m=c(m[i, dm[2], k,, mm, it]))$minimum
-                har[i, dm[2], k,, mm, it] <- exp(res)
+                har[i, dm[2], k,, mm, it] <- solveBaranov(n,
+                  m=c(m[i, dm[2], k,, mm, it]), c=c(catch[i, dm[2], k,, mm, it]))
               }
             }
           }
@@ -1618,11 +1623,8 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
                 if(all(is.na(n)))
                   har[i, j, k,, mm, it] <- n
                 else {
-                  res <- optimise(f=foo, interval = log(c(1e-8, 4)),
-                    n=n,
-                    c=c(catch[i,j,k,,mm, it]),
-                    m=c(m[i,j,k,,mm, it]))$minimum
-                  har[i,j,k,,mm, it] <- exp(res)
+                har[i, j, k,, mm, it] <- solveBaranov(n,
+                  m=c(m[i, j, k,, mm, it]), c=c(catch[i, j, k,, mm, it]))
                 }
               }
             }
@@ -1661,11 +1663,8 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
               if(all(is.na(n)))
                 har[a,y,u,4,,it] <- n
             else {
-              res <- optimise(f=foo, interval = log(c(1e-8,3)),
-                n=n,
-                c=c(catch[a,y,u,4,,it]),
-                m=c(m[a,y,u,4,,it]))$minimum
-              har[a,y,u,4,,it] <- exp(res)
+              har[a, y, u, 4,, it] <- solveBaranov(n,
+                m=c(m[a, y, u, 4,, it]), c=c(catch[a, y, u, 4,, it]))
             }
             }
           }
@@ -1677,11 +1676,8 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
             if(all(is.na(n)))
               har[a,dm[2],u,4,,it] <- n
             else {
-              res <- optimise(f=foo, interval = log(c(1e-8,3)),
-                n=n,
-                c=c(catch[a,dm[2],u,4,,it]),
-                m=c(m[a,dm[2],u,4,,it]))$minimum
-              har[a,dm[2],u,4,,it] <- exp(res)
+              har[a, dm[2], u, 4,, it] <- solveBaranov(n,
+                m=c(m[a, dm[2], u, 4,, it]), c=c(catch[a, y, u, 4,, it]))
             }
           }
         }
@@ -2065,3 +2061,20 @@ setMethod("merge", signature(x="FLQuant", y="FLQuant"),
   }
 )
 # }}}
+
+# subset {{{
+setMethod('subset', signature(x='FLQuant'),
+  function(x, ...) {
+
+    # APPLY on data.frame
+    subs <- subset(as.data.frame(x), ...)
+
+    # OBTAIN idx
+    idx <- subs$iter
+
+    # SELECT iters
+    res <- iter(x, idx)
+
+    return(res)
+  }
+) # }}}
