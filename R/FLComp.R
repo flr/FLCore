@@ -652,8 +652,6 @@ setMethod("metrics", signature(object="FLComp", metrics="formula"),
     return(res)
   }
 )
-
-
 # }}}
 
 # slim {{{

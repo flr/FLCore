@@ -2061,20 +2061,3 @@ setMethod("merge", signature(x="FLQuant", y="FLQuant"),
   }
 )
 # }}}
-
-# subset {{{
-setMethod('subset', signature(x='FLQuant'),
-  function(x, ...) {
-
-    # APPLY on data.frame
-    subs <- subset(as.data.frame(x), ...)
-
-    # OBTAIN idx
-    idx <- subs$iter
-
-    # SELECT iters
-    res <- iter(x, idx)
-
-    return(res)
-  }
-) # }}}
