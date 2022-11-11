@@ -63,3 +63,11 @@ setMethod('FLIndexBiomass', signature(object='missing'),
     return(FLIndexBiomass(object, ...))
   }
 ) # }}}
+
+# biomass {{{
+setMethod("biomass", signature(x="FLIndexBiomass"),
+  function(x) {
+    quantSums(index(x))
+  }
+)
+# }}}

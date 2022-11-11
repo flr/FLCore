@@ -462,7 +462,8 @@ setMethod("summary", signature(object="FLBiol"),
       }
       # params
       par <- slot(object, i)@params
-      cat(substr(paste0("  ", ifelse(all(sum(!is.na(par)) == 0 & dimnames(par)[[1]] == ""),
+      cat(substr(paste0("  ", ifelse(all(sum(!is.na(par)) == 0 & 
+        dimnames(par)[[1]] == ""),
         "NA", paste(dimnames(par)[[1]], collapse=", ")),
         "           "), start=1, stop=12), " : [", dim(slot(object,i)@params),
         "], units = ", slot(object,i)@params@units, "\n")
@@ -627,10 +628,12 @@ setMethod("FLBiols", signature(object="list"),
     # desc & lock
     args <- c(list(Class="FLBiols", .Data=object, names=names),
       args[!names(args)%in%'names'])
-
+    
     return(
       do.call('new', args)
       )
+
+new('FLBiols', args[[2]])
 
 }) # }}}
 
@@ -658,9 +661,6 @@ setMethod('qapply', signature(X='FLBiol', FUN='function'),
   		for (i in slots)
         res <- do.call(paste0(i, "<-"), list(object=res,
           value=do.call(FUN, list(do.call(i, list(X)), ...))))
- #   else
- # 		for (i in slots)
- #       res[[i]] <- do.call(FUN, list(do.call(i, list(X)), ...))
 
 		return(res)
 	}
@@ -775,18 +775,21 @@ setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
     spwn(res)[, wyrs] <- yearMeans(spwn(res)[, sqyrs])
 
     # mat
+    if(length(res@mat@.Data) > 0)
     res@mat@.Data <- lapply(mat(res, FALSE), function(x) {
       x[, wyrs] <- yearMeans(x[, sqyrs])
       return(x)
       })
 
     # fec
+    if(length(res@fec@.Data) > 0)
     res@fec@.Data <- lapply(fec(res, FALSE), function(x) {
       x[, wyrs] <- yearMeans(x[, sqyrs])
       return(x)
       })
-    
+
     # rec: EXTEND only
+    if(length(res@rec@.Data) > 0)
     res@rec@.Data <- lapply(res@rec@.Data, function(y) {
       return(window(y, end=end))
       })

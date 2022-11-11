@@ -197,10 +197,13 @@ setReplaceMethod('params', signature(object='predictModel', value='FLPar'),
 # predict(predictModel) {{{
 setMethod('predict', signature(object='predictModel'),
 	function(object, ...) {
-  
+
     # SPLIT params in FLPars  
     pars <- dimnames(params(object))$params
-    args <- setNames(lapply(pars, function(x) params(object)[x,]), pars)
+    if(!all(pars == character(1)))
+      args <- setNames(lapply(pars, function(x) params(object)[x,]), nm=pars)
+    else
+      args <- pars
 
     # ADD FLQuant(s)
     args <- c(args, object)
@@ -234,8 +237,10 @@ setMethod('predict', signature(object='predictModel'),
       warning("objects have different number of iters")
 
     # lapply eval(model) along iters, then combine
-    return(Reduce(combine, lapply(seq(max(nits)), function(i)
-      eval(object@model[[length(object@model)]], lapply(args, iter, i)))))
+    return(
+           Reduce(combine, lapply(seq(max(nits)), function(i)
+      eval(object@model[[length(object@model)]], lapply(args, iter, i))))
+    )
 	}
 ) # }}}
 

@@ -159,7 +159,7 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
 
     # CORRECT abundances for timing
     stock.n <- stock.n(object) *
-      exp(-(harvest(object) * timing - m(object) * timing))
+      exp(-harvest(object) * timing - m(object) * timing)
     
     # APPLY survey selectivity
     res <- stock.n[ages, yrs] %*% sel
@@ -195,7 +195,7 @@ hyperstability <- function(object, omega=1, ref=yearMeans(object)) {
 
 setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
   fit="FLQuants"), function(indices, stock, fit) {
-  
+
   # SET iterMedians for stock
   yrs <- dimnames(stock)$year
 
@@ -208,6 +208,7 @@ setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
  
     # FLIndex
     if(is(x, "FLIndex")) {
+
       # CORRECT abundances for Z
       nay <- stock.n(stock) * exp(-z(stock) * t)
       nay <- nay[dms[[1]], dms[[2]]]
