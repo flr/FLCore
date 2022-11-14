@@ -143,8 +143,9 @@ mlc <- function(samples) {
 #' - ICES. 2020. Tenth Workshop on the Development of Quantitative Assessment Methodologies based on LIFE-history traits, exploitation characteristics, and other relevant parameters for data-limited stocks (WKLIFE X). ICES Scientific Reports. 2:98. 72 pp. http://doi.org/10.17895/ices.pub.5985
 #' @examples
 #' data(ple4)
-#' indicators.len(ple4, indicators=c('lbar'),
-#'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
+#' indicators.len(ple4, indicators=c('lbar', 'lmaxy'),
+#'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n',
+#'   lenwt=FLPar(a=0.01030, b=2.975))
 #' indicators.len(ple4, indicators=c('lbar', lmean),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
 #' data(ple4.index)
@@ -158,20 +159,21 @@ mlc <- function(samples) {
 # TODO: LOOP over metric
 
 indicators.len <- function (object, indicators="lbar", model=vonbert, params,
-  cv=0.1, lmax=1.25, bin=1, n=500, metric=catch.n) {
+  cv=0.1, lmax=1.25, bin=1, n=500, metric=catch.n, ...) {
+
+  # MERGE params and ...
+  params <- c(as(params, 'list'), list(...))
 
   # COMPUTE inverse ALK (cv, lmax, bin)
-  ialk <- invALK(params, age=seq(dims(object)$min, dims(object)$max),
-    cv=cv, lmax=lmax, bin=bin, model=model)
+  ialk <- invALK(FLPar(params[names(params) %in% names(formals(model))]),
+    age=seq(dims(object)$min, dims(object)$max), cv=cv, lmax=lmax,
+    bin=bin, model=model)
 
   # GENERATE length samples from metric
   input <- do.call(metric, list(object))
 
   samps <- lenSamples(input, ialk, n=n)
 
-  # CONVERT params
-  pars <- as(params, "list")
-  
   # OBTAIN names from functions
   nms <- unlist(lapply(indicators, function(x)
       if(is(x, "function"))
@@ -191,11 +193,11 @@ indicators.len <- function (object, indicators="lbar", model=vonbert, params,
 
     # SUBSET indicator arguments in params
     if(is.character(x)) {
-      pars <- pars[names(pars) %in% names(formals(get(x)))]
+      pars <- params[names(params) %in% names(formals(get(x)))]
     } else if(is.function(x)) {
-      pars <- pars[names(pars) %in% names(formals(x))]
+      pars <- params[names(params) %in% names(formals(x))]
     }
-
+    
     return(do.call(x, args=c(list(samps), pars)))
   })
 
