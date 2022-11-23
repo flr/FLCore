@@ -316,6 +316,8 @@ exportMethods(
   "desc<-",
   "details",
   "details<-",
+  "deviances",
+  "deviances<-",
   "dim",
   "dimnames<-",
   "dims",

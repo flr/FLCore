@@ -2000,3 +2000,6 @@ setGeneric("ages", function(object, ...)
 setGeneric("ageopt", function(object, ...)
   standardGeneric("ageopt"))
 
+setGeneric("deviances", function(object, ...) standardGeneric("deviances"))
+setGeneric("deviances<-", function(object, ..., value)
+  standardGeneric("deviances<-"))

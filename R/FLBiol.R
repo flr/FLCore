@@ -656,11 +656,11 @@ setMethod('qapply', signature(X='FLBiol', FUN='function'),
 
 		if(!missing(exclude))
       slots <- slots[!slots %in% exclude]
-   
+    
     if(is(res, 'FLBiol'))
   		for (i in slots)
         res <- do.call(paste0(i, "<-"), list(object=res,
-          value=do.call(FUN, list(do.call(i, list(X)), ...))))
+          value=do.call(FUN, c(list(slot(X, i)), ...))))
 
 		return(res)
 	}
@@ -1446,3 +1446,27 @@ setReplaceMethod("units", signature(x="FLBiol", value="list"),
     return(x)
   }
 ) # }}}
+
+# deviances @rec {{{
+
+setMethod("deviances", signature(object="FLBiol"),
+  function(object) {
+    res <- sr(object)[["deviances"]]
+
+    if(!is.null(res))
+      return(res)
+    else
+      return(rec(object) %=% 1)
+  }
+) 
+
+setReplaceMethod("deviances", signature(object="FLBiol", value="FLQuant"),
+  function(object, value) {
+    
+    sr(object)[["deviances"]] <- value
+
+    return(object)
+  }
+)
+
+# }}}
