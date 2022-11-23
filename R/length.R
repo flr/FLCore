@@ -146,8 +146,8 @@ mlc <- function(samples) {
 #' indicators.len(ple4, indicators=c('lbar', 'lmaxy'),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n',
 #'   lenwt=FLPar(a=0.01030, b=2.975))
-#' indicators.len(ple4, indicators=c('lbar', lmean),
-#'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
+#' indicators.len(ple4, indicators=c('pmega'),
+#'   params=FLPar(linf=60, k=2.29e-01, t0=-1.37), metric='catch.n')
 #' data(ple4.index)
 #' indicators.len(ple4.index, indicators=c('lbar', 'lmean'),
 #'   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='index')
@@ -162,6 +162,7 @@ indicators.len <- function (object, indicators="lbar", model=vonbert, params,
   cv=0.1, lmax=1.25, bin=1, n=500, metric=catch.n, ...) {
 
   # MERGE params and ...
+  # TODO: DEAL with params as vector
   params <- c(as(params, 'list'), list(...))
 
   # COMPUTE inverse ALK (cv, lmax, bin)
@@ -187,7 +188,7 @@ indicators.len <- function (object, indicators="lbar", model=vonbert, params,
     names(indicators) <- nms
   else
     names(indicators)[names(indicators) == 0] <- nms[names(indicators) == 0]
-
+  
   # COMPUTE indicator(s)
   ind <- lapply(setNames(indicators, nm=nms), function(x) {
 
@@ -460,7 +461,7 @@ pmega <- function(x, linf, lopt=linf * 2/3) {
 
   # EXTRACT numbers with len > lopt
   lar <- x
-  lar[lens < lopt * 1.10] <- 0
+  lar[lens < lopt * 1.10, ] <- 0
 
   # PROPORTION > lopt
   res <- quantSums(lar) / quantSums(x)
