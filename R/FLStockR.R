@@ -181,3 +181,14 @@ setAs('FLStockR', 'FLStock',
   })
 # }}}
 
+# iterMedians {{{
+setMethod("iterMedians", signature(x="FLStockR"),
+  function(x) {
+
+  res <- callNextMethod()
+
+  refpts(res) <- iterMedians(refpts(x))
+
+  return(res)
+})
+# }}}

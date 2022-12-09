@@ -2058,3 +2058,18 @@ setMethod("ageopt", signature(object="FLStock"),
   return(res)
 })
 # }}}
+
+# iterMedians {{{
+setMethod("iterMedians", signature(x="FLStock"),
+  function(x) {
+
+  res <- qapply(x, iterMedians)
+
+  landings(res) <- iterMedians(landings(x))
+  discards(res) <- iterMedians(discards(x))
+  catch(res) <- iterMedians(catch(x))
+  stock(res) <- iterMedians(stock(x))
+
+  return(res)
+})
+# }}}
