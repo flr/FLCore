@@ -259,6 +259,49 @@ setMethod("unitSums", signature(x="FLQuants"),
 
 # }}}
 
+# weighted.mean {{{
+
+#' Weighted means along a FLQuants.
+#'
+#' Facilitates the calculation of weighted means across a FLQuants object.
+#'
+#' An object of class FLQuants containing elements over which an average is to
+#' computed, is combined with another one, of the same length, containing
+#' values to be used as weights. The overall weighted mean is calculated by
+#' computing the product of each element to its corresponding weight, and
+#' dividing by the sum of all weights.
+#' NAs in the value elements are substituted for zeroes, so do not influence
+#' the mean.
+#'
+#' @param x Values to be averaged, as an object of class `FLQuants`.
+#' @param w weights to be used, as an object of class `FLQuants`.
+#'
+#' @return A single `FLQuant` object.
+#'
+#' @author The FLR Team
+#' @seealso [FLCore::FLQuants stats::weighted.mean]
+#' @keywords methods
+#' @md
+#' @examples
+#' data(ple4)
+#' # Weighted mean of landings and discards weights-at-age
+#' weighted.mean(FLQuants(L=landings.wt(ple4), D=discards.wt(ple4)),
+#'   FLQuants(L=landings.n(ple4), D=discards.n(ple4)))
+
+setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
+  function(x, w) {
+
+  # TURN value NAs to 0s
+  xa <- lapply(x, function(i) ifelse(is.na(i), 0, i))
+  
+  # CREATE NA flags
+  na <- FLQuants(lapply(x, function(i) FLQuant(ifelse(is.na(i), 0, 1))))
+ 
+  Reduce('+', xa * (w * na)) / Reduce('+', w * na)
+})
+
+# }}}
+
 # merge {{{
 setMethod("merge", signature(x="FLQuants", y="FLQuants"),
   function(x, y) {

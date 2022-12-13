@@ -7,7 +7,7 @@
 \usage{
 roc(label, ind)
 
-auc(TPR, FPR)
+auc(x = NULL, TPR = x$TPR, FPR = x$FPR)
 }
 \description{
 A receiver operating characteristic curve (ROC) shows the ability of a
@@ -17,24 +17,24 @@ comparison of a given state against a reference value, so it contains a
 binary (0, 1) label. The second, the score, contains an alternative metric
 that attempts to measure the absolute value of the first.
 The examples below compare an observation of stock status, SSB being less 
-than a reference point, and an alternatuve metric, here generated from the 
+than a reference point, and an alternative metric, here generated from the 
 same with some noise.
 }
 \examples{
 data(ple4)
 set.seed(8723)
 # OM 'realities' on stock status (fbar)
-state <- rlnorm(100, log(fbar(ple4))[, ac(2010:2017)], 0.3)
+state <- rlnorm(100, log(fbar(ple4))[, ac(2005:2017)], 0.3)
 # Model estimates of F
-ind <- acc(catch.n(ple4)[, ac(2010:2017)])
+ind <- acc(catch.n(ple4)[, ac(2005:2017)])
 # Compute TSS, returns data.frame
-roc(state < 0.22, ind)
+roc(state > 0.22, ind)
 # Needs ggplotFL
 \dontrun{
-ggplot(roc(state < 0.22, ind), aes(x=FPR, y=TPR)) +
+ggplot(roc(state > 0.22, ind), aes(x=FPR, y=TPR)) +
   geom_line() +
   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
 }
 # Computes auc using the output of roc()
-with(roc(state < 0.22, ind), auc(TPR, FPR))
+with(roc(state > 0.22, ind), auc(TPR=TPR, FPR=FPR))
 }

@@ -24,7 +24,8 @@ indicators.len(
   lmax = 1.25,
   bin = 1,
   n = 500,
-  metric = catch.n
+  metric = catch.n,
+  ...
 )
 
 lenquantile(x, quantile = 0.5)
@@ -56,10 +57,11 @@ lc, length at first capture
 }
 \examples{
 data(ple4)
-indicators.len(ple4, indicators=c('lbar', 'lmean'),
-  params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
-indicators.len(ple4, indicators=c('lbar', lmean),
-  params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n')
+indicators.len(ple4, indicators=c('lbar', 'lmaxy'),
+  params=FLPar(linf=132, k=0.080, t0=-0.35), metric='catch.n',
+  lenwt=FLPar(a=0.01030, b=2.975))
+indicators.len(ple4, indicators=c('pmega'),
+  params=FLPar(linf=60, k=2.29e-01, t0=-1.37), metric='catch.n')
 data(ple4.index)
 indicators.len(ple4.index, indicators=c('lbar', 'lmean'),
   params=FLPar(linf=132, k=0.080, t0=-0.35), metric='index')

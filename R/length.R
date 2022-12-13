@@ -501,7 +501,7 @@ bheqz <- function(x, linf, k, t0, lc=lc50(x)) {
 }
 # }}}
 
-# TODO: lopt (Froese, 2008, Minimizing the impact ...)
+# TODO: lopt (Froese, 2008, Minimizing the impact ...) {{{
 
 #' @examples
 #' lopt(linf=35, m=0.1, k=0.352)
@@ -509,3 +509,4 @@ bheqz <- function(x, linf, k, t0, lc=lc50(x)) {
 lopt <- function(linf, m, k) {
   return(linf * (3 / (3 + m/k)))
 }
+# }}}

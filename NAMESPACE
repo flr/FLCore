@@ -46,6 +46,7 @@ importFrom("stats",
   "update",
   "var",
   "vcov",
+  "weighted.mean",
   "window")
 importFrom("graphics",
   "plot",
@@ -608,4 +609,5 @@ exportMethods(
   "rngage<-", 
   "vecyear",
   "vecage",
+  "weighted.mean",
   "wireframe")
