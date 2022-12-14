@@ -811,21 +811,20 @@ ifelse(log,return(log(r0)),return(r0))
 #' same with some noise.
 #' @examples
 #' data(ple4)
-#' set.seed(8723)
-#' # OM 'realities' on stock status (fbar)
-#' state <- rlnorm(100, log(fbar(ple4))[, ac(2005:2017)], 0.3)
-#' # Model estimates of F
+#' # OM 'reality' on stock status (fbar)
+#' state <- log(fbar(ple4))[, ac(2005:2017)]
+#' # Model estimates of F using catch curves
 #' ind <- acc(catch.n(ple4)[, ac(2005:2017)])
 #' # Compute TSS, returns data.frame
-#' roc(state > 0.22, ind)
+#' roc(state >= 0.22, ind)
 #' # Needs ggplotFL
 #' \dontrun{
-#' ggplot(roc(state > 0.22, ind), aes(x=FPR, y=TPR)) +
+#' ggplot(roc(state >= 0.22, ind, direction='>='), aes(x=FPR, y=TPR)) +
 #'   geom_line() +
 #'   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
 #' }
 
-roc <- function(label, ind) {
+roc <- function(label, ind, direction=c(">=", "<=")) {
 
   # PROPAGATE if needed
   its <- max(dim(label)[6], dim(ind)[6])
@@ -839,9 +838,16 @@ roc <- function(label, ind) {
   # CHECK label is pseudo-logical (0, 1)
   if(!all(c(label) %in% c(0, 1)))
     stop("label can only contain 0 and 1 for FALSE, TRUE")
-  
+ 
+  # CHECK label not all TRUE/FALSE
+  if(all(label) | all(!label))
+    stop("label cannot be all TRUE or FALSE")
+
+  # SET comparison direction
+  direction <- switch(match.arg(direction), ">=" =  FALSE, "<=" = TRUE)
+
   # ORDER by descending ind
-  idx <- rev(order(c(ind)))
+  idx <- rev(order(c(ind), decreasing=direction))
   label <- c(label)[idx]
  
   # CALCULATE TRUE and FALSE positives
