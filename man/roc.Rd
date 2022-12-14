@@ -5,7 +5,7 @@
 \alias{auc}
 \title{Receiver Operating}
 \usage{
-roc(label, ind)
+roc(label, ind, direction = c(">=", "<="))
 
 auc(x = NULL, TPR = x$TPR, FPR = x$FPR)
 }
@@ -22,19 +22,18 @@ same with some noise.
 }
 \examples{
 data(ple4)
-set.seed(8723)
-# OM 'realities' on stock status (fbar)
-state <- rlnorm(100, log(fbar(ple4))[, ac(2005:2017)], 0.3)
-# Model estimates of F
-ind <- acc(catch.n(ple4)[, ac(2005:2017)])
+# OM 'reality' on stock status (fbar)
+state <- fbar(ple4)[, ac(1960:2017)]
+# Model estimates of F using catch curves
+ind <- acc(catch.n(ple4)[, ac(1960:2017)])
 # Compute TSS, returns data.frame
-roc(state > 0.22, ind)
+roc(state >= 0.22, ind)
 # Needs ggplotFL
 \dontrun{
-ggplot(roc(state > 0.22, ind), aes(x=FPR, y=TPR)) +
+ggplot(roc(state >= 0.22, ind, direction='>='), aes(x=FPR, y=TPR)) +
   geom_line() +
   geom_abline(slope=1, intercept=0, colour="red", linetype=2)
 }
 # Computes auc using the output of roc()
-with(roc(state > 0.22, ind), auc(TPR=TPR, FPR=FPR))
+with(roc(state >= 0.22, ind), auc(TPR=TPR, FPR=FPR))
 }

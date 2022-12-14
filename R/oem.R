@@ -812,9 +812,9 @@ ifelse(log,return(log(r0)),return(r0))
 #' @examples
 #' data(ple4)
 #' # OM 'reality' on stock status (fbar)
-#' state <- log(fbar(ple4))[, ac(2005:2017)]
+#' state <- fbar(ple4)[, ac(1960:2017)]
 #' # Model estimates of F using catch curves
-#' ind <- acc(catch.n(ple4)[, ac(2005:2017)])
+#' ind <- acc(catch.n(ple4)[, ac(1960:2017)])
 #' # Compute TSS, returns data.frame
 #' roc(state >= 0.22, ind)
 #' # Needs ggplotFL
@@ -885,7 +885,7 @@ roc <- function(label, ind, direction=c(">=", "<=")) {
 #' @rdname roc
 #' @examples
 #' # Computes auc using the output of roc()
-#' with(roc(state > 0.22, ind), auc(TPR=TPR, FPR=FPR))
+#' with(roc(state >= 0.22, ind), auc(TPR=TPR, FPR=FPR))
 
 auc <- function(x=NULL, TPR=x$TPR, FPR=x$FPR){
 
