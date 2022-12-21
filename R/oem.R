@@ -152,6 +152,7 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
 #' @examples
 #' data(ple4)
 #' survey(ple4)
+#' survey(ple4, biomass=TRUE)
 
 setMethod("survey",   signature(object="FLStock", index="missing"),
   function(object, sel=catch.sel(object), ages=dimnames(sel)$age,

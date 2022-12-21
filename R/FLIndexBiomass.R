@@ -33,8 +33,12 @@ setMethod('FLIndexBiomass', signature(object='FLQuant'),
       
 
     # Load given slots
-  	for(i in names(args))
+  	for(i in names(args)) {
+      if(i == "range")
+        slot(res, i)[names(args[[i]])] <- args[[i]]
+      else
 			slot(res, i) <- args[[i]]
+    }
 
     return(res)
   }
@@ -43,8 +47,8 @@ setMethod('FLIndexBiomass', signature(object='FLQuant'),
 #' @rdname FLIndexBiomass
 #' @aliases FLIndexBiomass,missing-method
 setMethod('FLIndexBiomass', signature(object='missing'),
-  function(...)
-  {
+  function(...) {
+
     args <- list(...)
 
     # if no FLQuant argument given, then use empty FLQuant
