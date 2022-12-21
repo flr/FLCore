@@ -48,8 +48,8 @@ setGeneric("cpue", function(object, index, ...) standardGeneric("cpue"))
 #' @aliases cpue,FLStock-method
 
 setMethod('cpue', signature(object='FLStock', index="missing"),
-  function(object, sel.pattern=harvest(object), effort = units(harvest(object)),
-    mass = TRUE) {
+  function(object, sel.pattern=harvest(object),
+    effort = units(harvest(object)), biomass = TRUE) {
     
     # EFFORT from F or HR
     if (effort[1] == "hr")
@@ -61,8 +61,8 @@ setMethod('cpue', signature(object='FLStock', index="missing"),
     
     cpue <- (catch.n(object) %*% sel.pattern) %/% E
 
-    if (mass)
-      cpue <- cpue * catch.wt(object)
+    if (biomass)
+      cpue <- quantSums(cpue * catch.wt(object))
 
   return(cpue)
   }
@@ -97,15 +97,16 @@ setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
 #' @examples
 #' data(ple4)
 #' data(ple4.index)
-#' # survey(ple4, ple4.index)
+#' survey(ple4, ple4.index)
 
 setMethod("survey",   signature(object="FLStock", index="FLIndex"),
-  function(object, index, sel=sel.pattern(index), mass = FALSE,
+  function(object, index, sel=sel.pattern(index),
+    ages = dimnames(index)$age,
     timing = mean(range(index, c("startf", "endf"))),
     index.q = index@index.q) {
     
-    # GET abundance
-    abnd <- survey(object, sel=sel, timing=timing, mass=mass)
+    # COMPUTE index
+    abnd <- index(object, sel=sel, ages=ages, timing=timing)
 
     # APPLY Q
     index(index) <- abnd %*% index.q
@@ -120,24 +121,25 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
 
 #' @rdname survey
 #' @examples
-#' 
+#' bindex <- survey(ple4, biomass=TRUE)
+#' survey(ple4, bindex)
 
 setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
   function(object, index, sel=sel.pattern(index),
     ages=ac(seq(range(index, c('min')), range(index, c('max')))),
     timing = mean(range(index, c("startf", "endf"))),
+    catch.wt=stock.wt(object),
     index.q = index@index.q) {
 
     # CHECK timing
     if(is.na(timing))
       stop("Index timing not set and missing from range c('startf', 'endf')")
     
-    # GET abundance
-    abnd <- survey(object[ages, ], sel=sel[ages, ], timing=timing, mass=TRUE,
-      biomass=TRUE)
+    # COMPUTE index
+    abnd <- index(object, sel=sel, ages=ages, timing=timing)
     
-    # APPLY Q
-    index(index) <- quantSums(abnd) %*% index.q
+    # APPLY Q on biomass
+    index(index) <- quantSums(abnd * catch.wt) * index.q
 
     # IF NA, for low N, set small value
     index(index)[is.na(index(index))] <- 1e-16
@@ -147,9 +149,42 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
   }
 )
 
+#' @examples
+#' data(ple4)
+#' survey(ple4)
+
 setMethod("survey",   signature(object="FLStock", index="missing"),
-  function(object, sel=stock.n(object) %=% 1, ages=dimnames(sel)$age,
-    timing = 0.5, mass = FALSE, biomass=FALSE) {
+  function(object, sel=catch.sel(object), ages=dimnames(sel)$age,
+    timing = 0.5, biomass=FALSE) {
+
+    # COMPUTE index
+    abnd <- index(object, sel=sel, ages=ages, timing=timing)
+
+    # SELECT output class
+    if(biomass)
+      ind <- FLIndexBiomass(index=quantSums(abnd * stock.wt(object)[ages,]),
+        index.q=quantSums(abnd) %=% 1, sel.pattern=sel[ages,],
+        range=c(min=as.numeric(ages[1]), max=as.numeric(ages[length(ages)]),
+        startf=timing, endf=timing))
+    else
+      ind <- FLIndex(index=abnd, catch.wt=stock.wt(object)[ages,],
+        index.q=abnd %=% 1, sel.pattern=sel[ages,],
+        range=c(startf=timing, endf=timing))
+
+    return(ind)
+  }
+) # }}}
+
+# index
+
+#' @examples
+#' data(ple4)
+#' index(ple4, timing=0.9)
+#' index(ple4, timing=0)
+
+setMethod("index",   signature(object="FLStock"),
+  function(object, sel=catch.sel(object), ages=dimnames(sel)$age,
+    timing = 0.5) {
 
     # timing MUST BE 0 - 1
     timing <- pmax(pmin(timing, 1.0), 0.0)
@@ -170,20 +205,14 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
     # SELECT ages
     res <- res[ages,]
   
-    # CONVERT to mass
-    if (mass)
-      res <- unitSums(res * stock.wt(object)[, yrs])
-
     # IF NA, for low N, set small value
     res[is.na(res)] <- 1e-16
 
-    # AGGREGATE
-    if(biomass)
-      res <- quantSums(res)
+    return(res)
 
-    return(unitSums(res))
   }
-) # }}}
+)
+
 
 # hyperstability {{{
 
@@ -886,6 +915,7 @@ roc <- function(label, ind, direction=c(">=", "<=")) {
 #' @examples
 #' # Computes auc using the output of roc()
 #' with(roc(state >= 0.22, ind), auc(TPR=TPR, FPR=FPR))
+#' auc(roc(state >= 0.22, ind))
 
 auc <- function(x=NULL, TPR=x$TPR, FPR=x$FPR){
 
