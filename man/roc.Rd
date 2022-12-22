@@ -36,4 +36,5 @@ ggplot(roc(state >= 0.22, ind, direction='>='), aes(x=FPR, y=TPR)) +
 }
 # Computes auc using the output of roc()
 with(roc(state >= 0.22, ind), auc(TPR=TPR, FPR=FPR))
+auc(roc(state >= 0.22, ind))
 }

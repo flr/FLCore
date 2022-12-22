@@ -5,8 +5,6 @@
 \alias{cpue-methods}
 \alias{cpue,FLStock,missing-method}
 \alias{cpue,FLStock-method}
-\alias{survey,FLStock,FLIndex-method}
-\alias{cpue-FLStock-method}
 \title{cpue, a method to generate an observation of a CPUE index of abundance}
 \usage{
 cpue(object, index, ...)
@@ -15,33 +13,20 @@ cpue(object, index, ...)
   object,
   sel.pattern = harvest(object),
   effort = units(harvest(object)),
-  mass = TRUE
-)
-
-survey(object, index, ...)
-
-\S4method{survey}{FLStock,FLIndex}(
-  object,
-  index,
-  sel = sel.pattern(index),
-  mass = FALSE,
-  timing = mean(range(index, c("startf", "endf"))),
-  index.q = index@index.q
+  biomass = TRUE
 )
 }
 \arguments{
-\item{object}{The object on which to draw the observation}
+\item{object}{The object from which to generate the observation.}
 
 \item{effort}{Units of index to use to mimic effort series in the fishery, "f" or "hr"}
 
-\item{mass}{Is the index to be in weight at age?}
-
 \item{sel}{The selectivity of the survey, defaults to be 1 for all ages.}
+
+\item{mass}{Is the index to be in weight at age?}
 }
 \value{
 An FLQuant for the index of abundance, age-disaggregated
-
-An FLQuant for the index of abundance
 }
 \description{
 The observation of stock abundance by CPUE series from commercial fleets is an
@@ -61,24 +46,11 @@ quantSums(cpue(ple4))
 plot(FLQuants(om=stock(ple4), cpue=quantSums(cpue(ple4)),
   hr=quantSums(cpue(ple4, effort="hr"))))
 }
-
-\dontrun{
-plot(FLQuants(om=stock(ple4), survey=quantSums(survey(ple4) * stock.wt(ple4)),
- cpue=quantSums(cpue(ple4)), hr=quantSums(cpue(ple4, effort="hr"))))
-}
-data(ple4)
-data(ple4.index)
-# survey(ple4, ple4.index)
 }
 \seealso{
-\link{FLComp}
-
 \link{FLComp}
 }
 \author{
 Laurie Kell & Iago Mosqueira, FLR Team.
-
-The FLR Team
 }
-\keyword{classes}
 \keyword{methods}
