@@ -6,6 +6,140 @@
 
 # Observation
 
+# survey {{{
+
+#' A method to generate observations of abundance at age.
+#'
+#' @param object The object on which to draw the observation
+#'
+#' @return An FLQuant for the index of abundance
+#'
+#' @rdname survey
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords classes
+
+setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
+
+#' @rdname survey
+#' @examples
+#' data(ple4)
+#' data(ple4.index)
+#' # CONSTRUCT a survey from stock and index
+#' survey(ple4, ple4.index)
+
+setMethod("survey",   signature(object="FLStock", index="FLIndex"),
+  function(object, index, sel=sel.pattern(index),
+    ages = dimnames(index)$age,
+    timing = mean(range(index, c("startf", "endf"))),
+    index.q = index@index.q) {
+    
+    # COMPUTE index
+    abnd <- index(object, sel=sel, ages=ages, timing=timing)
+
+    # APPLY Q
+    index(index) <- abnd %*% index.q
+
+    return(index)
+
+  }
+)
+
+#' @rdname survey
+#' @examples
+#' # Create FLIndexBiomass
+#' ple4.biom <- as(ple4.index, "FLIndexBiomass")
+#' survey(ple4, ple4.biom)
+
+setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
+  function(object, index, sel=sel.pattern(index),
+    ages=ac(seq(range(index, c('min')), range(index, c('max')))),
+    timing = mean(range(index, c("startf", "endf"))),
+    catch.wt=stock.wt(object)[, dimnames(index)$year],
+    index.q = index@index.q) {
+
+    # CHECK timing
+    if(is.na(timing))
+      stop("Index timing not set and missing from range c('startf', 'endf')")
+    
+    # COMPUTE index
+    abnd <- index(object, sel=sel, ages=ages, timing=timing)
+
+    # APPLY Q on biomass
+    index(index) <- quantSums(abnd * catch.wt) * index.q
+
+    return(index)
+
+  }
+)
+
+#' @rdname survey
+#' @examples
+#' data(ple4)
+#' survey(ple4)
+#' survey(ple4, biomass=TRUE)
+
+setMethod("survey",   signature(object="FLStock", index="missing"),
+  function(object, sel=catch.sel(object), ages=dimnames(sel)$age,
+    timing = 0.5, biomass=FALSE) {
+
+    # COMPUTE index
+    abnd <- index(object, sel=sel, ages=ages, timing=timing)
+
+    # SELECT output class
+    if(biomass)
+      ind <- FLIndexBiomass(index=quantSums(abnd * stock.wt(object)[ages,]),
+        index.q=quantSums(abnd) %=% 1, sel.pattern=sel[ages,],
+        range=c(min=as.numeric(ages[1]), max=as.numeric(ages[length(ages)]),
+        startf=timing, endf=timing))
+    else
+      ind <- FLIndex(index=abnd, catch.wt=stock.wt(object)[ages,],
+        index.q=abnd %=% 1, sel.pattern=sel[ages,],
+        range=c(startf=timing, endf=timing))
+
+    return(ind)
+  }
+) # }}}
+
+# index(FLStock) {{{
+
+#' @examples
+#' data(ple4)
+#' index(ple4, timing=0.9)
+#' index(ple4, timing=0)
+
+setMethod("index",   signature(object="FLStock"),
+  function(object, sel=catch.sel(object), ages=dimnames(sel)$age,
+    timing = 0.5) {
+
+    # timing MUST BE 0 - 1
+    timing <- pmax(pmin(timing, 1.0), 0.0)
+
+    # GET index years & ages
+    yrs <- dimnames(sel)$year
+
+    # CORRECT abundances for timing
+    stock.n <- stock.n(object) *
+      exp(-harvest(object) * timing - m(object) * timing)
+    
+    # APPLY survey selectivity
+    res <- stock.n[ages, yrs] %*% sel
+
+    # SET units as stock.n
+    units(res) <- units(stock.n)
+
+    # SELECT ages
+    res <- res[ages,]
+  
+    # IF NA, for low N, set small value
+    res[is.na(res)] <- 1e-16
+
+    return(res)
+
+  }
+)
+# }}}
+
 # cpue {{{
 
 #' cpue, a method to generate an observation of a CPUE index of abundance
@@ -67,153 +201,6 @@ setMethod('cpue', signature(object='FLStock', index="missing"),
   return(cpue)
   }
 ) # }}}
-
-# survey {{{
-
-#' A method to generate observations of abundance at age.
-#'
-#' @param object The object on which to draw the observation
-#'
-#' @return An FLQuant for the index of abundance
-#'
-#' @name cpue
-#' @rdname cpue
-#' @aliases cpue cpue-methods
-#'
-#' @author The FLR Team
-#' @seealso \link{FLComp}
-#' @keywords classes
-#' @examples
-#'
-#' \dontrun{
-#' plot(FLQuants(om=stock(ple4), survey=quantSums(survey(ple4) * stock.wt(ple4)),
-#'  cpue=quantSums(cpue(ple4)), hr=quantSums(cpue(ple4, effort="hr"))))
-#' }
-
-setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
-
-#' @rdname cpue
-#' @aliases cpue-FLStock-method
-#' @examples
-#' data(ple4)
-#' data(ple4.index)
-#' survey(ple4, ple4.index)
-
-setMethod("survey",   signature(object="FLStock", index="FLIndex"),
-  function(object, index, sel=sel.pattern(index),
-    ages = dimnames(index)$age,
-    timing = mean(range(index, c("startf", "endf"))),
-    index.q = index@index.q) {
-    
-    # COMPUTE index
-    abnd <- index(object, sel=sel, ages=ages, timing=timing)
-
-    # APPLY Q
-    index(index) <- abnd %*% index.q
-
-    # IF NA, for low N, set small value
-    index(index)[is.na(index(index))] <- 1e-16
-
-    return(index)
-
-  }
-)
-
-#' @rdname survey
-#' @examples
-#' bindex <- survey(ple4, biomass=TRUE)
-#' survey(ple4, bindex)
-
-setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
-  function(object, index, sel=sel.pattern(index),
-    ages=ac(seq(range(index, c('min')), range(index, c('max')))),
-    timing = mean(range(index, c("startf", "endf"))),
-    catch.wt=stock.wt(object),
-    index.q = index@index.q) {
-
-    # CHECK timing
-    if(is.na(timing))
-      stop("Index timing not set and missing from range c('startf', 'endf')")
-    
-    # COMPUTE index
-    abnd <- index(object, sel=sel, ages=ages, timing=timing)
-    
-    # APPLY Q on biomass
-    index(index) <- quantSums(abnd * catch.wt) * index.q
-
-    # IF NA, for low N, set small value
-    index(index)[is.na(index(index))] <- 1e-16
-
-    return(index)
-
-  }
-)
-
-#' @examples
-#' data(ple4)
-#' survey(ple4)
-#' survey(ple4, biomass=TRUE)
-
-setMethod("survey",   signature(object="FLStock", index="missing"),
-  function(object, sel=catch.sel(object), ages=dimnames(sel)$age,
-    timing = 0.5, biomass=FALSE) {
-
-    # COMPUTE index
-    abnd <- index(object, sel=sel, ages=ages, timing=timing)
-
-    # SELECT output class
-    if(biomass)
-      ind <- FLIndexBiomass(index=quantSums(abnd * stock.wt(object)[ages,]),
-        index.q=quantSums(abnd) %=% 1, sel.pattern=sel[ages,],
-        range=c(min=as.numeric(ages[1]), max=as.numeric(ages[length(ages)]),
-        startf=timing, endf=timing))
-    else
-      ind <- FLIndex(index=abnd, catch.wt=stock.wt(object)[ages,],
-        index.q=abnd %=% 1, sel.pattern=sel[ages,],
-        range=c(startf=timing, endf=timing))
-
-    return(ind)
-  }
-) # }}}
-
-# index
-
-#' @examples
-#' data(ple4)
-#' index(ple4, timing=0.9)
-#' index(ple4, timing=0)
-
-setMethod("index",   signature(object="FLStock"),
-  function(object, sel=catch.sel(object), ages=dimnames(sel)$age,
-    timing = 0.5) {
-
-    # timing MUST BE 0 - 1
-    timing <- pmax(pmin(timing, 1.0), 0.0)
-
-    # GET index years & ages
-    yrs <- dimnames(sel)$year
-
-    # CORRECT abundances for timing
-    stock.n <- stock.n(object) *
-      exp(-harvest(object) * timing - m(object) * timing)
-    
-    # APPLY survey selectivity
-    res <- stock.n[ages, yrs] %*% sel
-
-    # SET units as stock.n
-    units(res) <- units(stock.n)
-
-    # SELECT ages
-    res <- res[ages,]
-  
-    # IF NA, for low N, set small value
-    res[is.na(res)] <- 1e-16
-
-    return(res)
-
-  }
-)
-
 
 # hyperstability {{{
 

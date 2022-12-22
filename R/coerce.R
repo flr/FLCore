@@ -271,15 +271,15 @@ setAs('FLBiol', 'FLIndex',
     dmns$age<-"all"
 
     res<-FLIndex(index      =from@n,
-                 index.var  =FLQuant(NA, dimnames=dimnames(from@n)),
-                 catch.n    =from@n,
-                 catch.wt   =from@wt,
-                 effort     =FLQuant(1,  dimnames=dmns),
-                 sel.pattern=FLQuant(NA, dimnames=dimnames(from@n)),
-                 index.q    =FLQuant(1,  dimnames=dimnames(from@n)),
-                 range      =from@range,
-                 type="number",
-                 name=from@name, desc=paste("Coerced from FLBiol:",from@desc))
+      index.var  =FLQuant(NA, dimnames=dimnames(from@n)),
+      catch.n    =from@n,
+      catch.wt   =from@wt,
+      effort     =FLQuant(1,  dimnames=dmns),
+      sel.pattern=FLQuant(NA, dimnames=dimnames(from@n)),
+      index.q    =FLQuant(1,  dimnames=dimnames(from@n)),
+      range      =from@range,
+      type="number",
+      name=from@name, desc=paste("Coerced from FLBiol:",from@desc))
 
     units(res@index)   <-units(from@n)
     units(res@catch.n) <-units(from@n)
@@ -572,3 +572,17 @@ setAs('FLSR', 'predictModel',
 # FLStock - FLIndexBiomass
 # as.FLIndexBiomass
 
+# TO FLIndexBiomass {{{
+
+setAs('FLIndex', 'FLIndexBiomass',
+  function(from) {
+
+  res <- FLIndexBiomass(index=quantSums(index(from) * catch.wt(from)),
+    sel.pattern=sel.pattern(from), effort=effort(from),
+    index.q=quantMeans(index.q(from)),
+    name=name(from), desc=desc(from), range=range(from))
+
+  return(res)
+  }
+)
+# }}}
