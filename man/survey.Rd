@@ -24,7 +24,7 @@ survey(object, index, ...)
   sel = sel.pattern(index),
   ages = ac(seq(range(index, c("min")), range(index, c("max")))),
   timing = mean(range(index, c("startf", "endf"))),
-  catch.wt = stock.wt(object),
+  catch.wt = stock.wt(object)[, dimnames(index)$year],
   index.q = index@index.q
 )
 
@@ -48,9 +48,11 @@ A method to generate observations of abundance at age.
 \examples{
 data(ple4)
 data(ple4.index)
+# CONSTRUCT a survey from stock and index
 survey(ple4, ple4.index)
-bindex <- survey(ple4, biomass=TRUE)
-survey(ple4, bindex)
+# Create FLIndexBiomass
+ple4.biom <- as(ple4.index, "FLIndexBiomass")
+survey(ple4, ple4.biom)
 data(ple4)
 survey(ple4)
 survey(ple4, biomass=TRUE)

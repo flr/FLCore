@@ -12,8 +12,6 @@ library(FLCore)
 
 load('ple.27.420_stock_object.Rdata')
 
-ple <- mget(load('ple.27.420_stock_object.Rdata'))
-
 # SELECT objects
 
 ple4 <- ass.stockOrigDisc
@@ -62,21 +60,6 @@ ple4.indices <- Map(function(x, y) {
   return(x)
   }, x=ple4.indices, y=resultsOrigDisc@q.hat)
 
-# --- COMPARE AAP, XSA & a4a
-
-library(FLXSA)
-res <- FLXSA(ple4, ple4.indices)
-
-library(FLa4a)
-fit <- sca(ple4, ple4.indices, fit="assessment")
-
-vpa <- VPA(ple4)
-
-library(ggplotFL)
-
-plot(FLStocks(AAP=ple4, XSA=ple4+res, A4A=ple4+fit, VPA=ple4+vpa))
-
-
 # --- BUILD FLIndex
 
 ple4.index <- ple4.indices[["BTS-Combined (all)"]]
@@ -103,3 +86,20 @@ save(ple4, file="../data/ple4.RData", compress="xz")
 save(ple4.indices, file="../data/ple4.indices.RData", compress="xz")
 save(ple4.index, file="../data/ple4.index.RData", compress="xz")
 save(ple4.biol, file="../data/ple4.biol.RData", compress="xz")
+
+# --- COMPARE AAP, XSA & a4a
+
+library(FLXSA)
+res <- FLXSA(ple4, ple4.indices)
+
+library(FLa4a)
+fit <- sca(ple4, ple4.indices, fit="assessment")
+
+vpa <- VPA(ple4)
+
+library(ggplotFL)
+
+plot(FLStocks(AAP=ple4, XSA=ple4+res, A4A=ple4+fit, VPA=ple4+vpa))
+
+
+
