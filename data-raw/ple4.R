@@ -8,16 +8,19 @@
 
 library(FLCore)
 
-# File from ICES WGNSSK. 16 June 2018
+# LOAD file from ICES WGNSSK. 16 June 2018 AAP
 
 load('ple.27.420_stock_object.Rdata')
 
-# Objects
+ple <- mget(load('ple.27.420_stock_object.Rdata'))
+
+# SELECT objects
 
 ple4 <- ass.stockOrigDisc
 ple4.indices <- indices
 
-# FLStock
+
+# --- CONSTRUCT FLStock
 
 verify(ple4)
 
@@ -28,11 +31,14 @@ units(ple4) <- list(catch="t", catch.n="1000", discards="t", discards.n="1000",
   landings="t", landings.n="1000", stock="t", stock.n="1000", m="m", mat="",
   harvest.spwn="", m.spwn="")
 
+# SET wt > 0
+
 # CHANGE name and desc
 name(ple4) <- "PLE"
 desc(ple4) <- "Plaice in IV. ICES WGNSSK 2018. FLAAP"
 
-# FLIndices
+
+# --- CONSTRUCT FLIndices
 
 summary(ple4.indices)
 
@@ -43,10 +49,21 @@ ple4.indices <- lapply(ple4.indices, function(x) {
   return(x)
   })
 
+# DROP age 0
 ple4.indices[["BTS-Combined (all)"]] <- ple4.indices[["BTS-Combined (all)"]][-1,]
 ple4.indices[["IBTS_Q3"]] <- ple4.indices[["IBTS_Q3"]][-1,]
 
-# COMPARE AAP, XSA & a4a
+# ADD index.q, sel.pattern and catch.wt
+
+ple4.indices <- Map(function(x, y) {
+  sel.pattern(x)[] <- y[dimnames(x)$age,] / max(y[dimnames(x)$age,])
+  index.q(x)[] <- quantMeans(y)
+  catch.wt(x) <- stock.wt(ple4)[dimnames(x)$age, dimnames(x)$year]
+  return(x)
+  }, x=ple4.indices, y=resultsOrigDisc@q.hat)
+
+# --- COMPARE AAP, XSA & a4a
+
 library(FLXSA)
 res <- FLXSA(ple4, ple4.indices)
 
@@ -59,10 +76,13 @@ library(ggplotFL)
 
 plot(FLStocks(AAP=ple4, XSA=ple4+res, A4A=ple4+fit, VPA=ple4+vpa))
 
-# FLIndex
-ple4.index <- ple4.indices[[4]]
 
-# FLBiol
+# --- BUILD FLIndex
+
+ple4.index <- ple4.indices[["BTS-Combined (all)"]]
+
+
+# --- BUILD FLBiol
 
 ple4.biol <- as(ple4, "FLBiol")
 
