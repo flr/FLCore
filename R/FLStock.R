@@ -1158,11 +1158,18 @@ noseason <- function(stock, spwn.season=1, weighted=FALSE) {
   div <- rep(rep(seq(dis[4]), each=prod(dis[1:3])), prod(dis[5:6]))
 
   # CONVERT to vectors
-    dat <- qapply(stock, c)
+  dat <- qapply(stock, c)
+
+  # KEEP rec to assign back
+  recn <- stock.n(stock)[1,]
 
   # SUBSET and rename, n as in season 1
   stock <- stock[,,,1]
   dimnames(stock) <- list(season="all")
+
+  # GET Ns at spwn.season for age = 0
+  if(dimnames(stock)$age[1] == "0" & spwn.season > 1)
+    stock.n[,,,1] <- recn[,,,spwn.season]
 
   # mat
   mat(stock)[] <- split(dat$mat, div)[[spwn.season]]
