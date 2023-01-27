@@ -200,9 +200,10 @@ setMethod("summary", signature(object="FLQuantPoint"),
 # as.data.frame {{{
 setMethod("as.data.frame", signature(x="FLQuantPoint", row.names="missing",
   optional="missing"),
-    function(x, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE, units=FALSE) {
-        as.data.frame(x, row.names=NULL, cohort=cohort, timestep=timestep,
-            date=date, drop=drop, units=units)
+    function(x, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
+      units=FALSE) {
+      as.data.frame(x, row.names=NULL, cohort=cohort, timestep=timestep,
+        date=date, drop=drop, units=units)
     }
 )
 setMethod("as.data.frame", signature(x="FLQuantPoint", row.names="ANY",
@@ -212,7 +213,7 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
 
     # COERCE as if FLQuant
     df <- callNextMethod(x, cohort=cohort, timestep=timestep,
-            date=date, drop=drop, units=units)
+      date=date, drop=drop, units=units)
 
     # FIND dimensions not dropped
     idvar <- colnames(df)[!colnames(df) %in% c("iter", "data")]

@@ -112,7 +112,7 @@ setMethod("lapply", signature(X="FLlst"),
     lstargs$X <- setNames(X@.Data, nm=names(X))
 
     # ADD function
-    lstargs$FUN <- FUN
+    lstargs$FUN <- match.fun(FUN)
 
     # CALL
     lst <- do.call("lapply", lstargs)
@@ -121,9 +121,11 @@ setMethod("lapply", signature(X="FLlst"),
     cls <- getPlural(lst[[1]])
 
     if(cls != 'list') {
-    lst <- new(cls, lst, lock=FALSE, names=attr(X, 'names'), desc=attr(X, 'desc'))
-   }
- return(lst)
+      lst <- new(cls, lst, lock=FALSE, names=attr(X, 'names'),
+        desc=attr(X, 'desc'))
+    }
+
+    return(lst)
 	}
 )  # }}}
 

@@ -750,9 +750,9 @@ setMethod("[<-", signature(x="FLStock", value="FLStock"),
 		if (missing(n))
 			n <- dimnames(x@stock.n)[6][[1]]
 
-	  quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", "landings.n",
-		  "landings.wt", "stock.n", "stock.wt", "m", "mat", "harvest", "harvest.spwn",
-      "m.spwn")
+	  quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", 
+      "landings.n", "landings.wt", "stock.n", "stock.wt", "m", "mat",
+      "harvest", "harvest.spwn", "m.spwn")
     for(q in quants) {
       slot(x, q)[i,j,k,l,m,n] <- slot(value, q)
     }

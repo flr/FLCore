@@ -351,8 +351,9 @@ setMethod("[<-", signature(x="FLComp"),
 		if (!missing(n))
       dn <- lapply(dn, function(x) x <- n)
     
-    for(q in qnames)
+    for(q in qnames) {
       slot(x, q)[di[[q]],dj[[q]],dk[[q]],dl[[q]],dm[[q]],dn[[q]]] <- slot(value, q)
+    }
 
    	return(x)
 	}
@@ -804,7 +805,7 @@ setMethod('combine', signature(x='FLComp', y='FLComp'),
     # CALCULATE iters
     its <- sum(unlist(lapply(ds, "[[", "iter")))
 
-    # PROPAGATE object
+    # PROPAGATE object for output
     res <- propagate(iter(x, 1), its)
 
     # KEEP iter dimnames if unique
@@ -880,7 +881,7 @@ setMethod("update", signature(object="FLComp"),
 
     for(i in names(args)) {
       dms <- setNames(dimnames(args[[i]]), letters[9:14])
-      # TODO USE do.call
+      # TODO: USE do.call
       slot(object, i)[dms$i, dms$j, dms$k, dms$l, dms$m, dms$n] <- args[[i]]
     }
 
