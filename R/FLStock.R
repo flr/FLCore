@@ -1088,8 +1088,6 @@ setMethod("vb", signature(x="FLStock", sel="FLQuant"),
 
 # }}}
 
-# simplify {{{
-
 # nounit {{{
 
 nounit <- function(stock) {
@@ -1169,7 +1167,7 @@ noseason <- function(stock, spwn.season=1, weighted=FALSE) {
 
   # GET Ns at spwn.season for age = 0
   if(dimnames(stock)$age[1] == "0" & spwn.season > 1)
-    stock.n[,,,1] <- recn[,,,spwn.season]
+    stock.n(stock)["0",,,1] <- recn["0",,,spwn.season]
 
   # mat
   mat(stock)[] <- split(dat$mat, div)[[spwn.season]]
@@ -1244,7 +1242,7 @@ noarea <- function(stock) {
 
   m(stock) <- areaSums(m(old) * stock.n(old)) /
     areaSums(stock.n(old))
-  m(stock)[is.na(m(stock))] <- areaMeans(m(old))
+  m(stock)[is.na(m(stock))] <- areaMeans(m(old))[is.na(m(stock))]
 
   # COMPUTE
 
@@ -1257,6 +1255,8 @@ noarea <- function(stock) {
 }
 
 # }}}
+
+# simplify {{{
 
 #' @rdname simplify
 #' @aliases simplify,FLStock-method
