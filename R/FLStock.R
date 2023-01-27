@@ -1118,15 +1118,16 @@ nounit <- function(stock) {
 
   # weighted mean: *.wt, m
   stock.wt(stock) <- Reduce('+', split(dat$stock.wt *
-    (dat$stock.n + 1e-8), div))  / (c(stock.n(stock)) + 1e-8 * nun)
+    (dat$stock.n + 1e-36), div))  / (c(stock.n(stock)) + 1e-36 * nun)
   catch.wt(stock) <- Reduce('+', split(dat$catch.wt *
-    (dat$catch.n + 1e-8), div))  / (c(catch.n(stock)) + 1e-8 * nun)
+    (dat$catch.n + 1e-36), div))  / (c(catch.n(stock)) + 1e-36 * nun)
   landings.wt(stock) <- Reduce('+', split(dat$landings.wt *
-    (dat$landings.n + 1e-8), div))  / (c(landings.n(stock)) + 1e-8 * nun)
+    (dat$landings.n + 1e-36), div))  / (c(landings.n(stock)) + 1e-36 * nun)
   discards.wt(stock) <- Reduce('+', split(dat$discards.wt *
-    (dat$discards.n + 1e-8), div))  / (c(discards.n(stock)) + 1e-8 * nun)
+    (dat$discards.n + 1e-36), div))  / (c(discards.n(stock)) + 1e-36 * nun)
 
-  m(stock) <- Reduce('+', split(dat$m * dat$stock.n, div)) / c(stock.n(stock))
+  m(stock) <- Reduce('+', split(dat$m * dat$stock.n, div)) /
+    c(stock.n(stock) + 1e-36)
  
   # COMPUTE
 
@@ -1158,16 +1159,13 @@ noseason <- function(stock, spwn.season=1, weighted=FALSE) {
   # CONVERT to vectors
   dat <- qapply(stock, c)
 
-  # KEEP rec to assign back
+  # KEEP rec elements to assign back
+  recm <- m(stock)[1,]
   recn <- stock.n(stock)[1,]
 
   # SUBSET and rename, n as in season 1
   stock <- stock[,,,1]
   dimnames(stock) <- list(season="all")
-
-  # GET Ns at spwn.season for age = 0
-  if(dimnames(stock)$age[1] == "0" & spwn.season > 1)
-    stock.n(stock)["0",,,1] <- recn["0",,,spwn.season]
 
   # mat
   mat(stock)[] <- split(dat$mat, div)[[spwn.season]]
@@ -1194,6 +1192,13 @@ noseason <- function(stock, spwn.season=1, weighted=FALSE) {
   
   # sums: m, catch
   m(stock) <- Reduce('+', split(dat$m, div))
+
+  # CORRECT Ns at spwn.season for age = 0
+  if(dimnames(stock)$age[1] == "0" & spwn.season > 1) {
+    stock.n(stock)["0",,,1] <- recn["0",,,spwn.season]
+    m(stock)["0",,,1] <- seasonSums(recm["0",,,seq(dis[4]) >= spwn.season])
+  }
+
   catch.n(stock) <- Reduce('+', split(dat$catch.n, div))
   landings.n(stock) <- Reduce('+', split(dat$landings.n, div))
   discards.n(stock) <- Reduce('+', split(dat$discards.n, div))
