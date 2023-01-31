@@ -648,9 +648,15 @@ setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
 # medians {{{
 #' @rdname dimSummaries
+setMethod('yearMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
+  return(apply(x, c(1, 3:6), median, na.rm=na.rm))
+}) 
+#' @rdname dimSummaries
 setMethod('iterMedians', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), median, na.rm=na.rm))
-}) # }}}
+}) 
+
+# }}}
 
 # vars         {{{
 #' @rdname dimSummaries
