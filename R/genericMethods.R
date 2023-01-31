@@ -1383,6 +1383,8 @@ setGeneric("dimSums", function(x, ...) standardGeneric("dimSums"))
 #' @rdname dimSummaries
 setGeneric("quantMeans", function(x, ...) standardGeneric("quantMeans"))
 #' @rdname dimSummaries
+setGeneric("yearMedians", function(x, ...) standardGeneric("yearMedians"))
+#' @rdname dimSummaries
 setGeneric("yearMeans", function(x, ...) standardGeneric("yearMeans"))
 #' @rdname dimSummaries
 setGeneric("unitMeans", function(x, ...) standardGeneric("unitMeans"))
