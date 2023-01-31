@@ -3,6 +3,7 @@
  NEW FEATURES
 
 - ffwd projects an FLStock for a mean fishing mortality (fbar) target.
+- yearMedians method to calculate median across years.
 
  FLCore 2.6.19
 
