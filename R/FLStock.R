@@ -1059,7 +1059,7 @@ setMethod("catch.sel", signature(object="FLStock"),
 # dim {{{
 setMethod("dim", signature(x="FLStock"),
   function(x) {
-    return(dim(x@m))
+    return(c(dim(x@m)[1:5], max(unlist(qapply(x, function(x) dim(x)[6])))))
   }
 ) # }}}
 

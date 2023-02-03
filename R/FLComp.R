@@ -869,6 +869,7 @@ setMethod('dimnames<-', signature(x='FLComp', value='list'),
 # update {{{
 setMethod("update", signature(object="FLComp"),
   function(object, ...) {
+
     args <- list(...)
     
     # HANDLE list, e.g. FLQuants
