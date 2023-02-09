@@ -61,12 +61,12 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     # CHECK timing
     if(is.na(timing))
       stop("Index timing not set and missing from range c('startf', 'endf')")
-    
+
     # COMPUTE index
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
 
     # APPLY Q on biomass
-    index(index) <- quantSums(abnd * catch.wt) * index.q
+    index(index) <- unitSums(quantSums(abnd * catch.wt[ages,])) * index.q
 
     return(index)
 
@@ -123,7 +123,7 @@ setMethod("index",   signature(object="FLStock"),
       exp(-harvest(object) * timing - m(object) * timing)
     
     # APPLY survey selectivity
-    res <- stock.n[ages, yrs] %*% sel
+    res <- stock.n[ages, yrs] %*% expand(sel, year=yrs)[ages, yrs]
 
     # SET units as stock.n
     units(res) <- units(stock.n)
