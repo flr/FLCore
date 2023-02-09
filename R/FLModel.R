@@ -136,8 +136,13 @@ setMethod('fmle',
   signature(object='FLModel', start='ANY'),
   function(object, start, method='Nelder-Mead', fixed=list(),
     control=list(trace=1), lower=rep(-Inf, dim(params(object))[1]),
-    upper=rep(Inf, dim(params(object))[1]), seq.iter=TRUE, preconvert = FALSE, ...)
-  {
+    upper=rep(Inf, dim(params(object))[1]), seq.iter=TRUE, preconvert = FALSE,
+    model=NULL, ...) {
+
+    # RESET model if provided
+    if(is.character(model) | is.function(model))
+      model(object) <- model
+
     # TODO Check with FL
     args <- list(...)
     call <- sys.call(1)
@@ -200,8 +205,9 @@ setMethod('fmle',
     loglfoo <- function(par) {
       pars <- as.list(par)
       names(pars) <- names(start)
-      pars[fixnm] <- lapply(fixed, function(x) c(x)[ifelse(length(x) == 1, 1, it)])
-      return(-1*(do.call(logl, args=c(pars, data))))
+      pars[fixnm] <- lapply(fixed, function(x)
+        c(x)[ifelse(length(x) == 1, 1, it)])
+      return(-1 * (do.call(logl, args=c(pars, data))))
     }
 
     # input data
@@ -292,8 +298,8 @@ setMethod('fmle',
       if(missing(start)) {
         # add call to @initial
         if(is.function(object@initial))
-         start <- as(do.call(object@initial, args=data[names(formals(object@initial))]),
-           'list')
+         start <- as(do.call(object@initial,
+            args=data[names(formals(object@initial))]), 'list')
         else
           start <- formals(logl)[names(formals(logl))%in%parnm]
       }
@@ -315,8 +321,9 @@ setMethod('fmle',
         stop("No starting values provided and no initial function available")
 
       # TODO protect environment
-      out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo, method=method,
-        hessian=TRUE, control=control, lower=lower, upper=upper, gr=gr)))
+      out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo,
+        method=method, hessian=TRUE, control=control,
+        lower=lower, upper=upper, gr=gr)))
 
 			# warning if convergence is not 0, and do not load results
       if(out$convergence != 0) {
