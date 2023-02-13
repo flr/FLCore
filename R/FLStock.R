@@ -1143,7 +1143,8 @@ nounit <- function(stock) {
 
 # noseason {{{
 
-noseason <- function(stock, spwn.season=1, weighted=FALSE) {
+noseason <- function(stock, spwn.season=1, rec.season=spwn.season, 
+  weighted=FALSE) {
 
   # DIMS
   dis <- dim(stock)
@@ -1194,9 +1195,9 @@ noseason <- function(stock, spwn.season=1, weighted=FALSE) {
   m(stock) <- Reduce('+', split(dat$m, div))
 
   # CORRECT Ns at spwn.season for age = 0
-  if(dimnames(stock)$age[1] == "0" & spwn.season > 1) {
-    stock.n(stock)["0",,,1] <- recn["0",,,spwn.season]
-    m(stock)["0",,,1] <- seasonSums(recm["0",,,seq(dis[4]) >= spwn.season])
+  if(dimnames(stock)$age[1] == "0" & rec.season > 1) {
+    stock.n(stock)["0",,,1] <- recn["0",,, rec.season]
+    m(stock)["0",,,1] <- seasonSums(recm["0",,, seq(dis[4]) >= rec.season])
   }
 
   catch.n(stock) <- Reduce('+', split(dat$catch.n, div))
