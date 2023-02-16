@@ -39,7 +39,12 @@ setGeneric('FLStockR', function(object, ...) standardGeneric('FLStockR'))
 setMethod("FLStockR", signature(object="FLStock"),
   function(object, ...) {
 
-    do.call("new", c(list(Class="FLStockR"), c(object, list(...))))
+    args <- list(...)
+
+    if(!is.null(args$sr) & is(args$sr, "FLSR"))
+      args$sr <- as(args$sr, "predictModel")
+
+    do.call("new", c(list(Class="FLStockR"), c(object, args)))
 
   }
 )
@@ -52,6 +57,9 @@ setMethod("FLStockR", signature(object="ANY"),
   function(object, ...) {
 
     args <- c(list(object=object), list(...))
+    
+    if(!is.null(args$sr) & is(args$sr, "FLSR"))
+      args$sr <- as(args$sr, "predictModel")
     
     idr <- names(args) %in% c("refpts", "sr")
 

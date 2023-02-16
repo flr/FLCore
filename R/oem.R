@@ -99,7 +99,18 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
 
     return(ind)
   }
-) # }}}
+)
+
+setMethod("survey", signature(object="FLStock", index="FLIndices"),
+  function(object, index, ...) {
+
+  res <- lapply(index, function(x) survey(object=object, index=x, ...))
+
+  return(res)
+  }
+)
+
+# }}}
 
 # index(FLStock) {{{
 

@@ -237,8 +237,7 @@ setMethod('predict', signature(object='predictModel'),
       warning("objects have different number of iters")
 
     # lapply eval(model) along iters, then combine
-    return(
-           Reduce(combine, lapply(seq(max(nits)), function(i)
+    return(Reduce(combine, lapply(seq(max(nits)), function(i)
       eval(object@model[[length(object@model)]], lapply(args, iter, i))))
     )
 	}

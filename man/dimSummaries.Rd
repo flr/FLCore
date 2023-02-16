@@ -14,6 +14,7 @@
 \alias{iterSums}
 \alias{dimSums}
 \alias{quantMeans}
+\alias{yearMedians}
 \alias{yearMeans}
 \alias{unitMeans}
 \alias{seasonMeans}
@@ -41,6 +42,7 @@
 \alias{seasonMeans,FLQuant-method}
 \alias{areaMeans,FLQuant-method}
 \alias{iterMeans,FLQuant-method}
+\alias{yearMedians,FLQuant-method}
 \alias{iterMedians,FLQuant-method}
 \alias{quantVars,FLQuant-method}
 \alias{yearVars,FLQuant-method}
@@ -87,6 +89,8 @@ iterSums(x, ...)
 dimSums(x, ...)
 
 quantMeans(x, ...)
+
+yearMedians(x, ...)
 
 yearMeans(x, ...)
 
@@ -143,6 +147,8 @@ iterProb(x, ...)
 \S4method{areaMeans}{FLQuant}(x, na.rm = TRUE)
 
 \S4method{iterMeans}{FLQuant}(x, na.rm = TRUE)
+
+\S4method{yearMedians}{FLQuant}(x, na.rm = TRUE)
 
 \S4method{iterMedians}{FLQuant}(x, na.rm = TRUE)
 

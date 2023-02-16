@@ -2030,6 +2030,8 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
 
   # CALCULATE discards
   discards.n(object) <- catch.n(object) - landings.n(object)
+  if(any(is.na(discards.n(object))))
+    browser()
 
   # COMPUTE average catch.wt
   catch.wt(object) <- (landings.wt(object) * landings.n(object) + 
