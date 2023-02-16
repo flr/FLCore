@@ -1946,24 +1946,6 @@ setMethod("ages", signature(object="FLStock"),
 
 ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
 
-    # DIMS
-    dm <- dim(object)
-    dms <- dims(object)
-
-    # EXTRACT slots
-    naa <- stock.n(object)
-    maa <- m(object)
-    faa <- harvest(object)
-    sel <- catch.sel(object)
-
-    # DEVIANCES
-    if(missing(deviances)) {
-      deviances <- rec(object) %=% 1
-    }
-
-    # WINDOW deviances to match stock
-    deviances <- window(deviances, start=dms$minyear)
-    
     # HANDLE fwdControl
     if(is(fbar, "fwdControl")) {
       # CHECK single target per year & no max/min
@@ -1978,67 +1960,89 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       if(!all(fbar$quant %in% c("f", "fbar")))
         stop("ffwd() can only project for f/fbar targets, try calling fwd().")
 
-      fbar <- faa[1, ac(fbar$year)] %=% fbar$value
+      fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
     }
 
     # EXTRACT projection years
     yrs <- match(dimnames(fbar)$year, dimnames(object)$year)
-    
+
+    #
+    obj <- object[, c(yrs[1] - 1, yrs)]
+
+    # DIMS
+    dm <- dim(obj)
+    dms <- dims(obj)
+
+    # EXTRACT slots
+    naa <- stock.n(obj)
+    maa <- m(obj)
+    faa <- harvest(obj)
+    sel <- catch.sel(obj)
+
+    # DEVIANCES
+    if(missing(deviances)) {
+      deviances <- rec(obj) %=% 1
+    }
+
     # COMPUTE harvest
     fages <- range(object, c("minfbar", "maxfbar"))
-    faa[, yrs] <- (sel[, yrs] %/%
-      quantMeans(sel[ac(seq(fages[1], fages[2])), yrs])) %*% fbar
+    faa[, -1] <- (sel[, -1] %/%
+      quantMeans(sel[ac(seq(fages[1], fages[2])), -1])) %*% fbar
 
     # COMPUTE SRP multiplier
-    waa <- stock.wt(object)
-    mat <- mat(object)
-    msp <- m.spwn(object)
-    fsp <- harvest.spwn(object)
+    waa <- stock.wt(obj)
+    mat <- mat(obj)
+    msp <- m.spwn(obj)
+    fsp <- harvest.spwn(obj)
     srp <- exp(-(faa * fsp) - (maa * msp)) * waa * mat
 
     # LOOP over years (i is new year)
-    for (i in yrs - 1) {
+    for (i in seq(dm[2])[-1]) {
       # rec * deviances
-      naa[1, i + 1] <- eval(sr@model[[3]],   
-        c(as(sr@params, 'list'), list(ssb=c(colSums(naa[, i] * srp[, i]))))) *
-        c(deviances[, i + 1])
+      naa[1, i] <- eval(sr@model[[3]],   
+        c(as(sr@params, 'list'), list(ssb=c(colSums(naa[, i-1] *
+        srp[, i-1]))))) * c(deviances[, i])
       # n
-      naa[-1, i + 1] <- naa[-dm[1], i] * exp(-faa[-dm[1], i] - maa[-dm[1], i])
+      naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
       # pg
-      naa[dm[1], i + 1] <- naa[dm[1], i + 1] +
-        naa[dm[1], i] * exp(-faa[dm[1], i] - maa[dm[1], i])
+      naa[dm[1], i] <- naa[dm[1], i] +
+        naa[dm[1], i-1] * exp(-faa[dm[1], i-1] - maa[dm[1], i-1])
     }
 
   # UPDATE stock.n & harvest
 
-  stock.n(object) <- naa
-  harvest(object) <- faa
+  stock.n(object)[, yrs] <- naa[, -1]
+  harvest(object)[, yrs] <- faa[, -1]
   
   # UPDATE stock,
   stock(object) <- computeStock(object)
-
+  
   # and catch.n
-  catch.n(object)[,-1] <- (naa * faa / (maa + faa) * (1 - exp(-faa - maa)))[,-1]
+  catch.n(object)[, yrs] <- (naa * faa / (maa + faa) *
+    (1 - exp(-faa - maa)))[, -1]
 
   # SET landings.n & discards.n to 0 if NA
-  landings.n(object)[is.na(landings.n(object))] <- 0
-  discards.n(object)[is.na(discards.n(object))] <- 0
+  landings.n(object)[, yrs][is.na(landings.n(object)[, yrs])] <- 0
+  discards.n(object)[, yrs][is.na(discards.n(object)[, yrs])] <- 0
   
   # CALCULATE landings.n from catch.n and ratio
-  landings.n(object) <- catch.n(object) * (landings.n(object) / 
-    (discards.n(object) + landings.n(object)))
+  landings.n(object)[, yrs] <- (catch.n(object) * (landings.n(object) / 
+    (discards.n(object) + landings.n(object))))[, yrs]
 
   # CALCULATE discards
-  discards.n(object) <- catch.n(object) - landings.n(object)
-  if(any(is.na(discards.n(object))))
-    browser()
+  discards.n(object)[, yrs] <- (catch.n(object) - landings.n(object))[, yrs]
 
   # COMPUTE average catch.wt
-  catch.wt(object) <- (landings.wt(object) * landings.n(object) + 
-    discards.wt(object) * discards.n(object)) / catch.n(object)
+  catch.wt(object)[, yrs] <- ((landings.wt(object) * landings.n(object) + 
+    discards.wt(object) * discards.n(object)) / catch.n(object))[, yrs]
 
-  # catch
-  catch(object) <- quantSums(catch.n(object) * catch.wt(object))
+  # NAS into unweighted mean
+  nas <- is.na(catch.wt(object)[, yrs])
+  catch.wt(object)[, yrs][nas] <- ((landings.wt(object) +
+    discards.wt(object)) / 2)[, yrs][nas]
+
+  # COMPUTE catch
+  catch(object)[, yrs] <- quantSums(catch.n(object) * catch.wt(object))[, yrs]
 
   return(object)
 }
