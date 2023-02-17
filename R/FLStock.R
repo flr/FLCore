@@ -2033,13 +2033,10 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   discards.n(object)[, yrs] <- (catch.n(object) - landings.n(object))[, yrs]
 
   # COMPUTE average catch.wt
-  catch.wt(object)[, yrs] <- ((landings.wt(object) * landings.n(object) + 
-    discards.wt(object) * discards.n(object)) / catch.n(object))[, yrs]
 
-  # NAS into unweighted mean
-  nas <- is.na(catch.wt(object)[, yrs])
-  catch.wt(object)[, yrs][nas] <- ((landings.wt(object) +
-    discards.wt(object)) / 2)[, yrs][nas]
+  catch.wt(object)[, yrs] <- weighted.mean(
+    FLQuants(L=landings.wt(object), D=discards.wt(object)),
+    FLQuants(L=landings.n(object), D=discards.n(object)))[, yrs]
 
   # COMPUTE catch
   catch(object)[, yrs] <- quantSums(catch.n(object) * catch.wt(object))[, yrs]

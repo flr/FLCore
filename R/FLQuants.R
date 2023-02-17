@@ -297,7 +297,16 @@ setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
   # CREATE NA flags
   na <- FLQuants(lapply(x, function(i) FLQuant(ifelse(is.na(i), 0, 1))))
  
-  Reduce('+', xa * (w * na)) / Reduce('+', w * na)
+  # COMPUTE average
+  res <- Reduce('+', xa * (w * na)) / Reduce('+', w * na)
+
+  # COMPUTE arithmetic mean
+  arm <- Reduce('+', x) / length(x)
+
+  # SUBSTITUTE NAs with arithmetic mean
+  res[is.na(res)] <- c(arm[is.na(res)])
+
+  return(res)
 })
 
 # }}}
