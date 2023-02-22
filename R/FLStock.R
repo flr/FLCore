@@ -1953,6 +1953,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
         stop("ffwd() can only project for yearly targets, try calling fwd().")
 
       # CHECK no max/min
+      # TODO: BETTER check
       if(any(is.na(iters(fbar)[, "value",])))
         stop("ffwd() can only handle targets and not min/max limits, try calling fwd().")
       
@@ -2088,4 +2089,28 @@ setMethod("iterMedians", signature(x="FLStock"),
 
   return(res)
 })
+# }}}
+
+# update(FLStock, ...) {{{
+
+setMethod("update", signature(object="FLStock"),
+  function(object, ...) {
+
+    res <- callNextMethod()
+
+    slots <- names(list(...))
+
+    # RECALCULATE aggregates
+    if(!"landings" %in% slots)
+      landings(res) <- computeLandings(res)
+    if(!"discards" %in% slots)
+      discards(res) <- computeDiscards(res)
+    if(!"catch" %in% slots)
+      catch(res) <- computeCatch(res)
+    if(!"stock" %in% slots)
+      stock(res) <- computeStock(res)
+
+    return(res)
+  }
+)
 # }}}
