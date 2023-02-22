@@ -570,9 +570,8 @@ setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
 #' @rdname dimSummaries
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x,c(1,2,4,5,6), function(x, NA.RM=na.rm){
-    z <- x[!is.na(x)]; ifelse(length(z), sum(z, na.rm=NA.RM), as.numeric(NA))
-  }))
+  return(FLQuant(c(rowSums(aperm(x, c(1,2,4,5,6,3)), na.rm=na.rm, dim=5)),
+  dimnames=c(dimnames(x)[-3], unit='unique')))
 })
 
 #' @rdname dimSummaries
@@ -615,36 +614,40 @@ setMethod('iterSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 # means         {{{
 #' @rdname dimSummaries
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  res <- colMeans(x, na.rm=na.rm)
-  dim(res) <- c(1, dim(res))
-  return(FLQuant(res, dimnames= c(list(quant='all'),dimnames(x)[2:6]), quant=quant(x),
-    units=units(x)))
+  return(FLQuant(c(colMeans(x, na.rm=na.rm, dim=1)),
+    dimnames=c(dimnames(x)[-1], quant='all'), quant=quant(x), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('yearMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x, c(1,3:6), mean, na.rm=na.rm))
+  return(FLQuant(c(rowMeans(aperm(x, c(1,3,4,5,6,2)), na.rm=na.rm, dim=5)),
+  dimnames=c(dimnames(x)[-2], year='1'), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x, c(1:2,4:6), mean, na.rm=na.rm))
+  return(FLQuant(c(rowMeans(aperm(x, c(1,2,4,5,6,3)), na.rm=na.rm, dim=5)),
+  dimnames=c(dimnames(x)[-3], unit='unique'), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x, c(1:3,5,6), mean, na.rm=na.rm))
+  return(FLQuant(c(rowMeans(aperm(x, c(1,2,3,5,6,4)), na.rm=na.rm, dim=5)),
+  dimnames=c(dimnames(x)[-4], season='all'), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x, c(1:4,6), mean, na.rm=na.rm))
+  return(FLQuant(c(rowMeans(aperm(x, c(1,2,3,4,6,5)), na.rm=na.rm, dim=5)),
+  dimnames=c(dimnames(x)[-5], area='unique'), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(apply(x, c(1:5), mean, na.rm=na.rm))
-}) # }}}
+  return(FLQuant(c(rowMeans(x, na.rm=na.rm, dim=5)),
+  dimnames=c(dimnames(x)[-6], iter='1'), units=units(x)))
+})
+# }}}
 
 # medians {{{
 #' @rdname dimSummaries
