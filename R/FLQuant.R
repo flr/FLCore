@@ -1081,6 +1081,8 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
         lens <- (ISOdate(2014, 12, 31) - ISOdate(2014, 1, 1)) / dim(x)[4]
         res$date <- ISOdate(res$year, 1, 1) + lens * (as.numeric(res$season) - 1)
       }
+      res$decade <- res$year - (res$year %% 10)
+      res$lustrum <- res$year - (res$year %% 5) 
     }
 
     # drops columns with a single value, i.e. dims of length=1
