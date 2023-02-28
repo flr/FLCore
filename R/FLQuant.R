@@ -1,8 +1,8 @@
 # FLQuant.R - FLQuant class and methods
 # FLCore/R/FLQuant.R
 
-# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC G03
+# Copyright 2003-2022 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira (MWR)
 
 # FLQuant(missing){{{
 
@@ -1079,8 +1079,12 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
         res$date <- ISOdate(res$year, res$season, 1)
       else {
         lens <- (ISOdate(2014, 12, 31) - ISOdate(2014, 1, 1)) / dim(x)[4]
-        res$date <- ISOdate(res$year, 1, 1) + lens * (as.numeric(res$season) - 1)
+        res$date <- ISOdate(res$year, 1, 1) + lens *
+          (as.numeric(res$season) - 1)
       }
+      # ADD decade and lustrum
+      res$decade <- res$year - (res$year %% 10)
+      res$lustrum <- res$year - (res$year %% 5)
     }
 
     # drops columns with a single value, i.e. dims of length=1
