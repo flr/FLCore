@@ -477,7 +477,7 @@ setMethod("mase", signature(ref="FLQuant", preds="FLQuants"),
     nyears <- length(preds)
 
     # REVERSE if ahead
-    if(order[1] == "ahead")
+    if(match.arg(order) == "ahead")
       preds <- preds[rev(seq(length(preds)))]
 
     # ADD names if missing
