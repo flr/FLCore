@@ -2005,3 +2005,6 @@ setGeneric("ageopt", function(object, ...)
 setGeneric("deviances", function(object, ...) standardGeneric("deviances"))
 setGeneric("deviances<-", function(object, ..., value)
   standardGeneric("deviances<-"))
+
+setGeneric("discards.ratio", function(object, ...) standardGeneric("discards.ratio"))
+

@@ -329,6 +329,7 @@ exportMethods(
   "discards<-",
   "discards.n",
   "discards.n<-",
+  "discards.ratio",
   "discards.sel",
   "discards.sel<-",
   "discards.wt",
