@@ -1056,6 +1056,30 @@ setMethod("catch.sel", signature(object="FLStock"),
   }
 ) # }}}
 
+# discards.ratio {{{
+setMethod("discards.ratio", signature(object="FLStock"),
+	function(object) {
+		return(discards.n(object) / catch.n(object))
+	}
+) # }}}
+
+# discards.sel {{{
+setMethod("discards.sel", signature(object="FLStock"),
+	function(object) {
+		res <- catch.sel(object) * discards.ratio(object)
+		return(res %/% apply(res, 2:6, max))
+	}
+) # }}}
+
+# landings.sel
+setMethod("landings.sel", signature(object="FLStock"),
+	function(object) {
+		res <- catch.sel(object) * (1 - discards.ratio(object))
+		return(res %/% apply(res, 2:6, max))
+	}
+) # }}}
+
+
 # dim {{{
 setMethod("dim", signature(x="FLStock"),
   function(x) {
