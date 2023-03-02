@@ -57,6 +57,14 @@ setMethod("units<-", signature(x="FLArray", value="character"),
   }
 ) # }}}
 
+# setunits {{{
+#' @rdname units-FLCore
+setunits <- function(x, value) {
+  units(x) <- value
+  return(x)
+}
+# }}}
+
 # quant, quant<-        {{{
 
 #' @rdname quant
@@ -88,6 +96,14 @@ setMethod("quant<-", signature(object="FLArray", value='character'),
     return(object)
   }
 ) # }}}
+
+# setquant {{{
+#' @rdname quant-FLCore
+setquant <- function(x, value) {
+  quant(x) <- value
+  return(x)
+}
+# }}}
 
 #  [             {{{
 

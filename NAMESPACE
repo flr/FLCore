@@ -186,6 +186,8 @@ export(
   "sbind",
   "segreg",
   "segregAR1",
+  "setquant",
+  "setunits",
   "shepherd",
   "shepherdSV",
   "sigma3",
