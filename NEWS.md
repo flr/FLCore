@@ -4,6 +4,7 @@
 
 - ffwd projects an FLStock for a mean fishing mortality (fbar) target.
 - yearMedians method to calculate median across years.
+- setunits and setquant inline functions to change units and quant in an FLQuant.
 
 # FLCore 2.6.19
 

@@ -1071,14 +1071,13 @@ setMethod("discards.sel", signature(object="FLStock"),
 	}
 ) # }}}
 
-# landings.sel
+# landings.sel {{{
 setMethod("landings.sel", signature(object="FLStock"),
 	function(object) {
 		res <- catch.sel(object) * (1 - discards.ratio(object))
 		return(res %/% apply(res, 2:6, max))
 	}
 ) # }}}
-
 
 # dim {{{
 setMethod("dim", signature(x="FLStock"),
