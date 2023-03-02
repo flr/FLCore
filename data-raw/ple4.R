@@ -53,12 +53,12 @@ ple4.indices[["IBTS_Q3"]] <- ple4.indices[["IBTS_Q3"]][-1,]
 
 # ADD index.q, sel.pattern and catch.wt
 
-ple4.indices <- Map(function(x, y) {
+ple4.indices <- FLIndices(Map(function(x, y) {
   sel.pattern(x)[] <- y[dimnames(x)$age,] / max(y[dimnames(x)$age,])
   index.q(x)[] <- quantMeans(y)
   catch.wt(x) <- stock.wt(ple4)[dimnames(x)$age, dimnames(x)$year]
   return(x)
-  }, x=ple4.indices, y=resultsOrigDisc@q.hat)
+  }, x=ple4.indices, y=resultsOrigDisc@q.hat))
 
 # --- BUILD FLIndex
 
@@ -100,6 +100,3 @@ vpa <- VPA(ple4)
 library(ggplotFL)
 
 plot(FLStocks(AAP=ple4, XSA=ple4+res, A4A=ple4+fit, VPA=ple4+vpa))
-
-
-
