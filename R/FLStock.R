@@ -1,7 +1,7 @@
 # FLStock.R - FLStock class and methods
 # FLCore/R/FLStock.R
 
-# Copyright 2003-2022 FLR Team. Distributed under the GPL 2 or later.
+# Copyright 2003-2023 FLR Team. Distributed under the GPL 2 or later.
 # Maintainer: Iago Mosqueira, WMR.
 
 # FLStock()   {{{
@@ -1973,7 +1973,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     if(is(fbar, "fwdControl")) {
       # CHECK single target per year & no max/min
       if(length(fbar$year) != length(unique(fbar$year)))
-        stop("ffwd() can only project for yearly targets, try calling fwd().")
+        stop("ffwd() can only project for yearly targets, try calling FLasher::fwd().")
 
       # CHECK no max/min
       # TODO: BETTER check
@@ -2007,6 +2007,8 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     if(missing(deviances)) {
       deviances <- rec(obj) %=% 1
     }
+    
+    deviances <- deviances[, dimnames(obj)$year[-1]]
 
     # COMPUTE harvest
     fages <- range(object, c("minfbar", "maxfbar"))
@@ -2020,12 +2022,13 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     fsp <- harvest.spwn(obj)
     srp <- exp(-(faa * fsp) - (maa * msp)) * waa * mat
 
-    # LOOP over years (i is new year)
+
+    # LOOP over obj years (i is new year)
     for (i in seq(dm[2])[-1]) {
       # rec * deviances
       naa[1, i] <- eval(sr@model[[3]],   
         c(as(sr@params, 'list'), list(ssb=c(colSums(naa[, i-1] *
-        srp[, i-1]))))) * c(deviances[, i])
+        srp[, i-1]))))) * c(deviances[, i - 1])
       # n
       naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
       # pg

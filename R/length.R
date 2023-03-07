@@ -68,7 +68,7 @@ invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,
       lparams[names(lparams) %in% names(formals(model))]))
 
     if(is.null(reflen)) {
-      sd <- len * cv
+      sd <- abs(len * cv)
     } else {
       sd <- reflen * cv
     }
