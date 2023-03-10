@@ -5,6 +5,7 @@
 \alias{units-FLCore}
 \alias{units,FLArray-method}
 \alias{units<-,FLArray,character-method}
+\alias{setunits}
 \alias{units,FLPar-method}
 \alias{units<-,FLPar,character-method}
 \alias{units,FLComp-method}
@@ -16,6 +17,8 @@
 \S4method{units}{FLArray}(x)
 
 \S4method{units}{FLArray,character}(x) <- value
+
+setunits(x, value)
 
 \S4method{units}{FLPar}(x)
 

@@ -396,6 +396,9 @@ setMethod("tsb", signature(object="FLStock"),
 setMethod("tb", signature(object="FLStock"),
   function(object, time=0) {
 
+    if(missing(time) & "wtime" %in% names(range(object)))
+      time <- range(object, "wtime")
+
     res <- quantSums(stock.n(object) * stock.wt(object) *
       exp(-(m(object) * time) -
       # APPLY F only between harvest.spwn and time, if positive
@@ -1990,7 +1993,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     # EXTRACT projection years
     yrs <- match(dimnames(fbar)$year, dimnames(object)$year)
 
-    #
+    # SUBSET for projection years
     obj <- object[, c(yrs[1] - 1, yrs)]
 
     # DIMS
