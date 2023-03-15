@@ -6,6 +6,7 @@
 - yearMedians method to calculate median across years.
 - setunits and setquant inline functions to change units and quant in an FLQuant.
 - tb(FLStock) will use as time argument the valkue stored in range(object, 'wtime') if available.
+- control generic moved to FLCore.
 
  FLCore 2.6.19
 

@@ -306,6 +306,8 @@ exportMethods(
   "computeLogLik",
   "computeQ",
   "computeStock",
+  "control",
+  "control<-",
   "corrected",
   "cost",
   "ccost",

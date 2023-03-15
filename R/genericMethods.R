@@ -2008,3 +2008,5 @@ setGeneric("deviances<-", function(object, ..., value)
 
 setGeneric("discards.ratio", function(object, ...) standardGeneric("discards.ratio"))
 
+setGeneric("control", function(object, ...) standardGeneric("control"))
+setGeneric("control<-", function(object, ..., value) standardGeneric("control<-"))
