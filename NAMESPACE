@@ -161,6 +161,7 @@ export(
   "meanageCatch",
   "meanwt",
   "meanwtCatch",
+  "mixedsrr",
   "mlc",
   "mohnMatrix",
   "noarea",

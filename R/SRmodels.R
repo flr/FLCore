@@ -589,6 +589,57 @@ bevholtsig <- function() {
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+# mixedsrr {{{
+
+mixed <- function(a, b, m=c(1,2,3), ssb) {
+
+  rec <- ssb %=% as.numeric(NA)
+
+  # 1 Bevholt
+  id <- c(m == 1)
+  if(sum(id) > 0)
+    iter(rec, id) <- iter(a, id) * iter(ssb, id) /
+      (iter(b, id) + iter(ssb, id))
+
+  # 2 Ricker
+  id <- c(m == 2)
+  if(sum(id) > 0)
+    iter(rec, id) <- iter(a, id) * iter(ssb, id) * exp(-(iter(b, id) *
+      iter(ssb, id)))
+
+  # 3 Segreg
+  id <- c(m == 3)
+  if(sum(id) > 0)
+    iter(rec, id) <- ifelse(iter(ssb, id) <= iter(b, id), iter(a, id) *
+      iter(ssb, id), iter(a, id) * iter(b, id))
+
+  return(rec)
+}
+
+#' @name SRModels
+#' @aliases mixedsrr
+
+mixedsrr <- function() {
+  ## log likelihood, assuming normal log.
+  logl <- function(a, b, c, rec, ssb)
+      loglAR1(log(rec), log(a / ((b / ssb) ^ c + 1)))
+
+  ## initial parameter values
+  initial <- structure(function(rec, ssb) {
+    a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
+    b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
+    return(FLPar(a = a, b = a/b, c=1))},
+
+  ## bounds
+  lower=rep(-Inf, 2),
+	upper=rep(Inf, 2))
+
+  ## model to be fitted
+  model  <- rec~mixed(a, b, m, ssb)
+  
+	return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # methods
 
 # spr0  {{{
@@ -757,6 +808,7 @@ SRModelName <- function(model){
       "(4*s*R0*tep)/(v*(1-s)+tep*(5*s-1))" = "bevholtss3f",
       "survRec(ssf,R0,Sfrac,beta,SF0=ssf[,1])" = "survSRR",
       "a/((b/ssb)^c+1)" = "bevholtsig",
+      "mixed(a,b,m,ssb)" = "mixedsrr",
       NULL))} # }}}
 
 # SRNameCode {{{
@@ -771,6 +823,7 @@ SRNameCode <- function(name)
     "cushing" = 6,
     "dersch" = 7,
     "pellat" = 8,
+    "mixedsrr" = 44,
     "bevholtD" = 21,
     "bevholtSV" = 22,
     "bevholtSS3" = 23,
