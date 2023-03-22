@@ -1,4 +1,2 @@
-* text=auto
-data/* binary
-src/* text=lf
-R/* text=lf
+data-raw/ export-ignore
+docs/     export-ignore
