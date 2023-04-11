@@ -117,10 +117,8 @@ assessment (i.e. estimates of abundance and removal rates).
 }
 
 \examples{
-
 stkl <- FLStockLen(m=FLQuant(0.2, dimnames=list(len=seq(5, 50, by=2), year=2015:2020)))
 summary(stkl)
-
 # Unnamed FLQuant used for sizing
 stkl <- FLStockLen(FLQuant(0.2, dimnames=list(len=seq(5, 50, by=2), year=2015:2020)))
 summary(stkl)

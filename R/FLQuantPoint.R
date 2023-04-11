@@ -9,13 +9,13 @@
 #' @rdname FLQuantPoint
 #' @aliases FLQuantPoint,missing-method
 setMethod("FLQuantPoint", signature(object="missing"),
-  function(..., units='NA') {
+  function(..., units='NA', n=1) {
 
     args <- list(...)
 
     # empty object
     if(length(args) == 0) {
-      res <- new('FLQuantPoint')
+      res <- new('FLQuantPoint', n=n)
       units(res) <- units
     }
     else {
@@ -28,7 +28,7 @@ setMethod("FLQuantPoint", signature(object="missing"),
       dmns <- c(dimnames(args[[1]])[1:5],
         list(iter=c('mean', 'median', 'var', 'uppq', 'lowq')))
 
-      res <- new('FLQuantPoint', FLQuant(NA, dimnames=dmns, units=units))
+      res <- new('FLQuantPoint', FLQuant(NA, dimnames=dmns, units=units), n=n)
 
       for(i in names(args))
         res[,,,,,i] <- args[[i]]
@@ -44,17 +44,18 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
 
     # new object
     res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
-      iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))), units=units))
+      iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))),
+      units=units), n=dim(object)[6])
 
-        # load values
-        res[,,,,,'mean'] <- apply(object, 1:5, mean, na.rm=TRUE)
-        res[,,,,,'median'] <- apply(object, 1:5, median, na.rm=TRUE)
-        res[,,,,,'var'] <- apply(object, 1:5, var, NULL, na.rm=TRUE)
-		    # quantile free or 0.05 & 0.95
-        res[,,,,,'lowq'] <- quantile(object, probs[1], na.rm=TRUE)
-        res[,,,,,'uppq'] <-quantile(object, probs[2], na.rm=TRUE)
+    # load values
+    res[,,,,,'mean'] <- c(apply(object, 1:5, mean, na.rm=TRUE))
+    res[,,,,,'median'] <- c(apply(object, 1:5, median, na.rm=TRUE))
+    res[,,,,,'var'] <- c(apply(object, 1:5, var, NULL, na.rm=TRUE))
+		# quantile free or 0.05 & 0.95
+    res[,,,,,'lowq'] <- c(quantile(object, probs[1], na.rm=TRUE))
+    res[,,,,,'uppq'] <- c(quantile(object, probs[2], na.rm=TRUE))
 
-        return(res)
+    return(res)
     }
 )	# }}}
 
@@ -160,12 +161,35 @@ setMethod("lowq<-", signature(x="FLQuantPoint", value="ANY"),
 		x[,,,,,'lowq'] <- value
 		return(x)
 	}
-) # }}}
+)
+
+#' @rdname FLQuantPoint
+#' @example
+#' n(flqp)
+
+setMethod("n", signature(object="FLQuantPoint"),
+	function(object, ...)
+		return(object@n)
+)
+setMethod("n<-", signature(object="FLQuantPoint"),
+	function(object, value) {
+		object@n <- value
+		return(object)
+	}
+)
+
+# }}}
 
 # cv {{{
 setMethod("cv", signature(x="FLQuantPoint"),
 	function(x, ...)
 		return(sqrt(var(x)) / mean(x))
+) # }}}
+
+# se {{{
+setMethod("se", signature(x="FLQuantPoint"),
+	function(x, ...)
+		return(sqrt(var(x)) / sqrt(n(x)))
 ) # }}}
 
 # quantile   {{{
@@ -227,3 +251,6 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
     return(dat)
   } 
 ) # }}}
+
+
+se <- function(x) sqrt(var(x)) / sqrt(n(x)) # Create own function

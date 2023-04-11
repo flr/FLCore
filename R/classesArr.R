@@ -225,13 +225,12 @@ setClass("FLQuant",
 #' mean(flqp)
 #' var(flqp)
 #' rnorm(200, flqp)
-#' 
 
 setClass("FLQuantPoint",
-    representation("FLQuant"),
+    representation("FLQuant", n="numeric"),
 	prototype(new('FLQuant', array(as.numeric(NA), dim=c(1,1,1,1,1,5),
 		dimnames=list(quant="all", year="1", unit="unique", season="all",
-		area="unique", iter=c('mean', 'median', 'var', 'uppq', 'lowq'))), units="NA")),
+		area="unique", iter=c('mean', 'median', 'var', 'uppq', 'lowq'))), units="NA"), n=1),
 	# VALIDITY
     validity=function(object) {
     
@@ -242,6 +241,10 @@ setClass("FLQuantPoint",
     # dimnames are 'mean', 'median', 'var', 'uppq', 'lowq'
     if(any(dimnames(object)$iter != c('mean', 'median', 'var', 'uppq', 'lowq')))
         return("dimnames of object do not match those of the FLQuantPoint class")
+
+    #
+    if(length(n) != 1)
+      return("'n' must be of length 1")
     
 	# Everything is fine
     return(TRUE)

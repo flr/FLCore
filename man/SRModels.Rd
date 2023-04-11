@@ -40,6 +40,7 @@
 \alias{survRec}
 \alias{survSRR}
 \alias{bevholtsig}
+\alias{mixedsrr}
 \title{Stock-Recruitment models}
 \usage{
 ricker()
@@ -73,6 +74,8 @@ rickerCa()
 survRec(ssf, R0, Sfrac, beta, SF0 = ssf[, 1])
 
 bevholtsig()
+
+mixedsrr()
 }
 \arguments{
 \item{rho}{Autoregression}

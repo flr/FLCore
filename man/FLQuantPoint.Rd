@@ -19,13 +19,16 @@
 \alias{uppq<-,FLQuantPoint,FLQuant-method}
 \alias{quantile,FLQuantPoint-method}
 \alias{FLQuantPoint,missing-method}
+\alias{n,FLQuantPoint-method}
 \title{Class FLQuantPoint}
 \usage{
 FLQuantPoint(object, ...)
 
-\S4method{FLQuantPoint}{missing}(..., units = "NA")
+\S4method{FLQuantPoint}{missing}(..., units = "NA", n = 1)
 
-\S4method{FLQuantPoint}{FLQuant}(object, ..., units = "NA")
+\S4method{FLQuantPoint}{FLQuant}(object, ..., probs = c(0.25, 0.75), units = "NA")
+
+\S4method{n}{FLQuantPoint}(object, ...)
 }
 \arguments{
 \item{object}{Input numeric object}
@@ -89,7 +92,6 @@ summary(flqp)
 mean(flqp)
 var(flqp)
 rnorm(200, flqp)
-
 }
 \seealso{
 \link{FLQuant}
