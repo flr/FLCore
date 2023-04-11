@@ -9,7 +9,6 @@
 #' @rdname FLStockLen
 #' @aliases FLStockLen,FLQuant-method
 #' @examples
-#'
 #' stkl <- FLStockLen(m=FLQuant(0.2, dimnames=list(len=seq(5, 50, by=2), year=2015:2020)))
 #' summary(stkl)
 
@@ -60,7 +59,6 @@ setMethod("FLStockLen", signature(object="FLQuant"),
 #' @rdname FLStockLen
 #' @aliases FLStockLen,missing-method
 #' @examples
-#'
 #' # Unnamed FLQuant used for sizing
 #' stkl <- FLStockLen(FLQuant(0.2, dimnames=list(len=seq(5, 50, by=2), year=2015:2020)))
 #' summary(stkl)
@@ -97,6 +95,10 @@ setMethod("halfwidth", signature(object="FLStockLen"),
 	function(object, ...) {
 		return(object@halfwidth)
 	})
+
+#' @examples
+#' halfwidth(stkl)
+
 setMethod("halfwidth<-", signature(object="FLStockLen", value="numeric"),
 	function(object, ..., value) {
 
@@ -119,6 +121,9 @@ setMethod("halfwidth<-", signature(object="FLStockLen", value="numeric"),
 
 # breaks et al {{{
 # breaks
+
+#' @examples
+#' breaks(stkl)
 setMethod("breaks", signature(object="FLStockLen"),
 	function(object, ...) {
 		hwd <- halfwidth(object)
@@ -128,18 +133,27 @@ setMethod("breaks", signature(object="FLStockLen"),
 
 
 # leftbound
+
+#' @examples
+#' leftbound(stkl)
 setMethod("leftbound", signature(object="FLStockLen"),
 	function(object, ...) {
 		return(as.numeric(dimnames(object@stock.n)[['len']]))
 	})
 
 # rightbound
+
+#' @examples
+#' rightbound(stkl)
 setMethod("rightbound", signature(object="FLStockLen"),
 	function(object, ...) {
 		return(as.numeric(dimnames(object@stock.n)[['len']]) + 2 * halfwidth(object))
 	})
 
 # mids
+
+#' @examples
+#' mids(stkl)
 setMethod("mids", signature(object="FLStockLen"),
 	function(object, ...) {
 		return(as.numeric(dimnames(object@stock.n)[['len']]) + halfwidth(object))

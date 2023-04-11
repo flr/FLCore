@@ -40,7 +40,7 @@ setMethod("FLQuantPoint", signature(object="missing"),
 #' @rdname FLQuantPoint
 #' @aliases FLQuantPoint,FLQuant-method
 setMethod("FLQuantPoint", signature(object="FLQuant"),
-  function(object, ..., units='NA') {
+  function(object, ..., probs=c(0.25, 0.75), units='NA') {
 
     # new object
     res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
@@ -51,8 +51,8 @@ setMethod("FLQuantPoint", signature(object="FLQuant"),
         res[,,,,,'median'] <- apply(object, 1:5, median, na.rm=TRUE)
         res[,,,,,'var'] <- apply(object, 1:5, var, NULL, na.rm=TRUE)
 		    # quantile free or 0.05 & 0.95
-        res[,,,,,'lowq'] <- quantile(object, 0.25, na.rm=TRUE)
-        res[,,,,,'uppq'] <-quantile(object, 0.75, na.rm=TRUE)
+        res[,,,,,'lowq'] <- quantile(object, probs[1], na.rm=TRUE)
+        res[,,,,,'uppq'] <-quantile(object, probs[2], na.rm=TRUE)
 
         return(res)
     }
