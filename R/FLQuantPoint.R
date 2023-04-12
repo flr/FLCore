@@ -22,7 +22,8 @@ setMethod("FLQuantPoint", signature(object="missing"),
       # valid names
       if(any(!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')))
        stop(paste("Invalid names for FLQuantPoint elements:",
-          names(args)[!names(args) %in% c('mean', 'median', 'var', 'uppq', 'lowq')]))
+          names(args)[!names(args) %in%
+          c('mean', 'median', 'var', 'uppq', 'lowq')]))
 
       # check dimnames
       dmns <- c(dimnames(args[[1]])[1:5],
@@ -40,12 +41,12 @@ setMethod("FLQuantPoint", signature(object="missing"),
 #' @rdname FLQuantPoint
 #' @aliases FLQuantPoint,FLQuant-method
 setMethod("FLQuantPoint", signature(object="FLQuant"),
-  function(object, ..., probs=c(0.25, 0.75), units='NA') {
+  function(object, ..., probs=c(0.25, 0.75)) {
 
     # new object
     res <- new('FLQuantPoint', FLQuant(NA, dimnames=c(dimnames(object)[1:5],
       iter=list(c('mean', 'median', 'var', 'uppq', 'lowq'))),
-      units=units), n=dim(object)[6])
+      units=units(object)), n=dim(object)[6])
 
     # load values
     res[,,,,,'mean'] <- c(apply(object, 1:5, mean, na.rm=TRUE))
