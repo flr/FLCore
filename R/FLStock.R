@@ -1295,7 +1295,7 @@ noarea <- function(stock) {
 
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
-    spwn.season=1, harvest=TRUE) {
+    spwn.season=1, rec.season=spwn.season, harvest=TRUE) {
   
   # ORDER: season(unit(area))
   if(any(c("area", 5) %in% dims))
@@ -1305,7 +1305,7 @@ setMethod("simplify", signature(object="FLStock"),
     object <- nounit(object)
 
   if(any(c("season", 4) %in% dims))
-    object <- noseason(object)
+    object <- noseason(object, spwn.season=spwn.season, rec.season=rec.season)
 
   # harvest
   if(harvest) {
