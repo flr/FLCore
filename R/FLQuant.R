@@ -2052,23 +2052,30 @@ setMethod("acc", signature(object="FLQuant"),
 #' merge(a, b)
 
 setMethod("merge", signature(x="FLQuant", y="FLQuant"),
-  function(x, y) {
+  function(x, y, ...) {
 
+    # EXTRACT dimnames
     dnx <- dimnames(x)
     dny <- dimnames(y)
 
-    # CHECK only quant AND/OR year to be merged
-    if(!all.equal(dnx[-c(1,2)], dny[-c(1,2)]))
-      stop("merge needs FLQuant objects with equal dimnames[3:6]")
+    # FIND different dimension
+    dnd <- unlist(Map(function(x, y) identical(x,y), x=dnx, y=dny))
+    pos <- which(!dnd)
 
-    qs <- unique(c(dnx[[1]], dny[[1]]))
-    ys <- unique(c(dnx[[2]], dny[[2]]))
+    # CHECK only one dim to be merged
+    if(length(pos) > 1)
+      stop("Only one dimension can be different between objects")
 
-    out <- FLQuant(NA, dimnames=c(list(quant=qs, year=ys), dnx[3:6]))
-    quant(out) <- quant(x)
+    # SELECT merging function
+    fun <- switch(pos,
+      '1'=qbind,
+      '2'=ybind,
+      '3'=ubind,
+      '4'=sbind,
+      '5'=abind,
+      '6'=ibind)
 
-    out[dnx[[1]], dnx[[2]]] <- x[dnx[[1]], dnx[[2]]]
-    out[dny[[1]], dny[[2]]] <- y[dny[[1]], dny[[2]]]
+    out <- fun(x, y, ...)
 
     return(out)
   }
