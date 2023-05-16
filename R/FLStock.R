@@ -1202,8 +1202,8 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season,
   
   # means: wt
   if(weighted) {
-    stock.wt(stock) <- Reduce("+", Map("*", split(dat$stock.wt, div),
-      split(dat$stock.n, div))) / Reduce("+", split(dat$stock.n, div))
+#    stock.wt(stock) <- Reduce("+", Map("*", split(dat$stock.wt, div),
+#      split(dat$stock.n, div))) / Reduce("+", split(dat$stock.n, div))
     catch.wt(stock) <- Reduce("+", Map("*", split(dat$catch.wt, div),
       split(dat$catch.n, div))) / Reduce("+", split(dat$catch.n, div))
     landings.wt(stock) <- Reduce("+", Map("*", split(dat$landings.wt, div),
@@ -1211,7 +1211,7 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season,
     discards.wt(stock) <- Reduce("+", Map("*", split(dat$discards.wt, div),
       split(dat$discards.n, div))) / Reduce("+", split(dat$discards.n, div))
   } else {
-    stock.wt(stock) <- Reduce('+', split(dat$stock.wt, div)) / nse
+ #   stock.wt(stock) <- Reduce('+', split(dat$stock.wt, div)) / nse
     catch.wt(stock) <- Reduce('+', split(dat$catch.wt, div)) / nse
     landings.wt(stock) <- Reduce('+', split(dat$landings.wt, div)) / nse
     discards.wt(stock) <- Reduce('+', split(dat$discards.wt, div)) / nse
@@ -1222,8 +1222,8 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season,
 
   # CORRECT Ns at spwn.season for age = 0
   if(dimnames(stock)$age[1] == "0" & rec.season > 1) {
-    stock.n(stock)["0",,,1] <- recn["0",,, rec.season]
-    m(stock)["0",,,1] <- seasonSums(recm["0",,, seq(dis[4]) >= rec.season])
+    stock.n(stock)["0",,, 1] <- recn["0",,, rec.season]
+    m(stock)["0",,, 1] <- seasonSums(recm["0",,, seq(dis[4]) >= rec.season])
   }
 
   catch.n(stock) <- Reduce('+', split(dat$catch.n, div))
