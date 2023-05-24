@@ -889,3 +889,17 @@ setMethod("update", signature(object="FLComp"),
     return(object)
   }
 ) # }}}
+
+# dim {{{
+setMethod("dim", signature(x="FLComp"),
+  function(x) {
+
+    # FIND FLQuant slots
+    fqs <- which(getSlots(class(x)) == 'FLQuant')
+
+    # TAKE first one
+    slot <- names(fqs)[1]
+
+    return(dim(slot(x, slot)))
+  }
+) # }}}
