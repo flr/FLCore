@@ -2010,8 +2010,10 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     if(missing(deviances)) {
       deviances <- rec(obj) %=% 1
     }
-    
-    deviances <- deviances[, dimnames(obj)$year[-1]]
+ 
+    # SUBSET and EXPAND (JIC) if unit > 1
+    deviances <- expand(deviances[, dimnames(obj)$year[-1]],
+      unit=dimnames(obj)$unit)
 
     # COMPUTE harvest
     fages <- range(object, c("minfbar", "maxfbar"))
@@ -2029,9 +2031,10 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     # LOOP over obj years (i is new year)
     for (i in seq(dm[2])[-1]) {
       # rec * deviances
-      naa[1, i] <- eval(sr@model[[3]],   
-        c(as(sr@params, 'list'), list(ssb=c(colSums(naa[, i-1] *
-        srp[, i-1]))))) * c(deviances[, i - 1])
+      naa[1, i] <- rep(eval(sr@model[[3]],   
+        c(as(sr@params, 'list'), list(
+        ssb=c(sum(naa[, i-1] * srp[, i-1]))))) / dm[3], dm[3]) *
+          c(deviances[, i - 1])
       # n
       naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
       # pg
