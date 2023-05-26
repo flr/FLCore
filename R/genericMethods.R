@@ -2012,3 +2012,5 @@ setGeneric("control", function(object, ...) standardGeneric("control"))
 setGeneric("control<-", function(object, ..., value) standardGeneric("control<-"))
 
 setGeneric("se", function(x, ...) standardGeneric("se"))
+
+setGeneric("biomass", function(x, ...) standardGeneric("biomass"))
