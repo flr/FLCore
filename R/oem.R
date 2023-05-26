@@ -33,7 +33,7 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
     ages = dimnames(index)$age,
     timing = mean(range(index, c("startf", "endf"))),
     index.q = index@index.q) {
-    
+
     # COMPUTE index
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
 
@@ -854,6 +854,14 @@ ifelse(log,return(log(r0)),return(r0))
 
 roc <- function(label, ind, direction=c(">=", "<=")) {
 
+  # CHECK label is logical or pseudo-logical (0, 1)
+  if(!all(c(label) %in% c(0, 1)))
+    stop("label can only contain 0 and 1 for FALSE, TRUE")
+ 
+  # CONVERT label to pseudo-logical (0/1)
+  if(!is.numeric(label))
+    label[] <- ifelse(c(label), 1, 0)
+
   # PROPAGATE if needed
   its <- max(dim(label)[6], dim(ind)[6])
   label <- propagate(label, its)
@@ -863,12 +871,8 @@ roc <- function(label, ind, direction=c(">=", "<=")) {
   if(!all.equal(dim(label), dim(ind)))
     stop("dimensions of label and ind must match")
 
-  # CHECK label is pseudo-logical (0, 1)
-  if(!all(c(label) %in% c(0, 1)))
-    stop("label can only contain 0 and 1 for FALSE, TRUE")
- 
   # CHECK label not all TRUE/FALSE
-  if(all(label) | all(!label))
+  if(all(label == 1) | all(label == 0))
     stop("label cannot be all TRUE or FALSE")
 
   # SET comparison direction

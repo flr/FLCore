@@ -353,6 +353,7 @@ uom <- function(op, u1, u2) {
 
   # undefined unit (not in uoms)
 	if(any(is.na(idx))) {
+    # TODO: SET to NA if too long
 	  return(paste(sprintf("%s %s %s", u1, op, u2), collapse=" "))
   }
 
