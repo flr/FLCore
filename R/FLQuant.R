@@ -614,37 +614,37 @@ setMethod('iterSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 # means         {{{
 #' @rdname dimSummaries
 setMethod('quantMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(FLQuant(c(colMeans(x, na.rm=na.rm, dim=1)),
+  return(FLQuant(c(colMeans(x, na.rm=na.rm, dims=1)),
     dimnames=c(dimnames(x)[-1], quant='all'), quant=quant(x), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('yearMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(FLQuant(c(rowMeans(aperm(x, c(1,3,4,5,6,2)), na.rm=na.rm, dim=5)),
+  return(FLQuant(c(rowMeans(aperm(x, c(1,3,4,5,6,2)), na.rm=na.rm, dims=5)),
   dimnames=c(dimnames(x)[-2], year='1'), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('unitMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(FLQuant(c(rowMeans(aperm(x, c(1,2,4,5,6,3)), na.rm=na.rm, dim=5)),
+  return(FLQuant(c(rowMeans(aperm(x, c(1,2,4,5,6,3)), na.rm=na.rm, dims=5)),
   dimnames=c(dimnames(x)[-3], unit='unique'), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('seasonMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(FLQuant(c(rowMeans(aperm(x, c(1,2,3,5,6,4)), na.rm=na.rm, dim=5)),
+  return(FLQuant(c(rowMeans(aperm(x, c(1,2,3,5,6,4)), na.rm=na.rm, dims=5)),
   dimnames=c(dimnames(x)[-4], season='all'), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('areaMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(FLQuant(c(rowMeans(aperm(x, c(1,2,3,4,6,5)), na.rm=na.rm, dim=5)),
+  return(FLQuant(c(rowMeans(aperm(x, c(1,2,3,4,6,5)), na.rm=na.rm, dims=5)),
   dimnames=c(dimnames(x)[-5], area='unique'), units=units(x)))
 })
 
 #' @rdname dimSummaries
 setMethod('iterMeans', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(FLQuant(c(rowMeans(x, na.rm=na.rm, dim=5)),
+  return(FLQuant(c(rowMeans(x, na.rm=na.rm, dims=5)),
   dimnames=c(dimnames(x)[-6], iter='1'), units=units(x)))
 })
 # }}}
