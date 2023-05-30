@@ -1968,6 +1968,7 @@ setMethod("ages", signature(object="FLStock"),
 #' sr <- predictModel(model=bevholt, params=FLPar(a=140.4e4, b=1.448e5))
 #' # Project for fixed Fbar=0.21
 #' run <- ffwd(ple4, sr=sr, fbar=FLQuant(0.21, dimnames=list(year=1958:2017)))
+#' tun <- fwd(ple4, sr=sr, fbar=FLQuant(0.21, dimnames=list(year=1958:2017)))
 #' plot(run)
 
 ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
@@ -2012,7 +2013,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     }
  
     # SUBSET and EXPAND (JIC) if unit > 1
-    deviances <- expand(deviances[, dimnames(obj)$year[-1]],
+    deviances <- expand(deviances[, dimnames(obj)$year],
       unit=dimnames(obj)$unit)
 
     # COMPUTE harvest
@@ -2027,19 +2028,23 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     fsp <- harvest.spwn(obj)
     srp <- exp(-(faa * fsp) - (maa * msp)) * waa * mat
 
+    recage <- dms$min
 
     # LOOP over obj years (i is new year)
     for (i in seq(dm[2])[-1]) {
-      # rec * deviances
-      naa[1, i] <- rep(eval(sr@model[[3]],   
-        c(as(sr@params, 'list'), list(
-        ssb=c(sum(naa[, i-1] * srp[, i-1]))))) / dm[3], dm[3]) *
-          c(deviances[, i - 1])
+
       # n
       naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
+
       # pg
       naa[dm[1], i] <- naa[dm[1], i] +
         naa[dm[1], i-1] * exp(-faa[dm[1], i-1] - maa[dm[1], i-1])
+      
+      # rec * deviances
+       naa[1, i] <- rep(eval(sr@model[[3]],
+        c(as(sr@params, 'list'), list(
+        ssb=c(colSums(naa[, i - recage] * srp[, i - recage]))))) /
+        dm[3], dm[3]) * c(deviances[, i - recage])
     }
 
   # UPDATE stock.n & harvest

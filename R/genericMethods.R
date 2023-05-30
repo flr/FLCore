@@ -1961,7 +1961,7 @@ setGeneric("computeQ", function(indices, stock, fit, ...)
 setGeneric("rec.hat", function(object, ...)
   standardGeneric('rec.hat'))
 
-# group
+# group {{{
 
 #' Group objects over some index by applying a function over a single dimension
 #'
@@ -1982,6 +1982,7 @@ setGeneric("rec.hat", function(object, ...)
 
 setGeneric("group", function(x, FUN, ...)
 		standardGeneric("group"))
+# }}}
 
 # acc {{{
 
