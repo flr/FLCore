@@ -1982,11 +1982,11 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       # CHECK no max/min
       # TODO: BETTER check
       if(any(is.na(iters(fbar)[, "value",])))
-        stop("ffwd() can only handle targets and not min/max limits, try calling fwd().")
+        stop("ffwd() can only handle targets and not min/max limits, try calling FLasher::fwd().")
       
       # CHECK target is fbar/f
       if(!all(fbar$quant %in% c("f", "fbar")))
-        stop("ffwd() can only project for f/fbar targets, try calling fwd().")
+        stop("ffwd() can only project for f/fbar targets, try calling FLasher::fwd().")
 
       fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
     }
