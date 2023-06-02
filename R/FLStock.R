@@ -2151,3 +2151,15 @@ setMethod("update", signature(object="FLStock"),
   }
 )
 # }}}
+
+# computeHarvest, recomputeHarvest {{{
+
+computeHarvest <- function(x) {
+  harvest(stock.n(x), catch.n(x), m(x), recompute=FALSE)
+}
+
+recomputeHarvest <- function(x) {
+  harvest(stock.n(x), catch.n(x), m(x), recompute=TRUE)
+}
+# }}}
+
