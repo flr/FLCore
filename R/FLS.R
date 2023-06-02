@@ -21,7 +21,7 @@ setMethod("computeLandings", signature(object="FLS"),
 #' @aliases computeDiscards,FLS-method computeDiscards,FLStock-method
 setMethod("computeDiscards", signature(object="FLS"),
   function(object, na.rm=TRUE) {
-        res <- quantSums(discards.n(object)*discards.wt(object), na.rm=na.rm)
+        res <- quantSums(discards.n(object) * discards.wt(object), na.rm=na.rm)
         return(res)
    } 
 )  # }}}
@@ -56,13 +56,14 @@ setMethod("computeCatch", signature(object="FLS"),
           (landings.n(object) + discards.n(object) + 1e-16)
     }
     else if (slot == "all") {
+      land <- computeLandings(object)
+      disc <- computeDiscards(object)
       ctch.n     <-computeCatch(object, slot="n")
       ctch.wt    <-computeCatch(object, slot="wt")
       ctch       <-quantSums(ctch.n * ctch.wt, na.rm=na.rm)
 
-      res <- FLQuants(catch.wt=ctch.wt,
-        catch.n =ctch.n,
-        catch   =ctch)
+      res <- FLQuants(catch.wt=ctch.wt, catch.n =ctch.n, catch=ctch,
+        landings=land, discards=disc)
     }
     else {
       res <- quantSums(catch.n(object) * catch.wt(object), na.rm=na.rm)
@@ -232,9 +233,10 @@ setMethod("metrics", signature(object="FLS", metrics="missing"),
 #' catch(ple4) <- computeCatch(ple4, slot="all")
 setMethod("catch<-", signature(object="FLS", value="FLQuants"),
 	function(object, value) {
-		catch(object)    <- value[['catch']]
-		catch.n(object)  <- value[['catch.n']]
-		catch.wt(object) <- value[['catch.wt']]
+
+    for(i in names(value))
+      slot(object, i) <- value[[i]]
+
 		return(object)
 	}
 ) # }}}
