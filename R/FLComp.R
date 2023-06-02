@@ -619,6 +619,13 @@ setMethod("metrics", signature(object="FLComp", metrics="function"),
   }
 )
 
+setMethod("metrics", signature(object="FLComp", metrics="character"),
+  function(object, metrics) {
+    # CALL function
+    return(do.call(metrics, list(object)))
+  }
+)
+
 setMethod("metrics", signature(object="FLComp", metrics="formula"),
   function(object, metrics, ...) {
     
