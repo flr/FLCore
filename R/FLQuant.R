@@ -1575,8 +1575,8 @@ solveBaranov <- function(n, m, c) {
 }
 
 setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
-  function(object, catch, m) {
-    
+  function(object, catch, m, recompute=FALSE) {
+
     # EMPTY harvest FLQ
     itr <- max(dim(object)[6], dim(catch)[6], dim(m)[6])
     har <- propagate(m, itr)
@@ -1592,15 +1592,16 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
     yy <- seq(1, dm[2] - 1)
  
     # Baranov functions
-
     # --- SINGLE year, LOOP over all dims[-year]
-    if(dm[2] == 1) {
-      n <- c(object)
-      c <- c(catch)
-      m <- c(m)
-      out <- n
-      har[] <- solveBaranov(n, m, c)
-    
+    if(dm[2] == 1 | recompute) {
+      yy <- seq(1, dm[2])
+      for(y in yy) {
+        sn <- c(object[, y])
+        sc <- c(catch[, y])
+        sm <- c(m[, y])
+        out <- sn
+        har[, y] <- solveBaranov(sn, sm, sc)
+      }
     # --- YEARLY
     } else if(dm[4] == 1) {
 
@@ -1824,7 +1825,21 @@ setMethod("append", signature(x="FLQuant", values="FLQuant"),
 
     return(x)
   }
-) # }}}
+)
+
+setMethod("append", signature(x="FLQuant", values="numeric"),
+  function(x, values, after=dims(x)$maxyear + 1) {
+
+    # CREATE FLQuant from one year of x with last + one year
+    y <- expand(x[, 1], year=after)
+
+    # PLACE values
+    y[] <- values
+
+    append(x, y)
+  }
+)
+# }}}
 
 # residuals {{{
 
