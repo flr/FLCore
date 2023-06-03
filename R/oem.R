@@ -95,7 +95,7 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
     else
       ind <- FLIndex(index=abnd, catch.wt=stock.wt(object)[ages,],
         index.q=abnd %=% 1, sel.pattern=sel[ages,],
-        range=c(startf=timing, endf=timing))
+        range=c(startf=timing, endf=timing), type="number")
 
     return(ind)
   }
