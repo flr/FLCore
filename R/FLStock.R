@@ -785,17 +785,62 @@ setAs("data.frame", "FLStock",
 ) # }}}
 
 # rec(FLStock)  {{{
+
+#' Extract and modify the recruitment time series
+#'
+#' Recruitment in number of fish is the first row of the 'stock.n' slot of
+#' an age-structured 'FLStock'. These convenience functions allow a clearer
+#' syntax when retrieving of altering the content of 'stock.n[rec.age,]', where
+#' 'rec.age' is usually the first age in the object.
+#'
+#' @param object An object of class 'FLStock'
+#' @param rec.age What age to extract, defaults to first one. As 'character' to select by name or as 'numeric' by position.
+#'
+#' @return RETURN Lorem ipsum dolor sit amet
+#'
+#' @name FUNCTION
+#' @rdname FUNCTION
+#' @aliases FUNCTION
+#'
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords classes
+#' @examples
+#' data(ple4)
+#' rec(ple4)
+#' # Multiple recruitment by a factor of 2
+#' rec(ple4) <- rec(ple4) * 2
+
 setMethod('rec', signature(object='FLStock'),
-  function(object, rec.age=as.character(object@range["min"]))
-  {
+  function(object, rec.age=as.character(object@range["min"])) {
+
     if(dims(object)$quant != 'age')
       stop("rec(FLStock) only defined for age-based objects")
+
     if(length(rec.age) > 1)
       stop("rec.age can only be of length 1")
+    
     res <- stock.n(object)[rec.age,]
+    
     return(res)
   }
-) # }}}
+)
+
+setMethod("rec<-", signature(object="FLStock", value="FLQuant"),
+  function(object, value) {
+
+    if(dims(object)$quant != 'age')
+      stop("rec(FLStock)<- only defined for age-based objects")
+
+    if(dim(value)[1] > 1)
+      stop("Object to assign as 'rec' must have a single 'age'.")
+    
+    stock.n(object)[1,] <- value
+
+    return(object)
+  }
+)
+# }}}
 
 # mergeFLStock {{{
 mergeFLStock<-function(x, y)
@@ -1968,7 +2013,6 @@ setMethod("ages", signature(object="FLStock"),
 #' sr <- predictModel(model=bevholt, params=FLPar(a=140.4e4, b=1.448e5))
 #' # Project for fixed Fbar=0.21
 #' run <- ffwd(ple4, sr=sr, fbar=FLQuant(0.21, dimnames=list(year=1958:2017)))
-#' tun <- fwd(ple4, sr=sr, fbar=FLQuant(0.21, dimnames=list(year=1958:2017)))
 #' plot(run)
 
 ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
@@ -2154,8 +2198,39 @@ setMethod("update", signature(object="FLStock"),
 
 # computeHarvest, recomputeHarvest {{{
 
-computeHarvest <- function(x) {
-  harvest(stock.n(x), catch.n(x), m(x), recompute=FALSE)
+#' Computes fishing mortality from abundances, catches and natural mortality
+#'
+#' Objects or class 'FLStock' conatin a 'harvest' slot to store estimates of
+#' fihsing mortality at age
+#'
+#' @param PARAM Lorem ipsum dolor sit amet
+#'
+#' @return RETURN Lorem ipsum dolor sit amet
+#'
+#' @name FUNCTION
+#' @rdname FUNCTION
+#' @aliases FUNCTION
+#'
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords classes
+#' @examples
+#' data(ple4)
+#' # Compute 'f' from stock.n and Baranov
+#' computeHarvest(ple4)
+#' # Recomputes all F at age by solving catch Baranov
+#' recomputeHarvest(ple4)
+
+computeHarvest <- function(x, units=NULL) {
+
+  # AVOIDS recursive default argument 
+  if(is.null(units))
+    units <- units(harvest(x))
+
+  switch(match.arg(units, choices=c("f", "hr", "NA")),
+    "f"=harvest(stock.n(x), catch.n(x), m(x), recompute=FALSE),
+    "NA"=harvest(stock.n(x), catch.n(x), m(x), recompute=FALSE),
+    "hr"=catch.n(x) / stock.n(x))
 }
 
 recomputeHarvest <- function(x) {
@@ -2163,3 +2238,43 @@ recomputeHarvest <- function(x) {
 }
 # }}}
 
+# discardsRatio {{{
+
+#' Compute the ratio of discards to total catch in numbers or weight
+#'
+#' A calculation is made of the proportion of discards over total catch at age, 
+#' either as numbers (value = 'numbers') or weight (value = 'weight'), or for
+#' the total discards and catch in biomass (value = 'total').
+#'
+#' @param object An object of class 'FLStock'
+#' @param value One of 'numbers' (default), 'weight' or 'total'.
+#'
+#' @return The discards ratio (between 0 and 1), 'FLQuant'
+#'
+#' @name discardsRatio
+#' @rdname discardsRatio
+#'
+#' @author The FLR Team
+#' @seealso \link{FLStock}
+#' @keywords classes
+#' @examples
+#' data(ple4)
+#' # Discards ratio at age in numbers
+#' discardsRatio(ple4)
+#' # Total proportion of discards by year
+#' discardsRatio(ple4, value="total")
+
+discardsRatio <- function(object, value=c("numbers", "weight", "total")) {
+
+  # SWITCH over value
+  switch(match.arg(value),
+  # Numbers at age
+  numbers=(discards.n(object) / (catch.n(object))),
+  # Weight at age
+  weight=(discards.n(object) * discards.wt(object)) /
+    (catch.n(object) * catch.wt(object)),
+  # Total biomass
+  total=(discards(object) / (landings(object) + discards(object)))
+  )
+} 
+# }}}
