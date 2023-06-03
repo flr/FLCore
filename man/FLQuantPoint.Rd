@@ -26,7 +26,7 @@ FLQuantPoint(object, ...)
 
 \S4method{FLQuantPoint}{missing}(..., units = "NA", n = 1)
 
-\S4method{FLQuantPoint}{FLQuant}(object, ..., probs = c(0.25, 0.75), units = "NA")
+\S4method{FLQuantPoint}{FLQuant}(object, ..., probs = c(0.25, 0.75))
 
 \S4method{n}{FLQuantPoint}(object, ...)
 }
@@ -86,8 +86,9 @@ original \code{FLQuant} using \code{\link[base]{apply}}.
 
 \examples{
 
-flq <- FLQuant(rnorm(2000), dim=c(10,20,1,1,1,200))
+flq <- FLQuant(rlnorm(2000), dim=c(10,20,1,1,1,200), units="kg")
 flqp <- FLQuantPoint(flq)
+flqp <- FLQuantPoint(flq, probs=c(0.05, 0.95))
 summary(flqp)
 mean(flqp)
 var(flqp)
