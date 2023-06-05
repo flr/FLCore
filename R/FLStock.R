@@ -2061,7 +2061,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     }
  
     # SUBSET and EXPAND (JIC) if unit > 1
-    deviances <- expand(deviances[, dimnames(fbar)$year],
+    deviances <- expand(window(deviances, start=dms$minyear, end=dms$maxyear),
       unit=dimnames(obj)$unit)
 
     # COMPUTE harvest
