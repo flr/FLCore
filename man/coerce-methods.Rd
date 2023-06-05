@@ -20,20 +20,20 @@ classes, see below.
 }
 \section{FLArray to data.frame}{
 
- The six dimensions of an `FLArray` are converted into seven columns, named
- `quant` (or any other name given to the first dimension in the object),
- `year`, `unit`, `season`, `area`, `iter`  and `data`. The last one contains
- the actual numbers stored in the array. `units` are stored as an attribute
- to the `data.frame`. The `year` and `data` columns are of type `numeric`,
- while all others are `factor`.
+The six dimensions of an \code{FLArray} are converted into seven columns, named
+\code{quant} (or any other name given to the first dimension in the object),
+\code{year}, \code{unit}, \code{season}, \code{area}, \code{iter}  and \code{data}. The last one contains
+the actual numbers stored in the array. \code{units} are stored as an attribute
+to the \code{data.frame}. The \code{year} and \code{data} columns are of type \code{numeric},
+while all others are \code{factor}.
 }
 
 \section{FLPar to data.frame}{
 
- The two or more dimensions of an *FLPar* objects are converted into three or
- more columns. For a 2D objects, they are named *params*, *iter* and *data*.
- The last one contains the actual numbers stored in the array, in a column
- type `numeric`, while all others are `factor`.
+The two or more dimensions of an \emph{FLPar} objects are converted into three or
+more columns. For a 2D objects, they are named \emph{params}, \emph{iter} and \emph{data}.
+The last one contains the actual numbers stored in the array, in a column
+type \code{numeric}, while all others are \code{factor}.
 }
 
 \examples{

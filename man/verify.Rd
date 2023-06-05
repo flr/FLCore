@@ -58,8 +58,8 @@ In this case, the argument to \emph{verify} can be a list, with an element named
 a new function, defined as another element of the list, and which will be used
 by verify when evaluating the set of rules. See below for examples.
 
-A set of rules has been defined for the *FLStock* class, available
-by calling the ruleset method. The verify method for *FLStock* will by default
+A set of rules has been defined for the \emph{FLStock} class, available
+by calling the ruleset method. The verify method for \emph{FLStock} will by default
 evaluate those rules, as well as any other defined in the call.
 }
 \examples{

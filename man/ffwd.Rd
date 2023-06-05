@@ -7,18 +7,18 @@
 ffwd(object, sr, fbar = control, control = fbar, deviances = "missing")
 }
 \arguments{
-\item{object}{An *FLStock*}
+\item{object}{An \emph{FLStock}}
 
-\item{sr}{A stock-recruit relationship, *FLSR* or *predictModel*.}
+\item{sr}{A stock-recruit relationship, \emph{FLSR} or \emph{predictModel}.}
 
-\item{fbar}{Yearly target for average fishing mortality, *FLQuant*.}
+\item{fbar}{Yearly target for average fishing mortality, \emph{FLQuant}.}
 
-\item{control}{Yearly target for average fishing mortality, *fwdControl*.}
+\item{control}{Yearly target for average fishing mortality, \emph{fwdControl}.}
 
-\item{deviances}{Deviances for the strock-recruit relationsip, *FLQuant*.}
+\item{deviances}{Deviances for the strock-recruit relationsip, \emph{FLQuant}.}
 }
 \value{
-The projected *FLStock* object.
+The projected \emph{FLStock} object.
 }
 \description{
 Projection of an FLStock object for a fishing mortality target does not
@@ -29,7 +29,6 @@ data(ple4)
 sr <- predictModel(model=bevholt, params=FLPar(a=140.4e4, b=1.448e5))
 # Project for fixed Fbar=0.21
 run <- ffwd(ple4, sr=sr, fbar=FLQuant(0.21, dimnames=list(year=1958:2017)))
-tun <- fwd(ple4, sr=sr, fbar=FLQuant(0.21, dimnames=list(year=1958:2017)))
 plot(run)
 }
 \seealso{
@@ -38,4 +37,4 @@ plot(run)
 \author{
 Iago MOSQUEIRA (MWR), Henning WINKEL (JRC).
 }
-\keyword{classes}
+\keyword{models}

@@ -35,7 +35,7 @@ ibind(...)
 
 \item{...}{Other objects to bind}
 
-\item{dim}{Dimension to bind on, *numeric* or *character*.}
+\item{dim}{Dimension to bind on, \emph{numeric} or \emph{character}.}
 }
 \value{
 An object of the same class as the inputs

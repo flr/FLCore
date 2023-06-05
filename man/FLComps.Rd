@@ -16,17 +16,17 @@ of this class can be constructed.
 }
 \section{Validity}{
  \describe{
-    \item{Elements}{All elements must be of a class that inherits from FLComp}
+\item{Elements}{All elements must be of a class that inherits from FLComp}
 }
 }
 
 \section{Slots}{
  \describe{
-  \item{.Data}{The data. \code{list}.}
-  \item{names}{Names of the list elements. \code{character}.}
-  \item{desc}{Description of the object. \code{character}.}
-  \item{lock}{Lock mechanism, if turned on the length of the list can not be
-    modified by adding or removing elements. \code{logical}.} }
+\item{.Data}{The data. \code{list}.}
+\item{names}{Names of the list elements. \code{character}.}
+\item{desc}{Description of the object. \code{character}.}
+\item{lock}{Lock mechanism, if turned on the length of the list can not be
+modified by adding or removing elements. \code{logical}.} }
 }
 
 \section{Constructor}{

@@ -34,10 +34,10 @@ in terms of fishing mortality (\code{units(harvest(object)) == 'f'}), and
 assuming an object structured by age, then SSB is calculated as
 \deqn{SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot e^{-(F_{a,y} \cdot Hs_{a,y} + M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} }{SSB_y = sum_a(N_ay * exp(-(F_ay * Hs_ay + M_ay * Ms_ay)) * W_ay * T_ay)}
 where \eqn{N_{a,y}}{N_ay} is the abundance in numbers (\code{stock.n}) by
-age (a) and year (y), \eqn{F_{a,y}}{F_ay} is the fishing mortality (\code{harvest}), 
+age (a) and year (y), \eqn{F_{a,y}}{F_ay} is the fishing mortality (\code{harvest}),
 \eqn{Hs_{a,y}}{Hs_ay} is the proportion of fishing mortality before spawning
 (\code{harvest.spwn}),
-\eqn{M_{a,y}}{M_ay} is the natural mortality (\code{m}), 
+\eqn{M_{a,y}}{M_ay} is the natural mortality (\code{m}),
 \eqn{Ms_{a,y}}{Ms_ay} is the proportion of natural mortality before spawning
 (\code{m.spwn}),
 \eqn{W_{a,y}}{W_ay} is the mean weight at age in the stock (\code{m}), and
@@ -52,11 +52,11 @@ where \eqn{H_{a,y}}{H_ay} is the harvest rate (proportion of catch in weight
 over total biomass).
 }
 \details{
-Objects of the *FLBiol* class do not contain any information on
-catch or fishing mortality, so a call to `ssb()` will only correct abundances
+Objects of the \emph{FLBiol} class do not contain any information on
+catch or fishing mortality, so a call to \code{ssb()} will only correct abundances
 for natural mortality to the moment of spawning. The method can also take
 information on catches or fishing mortality and use them when calculating
-abundances at spawning time. An *FLQuant* named either 'catch.n', 'f', 'hr' or
+abundances at spawning time. An \emph{FLQuant} named either 'catch.n', 'f', 'hr' or
 'harvest' can be used. The first three are self-explanatory, while for the last
 units must be either 'f' or 'hr'. The quantities should refer to total yearly
 values, as the value in the 'spwn' slot will be used to calculate what fraction

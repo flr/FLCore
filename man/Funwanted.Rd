@@ -16,7 +16,7 @@ An FLQuant
 }
 \description{
 Computes the fishing mortality at age (harvest) associated with either
-landings (*Fwanted*) or discards (*Funwanted*) through the respective
+landings (\emph{Fwanted}) or discards (\emph{Funwanted}) through the respective
 proportions at age. The function names reflect the convention used in
 ICES.
 }

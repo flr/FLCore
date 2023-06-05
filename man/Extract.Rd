@@ -116,7 +116,7 @@ dimension ('params' or 'quant'), and are provided to be used specially in
 formulas.
 }
 \section{Generic function}{
- \describe{ \item{}{[x,i,j,drop]}
+ \describe{ \item{}{\link{x,i,j,drop}}
 \item{}{[<-(x,i,j,value)} \item{}{[[<-(x,i,j,value)}
 \item{}{\$<-(x,name,value)} }
 }

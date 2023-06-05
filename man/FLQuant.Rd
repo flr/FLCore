@@ -95,34 +95,34 @@ measurement relevant to the data.
 }
 \section{Slots}{
  \describe{
-  \item{.Data}{A 6-D array for numeric data. \code{\link[base]{array}}.}
- \item{units}{Units of measurement. \code{\link[base]{character}}.} }
+\item{.Data}{A 6-D array for numeric data. \code{\link[base]{array}}.}
+\item{units}{Units of measurement. \code{\link[base]{character}}.} }
 }
 
 \section{Validity}{
  \describe{
- \item{Dimensions:}{Array must have 6 dimensions}
- \item{Content:}{Array must be of class \code{numeric}}
- \item{Dimnames:}{Dimensions 2 to 6 must be named "year", "unit", "season", "area" and "iter"}
+\item{Dimensions:}{Array must have 6 dimensions}
+\item{Content:}{Array must be of class \code{numeric}}
+\item{Dimnames:}{Dimensions 2 to 6 must be named "year", "unit", "season", "area" and "iter"}
 }
 }
 
 \section{Constructor}{
 
- The \code{FLQuant} method provides a flexible constructor for objects of the class.
- Inputs can be of class:
- \describe{
-   \item{\code{vector}:}{A numeric vector will be placed along the year dimension by default.}
-   \item{\code{matrix}:}{A matrix will be placed along dimensions 1 and 2, unless otherwise specified by 'dim'. The matrix dimnames will be used unless overriden by 'dimnames'.}
-   \item{\link[base]{array}:}{As above}
-   \item{\link[base]{missing}:}{If no input is given, an empty \code{FLQuant}  (NA) is returned, but dimensions and dimnames can still be specified.} }
+The \code{FLQuant} method provides a flexible constructor for objects of the class.
+Inputs can be of class:
+\describe{
+\item{\code{vector}:}{A numeric vector will be placed along the year dimension by default.}
+\item{\code{matrix}:}{A matrix will be placed along dimensions 1 and 2, unless otherwise specified by 'dim'. The matrix dimnames will be used unless overriden by 'dimnames'.}
+\item{\link[base]{array}:}{As above}
+\item{\link[base]{missing}:}{If no input is given, an empty \code{FLQuant}  (NA) is returned, but dimensions and dimnames can still be specified.} }
 
- Additional arguments to the constructor: 
- \describe{
-    \item{units:}{The units of measurement, a \code{\link[base]{character}} string.}
-    \item{dim:}{The dimensions of the object, a \code{\link[base]{numeric}} vector of length 6.}
-    \item{dimnames:}{A \code{\link[base]{list}} object providing the dimnames of the array. Only those different from the default ones need to be specified.}
-    \item{quant:}{The name of the first dimension, if different from 'quant', as a \code{\link[base]{character}} string.} }
+Additional arguments to the constructor:
+\describe{
+\item{units:}{The units of measurement, a \code{\link[base]{character}} string.}
+\item{dim:}{The dimensions of the object, a \code{\link[base]{numeric}} vector of length 6.}
+\item{dimnames:}{A \code{\link[base]{list}} object providing the dimnames of the array. Only those different from the default ones need to be specified.}
+\item{quant:}{The name of the first dimension, if different from 'quant', as a \code{\link[base]{character}} string.} }
 }
 
 \examples{

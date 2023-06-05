@@ -31,10 +31,10 @@ A list of \code{FLPar} objects.
 }
 \section{Slots}{
  \describe{
-  \item{.Data}{Internal S4 data representation, of class \code{list}.}
-  \item{desc}{As textual description of the object contents}
-  \item{lock}{Can the object be extended/trimmed? \code{TRUE} or \code{FALSE}.}
-  \item{names}{A character vector for the element names} }
+\item{.Data}{Internal S4 data representation, of class \code{list}.}
+\item{desc}{As textual description of the object contents}
+\item{lock}{Can the object be extended/trimmed? \code{TRUE} or \code{FALSE}.}
+\item{names}{A character vector for the element names} }
 }
 
 \section{Constructor}{

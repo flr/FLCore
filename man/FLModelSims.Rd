@@ -31,11 +31,11 @@ A list of \code{\linkS4class{FLModelSim}} objects.
 }
 \section{Slots}{
  \describe{
-  \item{.Data}{The data. \code{list}.}
-  \item{names}{Names of the list elements. \code{character}.}
-  \item{desc}{Description of the object. \code{character}.}
-  \item{lock}{Lock mechanism, if turned on the length of the list can not be
-    modified by adding or removing elements. \code{logical}.} }
+\item{.Data}{The data. \code{list}.}
+\item{names}{Names of the list elements. \code{character}.}
+\item{desc}{Description of the object. \code{character}.}
+\item{lock}{Lock mechanism, if turned on the length of the list can not be
+modified by adding or removing elements. \code{logical}.} }
 }
 
 \section{Constructor}{

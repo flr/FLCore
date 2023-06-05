@@ -104,10 +104,10 @@ x \%^\% y
 }
 \description{
 Arithmetic operations between two \linkS4class{FLQuant} objects using the
-standars operators (`+`, `-`, `*`, `/`, `^`, see \link{Arith}) need all
+standars operators (\code{+}, \code{-}, \code{*}, \code{/}, \code{^}, see \link{Arith}) need all
 dimensions in both objects to match. This requirement is relaxed by using
-the percent version of those five operators: `%+%`, `%-%`, `%*%`, `%/%` and
-`%^%`.
+the percent version of those five operators: \verb{\%+\%}, \verb{\%-\%}, \code{\%*\%}, \code{\%/\%} and
+\verb{\%^\%}.
 }
 \details{
 If any of the objects is of length one in a dimensions where the other is
@@ -117,9 +117,9 @@ larger object. See the examples to observe their behaviour.
 
 Please note that this behaviour is already present on the \link{Arith}
 methods for \linkS4class{FLArray}-derived classes but only on the 6th,
-`iter`, dimension.
+\code{iter}, dimension.
 
-The original use of the `%*%` operator, as vector product, is not available
+The original use of the \code{\%*\%} operator, as vector product, is not available
 for \linkS4class{FLQuant} objects, but can be applied to the \link{array}
 inside them, as in the example below.
 
@@ -128,7 +128,7 @@ Methods for operations between an \linkS4class{FLQuant} and an
 regardless of position.
 }
 \section{Generic function}{
- x %+% y, x %-% y, x %*% y, e1 %/% e2, x %^% y
+ x \%+\% y, x \%-\% y, x \%*\% y, e1 \%/\% e2, x \%^\% y
 }
 
 \examples{

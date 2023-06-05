@@ -46,16 +46,16 @@ This includes information on abundances, natural mortality and fecundity.
 }
 \section{Slots}{
  \describe{
-  \item{n}{Numbers in the population. \code{FLQuant}.}
-  \item{m}{Mortality rate of the population. \code{FLQuant}.}
-  \item{wt}{Mean weight of an individual. \code{FLQuant}.}
-  \item{mat}{\code{predictModel}.}
-  \item{fec}{\code{predictModel}.}
-  \item{rec}{\code{predictModel}.}
-  \item{spwn}{Proportion of time step at which spawning ocurrs. \code{FLQuant}.}
-  \item{name}{Name of the object. \code{character}.}
-  \item{desc}{Brief description of the object. \code{character}.}
-  \item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
+\item{n}{Numbers in the population. \code{FLQuant}.}
+\item{m}{Mortality rate of the population. \code{FLQuant}.}
+\item{wt}{Mean weight of an individual. \code{FLQuant}.}
+\item{mat}{\code{predictModel}.}
+\item{fec}{\code{predictModel}.}
+\item{rec}{\code{predictModel}.}
+\item{spwn}{Proportion of time step at which spawning ocurrs. \code{FLQuant}.}
+\item{name}{Name of the object. \code{character}.}
+\item{desc}{Brief description of the object. \code{character}.}
+\item{range}{Named numeric vector describing the range of the object. \code{numeric}.} }
 }
 
 \section{Accessors}{
@@ -79,9 +79,9 @@ for sizing but not stored in any slot.
 
 \section{Validity}{
  \describe{
-    \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-    \item{Iters}{The dimname for iter[1] should be '1'.}
-    \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+\item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+\item{Iters}{The dimname for iter\link{1} should be '1'.}
+\item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
 }
 }
 

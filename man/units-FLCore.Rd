@@ -46,11 +46,11 @@ attributes of all \code{FLQuant} slots. \code{units} of a complex object can
 be modified for all slots or a subset of them, by passing a named list with
 the new values. See examples below.
 
-The complete set of *units* for a complex object can be obtained
-as a named *list*.
+The complete set of \emph{units} for a complex object can be obtained
+as a named \emph{list}.
 
-Assignment of *units* to the *FLQuant* slots of a complex object
-can be carried out passing a named *list* or *character* vector containing
+Assignment of \emph{units} to the \emph{FLQuant} slots of a complex object
+can be carried out passing a named \emph{list} or \emph{character} vector containing
 the units for the slots to be modified.
 }
 \section{Generic function}{

@@ -53,34 +53,34 @@ original \code{FLQuant} using \code{\link[base]{apply}}.
 }
 \section{Slots}{
  \describe{
- \item{.Data}{The main array holding the computed statistics. \code{array}.}
- \item{units}{Units of measurement. \code{character}.}
+\item{.Data}{The main array holding the computed statistics. \code{array}.}
+\item{units}{Units of measurement. \code{character}.}
 }
 }
 
 \section{Accesors}{
  \describe{
- \item{mean,mean<-:}{'mean' element on 6th dimension, arithmetic mean.}
- \item{median,median<-:}{'median' element on 6th dimension, median.}
- \item{var,var<-:}{'var' element on 6th dimension, variance.}
- \item{lowq,lowq<-:}{'lowq' element on 6th dimension, lower quantile (0.25 by default).}
- \item{uppq,uppq<-:}{'uppq' element on 6th dimension, upper quantile (0.75 by default).}
- \item{quantile:}{returns the 'lowq' or 'uppq' iter, depending on the value of 'probs' (0.25 or 0.75).}
+\item{mean,mean<-:}{'mean' element on 6th dimension, arithmetic mean.}
+\item{median,median<-:}{'median' element on 6th dimension, median.}
+\item{var,var<-:}{'var' element on 6th dimension, variance.}
+\item{lowq,lowq<-:}{'lowq' element on 6th dimension, lower quantile (0.25 by default).}
+\item{uppq,uppq<-:}{'uppq' element on 6th dimension, upper quantile (0.75 by default).}
+\item{quantile:}{returns the 'lowq' or 'uppq' iter, depending on the value of 'probs' (0.25 or 0.75).}
 }
 }
 
 \section{Constructor}{
 
- Inputs can be of class:
- \describe{
-   \item{\code{FLQuant}:}{An FLQuant object with iters (i.e. dim[6] > 1)}
+Inputs can be of class:
+\describe{
+\item{\code{FLQuant}:}{An FLQuant object with iters (i.e. dim\link{6} > 1)}
 }
 }
 
 \section{Validity}{
  \describe{
- \item{iter:}{iter dimension is of length 5.}
- \item{Dimnames:}{iter dimnames are 'mean', 'median', 'var', 'uppq' and'lowq'}
+\item{iter:}{iter dimension is of length 5.}
+\item{Dimnames:}{iter dimnames are 'mean', 'median', 'var', 'uppq' and'lowq'}
 }
 }
 

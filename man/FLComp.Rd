@@ -18,17 +18,17 @@ constructed.
 }
 \section{Validity}{
  \describe{
-    \item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
-    \item{Iters}{The dimname for iter[1] should be '1'.}
-    \item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
+\item{Dimensions}{All FLQuant slots must have iters equal to 1 or 'n'.}
+\item{Iters}{The dimname for iter\link{1} should be '1'.}
+\item{Dimnames}{The name of the quant dimension must be the same for all FLQuant slots.}
 }
 }
 
 \section{Slots}{
  \describe{
-   \item{name}{A character vector for the object name.}
-   \item{desc}{A textual description of the object contents.}
-   \item{range}{A named numeric vector with various values of quant and year ranges, plusgroup, fishing mortality ranges, etc. Elements are specific to each child class.}
+\item{name}{A character vector for the object name.}
+\item{desc}{A textual description of the object contents.}
+\item{range}{A named numeric vector with various values of quant and year ranges, plusgroup, fishing mortality ranges, etc. Elements are specific to each child class.}
 }
 }
 

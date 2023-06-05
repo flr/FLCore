@@ -218,7 +218,7 @@ params(object, ...)
 }
 \value{
 The required slot, for an accessor method, or invisible modifies the
-  object, for the replacement one.
+object, for the replacement one.
 }
 \description{
 All S4 classes defined in FLCore have methods for accessing and replacing any

@@ -30,7 +30,7 @@ another, or combine them into one, extending them when necessary.
 The object to be included or added to the first will be placed as defined by
 the \emph{year} dimnames, unless the \emph{after} input argument specifies otherwise.
 
-Attributes like dimnames and *units* will always be taken from the
+Attributes like dimnames and \emph{units} will always be taken from the
 first argument, unless the necessary chnages to dimnames$year
 }
 \examples{

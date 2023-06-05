@@ -43,7 +43,7 @@
 
 \item{sd}{standard error for simulated series}
 
-\item{b}{autocorrelation parameter a real number in [0,1]}
+\item{b}{autocorrelation parameter a real number in \link{0,1}}
 
 \item{burn}{gets rid of 1st values i series}
 

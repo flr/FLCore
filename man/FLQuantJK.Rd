@@ -27,22 +27,22 @@ iter is missing one element, and the original object, as a separate
 }
 \section{Slots}{
 
-    \describe{
-    \item{.Data}{Unnamed slot containing the jackknifed object(\linkS4class{FLQuant}).}
-    \item{orig}{Original object, (\linkS4class{FLQuant}).}
+\describe{
+\item{.Data}{Unnamed slot containing the jackknifed object(\linkS4class{FLQuant}).}
+\item{orig}{Original object, (\linkS4class{FLQuant}).}
 }
 }
 
 \section{Validity}{
 
 
-  \describe{
-    \item{slot dims}{.Data and orig slots must have the same dimensions 1-5.}
-    \item{slot dimnames}{.Data and var slots must have the same dimnames 1-5.}
+\describe{
+\item{slot dims}{.Data and orig slots must have the same dimensions 1-5.}
+\item{slot dimnames}{.Data and var slots must have the same dimnames 1-5.}
 }
 
 You can inspect the class validity function by using
-   \code{getValidity(getClassDef('FLQuantJK'))}
+\code{getValidity(getClassDef('FLQuantJK'))}
 }
 
 \section{Accessors}{

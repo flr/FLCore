@@ -12,7 +12,7 @@ Calculate catch.n (catch-at-age/length) from abundances, F and M using the catch
 }
 \details{
 The catch-at-age/length, commonly found in the catch.n slot of an
-`FLStock` object, can be simply calculated from abundances-at-age/length,
+\code{FLStock} object, can be simply calculated from abundances-at-age/length,
 and natural and fishing mortalities-at-age/length by applying the catch
 equation
 \deqn{C = N \cdot F \frac{F}{M+F} \cdot (1 - {\rm e}^(-M-F))}{C = N *F/(M+F) * (1-exp(-M-F))}

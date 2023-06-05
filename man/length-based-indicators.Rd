@@ -88,7 +88,9 @@ t0 <- -1.37e+00
 bheqz(samps, linf = 60, k = 2.29e-01, t0 = -1.37e+00)
 }
 \references{
-- Kell, L.T., Minto, C., Gerritsen, H.D. 2022. Evaluation of the skill of length-based indicators to identify stock status and trends. ICES Journal of Marine Science. doiu: 10.1093/icesjms/fsac043.
-- ICES. 2015. Report of the Fifth Workshop on the Development of Quantitative Assessment Methodologies based on Life-history Traits, Exploitation Characteristics and other Relevant Parameters for Data-limited Stocks (WKLIFE V), 5–9 October 2015, Lisbon, Portugal. ICES CM 2015/ACOM:56. 157 pp.
-- ICES. 2020. Tenth Workshop on the Development of Quantitative Assessment Methodologies based on LIFE-history traits, exploitation characteristics, and other relevant parameters for data-limited stocks (WKLIFE X). ICES Scientific Reports. 2:98. 72 pp. http://doi.org/10.17895/ices.pub.5985
+\itemize{
+\item Kell, L.T., Minto, C., Gerritsen, H.D. 2022. Evaluation of the skill of length-based indicators to identify stock status and trends. ICES Journal of Marine Science. doiu: 10.1093/icesjms/fsac043.
+\item ICES. 2015. Report of the Fifth Workshop on the Development of Quantitative Assessment Methodologies based on Life-history Traits, Exploitation Characteristics and other Relevant Parameters for Data-limited Stocks (WKLIFE V), 5–9 October 2015, Lisbon, Portugal. ICES CM 2015/ACOM:56. 157 pp.
+\item ICES. 2020. Tenth Workshop on the Development of Quantitative Assessment Methodologies based on LIFE-history traits, exploitation characteristics, and other relevant parameters for data-limited stocks (WKLIFE X). ICES Scientific Reports. 2:98. 72 pp. http://doi.org/10.17895/ices.pub.5985
+}
 }

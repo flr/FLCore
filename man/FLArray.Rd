@@ -11,7 +11,7 @@ FLCore, as it is used only for method inheritance.
 }
 \section{Slots}{
  \describe{
-  \item{.Data}{Internal S4 data representation, of class \code{array}.}
+\item{.Data}{Internal S4 data representation, of class \code{array}.}
 }
 }
 

@@ -14,7 +14,7 @@
 Use R's sweep method on FLCore classes
 }
 \details{
-These methods call base R \code{\link[base]{sweep}} method on **FLCore** classes and then ensure
+These methods call base R \code{\link[base]{sweep}} method on \strong{FLCore} classes and then ensure
 that the returned object is of same class.
 }
 \section{Generic function}{

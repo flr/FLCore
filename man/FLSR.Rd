@@ -71,25 +71,25 @@ formulation implemented for each of them.
 }
 \section{Slots}{
  \describe{
-    \item{name}{Name of the object (\code{character}).}
-    \item{desc}{Description of the object (\code{character}).}
-    \item{range}{Range (\code{numeric}).}
-    \item{rec}{Recruitment series (\code{FLQuant}).}
-    \item{ssb}{Index of reproductive potential, e.g. SSB or egg oor egg production (\code{FLQuant}).}
-    \item{fitted}{Estimated values for rec (\code{FLQuant}).}
-    \item{residuals}{Residuals obtained from the model fit (\code{FLArray}).}
-    \item{covar}{Covariates for SR model (\code{FLQuants}).}
-    \item{model}{Model formula (\code{formula}).}
-    \item{gr}{Function returning the gradient of the likelihood (\code{function}).}
-    \item{logl}{Log-likelihood function (\code{function}).}
-    \item{initial}{Function returning initial parameter values for the optimizer (\code{function}).}
-    \item{params}{Estimated parameter values (\code{FLPar}).}
-    \item{logLik}{Value of the log-likelihood (\code{logLik}).}
-    \item{vcov}{Variance-covariance matrix (\code{array}).}
-    \item{details}{Extra information on the model fit procedure (\code{list}).}
-    \item{logerror}{Is the error on a log scale (\code{logical}).}
-    \item{distribution}{(\code{factor}).}
-    \item{hessian}{Resulting Hessian matrix from the fit (\code{array}).}
+\item{name}{Name of the object (\code{character}).}
+\item{desc}{Description of the object (\code{character}).}
+\item{range}{Range (\code{numeric}).}
+\item{rec}{Recruitment series (\code{FLQuant}).}
+\item{ssb}{Index of reproductive potential, e.g. SSB or egg oor egg production (\code{FLQuant}).}
+\item{fitted}{Estimated values for rec (\code{FLQuant}).}
+\item{residuals}{Residuals obtained from the model fit (\code{FLArray}).}
+\item{covar}{Covariates for SR model (\code{FLQuants}).}
+\item{model}{Model formula (\code{formula}).}
+\item{gr}{Function returning the gradient of the likelihood (\code{function}).}
+\item{logl}{Log-likelihood function (\code{function}).}
+\item{initial}{Function returning initial parameter values for the optimizer (\code{function}).}
+\item{params}{Estimated parameter values (\code{FLPar}).}
+\item{logLik}{Value of the log-likelihood (\code{logLik}).}
+\item{vcov}{Variance-covariance matrix (\code{array}).}
+\item{details}{Extra information on the model fit procedure (\code{list}).}
+\item{logerror}{Is the error on a log scale (\code{logical}).}
+\item{distribution}{(\code{factor}).}
+\item{hessian}{Resulting Hessian matrix from the fit (\code{array}).}
 }
 }
 

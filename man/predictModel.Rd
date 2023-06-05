@@ -33,27 +33,27 @@ processes.
 \details{
 The dependency of life history processes, such as maturity and fecundity, to biological
 and environmental factors, can be represented in objects of this class via a simple model
-(represented by a `formula`) and the corresponding paramaters (`FLPar`) and inputs
-(`FLQuants`).
+(represented by a \code{formula}) and the corresponding paramaters (\code{FLPar}) and inputs
+(\code{FLQuants}).
 }
 \section{Slots}{
 
-    \describe{
-    \item{.Data}{Inputs to the model not found in enclosing class (\code{FLQuants}).}
-    \item{model}{Model representation (\code{formula}).}
-    \item{params}{Model paramaters (\code{FLPar}).}
+\describe{
+\item{.Data}{Inputs to the model not found in enclosing class (\code{FLQuants}).}
+\item{model}{Model representation (\code{formula}).}
+\item{params}{Model paramaters (\code{FLPar}).}
 }
 }
 
 \section{Validity}{
 
 
-  \describe{
-    \item{VALIDITY}{Neque porro quisquam est qui dolorem ipsum.}
+\describe{
+\item{VALIDITY}{Neque porro quisquam est qui dolorem ipsum.}
 }
 
 You can inspect the class validity function by using
-   \code{getValidity(getClassDef('predictModel'))}
+\code{getValidity(getClassDef('predictModel'))}
 }
 
 \section{Accessors}{
@@ -79,7 +79,7 @@ class validity.
 Methods exist for various calculations based on values stored in the class:
 
 \describe{
-    \item{METHOD}{Neque porro quisquam est qui dolorem ipsum.}
+\item{METHOD}{Neque porro quisquam est qui dolorem ipsum.}
 }
 }
 

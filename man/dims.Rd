@@ -24,19 +24,19 @@ and dimension names of a given object. The list returned could be
 extended in the future and currently contains, depending on the class of the
 object, some of the following:
 \describe{
-  \item{quant}{Length of the first dimension}
-  \item{min}{First quant}
-  \item{max}{Last quant}
-  \item{year}{Number of years}
-  \item{minyear}{First year in series}
-  \item{maxyear}{Last year in series}
-  \item{cohort}{Number of cohorts}
-  \item{mincohort}{First cohort in series}
-  \item{maxcohort}{Last cohort in series}
-  \item{unit}{Length of the third (\code{unit}) dimension}
-  \item{season}{Length of the fourth (\code{season}) dimension}
-  \item{area}{Length of the fifth (\code{area}) dimension}
-  \item{iter}{Length of the sixth (\code{iter}) dimension} }
+\item{quant}{Length of the first dimension}
+\item{min}{First quant}
+\item{max}{Last quant}
+\item{year}{Number of years}
+\item{minyear}{First year in series}
+\item{maxyear}{Last year in series}
+\item{cohort}{Number of cohorts}
+\item{mincohort}{First cohort in series}
+\item{maxcohort}{Last cohort in series}
+\item{unit}{Length of the third (\code{unit}) dimension}
+\item{season}{Length of the fourth (\code{season}) dimension}
+\item{area}{Length of the fifth (\code{area}) dimension}
+\item{iter}{Length of the sixth (\code{iter}) dimension} }
 Values in the returned list are of class \code{numeric}, unless dimnames are
 strings with no numeric translation, in which case the result is \code{NA}.
 
@@ -50,19 +50,19 @@ and dimension names of a given object. The list returned could be
 extended in the future and currently contains, depending on the class of the
 object, some of the following:
 \describe{
-  \item{quant}{Length of the first dimension}
-  \item{min}{First quant}
-  \item{max}{Last quant}
-  \item{year}{Number of years}
-  \item{minyear}{First year in series}
-  \item{maxyear}{Last year in series}
-  \item{cohort}{Number of cohorts}
-  \item{mincohort}{First cohort in series}
-  \item{maxcohort}{Last cohort in series}
-  \item{unit}{Length of the third (\code{unit}) dimension}
-  \item{season}{Length of the fourth (\code{season}) dimension}
-  \item{area}{Length of the fifth (\code{area}) dimension}
-  \item{iter}{Length of the sixth (\code{iter}) dimension} }
+\item{quant}{Length of the first dimension}
+\item{min}{First quant}
+\item{max}{Last quant}
+\item{year}{Number of years}
+\item{minyear}{First year in series}
+\item{maxyear}{Last year in series}
+\item{cohort}{Number of cohorts}
+\item{mincohort}{First cohort in series}
+\item{maxcohort}{Last cohort in series}
+\item{unit}{Length of the third (\code{unit}) dimension}
+\item{season}{Length of the fourth (\code{season}) dimension}
+\item{area}{Length of the fifth (\code{area}) dimension}
+\item{iter}{Length of the sixth (\code{iter}) dimension} }
 Values in the returned list are of class \code{numeric}, unless dimnames are
 strings with no numeric translation, in which case the result is \code{NA}.
 

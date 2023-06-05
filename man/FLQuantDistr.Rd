@@ -28,25 +28,25 @@ for example, random numbers with those mean and variances.
 }
 \section{Slots}{
 
-    \describe{
-    \item{.Data}{Unnamed slot for storing the mean (or other measure of
-      expectation) (\code{FLQuant}).}
-    \item{var}{Variance, or other measure of dispersion, (\code{FLQuant}).}
-    \item{distr}{Name of the probability distribution, see Details
-      (\code{character}).}
+\describe{
+\item{.Data}{Unnamed slot for storing the mean (or other measure of
+expectation) (\code{FLQuant}).}
+\item{var}{Variance, or other measure of dispersion, (\code{FLQuant}).}
+\item{distr}{Name of the probability distribution, see Details
+(\code{character}).}
 }
 }
 
 \section{Validity}{
 
 
-  \describe{
-    \item{slot dims}{.Data and var slots must have the same dimensions.}
-    \item{slot dimnames}{.Data and var slots must have the same dimnames.}
+\describe{
+\item{slot dims}{.Data and var slots must have the same dimensions.}
+\item{slot dimnames}{.Data and var slots must have the same dimnames.}
 }
 
 You can inspect the class validity function by using
-   \code{getValidity(getClassDef('FLQuantDistr'))}
+\code{getValidity(getClassDef('FLQuantDistr'))}
 }
 
 \section{Accessors}{
@@ -76,7 +76,7 @@ for the .Data slot.
 Methods exist for various calculations based on values stored in the class:
 
 \describe{
-    \item{Arith}{.}
+\item{Arith}{.}
 }
 }
 
@@ -87,13 +87,13 @@ this class, both for operations between two \code{FLQuantDistr} objects and
 with objects of class \code{FLQuant} (\code{FLArray}) as follows:
 
 \describe{
-    \item{+, FLQuantDistr,FLArray}{.}
-    \item{-, FLQuantDistr,FLArray}{.}
-    \item{*, FLQuantDistr,FLArray}{.}
-    \item{/, FLQuantDistr,FLArray}{.}
-    \item{+, FLQuantDistr,FLQuantDistr}{.}
-    \item{-, FLQuantDistr,FLQuantDistr}{.}
-    \item{*, FLQuantDistr,FLQuantDistr}{.}
+\item{+, FLQuantDistr,FLArray}{.}
+\item{-, FLQuantDistr,FLArray}{.}
+\item{\emph{, FLQuantDistr,FLArray}{.}
+\item{/, FLQuantDistr,FLArray}{.}
+\item{+, FLQuantDistr,FLQuantDistr}{.}
+\item{-, FLQuantDistr,FLQuantDistr}{.}
+\item{}, FLQuantDistr,FLQuantDistr}{.}
 }
 }
 

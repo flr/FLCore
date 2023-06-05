@@ -17,7 +17,7 @@ Invisibly the names of the variables loaded into the calling environment.
 \description{
 Inside a function, a call to spread() will attach to the function environment,
 sys.frame(), the elements in the list, or of the conversion to list of the
-object (e.g. named vector or FLPar), so that they be called by name. The function 
+object (e.g. named vector or FLPar), so that they be called by name. The function
 environment will be deleted once the function returns, so those variables won't
 make it to the environment from which the function was called, or further up
 in the call stack.

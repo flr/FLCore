@@ -227,7 +227,7 @@ variance) of an \code{FLQuant} object along each of the six dimensions
 computed along the sixth dimension, \code{iter}.
 
 These methods encapsulate a call to \code{\link[base]{apply}} with
-the corresponding dimensions and function: \code{\link[base]{mean}}, 
+the corresponding dimensions and function: \code{\link[base]{mean}},
 \code{\link[stats]{median}}, \code{\link[stats]{var}}, and
 \code{\link[base]{sum}}, while \code{iterCVs} are computed as
 \code{sqrt(iterVars) / iterMeans}.

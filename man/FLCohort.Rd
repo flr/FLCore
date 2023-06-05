@@ -60,7 +60,7 @@ analysis that want to make use of cohorts instead of years.
 \section{Constructor}{
 
 Objects of this class are generally constructed from an \linkS4class{FLQuant}
-  object.
+object.
 }
 
 \examples{

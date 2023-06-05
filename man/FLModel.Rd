@@ -36,22 +36,22 @@ are currently available for \code{FLModel}, including \code{\link{fmle}},
 }
 \section{Slots}{
  \describe{
-  \item{name}{Name of the object, \code{character}.}
-  \item{desc}{Description of the object, \code{character}.}
-  \item{range}{Range, \code{numeric}.}
-  \item{distribution}{Associated error probability dfistribution, \code{factor}.}
-  \item{fitted}{Estimated values, \code{FLQuant}.}
-  \item{residuals}{Residuals obtained from the model fit, \code{FLQuant}.}
-  \item{model}{Model formula, \code{formula}.}
-  \item{gr}{Function returning the gradient of the likelihood, \code{function}.}
-  \item{logl}{Log-likelihood function. \code{function}.}
-  \item{initial}{Function returning initial parameter values for the
-    optimizer, as an object of class \code{FLPar}, \code{function}.}
-  \item{params}{Estimated parameter values, \code{FLPar}.}
-  \item{logLik}{Value of the log-likelihood, \code{logLik}.}
-  \item{vcov}{Variance-covariance matrix, \code{array}.}
-  \item{hessian}{Hessian matrix obtained from the parameter fitting, \code{array}.}
-  \item{details}{extra information on the model fit procedure, \code{list}.} }
+\item{name}{Name of the object, \code{character}.}
+\item{desc}{Description of the object, \code{character}.}
+\item{range}{Range, \code{numeric}.}
+\item{distribution}{Associated error probability dfistribution, \code{factor}.}
+\item{fitted}{Estimated values, \code{FLQuant}.}
+\item{residuals}{Residuals obtained from the model fit, \code{FLQuant}.}
+\item{model}{Model formula, \code{formula}.}
+\item{gr}{Function returning the gradient of the likelihood, \code{function}.}
+\item{logl}{Log-likelihood function. \code{function}.}
+\item{initial}{Function returning initial parameter values for the
+optimizer, as an object of class \code{FLPar}, \code{function}.}
+\item{params}{Estimated parameter values, \code{FLPar}.}
+\item{logLik}{Value of the log-likelihood, \code{logLik}.}
+\item{vcov}{Variance-covariance matrix, \code{array}.}
+\item{hessian}{Hessian matrix obtained from the parameter fitting, \code{array}.}
+\item{details}{extra information on the model fit procedure, \code{list}.} }
 }
 
 \examples{

@@ -24,12 +24,13 @@ object of a given class.
 \details{
 A standard minimal set of rules to check FLStock objects against using the
 verify method. The included rules are (with names in italics) check that:
-
-- there are no NAs in any slot, *anyna*.
-- *catch.wt*, *landings.wt*, *discards.wt* and *stock.wt* > 0.
-- *mat*, *m.spwn* and *harvest.spwn* values are between 0 and 1.
-- *harvest* >= 0.
-- *cohorts* in the stock.n slot contain decreasing numbers, except for the plusgroup age.
+\itemize{
+\item there are no NAs in any slot, \emph{anyna}.
+\item \emph{catch.wt}, \emph{landings.wt}, \emph{discards.wt} and \emph{stock.wt} > 0.
+\item \emph{mat}, \emph{m.spwn} and \emph{harvest.spwn} values are between 0 and 1.
+\item \emph{harvest} >= 0.
+\item \emph{cohorts} in the stock.n slot contain decreasing numbers, except for the plusgroup age.
+}
 }
 \examples{
 data(ple4)

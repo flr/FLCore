@@ -15,7 +15,7 @@ discardsRatio(object, value = c("numbers", "weight", "total"))
 The discards ratio (between 0 and 1), 'FLQuant'
 }
 \description{
-A calculation is made of the proportion of discards over total catch at age, 
+A calculation is made of the proportion of discards over total catch at age,
 either as numbers (value = 'numbers') or weight (value = 'weight'), or for
 the total discards and catch in biomass (value = 'total').
 }
@@ -27,9 +27,9 @@ discardsRatio(ple4)
 discardsRatio(ple4, value="total")
 }
 \seealso{
-\link{FLStock}
+\linkS4class{FLStock}
 }
 \author{
 The FLR Team
 }
-\keyword{classes}
+\keyword{arith}

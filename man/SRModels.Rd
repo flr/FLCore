@@ -101,16 +101,18 @@ are provided in FLCore.
 \details{
 Each method is defined as a function returning a list with one or more
 elements as follows:
-- model: Formula for the model, using the slot names \emph{rec} and \emph{ssb}
-  to refer to the usual inputs
-- logl: Function to calculate the loglikelihood of the given model when
-  estimated through MLE (See \code{\link{fmle}}) 
-- initial: Function to provide initial values for all parameters to the
-  minimization algorithms called by \code{\link{fmle}} or
-  \code{\link[stats]{nls}}. If required, this function also has two attributes,
-  \code{\link{lower}} and \code{\link{upper}}, that give lower and upper limits
-  for the parameter values, respectively. This is used by some of the methods
-  defined in \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}.
+\itemize{
+\item model: Formula for the model, using the slot names \emph{rec} and \emph{ssb}
+to refer to the usual inputs
+\item logl: Function to calculate the loglikelihood of the given model when
+estimated through MLE (See \code{\link{fmle}})
+\item initial: Function to provide initial values for all parameters to the
+minimization algorithms called by \code{\link{fmle}} or
+\code{\link[stats]{nls}}. If required, this function also has two attributes,
+\code{\link{lower}} and \code{\link{upper}}, that give lower and upper limits
+for the parameter values, respectively. This is used by some of the methods
+defined in \code{\link[stats]{optim}}, like \code{"L-BFGS-B"}.
+}
 
 The \emph{model<-} method for \code{\linkS4class{FLModel}} can then be called
 with \emph{value} being a list as described above, the name of the function

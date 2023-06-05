@@ -19,10 +19,10 @@ propagate(object, ...)
 \item{iters}{No. of iterations in output.}
 }
 \description{
-Methods to extend objects of various FLR classes along the `iter`
+Methods to extend objects of various FLR classes along the \code{iter}
 (6th FLQuant) dimension. Objects must generally have a single
-`iter` to be extended. The new iterations can be filled with copies
-of the existing, or remain as `NA`.
+\code{iter} to be extended. The new iterations can be filled with copies
+of the existing, or remain as \code{NA}.
 }
 \section{Generic function}{
  propagate(object, ...)

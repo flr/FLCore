@@ -26,12 +26,12 @@ Returns values for the \emph{units} of each \emph{FLQuant} slot according to the
 standard adopted by the FLR Team for the supplied class.
 }
 \details{
-For objects derived from class *FLS*, which currently includes
-*FLStock* and *FLStockLen*, the adopted standard includes: 'kg' for individual
+For objects derived from class \emph{FLS}, which currently includes
+\emph{FLStock} and \emph{FLStockLen}, the adopted standard includes: 'kg' for individual
 weights, '1000' for number of individuals, 't' for biomass, 'f' for harvest,
 'm' for natural mortality, and an empty string for proportions (spwn, mat).
 
-For objects derived of class *FLBiol* the adopted standard
+For objects derived of class \emph{FLBiol} the adopted standard
 units are: 'kg' for individual weights, '1000' for number of individuals,
 'm' for natural mortality, and an empty string for proportions (spwn, mat).
 }
