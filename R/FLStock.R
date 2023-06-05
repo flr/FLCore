@@ -1561,9 +1561,11 @@ mohnMatrix <- function(stocks, metric="fbar", ...) {
 #' An FLStock object containing estimates of adundance at age ('stock.n') and
 #' harvest level at age ('harvest'), is used to bring forward the population
 #' by applying the total mortality at age ('z'). No calculation is made on
-#' recruitment, so abundances for the first age will be set as 'NA'.
+#' recruitment, so abundances for the first age will be set as 'NA', unless
+#' a value is provided.
 #'
 #' @param object An FLStock with estimated harvest and abundances
+#' @param rec Value for recruitment, first age abundance, 'numeric' or 'FLQuant'.'
 #'
 #' @return The abundances at age of the survivors, 'FLQuant'.
 #'
@@ -1572,7 +1574,7 @@ mohnMatrix <- function(stocks, metric="fbar", ...) {
 #' stock.n(ple4[, ac(2002:2006)])
 #' survivors(ple4[, ac(2002:2006)])
 
-survivors <- function(object) {
+survivors <- function(object, rec=NA) {
 
   dms <- dims(object)
 
@@ -1591,6 +1593,8 @@ survivors <- function(object) {
   # PLUSGROUP
   res[ages[length(ages)]] <- res[ages[length(ages)]] +
     survs[ages[length(ages)], ]
+
+  res[1,] <- rec
 
   return(res)
 } # }}}
@@ -2007,7 +2011,7 @@ setMethod("ages", signature(object="FLStock"),
 #'
 #' @author Iago MOSQUEIRA (MWR), Henning WINKEL (JRC).
 #' @seealso \link{fwd}
-#' @keywords classes
+#' @keywords models
 #' @examples
 #' data(ple4)
 #' sr <- predictModel(model=bevholt, params=FLPar(a=140.4e4, b=1.448e5))
@@ -2129,32 +2133,58 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
 
 # ageopt {{{
 
+#' Age at which a cohort reaches its maximum biomass, calculated by year
+#'
+#' The optimal (or critical) age is the transition point when a cohort achieves
+#' its maximum biomass in the absemce of fishing, i.e. losses due to natural
+#' mortality are now greater than gains due to increase in individual biomass.
+#'
+#' @param object An object of class 'FLStock'
+#'
+#' @return The age at which maximum biomass is reached, an 'FLQuant'.
+#'
+#' @name ageopt
+#' @rdname ageopt
+#'
+#' @author The FLR Team
+#' @seealso \link{FLStock}
+#' @keywords methods
 #' @examples
+#' data(ple4)
 #' ageopt(ple4)
 
 setMethod("ageopt", signature(object="FLStock"),
   function(object) {
   
-  fbar <- fbar(object)%=%0
-  object <- window(object, start=dims(object)$minyear - 1)
-  
-  stock.n(object)[1] <- 1
+    # SET future Fbar to zero
+    fbar <- fbar(object)[, -1] %=% 0
 
-  object <- ffwd(object, fbar=fbar[, -1],
-    sr=predictModel(model="geomean", params=FLPar(a=1)))[, -1]
+    # REMOVE last year
+    object <- window(object, start=dims(object)$minyear - 1)
   
-  res <- stock.wt(object)[,-1] * stock.n(object)[,-1]
+    # SET NaA to 1 in first age
+    stock.n(object)[1] <- 1
+
+    # PROJECT for fbar target and rec=1
+    object <- ffwd(object, fbar=fbar,
+      sr=predictModel(model="geomean", params=FLPar(a=1)))[, -1]
   
-  if (is.na(range(object, "plusgroup"))) {
-    res <- apply(res, c(2:6), function(x) as.numeric(names(x)[x == max(x)]))
-  } else {
-    res <- apply(res[-dim(res)[1]], c(2:6), function(x)
-      as.numeric(names(x)[x==max(x)]))
+    # COMPUTE biomass
+    res <- stock.wt(object)[, -1] * stock.n(object)[, -1]
+  
+    # COMPUTE age with max biomass
+    if (is.na(range(object, "plusgroup"))) {
+      res <- apply(res, c(2:6), function(x) as.numeric(names(x)[x == max(x)]))
+    } else {
+      res <- apply(res[-dim(res)[1]], c(2:6), function(x)
+        as.numeric(names(x)[x==max(x)]))
+    }
+
+    units(res) <- ""
+
+    return(res)
   }
-  units(res) <- ""
-
-  return(res)
-})
+)
 # }}}
 
 # iterMedians {{{
@@ -2200,20 +2230,19 @@ setMethod("update", signature(object="FLStock"),
 
 #' Computes fishing mortality from abundances, catches and natural mortality
 #'
-#' Objects or class 'FLStock' conatin a 'harvest' slot to store estimates of
-#' fihsing mortality at age
+#' Objects or class 'FLStock' already contain a 'harvest' slot to store
+#' estimates of fishing mortality at age, for example those obtained from
+#' a stock assessment method. Fishing mortality at age can be recalculated
+#' using two methods: 
 #'
-#' @param PARAM Lorem ipsum dolor sit amet
+#' @param x An object of class 'FLStock'.
+#' @param units Harvest to be computed as 'f' or 'hr', 'character'.
 #'
-#' @return RETURN Lorem ipsum dolor sit amet
-#'
-#' @name FUNCTION
-#' @rdname FUNCTION
-#' @aliases FUNCTION
+#' @return An 'FLQuant' with the calculated fishing mortalities at age.
 #'
 #' @author The FLR Team
-#' @seealso \link{FLComp}
-#' @keywords classes
+#' @seealso [FLStock-class] [harvest()] [FLQuant-class]
+#' @keywords manip
 #' @examples
 #' data(ple4)
 #' # Compute 'f' from stock.n and Baranov
@@ -2255,8 +2284,8 @@ recomputeHarvest <- function(x) {
 #' @rdname discardsRatio
 #'
 #' @author The FLR Team
-#' @seealso \link{FLStock}
-#' @keywords classes
+#' @seealso [FLStock-class]
+#' @keywords arith
 #' @examples
 #' data(ple4)
 #' # Discards ratio at age in numbers
