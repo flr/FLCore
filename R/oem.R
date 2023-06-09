@@ -567,9 +567,9 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
   logbias <- 0
 
   if(bias.correct)
-    logbias <- 0.5 * sdlog ^ 2
+    logbias <- 0.5 * c(sdlog) ^ 2
 
-  rhosq <- rho ^ 2
+  rhosq <- c(rho) ^ 2
 
   #
   res <- matrix(rnorm(n * iters, mean=meanlog, sd=sdlog), nrow=n, ncol=iters)
@@ -582,6 +582,62 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 
 	return(FLQuant(array(res, dim=c(1,n,1,1,1,iters)),
 		dimnames=list(year=years, iter=seq(1, iters), ...)))
+}
+# }}}
+
+# nar1rlnorm {{{
+
+nar1rlnorm <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
+  bias.correct=TRUE) {
+
+  # SET iters
+  if(is.null(n))
+    n <- max(c(length(meanlog), length(sdlog), length(rho)))
+
+  # NUMBER of years
+  nyrs <- length(years)
+
+  # REPEAT inputs to correct size
+  rho <- rep(c(rho), length=n)
+  meanlog <- rep(c(meanlog), length=n)
+  sdlog <- rep(c(sdlog), length=n)
+
+  res <- matrix(rnorm(n * nyrs, mean=meanlog, sd=sdlog),
+    nrow=length(years), ncol=n)
+
+  # BIAS correction
+  logbias <- 0
+
+  if(bias.correct)
+    logbias <- 0.5 * sdlog ^ 2
+
+  # RHOSQ
+  rhosq <- rho ^ 2
+
+  # FILL along years
+  for(y in seq(nyrs)[-1])
+    res[y, ] <- rho * res[y - 1, ] + sqrt(1 - rhosq) * res[y, ]
+
+  # APPLY bias correction
+  res <- exp(res - logbias)
+
+  out <- FLQuant(c(res), dimnames=list(year=years, iter=seq(n)))
+
+	return(out)
+}
+
+# }}}
+
+# ar1deviances {{{
+ar1deviances <- function(x, year) {
+
+  rho <- rho(window(x, end=year))
+  sdlog <- sqrt(yearVars(log(window(x, end=year))))
+
+  x[, ac(seq(year + 1, dims(x)$maxyear))] <- nar1rlnorm(meanlog=0,
+    sdlog=sdlog, rho=rho, years=ac(seq(year + 1, dims(x)$maxyear)))
+
+  return(x)
 }
 # }}}
 
