@@ -756,7 +756,11 @@ setMethod("iter<-", signature(object="FLBiol", value="FLBiol"),
 
 # fwdWindow {{{
 setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
-  function(x, end=dims(x)$maxyear, nsq=3) {
+  function(x, end=dims(x)$maxyear, nsq=3, deviances=1) {
+
+    # RETURN if no new years
+    if(end == dims(x)$maxyear)
+      return(x)
 
     # EXTEND x with window
     res <- window(x, end=end, extend=TRUE, frequency=1)
@@ -794,6 +798,16 @@ setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
       return(window(y, end=end))
       })
     names(res@rec) <- names(x@rec)
+
+    # deviances
+    if(is(deviances, "FLQuant")) {
+      FLCore::deviances(res) <- append(FLCore::deviances(x), deviances)
+    } else if(is(deviances, "numeric")) {
+      FLCore::deviances(res)[, ac(seq(dims(x)$maxyear + 1, end))][] <- deviances
+    } else if(is(deviances, 'function')) {
+      FLCore::deviances(res) <- append(FLCore::deviances(x), do.call(deviances,
+        list(x=FLCore::deviances(res), year=dims(x)$maxyear)))
+    }
 
     return(res)
   }
