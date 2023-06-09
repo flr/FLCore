@@ -2096,3 +2096,9 @@ setMethod("merge", signature(x="FLQuant", y="FLQuant"),
   }
 )
 # }}}
+
+# rho {{{
+rho <- function(x) {
+  FLPar(rho=c(apply(x, 6, function(i)
+    c(acf(c(i), plot=FALSE, na.action=na.pass)[1][[1]]))), units="")
+} # }}}
