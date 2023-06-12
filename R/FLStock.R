@@ -347,7 +347,7 @@ setMethod("ssb", signature(object="FLStock"),
 				exp(-m(object) * m.spwn(object))))
 
   	} else {
-		stop("Correct units (f or hr) not specified in the harvest slot")
+      return(rec(object) %=% as.numeric(NA))
 		}
 	}
 )	# }}}
@@ -1504,7 +1504,8 @@ setMethod("append", signature(x="FLStock", values="FLStock"),
       "stock")
 
     for(q in quants) {
-      slot(x, q)[, yrs] <- slot(values, q)
+      slot(x, q) <- append(slot(x, q), slot(values, q))
+      # slot(x, q)[, yrs] <- slot(values, q)
     }
 
     return(x)
