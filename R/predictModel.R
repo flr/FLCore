@@ -491,27 +491,19 @@ setMethod("propagate", signature(object="predictModel"),
     if(all(c(fqi, fpi) == iter))
       return(object)
 
-    # CHECK no iters in object
-    if(any(c(fqi, fpi) > 1))
-      stop("propagate can only extend objects with no iters")
+    # CHECK single iters in object
+    if(any(!c(fqi, fpi) %in% c(1, iter)))
+      stop("Existing slots contain iters != to 'iter'")
 
     # EXPAND FLQs, if not empty
-    if(!is.null(fqi))
-      object@.Data <- lapply(object, expand, iter=seq(1, iter))
+    if(!is.null(fqi)) {
+      object@.Data <- lapply(object, propagate, iter, fill.iter=fill.iter)
+    }
 
     # EXPAND FLP, if not empty
-    params(object) <- expand(params(object), iter=seq(1, iter))
-
-    # fill.iter
-    if(fill.iter) {
-
-      if(!is.null(fqi))
-        object@.Data <- lapply(object, function(x) {
-          iter(x, seq(2, iter)) <- iter(x, 1)
-          return(x)
-          })
-      iter(params(object), seq(2, iter)) <- iter(params(object), 1)  
-    }
+    params(object) <- propagate(params(object), iter=iter, fill.iter=fill.iter)
+#    params(object) <- expand(params(object), iter=seq(1, iter),
+#      fill.iter=fill.iter)
 
     return(object)
   }
