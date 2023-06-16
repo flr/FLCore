@@ -537,6 +537,9 @@ setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
     n1 <- names(dimnames(e1))
     n2 <- names(dimnames(e2))
 
+    op <- as.character(get('.Generic'))
+    uoms <- uom(op, units(e1), units(e2))
+
     # iter of output
     it <- max(d1[6], d2[l2])
 
@@ -554,11 +557,12 @@ setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
     # iters from FLQ
     if(d1[6] >= d2[l2]) {
       return(new(class(e1), array(callGeneric(e1@.Data, e2), dim=d1,
-        dimnames=dimnames(e1)), units=units(e1)))
+        dimnames=dimnames(e1)), units=uoms))
     } else {
-      return(new(class(e1), array(callGeneric(array(e1@.Data, dim=c(c(d1[-6], it))),
-        array(e2, dim=c(d1[-6], it))), dim=c(d1[-6], it),
-        dimnames=c(dimnames(e1)[-6], list(iter=seq(it)))), units=units(e1)))
+      return(new(class(e1), array(callGeneric(array(e1@.Data,
+        dim=c(c(d1[-6], it))), array(e2, dim=c(d1[-6], it))), dim=c(d1[-6], it),
+        dimnames=c(dimnames(e1)[-6], list(iter=seq(it)))),
+        units=uoms))
     }
   }
 )
@@ -572,6 +576,9 @@ setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
     l1 <- length(d1)
     n1 <- names(dimnames(e1))
     n2 <- names(dimnames(e2))
+
+    op <- as.character(get('.Generic'))
+    uoms <- uom(op, units(e1), units(e2))
 
     # iter of output
     it <- max(d1[l1], d1[6])
@@ -590,10 +597,11 @@ setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
     # iters from FLQ
     if(d2[6] >= d1[l1]) {
       return(new(class(e2), array(callGeneric(e1, e2@.Data), dim=d2,
-        dimnames=dimnames(e2)), units=units(e2)))
+        dimnames=dimnames(e2)), units=uoms))
     } else {
       return(new(class(e2), array(callGeneric(e1, e2@.Data), dim=c(d2[-6], it),
-        dimnames=c(dimnames(e2)[-6], list(iter=seq(it)))), units=units(e2)))
+        dimnames=c(dimnames(e2)[-6], list(iter=seq(it)))),
+        units=uoms))
     }
   }
 )

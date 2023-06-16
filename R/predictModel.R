@@ -1,7 +1,7 @@
 # predictModel.R - DESC
 # FLCore/R/predictModel.R
 
-# Copyright 2015-2017 Iago Mosqueira. Distributed under the GPL 2.
+# Copyright 2015-2023 Iago Mosqueira. Distributed under the GPL 2.
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # class predictModel: model + data + params {{{

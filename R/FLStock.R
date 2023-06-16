@@ -740,24 +740,43 @@ setMethod('[', signature(x='FLStock'),
 setMethod("[<-", signature(x="FLStock", value="FLStock"),
 	function(x, i, j, k, l, m, n, ..., value) {
 
-    if (missing(i))
-			i <- dimnames(x@stock.n)[1][[1]]
-		if (missing(j))
-			j <- dimnames(x@stock.n)[2][[1]]
- 		if (missing(k))
-   		k <- dimnames(x@stock.n)[3][[1]]
-		if (missing(l))
-			l <- dimnames(x@stock.n)[4][[1]]
-		if (missing(m))
-		  m <- dimnames(x@stock.n)[5][[1]]
-		if (missing(n))
-			n <- dimnames(x@stock.n)[6][[1]]
+    dx <- dim(x)
 
-	  quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", 
-      "landings.n", "landings.wt", "stock.n", "stock.wt", "m", "mat",
+    if (missing(i))
+      i <- seq(dx[1])
+			# i <- dimnames(x@stock.n)[1][[1]]
+		if (missing(j))
+      j <- seq(dx[2])
+			# j <- dimnames(x@stock.n)[2][[1]]
+ 		if (missing(k))
+      k <- seq(dx[3])
+   		# k <- dimnames(x@stock.n)[3][[1]]
+		if (missing(l))
+      l <- seq(dx[4])
+			# l <- dimnames(x@stock.n)[4][[1]]
+		if (missing(m)) {
+      ms <- seq(dx[5])
+      mc <- seq(dim(catch.n(x))[5])
+    } else {
+      ms <- mc <- m
+    }
+		  # m <- dimnames(x@stock.n)[5][[1]]
+		if (missing(n))
+      n <- seq(dx[6])
+			# n <- dimnames(x@stock.n)[6][[1]]
+
+    # ASSIGN at age quants
+	  quants <- list("stock.n", "stock.wt", "m", "mat",
       "harvest", "harvest.spwn", "m.spwn")
     for(q in quants) {
-      slot(x, q)[i,j,k,l,m,n] <- slot(value, q)
+      slot(x, q)[i,j,k,l,ms,n] <- slot(value, q)
+    }
+
+    # ASSIGN catch at age quants, may have fleets as areas
+    quants <- list("catch.n", "catch.wt", "discards.n", "discards.wt", 
+      "landings.n", "landings.wt")
+    for(q in quants) {
+      slot(x, q)[i,j,k,l,mc,n] <- slot(value, q)
     }
 
     quants <- list("catch", "landings", "discards", "stock")

@@ -1,7 +1,7 @@
 # FLBiol - class for representing a natural population
 # FLCore/R/FLBiol.R
 
-# Copyright 2003-2017 FLR Team. Distributed under the GPL 2 or later
+# Copyright 2003-2023 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # class FLBiol {{{
