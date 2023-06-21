@@ -411,6 +411,42 @@ setMethod("FLSRs", signature(object="list"),
 
 }) # }}}
 
+# as.FLSRs {{{
+
+#' Convert an FLStock into a list of one or FLSR objects.
+#'
+#' A single `FLStock` can be coerced into a list with one or more objects of
+#' class `FLSR`, each of them typically set to a diefferemt stock-recruit model.
+#'
+#' @param x An estimated FLStock object to coerce.
+#' @param models Name(s) of model(s) to fit.
+#' @param ... Any extra arguments to be passed to *as.FLSR*.
+#'
+#' @return An objecdt of class `FLSRs`
+#'
+#' @name as.FLSRs
+#'
+#' @author FLR Team, 2023.
+#' @seealso [FLSRs-class] [FLSRs-class] [as.FLSR()]
+#' @keywords classes
+#' @examples
+#' data(ple4)
+#' as.FLSRs(ple4, model=c("bevholt", "segreg"))
+
+as.FLSRs <- function(x, models=NULL, ...) {
+
+  # IF no models
+  if(is.null(models))
+    return(FLSRs(A=as.FLSR(x)))
+
+  # NAME models
+  if(is.null(names(models)) & is.character(models))
+    models <- setNames(models, nm=models)
+
+  FLSRs(lapply(models, function(i) as.FLSR(x, model=i)))
+}
+# }}}
+
 # rec<- {{{
 setReplaceMethod('rec', signature(object='FLBiol', value='FLSR'),
   function(object, value) {

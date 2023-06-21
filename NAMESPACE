@@ -112,6 +112,7 @@ export(
   "an",
   "ar1deviances",
   "ar1rlnorm",
+  "as.FLSRs",
   "auc",
   "bevholt",
   "bevholtAR1",
