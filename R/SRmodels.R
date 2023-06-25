@@ -620,9 +620,10 @@ mixed <- function(a, b, m=c(1,2,3), ssb) {
 #' @aliases mixedsrr
 
 mixedsrr <- function() {
+
   ## log likelihood, assuming normal log.
-  logl <- function(a, b, c, rec, ssb)
-      loglAR1(log(rec), log(a / ((b / ssb) ^ c + 1)))
+  logl <- function(a, b, m, rec, ssb)
+      loglAR1(log(rec), log(mixed(a, b, m, ssb)))
 
   ## initial parameter values
   initial <- structure(function(rec, ssb) {
