@@ -585,9 +585,9 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 }
 # }}}
 
-# nar1rlnorm {{{
+# rlnormar1 {{{
 
-nar1rlnorm <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
+rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
   bias.correct=TRUE) {
 
   # SET iters
