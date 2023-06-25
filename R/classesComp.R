@@ -819,6 +819,17 @@ setClass("FLIndexBiomass",
 
 # FLModel  {{{
 
+newlogLik <- function(value=as.numeric(NA), nall=as.numeric(NA),
+  nobs=as.numeric(NA), df=as.numeric(NA)) {
+
+  attr(value, 'nall') <- nall
+  attr(value, 'nobs') <- nobs
+  attr(value, 'df') <- df
+  attr(value, 'class') <- 'logLik'
+
+  return(value)
+}
+
 #' Class FLModel
 #'
 #' A virtual class for statistical models
@@ -913,7 +924,8 @@ setClass('FLModel',
         'f', 'gamma', 'geom', 'hyper', 'lnorm', 'multinom', 'nbinom', 'norm',
         'pois', 't', 'unif', 'weibull')),
     fitted=FLQuant(),
-    residuals=FLQuant()),
+    residuals=FLQuant(),
+    logLik=newlogLik()),
 	validity=function(object)
 		{
 	  # All FLArray slots are of the same exact class
