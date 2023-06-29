@@ -1336,9 +1336,14 @@ noarea <- function(stock) {
     areaSums(discards.n(old))
   discards.wt(stock)[is.na(discards.wt(stock))] <- areaMeans(discards.wt(old))[is.na(discards.wt(stock))]
 
+  # m
   m(stock) <- areaSums(m(old) * stock.n(old)) /
     areaSums(stock.n(old))
   m(stock)[is.na(m(stock))] <- areaMeans(m(old))[is.na(m(stock))]
+
+  # mat
+  mat(stock) <- areaSums(mat(old) * (stock.n(old) * stock.wt(old))) / 
+    areaSums((stock.n(old) * stock.wt(old)))
 
   # COMPUTE
 

@@ -591,9 +591,10 @@ bevholtsig <- function() {
 
 # mixedsrr {{{
 
-mixed <- function(a, b, m=c(1,2,3), ssb) {
+mixed <- function(a, b, m=c(1, 2, 3), ssb) {
 
-  rec <- ssb %=% as.numeric(NA)
+  rec <- ssb
+  rec[] <- as.numeric(NA)
 
   # 1 Bevholt
   id <- c(m == 1)
