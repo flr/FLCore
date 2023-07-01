@@ -1110,6 +1110,10 @@ setGeneric("parscale", function(object, ...)
 setGeneric("computeHessian", function(object, ...)
   standardGeneric("computeHessian"))
 
+# computeHarvest
+setGeneric("computeHarvest", function(object, catch, ...)
+		standardGeneric("computeHarvest"))
+
 # computeD
 setGeneric("computeD", function(object, ...)
   standardGeneric("computeD"))

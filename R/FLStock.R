@@ -2060,7 +2060,6 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       # CHECK target is fbar/f
       if(!all(fbar$quant %in% c("f", "fbar")))
         stop("ffwd() can only project for f/fbar targets, try calling FLasher::fwd().")
-
       fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
     }
 
@@ -2117,7 +2116,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
        naa[1, i] <- rep(eval(sr@model[[3]],
         c(as(sr@params, 'list'), list(
         ssb=c(colSums(naa[, i - recage] * srp[, i - recage]))))) /
-        dm[3], dm[3]) * c(deviances[, i - recage])
+        dm[3], dm[3]) * c(deviances[, i])
     }
 
   # UPDATE stock.n & harvest
@@ -2275,17 +2274,19 @@ setMethod("update", signature(object="FLStock"),
 #' # Recomputes all F at age by solving catch Baranov
 #' recomputeHarvest(ple4)
 
-computeHarvest <- function(x, units=NULL) {
+setMethod("computeHarvest", signature(object="FLStock", catch="missing"),
+  function(object, units=NULL) {
 
   # AVOIDS recursive default argument 
   if(is.null(units))
-    units <- units(harvest(x))
+    units <- units(harvest(object))
 
   switch(match.arg(units, choices=c("f", "hr", "NA")),
-    "f"=harvest(stock.n(x), catch.n(x), m(x), recompute=FALSE),
-    "NA"=harvest(stock.n(x), catch.n(x), m(x), recompute=FALSE),
-    "hr"=catch.n(x) / stock.n(x))
-}
+    "f"=harvest(stock.n(object), catch.n(object), m(object), recompute=FALSE),
+    "NA"=harvest(stock.n(object), catch.n(object), m(object), recompute=FALSE),
+    "hr"=catch.n(object) / stock.n(object))
+  }
+)
 
 recomputeHarvest <- function(x) {
   harvest(stock.n(x), catch.n(x), m(x), recompute=TRUE)
