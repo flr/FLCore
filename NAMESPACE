@@ -194,6 +194,7 @@ export(
   "rlnormar1",
   "roc",
   "run.info",
+  "rwalk",
   "sbind",
   "segreg",
   "segregAR1",

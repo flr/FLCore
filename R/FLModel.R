@@ -686,7 +686,7 @@ setMethod('summary', signature(object='FLModel'),
     cat("Model: \t")
     print(model(object), showEnv=FALSE)
     # params
-    print(params(object), reduced=TRUE)
+    print(params(object), reduced=FALSE)
     # logl
     cat("Log-likelihood: ", paste(format(median(slot(object, 'logLik')), digits=5),
       "(", format(mad(slot(object, 'logLik')), digits=5), ")", sep=""),

@@ -1560,6 +1560,9 @@ baranovCatch <- function(n, m, f) {
 
 solveBaranov <- function(n, m, c) {
 
+  if(sum(is.na(c(n, m, c))) > 0)
+    return(rep(as.numeric(NA), length(n)))
+
   foo <- function(logf, n, m, c) {
     newc <- baranovCatch(n, m, exp(logf))
     return(sum(c) - sum(newc))
@@ -2102,3 +2105,64 @@ rho <- function(x) {
   FLPar(rho=c(apply(x, 6, function(i)
     c(acf(c(i), plot=FALSE, na.action=na.pass)[1][[1]]))), units="")
 } # }}}
+
+# rwalk {{{
+
+#' Generate a random walk time series from a starting point
+#'
+#' The last year of an `FLQuant` object is used as atrating point to generate
+#' a time series following a random walk with drift:
+#' \deqn{z_t = z_{t-1} + \epsilon_t + \delta_t, t=1,2,...}{z[t] = z[t-1] + e[t] + d[t], t=1,2,...}
+#' where \eqn{\epsilon}{e} is \eqn{\mathcal{N}(0, \sigma)}{N(0, sd)}
+#'
+#' The length of the series is set by argument *end*. This is taken as a number of years, if its value is smaller than the final 'year' of 'x0', or as a final year if larger or of class 'character'.
+#' @param x0 The initial state of the random walk, 'FLQuant'.
+#' @param end The number of years or the final year of the series. numeric.
+#' @param sd The standard deviation of the random walk, numeric.
+#' @param delta The drift of the random walk.
+#'
+#' @return An 'FLQuant' object.
+#'
+#' @author Iago Mosqueira, WMR (2023)
+#' @seealso [FLQuant-class] [rnorm]
+#' @keywords classes
+#' @examples
+#' data(ple4)
+#' # Generate random walk recruitmrnt with positive drift
+#' rwalk(rec(ple4), end=5, sd=0.08, delta=0.05)
+#' # Use append() to add the new values at the end
+#' append(rec(ple4), rwalk(rec(ple4), end=10, sd=0.04, delta=0))
+#' # Use end as number of years
+#' rwalk(rec(ple4), end=5)
+#' # or as final year
+#' rwalk(rec(ple4), end=2020)
+
+rwalk <- function(x0, end=1, sd=0.05, delta=0) {
+
+  # SUBSET last year
+  x0 <- x0[, dim(x0)[2]]
+
+  # PARSE end argument
+  if(is.numeric(end)) {
+    # AS number of extra years
+    if(end > dims(x0)$maxyear)
+      t <- seq(dims(x0)$maxyear + 1, end)
+    # AS final year
+    else
+      t <- seq(dims(x0)$maxyear + 1, length=end)
+  } else if(is.character(end)) {
+      t <- seq(dims(x0)$maxyear + 1, as.numeric(end))
+  }
+
+  # APPLY random walk by iter
+  res <- mapply(function(i) {
+    z <- cumsum(rnorm(n=length(t), mean=0, sd=sd))
+    t <- seq(t)
+    x <- exp(1 * t * delta + z)
+    return(i * x)
+  }, c(x0))
+
+  return(FLQuant(c(res), dimnames=list(year=t, iter=dimnames(x0)$iter),
+    units=units(x0)))
+}
+# }}}

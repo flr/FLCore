@@ -4,10 +4,12 @@
 \alias{survivors}
 \title{Calculate the survivors of a stock to the next year.}
 \usage{
-survivors(object)
+survivors(object, rec = NA)
 }
 \arguments{
 \item{object}{An FLStock with estimated harvest and abundances}
+
+\item{rec}{Value for recruitment, first age abundance, 'numeric' or 'FLQuant'.'}
 }
 \value{
 The abundances at age of the survivors, 'FLQuant'.
@@ -16,7 +18,8 @@ The abundances at age of the survivors, 'FLQuant'.
 An FLStock object containing estimates of adundance at age ('stock.n') and
 harvest level at age ('harvest'), is used to bring forward the population
 by applying the total mortality at age ('z'). No calculation is made on
-recruitment, so abundances for the first age will be set as 'NA'.
+recruitment, so abundances for the first age will be set as 'NA', unless
+a value is provided.
 }
 \examples{
 data(ple4)
