@@ -737,6 +737,17 @@ setMethod("runstest", signature(fit="FLQuant", obs="missing"),
   }
 )
 
+#' @rdname runstest
+#' @examples
+#' runstest(c(ssb(nsher)), c(ssb(nsher)*1.10))
+#' runstest(rnorm(1, FLQuant(1, dimnames=list(year=1973:2021))))
+
+setMethod("runstest", signature(fit="numeric", obs="numeric"),
+  function(fit, obs, combine=TRUE) {
+    return(runstest(fit=FLQuant(fit), obs=FLQuant(obs), combine=combine))
+  }
+)
+
 # }}}
 
 # sigma3 (FLQuant) {{{
