@@ -658,9 +658,15 @@ setGeneric("runstest", function(fit, obs, ...)
 #' @rdname runstest
 #' @examples
 #' data(nsher)
-#' runstest(fitted(nsher), rec(nsher))
+#' # Compute 'runstest' for FLSR fit
+#' runstest(fit=fitted(nsher), obs=rec(nsher))
+#' # Example runstest by age
 #' data(ple4)
 #' runstest(catch.n(ple4), landings.n(ple4), combine=FALSE)
+#' runstest(fit=FLQuants(D=residuals(catch(ple4), discards(ple4)),
+#'   L=residuals(catch(ple4), landings(ple4))))
+#' runstest(fit=residuals(fitted(nsher), rec(nsher)))
+#' runstest(FLQuants(residuals(fitted(nsher), rec(nsher))))
 
 setMethod("runstest", signature(fit="FLQuants", obs="missing"),
   function(fit, combine=TRUE) {
@@ -691,6 +697,10 @@ setMethod("runstest", signature(fit="FLQuants", obs="missing"),
     
     # p.value >= 0.05 -> TRUE, green
     s3dat$pass <- s3dat$p.value >= 0.05
+
+    # DROP qname if not used
+    if(length(unique(s3dat$qname)) == 1)
+       s3dat$qname <- NULL
 
     return(s3dat)
   }
@@ -739,14 +749,26 @@ setMethod("runstest", signature(fit="FLQuant", obs="missing"),
 
 #' @rdname runstest
 #' @examples
-#' runstest(c(ssb(nsher)), c(ssb(nsher)*1.10))
-#' runstest(rnorm(1, FLQuant(1, dimnames=list(year=1973:2021))))
+#' runstest(rep(0.1, 10), cumsum(rnorm(10, 0.1, 0.01)))
 
 setMethod("runstest", signature(fit="numeric", obs="numeric"),
   function(fit, obs, combine=TRUE) {
-    return(runstest(fit=FLQuant(fit), obs=FLQuant(obs), combine=combine))
+    return(runstest(fit=FLQuants(FLQuant(fit)),
+      obs=FLQuants(FLQuant(obs)), combine=combine))
   }
 )
+
+#' @rdname runstest
+#' @examples
+#' runstest(rnorm(10, 0, 0.1))
+
+setMethod("runstest", signature(fit="numeric", obs="missing"),
+  function(fit, obs, combine=TRUE) {
+    return(runstest(fit=FLQuants(FLQuant(fit)), combine=combine))
+  }
+)
+
+#' @rdname runstest
 
 # }}}
 
