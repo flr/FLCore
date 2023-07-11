@@ -1007,7 +1007,7 @@ return(pv)
 
 # setPlusGroup{{{
 setMethod("setPlusGroup", signature(x='FLQuant', plusgroup='numeric'),
-function(x, plusgroup, na.rm=FALSE, by='mean') {
+function(x, plusgroup, na.rm=FALSE, by='sum') {
 # only valid for age-based FLQuant
 if(quant(x) != 'age')
 stop('setPlusGroup onoy makes sense for age-based FLQuant objects')
