@@ -1099,66 +1099,6 @@ setMethod('harvest', signature(object='FLBiol', catch='missing'),
   }
 ) # }}}
 
-# leslie {{{
-# this method applies the Leslie Matrix-type model to an FLBiol object
-# ::
-# this is just for the year and age version as tweeks will be needed for
-# sexually dimorphic and seasonal models
-setMethod("leslie", signature(object="FLBiol"),
-  function(object, plusgroup = FALSE, ...) {
-
-    # create arrays with no dimnames to speed things up
-
-    xx <- object
-    dms.n <- c(dim(n(xx)))
-    n <- array(dim=dms.n)
-    pm <- array(dim=dms.n)
-    m.spwn <- array(dim=dms.n)
-    fec <- array(dim=dms.n)
-
-    n[] <- n(xx)@.Data[]
-    pm[] <- exp(-m(xx)@.Data[])
-    m.spwn[] <- spwn(xx)@.Data
-    fec[] <- fec(xx)@.Data[]
-
-    amax <- dms.n[1]
-    ymax <- dms.n[2]
-
-    if(is.na(n[1,1,1,1,1,]))
-      stop("Error in leslie: initial population number is missing")
-
-    # first set the eqm levels of n based on R0 and the survival schedule
-
-    for(a in 2:amax)
-      n[a,1,1,1,1,] <- n[a-1,1,1,1,1,] * pm[a-1,1,1,1,1,]
-
-    if(plusgroup)
-      n[amax,1,1,1,1,] <- n[amax,1,1,1,1,]/(1-pm[amax,1,1,1,1,])
-
-    for(y in 2:ymax) {
-
-      # standard Leslie matrix dynamics
-
-      n[-c(1),y,1,1,1,] <- n[-c(amax),y-1,1,1,1,] * pm[-c(amax),y-1,1,1,1,]
-
-      if(plusgroup)
-        n[amax,y,1,1,1,] <- n[amax,y-1,1,1,1,] * pm[amax,y-1,1,1,1,]
-
-      # now recruits given by usual equations
-
-      tmp <- FLQuant(n * fec * (1 - m.spwn * (1 - pm)))
-      n[1,y,1,1,1,] <- quantSums(tmp)@.Data[,y-1,,,,]
-    }
-
-    # OK turn the n back into an FLQuant and send it back in the FLBiol object
-
-    n <- FLQuant(quant='age',n,dimnames = dimnames(n(xx)))
-    n(xx) <- n
-    return(xx)
-  }
-)
-# }}}
-
 # r {{{
 # calculates the intrinsic rate of increase from the Leslie-transition matrix
 # or the Euler-Lotka equation by year or by cohort.

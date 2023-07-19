@@ -2167,3 +2167,43 @@ rwalk <- function(x0, end=1, sd=0.05, delta=0) {
     units=units(x0)))
 }
 # }}}
+
+# leslie {{{
+.leslie <- function(object, fec) {
+
+  if (length(object) != length(fec))
+    stop("Vectors differ in length")
+      
+  L <- matrix(0, nrow=length(object), ncol=length(object))
+  
+  diag(L[-1, -length(object)]) <- object[-length(object)]
+  
+  L[1, ] <- fec
+  
+  # plusgroup
+  L[length(object), length(object)] <- L[length(object), length(object) - 1]
+
+  return(L)
+}
+
+setMethod("leslie", signature(object="numeric", fec="numeric"),  
+  function(object, fec) {
+    .leslie(object, fec)
+})
+
+setMethod("leslie", signature(object="FLQuant", fec="FLQuant"),
+  function(object, fec) {
+
+    # FIND largest iters
+    its <- max(dim(object)[6], dim(fec)[6])
+
+    # BUILD matrix: age x age x iters
+    L <- array(0, c(dim(fec)[1], dim(fec)[1], its))
+
+    for (i in seq(its))
+      L[,, i] <- .leslie(iter(object, i)[drop=TRUE], iter(fec, i)[drop=TRUE])
+    
+    return(L)
+  }
+)
+# }}}

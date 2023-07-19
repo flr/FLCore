@@ -1011,7 +1011,7 @@ setGeneric("ssn", function(object, ...)
   standardGeneric("ssn"))
 
 # leslie
-setGeneric("leslie", function(object, ...)
+setGeneric("leslie", function(object, fec, ...)
 	standardGeneric("leslie"))
 
 # r
