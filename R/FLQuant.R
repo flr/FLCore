@@ -2041,13 +2041,14 @@ iav <- function(object) {
 
 #' @rdname aac
 #' @examples
+#' data(ple4)
 #' acc(catch.n(ple4), ages=2:9)
 
 setMethod("acc", signature(object="FLQuant"),
   function(object, ages=seq(dim(object)[1])) {
 
   res <- apply(object[ages,], c(2, 6), function(i) {
-    -coefficients(lm(log(i[i > 0]) ~ as.numeric(dimnames(i)$age)))[2]
+    -coefficients(lm(log(i[i > 0]) ~ as.numeric(dimnames(i)$age)[i > 0]))[2]
   })
 
   units(res) <- 'z'

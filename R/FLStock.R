@@ -1997,7 +1997,7 @@ setMethod("summary", signature(object="FLStock"),
 
 setMethod("acc", signature(object="FLStock"),
   function(object, metric="catch.n", 
-  ages=seq(range(x, 'minfbar'), range(x, 'plusgroup') - 1)) {
+  ages=seq(range(object, 'minfbar'), range(object, 'plusgroup') - 1)) {
 
   inp <- do.call(metric, list(object))[ages]
 
