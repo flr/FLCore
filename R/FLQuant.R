@@ -2186,24 +2186,40 @@ rwalk <- function(x0, end=1, sd=0.05, delta=0) {
   return(L)
 }
 
+#' @examples
+#' survivors <- cumprod(rep(0.5, 10))
+#' fec <- c(0, rep(1, 9))
+#' leslie(survivors, fec)
+
 setMethod("leslie", signature(object="numeric", fec="numeric"),  
   function(object, fec) {
     .leslie(object, fec)
 })
+
+#' @examples
+#' data(ple4)
+#' leslie(stock.n(ple4), mat(ple4))
 
 setMethod("leslie", signature(object="FLQuant", fec="FLQuant"),
   function(object, fec) {
 
     # FIND largest iters
     its <- max(dim(object)[6], dim(fec)[6])
+    yrs <- dim(fec)[2]
+
+    # SET dimnames
+    dnms <- dimnames(object)
 
     # BUILD matrix: age x age x iters
-    L <- array(0, c(dim(fec)[1], dim(fec)[1], its))
+    L <- array(0, c(dim(fec)[1], dim(fec)[1], yrs, its),
+      dimnames=c(dnms[1], dnms[1], dnms[2], iter=seq(its)))
 
     for (i in seq(its))
-      L[,, i] <- .leslie(iter(object, i)[drop=TRUE], iter(fec, i)[drop=TRUE])
+      for(y in seq(yrs))
+        L[,, y, i] <- .leslie(iter(object, i)[,y,drop=TRUE],
+          iter(fec, i)[,y,drop=TRUE])
     
-    return(L)
+    return(drop(L))
   }
 )
 # }}}

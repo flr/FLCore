@@ -2333,3 +2333,45 @@ discardsRatio <- function(object, value=c("numbers", "weight", "total")) {
   )
 } 
 # }}}
+
+# fec {{{
+setMethod("fec", signature(object="FLStock"),
+  function(object) {
+
+    res <- stock.n(object) * exp(-(harvest(object) * 
+      (harvest.spwn(object)) + m(object) * (m.spwn(object)))) *
+      stock.wt(object) * mat(object)
+
+    units(res) <- ""
+
+    return(res)
+  }
+)
+# }}}
+
+# leslie {{{
+
+#' @examples
+#' data(ple4)
+#' leslie(ple4)
+#' # Subset for a single year matrix
+#' leslie(ple4[,'2000'])
+
+setMethod("leslie", signature(object="FLStock", fec="missing"),
+  function(object) {
+
+    return(leslie(object, fec(object)))
+  }
+)
+
+setMethod("leslie", signature(object="FLStock", fec="FLQuant"),
+  function(object, fec) {
+
+    # Numbers at age at spawning time
+    survivors <- stock.n(object) * exp(-(harvest(object) * 
+      (harvest.spwn(object)) + m(object) * (m.spwn(object))))
+
+    return(leslie(survivors, fec))
+  }
+)
+# }}}
