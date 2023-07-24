@@ -6,6 +6,8 @@
 \alias{runstest,FLQuants,FLQuants-method}
 \alias{runstest,FLQuant,FLQuant-method}
 \alias{runstest,FLQuant,missing-method}
+\alias{runstest,numeric,numeric-method}
+\alias{runstest,numeric,missing-method}
 \title{Computes Runs Test p-values}
 \usage{
 runstest(fit, obs, ...)
@@ -17,6 +19,10 @@ runstest(fit, obs, ...)
 \S4method{runstest}{FLQuant,FLQuant}(fit, obs, combine = TRUE)
 
 \S4method{runstest}{FLQuant,missing}(fit, combine = TRUE)
+
+\S4method{runstest}{numeric,numeric}(fit, obs, combine = TRUE)
+
+\S4method{runstest}{numeric,missing}(fit, obs, combine = TRUE)
 }
 \arguments{
 \item{fit}{The result of a model fit.}
@@ -35,9 +41,17 @@ Computes Runs Test p-values
 }
 \examples{
 data(nsher)
-runstest(fitted(nsher), rec(nsher))
+# Compute 'runstest' for FLSR fit
+runstest(fit=fitted(nsher), obs=rec(nsher))
+# Example runstest by age
 data(ple4)
 runstest(catch.n(ple4), landings.n(ple4), combine=FALSE)
+runstest(fit=FLQuants(D=residuals(catch(ple4), discards(ple4)),
+  L=residuals(catch(ple4), landings(ple4))))
+runstest(fit=residuals(fitted(nsher), rec(nsher)))
+runstest(FLQuants(residuals(fitted(nsher), rec(nsher))))
 runstest(ssb(nsher))
 runstest(rnorm(1, FLQuant(1, dimnames=list(year=1973:2021))))
+runstest(rep(0.1, 10), cumsum(rnorm(10, 0.1, 0.01)))
+runstest(rnorm(10, 0, 0.1))
 }
