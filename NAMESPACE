@@ -219,7 +219,8 @@ export(
   "vonbert",
   "writeADMB",
   "writeFLStock",
-  "ybind")
+  "ybind",
+  "yearSample")
 
 exportClasses(
   "FLArray",
