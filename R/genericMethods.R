@@ -1796,9 +1796,25 @@ setGeneric("verify", function(object, ...) standardGeneric("verify"))
 setGeneric("ruleset", function(object, ...) standardGeneric("ruleset"))
 # }}}
 
-# fwdWindow
-setGeneric("fwdWindow", function(x, y, ...)
-    standardGeneric("fwdWindow"))
+# fwdWindow {{{
+
+#' Extend a FLR object along the year dimension and set future assumed values
+#'
+#' Objects to be projected into the future are extended until an end year, and
+#' the values of certain quantities, usually assume constant, are set following
+#' different mechanisms.
+#'
+#' @name fwdWindow
+#' @rdname fwdWindow
+#' @param x The FLR object to extend.
+#' @param y A second object from which information is taken.
+#' @return An object of the same class as 'x'.
+#' @seealso [window()]
+#' @author The FLR Team.
+#' @keywords methods
+#' @md
+setGeneric("fwdWindow", function(x, y, ...) standardGeneric("fwdWindow"))
+# }}}
 
 # refpts
 setGeneric("refpts", function(object, ...)

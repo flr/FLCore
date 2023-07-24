@@ -1807,41 +1807,107 @@ setMethod("production", signature(object="FLStock"),
 # }}}
 
 # fwdWindow {{{
+
+#' @rdname fwdWindow
+#' @details
+#' For 'FLStock'
+#' @examples
+#' data(ple4)
+#' # Use mean of last three years and extend until 2020
+#' fut <- fwdWindow(ple4, end=2020)
+#' # Check values on catch.wt
+#' catch.wt(fut)[, ac(2015:2020)]
+#' # Use mean of the 2010:2015 period
+#' fut <- fwdWindow(ple4, end=2020, years=2010:2015)
+#' # Use last three years mean, but last five for 'wt'
+#' fut <- fwdWindow(ple4, end=2020, nsq=3, years=list(wt=5))
+#' stock.wt(fut)[, ac(2013:2020)]
+#' catch.sel(fut)[, ac(2013:2020)]
+#' # Resample from last years for 'wt'
+#' fut <- fwdWindow(ple4, end=2020, nsq=3, fun=c(wt='sample'))
+#' # 'wt' slot have been resampled,
+#' stock.wt(fut)[, ac(2015:2020)]
+#' # while others have used a 3 year average
+#' catch.sel(fut)[, ac(2015:2020)]
+
 setMethod("fwdWindow", signature(x="FLStock", y="missing"),
-  function(x, end=dims(x)$maxyear, nsq=3) {
+  function(x, end=dims(x)$maxyear, nsq=3, fun=c("mean", "sample"),
+    years=list(wt=nsq, mat=nsq, m=nsq, spwn=nsq, discards.ratio=nsq,
+    catch.sel=nsq)) {
+
+    # DIMS
+    dx <- dim(x)
+
+    # PARSE years and add missing elements with defaults
+    pyears <- eval(formals()$years)
+    pyears[names(years)] <- as.list(years)
+
+    # PARSE years
+    pyears <- lapply(pyears, function(y) {
+      if(length(y) == 1)
+        seq(dx[2] - y + 1, dx[2])
+      else
+        match(y, dimnames(x)$year)
+    })
 
     # EXTEND x with window
     res <- window(x, end=end, extend=TRUE, frequency=1)
 
-    # NEW window years
-    wyrs <- seq(dim(m(x))[2] + 1, dim(m(res))[2])
-    sqyrs <- seq(dim(m(x))[2] - nsq + 1, dim(m(x))[2])
+    # SET window years
+    wyrs <- seq(dx[2] + 1, dim(m(res))[2])
+    
+    # EXTRACT 'fun' names and find empty
+    nmsf <- names(fun)
+    inms <- names(fun) == ""
+
+    # IF one argument, USE on all blocks
+    if(length(fun) == 1 & sum(inms) == 1) {
+      funs <- setNames(rep(list(match.arg(fun)), 6), nm=names(pyears))
+    # IF 2 or more
+    } else {
+
+      # ANY unnamed function? SET as default
+      if(sum(inms) == 1) {
+        funs <- setNames(rep(list(fun[inms]), 6), nm=names(pyears))
+      # ELSE set 'mean'
+      } else {
+        funs <- setNames(rep("mean", 6), nm=names(pyears))
+      }
+
+      # ASSIGN other fun values
+      funs[names(fun[!inms])] <- fun[names(fun[!inms])]
+    }
+
+    funs <- lapply(funs, function(f) switch(f, "mean"=yearMeans,
+      "sample"=function(x) yearSample(x, size=length(wyrs))))
 
     # wt
-    stock.wt(res)[, wyrs] <- yearMeans(stock.wt(res)[, sqyrs])
-    catch.wt(res)[, wyrs] <- yearMeans(catch.wt(res)[, sqyrs])
-    landings.wt(res)[, wyrs] <- yearMeans(landings.wt(res)[, sqyrs])
-    discards.wt(res)[, wyrs] <- yearMeans(discards.wt(res)[, sqyrs])
+    stock.wt(res)[, wyrs] <- funs$wt(stock.wt(res)[, pyears$wt])
+    catch.wt(res)[, wyrs] <- funs$wt(catch.wt(res)[, pyears$wt])
+    landings.wt(res)[, wyrs] <- funs$wt(landings.wt(res)[, pyears$wt])
+    discards.wt(res)[, wyrs] <- funs$wt(discards.wt(res)[, pyears$wt])
 
     # n (ratios)
-    landings.n(res)[, wyrs] <- yearMeans(landings.n(res)[, sqyrs] /
-      (catch.n(res)[, sqyrs] + 1e-16))
+    landings.n(res)[, wyrs] <- funs$discards.ratio(
+      landings.n(res)[, pyears$discards.ratio] /
+      (catch.n(res)[, pyears$discards.ratio] + 1e-16))
 
-    discards.n(res)[, wyrs] <- yearMeans(discards.n(res)[, sqyrs] /
-      (catch.n(res)[, sqyrs] + 1e-16))
+    discards.n(res)[, wyrs] <- funs$discards.ratio(
+      discards.n(res)[, pyears$discards.ratio] /
+      (catch.n(res)[, pyears$discards.ratio] + 1e-16))
 
     # m
-    m(res)[, wyrs] <- yearMeans(m(res)[, sqyrs])
+    m(res)[, wyrs] <- funs$m(m(res)[, pyears$m])
 
     # mat
-    mat(res)[, wyrs] <- yearMeans(mat(res)[, sqyrs])
+    mat(res)[, wyrs] <- funs$mat(mat(res)[, pyears$mat])
 
     # harvest
-    harvest(res)[, wyrs] <- yearMeans(harvest(res)[, sqyrs])
+    harvest(res)[, wyrs] <- funs$catch.sel(harvest(res)[, pyears$catch.sel])
 
     # spwn
-    m.spwn(res)[, wyrs] <- yearMeans(m.spwn(res)[, sqyrs])
-    harvest.spwn(res)[, wyrs] <- yearMeans(harvest.spwn(res)[, sqyrs])
+    m.spwn(res)[, wyrs] <- funs$spwn(m.spwn(res)[, pyears$spwn])
+    harvest.spwn(res)[, wyrs] <- funs$spwn(harvest.spwn(res)[, pyears$spwn])
 
     return(res)
   }

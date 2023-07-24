@@ -704,6 +704,49 @@ setMethod('iterProb', signature(x='FLQuant'), function(x, na.rm=TRUE) {
   return(apply(x, c(1:5), sum, na.rm=na.rm) / dim(x)[6])
 }) # }}}
 
+# yearSample {{{
+
+#' Samples along the year dimension
+#'
+#' A resample from an FLQuant object along the 'year' dimension is returned. The
+#' 'year' dimnames of the output object can be specified, although that is not
+#' needed if the resample is to be assigned in a slot.
+#'
+#' @param x An FLQuant object.
+#' @param size Number of samples (years), non-negative integer.
+#' @param years Optional vector to set as 'year' dimnames in output.
+#' @param replace should sampling be with replacement? Defaults to TRUE.
+#' @param prob a vector of probability weights.
+#'
+#' @return RETURN Description, class
+#'
+#' @author Iago Mosqueira (WMR)
+#' @seealso [FLQuant-class] [sample()]
+#' @keywords classes
+#' @examples
+#' data(ple4)
+#' # Take 20 samples of recent recruitment 
+#' yearSample(rec(ple4)[, ac(2013:2017)], 20)
+#' # Providing 'years' sets the output object dimnames
+#' yearSample(rec(ple4)[, ac(2013:2017)], 20, year=2000:2019)
+
+yearSample <- function(x, size=length(years), years, replace=TRUE, prob=NULL) {
+
+  # STOP if !FLQuant
+  if(!is(x, "FLQuant"))
+    stop("'yearSample' expects an 'FLQuant' with year as 2nd dimension")
+
+  # SAMPLE along 2nd (year) dimension
+  res <- x[, sample(seq(dim(x)[2]), size, replace=replace, prob=prob)]
+  
+  # ASSIGn year dimnames if provided
+  if(!missing(years))
+    dimnames(res)$year <- years
+  
+  return(res)
+}
+# }}}
+
 # quantile   {{{
 setMethod("quantile", signature(x="FLQuant"),
   function(x, probs=seq(0, 1, 0.25), na.rm=FALSE, ...) {
