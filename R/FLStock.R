@@ -1857,8 +1857,7 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     wyrs <- seq(dx[2] + 1, dim(m(res))[2])
     
     # EXTRACT 'fun' names and find empty
-    nmsf <- names(fun)
-    inms <- names(fun) == ""
+    inms <- !nzchar(fun)
 
     # IF one argument, USE on all blocks
     if(length(fun) == 1 & sum(inms) == 1) {
