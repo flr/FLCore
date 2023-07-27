@@ -634,7 +634,7 @@ ar1deviances <- function(x, year) {
   rho <- rho(window(x, end=year))
   sdlog <- sqrt(yearVars(window(x, end=year)))
 
-  x[, ac(seq(year + 1, dims(x)$maxyear))] <- nar1rlnorm(meanlog=0,
+  x[, ac(seq(year + 1, dims(x)$maxyear))] <- rlnormar1(meanlog=0,
     sdlog=sdlog, rho=rho, years=ac(seq(year + 1, dims(x)$maxyear)))
 
   return(x)
