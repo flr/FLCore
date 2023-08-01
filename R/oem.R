@@ -81,20 +81,21 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
 
 setMethod("survey",   signature(object="FLStock", index="missing"),
   function(object, sel=catch.sel(object), ages=dimnames(sel)$age,
-    timing = 0.5, biomass=FALSE) {
+    timing = 0.5, index.q=1, biomass=FALSE) {
 
     # COMPUTE index
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
 
     # SELECT output class
     if(biomass)
-      ind <- FLIndexBiomass(index=quantSums(abnd * stock.wt(object)[ages,]),
-        index.q=quantSums(abnd) %=% 1, sel.pattern=sel[ages,],
+      ind <- FLIndexBiomass(
+        index=quantSums(abnd * indfex.q * stock.wt(object)[ages,]),
+        index.q=quantSums(abnd) %=% index.q, sel.pattern=sel[ages,],
         range=c(min=as.numeric(ages[1]), max=as.numeric(ages[length(ages)]),
         startf=timing, endf=timing))
     else
-      ind <- FLIndex(index=abnd, catch.wt=stock.wt(object)[ages,],
-        index.q=abnd %=% 1, sel.pattern=sel[ages,],
+      ind <- FLIndex(index=abnd * index.q, catch.wt=stock.wt(object)[ages,],
+        index.q=abnd %=% index.q, sel.pattern=sel[ages,],
         range=c(startf=timing, endf=timing), type="number")
 
     return(ind)
