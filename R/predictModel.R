@@ -64,7 +64,8 @@
 setClass('predictModel',
 	contains='FLQuants',
 	representation(params='FLPar', model='formula'),
-    prototype(FLQuants(), params=FLPar(), model=as.formula("~NA", env=emptyenv()))) # }}}
+    prototype(FLQuants(), params=FLPar(), model=as.formula("~NA",
+    env=emptyenv()))) # }}}
 
 # predictModel() {{{
 
@@ -77,9 +78,12 @@ setClass('predictModel',
 
 setMethod('predictModel', signature(object='FLQuants', model="formula"),
 	function(object, model, params=FLPar()) {
-
-	# CREATE object
+	
+  # CREATE object
 	res <- new("predictModel", object, model=model, params=params)
+
+  # DROP model environment
+  res@model <- as.formula(format(res@model), env=emptyenv())
 	
 	return(res)
 	}
@@ -106,7 +110,9 @@ setMethod('predictModel', signature(object='FLQuants', model="missing"),
 setMethod('predictModel', signature(object='FLQuants', model="character"),
 	function(object, model, params=FLPar()) {
 
+  # GET model from function
   model <- do.call(model, list())$model
+
 	# CREATE object
   return(predictModel(object=object, model=model, params=params))
 	}
@@ -120,7 +126,9 @@ setMethod('predictModel', signature(object='FLQuants', model="character"),
 setMethod('predictModel', signature(object='FLQuants', model="function"),
 	function(object, model, params=FLPar()) {
 
+  # GET model from function
   model <- do.call(model, list())$model
+
 	# CREATE object
   return(predictModel(object=object, model=model, params=params))
 	}
@@ -160,8 +168,8 @@ setMethod('predictModel', signature(object="missing", model="ANY"),
 	} else {
 		args <- list(object=FLQuants())
 	}
-
-	# CREATE object
+	
+  # CREATE object
 	res <- do.call('predictModel', c(args, model=model))
 	
 	return(res)
@@ -176,7 +184,7 @@ setMethod('model', signature(object='predictModel'),
 )
 setReplaceMethod('model', signature(object='predictModel', value='formula'),
 	function(object, value) {
-		object@model  <- value
+		object@model  <- as.formula(format(value), env=emptyenv())
 		return(object)
 	}
 ) # }}}

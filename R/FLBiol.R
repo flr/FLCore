@@ -256,7 +256,7 @@ setReplaceMethod('sr', signature(object='FLBiol', value='FLQuants'),
 # sr<- formula:
 setReplaceMethod('sr', signature(object='FLBiol', value='formula'),
   function(object, ..., value) {
-    object@rec@model <- value
+    object@rec@model <- as.formula(format(value), env=emptyenv())
     return(object)
   }
 )
@@ -331,7 +331,7 @@ setReplaceMethod('fec', signature(object='FLBiol', value='FLQuants'),
 # fec<- formula:
 setReplaceMethod('fec', signature(object='FLBiol', value='formula'),
   function(object, ..., value) {
-    object@fec@model <- value
+    object@fec@model <- as.formula(format(value), env=emptyenv())
     return(object)
   }
 )
@@ -406,7 +406,7 @@ setReplaceMethod('mat', signature(object='FLBiol', value='FLQuants'),
 # mat<- formula:
 setReplaceMethod('mat', signature(object='FLBiol', value='formula'),
   function(object, ..., value) {
-    object@mat@model <- value
+    object@mat@model <- as.formula(format(value), env=emptyenv())
     return(object)
   }
 )
