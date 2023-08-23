@@ -24,7 +24,7 @@ setClass("FLStockR", representation(
 
 # }}}
 
-# Constructors
+# Constructors {{{
 
 #' @rdname FLStockR
 #' @aliases FLStockR FLStockR-methods
@@ -93,7 +93,7 @@ setMethod("FLStockR", signature(object="missing"),
 
 # }}}
 
-# ACCESSORS {{{
+# Accessors {{{
 
 #' @examples
 #'
@@ -141,14 +141,14 @@ setMethod("sr", signature(object="FLStockR"),
 #'
 
 setReplaceMethod("sr", signature(object="FLStockR", value="predictModel"),
-  function(object, element="missing", value) {
+  function(object, value) {
       object@sr <- value
     return(object)
   }
 )
 
 setReplaceMethod("sr", signature(object="FLStock", value="predictModel"),
-  function(object, element="missing", value) {
+  function(object, value) {
     object <- FLStockR(object, sr=value)
     return(object)
   }
@@ -158,15 +158,25 @@ setReplaceMethod("sr", signature(object="FLStock", value="predictModel"),
 #'
 
 setReplaceMethod("sr", signature(object="FLStockR", value="FLPar"),
-  function(object, element="missing", value) {
+  function(object, value) {
       object@sr@params <- value
     return(object)
   }
 )
 
 setReplaceMethod("sr", signature(object="FLStockR", value="formula"),
-  function(object, element="missing", value) {
+  function(object, value) {
       object@sr@model <- value
+    return(object)
+  }
+)
+
+setReplaceMethod("sr", signature(object="FLStockR", value="FLQuants"),
+  function(object, value) {
+    
+    object@sr@.Data <- value
+    names(object@sr) <- names(value)
+
     return(object)
   }
 )
