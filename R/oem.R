@@ -89,7 +89,7 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
     # SELECT output class
     if(biomass)
       ind <- FLIndexBiomass(
-        index=quantSums(abnd * indfex.q * stock.wt(object)[ages,]),
+        index=quantSums(abnd * index.q * stock.wt(object)[ages,]),
         index.q=quantSums(abnd) %=% index.q, sel.pattern=sel[ages,],
         range=c(min=as.numeric(ages[1]), max=as.numeric(ages[length(ages)]),
         startf=timing, endf=timing))

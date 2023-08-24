@@ -185,7 +185,7 @@ setReplaceMethod("sr", signature(object="FLStockR", value="FLQuants"),
 
 # predict
 
-# fwd
+# ffwd
 
 # coerce {{{
 setAs('FLStockR', 'FLStock',
