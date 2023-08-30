@@ -2167,6 +2167,10 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
 
     recage <- dms$min
 
+    # CHECK for mat > 0 if recage is 0
+    if(recage == 0 & any(mat(object)[ac(recage),] > 0))
+      warning("Recruitment age in object is '0' and maturity for that age is set greater than 0. Contribution of age 0 SSB to recruitment dynamics is being ignored.")
+
     # LOOP over obj years (i is new year)
     for (i in seq(dm[2])[-1]) {
 
@@ -2180,7 +2184,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       # rec * deviances
        naa[1, i] <- rep(eval(sr@model[[3]],
         c(as(sr@params, 'list'), list(
-        ssb=c(colSums(naa[, i - recage] * srp[, i - recage]))))) /
+        ssb=c(colSums(naa[, i - recage] * srp[, i - recage], na.rm=TRUE))))) /
         dm[3], dm[3]) * c(deviances[, i])
     }
 
