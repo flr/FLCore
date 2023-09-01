@@ -2207,7 +2207,7 @@ rwalk <- function(x0, end=1, sd=0.05, delta=0) {
   }, c(x0))
 
   return(FLQuant(c(res), dimnames=list(year=t, iter=dimnames(x0)$iter),
-    units=units(x0)))
+    units=units(x0), quant="age"))
 }
 # }}}
 
