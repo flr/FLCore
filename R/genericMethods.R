@@ -844,6 +844,11 @@ setGeneric("computeLandings", function(object, ...)
 setGeneric("computeStock", function(object, ...)
 		standardGeneric("computeStock"))
 
+#' @rdname compute
+#' @aliases computeHarvest computeHarvest-methods
+setGeneric("computeHarvest", function(object, catch, ...)
+		standardGeneric("computeHarvest"))
+
 # }}}
 
 # tsb
@@ -1109,10 +1114,6 @@ setGeneric("parscale", function(object, ...)
 # computeHessian
 setGeneric("computeHessian", function(object, ...)
   standardGeneric("computeHessian"))
-
-# computeHarvest
-setGeneric("computeHarvest", function(object, catch, ...)
-		standardGeneric("computeHarvest"))
 
 # computeD
 setGeneric("computeD", function(object, ...)

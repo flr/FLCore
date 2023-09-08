@@ -1836,7 +1836,7 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     catch.sel=nsq)) {
 
     # DIMS
-    dx <- dim(x)
+   dx <- dim(x)
 
     # PARSE years and add missing elements with defaults
     pyears <- eval(formals()$years)
