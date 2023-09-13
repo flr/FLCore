@@ -2114,7 +2114,7 @@ setMethod("acc", signature(object="FLQuant"),
 #' merge(a, b)
 
 setMethod("merge", signature(x="FLQuant", y="FLQuant"),
-  function(x, y, ...) {
+  function(x, y) {
 
     # EXTRACT dimnames
     dnx <- dimnames(x)
@@ -2137,7 +2137,7 @@ setMethod("merge", signature(x="FLQuant", y="FLQuant"),
       '5'=abind,
       '6'=ibind)
 
-    out <- fun(x, y, ...)
+    out <- do.call(fun, list(x, y))
 
     return(out)
   }
