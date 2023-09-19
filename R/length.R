@@ -228,8 +228,9 @@ lenquantile <- function(x, quantile=0.50) {
             # SUBSET vector for all lens
             a <- x[,i2,i3,i4,i5,i6]
 
-            if(any(a > 1e4))
-              a <- (a / max(a)) * 1e4
+            # RESCALE to max(a) | 1e4 to avoid huge vectors
+            ma <- max(a)
+            a <- (a / ma) * min(ma, 1e4)
             
             # REPEAT lengths
             b <- as.numeric(rep(dimnames(a)$len, times=floor(a)))
