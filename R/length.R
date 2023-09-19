@@ -227,12 +227,14 @@ lenquantile <- function(x, quantile=0.50) {
 
             # SUBSET vector for all lens
             a <- x[,i2,i3,i4,i5,i6]
+
+            if(any(a > 1e4))
+              a <- (a / max(a)) * 1e4
             
             # REPEAT lengths
             b <- as.numeric(rep(dimnames(a)$len, times=floor(a)))
-            
             # COMPUTE quantile
-            res[,i2,i3,i4,i5,i6] <- quantile(b, quantile)
+            res[, i2, i3, i4, i5, i6] <- quantile(b, quantile)
           }
         }
       }
