@@ -1378,11 +1378,14 @@ setMethod("simplify", signature(object="FLStock"),
 
   # harvest
   if(harvest) {
-    harvest(object) <- harvest(stock.n(object), catch.n(object), m(object))
+    if(units(harvest(object)) == "f") {
+      harvest(object) <- harvest(stock.n(object), catch.n(object), m(object))
+    } else if (units(harvest(object)) == "hr") {
+      harvest(object) <- catch.n(object) / stock.n(object)
+      units(harvest(object)) <- "hr"
+    }
   }
-
   return(object)
-
 })
 # }}}
 
@@ -2350,10 +2353,16 @@ setMethod("computeHarvest", signature(object="FLStock", catch="missing"),
   if(is.null(units))
     units <- units(harvest(object))
 
-  switch(match.arg(units, choices=c("f", "hr", "NA")),
+  res <- switch(match.arg(units, choices=c("f", "hr", "NA")),
     "f"=harvest(stock.n(object), catch.n(object), m(object), recompute=FALSE),
     "NA"=harvest(stock.n(object), catch.n(object), m(object), recompute=FALSE),
     "hr"=catch.n(object) / stock.n(object))
+
+  res[is.na(res)] <- 0
+
+  units(res) <- units
+
+  return(res)
   }
 )
 
