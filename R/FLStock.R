@@ -558,6 +558,21 @@ meanwtCatch <- function(object) {
 }
 # }}}
 
+# depletion {{{
+
+#' @examples
+#' data(ple4)
+#' # Default uses first year as B0
+#' depletion(ple4)
+#' # B0 can be given
+#' depletion(ple4, B0=1.74e6)
+
+setMethod("depletion", signature(x="FLStock"),
+  function(x, B0=unitSums(ssb(x))[, 1])
+    unitSums(ssb(x)) / c(B0)
+)
+# }}}
+
 # catchInmature / catchMature {{{
 
 #' Proportion of mature and inmature fish in the catch

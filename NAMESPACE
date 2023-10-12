@@ -142,6 +142,7 @@ export(
   "is.FLStock",
   "ivonbert",
   "find.original.name",
+  "FLParPoint",
   "geomean",
   "getPlural",
   "getSlotNamesClass",

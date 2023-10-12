@@ -13,7 +13,7 @@
 #' data(ple4)
 #' srr <- srrTMB(as.FLSR(ple4, model='bevholtSV'), spr0=spr0y(ple4))
 #' sr <- predictModel(params=params(srr), model=bevholt()$model)
-#' object <- FLStockR(ple4, refpts=FLPar(BMSY=150000), sr=sr)
+#' object <- FLStockR(ple4, refpts=FLPar(BMSY=150000, SB0=1.74e6), sr=sr)
 
 # FLStockR class {{{
 
@@ -209,4 +209,12 @@ setMethod("iterMedians", signature(x="FLStockR"),
 
   return(res)
 })
+# }}}
+
+# depletion {{{
+
+setMethod("depletion", signature(x="FLStockR"),
+  function(x, B0=refpts(x)$SB0)
+    unitSums(ssb(x)) / c(B0)
+)
 # }}}

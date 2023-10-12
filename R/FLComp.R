@@ -825,7 +825,7 @@ setMethod('combine', signature(x='FLComp', y='FLComp'),
     # GET iter limits
     ite <- cumsum(unlist(lapply(ds, "[", "iter")))
     its <- ite - unlist(lapply(ds, "[", "iter")) + 1
-
+    
     # ASSIGN
     for(i in seq(length(its)))
       iter(res, seq(its[i], ite[i])) <- args[[i]]

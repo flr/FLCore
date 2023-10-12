@@ -1070,3 +1070,35 @@ setMethod("combine", signature(x="FLPar", y="FLPar"),
   }
 )
 # }}}
+
+# FLParPoint {{{
+
+#' @examples
+#' x <- FLPar(a=runif(500, 1, 3), b=rlnorm(500, 0.4, 0.9), c=9, d=runif(500)) 
+#' FLParPoint(x)
+#' iter(FLParPoint(x), 'median')
+#' iter(FLParPoint(x), 'uppq')
+#' iter(FLParPoint(x, probs=c(0.10, 0.90)), 'uppq')
+
+FLParPoint <- function(x, probs=c(0.25, 0.75)) {
+
+  dmx <- dim(x)
+  dmi <- seq(length(dmx))[-length(dmx)]
+
+  res <- cbind(
+    # mean
+    apply(x, dmi, mean, na.rm=TRUE),
+    # median
+    apply(x, dmi, median, na.rm=TRUE),
+    # var
+    apply(x, dmi, var, na.rm=TRUE),
+    # lowq
+    apply(x, dmi, quantile, probs[1], na.rm=TRUE),
+    # uppq
+    apply(x, dmi, quantile, probs[2], na.rm=TRUE))
+
+  dimnames(res)$iter <- c("mean","median","var","lowq","uppq")
+
+  return(res)
+}
+# }}}
