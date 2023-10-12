@@ -253,5 +253,4 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
   } 
 ) # }}}
 
-
 se <- function(x) sqrt(var(x)) / sqrt(n(x)) # Create own function
