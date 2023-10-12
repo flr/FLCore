@@ -214,7 +214,12 @@ setMethod("iterMedians", signature(x="FLStockR"),
 # depletion {{{
 
 setMethod("depletion", signature(x="FLStockR"),
-  function(x, B0=refpts(x)$SB0)
-    unitSums(ssb(x)) / c(B0)
+  function(x, SB0=refpts(x)$SB0) {
+
+    if(is.character(SB0))
+      SB0 <- refpts(x)[SB0,]
+
+    return(unitSums(ssb(x)) / c(SB0))
+  }
 )
 # }}}
