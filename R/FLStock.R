@@ -1854,7 +1854,7 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     catch.sel=nsq)) {
 
     # DIMS
-   dx <- dim(x)
+    dx <- dim(x)
 
     # PARSE years and add missing elements with defaults
     pyears <- eval(formals()$years)
@@ -1863,7 +1863,7 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     # PARSE years
     pyears <- lapply(pyears, function(y) {
       if(length(y) == 1)
-        seq(dx[2] - y + 1, dx[2])
+        dimnames(x)$year[seq(dx[2] - y + 1, dx[2])]
       else
         match(y, dimnames(x)$year)
     })
@@ -1894,9 +1894,17 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
       # ASSIGN other fun values
       funs[names(fun[!inms])] <- fun[names(fun[!inms])]
     }
+    
+    # CREATE year sample (iters * no. window years)
+    if('sample' %in% funs) {
+      ysamp <- sample(pyears$wt, dx[6] * length(wyrs), replace=TRUE)
+    }
 
-    funs <- lapply(funs, function(f) switch(f, "mean"=yearMeans,
-      "sample"=function(x) yearSample(x, size=length(wyrs))))
+    # SETUP functions
+    funs <- lapply(funs, function(f) switch(f,
+      "mean"=yearMeans,
+      "sample"=function(g)
+        return(c(aperm(g[, ysamp,,,,1]@.Data, c(1,3,4,5,6,2))))))
 
     # wt
     stock.wt(res)[, wyrs] <- funs$wt(stock.wt(res)[, pyears$wt])
