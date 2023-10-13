@@ -1843,7 +1843,10 @@ setMethod("production", signature(object="FLStock"),
 #' catch.sel(fut)[, ac(2013:2020)]
 #' # Resample from last years for 'wt'
 #' fut <- fwdWindow(ple4, end=2020, nsq=3, fun=c(wt='sample'))
-#' # 'wt' slot have been resampled,
+#' # Years to resample can be different for 'catch.sel'
+#' fut <- fwdWindow(ple4, end=2020, nsq=3,
+#'   fun=c(wt='sample', catch.sel='sample'), years=c(wt=10, catch.sel=5))
+#' # 'wt' slot has been resampled,
 #' stock.wt(fut)[, ac(2015:2020)]
 #' # while others have used a 3 year average
 #' catch.sel(fut)[, ac(2015:2020)]
@@ -1927,12 +1930,15 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     # mat
     mat(res)[, wyrs] <- funs$mat(mat(res)[, pyears$mat])
 
-    # harvest
-    harvest(res)[, wyrs] <- funs$catch.sel(harvest(res)[, pyears$catch.sel])
-
     # spwn
     m.spwn(res)[, wyrs] <- funs$spwn(m.spwn(res)[, pyears$spwn])
     harvest.spwn(res)[, wyrs] <- funs$spwn(harvest.spwn(res)[, pyears$spwn])
+
+    # harvest
+    if(!identical(pyears$catch.sel, pyears$wt)) {
+      ysamp <- sample(pyears$catch.sel, dx[6] * length(wyrs), replace=TRUE)
+    }
+    harvest(res)[, wyrs] <- funs$catch.sel(harvest(res)[, pyears$catch.sel])
 
     return(res)
   }
