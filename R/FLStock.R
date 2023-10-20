@@ -380,12 +380,14 @@ setMethod("tsb", signature(object="FLStock"),
 		uns <- units(harvest(object))
 
 		if(uns == 'f') {
-			return(quantSums(stock.n(object) * exp(-(harvest(object) * harvest.spwn(object) +
-				m(object) * m.spwn(object))) * stock.wt(object)))
+			return(quantSums(stock.n(object) * exp(-(harvest(object) *
+        harvest.spwn(object) + m(object) * m.spwn(object))) *
+        stock.wt(object)))
 
 		} else if(uns == 'hr') {
-			stock.n(object) * (1 - harvest(object) * harvest.spwn(object)) *
-				exp(-m(object) * m.spwn(object)) * harvest.spwn(object) * stock.wt(object)
+			return(quantSums(stock.n(object) * (1 - harvest(object) *
+        harvest.spwn(object)) * exp(-m(object) * m.spwn(object)) *
+        harvest.spwn(object) * stock.wt(object)))
   	} else {
 		stop("Correct units (f or hr) not specified in the harvest slot")
 		}
