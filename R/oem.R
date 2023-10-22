@@ -66,7 +66,7 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
 
     # APPLY Q on biomass
-    index(index) <- unitSums(quantSums(abnd * catch.wt[ages,])) * index.q
+    index(index) <- c(unitSums(quantSums(abnd * catch.wt[ages,])) * index.q)
 
     return(index)
 

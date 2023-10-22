@@ -1614,8 +1614,9 @@ solveBaranov <- function(n, m, c) {
   f <- n
 
   for(i in seq(length(n)))
-    f[i] <- exp(uniroot(foo, interval=log(c(1e-8, 4)), extendInt = "yes",
-      n=n[i], m=m[i], c=c[i])$root)
+    f[i] <- tryCatch(exp(uniroot(foo, interval=log(c(1e-8, 4)),
+      extendInt = "yes", n=n[i], m=m[i], c=c[i])$root),
+      error = function(e) return(as.numeric(NA)))
 
   return(f)
 }

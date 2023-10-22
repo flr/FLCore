@@ -331,6 +331,7 @@ exportMethods(
   "cv",
   "dbind",
   "densityplot",
+  "depletion",
   "desc",
   "desc<-",
   "details",
