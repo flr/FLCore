@@ -5,6 +5,7 @@
 \alias{survey,FLStock,FLIndex-method}
 \alias{survey,FLStock,FLIndexBiomass-method}
 \alias{survey,FLStock,missing-method}
+\alias{survey,FLStock,FLIndices-method}
 \title{A method to generate observations of abundance at age.}
 \usage{
 survey(object, index, ...)
@@ -33,8 +34,11 @@ survey(object, index, ...)
   sel = catch.sel(object),
   ages = dimnames(sel)$age,
   timing = 0.5,
+  index.q = 1,
   biomass = FALSE
 )
+
+\S4method{survey}{FLStock,FLIndices}(object, index, ...)
 }
 \arguments{
 \item{object}{The object on which to draw the observation}

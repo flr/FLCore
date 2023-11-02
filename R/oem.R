@@ -102,6 +102,8 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
   }
 )
 
+#' @rdname survey
+
 setMethod("survey", signature(object="FLStock", index="FLIndices"),
   function(object, index, ...) {
 

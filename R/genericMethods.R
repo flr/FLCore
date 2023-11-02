@@ -2029,6 +2029,7 @@ setGeneric("deviances<-", function(object, ..., value)
   standardGeneric("deviances<-"))
 
 setGeneric("discards.ratio", function(object, ...) standardGeneric("discards.ratio"))
+setGeneric("discards.ratio<-", function(object, ..., value) standardGeneric("discards.ratio<-"))
 
 setGeneric("control", function(object, ...) standardGeneric("control"))
 setGeneric("control<-", function(object, ..., value) standardGeneric("control<-"))

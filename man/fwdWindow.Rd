@@ -46,7 +46,10 @@ stock.wt(fut)[, ac(2013:2020)]
 catch.sel(fut)[, ac(2013:2020)]
 # Resample from last years for 'wt'
 fut <- fwdWindow(ple4, end=2020, nsq=3, fun=c(wt='sample'))
-# 'wt' slot have been resampled,
+# Years to resample can be different for 'catch.sel'
+fut <- fwdWindow(ple4, end=2020, nsq=3,
+  fun=c(wt='sample', catch.sel='sample'), years=c(wt=10, catch.sel=5))
+# 'wt' slot has been resampled,
 stock.wt(fut)[, ac(2015:2020)]
 # while others have used a 3 year average
 catch.sel(fut)[, ac(2015:2020)]

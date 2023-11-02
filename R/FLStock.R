@@ -570,8 +570,9 @@ meanwtCatch <- function(object) {
 #' depletion(ple4, B0=1.74e6)
 
 setMethod("depletion", signature(x="FLStock"),
-  function(x, B0=unitSums(ssb(x))[, 1])
+  function(x, B0=unitSums(ssb(x))[, 1]) {
     unitSums(ssb(x)) / c(B0)
+  }
 )
 # }}}
 
@@ -855,9 +856,17 @@ setMethod('rec', signature(object='FLStock'),
 
     if(length(rec.age) > 1)
       stop("rec.age can only be of length 1")
-    
-    res <- stock.n(object)[rec.age,]
-    
+
+    # ASSEMBLE rec vector if seasonal rec (nunits == nseasons > 2) ...
+    if((dim(object)[3] > 1) & (dim(object)[3] == dim(object)[4])) {
+      # .. AND sequential recruitment
+      if(all(stock.n(object)[1,, 2, 1] <= 1e-6)) {
+        res <- Reduce(sbind, lapply(seq(dim(object)[4]), function(i)
+          unitSums(stock.n(object)[rec.age,, i, i])))
+      }
+    } else {
+      res <- stock.n(object)[rec.age,]
+    }
     return(res)
   }
 )
@@ -1143,9 +1152,18 @@ setMethod("catch.sel", signature(object="FLStock"),
 # discards.ratio {{{
 setMethod("discards.ratio", signature(object="FLStock"),
 	function(object) {
-		return(discards.n(object) / catch.n(object))
+		return(discards.n(object) / (landings.n(object) + discards.n(object)))
 	}
-) # }}}
+) 
+
+setReplaceMethod("discards.ratio", signature(object="FLStock", value="ANY"),
+	function(object, value) {
+    landings.n(object) <- 1 - value
+    discards.n(object) <- value
+    return(object)
+	}
+) 
+# }}}
 
 # discards.sel {{{
 setMethod("discards.sel", signature(object="FLStock"),

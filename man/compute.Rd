@@ -11,6 +11,8 @@
 \alias{computeCatch-methods}
 \alias{computeStock}
 \alias{computeStock-methods}
+\alias{computeHarvest}
+\alias{computeHarvest-methods}
 \alias{computeLandings,FLS-method}
 \alias{computeLandings,FLStock-method}
 \alias{computeLandings,FLStockLen-method}
@@ -31,6 +33,8 @@ computeDiscards(object, ...)
 computeCatch(object, ...)
 
 computeStock(object, ...)
+
+computeHarvest(object, catch, ...)
 
 computeLandings(object, ...)
 

@@ -215,7 +215,7 @@ setMethod("iterMedians", signature(x="FLStockR"),
 
 setMethod("depletion", signature(x="FLStockR"),
   function(x, SB0=refpts(x)$SB0) {
-
+browser()
     if(is.character(SB0))
       SB0 <- refpts(x)[SB0,]
 
