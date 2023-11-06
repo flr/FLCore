@@ -32,13 +32,13 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
   function(object, index, sel=sel.pattern(index),
     ages = dimnames(index)$age,
     timing = mean(range(index, c("startf", "endf"))),
-    index.q = index@index.q) {
+    index.q = index@index.q, stability=1) {
 
     # COMPUTE index
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
 
     # APPLY Q
-    index(index) <- abnd %*% index.q
+    index(index) <- index.q %*% abnd ^ stability
 
     return(index)
 
@@ -56,7 +56,7 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     ages=ac(seq(range(index, c('min')), range(index, c('max')))),
     timing = mean(range(index, c("startf", "endf"))),
     catch.wt=stock.wt(object)[, dimnames(index)$year],
-    index.q = index@index.q) {
+    index.q = index@index.q, stability = 1) {
 
     # CHECK timing
     if(is.na(timing))
@@ -66,7 +66,8 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
 
     # APPLY Q on biomass
-    index(index) <- c(unitSums(quantSums(abnd * catch.wt[ages,])) * index.q)
+    index(index) <- c(index.q * unitSums(quantSums(abnd * catch.wt[ages,])) ^
+      stability)
 
     return(index)
 
@@ -81,7 +82,7 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
 
 setMethod("survey",   signature(object="FLStock", index="missing"),
   function(object, sel=catch.sel(object), ages=dimnames(sel)$age,
-    timing = 0.5, index.q=1, biomass=FALSE) {
+    timing = 0.5, index.q=1, biomass=FALSE, stability=1) {
 
     # COMPUTE index
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
@@ -89,14 +90,15 @@ setMethod("survey",   signature(object="FLStock", index="missing"),
     # SELECT output class
     if(biomass)
       ind <- FLIndexBiomass(
-        index=quantSums(abnd * index.q * stock.wt(object)[ages,]),
+        index=quantSums((abnd * stock.wt(object)[ages,]) ^ stability * index.q),
         index.q=quantSums(abnd) %=% index.q, sel.pattern=sel[ages,],
         range=c(min=as.numeric(ages[1]), max=as.numeric(ages[length(ages)]),
         startf=timing, endf=timing))
     else
-      ind <- FLIndex(index=abnd * index.q, catch.wt=stock.wt(object)[ages,],
-        index.q=abnd %=% index.q, sel.pattern=sel[ages,],
-        range=c(startf=timing, endf=timing), type="number")
+      ind <- FLIndex(index=abnd ^ stability * index.q,
+        catch.wt=stock.wt(object)[ages,], index.q=abnd %=% index.q,
+        sel.pattern=sel[ages,], range=c(startf=timing, endf=timing),
+        type="number")
 
     return(ind)
   }
@@ -702,8 +704,8 @@ setMethod("runstest", signature(fit="FLQuants", obs="missing"),
     s3dat$pass <- s3dat$p.value >= 0.05
 
     # DROP qname if not used
-    if(length(unique(s3dat$qname)) == 1)
-       s3dat$qname <- NULL
+    #if(length(unique(s3dat$qname)) == 1)
+    #   s3dat$qname <- NULL
 
     return(s3dat)
   }
