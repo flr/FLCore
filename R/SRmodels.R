@@ -226,7 +226,7 @@ bevholtDa <- function()
   {
   ## log likelihood, assuming normal log.
   logl <- function(a, b, d, rec, ssb)
-      loglAR1(log(rec), log(a*ssb/(b+ssb)))
+      loglAR1(log(rec), log(a*(ssb^d)/(b+(ssb^a))))
 
   ## initial parameter values
   initial <- structure(function(rec, ssb) {
