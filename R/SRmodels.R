@@ -226,7 +226,7 @@ bevholtDa <- function()
   {
   ## log likelihood, assuming normal log.
   logl <- function(a, b, d, rec, ssb)
-      loglAR1(log(rec), log(a*(ssb^d)/(b+(ssb^d))))
+      loglAR1(log(rec), log(a / (1 + (b/ssb) ^ d)))
 
   ## initial parameter values
   initial <- structure(function(rec, ssb) {
@@ -239,7 +239,7 @@ bevholtDa <- function()
 	upper=rep( Inf, 2))
 
   ## model to be fitted
-  model  <- rec~a*(ssb^d)/(b+(ssb^d))
+  model  <- rec~a/(1+(b/ssb)^d)
   
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
@@ -821,7 +821,7 @@ SRModelName <- function(model){
   return(switch(gsub(" ", "", as.character(as.list(model)[length(model)])),
     "a*ssb*exp(-b*ssb)"                 = "ricker",
     "a*ssb/(b+ssb)"                     = "bevholt",
-    "a*(ssb^d)/(b+(ssb^d))"  = "bevholtDa",
+    "a/(1+(b/ssb)^d)"                   = "bevholtDa",
     "a*ssb/(1+(ssb/b)^c)"               = "shepherd",
     "a*ssb^b"                           = "cushing",
     "ifelse(ssb<=b,a*ssb,a*b)" = "segreg",
