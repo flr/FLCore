@@ -239,7 +239,7 @@ bevholtDa <- function()
 	upper=rep( Inf, 2))
 
   ## model to be fitted
-  model  <- rec~a*(ssb^1)/(b+(ssb^1))
+  model  <- rec~a*(ssb^d)/(b+(ssb^d))
   
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
