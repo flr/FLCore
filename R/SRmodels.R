@@ -218,6 +218,32 @@ bevholt <- function()
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+# bevholtDa {{{
+
+#' @name SRModels
+#' @aliases bevholtDa
+bevholtDa <- function()
+  {
+  ## log likelihood, assuming normal log.
+  logl <- function(a, b, d, rec, ssb)
+      loglAR1(log(rec), log(a*ssb/(b+ssb)))
+
+  ## initial parameter values
+  initial <- structure(function(rec, ssb) {
+    a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
+    b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
+    return(FLPar(a = a, b = a/b, d=1))},
+
+  ## bounds
+  lower=rep(-Inf, 2),
+	upper=rep( Inf, 2))
+
+  ## model to be fitted
+  model  <- rec~a*(ssb^1)/(b+(ssb^1))
+  
+	return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # bevholtss3 {{{
 
 #' @name SRModels
@@ -793,8 +819,9 @@ setMethod("loglAR1", signature(obs = "numeric", hat = "numeric"),
 # SRModelName {{{
 SRModelName <- function(model){
   return(switch(gsub(" ", "", as.character(as.list(model)[length(model)])),
-      "a*ssb*exp(-b*ssb)"                 = "ricker",
-      "a*ssb/(b+ssb)"                     = "bevholt",
+    "a*ssb*exp(-b*ssb)"                 = "ricker",
+    "a*ssb/(b+ssb)"                     = "bevholt",
+    "a*(ssb^1)/(b+(ssb^1))"  = "bevholtDa",
       "a*ssb/(1+(ssb/b)^c)"               = "shepherd",
       "a*ssb^b"                           = "cushing",
       "ifelse(ssb<=b,a*ssb,a*b)" = "segreg",
@@ -826,7 +853,7 @@ SRNameCode <- function(name)
     "dersch" = 7,
     "pellat" = 8,
     "mixedsrr" = 44,
-    "bevholtD" = 21,
+    "bevholtDa" = 21,
     "bevholtSV" = 22,
     "bevholtSS3" = 23,
     "rickerD" = 31,

@@ -116,6 +116,7 @@ export(
   "auc",
   "bevholt",
   "bevholtAR1",
+  "bevholtDa",
   "bevholtsig",
   "bevholtss3",
   "bevholtSV",
