@@ -1960,6 +1960,10 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     }
     harvest(res)[, wyrs] <- funs$catch.sel(harvest(res)[, pyears$catch.sel])
 
+    # RESCALE selectivity, need it if F gone too low (F=0)
+    harvest(res)[, wyrs] <- harvest(res)[, wyrs] %/%
+      apply(harvest(res)[, wyrs], 2:6, max)
+
     return(res)
   }
 ) # }}}
@@ -2264,7 +2268,6 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   discards.n(object)[, yrs] <- (catch.n(object) - landings.n(object))[, yrs]
 
   # COMPUTE average catch.wt
-
   catch.wt(object)[, yrs] <- weighted.mean(
     FLQuants(L=landings.wt(object), D=discards.wt(object)),
     FLQuants(L=landings.n(object), D=discards.n(object)))[, yrs]
