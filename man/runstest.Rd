@@ -50,6 +50,8 @@ runstest(fit=FLQuants(D=residuals(catch(ple4), discards(ple4)),
   L=residuals(catch(ple4), landings(ple4))))
 runstest(fit=residuals(fitted(nsher), rec(nsher)))
 runstest(FLQuants(residuals(fitted(nsher), rec(nsher))))
+# Returns value per iter
+runstest(fit=rnorm(25, residuals(fitted(nsher), rec(nsher)), 0.2))
 runstest(ssb(nsher))
 runstest(rnorm(1, FLQuant(1, dimnames=list(year=1973:2021))))
 runstest(rep(0.1, 10), cumsum(rnorm(10, 0.1, 0.01)))

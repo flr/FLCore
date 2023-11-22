@@ -16,7 +16,8 @@ survey(object, index, ...)
   sel = sel.pattern(index),
   ages = dimnames(index)$age,
   timing = mean(range(index, c("startf", "endf"))),
-  index.q = index@index.q
+  index.q = index@index.q,
+  stability = 1
 )
 
 \S4method{survey}{FLStock,FLIndexBiomass}(
@@ -26,7 +27,8 @@ survey(object, index, ...)
   ages = ac(seq(range(index, c("min")), range(index, c("max")))),
   timing = mean(range(index, c("startf", "endf"))),
   catch.wt = stock.wt(object)[, dimnames(index)$year],
-  index.q = index@index.q
+  index.q = index@index.q,
+  stability = 1
 )
 
 \S4method{survey}{FLStock,missing}(
@@ -35,7 +37,8 @@ survey(object, index, ...)
   ages = dimnames(sel)$age,
   timing = 0.5,
   index.q = 1,
-  biomass = FALSE
+  biomass = FALSE,
+  stability = 1
 )
 
 \S4method{survey}{FLStock,FLIndices}(object, index, ...)

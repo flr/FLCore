@@ -28,6 +28,7 @@
 \alias{shepherd.ndc}
 \alias{shepherd.ndc.ar1}
 \alias{sv2ab}
+\alias{bevholtDa}
 \alias{bevholtss3}
 \alias{cushing}
 \alias{rickerSV}
@@ -46,6 +47,8 @@
 ricker()
 
 bevholt()
+
+bevholtDa()
 
 bevholtss3()
 

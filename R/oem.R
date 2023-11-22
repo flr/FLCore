@@ -672,6 +672,8 @@ setGeneric("runstest", function(fit, obs, ...)
 #'   L=residuals(catch(ple4), landings(ple4))))
 #' runstest(fit=residuals(fitted(nsher), rec(nsher)))
 #' runstest(FLQuants(residuals(fitted(nsher), rec(nsher))))
+#' # Returns value per iter
+#' runstest(fit=rnorm(25, residuals(fitted(nsher), rec(nsher)), 0.2))
 
 setMethod("runstest", signature(fit="FLQuants", obs="missing"),
   function(fit, combine=TRUE) {
@@ -681,12 +683,9 @@ setMethod("runstest", signature(fit="FLQuants", obs="missing"),
       fit <- lapply(fit, quantSums)
     }
 
-    
-    # RESIDUALS
-    res <- fit
-
-    #
+    # APPLY over all iters in each element
     if(dim(fit[[1]])[6] > 1) {
+      # By element
       return(lapply(fit, function(x) {
         cbind(iter=seq(length(x)), do.call(rbind,
           c(lapply(divide(x, 6), runstest), make.row.names=FALSE)))
@@ -695,12 +694,9 @@ setMethod("runstest", signature(fit="FLQuants", obs="missing"),
     
     # sigma3, by index
     if(combine) {
-      s3s <- lapply(res, sigma3)
-    # A                     iter
-    # s3s <- lapply(res, function(x) apply(x@.Data, 6, function(i) sigma3(i)))
-      # or index and age
+      s3s <- lapply(fit, sigma3)
     } else {
-      s3s <- lapply(res, function(x) {
+      s3s <- lapply(fit, function(x) {
         cbind(do.call(rbind, lapply(divide(x, 1),
           function(y) unlist(sigma3(y)))),
           data.frame(age=an(dimnames(x)$age)))
