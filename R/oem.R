@@ -680,13 +680,24 @@ setMethod("runstest", signature(fit="FLQuants", obs="missing"),
     if(combine) {
       fit <- lapply(fit, quantSums)
     }
+
     
     # RESIDUALS
     res <- fit
-  
+
+    #
+    if(dim(fit[[1]])[6] > 1) {
+      return(lapply(fit, function(x) {
+        cbind(iter=seq(length(x)), do.call(rbind,
+          c(lapply(divide(x, 6), runstest), make.row.names=FALSE)))
+      }))
+    }
+    
     # sigma3, by index
     if(combine) {
       s3s <- lapply(res, sigma3)
+    # A                     iter
+    # s3s <- lapply(res, function(x) apply(x@.Data, 6, function(i) sigma3(i)))
       # or index and age
     } else {
       s3s <- lapply(res, function(x) {

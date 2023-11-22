@@ -872,9 +872,8 @@ setMethod("window", signature(x="FLArray"),
     d2s <- as.numeric(dnames[[2]])
     min <- d2s[1]
     max <- d2s[length(d2s)]
-
     # if extend=FALSE and end/start ask for it, error
-    if(!extend && (start < min | end > max))
+    if(!extend && (as.numeric(start) < min | as.numeric(end) > max))
       stop("Object to be extended but extend=FALSE")
 
     # if extend is a number, added to end
@@ -894,9 +893,9 @@ setMethod("window", signature(x="FLArray"),
     d2nms <- as.character(seq(start, end, by=frequency))
     dnames[[2]] <- d2nms
     flq <- do.call(class(x), list(NA, units=units(x), dimnames=dnames))
-
+    
     # add data for matching years
-    flq[, d2nms %in% d2s] <- x[, d2s %in% d2nms]
+    flq[, ac(d2nms) %in% ac(d2s)] <- x[, ac(d2s) %in% ac(d2nms)]
 
     return(flq)
   }
