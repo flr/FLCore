@@ -979,7 +979,7 @@ setMethod('expand', signature(x='FLStock'),
       x <- qapply(x, expand, exclude=nquant, ...)
 
       # apply to nquant, but ignore first dim
-      args <- args[!names(args)%in%quant]
+      args <- args[!names(args) %in% quant]
       x <- do.call(qapply, c(list(X=x, FUN=expand, exclude=squant), args))
 
       # warn about plusgroup

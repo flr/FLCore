@@ -550,31 +550,21 @@ setMethod('expand', signature(x='FLArray'),
     # output object
     res <- new(class(x), array(as.numeric(NA), dimnames=dimnames,
       dim=unlist(lapply(dimnames, length))), units=units(x))
-    
-    # list for assignment of x data
-    dimnames <- dimnames(res)
 
-    # extended or new?
-    if(!fill) {
-      for(i in nargs) {
-      
-        # are all old dimnames in the new ones?
-        idx <- all(dnx[[i]] %in% dimnames[[i]])
-        # if so, recover them
-        if(idx) {
-          dimnames[[i]] <- dnx[[i]]
-        } else {
-          if(length(dnx[[i]]) > 1) {
-            stop("trying to expand to new dims where existing have length > 1", i)
-          }
-        }
-      }
-    }
+    # IF !fill, return
+    if(!fill)
+      return(res)
     
+    # ANY dim with new names?
+    new <- unlist(Map(function(x,y) !all(x %in% y), x=dnx, y=dimnames))
+    
+    # ASSIGN new dimnames in 'new' dims
+    dnx[new] <- dimnames(res)[new]
+
     # list names to match '[<-' signature
-    names(dimnames) <- c('i', 'j', 'k', 'l', 'm', 'n')
+    names(dnx) <- c('i', 'j', 'k', 'l', 'm', 'n')
 
-    return(do.call('[<-', c(list(x=res, value=x), dimnames)))
+    return(do.call('[<-', c(list(x=res, value=x), dnx)))
   }
 ) # }}}
 
