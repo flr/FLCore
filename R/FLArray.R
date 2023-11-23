@@ -525,7 +525,7 @@ setMethod('trim', signature(x='FLArray'),
 
 # expand {{{
 setMethod('expand', signature(x='FLArray'),
-  function(x, ..., fill=FALSE) {
+  function(x, ..., fill=TRUE) {
 
     args <- list(...)
     dnx <- dimnames(x)
