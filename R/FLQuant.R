@@ -781,7 +781,15 @@ setMethod("iter<-", signature(object="FLQuant", value="FLQuant"),
     object[,,,,,iter] <- value
     return(object)
   }
-) # }}}
+) 
+
+setMethod("iter<-", signature(object="FLQuant", value="numeric"),
+  function(object, iter, value) {
+    object[,,,,,iter] <- c(value)
+    return(object)
+  }
+) 
+# }}}
 
 # propagate {{{
 
