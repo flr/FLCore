@@ -857,15 +857,16 @@ setMethod('rec', signature(object='FLStock'),
     if(length(rec.age) > 1)
       stop("rec.age can only be of length 1")
 
+    # EXTRACT rec as stock.n[rec.age, ]
+    res <- stock.n(object)[rec.age,]
+
     # ASSEMBLE rec vector if seasonal rec (nunits == nseasons > 2) ...
     if((dim(object)[3] > 1) & (dim(object)[3] == dim(object)[4])) {
-      # .. AND sequential recruitment
+      # .. AND sequential recruitment (unit 2 recs at season 2, ...)
       if(all(stock.n(object)[1,, 2, 1] <= 1e-6)) {
         res <- Reduce(sbind, lapply(seq(dim(object)[4]), function(i)
           unitSums(stock.n(object)[rec.age,, i, i])))
       }
-    } else {
-      res <- stock.n(object)[rec.age,]
     }
     return(res)
   }
@@ -1399,7 +1400,7 @@ noarea <- function(stock) {
 
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
-    spwn.season=1, rec.season=spwn.season, harvest=TRUE) {
+    spwn.season=1, rec.season=spwn.season, harvest=TRUE, weighted=FALSE) {
   
   # ORDER: season(unit(area))
   if(any(c("area", 5) %in% dims))
@@ -1409,7 +1410,8 @@ setMethod("simplify", signature(object="FLStock"),
     object <- nounit(object)
 
   if(any(c("season", 4) %in% dims))
-    object <- noseason(object, spwn.season=spwn.season, rec.season=rec.season)
+    object <- noseason(object, spwn.season=spwn.season, rec.season=rec.season,
+      weighted=weighted)
 
   # harvest
   if(harvest) {
