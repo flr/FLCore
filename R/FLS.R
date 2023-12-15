@@ -300,3 +300,33 @@ setMethod("standardUnits", signature(object="FLS"),
 
     }
 ) # }}}
+
+# dbind {{{
+
+setMethod("dbind", signature(x="FLS", y="FLS"),
+  function(x, y, ..., dim=3, names=NULL) {
+
+    # ASSEMBLE list of input FLStock(s)
+    args <- c(x, y, list(...))
+
+    # EXTRACT FLQuant slots
+    fqs <- lapply(args, as, 'FLQuants')
+
+    # CALL dbind on dim across FLQuant list
+    res <- lapply(setNames(nm=names(fqs[[1]])), function(i)
+      do.call(dbind, c(lapply(fqs, '[[', i), dim=dim)))
+
+    out <- do.call(class(x), res)
+
+    # ASSIGN names
+    if(!is.null(names))
+      dimnames(out) <- setNames(nm=names(dimnames(out))[dim], list(1:4))
+
+    # TAKE name and desc from x
+    name(out) <- name(x)
+    desc(out) <- desc(x)
+
+    return(out)
+  }
+)
+# }}}

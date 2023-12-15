@@ -625,20 +625,20 @@ mixed <- function(a, b, m=c(1, 2, 3), ssb) {
   # 1 Bevholt
   id <- c(m == 1)
   if(sum(id) > 0)
-    iter(rec, id) <- iter(a, id) * iter(ssb, id) /
-      (iter(b, id) + iter(ssb, id))
+    iter(rec, id) <- a[id] * iter(ssb, id) /
+      (b[id] + iter(ssb, id))
 
   # 2 Ricker
   id <- c(m == 2)
   if(sum(id) > 0)
-    iter(rec, id) <- iter(a, id) * iter(ssb, id) * exp(-(iter(b, id) *
+    iter(rec, id) <- a[id] * iter(ssb, id) * exp(-(b[id] *
       iter(ssb, id)))
 
   # 3 Segreg
   id <- c(m == 3)
   if(sum(id) > 0)
-    iter(rec, id) <- ifelse(iter(ssb, id) <= iter(b, id), iter(a, id) *
-      iter(ssb, id), iter(a, id) * iter(b, id))
+    iter(rec, id) <- ifelse(c(ssb)[id] <= b[id], a[id] *
+      c(ssb)[id], a[id] * b[id])
 
   return(rec)
 }
