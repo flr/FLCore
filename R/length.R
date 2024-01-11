@@ -63,9 +63,15 @@ invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,
 
     # FOR each age
     bins <- seq(0, ceiling(linf * lmax), bin)
-    lparams <- as(FLPar(params), "list")
-    len <- do.call(model, c(list(age=age),
-      lparams[names(lparams) %in% names(formals(model))]))
+
+    # METHOD
+    if(isS4(model))
+      len <- do.call(model, list(age=age,params=params))
+    else {
+      lparams <- as(FLPar(params), "list")
+      len <- do.call(model, c(list(age=age),
+        lparams[names(lparams) %in% names(formals(model))]))
+    }
 
     if(is.null(reflen)) {
       sd <- abs(len * cv)

@@ -316,6 +316,7 @@ setMethod("dbind", signature(x="FLS", y="FLS"),
     res <- lapply(setNames(nm=names(fqs[[1]])), function(i)
       do.call(dbind, c(lapply(fqs, '[[', i), dim=dim)))
 
+    # BUILD new object
     out <- do.call(class(x), res)
 
     # ASSIGN names
