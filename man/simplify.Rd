@@ -13,7 +13,8 @@ simplify(object, ...)
   dims = c("unit", "season", "area")[dim(object)[3:5] > 1],
   spwn.season = 1,
   rec.season = spwn.season,
-  harvest = TRUE
+  harvest = TRUE,
+  weighted = FALSE
 )
 }
 \arguments{

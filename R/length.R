@@ -54,15 +54,19 @@ richards <- function(linf, k, b, m, age) {
 
 # }}}
 
+
+dmns <- dimnames(x)
+
+
 # invALK {{{
 
 invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,
-  reflen=NULL) {
+  max=ceiling(linf * lmax), reflen=NULL) {
 
     linf <- c(params['linf'])
 
     # FOR each age
-    bins <- seq(0, ceiling(linf * lmax), bin)
+    bins <- seq(0, max, bin)
 
     # METHOD
     if(isS4(model))
