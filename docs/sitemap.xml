@@ -10,12 +10,6 @@
     <loc>/CONTRIBUTORS.html</loc>
   </url>
   <url>
-    <loc>/NEWS.html</loc>
-  </url>
-  <url>
-    <loc>/README.html</loc>
-  </url>
-  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -124,6 +118,9 @@
     <loc>/reference/FLlst.html</loc>
   </url>
   <url>
+    <loc>/reference/FUNCTION.html</loc>
+  </url>
+  <url>
     <loc>/reference/Funwanted.html</loc>
   </url>
   <url>
@@ -133,16 +130,13 @@
     <loc>/reference/acc.html</loc>
   </url>
   <url>
-    <loc>/reference/accesors.html</loc>
-  </url>
-  <url>
     <loc>/reference/accessors.html</loc>
   </url>
   <url>
     <loc>/reference/adjust-FLStock-method.html</loc>
   </url>
   <url>
-    <loc>/reference/aliases.html</loc>
+    <loc>/reference/ageopt.html</loc>
   </url>
   <url>
     <loc>/reference/append-methods.html</loc>
@@ -154,6 +148,9 @@
     <loc>/reference/ar1rlnorm.html</loc>
   </url>
   <url>
+    <loc>/reference/as.FLSRs.html</loc>
+  </url>
+  <url>
     <loc>/reference/bias.html</loc>
   </url>
   <url>
@@ -163,6 +160,9 @@
     <loc>/reference/catch.n-FLQuant-method.html</loc>
   </url>
   <url>
+    <loc>/reference/catchMature.html</loc>
+  </url>
+  <url>
     <loc>/reference/coerce-methods.html</loc>
   </url>
   <url>
@@ -170,6 +170,9 @@
   </url>
   <url>
     <loc>/reference/compute.html</loc>
+  </url>
+  <url>
+    <loc>/reference/computeHarvest-FLStock-missing-method.html</loc>
   </url>
   <url>
     <loc>/reference/cpue.html</loc>
@@ -190,6 +193,9 @@
     <loc>/reference/dims.html</loc>
   </url>
   <url>
+    <loc>/reference/discardsRatio.html</loc>
+  </url>
+  <url>
     <loc>/reference/drop-methods.html</loc>
   </url>
   <url>
@@ -197,6 +203,12 @@
   </url>
   <url>
     <loc>/reference/exp-methods.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ffwd.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fwdWindow.html</loc>
   </url>
   <url>
     <loc>/reference/getSlotNamesClass.html</loc>
@@ -223,9 +235,6 @@
     <loc>/reference/jackknife.html</loc>
   </url>
   <url>
-    <loc>/reference/jacknife.html</loc>
-  </url>
-  <url>
     <loc>/reference/join.html</loc>
   </url>
   <url>
@@ -239,6 +248,12 @@
   </url>
   <url>
     <loc>/reference/mbar.html</loc>
+  </url>
+  <url>
+    <loc>/reference/meanage.html</loc>
+  </url>
+  <url>
+    <loc>/reference/meanwt.html</loc>
   </url>
   <url>
     <loc>/reference/metrics.html</loc>
@@ -286,16 +301,19 @@
     <loc>/reference/rnoise.html</loc>
   </url>
   <url>
+    <loc>/reference/roc.html</loc>
+  </url>
+  <url>
     <loc>/reference/ruleset.html</loc>
   </url>
   <url>
     <loc>/reference/runstest.html</loc>
   </url>
   <url>
-    <loc>/reference/show.html</loc>
+    <loc>/reference/rwalk.html</loc>
   </url>
   <url>
-    <loc>/reference/sigma3.html</loc>
+    <loc>/reference/show.html</loc>
   </url>
   <url>
     <loc>/reference/simplify.html</loc>
@@ -325,7 +343,7 @@
     <loc>/reference/summary-methods.html</loc>
   </url>
   <url>
-    <loc>/reference/summary.html</loc>
+    <loc>/reference/survey.html</loc>
   </url>
   <url>
     <loc>/reference/survivors.html</loc>
@@ -343,9 +361,6 @@
     <loc>/reference/units-FLCore.html</loc>
   </url>
   <url>
-    <loc>/reference/units.html</loc>
-  </url>
-  <url>
     <loc>/reference/uom.html</loc>
   </url>
   <url>
@@ -358,7 +373,13 @@
     <loc>/reference/verify.html</loc>
   </url>
   <url>
+    <loc>/reference/weighted.mean-FLQuants-FLQuants-method.html</loc>
+  </url>
+  <url>
     <loc>/reference/wireframe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/yearSample.html</loc>
   </url>
   <url>
     <loc>/reference/z-methods.html</loc>
