@@ -1,6 +1,6 @@
 # FLCore <img src="man/figures/logo.png" align="right" width="120" />
 
-[![license](https://img.shields.io/badge/licence-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+![CRAN/METACRAN License](https://img.shields.io/cran/l/FLCore)
 [![FLCore status badge](https://flr.r-universe.dev/badges/FLCore)](https://flr.r-universe.dev/FLCore)
 
 ## Overview
