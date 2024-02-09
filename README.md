@@ -1,9 +1,7 @@
 # FLCore <img src="man/figures/logo.png" align="right" width="120" />
 
-[![R-CMD-check](https://github.com/flr/FLCore/workflows/R-CMD-check/badge.svg)](https://github.com/flr/FLCore/actions)
+[![FLCore status badge](https://flr.r-universe.dev/badges/FLCore)](https://flr.r-universe.dev/FLCore)
 [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Codecov test coverage](https://codecov.io/gh/flr/FLCore/branch/master/graph/badge.svg)](https://codecov.io/gh/flr/FLCore?branch=master)
-![r-universe](https://flr.r-universe.dev/badges/FLCore)
 
 ## Overview
 FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R.

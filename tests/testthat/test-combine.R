@@ -26,6 +26,6 @@ test_that("combine(FLQuant, FLQuant) works", {
   z <- FLQuant(3, dimnames=list(age=1:4, year=2000:2004, iter=c(57:58, 100)))
 
   # EXPECT iter dim to match
-  expect_equal(dim(combine(x, y, z))[6], sum(dim(x)[6], dim(y)[6], dim(z)[6]))
+  expect_equivalent(dim(combine(x, y, z))[6], sum(dim(x)[6], dim(y)[6], dim(z)[6]))
 
 })
