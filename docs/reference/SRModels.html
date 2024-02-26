@@ -235,20 +235,20 @@ Explor. Mer 40, 67-75.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $logl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(a, b, rec, ssb)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       loglAR1(log(rec), log(a*ssb/(b+ssb)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b7a84e1d10&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b7aab85760&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55884250e6d0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55884afe3ae8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rec ~ a * ssb/(b + ssb)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b7aab85760&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55884afe3ae8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $initial</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(rec, ssb) {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(FLPar(a = a, b = a/b))}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b7a84e3a40&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b7aab85760&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55884250acf0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55884afe3ae8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"lower")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"upper")</span>
@@ -259,8 +259,8 @@ Explor. Mer 40, 67-75.</p>
 <span class="r-in"><span>  <span class="fu">bevholt</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">logl</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(a, b, rec, ssb)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       loglAR1(log(rec), log(a*ssb/(b+ssb)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55b7a84e1d10&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55b7aac509e8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55884250e6d0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x558848710930&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># once an FLSR model is in the workspace ...</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">nsher</span><span class="op">)</span></span></span>

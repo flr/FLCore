@@ -54,10 +54,6 @@ richards <- function(linf, k, b, m, age) {
 
 # }}}
 
-
-dmns <- dimnames(x)
-
-
 # invALK {{{
 
 invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,

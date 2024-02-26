@@ -637,8 +637,8 @@ mixed <- function(a, b, m=c(1, 2, 3), ssb) {
   # 3 Segreg
   id <- c(m == 3)
   if(sum(id) > 0)
-    iter(rec, id) <- ifelse(c(ssb)[id] <= b[id], a[id] *
-      c(ssb)[id], a[id] * b[id])
+    iter(rec, id) <- ifelse(c(ssb)[id] <= c(b[id]), c(a[id]) *
+      c(ssb)[id], c(a[id]) * c(b[id]))
 
   return(rec)
 }
