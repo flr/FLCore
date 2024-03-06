@@ -19,7 +19,7 @@
 
 \S4method{predictModel}{FLQuants,character}(object, model, params = FLPar())
 
-\S4method{predictModel}{FLQuants,`function`}(object, model, params = FLPar())
+\S4method{predictModel}{FLQuants,function}(object, model, params = FLPar())
 
 \S4method{predictModel}{FLQuants,list}(object, model, params = FLPar())
 

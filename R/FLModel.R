@@ -93,19 +93,22 @@ setMethod('FLModel', signature(model='formula'),
 
 # logLik  {{{
 setReplaceMethod('logLik', signature(object='FLModel', value='numeric'),
-  function(object, value, df='missing', nall='missing', nobs='missing')
-  {
+  function(object, df='missing', nall='missing', nobs='missing', value) {
     # check length
     #if(length(value) > 1)
     #  stop('value must be of length 1')
 
     attr(value, 'class') <- 'logLik'
+    
     if(!missing(df))
       attr(value, 'df') <- df
+
     if(!missing(nall))
       attr(value, 'nall') <- nall
+    
     if(!missing(nobs))
       attr(value, 'nobs') <- nobs
+    
     slot(object, 'logLik') <- value
     return(object)
   }

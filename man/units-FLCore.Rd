@@ -30,7 +30,7 @@ setunits(x, value)
 
 \S4method{units}{FLComp,character}(x) <- value
 
-\S4method{units}{FLComp,`function`}(x) <- value
+\S4method{units}{FLComp,function}(x) <- value
 }
 \description{
 \code{units} attribute for FLQuant and FLArray-derived objects

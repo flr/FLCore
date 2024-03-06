@@ -7,7 +7,7 @@
 \usage{
 group(x, FUN, ...)
 
-\S4method{group}{FLQuant,`function`}(x, FUN = sum, ...)
+\S4method{group}{FLQuant,function}(x, FUN = sum, ...)
 }
 \arguments{
 \item{x}{An object to group.}

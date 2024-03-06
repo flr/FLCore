@@ -7,13 +7,13 @@
 \alias{apply,FLParJK,numeric,function-method}
 \title{apply method for FLCore classes}
 \usage{
-\S4method{apply}{FLArray,numeric,`function`}(X, MARGIN, FUN, ..., simplify = TRUE)
+\S4method{apply}{FLArray,numeric,function}(X, MARGIN, FUN, ..., simplify = TRUE)
 
 \S4method{apply}{FLPar,ANY,ANY}(X, MARGIN, FUN, ..., simplify = TRUE)
 
-\S4method{apply}{FLQuantJK,numeric,`function`}(X, MARGIN, FUN, ..., simplify = TRUE)
+\S4method{apply}{FLQuantJK,numeric,function}(X, MARGIN, FUN, ..., simplify = TRUE)
 
-\S4method{apply}{FLParJK,numeric,`function`}(X, MARGIN, FUN, ..., simplify = TRUE)
+\S4method{apply}{FLParJK,numeric,function}(X, MARGIN, FUN, ..., simplify = TRUE)
 }
 \description{
 Applies a function over the margins of an array-based FLCore class

@@ -202,7 +202,7 @@ setMethod("-",
 #' @rdname Extract
 #' @aliases [,FLQuantDistr,ANY,ANY,ANY-method
 setMethod("[", signature(x="FLQuantDistr"),
-    function(x, i, j, k, l, m, n) {
+    function(x, i, j, k, l, m, n, drop=FALSE) {
 	  	
 			dx <- dim(x)
 
@@ -220,6 +220,7 @@ setMethod("[", signature(x="FLQuantDistr"),
         n  <-  seq(1, dx[6])
 			
 			res <- x
+
 			res@.Data <- do.call('[', list(x=x@.Data, i=i, j=j, k=k, l=l,
 				m=m, n=n, drop=FALSE))
 			res@var <- do.call('[', list(x=x@var, i=i, j=j, k=k, l=l,
