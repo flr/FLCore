@@ -1247,6 +1247,11 @@ setGeneric("distribution<-", function(object, ..., value)
 setGeneric('combine', function(x, y, ...)
   standardGeneric('combine'))
 
+setMethod('combine', signature(x='NULL', y='NULL'),
+  function(x,y,...) {
+    return(NULL)
+  })
+
 # jackknife
 setGeneric("jackknife", function(object, ...)
 	standardGeneric("jackknife"))

@@ -887,10 +887,16 @@ setMethod("update", signature(object="FLComp"),
     if(any(names(args) %in% c(NULL, character(1))))
       stop("Object to assign to slots must be named")
 
+    # LOOP over value
     for(i in names(args)) {
+
+     # GET dimnames to act on
       dms <- setNames(dimnames(args[[i]]), letters[9:14])
-      # TODO: USE do.call
-      slot(object, i)[dms$i, dms$j, dms$k, dms$l, dms$m, dms$n] <- args[[i]]
+
+      # ASSIGN to subset of object the modified subset
+      object[dms$i, dms$j, dms$k, dms$l, dms$m, dms$n] <- 
+        do.call(paste0(i, "<-"), list(do.call("[", c(list(object), dms)),
+          value=args[[i]]))
     }
 
     return(object)
