@@ -2213,9 +2213,12 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
 
     # COMPUTE harvest
     fages <- range(object, c("minfbar", "maxfbar"))
+
     faa[, -1] <- (sel[, -1] %/%
       quantMeans(sel[ac(seq(fages[1], fages[2])), -1])) %*% fbar
 
+    faa[is.na(faa)] <- 0
+    
     # COMPUTE SRP multiplier
     waa <- stock.wt(obj)
     mat <- mat(obj)
