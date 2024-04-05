@@ -2245,12 +2245,11 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       # rec * deviances
        naa[1, i] <- rep(eval(sr@model[[3]],
         c(as(sr@params, 'list'), list(
-        ssb=c(colSums(naa[, i - recage] * srp[, i - recage], na.rm=TRUE))))) /
-        dm[3], dm[3]) * c(deviances[, i])
+        ssb=c(colSums(naa[, i - recage, 1] * srp[, i - recage, 1],
+          na.rm=TRUE))))) / dm[3], each=dm[3]) * c(deviances[, i])
     }
 
   # UPDATE stock.n & harvest
-
   stock.n(object)[, yrs] <- naa[, -1]
   harvest(object)[, yrs] <- faa[, -1]
   
