@@ -528,8 +528,14 @@ setMethod("Arith", ##  "+", "-", "*", "^", "%%", "%/%", "/"
 #' @examples
 #' # FLQuant and FLPar
 #' flq / flp
+
 setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
   function(e1, e2) {
+
+    # BUG: USING %op%
+    op <- as.character(get('.Generic'))
+    return(do.call(paste0("%", op, "%"), list(e1, e2)))
+
     # objects dims
     d1 <- dim(e1)
     d2 <- dim(e2)
@@ -570,6 +576,11 @@ setMethod("Arith", signature(e1 = "FLArray", e2 = "FLPar"),
 #' @rdname Arith-methods
 setMethod("Arith", signature(e1 = "FLPar", e2 = "FLArray"),
   function(e1, e2) {
+
+    # BUG: USING %op%
+    op <- as.character(get('.Generic'))
+    return(do.call(paste0("%", op, "%"), list(e1, e2)))
+
     # objects dims
     d1 <- dim(e1)
     d2 <- dim(e2)
