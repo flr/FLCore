@@ -183,6 +183,15 @@ setReplaceMethod("sr", signature(object="FLStockR", value="FLQuants"),
 
 # }}}
 
+# depletion {{{
+
+setMethod("depletion", signature(x="FLStockR"),
+  function(x, B0=refpts(x)$SB0) {
+    unitSums(ssb(x)) / c(B0)
+  }
+)
+# }}}
+
 # predict
 
 # ffwd

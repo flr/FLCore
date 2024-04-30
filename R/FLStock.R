@@ -568,10 +568,12 @@ meanwtCatch <- function(object) {
 #' depletion(ple4)
 #' # B0 can be given
 #' depletion(ple4, B0=1.74e6)
+#' # and metric changed from 'ssb' default
+#' depletion(ple4, metric=tsb)
 
 setMethod("depletion", signature(x="FLStock"),
-  function(x, B0=unitSums(ssb(x))[, 1]) {
-    unitSums(ssb(x)) / c(B0)
+  function(x, B0=unitSums(do.call(metric, list(x))[, 1]), metric=ssb) {
+    unitSums(do.call(metric, list(x))) / c(B0)
   }
 )
 # }}}
@@ -1170,7 +1172,8 @@ setReplaceMethod("discards.ratio", signature(object="FLStock", value="ANY"),
 setMethod("discards.sel", signature(object="FLStock"),
 	function(object) {
 		res <- catch.sel(object) * discards.ratio(object)
-		return(res %/% apply(res, 2:6, max))
+    res[is.na(res)] <- 0
+		return(res %/% apply(res, 2:6, max, na.rm=TRUE))
 	}
 ) # }}}
 
@@ -1178,7 +1181,8 @@ setMethod("discards.sel", signature(object="FLStock"),
 setMethod("landings.sel", signature(object="FLStock"),
 	function(object) {
 		res <- catch.sel(object) * (1 - discards.ratio(object))
-		return(res %/% apply(res, 2:6, max))
+    res[is.na(res)] <- 0
+    return(res %/% apply(res, 2:6, max, na.rm=TRUE))
 	}
 ) # }}}
 
