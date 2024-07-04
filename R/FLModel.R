@@ -284,7 +284,16 @@ setMethod('fmle',
       iter=1:iter))
     object@hessian <- object@vcov
 
+    # CHECK if start values are given
+    if(!missing(start)) {
+      getstart <- FALSE
+      # HACK! clean up fixed list if elements are named vectors
+      start <- lapply(start, function(x){ names(x) <- NULL; x})
+    } else {
+      getstart <- TRUE
+    }
 
+    # LOOP over iters TODO: MOVE to doPar?
     for (it in 1:iter)
     {
       # data
@@ -298,23 +307,25 @@ setMethod('fmle',
 				data <- lapply(data, c)
 
       # start values
-      if(missing(start)) {
+      if(getstart) {
         # add call to @initial
         if(is.function(object@initial))
          start <- as(do.call(object@initial,
             args=data[names(formals(object@initial))]), 'list')
         else
-          start <- formals(logl)[names(formals(logl))%in%parnm]
+          start <- formals(logl)[names(formals(logl)) %in% parnm]
       }
-      else
-        # HACK! clean up fixed list if elements are named vectors
-        start <- lapply(start, function(x){ names(x) <- NULL; x})
 
+      # DROP fixed parameters
       if(!is.null(fixnm))
         start[fixnm] <- NULL
+
+      # CHECK names match
       if(any(!names(start) %in% parnm))
         stop("some named arguments in 'start' are not arguments to the
           supplied log-likelihood")
+      
+      # SET start in right order
       start <- start[order(match(names(start), parnm))]
 
       # add small number to start if 0
@@ -323,12 +334,13 @@ setMethod('fmle',
       if(is.null(start))
         stop("No starting values provided and no initial function available")
 
-      # TODO protect environment
+      # CALL optim TODO: protect environment
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo,
         method=method, hessian=TRUE, control=control,
         lower=lower, upper=upper, gr=gr)))
 
-			# warning if convergence is not 0, and do not load results
+
+      # warning if convergence is not 0, and do not load results
       if(out$convergence != 0) {
         warning("optimizer could not achieve convergence")
       } else {
@@ -370,6 +382,7 @@ setMethod('fmle',
       }
     }
  
+    # LOAD output
     fitted(object) <- predict(object)
     units(fitted(object)) <- units(slot(object, as.character(object@model[[2]])))
     residuals(object) <- slot(object, as.character(object@model[[2]])) - fitted(object)
