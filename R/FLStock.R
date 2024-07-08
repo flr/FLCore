@@ -432,6 +432,29 @@ setMethod("fbar", signature(object="FLStock"),
 	}
 )	# }}}
 
+# zbar		{{{
+setMethod("zbar", signature(object="FLStock"),
+ function(object, ...) {
+
+	 rng <- range(object)
+
+	 if (is.na(rng["minfbar"]))
+		 rng["minfbar"] <- rng["min"]
+
+	 if (is.na(rng["maxfbar"]))
+		 rng["maxfbar"] <- rng["max"]
+
+	 rng["minfbar"] <- max(rng["min"], min(rng["max"], rng["minfbar"]))
+	 rng["maxfbar"] <- max(rng["min"], min(rng["max"], rng["maxfbar"]))
+
+	 if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr')
+	    {
+		return(quantMeans(z(object)[as.character(rng["minfbar"]:rng["maxfbar"]),]))
+		  } else
+	stop("Correct units (f or hr) not specified in the harvest slot")
+	}
+)	# }}}
+
 # hr {{{
 setMethod("hr", signature(object="FLStock"),
  function(object, ...) {

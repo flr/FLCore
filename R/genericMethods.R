@@ -867,6 +867,10 @@ setGeneric("computeHarvest", function(object, catch, ...)
 	setGeneric("fbar", function(object, ...)
 		standardGeneric("fbar"))
 
+# zbar
+	setGeneric("zbar", function(object, ...)
+		standardGeneric("zbar"))
+
 # ssbpurec
 	setGeneric("ssbpurec", function(object, ...)
 		standardGeneric("ssbpurec"))
