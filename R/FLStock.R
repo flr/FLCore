@@ -411,48 +411,38 @@ setMethod("tb", signature(object="FLStock"),
 
 # fbar		{{{
 setMethod("fbar", signature(object="FLStock"),
- function(object, ...) {
+  function(object, min=range(object, 'minfbar'), max=range(object, 'maxfbar')) {
 
-	 rng <- range(object)
+    if(is.na(min))
+      min <- range(object, 'min')
 
-	 if (is.na(rng["minfbar"]))
-		 rng["minfbar"] <- rng["min"]
+    if(is.na(max))
+       max <- range(object, 'max')
 
-	 if (is.na(rng["maxfbar"]))
-		 rng["maxfbar"] <- rng["max"]
-
-	 rng["minfbar"] <- max(rng["min"], min(rng["max"], rng["minfbar"]))
-	 rng["maxfbar"] <- max(rng["min"], min(rng["max"], rng["maxfbar"]))
-
-	 if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr')
-	    {
-		return(quantMeans(harvest(object)[as.character(rng["minfbar"]:rng["maxfbar"]),]))
-		  } else
-	stop("Correct units (f or hr) not specified in the harvest slot")
-	}
+    if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr') {
+	  	return(quantMeans(harvest(object)[as.character(seq(min, max)),]))
+  	} else {
+    	stop("Correct units (f or hr) not specified in the harvest slot")
+    }
+  }
 )	# }}}
 
 # zbar		{{{
 setMethod("zbar", signature(object="FLStock"),
- function(object, ...) {
+  function(object, min=range(object, 'minfbar'), max=range(object, 'maxfbar')) {
 
-	 rng <- range(object)
+    if(is.na(min))
+      min <- range(object, 'min')
 
-	 if (is.na(rng["minfbar"]))
-		 rng["minfbar"] <- rng["min"]
+    if(is.na(max))
+       max <- range(object, 'max')
 
-	 if (is.na(rng["maxfbar"]))
-		 rng["maxfbar"] <- rng["max"]
-
-	 rng["minfbar"] <- max(rng["min"], min(rng["max"], rng["minfbar"]))
-	 rng["maxfbar"] <- max(rng["min"], min(rng["max"], rng["maxfbar"]))
-
-	 if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr')
-	    {
-		return(quantMeans(z(object)[as.character(rng["minfbar"]:rng["maxfbar"]),]))
-		  } else
-	stop("Correct units (f or hr) not specified in the harvest slot")
-	}
+    if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr') {
+	  	return(quantMeans(z(object)[as.character(seq(min, max)),]))
+  	} else {
+    	stop("Correct units (f or hr) not specified in the harvest slot")
+    }
+  }
 )	# }}}
 
 # hr {{{
@@ -482,40 +472,19 @@ setMethod("hr", signature(object="FLStock"),
 )
 # }}}
 
-# mbar {{{
+# mbar		{{{
+setMethod("mbar", signature(object="FLStock"),
+  function(object, min=range(object, 'minfbar'), max=range(object, 'maxfbar')) {
 
-#' Computes the mean natural mortality acros the fully selected ages
-#'
-#' Equivalent to the mean fishing mortality metric returned by 'fbar', 'mbar'
-#' calculates the mean natural mortality across the ages inside the range defined
-#' by 'minfbar' and 'maxfbar'.
-#'
-#' @param object An object of class 'FLStock'.
-#'
-#' @return An object of class 'FLQuant'.
-#'
-#' @author The FLR Team, proposal by H. Winker.
-#' @seealso \link{fbar}
-#' @examples
-#' data(ple4)
-#' mbar(ple4)
+    if(is.na(min))
+      min <- range(object, 'min')
 
-mbar <- function(object, ...) {
-  
-  rng <- range(object)
-  
-  if (is.na(rng["minfbar"]))
-    rng["minfbar"] <- rng["min"]
- 
-  if (is.na(rng["maxfbar"]))
-    rng["maxfbar"] <- rng["max"]
+    if(is.na(max))
+       max <- range(object, 'max')
 
-  rng["minfbar"] <- max(rng["min"], min(rng["max"], rng["minfbar"]))
-  rng["maxfbar"] <- max(rng["min"], min(rng["max"], rng["maxfbar"]))
-
-  return(quantMeans(m(object)[as.character(rng["minfbar"]:rng["maxfbar"]),]))
-}	
-# }}}
+	  return(quantMeans(m(object)[as.character(seq(min, max)),]))
+  }
+)	# }}}
 
 # meanage {{{
 
@@ -1829,10 +1798,14 @@ biomass_spawn <- function(x) {
     harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
 }
 
-biomass <- function(x) {
-  stock(x)
-}
+# }}}
 
+# biomass {{{
+setMethod("biomass", signature(x="FLStock"),
+  function(x) {
+    stock(x)
+  }
+)
 # }}}
 
 # production {{{
