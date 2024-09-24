@@ -1728,12 +1728,12 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
         for(y in seq(dm[2]-1)) {
           for(a in c(dm[1]-1, dm[1])) {
             for(it in seq(dm[6])) {
-              n <- c(object[a,y,u,4,,it])
-              if(all(is.na(n)))
-                har[a,y,u,4,,it] <- n
-            else {
-              har[a, y, u, 4,, it] <- solveBaranov(n,
-                m=c(m[a, y, u, 4,, it]), c=c(catch[a, y, u, 4,, it]))
+              n <- c(object[a,y,u,dm[4],,it])
+              if(all(is.na(n))) {
+                har[a,y,u,dm[4],,it] <- n
+              } else {
+              har[a, y, u, dm[4],, it] <- solveBaranov(n,
+                m=c(m[a, y, u, dm[4],, it]), c=c(catch[a, y, u, dm[4],, it]))
             }
             }
           }
@@ -1741,12 +1741,12 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
         # LOOP over ages for last year and season
         for(a in seq(dm[1])) {
           for(it in seq(dm[6])) {
-            n <- c(object[a,dm[2],u,4,,it])
+            n <- c(object[a,dm[2],u,dm[4],,it])
             if(all(is.na(n)))
-              har[a,dm[2],u,4,,it] <- n
+              har[a,dm[2],u,dm[4],,it] <- n
             else {
-              har[a, dm[2], u, 4,, it] <- solveBaranov(n,
-                m=c(m[a, dm[2], u, 4,, it]), c=c(catch[a, y, u, 4,, it]))
+              har[a, dm[2], u, dm[4],, it] <- solveBaranov(n,
+                m=c(m[a,dm[2],u,dm[4],, it]), c=c(catch[a, y, u, dm[4],, it]))
             }
           }
         }
