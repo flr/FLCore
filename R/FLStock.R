@@ -2206,6 +2206,12 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     if(missing(deviances)) {
       deviances <- rec(obj) %=% 1
     }
+
+    # PARSE sr
+    if(is(sr, "FLQuant"))
+      sr <- predictModel(model=rec~a, params=FLPar(c(sr),
+        dimnames=list(params="a", year=dimnames(sr)$year, 
+        iter=dimnames(sr)$iter)))
  
     # SUBSET and EXPAND (JIC) if unit > 1
     deviances <- expand(window(deviances, start=dms$minyear, end=dms$maxyear),
