@@ -373,7 +373,7 @@ rickerSV <- function()
   logl <- function(s, v, spr0, rec, ssb)
   { 
     pars <- abPars('ricker', s=s, v=v, spr0=spr0)
-    loglAR1(log(rec), log(pars['a']*ssb*exp(-pars['b']*ssb)))
+    loglAR1(log(rec), log(pars['a']%*%ssb%*%exp(-pars['b']*ssb)))
   }
 
   initial <- structure(function(rec, ssb)
