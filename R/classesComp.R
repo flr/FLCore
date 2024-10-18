@@ -590,7 +590,7 @@ setClass("FLI",
 
   # dims[2:5] match
   for(i in names(dimnms)[-1])
-    # TODO Double check relaxation of unit
+    # TODO: Double check relaxation of unit
     if(!identical(dimnms[[i]][c(-1,-3,-6)], dimnms[[1]][c(-1,-3,-6)]))
       stop(cat("Mismatch in dims for", i))
 

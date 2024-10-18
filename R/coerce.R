@@ -579,7 +579,7 @@ setAs('FLIndex', 'FLIndexBiomass',
 
   res <- FLIndexBiomass(index=quantSums(index(from) * catch.wt(from)),
     sel.pattern=sel.pattern(from), effort=effort(from),
-    index.q=quantMeans(index.q(from)),
+    index.q=quantMeans(index.q(from)), catch.wt=catch.wt(from),
     name=name(from), desc=desc(from), range=range(from))
 
   return(res)

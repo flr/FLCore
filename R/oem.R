@@ -55,19 +55,23 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
   function(object, index, sel=sel.pattern(index),
     ages=ac(seq(range(index, c('min')), range(index, c('max')))),
     timing = mean(range(index, c("startf", "endf"))),
-    catch.wt=stock.wt(object)[, dimnames(index)$year],
+    catch.wt = index@catch.wt,
     index.q = index@index.q, stability = 1) {
 
     # CHECK timing
     if(is.na(timing))
       stop("Index timing not set and missing from range c('startf', 'endf')")
 
+    # CHECK catch.wt
+    if(any(is.na(catch.wt)))
+      warning("NAs found in catch.wt(index), maybe call using 'catch.wt=stock.wt(stock)'")
+
     # COMPUTE index
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
 
     # APPLY Q on biomass
-    index(index) <- c(index.q * unitSums(quantSums(abnd * catch.wt[ages,])) ^
-      stability)
+    index(index) <- c(index.q * unitSums(quantSums(abnd *
+      catch.wt[ages, dimnames(index)$year])) ^ stability)
 
     return(index)
 
@@ -140,7 +144,7 @@ setMethod("index",   signature(object="FLStock"),
     
     # APPLY survey selectivity
     res <- stock.n[ages, yrs] %*% expand(sel, year=yrs)[ages, yrs]
-
+    
     # SET units as stock.n
     units(res) <- units(stock.n)
 
@@ -301,7 +305,7 @@ bias <- function(object, bias=0.02){
 }
 
 biased <- function(object, bias=0.02){
-  return(object) * bias(object, bias=bias)
+  return(object * bias(object, bias=bias))
 } # }}}
 
 # rnoise, rlnoise {{{
