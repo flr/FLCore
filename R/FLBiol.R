@@ -837,18 +837,19 @@ setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
 #' ssb(biol, hr=catch.n(ple4) / stock.n(ple4))
 
 setMethod("ssb", signature(object="FLBiol"),
-  function(object, ...)
-  {
+  function(object, ...) {
+
     args <- list(...)
 
     if(length(args) > 1)
-      stop("Only one extra argument allowed: 'catch.n', 'harvest', 'f' or 'hr'.")
+      stop("Only one extra argument allowed: 'catch.n', 'harvest', 'f' or 'hr'")
     
     # NO catch data
     if(length(args) == 0) {
       res <- quantSums(n(object) * wt(object) * mat(object) %*%
         exp(-spwn(object) %*% m(object)), na.rm=FALSE)
     } else {
+      
       res <- switch(names(args),
         # catch.n
         # DEBUG How good is this f approximation?
@@ -858,8 +859,8 @@ setMethod("ssb", signature(object="FLBiol"),
         "hr" = quantSums(ssb(object, f=-log(1-args$hr)),
           na.rm=FALSE),
         # f
-  			"f" = quantSums(n(object) * exp(-(args$f %*%
-          spwn(object) + m(object) %*% spwn(object))) *
+  			"f" = quantSums(n(object) *
+          exp(-(args$f %*% spwn(object)) - (m(object) %*% spwn(object))) *
           wt(object) * mat(object), na.rm=FALSE),
         # harvest, units == 'f' / 'hr'
         "harvest" = switch(units(args$harvest),
