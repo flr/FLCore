@@ -507,22 +507,6 @@ is.FLQuant  <-  function(x)
 return(is(x, "FLQuant"))
 # }}}
 
-# show     {{{
-setMethod("show", signature(object="FLQuant"),
-  function(object){
-    callNextMethod()
-    cat("units: ", object@units, "\n")
-  }
-)   # }}}
-
-# print {{{
-setMethod("print", signature(x="FLQuant"),
-  function(x){
-    show(x)
-    invisible(x)
-  }
-) # }}}
-
 # totals {{{
 setMethod('quantTotals', signature(x='FLQuant'),
   function(x, na.rm=TRUE) {

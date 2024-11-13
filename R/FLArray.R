@@ -399,34 +399,42 @@ setMethod("iter", signature(obj="FLArray"),
 #' data(nsher)
 #' summary(nsher)
 #'
+
 setMethod("summary", signature(object="FLArray"),
-  function(object, ...)
-  {
-    cat("An object of class \"", as.character(class(object)), "\" with:\n", sep="")
-    cat("dim  : ", dim(object), "\n")
-    cat("quant: ", quant(object), "\n")
+  function(object, .class=TRUE, ...) {
+
+    dm <- dim(object)
+
+    # CLASS header
+    if(.class)
+      cat("An object of class \"", as.character(class(object)),
+        "\" with:\n\n", sep="")
+
+    # dims
+    cat("dim:   ", paste(sprintf("%s", names(object)), collapse=" "), "\n")
+    cat("       ", sprintf(paste(paste0("%-", nchar(names(object))[-6], "i",
+      collapse=" "), "%i"), dm[1], dm[2], dm[3], dm[4], dm[5], dm[6]), "\n")
+
+    # units
     cat("units: ", units(object), "\n\n")
-    if(all(is.na(object)))
-    {
-      cat("Min    :  NA\n")
-      cat("1st Qu.:  NA\n")
-      cat("Mean   :  NA\n")
-      cat("Median :  NA\n")
-      cat("3rd Qu.:  NA\n")
-      cat("Max    :  NA\n")
+    
+    # quantiles
+    if(all(is.na(object))) {
+      qq <- rep(as.numeric(NA), 6)
+    } else {
+      qq <- stats::quantile(object@.Data, names = FALSE, type = 7, na.rm=TRUE)
+      qq <- c(qq[1L:3L], mean(object@.Data), qq[4L:5L])
     }
-    else
-    {
-      cat("Min    : ", min(object, na.rm=TRUE), "\n")
-      cat("1st Qu.: ", quantile(as.vector(object), 0.25, na.rm=TRUE), "\n")
-      cat("Mean   : ", mean(as.vector(object), na.rm=TRUE), "\n")
-      cat("Median : ", median(as.vector(object), na.rm=TRUE), "\n")
-      cat("3rd Qu.: ", quantile(as.vector(object), 0.75, na.rm=TRUE), "\n")
-      cat("Max    : ", max(object, na.rm=TRUE), "\n")
-    }
-    cat("NAs    : ", format(length(as.vector(object)
-      [!complete.cases(as.vector(object))])/length(as.vector(object))*100,
-      digits=2), "%\n")
+    
+    # ADD % NAs
+    vec <- c(object)
+    qq <- c(qq, length(vec[!complete.cases(vec)])/length(vec) * 100)
+
+    # ADD names
+    names(qq) <- c("Min.", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max.",
+      "%NAs")
+
+    print(qq, digits=2)
   }
 )   # }}}
 
@@ -434,14 +442,6 @@ setMethod("summary", signature(object="FLArray"),
 
 #' Method show
 #' 
-#' Standard display of an object contents in an interactive session. Objects of
-#' class \code{\linkS4class{FLQuant}} with length > 1 along the sixth dimension
-#' (\emph{iter}) are output in a summarised form, as \code{median(mad)}, where
-#' mad is the median absolute deviation. See \code{\link[stats]{mad}}.
-#' 
-#' The same format is used for objects of class \code{\linkS4class{FLPar}} with
-#' length > 1 on the last dimension (\emph{iter}).
-#'
 #' @name show
 #' @aliases show,FLArray-method
 #' @aliases show,FLQuants-method show,FLPar-method
@@ -463,21 +463,63 @@ setMethod("summary", signature(object="FLArray"),
 
 setMethod("show", signature(object="FLArray"),
   function(object){
-    cat("An object of class \"", as.character(class(object)), "\"\n", sep="")
-    if(dim(object)[6] != 1)
-      cat("iters: ", dim(object)[6],"\n\n")
-    if(dim(object)[6] > 1)
+    print(object)
+  })
+# }}}
+
+# print {{{
+
+#' Method print
+#' 
+#' Standard complete display of an object contents in an interactive session. 
+#' Objects of class \code{\linkS4class{FLArray}} with length > 1 alonArray
+#' sixth dimension
+#' (\emph{iter}) are output in a summarised form, as \code{median(mad)}, where
+#' mad is the median absolute deviation. See \code{\link[stats]{mad}}.
+#' 
+#' The same format is used for objects of class \code{\linkS4class{FLPar}} with
+#' length > 1 on the last dimension (\emph{iter}).
+#'
+#' @name show
+#' @aliases show,FLArray-method
+#' @aliases show,FLQuants-method show,FLPar-method
+#' @docType methods
+#' @section Generic function: show(object)
+#' @author The FLR Team
+#' @seealso \link{FLComp}
+#' @keywords methods
+#' @examples
+#' 
+#' # no 'iter'
+#'   flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age', units='kg')
+#'   print(flq)
+#' 
+#' # with 'iter'
+#'   flq <- FLQuant(rnorm(800), dim=c(4,20,1,1,1,10), quant='age', units='kg')
+#'   print(flq)
+
+setMethod("print", signature(x="FLArray"),
+  function(x){
+    cat("An x of class \"", as.character(class(x)), "\"\n", sep="")
+    if(dim(x)[6] != 1)
+      cat("iters: ", dim(x)[6],"\n\n")
+    
+    v1 <- apply(x@.Data, 1:5, median, na.rm=TRUE)
+    
+    if(dim(x)[6] > 1)
     {
-      v1 <- apply(object@.Data, 1:5, median, na.rm=TRUE)
-      v2 <- apply(object@.Data, 1:5, mad, na.rm=TRUE)   
-      v3 <- paste(format(v1,digits=5),"(", format(v2, digits=3), ")", sep="")
+      v2 <- apply(x@.Data, 1:5, mad, na.rm=TRUE)   
+      v3 <- paste(format(v1, digits=3),"(", format(v2, digits=3), ")", sep="")
     }
     else
-      v3 <- paste(format(apply(object@.Data, 1:5, median, na.rm=TRUE),digits=5))
+      v3 <- paste(format(v1, digits=3))
     
-    print(array(v3, dim=dim(object)[1:5], dimnames=dimnames(object)[1:5]), quote=FALSE)
+    print(array(v3, dim=dim(x)[1:5], dimnames=dimnames(x)[1:5]), quote=FALSE)
+    cat("units: ", x@units, "\n")
+    invisible(x)
   }
-)   # }}}
+)
+# }}}
 
 # trim {{{
 

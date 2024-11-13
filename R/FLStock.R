@@ -1146,8 +1146,13 @@ setMethod("catch.sel", signature(object="FLStock"),
 
 # discards.ratio {{{
 setMethod("discards.ratio", signature(object="FLStock"),
-	function(object) {
-		return(discards.n(object) / (landings.n(object) + discards.n(object)))
+	function(object, wts=FALSE) {
+    if(wts)
+	  	return((discards.n(object) * discards.wt(object)) /
+        ((landings.n(object) * landings.wt(object)) +
+         (discards.n(object) * discards.wt(object))))
+    else
+		  return(discards.n(object) / (landings.n(object) + discards.n(object)))
 	}
 ) 
 
