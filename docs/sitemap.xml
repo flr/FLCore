@@ -1,387 +1,130 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>/CONTRIBUTORS.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AIC.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Arith-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/BIC.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Extract.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLArray.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLBiol.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLBiols.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLCohort.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLCohorts.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLComp.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLComps.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLI.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLIndex.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLIndexBiomass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLIndices.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLModel.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLModelSim.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLModelSims.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLPar.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLParJK.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLPars.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLQuant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLQuantDistr.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLQuantJK.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLQuantPoint.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLQuants.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLS.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLSR.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLSRs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLStock.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLStockLen.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLStocks.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FLlst.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FUNCTION.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Funwanted.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SRModels.html</loc>
-  </url>
-  <url>
-    <loc>/reference/acc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/accessors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/adjust-FLStock-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ageopt.html</loc>
-  </url>
-  <url>
-    <loc>/reference/append-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/apply-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ar1rlnorm.html</loc>
-  </url>
-  <url>
-    <loc>/reference/as.FLSRs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/bias.html</loc>
-  </url>
-  <url>
-    <loc>/reference/bubbles.html</loc>
-  </url>
-  <url>
-    <loc>/reference/catch.n-FLQuant-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/catchMature.html</loc>
-  </url>
-  <url>
-    <loc>/reference/coerce-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compare-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/compute.html</loc>
-  </url>
-  <url>
-    <loc>/reference/computeHarvest-FLStock-missing-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cpue.html</loc>
-  </url>
-  <url>
-    <loc>/reference/createFLAccesors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/datasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dbind-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dimSummaries.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dims.html</loc>
-  </url>
-  <url>
-    <loc>/reference/discardsRatio.html</loc>
-  </url>
-  <url>
-    <loc>/reference/drop-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/evalPredictModel.html</loc>
-  </url>
-  <url>
-    <loc>/reference/exp-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ffwd.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fwdWindow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getSlotNamesClass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/group.html</loc>
-  </url>
-  <url>
-    <loc>/reference/growth-models.html</loc>
-  </url>
-  <url>
-    <loc>/reference/iav.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/intersect.html</loc>
-  </url>
-  <url>
-    <loc>/reference/iter.html</loc>
-  </url>
-  <url>
-    <loc>/reference/jackknife.html</loc>
-  </url>
-  <url>
-    <loc>/reference/join.html</loc>
-  </url>
-  <url>
-    <loc>/reference/lattice.html</loc>
-  </url>
-  <url>
-    <loc>/reference/length-based-indicators.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mase.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mbar.html</loc>
-  </url>
-  <url>
-    <loc>/reference/meanage.html</loc>
-  </url>
-  <url>
-    <loc>/reference/meanwt.html</loc>
-  </url>
-  <url>
-    <loc>/reference/metrics.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mohnMatrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/msy-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/names.html</loc>
-  </url>
-  <url>
-    <loc>/reference/operators.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/predictModel.html</loc>
-  </url>
-  <url>
-    <loc>/reference/production.html</loc>
-  </url>
-  <url>
-    <loc>/reference/propagate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/properties.html</loc>
-  </url>
-  <url>
-    <loc>/reference/quant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/quantTotals.html</loc>
-  </url>
-  <url>
-    <loc>/reference/readVPAIntercatch.html</loc>
-  </url>
-  <url>
-    <loc>/reference/residuals-FLQuant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rnoise.html</loc>
-  </url>
-  <url>
-    <loc>/reference/roc.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ruleset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/runstest.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rwalk.html</loc>
-  </url>
-  <url>
-    <loc>/reference/show.html</loc>
-  </url>
-  <url>
-    <loc>/reference/simplify.html</loc>
-  </url>
-  <url>
-    <loc>/reference/slim.html</loc>
-  </url>
-  <url>
-    <loc>/reference/split.html</loc>
-  </url>
-  <url>
-    <loc>/reference/splom.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spread.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ssb.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ssb_next.html</loc>
-  </url>
-  <url>
-    <loc>/reference/standardUnits-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summary-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/survey.html</loc>
-  </url>
-  <url>
-    <loc>/reference/survivors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sweep-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tail.html</loc>
-  </url>
-  <url>
-    <loc>/reference/trim.html</loc>
-  </url>
-  <url>
-    <loc>/reference/units-FLCore.html</loc>
-  </url>
-  <url>
-    <loc>/reference/uom.html</loc>
-  </url>
-  <url>
-    <loc>/reference/uomTable.html</loc>
-  </url>
-  <url>
-    <loc>/reference/upperlower-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/verify.html</loc>
-  </url>
-  <url>
-    <loc>/reference/weighted.mean-FLQuants-FLQuants-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/wireframe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/yearSample.html</loc>
-  </url>
-  <url>
-    <loc>/reference/z-methods.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CONTRIBUTING.html</loc></url>
+<url><loc>/CONTRIBUTORS.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/AIC.html</loc></url>
+<url><loc>/reference/Arith-methods.html</loc></url>
+<url><loc>/reference/BIC.html</loc></url>
+<url><loc>/reference/Extract.html</loc></url>
+<url><loc>/reference/FLArray.html</loc></url>
+<url><loc>/reference/FLBiol.html</loc></url>
+<url><loc>/reference/FLBiols.html</loc></url>
+<url><loc>/reference/FLCohort.html</loc></url>
+<url><loc>/reference/FLCohorts.html</loc></url>
+<url><loc>/reference/FLComp.html</loc></url>
+<url><loc>/reference/FLComps.html</loc></url>
+<url><loc>/reference/FLI.html</loc></url>
+<url><loc>/reference/FLIndex.html</loc></url>
+<url><loc>/reference/FLIndexBiomass.html</loc></url>
+<url><loc>/reference/FLIndices.html</loc></url>
+<url><loc>/reference/FLModel.html</loc></url>
+<url><loc>/reference/FLModelSim.html</loc></url>
+<url><loc>/reference/FLModelSims.html</loc></url>
+<url><loc>/reference/FLPar.html</loc></url>
+<url><loc>/reference/FLParJK.html</loc></url>
+<url><loc>/reference/FLPars.html</loc></url>
+<url><loc>/reference/FLQuant.html</loc></url>
+<url><loc>/reference/FLQuantDistr.html</loc></url>
+<url><loc>/reference/FLQuantJK.html</loc></url>
+<url><loc>/reference/FLQuantPoint.html</loc></url>
+<url><loc>/reference/FLQuants.html</loc></url>
+<url><loc>/reference/FLS.html</loc></url>
+<url><loc>/reference/FLSR.html</loc></url>
+<url><loc>/reference/FLSRs.html</loc></url>
+<url><loc>/reference/FLStock.html</loc></url>
+<url><loc>/reference/FLStockLen.html</loc></url>
+<url><loc>/reference/FLStocks.html</loc></url>
+<url><loc>/reference/FLlst.html</loc></url>
+<url><loc>/reference/FUNCTION.html</loc></url>
+<url><loc>/reference/Funwanted.html</loc></url>
+<url><loc>/reference/SRModels.html</loc></url>
+<url><loc>/reference/acc.html</loc></url>
+<url><loc>/reference/accessors.html</loc></url>
+<url><loc>/reference/adjust-FLStock-method.html</loc></url>
+<url><loc>/reference/ageopt.html</loc></url>
+<url><loc>/reference/append-methods.html</loc></url>
+<url><loc>/reference/apply-methods.html</loc></url>
+<url><loc>/reference/ar1rlnorm.html</loc></url>
+<url><loc>/reference/as.FLSRs.html</loc></url>
+<url><loc>/reference/bias.html</loc></url>
+<url><loc>/reference/bubbles.html</loc></url>
+<url><loc>/reference/catch.n-FLQuant-method.html</loc></url>
+<url><loc>/reference/catchMature.html</loc></url>
+<url><loc>/reference/coerce-methods.html</loc></url>
+<url><loc>/reference/compare-methods.html</loc></url>
+<url><loc>/reference/compute.html</loc></url>
+<url><loc>/reference/computeHarvest-FLStock-missing-method.html</loc></url>
+<url><loc>/reference/cpue.html</loc></url>
+<url><loc>/reference/createFLAccesors.html</loc></url>
+<url><loc>/reference/datasets.html</loc></url>
+<url><loc>/reference/dbind-methods.html</loc></url>
+<url><loc>/reference/dimSummaries.html</loc></url>
+<url><loc>/reference/dims.html</loc></url>
+<url><loc>/reference/discardsRatio.html</loc></url>
+<url><loc>/reference/drop-methods.html</loc></url>
+<url><loc>/reference/evalPredictModel.html</loc></url>
+<url><loc>/reference/exp-methods.html</loc></url>
+<url><loc>/reference/ffwd.html</loc></url>
+<url><loc>/reference/fwdWindow.html</loc></url>
+<url><loc>/reference/getSlotNamesClass.html</loc></url>
+<url><loc>/reference/group.html</loc></url>
+<url><loc>/reference/growth-models.html</loc></url>
+<url><loc>/reference/iav.html</loc></url>
+<url><loc>/reference/intersect.html</loc></url>
+<url><loc>/reference/iter.html</loc></url>
+<url><loc>/reference/jackknife.html</loc></url>
+<url><loc>/reference/join.html</loc></url>
+<url><loc>/reference/lattice.html</loc></url>
+<url><loc>/reference/length-based-indicators.html</loc></url>
+<url><loc>/reference/mase.html</loc></url>
+<url><loc>/reference/mbar.html</loc></url>
+<url><loc>/reference/meanage.html</loc></url>
+<url><loc>/reference/meanwt.html</loc></url>
+<url><loc>/reference/metrics.html</loc></url>
+<url><loc>/reference/mohnMatrix.html</loc></url>
+<url><loc>/reference/msy-methods.html</loc></url>
+<url><loc>/reference/names.html</loc></url>
+<url><loc>/reference/operators.html</loc></url>
+<url><loc>/reference/plot.html</loc></url>
+<url><loc>/reference/predictModel.html</loc></url>
+<url><loc>/reference/production.html</loc></url>
+<url><loc>/reference/propagate.html</loc></url>
+<url><loc>/reference/properties.html</loc></url>
+<url><loc>/reference/quant.html</loc></url>
+<url><loc>/reference/quantTotals.html</loc></url>
+<url><loc>/reference/readVPAIntercatch.html</loc></url>
+<url><loc>/reference/residuals-FLQuant.html</loc></url>
+<url><loc>/reference/rnoise.html</loc></url>
+<url><loc>/reference/roc.html</loc></url>
+<url><loc>/reference/ruleset.html</loc></url>
+<url><loc>/reference/runstest.html</loc></url>
+<url><loc>/reference/rwalk.html</loc></url>
+<url><loc>/reference/show.html</loc></url>
+<url><loc>/reference/simplify.html</loc></url>
+<url><loc>/reference/slim.html</loc></url>
+<url><loc>/reference/split.html</loc></url>
+<url><loc>/reference/splom.html</loc></url>
+<url><loc>/reference/spread.html</loc></url>
+<url><loc>/reference/ssb.html</loc></url>
+<url><loc>/reference/ssb_next.html</loc></url>
+<url><loc>/reference/standardUnits-methods.html</loc></url>
+<url><loc>/reference/summary-methods.html</loc></url>
+<url><loc>/reference/survey.html</loc></url>
+<url><loc>/reference/survivors.html</loc></url>
+<url><loc>/reference/sweep-methods.html</loc></url>
+<url><loc>/reference/tail.html</loc></url>
+<url><loc>/reference/trim.html</loc></url>
+<url><loc>/reference/units-FLCore.html</loc></url>
+<url><loc>/reference/uom.html</loc></url>
+<url><loc>/reference/uomTable.html</loc></url>
+<url><loc>/reference/upperlower-methods.html</loc></url>
+<url><loc>/reference/verify.html</loc></url>
+<url><loc>/reference/weighted.mean-FLQuants-FLQuants-method.html</loc></url>
+<url><loc>/reference/wireframe.html</loc></url>
+<url><loc>/reference/yearSample.html</loc></url>
+<url><loc>/reference/z-methods.html</loc></url>
 </urlset>
+
