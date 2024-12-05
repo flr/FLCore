@@ -500,7 +500,7 @@ setMethod("show", signature(object="FLArray"),
 
 setMethod("print", signature(x="FLArray"),
   function(x){
-    cat("An x of class \"", as.character(class(x)), "\"\n", sep="")
+    cat("An object of class \"", as.character(class(x)), "\"\n", sep="")
     if(dim(x)[6] != 1)
       cat("iters: ", dim(x)[6],"\n\n")
     
