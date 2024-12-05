@@ -290,6 +290,26 @@ segreg <- function(){
 	return(list(logl=logl, model=model, initial=initial))
 } # }}}
 
+# segregDa  {{{
+
+#' @name SRModels
+#' @aliases segregDa
+segregDa <- function(){
+	logl <- function(a, b, d, rec, ssb){
+
+    loglAR1(log(rec), FLQuant(log(ifelse(c(ssb ^ d)<=b,a * c(ssb)^d, a * b)),
+      dimnames=dimnames(ssb)))}
+
+  model <- rec ~ ifelse(ssb ^ d <= b, a * ssb ^ d, a * b)
+
+  initial <- structure(function(rec, ssb){
+    return(FLPar(a=median(c(rec)/c(ssb),na.rm=TRUE), b=median(c(ssb),na.rm=TRUE), d=1))},
+    lower=rep(0, 0),
+    upper=rep(Inf, 2))
+
+	return(list(logl=logl, model=model, initial=initial))
+} # }}}
+
 # geomean {{{
 
 #' @name SRModels
@@ -827,6 +847,9 @@ SRModelName <- function(model){
     "ifelse(ssb<=b,a*ssb,a*b)" = "segreg",
     "FLQuant(ifelse(c(ssb)<=b,a*c(ssb),a*b),dimnames=dimnames(ssb))" = "segreg",
     "FLQuant(ifelse(c(ssb)<=c(b),c(a)*c(ssb),c(a)*c(b)),dimnames=dimnames(ssb))" = "segreg",
+    "ifelse(ssb^d<=b,a*ssb^d,a*b)" = "segregDa",
+    "FLQuant(ifelse(c(ssb^d)<=b,a*c(ssb^d),a*b),dimnames=dimnames(ssb))" = "segregDa",
+    "FLQuant(ifelse(c(ssb^d)<=c(b),c(a)*c(ssb^d),c(a)*c(b)),dimnames=dimnames(ssb))" = "segregDa",
       "a+ssb/ssb-1"                       = "mean",
       "FLQuant(a,dimnames=dimnames(rec))" = "mean",
       "a"                                 = "mean",
@@ -858,6 +881,7 @@ SRNameCode <- function(name)
     "bevholtSS3" = 23,
     "rickerD" = 31,
     "rickerSV" = 32,
+    "segregDa" = 41,
     "shepherdD" = 51,
     "shepherdSV" = 52,
     NA)

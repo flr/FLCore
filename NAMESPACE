@@ -201,6 +201,7 @@ export(
   "sbind",
   "segreg",
   "segregAR1",
+  "segregDa",
   "setquant",
   "setunits",
   "shepherd",
