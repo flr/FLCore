@@ -11,8 +11,8 @@
 #' computeLandings,FLStockLen-method
 setMethod("computeLandings", signature(object="FLS"),
   function(object, na.rm=TRUE) {
-        res        <- quantSums(landings.n(object) * landings.wt(object), na.rm=na.rm)
-        return(res)
+    res <- quantSums(landings.n(object) * landings.wt(object), na.rm=na.rm)
+    return(res)
    } 
 )  # }}}
 

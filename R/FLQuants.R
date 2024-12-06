@@ -319,3 +319,13 @@ setMethod("merge", signature(x="FLQuants", y="FLQuants"),
 )
 
 # }}}
+
+# iterMedians {{{
+setMethod("iterMedians", signature(x="FLQuants"),
+  function(x) {
+
+  res <- lapply(x, iterMedians)
+
+  return(res)
+})
+# }}}
