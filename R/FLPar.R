@@ -1011,26 +1011,28 @@ setMethod("window", signature(x="FLPar"),
   function(x, start=as.numeric(dimnames(x)$year[1]),
     end=as.numeric(dimnames(x)$year[length(dimnames(x)$year)]), extend=TRUE,
     frequency=1) {
-    #
+    
+    # DO nothing if no 'year' in object dimnames
     if(!"year" %in% names(x))
-      stop("window can only be called to objects with a 'year' dimension")
+      return(x)
 
-    # get original min and max
+    # GET original min and max
     yrs <- dimnames(x)$year
     min <- as.numeric(yrs[1])
     max <- as.numeric(yrs[length(yrs)])
     pos <- match("year", names(x))
 
-    # if extend=FALSE and end/start ask for it, error
+    # IF extend=FALSE and end/start ask for it, error
     if(!extend && (start < min | end > max))
       stop("FLPar to be extended but extend=FALSE")
 
-    # if extend is a number, added to end
-    if(is.numeric(extend))
+    # IF extend is a number, added to end
+    if(is.numeric(extend)) {
         if (missing(end))
           end <- max + extend
         else
           stop("'extend' is numeric and 'end' provided, don't know what to do")
+    }
     
     # construct new FLPar
     dnames <- dimnames(x)
@@ -1038,10 +1040,11 @@ setMethod("window", signature(x="FLPar"),
     res <- do.call(class(x), list(NA, units=units(x), dimnames=dnames))
 
     # add data for matching years
-    dnames <- dimnames(x)[pos]
+    dnames <- list(intersect(dimnames(res)[[pos]], dimnames(x)[[pos]]))
     names(dnames) <- c('i', 'j', 'k', 'l', 'm', 'n')[pos]
 
-    do.call('[<-', c(list(x=res, value=x), dnames))
+    do.call('[<-', c(list(x=res, value=do.call('[', c(list(x=x), dnames))),
+      dnames))
   }
 )   # }}}
 
