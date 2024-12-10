@@ -1038,10 +1038,10 @@ setMethod("window", signature(x="FLPar"),
     res <- do.call(class(x), list(NA, units=units(x), dimnames=dnames))
 
     # add data for matching years
-    dnames <- dnames[pos]
+    dnames <- dimnames(x)[pos]
     names(dnames) <- c('i', 'j', 'k', 'l', 'm', 'n')[pos]
 
-    do.call('[<-', c(list(x=res, value=x), dimnames))
+    do.call('[<-', c(list(x=res, value=x), dnames))
   }
 )   # }}}
 
