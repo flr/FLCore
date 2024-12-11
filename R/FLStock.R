@@ -1359,19 +1359,25 @@ noarea <- function(stock) {
 
   # weighted mean: *.wt, m
   
-  stock.wt(stock) <- areaSums(stock.wt(old) * stock.n(old)) / areaSums(stock.n(old))
-  stock.wt(stock)[is.na(stock.wt(stock))] <- areaMeans(stock.wt(old))[is.na(stock.wt(stock))]
+  stock.wt(stock) <- areaSums(stock.wt(old) * stock.n(old)) /
+    areaSums(stock.n(old))
+  stock.wt(stock)[is.na(stock.wt(stock))] <-
+    areaMeans(stock.wt(old))[is.na(stock.wt(stock))]
 
-  catch.wt(stock) <- areaSums(catch.wt(old) * catch.n(old)) / areaSums(catch.n(old))
-  catch.wt(stock)[is.na(catch.wt(stock))] <- areaMeans(catch.wt(old))[is.na(catch.wt(stock))]
+  catch.wt(stock) <- areaSums(catch.wt(old) * catch.n(old)) /
+    areaSums(catch.n(old))
+  catch.wt(stock)[is.na(catch.wt(stock))] <- 
+    areaMeans(catch.wt(old))[is.na(catch.wt(stock))]
 
   landings.wt(stock) <- areaSums(landings.wt(old) * landings.n(old)) /
     areaSums(landings.n(old))
-  landings.wt(stock)[is.na(landings.wt(stock))] <- areaMeans(landings.wt(old))[is.na(landings.wt(stock))]
+  landings.wt(stock)[is.na(landings.wt(stock))] <- 
+    areaMeans(landings.wt(old))[is.na(landings.wt(stock))]
 
   discards.wt(stock) <- areaSums(discards.wt(old) * discards.n(old)) /
     areaSums(discards.n(old))
-  discards.wt(stock)[is.na(discards.wt(stock))] <- areaMeans(discards.wt(old))[is.na(discards.wt(stock))]
+  discards.wt(stock)[is.na(discards.wt(stock))] <- 
+    areaMeans(discards.wt(old))[is.na(discards.wt(stock))]
 
   # m
   m(stock) <- areaSums(m(old) * stock.n(old)) /
@@ -1381,6 +1387,7 @@ noarea <- function(stock) {
   # mat
   mat(stock) <- areaSums(mat(old) * (stock.n(old) * stock.wt(old))) / 
     areaSums((stock.n(old) * stock.wt(old)))
+  mat(stock)[is.na(mat(stock))] <- areaMeans(mat(old))[is.na(mat(stock))]
 
   # COMPUTE
 
