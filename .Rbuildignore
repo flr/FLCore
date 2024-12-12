@@ -5,6 +5,7 @@ data-raw/
 Makefile
 .git/
 .github/
+pkgdown/
 _pkgdown.yml
 CONTRIBUTORS.md
 CONTRIBUTING.md
