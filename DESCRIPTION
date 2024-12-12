@@ -28,11 +28,9 @@ Imports:
   utils,
   ggplot2
 Suggests:
-  knitr,
   testthat,
   rlang,
   hedgehog
-VignetteBuilder: knitr
 URL: http://flr-project.org/FLCore
 BugReports: https://github.com/flr/FLCore/issues
 Collate:
