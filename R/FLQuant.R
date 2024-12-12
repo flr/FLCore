@@ -554,7 +554,7 @@ setMethod('yearSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
 
 #' @rdname dimSummaries
 setMethod('unitSums', signature(x='FLQuant'), function(x, na.rm=TRUE) {
-  return(FLQuant(c(rowSums(aperm(x, c(1,2,4,5,6,3)), na.rm=na.rm, dim=5)),
+  return(FLQuant(c(rowSums(aperm(x, c(1,2,4,5,6,3)), na.rm=na.rm, dims=5)),
   dimnames=c(dimnames(x)[-3], unit='unique'), units=units(x)))
 })
 
