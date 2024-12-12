@@ -26,7 +26,7 @@ survey(object, index, ...)
   sel = sel.pattern(index),
   ages = ac(seq(range(index, c("min")), range(index, c("max")))),
   timing = mean(range(index, c("startf", "endf"))),
-  catch.wt = stock.wt(object)[, dimnames(index)$year],
+  catch.wt = index@catch.wt,
   index.q = index@index.q,
   stability = 1
 )

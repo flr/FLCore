@@ -17,7 +17,7 @@
 \alias{summary,FLlst-methods}
 \title{Method summary}
 \usage{
-\S4method{summary}{FLArray}(object, ...)
+\S4method{summary}{FLArray}(object, .class = TRUE, ...)
 
 \S4method{summary}{FLQuantPoint}(object, ...)
 

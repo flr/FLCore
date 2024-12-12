@@ -30,6 +30,7 @@
 \alias{sv2ab}
 \alias{bevholtDa}
 \alias{bevholtss3}
+\alias{segregDa}
 \alias{cushing}
 \alias{rickerSV}
 \alias{bevholtSV}
@@ -53,6 +54,8 @@ bevholtDa()
 bevholtss3()
 
 segreg()
+
+segregDa()
 
 geomean()
 

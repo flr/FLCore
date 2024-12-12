@@ -1,6 +1,6 @@
 Package: FLCore
 Title: Core Package of FLR, Fisheries Modelling in R
-Version: 2.6.20.9314
+Version: 2.6.20.9315
 Authors@R: c(
   person("Iago", "Mosqueira", email = "iago.mosqueira@wur.nl",
     role = "cre", comment=c(c(ORCID = "0000-0002-3252-0591"))),
@@ -88,4 +88,4 @@ LazyLoad: Yes
 LazyData: No
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2

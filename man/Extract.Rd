@@ -44,7 +44,7 @@
 
 \S4method{$}{FLQuant}(x, name)
 
-\S4method{[}{FLQuantDistr,ANY,ANY,ANY}(x, i, j, k, l, m, n)
+\S4method{[}{FLQuantDistr,ANY,ANY,ANY}(x, i, j, k, l, m, n, drop = FALSE)
 
 \S4method{[}{FLQuantDistr,array,missing,missing}(x, i)
 

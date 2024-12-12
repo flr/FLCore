@@ -198,7 +198,8 @@ setMethod("-",
 	}
 ) # }}}
 
-## "["             {{{
+# [ {{{
+
 #' @rdname Extract
 #' @aliases [,FLQuantDistr,ANY,ANY,ANY-method
 setMethod("[", signature(x="FLQuantDistr"),
@@ -245,6 +246,16 @@ setMethod("[", signature(x="FLQuantDistr", i="array", j="missing", drop="missing
 )
 
 
+# }}}
+
+# [<- {{{
+
+setMethod("[<-", signature(x="FLQuantDistr", value="FLQuant"),
+  function(x, i, j, k, l, m, n, ..., value) {
+    x@.Data[i,j,k,l,m,n] <- value
+    return(x)
+  }
+)
 # }}}
 
 # sums         {{{
