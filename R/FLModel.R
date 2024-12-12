@@ -439,7 +439,7 @@ setMethod('predict', signature(object='FLModel'),
     {
       iterarg <- lapply(args, function(x) {
         itera <- try(dims(x)$iter)
-        if(class(iter) =='try-error')
+        if(inherits(iter, 'try-error'))
           return(1)
         else
           return(itera)
