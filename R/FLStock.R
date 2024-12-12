@@ -91,6 +91,96 @@ setMethod('FLStock', signature(object='FLQuants'),
 is.FLStock <- function(x)
 	return(inherits(x, "FLStock"))	# }}}
 
+# biomass metrics: ssb, tsb, vb, exb {{{
+
+# .biomass
+.biomass <- function(n, wt, h, m, th, tm, sel, time=0, byage=FALSE) {
+
+  # CALCULATE by harvest 'units'
+  uns <- units(h)
+
+  # CALCULATE proportion of harvest to time
+  th <- pmax(m %=% 0, th + (1 - th) * (time - tm) / (1 - tm))
+
+  # SET tm to time
+  tm <- time
+
+  # F
+  if(uns == 'f') {
+    res <- n * exp(-(h * th + m * tm)) * wt * sel
+  # HR
+	} else if(uns == 'hr') {
+    res <- n * (1 - h * th) * exp(-m * tm) * wt * sel
+  # else NA
+  } else {
+    res <- quantSums(n) %=% as.numeric(NA)
+	}
+
+  if(!byage)
+    res <- quantSums(res)
+
+  return(res)
+}
+
+# ssb
+setMethod("ssb", signature(object="FLStock"),
+	function(object, byage=FALSE) {
+
+    # CALL .biomass with mat as sel
+    .biomass(n=stock.n(object), wt=stock.wt(object), h=harvest(object),
+      m=m(object), th=harvest.spwn(object), tm=m.spwn(object),
+      time=m.spwn(object), sel=mat(object), byage=byage)
+  }
+)
+
+# tsb
+setMethod("tsb", signature(object="FLStock"),
+	function(object, time=m.spwn(object), byage=FALSE) {
+
+    # CALL .biomass with sel = 1
+    .biomass(n=stock.n(object), wt=stock.wt(object), h=harvest(object),
+      m=m(object), th=harvest.spwn(object), tm=m.spwn(object), time=time, 
+      sel=1, byage=byage)
+  }
+)
+
+
+# vb
+setMethod("vb", signature(x="FLStock", sel="ANY"),
+	function(x, sel, time=0, byage=FALSE) {
+
+    # CALL .biomass with sel = catch.sel
+    .biomass(n=stock.n(x), wt=stock.wt(x), h=harvest(x),
+      m=m(x), th=harvest.spwn(x), tm=m.spwn(x), time=time, 
+      sel=sel, byage=byage)
+  }
+)
+
+setMethod("vb", signature(x="FLStock", sel="missing"),
+	function(x, time=0, byage=FALSE) {
+
+    # CALL .biomass with sel = catch.sel
+    .biomass(n=stock.n(x), wt=stock.wt(x), h=harvest(x),
+      m=m(x), th=harvest.spwn(x), tm=m.spwn(x), time=time, 
+      sel=catch.sel(x), byage=byage)
+  }
+)
+
+# exb
+setGeneric("exb", function(x, ...) standardGeneric("exb"))
+
+setMethod("exb", signature(x="FLStock"),
+	function(x, sel=catch.sel(x), wt=catch.wt(x), time=0, byage=FALSE) {
+
+    # CALL .biomass with sel = catch.sel
+    .biomass(n=stock.n(x), wt=wt, h=harvest(x),
+      m=m(x), th=harvest.spwn(x), tm=m.spwn(x), time=time, 
+      sel=sel, byage=byage)
+  }
+)
+
+# }}}
+
 # setPlusGroup function	{{{
 #  changes the level of the plus group of the stock object
 calc.pg <- function(s., i., k., r., pg., action, na.rm) {
@@ -125,9 +215,9 @@ calc.pg <- function(s., i., k., r., pg., action, na.rm) {
 
 	return(q.)}
 
-expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...)
-    {
-    if (class(object)!="FLStock") stop('not a FLStock object')
+expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...) {
+
+    if (!inherits(object, "FLStock")) stop('not a FLStock object')
     if (!validObject(object)) stop('object not a valid FLStock')
 
     res <-object
@@ -299,59 +389,6 @@ setMethod('setPlusGroup', signature(x='FLStock', plusgroup='numeric'),
 	}
 )# }}}
 
-# ssb		{{{
-
-#' Spawning Stock Biomass
-#'
-#' For an object of class \code{\link{FLStock}}, the calculation of SSB depends
-#' on the value of the 'units' attribute in the \code{harvest} slot. If this is
-#' in terms of fishing mortality (\code{units(harvest(object)) == 'f'}), and
-#' assuming an object structured by age, then SSB is calculated as
-#' \deqn{SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot e^{-(F_{a,y} \cdot Hs_{a,y} + M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} }{SSB_y = sum_a(N_ay * exp(-(F_ay * Hs_ay + M_ay * Ms_ay)) * W_ay * T_ay)}
-#' where \eqn{N_{a,y}}{N_ay} is the abundance in numbers (\code{stock.n}) by
-#' age (a) and year (y), \eqn{F_{a,y}}{F_ay} is the fishing mortality (\code{harvest}), 
-#' \eqn{Hs_{a,y}}{Hs_ay} is the proportion of fishing mortality before spawning
-#' (\code{harvest.spwn}),
-#' \eqn{M_{a,y}}{M_ay} is the natural mortality (\code{m}), 
-#' \eqn{Ms_{a,y}}{Ms_ay} is the proportion of natural mortality before spawning
-#' (\code{m.spwn}),
-#' \eqn{W_{a,y}}{W_ay} is the mean weight at age in the stock (\code{m}), and
-#' \eqn{T_{a,y}}{T_ay} is the proportion mature at age in the stock (\code{mat}).
-#' For \code{\link{FLStock}} objects with other dimensions (\code{area},
-#' \code{unit}), the calculation is carried out along those dimensions too. To
-#' obtain a global value please use the corresponding summing method.
-#' If the harvest slot contains estimates in terms of harvest rates
-#' (\code{units(harvest(object)) == "hr"}), SSB will be computed as
-#' \deqn{SSB_{y} = \sum\nolimits_{a} N_{a,y} \cdot (1 - H_{a,y} \cdot Hs_{a,y}) \cdot e^{-(M_{a,y} \cdot Ms_{a,y})} \cdot W_{a,y} \cdot T_{a,y} }{SSB_y = sum_a(N_ay * (1 - H_ay * Hs_ay) * exp(-(M_ay * Ms_ay)) * W_ay * T_ay)}
-#' where \eqn{H_{a,y}}{H_ay} is the harvest rate (proportion of catch in weight
-#' over total biomass).
-#' @seealso \code{\link{areaSums}}
-#' @rdname ssb
-#' @examples
-#' # SSB from FLStock
-#' ssb(ple4)
-setMethod("ssb", signature(object="FLStock"),
-	function(object, ...) {
-    
-    # CALCULATE by units
-		uns <- units(harvest(object))
-
-		if(uns == 'f') {
-			return(quantSums(stock.n(object) * exp(-(harvest(object) *
-        harvest.spwn(object) + m(object) * m.spwn(object))) *
-        stock.wt(object) * mat(object)))
-
-		} else if(uns == 'hr') {
-			return(quantSums(stock.n(object) * stock.wt(object) * mat(object) *
-				(1 - harvest(object) * harvest.spwn(object)) *
-				exp(-m(object) * m.spwn(object))))
-
-  	} else {
-      return(rec(object) %=% as.numeric(NA))
-		}
-	}
-)	# }}}
-
 # ssf		{{{
 
 setMethod("ssf", signature(object="FLStock"),
@@ -372,42 +409,6 @@ setMethod("ssf", signature(object="FLStock"),
 		}
 	}
 )	# }}}
-
-# tsb		{{{
-setMethod("tsb", signature(object="FLStock"),
-	function(object, ...) {
-
-		uns <- units(harvest(object))
-
-		if(uns == 'f') {
-			return(quantSums(stock.n(object) * exp(-(harvest(object) *
-        harvest.spwn(object) + m(object) * m.spwn(object))) *
-        stock.wt(object)))
-
-		} else if(uns == 'hr') {
-			return(quantSums(stock.n(object) * (1 - harvest(object) *
-        harvest.spwn(object)) * exp(-m(object) * m.spwn(object)) *
-        harvest.spwn(object) * stock.wt(object)))
-  	} else {
-		stop("Correct units (f or hr) not specified in the harvest slot")
-		}
-	}
-)	# }}}
-
-# tb  {{{
-setMethod("tb", signature(object="FLStock"),
-  function(object, time=0) {
-
-    if(missing(time) & "wtime" %in% names(range(object)))
-      time <- range(object, "wtime")
-
-    res <- quantSums(stock.n(object) * stock.wt(object) *
-      exp(-(m(object) * time) -
-      # APPLY F only between harvest.spwn and time, if positive
-      (harvest(object) * pmax(m(object) %=% 0, time - harvest.spwn(object)))))
-    return(res)
-  }
-)  # }}}
 
 # fbar		{{{
 setMethod("fbar", signature(object="FLStock"),
@@ -1190,31 +1191,6 @@ setMethod("dim", signature(x="FLStock"),
   }
 ) # }}}
 
-# vb = vulnerable biomass {{{
-
-setMethod("vb", signature(x="FLStock", sel="missing"),
-  function(x) {
- 
-    vb <- quantSums(stock.n(x) * stock.wt(x) * catch.sel(x))
-    units(vb) <- units(stock(x))
-    
-    return(vb)
-  }
-)
-
-setMethod("vb", signature(x="FLStock", sel="FLQuant"),
-  function(x, sel) {
-    
-    vb <- quantSums(stock.n(x) * stock.wt(x) %*% sel)
-
-    units(vb) <- units(stock(x))
-    
-    return(vb)
-  }
-)
-
-# }}}
-
 # nounit {{{
 
 nounit <- function(stock) {
@@ -1810,14 +1786,6 @@ biomass_spawn <- function(x) {
     harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
 }
 
-# }}}
-
-# biomass {{{
-setMethod("biomass", signature(x="FLStock"),
-  function(x) {
-    stock(x)
-  }
-)
 # }}}
 
 # production {{{

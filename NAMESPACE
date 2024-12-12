@@ -369,6 +369,7 @@ exportMethods(
   "e<-",
   "effort",
   "effort<-",
+  "exb",
   "exp",
   "expand",
   "fapex",
