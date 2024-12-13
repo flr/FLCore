@@ -124,7 +124,12 @@ is.FLStock <- function(x)
 
 # ssb
 setMethod("ssb", signature(object="FLStock"),
-	function(object, byage=FALSE) {
+	function(object, byage=FALSE, ...) {
+
+    # PARSE extra arguments
+    args <- list(...)
+    for(i in names(args))
+      slot(object, i)[] <- c(args[[i]])
 
     # CALL .biomass with mat as sel
     .biomass(n=stock.n(object), wt=stock.wt(object), h=harvest(object),
@@ -136,6 +141,11 @@ setMethod("ssb", signature(object="FLStock"),
 # tsb
 setMethod("tsb", signature(object="FLStock"),
 	function(object, time=m.spwn(object), byage=FALSE) {
+
+    # PARSE extra arguments
+    args <- list(...)
+    for(i in names(args))
+      slot(object, i)[] <- c(args[[i]])
 
     # CALL .biomass with sel = 1
     .biomass(n=stock.n(object), wt=stock.wt(object), h=harvest(object),
@@ -149,6 +159,11 @@ setMethod("tsb", signature(object="FLStock"),
 setMethod("vb", signature(x="FLStock", sel="ANY"),
 	function(x, sel, time=0, byage=FALSE) {
 
+    # PARSE extra arguments
+    args <- list(...)
+    for(i in names(args))
+      slot(object, i)[] <- c(args[[i]])
+
     # CALL .biomass with sel = catch.sel
     .biomass(n=stock.n(x), wt=stock.wt(x), h=harvest(x),
       m=m(x), th=harvest.spwn(x), tm=m.spwn(x), time=time, 
@@ -158,6 +173,11 @@ setMethod("vb", signature(x="FLStock", sel="ANY"),
 
 setMethod("vb", signature(x="FLStock", sel="missing"),
 	function(x, time=0, byage=FALSE) {
+
+    # PARSE extra arguments
+    args <- list(...)
+    for(i in names(args))
+      slot(object, i)[] <- c(args[[i]])
 
     # CALL .biomass with sel = catch.sel
     .biomass(n=stock.n(x), wt=stock.wt(x), h=harvest(x),
@@ -170,7 +190,12 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
 setGeneric("exb", function(x, ...) standardGeneric("exb"))
 
 setMethod("exb", signature(x="FLStock"),
-	function(x, sel=catch.sel(x), wt=catch.wt(x), time=0, byage=FALSE) {
+	function(x, sel=catch.sel(x), wt=catch.wt(x), time=0, byage=FALSE, ...) {
+
+    # PARSE extra arguments
+    args <- list(...)
+    for(i in names(args))
+      slot(object, i)[] <- c(args[[i]])
 
     # CALL .biomass with sel = catch.sel
     .biomass(n=stock.n(x), wt=wt, h=harvest(x),
