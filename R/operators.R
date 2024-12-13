@@ -1024,6 +1024,13 @@ setMethod("%=%", signature(object="FLArray", value="FLPar"),
   }
 )
 
+setMethod("%=%", signature(object="FLArray", value="FLArray"),
+  function(object, value) {
+
+    object[] <- c(value)
+    return(object)
+  }
+)
 # }}}
 
 # matchDimnames {{{
