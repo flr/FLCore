@@ -1251,14 +1251,20 @@ setGeneric("distribution", function(object, ...)
 setGeneric("distribution<-", function(object, ..., value)
 	standardGeneric("distribution<-"))
 
-# combine
+# combine {{{
 setGeneric('combine', function(x, y, ...)
   standardGeneric('combine'))
 
 setMethod('combine', signature(x='NULL', y='NULL'),
-  function(x,y,...) {
+  function(x, y, ...) {
     return(NULL)
   })
+
+setMethod('combine', signature(x='list', y='list'),
+  function(x, y, ...) 
+    c(x, y, list(...))
+)
+# }}}
 
 # jackknife
 setGeneric("jackknife", function(object, ...)
