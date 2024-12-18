@@ -93,24 +93,41 @@ is.FLStock <- function(x)
 
 # biomass metrics: ssb, tsb, vb, exb {{{
 
+#' FLStodck biomass metrics
+#'
+#' @examples
+#' data(ple4)
+#' # SSB at spawning time
+#' ssb(ple4)
+#' # SSB at end of time step (year)
+#' ssb_end(ple4)
+#' # SSB at start of time step (year)
+#' ssb_start(ple4)
+#' # Vulnerable biomass at start of time step (year)
+#' vb(ple4)
+#' # Exploitable biomass at start of time step (year)
+#' exb(ple4)
+
 # .biomass
-.biomass <- function(n, wt, h, m, th, tm, sel, time=0, byage=FALSE) {
+.biomass <- function(n, h, ph, m, pm, wt, sel, byage=FALSE) {
 
   # CALCULATE by harvest 'units'
   uns <- units(h)
 
+  # COMPUTE start of harvest if < m.spwn
+  # sh <- ifelse(th < tm, (th * tm) / (1 - th), 1 - th)
   # CALCULATE proportion of harvest to time
-  th <- pmax(m %=% 0, th + (1 - th) * (time - tm) / (1 - tm))
-
+  # ph <- ifelse(time < sh, 0, sh + time * (1 - th))
+ 
   # SET tm to time
-  tm <- time
+  # tm <- time
 
   # F
   if(uns == 'f') {
-    res <- n * exp(-(h * th + m * tm)) * wt * sel
+    res <- n * exp(-(h * ph + m * pm)) * wt * sel
   # HR
 	} else if(uns == 'hr') {
-    res <- n * (1 - h * th) * exp(-m * tm) * wt * sel
+    res <- n * (1 - h * ph) * exp(-m * pm) * wt * sel
   # else NA
   } else {
     res <- quantSums(n) %=% as.numeric(NA)
@@ -125,18 +142,109 @@ is.FLStock <- function(x)
 # ssb
 setMethod("ssb", signature(object="FLStock"),
 	function(object, byage=FALSE, ...) {
+    
+    # PARSE extra arguments
+    args <- list(...)
+    for(i in names(args))
+      slot(object, i)[] <- c(args[[i]])
+    
+    res <- .biomass(n=stock.n(object), h=harvest(object),
+      ph=harvest.spwn(object), m=m(object), pm=m.spwn(object),
+      wt=stock.wt(object), sel=mat(object), byage=byage)
+
+    return(res)
+	}
+)	
+
+# ssb_end
+ssb_end <- function(object, byage=FALSE, ...) {
+
+  # PARSE extra arguments
+  args <- list(...)
+  for(i in names(args))
+    slot(object, i)[] <- c(args[[i]])
+
+  res <- .biomass(n=stock.n(object), h=harvest(object),
+    ph=1, m=m(object), pm=1, wt=stock.wt(object),
+    sel=mat(object), byage=byage)
+
+  return(res)
+}
+
+# ssb_start
+ssb_start <- function(object, byage=FALSE, ...) {
+
+  # PARSE extra arguments
+  args <- list(...)
+  for(i in names(args))
+    slot(object, i)[] <- c(args[[i]])
+
+  res <- .biomass(n=stock.n(object), h=harvest(object),
+    ph=0, m=m(object), pm=0, wt=stock.wt(object),
+    sel=mat(object), byage=byage)
+
+  return(res)
+}
+
+# vb
+setMethod("vb", signature(x="FLStock", sel="ANY"),
+	function(x, sel, byage=FALSE, ...) {
+
+    # PARSE extra arguments
+    args <- list(...)
+    for(i in names(args))
+      slot(x, i)[] <- c(args[[i]])
+
+    # CALL .biomass with sel = catch.sel
+    .biomass(n=stock.n(x), wt=stock.wt(x), h=harvest(x),
+      ph=0, m=m(x), pm=0, sel=sel, byage=byage)
+  }
+)
+
+setMethod("vb", signature(x="FLStock", sel="missing"),
+	function(x, byage=FALSE, ...) {
 
     # PARSE extra arguments
     args <- list(...)
     for(i in names(args))
       slot(object, i)[] <- c(args[[i]])
 
-    # CALL .biomass with mat as sel
-    .biomass(n=stock.n(object), wt=stock.wt(object), h=harvest(object),
-      m=m(object), th=harvest.spwn(object), tm=m.spwn(object),
-      time=m.spwn(object), sel=mat(object), byage=byage)
+    # CALL .biomass with sel = catch.sel
+    .biomass(n=stock.n(x), wt=stock.wt(x), h=harvest(x),
+      m=m(x), ph=0, pm=0, sel=catch.sel(x), byage=byage)
   }
 )
+
+# exb
+setGeneric("exb", function(x, ...) standardGeneric("exb"))
+
+setMethod("exb", signature(x="FLStock"),
+	function(x, sel=catch.sel(x), wt=catch.wt(x), byage=FALSE, ...) {
+
+    # PARSE extra arguments
+    args <- list(...)
+    for(i in names(args))
+      slot(object, i)[] <- c(args[[i]])
+
+    # CALL .biomass with sel = catch.sel
+    .biomass(n=stock.n(x), wt=wt, h=harvest(x),
+      m=m(x), ph=0, pm=0, sel=sel, byage=byage)
+  }
+)
+
+# biomass_end
+biomass_end <- function(object, byage=TRUE, ...) {
+
+  # PARSE extra arguments
+  args <- list(...)
+  for(i in names(args))
+    slot(object, i)[] <- c(args[[i]])
+
+  # CALL .biomass with mat as sel
+  .biomass(n=stock.n(object), wt=stock.wt(object), h=harvest(object),
+    m=m(object), ph=1, pm=1, time=1, sel=1, byage=byage)
+  }
+
 
 # tsb
 setMethod("tsb", signature(object="FLStock"),
@@ -149,58 +257,8 @@ setMethod("tsb", signature(object="FLStock"),
 
     # CALL .biomass with sel = 1
     .biomass(n=stock.n(object), wt=stock.wt(object), h=harvest(object),
-      m=m(object), th=harvest.spwn(object), tm=m.spwn(object), time=time, 
+      m=m(object), ph=harvest.spwn(object), pm=m.spwn(object), 
       sel=1, byage=byage)
-  }
-)
-
-
-# vb
-setMethod("vb", signature(x="FLStock", sel="ANY"),
-	function(x, sel, time=0, byage=FALSE) {
-
-    # PARSE extra arguments
-    args <- list(...)
-    for(i in names(args))
-      slot(object, i)[] <- c(args[[i]])
-
-    # CALL .biomass with sel = catch.sel
-    .biomass(n=stock.n(x), wt=stock.wt(x), h=harvest(x),
-      m=m(x), th=harvest.spwn(x), tm=m.spwn(x), time=time, 
-      sel=sel, byage=byage)
-  }
-)
-
-setMethod("vb", signature(x="FLStock", sel="missing"),
-	function(x, time=0, byage=FALSE) {
-
-    # PARSE extra arguments
-    args <- list(...)
-    for(i in names(args))
-      slot(object, i)[] <- c(args[[i]])
-
-    # CALL .biomass with sel = catch.sel
-    .biomass(n=stock.n(x), wt=stock.wt(x), h=harvest(x),
-      m=m(x), th=harvest.spwn(x), tm=m.spwn(x), time=time, 
-      sel=catch.sel(x), byage=byage)
-  }
-)
-
-# exb
-setGeneric("exb", function(x, ...) standardGeneric("exb"))
-
-setMethod("exb", signature(x="FLStock"),
-	function(x, sel=catch.sel(x), wt=catch.wt(x), time=0, byage=FALSE, ...) {
-
-    # PARSE extra arguments
-    args <- list(...)
-    for(i in names(args))
-      slot(object, i)[] <- c(args[[i]])
-
-    # CALL .biomass with sel = catch.sel
-    .biomass(n=stock.n(x), wt=wt, h=harvest(x),
-      m=m(x), th=harvest.spwn(x), tm=m.spwn(x), time=time, 
-      sel=sel, byage=byage)
   }
 )
 
@@ -1787,18 +1845,6 @@ ssb_next <- function(x, fbar=0, wts.nyears=3, fbar.nyears=3) {
 } # }}}
 
 # targets {{{
-ssb_end <- function(x) {
-  m.spwn(x) <- 1
-  harvest.spwn(x) <- 1
-  return(ssb(x))
-}
-
-ssb_start <- function(x) {
-  m.spwn(x) <- 0
-  harvest.spwn(x) <- 0
-  return(ssb(x))
-}
-
 biomass_end <- function(x) {
   m.spwn(x) <- 1
   harvest.spwn(x) <- 1
