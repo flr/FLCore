@@ -248,7 +248,7 @@ biomass_end <- function(object, byage=TRUE, ...) {
 
 # tsb
 setMethod("tsb", signature(object="FLStock"),
-	function(object, time=m.spwn(object), byage=FALSE) {
+	function(object, time=m.spwn(object), byage=FALSE, ...) {
 
     # PARSE extra arguments
     args <- list(...)
