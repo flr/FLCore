@@ -51,6 +51,8 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
 #' ple4.biom <- as(ple4.index, "FLIndexBiomass")
 #' survey(ple4, ple4.biom)
 
+# TODO: ADD catch.n
+
 setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
   function(object, index, sel=sel.pattern(index),
     ages=ac(seq(range(index, c('min')), range(index, c('max')))),
@@ -68,6 +70,9 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
 
     # COMPUTE index
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
+
+    # ADD propatage
+    catch.n(index) <- abnd
 
     # APPLY Q on biomass
     index(index) <- c(index.q * unitSums(quantSums(abnd *
