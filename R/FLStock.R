@@ -506,7 +506,8 @@ setMethod("fbar", signature(object="FLStock"),
     if(units(harvest(object)) == 'f' || units(harvest(object)) == 'hr') {
 	  	return(quantMeans(harvest(object)[as.character(seq(min, max)),]))
   	} else {
-    	stop("Correct units (f or hr) not specified in the harvest slot")
+	  	return(quantMeans(harvest(object)[as.character(seq(min, max)),]))
+#    	stop("Correct units (f or hr) not specified in the harvest slot")
     }
   }
 )	# }}}
