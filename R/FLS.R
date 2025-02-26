@@ -32,7 +32,6 @@ setMethod("computeDiscards", signature(object="FLS"),
 #' computeCatch,FLStockLen-method
 setMethod("computeCatch", signature(object="FLS"),
   function(object, slot="catch", na.rm=TRUE) {
-
     # PROPAGATE in case iters differ among slots
     object <- propagate(object, dims(object)$iter)
 

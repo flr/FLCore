@@ -1985,7 +1985,6 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
 
     # wt
     stock.wt(res)[, wyrs] <- funs$wt(stock.wt(res)[, pyears$wt])
-    catch.wt(res)[, wyrs] <- funs$wt(catch.wt(res)[, pyears$wt])
     landings.wt(res)[, wyrs] <- funs$wt(landings.wt(res)[, pyears$wt])
     discards.wt(res)[, wyrs] <- funs$wt(discards.wt(res)[, pyears$wt])
 
@@ -1997,6 +1996,9 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     discards.n(res)[, wyrs] <- funs$discards.ratio(
       discards.n(res)[, pyears$discards.ratio] /
       (catch.n(res)[, pyears$discards.ratio] + 1e-16))
+
+    # DO catch.wt from landings.wt and discards.wt to match fwd()
+    catch.wt(res)[, wyrs] <- computeCatch(res, 'wt')[, wyrs]
 
     # m
     m(res)[, wyrs] <- funs$m(m(res)[, pyears$m])
