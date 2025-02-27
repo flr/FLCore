@@ -472,7 +472,7 @@ setMethod('predict', signature(object='FLModel'),
       {
         covarnm <- names(obj@covar)
         if(length(covarnm))
-          data <- c(data, covar(obj)[covarnm])
+          data <- c(data, iter(covar(obj)[covarnm], it))
       }
 
       # add newdata
