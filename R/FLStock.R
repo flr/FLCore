@@ -2244,6 +2244,10 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     # EXTRACT projection years
     yrs <- match(dimnames(fbar)$year, dimnames(object)$year)
 
+    # PROPAGATE if needed
+    nit <- max(c(dim(object)[6], dim(sr)[6], dim(fbar)[6]))
+    object <- propagate(object, nit)
+
     # SUBSET for projection years
     obj <- object[, c(yrs[1] - 1, yrs)]
 
@@ -2287,7 +2291,14 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     fsp <- harvest.spwn(obj)
     srp <- exp(-(faa * fsp) - (maa * msp)) * waa * mat
 
+    # SET recruitment age
     recage <- dms$min
+
+    #
+    if(length(sr@covar) > 0)
+      covars <- window(sr@covar, start=dms$minyear, end=dms$maxyear)
+    else
+      covars <- NULL
 
     # CHECK for mat > 0 if recage is 0
     if(recage == 0 & any(mat(object)[ac(recage),] > 0))
@@ -2302,12 +2313,13 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       # pg
       naa[dm[1], i] <- naa[dm[1], i] +
         naa[dm[1], i-1] * exp(-faa[dm[1], i-1] - maa[dm[1], i-1])
-      
+
       # rec * deviances
-       naa[1, i] <- rep(eval(sr@model[[3]],
+       naa[1, i] <- rep(c(eval(sr@model[[3]],
         c(as(sr@params, 'list'), list(
         ssb=c(colSums(naa[, i - recage, 1] * srp[, i - recage, 1],
-          na.rm=TRUE))))) / dm[3], each=dm[3]) * c(deviances[, i])
+          na.rm=TRUE))), lapply(covars, '[', 1, i-recage)))) / dm[3], each=dm[3]) *
+        c(deviances[, i])
     }
 
   # UPDATE stock.n & harvest
