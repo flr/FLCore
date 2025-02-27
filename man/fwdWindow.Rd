@@ -11,7 +11,7 @@ fwdWindow(x, y, ...)
   x,
   end = dims(x)$maxyear,
   nsq = 3,
-  fun = c("mean", "sample"),
+  fun = c("mean", "geomean", "sample"),
   years = list(wt = nsq, mat = nsq, m = nsq, spwn = nsq, discards.ratio = nsq, catch.sel
     = nsq)
 )

@@ -1900,6 +1900,7 @@ setMethod("production", signature(object="FLStock"),
 
 # fwdWindow {{{
 
+#' fwdWindow
 #' @rdname fwdWindow
 #' @details
 #' For 'FLStock'
@@ -1926,7 +1927,7 @@ setMethod("production", signature(object="FLStock"),
 #' catch.sel(fut)[, ac(2015:2020)]
 
 setMethod("fwdWindow", signature(x="FLStock", y="missing"),
-  function(x, end=dims(x)$maxyear, nsq=3, fun=c("mean", "sample"),
+  function(x, end=dims(x)$maxyear, nsq=3, fun=c("mean", "geomean", "sample"),
     years=list(wt=nsq, mat=nsq, m=nsq, spwn=nsq, discards.ratio=nsq,
     catch.sel=nsq)) {
 
@@ -1952,17 +1953,16 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     wyrs <- seq(dx[2] + 1, dim(m(res))[2])
     
     # EXTRACT 'fun' names and find empty
-    inms <- !nzchar(fun)
+    inms <- !nzchar(names(fun))
 
     # IF one argument, USE on all blocks
-    if(length(fun) == 1 & sum(inms) == 1) {
+    if(length(fun) == 1) {
       funs <- setNames(rep(list(match.arg(fun)), 6), nm=names(pyears))
     # IF 2 or more
     } else {
-
       # ANY unnamed function? SET as default
       if(sum(inms) == 1) {
-        funs <- setNames(rep(list(fun[inms]), 6), nm=names(pyears))
+        funs <- setNames(rep(fun[inms], 6), nm=names(pyears))
       # ELSE set 'mean'
       } else {
         funs <- setNames(rep("mean", 6), nm=names(pyears))
@@ -1980,6 +1980,7 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     # SETUP functions
     funs <- lapply(funs, function(f) switch(f,
       "mean"=yearMeans,
+      "geomean"=function(g) exp(yearMeans(log(g))),
       "sample"=function(g)
         return(c(aperm(g[, ysamp,,,,1]@.Data, c(1,3,4,5,6,2))))))
 
