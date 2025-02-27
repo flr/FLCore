@@ -2294,11 +2294,12 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     # SET recruitment age
     recage <- dms$min
 
-    #
-    if(length(sr@covar) > 0)
-      covars <- window(sr@covar, start=dms$minyear, end=dms$maxyear)
-    else
-      covars <- NULL
+    # DEAL with potential covars
+    covars <- NULL
+    if(is(sr, 'FLSR')) {
+      if (length(sr@covar) > 0)
+        covars <- window(sr@covar, start=dms$minyear, end=dms$maxyear)
+    }
 
     # CHECK for mat > 0 if recage is 0
     if(recage == 0 & any(mat(object)[ac(recage),] > 0))
