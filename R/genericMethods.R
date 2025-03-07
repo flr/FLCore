@@ -657,8 +657,6 @@ setGeneric("quant<-", function(object, value)
 #' @seealso \linkS4class{FLComp}, \linkS4class{FLQuant}
 #' @keywords methods
 
-#setGeneric("iter", function(obj, ...)
-#	standardGeneric("iter"))
 setGeneric("iter", useAsDefault = iterators::iter)
 setGeneric("iter<-", function(object, ..., value)
   standardGeneric("iter<-")) # }}}
@@ -1603,14 +1601,21 @@ setGeneric("fwd", function(object, fishery, control, ...)
 
 # metrics {{{
 
-#' Extract simply-defined metrics from compex objects
+#' Extract simply-defined metrics from complex objects
 #'
 #' Time series summaries of complex objects are commonly needed, for example for
 #' plotting the inputs and outputs of a class like \code{\link{FLStock}}. These
 #' methods allow for simple specification of those metrics by means of function
 #' calls and formulas.
 #'
+#' A set of default metrics are defined for each class, as listed below. A call to
+#' the metrics method with no 'metrics' argument will return the default ones. Extra 
+#' metrics can be computed by passing them as named arguments, like in ther examples
+#' below.
+#'
 #' @param object A complex **FLR** object from which to extract time series metrics.
+#' @param metrics A named list of function, expressions or function names.
+#' @param ... Extra definitions for metrics to be added to the class defaults
 #'
 #' @return An object, generally of class \code{\link{FLQuants}}.
 #'
@@ -1619,7 +1624,7 @@ setGeneric("fwd", function(object, fishery, control, ...)
 #' @aliases metrics metrics-methods
 #'
 #' @author The FLR Team
-#' @seealso \link{FLComp}
+#' @seealso \link{FLComp}, link{FLStock}, \link{FLBiol}
 #' @keywords methods
 #' @md
 setGeneric("metrics", function(object, metrics, ...)

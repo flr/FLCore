@@ -435,8 +435,7 @@ setMethod('predict', signature(object='FLModel'),
     #   from object
     iter <- max(unlist(qapply(object, function(x) dims(x)$iter)))
     #   from extra input
-    if(length(args) > 0)
-    {
+    if(length(args) > 0) {
       iterarg <- lapply(args, function(x) {
         itera <- try(dims(x)$iter)
         if(inherits(iter, 'try-error'))
@@ -445,9 +444,9 @@ setMethod('predict', signature(object='FLModel'),
           return(itera)
       })
       iterarg <- max(unlist(iterarg))
-    }
-    else
+    } else {
       iterarg <- 1
+    }
     #   decision
     if (iter == iterarg)
       iters <- iter

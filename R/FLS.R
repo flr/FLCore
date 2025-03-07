@@ -192,32 +192,36 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
 # metrics {{{
 
 #' @rdname metrics
+#' @examples
+#' data(ple4)
+#' # Get default metrics
+#' metrics(ple4)
+#' # Adds to defaults
+#' metrics(ple4, PG=function(x) n(x)[10,])
+#' # Defines metrics to be computed
+#' metrics(ple4, metrics=list(PG=function(x) n(x)[10,]))
+
+#' @rdname metrics
 
 setMethod("metrics", signature(object="FLS", metrics="missing"),
   function(object, ...) {
-    
-    dots <- list(...)
-    
+
     # HACK for some method dispatch problem
     foo <- selectMethod("metrics", c(object="FLS", metrics="list"))
 
-    if(length(dots) > 0) {
-      return(foo(object=object, metrics=dots))
-    }
-    else {
-      if(tolower(units(harvest(object))) == "f") {
-        return(foo(object=object,
-          metrics=list(Rec=rec, SSB=ssb, Catch=catch, F=fbar)))
-      } else if(tolower(units(harvest(object))) == "hr") {
-        return(foo(object=object,
-          metrics=list(Rec=rec, SSB=ssb, Catch=catch, HR=fbar)))
-      } else {
-        return(foo(object=object,
-          metrics=list(Rec=rec, SSB=ssb, Catch=catch)))
-      }
-    }
+    # COMPUTE
+    res <- foo(object=object, metrics=c(list(Rec=rec, SSB=ssb, Catch=catch, F=fbar),
+      list(...)))
+
+    # SET fbar name by units(harvest)
+    if(units(harvest(object)) == "HR")
+      names(res)[[4]] <- "HR"
+
+    return(res)
   }
-) # }}}
+)
+
+# }}}
 
 # catch<- FLQuants		{{{
 

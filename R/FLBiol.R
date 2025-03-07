@@ -1425,3 +1425,27 @@ setReplaceMethod("deviances", signature(object="FLBiol", value="FLQuant"),
 )
 
 # }}}
+
+# metrics {{{
+
+#' @rdname metrics
+#' @examples
+#' data(ple4.biol)
+#' # Get default metrics
+#' metrics(ple4.biol)
+#' # Adds to defaults
+#' metrics(ple4.biol, PG=function(x) n(x)[10,])
+#' # Defines metrics to be computed
+#' metrics(ple4.biol, metrics=list(PG=function(x) n(x)[10,]))
+
+setMethod("metrics", signature(object="FLBiol", metrics="missing"),
+  function(object, ...) {
+
+    # HACK for some method dispatch problem
+    foo <- selectMethod("metrics", c(object="FLBiol", metrics="list"))
+
+    return(foo(object=object, metrics=c(list(R=rec, B=tsb), list(...))))
+  }
+)
+
+# }}}
