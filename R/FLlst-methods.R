@@ -120,7 +120,12 @@ setMethod("lapply", signature(X="FLlst"),
     # GET output class
     cls <- getPlural(lst[[1]])
 
+    # CREATE output object if not list
     if(cls != 'list') {
+      # IF output elements same class as input elements, return same class as X
+      if(is(lst[[1]], class(X[[1]])))
+        cls <- as.character(class(X))
+      
       lst <- new(cls, lst, lock=FALSE, names=attr(X, 'names'),
         desc=attr(X, 'desc'))
     }
