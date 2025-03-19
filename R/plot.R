@@ -83,105 +83,14 @@ setMethod("plot", signature(x="FLQuant", y="missing"),
 #' plot(ple4)
 #' plot(ple4sex)
 #'
+
 setMethod("plot", signature(x="FLStock", y="missing"),
 	function(x, auto.key=TRUE, ...)
   {
-    # create data.frame with catch/landings+discards/discards
-    obj <- as.data.frame(FLQuants(catch=apply(catch(x), c(1,2,6), sum),
-      landings=apply(landings(x), c(1,2,6), sum)))
-    obj$panel <- 'catch'
-
-    # ssb
-    obj <- rbind(obj, data.frame(as.data.frame(FLQuants(ssb=apply(ssb(x), c(1,2,6),
-      sum))), panel='SSB'))
-
-    # harvest
-    if(units(harvest(x)) == "f")
-      obj <- rbind(obj, data.frame(as.data.frame(FLQuants(harvest=apply(fbar(x),
-        c(1,2,6), sum))), panel='harvest'))
-    else if(units(harvest(x)) == "harvest")
-      obj <- rbind(obj, data.frame(as.data.frame(FLQuants(harvest=apply(
-        quantSums(harvest(x)), c(1,2,6), sum))), panel='harvest'))
-
-    # and rec
-    obj <- rbind(obj[,-1], data.frame(as.data.frame(FLQuants(rec=apply(rec(x),
-      c(1,2,6), sum))), panel='recruits')[,-1])
-
-    # default options
-    options <- list(scales=list(relation='free'), ylab="", xlab="",
-      main=ifelse(length(name(x)) > 0, name(x), ""), col='black', lwd=2, cex=0.6,
-      box.width=1, probs=c(0.05,0.5,0.95), par.settings=list(strip.background=list(col="gray80")))
-    args <- list(...)
-    options[names(args)] <- args
-
-    # pfun
-    pfun <- function(x, y, groups, subscripts, iter=obj$iter, options, ...)
-    {
-      # catch/landings/discards
-      if(panel.number() == 1)
-      {
-        idx <- groups == 'catch'
-        if(length(levels(iter)) > 1)
-        {
-          # median
-          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-          panel.xyplot(unique(x[idx]),
-            tapply(y[idx], x[idx], quantile, options$probs[2], na.rm=TRUE), type= 'l', ...)
-          # 95% quantile
-          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-          panel.xyplot(unique(x[idx]),
-            tapply(y[idx], x[idx], quantile, options$probs[3], na.rm=TRUE), type= 'l', lwd=1, lty=2,
-            col='grey50')
-          # 5% quantile
-          #panel.xyplot(x[idx][iter[idx] == levels(iter[idx])[1]],
-          panel.xyplot(unique(x[idx]),
-            tapply(y[idx], x[idx], quantile, options$probs[1], na.rm=TRUE), type= 'l', lwd=1, lty=2,
-            col='grey50')
-          # landings bars
-          idx <- groups == 'landings'
-          #panel.barchart(x[idx][iter[idx] == levels(iter[idx])[1]],
-          panel.barchart(unique(x[idx]),
-            tapply(y[idx], x[idx], median), horizontal=FALSE, col=rgb(0.1, 0.1, 0, 0.1),
-            box.width=options$box.width, lwd=0, origin=0)
-        }
-        else
-        {
-          panel.xyplot(x[idx], y[idx], type= 'l', ...)
-          panel.xyplot(x[idx][x==max(x)], y[idx][x==max(x)], type='p', ...)
-          # landings & discards bars
-          idx <- groups == 'landings'
-          panel.barchart(x[idx], y[idx], horizontal=FALSE, col=rgb(0.1, 0.1, 0, 0.1),
-            box.width=options$box.width, lwd=0, origin=0)
-        }
-        # key
-        draw.key(list(text=list(lab='catch'),
-          lines=list(lwd=c(2)),
-          text=list(lab='landings'),
-          rectangles=list(col=rgb(0.1, 0.1, 0, 0.1))),
-          vp = viewport(x = unit(0.5, "npc"), y = unit(0.95, "npc")), draw=TRUE)
-      }
-      else
-      {
-        if(length(levels(iter)) > 1)
-        {
-          # median
-          panel.xyplot(unique(x), tapply(y, x, quantile, options$probs[2], na.rm=TRUE), type= 'l', ...)
-          # 95% quantile
-          panel.xyplot(unique(x), tapply(y, x, quantile, options$probs[3], na.rm=TRUE), type= 'l',
-            lwd=1, lty=2, col='grey50')
-          # 5% quantile
-          panel.xyplot(unique(x), tapply(y, x, quantile, options$probs[1], na.rm=TRUE), type= 'l',
-            lwd=1, lty=2, col='grey50')
-        }
-        else
-        {
-          panel.xyplot(x, y, type='l', ...)
-          panel.xyplot(x[x==max(x)], y[x==max(x)], type='p', ...)
-        }
-      }
-    }
-    do.call(xyplot, c(list(x=data ~ year|panel, data=obj, panel=pfun,
-      groups=expression(qname), options = options), options))
+	args <- list(...)
+	args$x <- FLStocks(x)
+	args$auto.key=auto.key
+	do.call("plot", args)	
 	}
 )	# }}}
 
@@ -769,7 +678,8 @@ setMethod('plot', signature(x='FLStocks', y='missing'),
         }
         options$prepanel <- function(x, y, subscripts, ...){
             lst <- prepanel.default.xyplot(x,y)
-            lst$ylim <- c(0,1.1*max(dfs[dfs$qname==dfs[subscripts[1],"qname"],"data"]))
+            #lst$ylim <- c(0,1.1*max(dfs[dfs$qname==dfs[subscripts[1],"qname"],"data"]))
+            lst$ylim <- c(0,max(dfs[dfs$qname==dfs[subscripts[1],"qname"],"data"]))
             lst
         }
         options$x <- data~year|stock*qname
