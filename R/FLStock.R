@@ -1940,7 +1940,7 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
 
     # PARSE years
     pyears <- lapply(pyears, function(y) {
-      if(length(y) == 1)
+      if (length(y) == 1)
         dimnames(x)$year[seq(dx[2] - y + 1, dx[2])]
       else
         match(y, dimnames(x)$year)
@@ -1951,17 +1951,17 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
 
     # SET window years
     wyrs <- seq(dx[2] + 1, dim(m(res))[2])
-    
+
     # EXTRACT 'fun' names and find empty
     inms <- !nzchar(names(fun))
 
     # IF one argument, USE on all blocks
-    if(length(fun) == 1) {
+    if (length(fun) == 1 & !is.list(fun)) {
       funs <- setNames(rep(list(match.arg(fun)), 6), nm=names(pyears))
     # IF 2 or more
     } else {
       # ANY unnamed function? SET as default
-      if(sum(inms) == 1) {
+      if (sum(inms) == 1) {
         funs <- setNames(rep(fun[inms], 6), nm=names(pyears))
       # ELSE set 'mean'
       } else {
