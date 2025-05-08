@@ -197,9 +197,9 @@ setMethod("trim", signature(x="FLS"), function(x, ...){
 #' # Get default metrics
 #' metrics(ple4)
 #' # Adds to defaults
-#' metrics(ple4, PG=function(x) n(x)[10,])
+#' metrics(ple4, PG=function(x) stock.n(x)[10,])
 #' # Defines metrics to be computed
-#' metrics(ple4, metrics=list(PG=function(x) n(x)[10,]))
+#' metrics(ple4, metrics=list(PG=function(x) stock.n(x)[10,]))
 
 #' @rdname metrics
 
