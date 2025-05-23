@@ -823,6 +823,12 @@ setMethod('[', signature(x='FLStock'),
 
       }
 
+    # RECOMPUTE aggregated slots
+		if (!missing(i)) {
+      stock(x) <- computeStock(x)
+      catch(x) <- computeCatch(x, 'all')
+    }
+
     # year
     x@range['minyear'] <- ds$minyear
     x@range['maxyear'] <- ds$maxyear
