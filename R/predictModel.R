@@ -505,7 +505,7 @@ setMethod("propagate", signature(object="predictModel"),
 
     # EXPAND FLQs, if not empty
     if(!is.null(fqi)) {
-      object@.Data <- lapply(object, propagate, iter, fill.iter=fill.iter)
+      object@.Data <- lapply(object@.Data, propagate, iter, fill.iter=fill.iter)
     }
 
     # EXPAND FLP, if not empty
