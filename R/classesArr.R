@@ -315,13 +315,13 @@ setClass("FLQuantPoint",
 #' with objects of class \code{FLQuant} (\code{FLArray}) as follows:
 #'
 #' \describe{
-#'     \item{+, FLQuantDistr,FLArray}{.}
-#'     \item{-, FLQuantDistr,FLArray}{.}
-#'     \item{*, FLQuantDistr,FLArray}{.}
-#'     \item{/, FLQuantDistr,FLArray}{.}
-#'     \item{+, FLQuantDistr,FLQuantDistr}{.}
-#'     \item{-, FLQuantDistr,FLQuantDistr}{.}
-#'     \item{*, FLQuantDistr,FLQuantDistr}{.}
+#'     \item{`+`, FLQuantDistr,FLArray}{.}
+#'     \item{`-`, FLQuantDistr,FLArray}{.}
+#'     \item{`*`, FLQuantDistr,FLArray}{.}
+#'     \item{`/`, FLQuantDistr,FLArray}{.}
+#'     \item{`+`, FLQuantDistr,FLQuantDistr}{.}
+#'     \item{`-`, FLQuantDistr,FLQuantDistr}{.}
+#'     \item{`*`, FLQuantDistr,FLQuantDistr}{.}
 #' }
 #' @author The FLR Team
 #' @seealso \link{FLQuant}

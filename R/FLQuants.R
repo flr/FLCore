@@ -123,7 +123,12 @@ setMethod("mcf", signature(object="list"), function(object){
 # as.data.frame	{{{
 setMethod("as.data.frame", signature(x="FLQuants", row.names="ANY", optional="missing"),
   function(x, row.names, drop=FALSE, qname="qname", ...) {
-		
+
+    # CHECK quant names
+    qnms <- unlist(lapply(x, quant))
+    if(length(unique(qnms)) > 1)
+      stop("'quant' names in objects do not match")
+
     # names
 		if(is.null(names(x)))
 			flqnames <- paste("v", 1:length(x), sep="")
