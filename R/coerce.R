@@ -349,6 +349,7 @@ setAs('FLStock', 'FLBiol',
 
 setAs('FLBiol', 'FLBiolcpp',
   function(from) {
+
     if("year" %in% names(from@rec@params))
       srparams <- window(as(from@rec@params, "FLQuant"),
         start=dims(from)$minyear, end=dims(from)$maxyear)

@@ -782,15 +782,13 @@ setMethod("fwdWindow", signature(x="FLBiol", y="missing"),
     if(length(res@mat@.Data) > 0)
     res@mat@.Data <- lapply(mat(res, FALSE), function(x) {
       x[, wyrs] <- yearMeans(x[, sqyrs])
-      return(x)
-      })
+      return(x)})@.Data
 
     # fec
     if(length(res@fec@.Data) > 0)
     res@fec@.Data <- lapply(fec(res, FALSE), function(x) {
       x[, wyrs] <- yearMeans(x[, sqyrs])
-      return(x)
-      })
+      return(x)})@.Data
 
     # rec: EXTEND only
     if(length(res@rec@.Data) > 0)
