@@ -9,7 +9,7 @@ You can report bugs at the issue page on each package github repository. For *FL
 
 <https://github.com/flr/FLCore/issues/>
 
-Or you can drop us a line at `flrteam@flr-project.org`.
+Or you can drop us a line at `flrteam@flrproject.org`.
 
 ## Comment on the documentation
 
@@ -31,7 +31,7 @@ If you have used **FLR** for your work and would like to show how it has helped,
 
 <https://github.com/flr/gallery>
 
-and submit a pull request with your document. We will test it and upload it to the [**FLR** website](http://flr-project.org/gallery).
+and submit a pull request with your document. We will test it and upload it to the [**FLR** website](http://flrproject.org/gallery).
 
 ## Contribute code
 

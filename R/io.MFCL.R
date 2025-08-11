@@ -1,7 +1,7 @@
 # io.MFCL - Loading Multifan-CL results into FLR
 # io.MFCL
 
-# Copyright 2010 FLR Team <flr-team@flr-project.org>
+# Copyright 2010 FLR Team <flr-team@flrproject.org>
 # Distributed under the GPL 2 or later
 # $Id:  $
 
