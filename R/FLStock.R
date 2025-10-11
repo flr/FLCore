@@ -648,9 +648,10 @@ meanwtCatch <- function(object) {
 #' # and metric changed from 'ssb' default
 #' depletion(ple4, metric=tsb)
 
+# TODO: ADD season selection
 setMethod("depletion", signature(x="FLStock"),
-  function(x, B0=unitSums(do.call(metric, list(x))[, 1]), metric=ssb) {
-    unitSums(do.call(metric, list(x))) / c(B0)
+  function(x, B0=unitSums(do.call(metric, list(x))[, 1]), index=ssb) {
+    unitSums(do.call(index, list(x))) / c(B0)
   }
 )
 # }}}
@@ -1333,6 +1334,18 @@ nounit <- function(stock) {
 }
 
 # }}}
+
+#' @examples
+#' data(ple4)
+#' x <- FLQuants(landings.wt(stock), discards.wt(stock))
+#' w <- FLQuants(landings.n(stock), discards.n(stock))
+#' # Computes weighted mean of landings and discards weights-at-age
+#' weighted.mean(x, w)
+
+setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
+  function(x, w) {
+    Reduce('+', Map('*', x, w)) / Reduce('+', lapply(w, '+', 1e-36))
+  })
 
 # noseason {{{
 

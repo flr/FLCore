@@ -276,7 +276,8 @@ setMethod("unitSums", signature(x="FLQuants"),
 #' computing the product of each element to its corresponding weight, and
 #' dividing by the sum of all weights.
 #' NAs in the value elements are substituted for zeroes, so do not influence
-#' the mean.
+#' the mean. Weights are addedn a small quantity (1e-36) to avoid division over zero
+#' errors
 #'
 #' @param x Values to be averaged, as an object of class `FLQuants`.
 #' @param w weights to be used, as an object of class `FLQuants`.
@@ -289,9 +290,10 @@ setMethod("unitSums", signature(x="FLQuants"),
 #' @md
 #' @examples
 #' data(ple4)
+#' x <- FLQuants(landings.wt(stock), discards.wt(stock))
+#' w <- FLQuants(landings.n(stock), discards.n(stock))
 #' # Weighted mean of landings and discards weights-at-age
-#' weighted.mean(FLQuants(L=landings.wt(ple4), D=discards.wt(ple4)),
-#'   FLQuants(L=landings.n(ple4), D=discards.n(ple4)))
+#' weighted.mean(x, w)
 
 setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
   function(x, w) {
@@ -303,7 +305,7 @@ setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
   na <- FLQuants(lapply(x, function(i) FLQuant(ifelse(is.na(i), 0, 1))))
  
   # COMPUTE average
-  res <- Reduce('+', xa * (w * na)) / Reduce('+', w * na)
+  res <- Reduce('+', Map('*', x, w * na)) / Reduce('+', lapply(w * na, '+', 1e-36))
 
   # COMPUTE arithmetic mean
   arm <- Reduce('+', x) / length(x)

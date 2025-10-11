@@ -31,7 +31,11 @@ setMethod("computeDiscards", signature(object="FLS"),
 #' @aliases computeCatch,FLS-method computeCatch,FLStock-method
 #' computeCatch,FLStockLen-method
 setMethod("computeCatch", signature(object="FLS"),
-  function(object, slot="catch", na.rm=TRUE) {
+  function(object, slot=c("catch", "n", "wt", "both", "all"), na.rm=TRUE) {
+
+    # SELECT slot arg
+    slot <- match.arg(slot)
+
     # PROPAGATE in case iters differ among slots
     object <- propagate(object, dims(object)$iter)
 
@@ -54,15 +58,19 @@ setMethod("computeCatch", signature(object="FLS"),
           (discards.wt(object) * (discards.n(object) + 1e-16))) / 
           (landings.n(object) + discards.n(object) + 1e-16)
     }
-    else if (slot == "all") {
-      land <- computeLandings(object)
-      disc <- computeDiscards(object)
+    else if (slot == "both") {
       ctch.n     <-computeCatch(object, slot="n")
       ctch.wt    <-computeCatch(object, slot="wt")
       ctch       <-quantSums(ctch.n * ctch.wt, na.rm=na.rm)
 
-      res <- FLQuants(catch.wt=ctch.wt, catch.n =ctch.n, catch=ctch,
-        landings=land, discards=disc)
+      res <- FLQuants(catch.wt=ctch.wt, catch.n=ctch.n, catch=ctch)
+    }
+    else if (slot == "all") {
+      land <- computeLandings(object)
+      disc <- computeDiscards(object)
+      res <- computeCatch(object, slot="both")
+
+      res <- FLQuants(c(res, list(landings=land, discards=disc)))
     }
     else {
       res <- quantSums(catch.n(object) * catch.wt(object), na.rm=na.rm)

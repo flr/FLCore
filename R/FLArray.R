@@ -463,6 +463,7 @@ setMethod("summary", signature(object="FLArray"),
 
 setMethod("show", signature(object="FLArray"),
   function(object){
+    # summary(object)
     print(object)
   })
 # }}}
