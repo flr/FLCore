@@ -2259,3 +2259,41 @@ setMethod("leslie", signature(object="FLQuant", fec="FLQuant"),
   }
 )
 # }}}
+
+# which_iter {{{
+
+#' @title which_iter
+#' @description Returns the positions along the 'iter' dimension that match a logical estatement
+#' @param x An input object, class 'FLQuant'
+#' @param rule A logical 'rule', either as a 'character' or a logical 'FLQuant'
+#' @return As vector of positions along the 'iter' (6th) dimension
+#' @details DETAILS
+#' @examples
+#' # Creates an example object
+#' x <- rnorm(50, FLQuant(runif(5, 10, 20)), 20)
+#' # Looks for iters with a large value
+#' which_iter(x, x > 60)
+#' # rule as a character vector
+#' which_iter(x, '> 60')
+#' # rule has use & and |
+#' which_iter(x, '> 50 & < 60')
+#' which_iter(x, '< -40 | > 40')
+#' @rdname which_iter
+
+which_iter  <- function(x, rule) {
+ 
+  # IF x is character
+  if(is(rule, 'character')) {
+    
+    # PARSE & and |, add x
+    rule <- paste('x', gsub('([&|])', '\\1 x', rule))
+    
+    # EVAL on x
+    rule <- eval(parse(text=rule))
+  }
+
+  # APPLY rule along iter and find positions of matches
+  return(unname(which(apply(rule > 0, 6, sum) > 0)))
+}
+
+# }}}

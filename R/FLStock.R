@@ -1300,6 +1300,8 @@ nounit <- function(stock) {
   # CONVERT to vectors
   dat <- qapply(stock, c)
 
+  # TODO: REPLICATE if length differs
+
   # SUBSET and rename
   stock <- stock[,,1]
   dimnames(stock) <- list(unit="unique")
@@ -1335,10 +1337,12 @@ nounit <- function(stock) {
 
 # }}}
 
+# weighted.mean {{{
+
 #' @examples
 #' data(ple4)
-#' x <- FLQuants(landings.wt(stock), discards.wt(stock))
-#' w <- FLQuants(landings.n(stock), discards.n(stock))
+#' x <- FLQuants(landings.wt(ple4), discards.wt(ple4))
+#' w <- FLQuants(landings.n(ple4), discards.n(ple4))
 #' # Computes weighted mean of landings and discards weights-at-age
 #' weighted.mean(x, w)
 

@@ -48,7 +48,7 @@ computeStock(object, ...)
 
 \S4method{computeDiscards}{FLS}(object, na.rm = TRUE)
 
-\S4method{computeCatch}{FLS}(object, slot = "catch", na.rm = TRUE)
+\S4method{computeCatch}{FLS}(object, slot = c("catch", "n", "wt", "both", "all"), na.rm = TRUE)
 
 \S4method{computeStock}{FLS}(object, na.rm = TRUE)
 }

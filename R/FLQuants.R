@@ -290,8 +290,8 @@ setMethod("unitSums", signature(x="FLQuants"),
 #' @md
 #' @examples
 #' data(ple4)
-#' x <- FLQuants(landings.wt(stock), discards.wt(stock))
-#' w <- FLQuants(landings.n(stock), discards.n(stock))
+#' x <- FLQuants(landings.wt(ple4), discards.wt(ple4))
+#' w <- FLQuants(landings.n(ple4), discards.n(ple4))
 #' # Weighted mean of landings and discards weights-at-age
 #' weighted.mean(x, w)
 

@@ -222,6 +222,7 @@ export(
   "uom",
   "uomUnits",
   "vonbert",
+  "which_iter",
   "writeADMB",
   "writeFLStock",
   "ybind",

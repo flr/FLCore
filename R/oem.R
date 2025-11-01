@@ -74,9 +74,9 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
     # ADD propatage
     catch.n(index)[ages,] <- abnd
 
-    # APPLY Q on biomass
-    index(index) <- c(index.q * unitSums(quantSums(abnd *
-      catch.wt[ages, dimnames(index)$year])) ^ stability)
+    # COMPUTE biomass index
+    index(index) <- c(unitSums(quantSums(abnd *
+      catch.wt[ages, dimnames(index)$year] %*% index.q)) ^ stability)
 
     return(index)
 
