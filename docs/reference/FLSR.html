@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">FLCore</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.20.9340</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.20.9343</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,14 +134,14 @@ formulation implemented for each of them.</p>
 <span class="r-in"><span>  <span class="va">sr2</span> <span class="op">&lt;-</span> <span class="fu">FLSR</span><span class="op">(</span>model <span class="op">=</span> <span class="st">'ricker'</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">sr2</span><span class="op">@</span><span class="va">model</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rec ~ a * ssb * exp(-b * ssb)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d3726ebde0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563fd6d29d78&gt;</span>
 <span class="r-in"><span>  <span class="va">sr2</span><span class="op">@</span><span class="va">initial</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(rec, ssb) {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 		# The function to provide initial values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     res  &lt;-coefficients(lm(log(c(rec)/c(ssb))~c(ssb)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(FLPar(a=max(exp(res[1])), b=-max(res[2])))}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d3726e6550&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d3726ebde0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x563fd6d24408&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563fd6d29d78&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"lower")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"upper")</span>
@@ -149,20 +149,20 @@ formulation implemented for each of them.</p>
 <span class="r-in"><span>  <span class="va">sr2</span><span class="op">@</span><span class="va">logl</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(a, b, rec, ssb)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       loglAR1(log(rec), log(a*ssb*exp(-b*ssb)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d3726e4c50&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d3726ebde0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x563fd6d20a98&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563fd6d29d78&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="va">sr3</span> <span class="op">&lt;-</span> <span class="fu">FLSR</span><span class="op">(</span>model <span class="op">=</span> <span class="st">'bevholt'</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">sr3</span><span class="op">@</span><span class="va">model</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rec ~ a * ssb/(b + ssb)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d372ad2e30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563fd70d5b18&gt;</span>
 <span class="r-in"><span>  <span class="va">sr3</span><span class="op">@</span><span class="va">initial</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(rec, ssb) {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     a &lt;- max(quantile(c(rec), 0.75, na.rm = TRUE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(FLPar(a = a, b = a/b))}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d372acbed0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d372ad2e30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x563fd70c85f0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563fd70d5b18&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"lower")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"upper")</span>
@@ -170,8 +170,8 @@ formulation implemented for each of them.</p>
 <span class="r-in"><span>  <span class="va">sr3</span><span class="op">@</span><span class="va">logl</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function(a, b, rec, ssb)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       loglAR1(log(rec), log(a*ssb/(b+ssb)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d372aca560&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d372ad2e30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x563fd70c6b30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563fd70d5b18&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Create an FLSR using a function.</span></span></span>
 <span class="r-in"><span>  <span class="va">mysr1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span></span>
@@ -365,7 +365,7 @@ formulation implemented for each of them.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

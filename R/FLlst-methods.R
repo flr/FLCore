@@ -50,7 +50,7 @@ setReplaceMethod("$", signature(x="FLlst", value="ANY"),
 	function(x, name, value)
 	{
 		if(isTRUE(x@lock) & is.na(match(name, names(x))))
-			stop("The object is locked. You can not add non-exismetent elements.")
+			stop("The object is locked. You can not add non-existent elements.")
 		
     # ASSIGN by name
     x@.Data[[match(name, names(x))]] <- value

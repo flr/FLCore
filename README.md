@@ -3,6 +3,7 @@
 ![CRAN/METACRAN License](https://img.shields.io/cran/l/FLCore)
 [![FLCore status badge](https://flr.r-universe.dev/badges/FLCore)](https://flr.r-universe.dev/FLCore)
 ![GitHub issues](https://img.shields.io/github/issues/flr/FLCore)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/flr/FLCore)
 
 ## Overview
 FLCore contains the core classes and methods for FLR, a framework for fisheries modelling and management strategy simulation in R.
