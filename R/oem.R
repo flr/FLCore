@@ -572,7 +572,9 @@ setMethod("mase", signature(ref="FLIndices", preds="list"),
 #' plot(devs)
 
 ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
-  bias.correct=TRUE, ...) {
+  bias.correct=FALSE, ...) {
+
+  message("This function will soon be deprecated. Please use 'rlnormar1'")
 
   # DIMs
 	n <- length(years)
@@ -602,7 +604,7 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 # rlnormar1 {{{
 
 rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
-  bias.correct=TRUE) {
+  bias.correct=FALSE) {
 
   # SET iters
   if(is.null(n))

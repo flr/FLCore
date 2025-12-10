@@ -51,7 +51,7 @@
 #' y <- 45
 #' foo(params=list(x=4))
 
-spread <- function(object, FORCE=FALSE) {
+spread <- function(object, FORCE=FALSE, verbose=FALSE) {
 
   object <- as(object, 'list')
   frame <- sys.nframe() - 1
@@ -68,6 +68,10 @@ spread <- function(object, FORCE=FALSE) {
   # ASSIGN elements in object to calling envir
   out <- lapply(names(object), function(e) assign(e, object[[e]],
     pos=sys.frame(frame)))
+
+  if(verbose)
+    message("Variables loaded: ",
+      paste0(names(object), collapse=", "), ".\n")
 
   # RETURN names of new objects
   invisible(names(object))
