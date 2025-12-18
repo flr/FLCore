@@ -1204,3 +1204,57 @@ setMethod("intersect", signature(x="FLArray", y="FLArray"),
       do.call("[", c(list(y), dres))))
   }
 ) # }}}
+
+# whichdimnames {{{
+
+#' Extract dimnames values for positions returned by a logical estatement
+#'
+#' @title whichdimnames
+#' @description
+#' Given a names array (an FLQuAnt or FLPar) \code{x}, find the positions for which
+#' \code{which(x, arr.ind = TRUE)} is \code{TRUE} (or non-zero) and return a
+#' data.frame with the corresponding dimnames values for each dimension.
+#'
+#' For each matching position the returned data.frame contains one column per
+#' array dimension. Column names are taken from the array's dimnames.
+#'
+#' @param x An array-based object (FLQuant, FLPar). 
+#'   Values selected are those for which \code{which(x, arr.ind = TRUE)} returns rows.
+#' @return A data.frame with one row per selected element of \code{x} and one
+#'   column per array dimension. Each cell contains the dimname (character) for
+#'   that dimension at the selected index.
+#' @examples
+#' # lnorm FLQuant
+#' tes <- rlnorm(20, FLQuant(0, dim=c(1, 10)))
+#' # dimnames of values > 5
+#' whichdimnames(tes > 5)
+#'
+#' @seealso \code{\link{which}}
+
+whichdimnames <- function(x) {
+
+  # GET positions by array dim
+  pos <- which(x, arr.ind=TRUE)
+
+  # GET dimnames
+  dms <- dimnames(x)
+
+  # SUBSET dimnames by column (dim)
+  as.data.frame((lapply(setNames(nm=colnames(pos)), function(i)
+    dms[[i]][pos[,i]])))
+}
+whichdimnames <- function(x) {
+
+  # GET positions by array dim
+  pos <- which(x, arr.ind=TRUE)
+
+  # GET dimnames
+  dms <- dimnames(x)
+
+  # SUBSET dimnames by column (dim)
+  as.data.frame((lapply(setNames(nm=colnames(pos)), function(i)
+    dms[[i]][pos[,i]])))
+}
+
+# }}}
+
