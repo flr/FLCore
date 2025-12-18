@@ -152,7 +152,7 @@ setMethod("ssb", signature(object="FLStock"),
       ph=harvest.spwn(object), m=m(object), pm=m.spwn(object),
       wt=stock.wt(object), sel=mat(object), byage=byage)
 
-    return(res)
+    return(unitSums(res))
 	}
 )	
 
@@ -1973,6 +1973,7 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
     res <- window(x, end=end, extend=TRUE, frequency=1)
 
     # SET window years
+    # BUG: zero
     wyrs <- seq(dx[2] + 1, dim(m(res))[2])
 
     # EXTRACT 'fun' names and find empty
