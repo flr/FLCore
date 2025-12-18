@@ -225,6 +225,7 @@ export(
   "uomUnits",
   "vonbert",
   "which_iter",
+  "whichdimnames",
   "writeADMB",
   "writeFLStock",
   "ybind",

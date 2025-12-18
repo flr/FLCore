@@ -10,7 +10,7 @@ ar1rlnorm(
   iters = 1,
   meanlog = 0,
   sdlog = 1,
-  bias.correct = TRUE,
+  bias.correct = FALSE,
   ...
 )
 }
