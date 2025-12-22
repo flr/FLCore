@@ -650,7 +650,7 @@ meanwtCatch <- function(object) {
 
 # TODO: ADD season selection
 setMethod("depletion", signature(x="FLStock"),
-  function(x, B0=unitSums(do.call(metric, list(x))[, 1]), index=ssb) {
+  function(x, B0=unitSums(do.call(index, list(x))[, 1]), index=ssb) {
     unitSums(do.call(index, list(x))) / c(B0)
   }
 )
