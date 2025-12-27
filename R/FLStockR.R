@@ -202,11 +202,11 @@ setAs('FLStockR', 'FLStock',
 # depletion {{{
 
 setMethod("depletion", signature(x="FLStockR"),
-  function(x, SB0=refpts(x)$SB0) {
-    if(is.character(SB0))
-      SB0 <- refpts(x)[SB0,]
+  function(x, B0=refpts(x)$B0) {
+    if(is.character(B0))
+      B0 <- refpts(x)[B0,]
 
-    return(unitSums(ssb(x)) / c(SB0))
+    return(unitSums(ssb(x)) / c(B0))
   }
 )
 # }}}
