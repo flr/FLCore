@@ -444,7 +444,7 @@ lmaxy <- function(x, lenwt) {
 
   # GET length with max yield
   maxlen <- biom == expand(apply(biom, 2:6,  max),
-    len=dimnames(x)$len)
+    len=dimnames(x)$len, fill=TRUE)
 
   # FIND len that matches maxlen
   res <- FLQuant(c(lens)[c(maxlen)], dimnames=c(list(len='all'),
