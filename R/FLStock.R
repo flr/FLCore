@@ -805,9 +805,11 @@ setMethod('[', signature(x='FLStock'),
 
       # min
       x@range["min"] <- ds$min
+      x@range["minyear"] <- ds$minyear
 
       # max
       x@range["max"] <- ds$max
+      x@range["maxyear"] <- ds$maxyear
 
       # minfbar < min
       if(x@range["minfbar"] < ds$min)

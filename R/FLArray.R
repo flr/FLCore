@@ -568,7 +568,7 @@ setMethod('trim', signature(x='FLArray'),
 
 # expand {{{
 setMethod('expand', signature(x='FLArray'),
-  function(x, ..., fill=TRUE) {
+  function(x, ..., fill=FALSE) {
 
     args <- list(...)
     dnx <- dimnames(x)
@@ -594,12 +594,14 @@ setMethod('expand', signature(x='FLArray'),
     res <- new(class(x), array(as.numeric(NA), dimnames=dimnames,
       dim=unlist(lapply(dimnames, length))), units=units(x))
 
-    # IF !fill, return
-    if(!fill)
-      return(res)
+    # IF !fill, assign existing data only
+    if(!fill) {
+      names(dnx) <- c('i', 'j', 'k', 'l', 'm', 'n')
+      return(do.call('[<-', c(list(x=res, value=x), dnx)))
+    }
     
     # ANY dim with new names?
-    new <- unlist(Map(function(x,y) !all(x %in% y), x=dnx, y=dimnames))
+    new <- unlist(Map(function(x,y) !all(x %in% y), y=dnx, x=dimnames))
     
     # ASSIGN new dimnames in 'new' dims
     dnx[new] <- dimnames(res)[new]
