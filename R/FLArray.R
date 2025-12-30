@@ -619,8 +619,6 @@ setMethod('expand', signature(x='FLArray'),
       return(do.call('[<-', c(list(x=res, value=x),
         setNames(dnx[new], nm=c('i', 'j', 'k', 'l', 'm', 'n')[new]))))
 
-    # ASSIGN elements to new space only on nma dims
-
     # ASSIGN new dimnames in 'new' dims
     dnx[new] <- dimnames(res)[new]
 
