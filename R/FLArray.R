@@ -586,29 +586,40 @@ setMethod('expand', signature(x='FLArray'),
     
     # match specified dimensions and dimnames
     dimnames <- dnx
-    
+
     # new dimnames
     dimnames[names(select)] <- select
 
+    # ANY dim with new names?
+    new <- unlist(Map(function(x,y) !all(x %in% y), y=dnx, x=dimnames))
+    
+    # RETURN original IF no new dims
+    if(!any(new))
+      return(x)
+    
     # output object
     res <- new(class(x), array(as.numeric(NA), dimnames=dimnames,
       dim=unlist(lapply(dimnames, length))), units=units(x))
 
-    # ANY dim with new names?
-    new <- unlist(Map(function(x,y) !all(x %in% y), y=dnx, x=dimnames))
-
     # ARE old dims in new?
     nma <- unlist(Map(function(x, y) any(x %in% y), x=dnx[new], y=dimnames[new]))
 
-    # IF !fill, assign existing data only if over 1 dim
-    if(!fill) {
-      if(!nma)
+    # RETURN empty IF no dims
+    if(all(!nma)){
+      if(!fill)
         return(res)
       else {
-        names(dnx) <- c('i', 'j', 'k', 'l', 'm', 'n')
-        return(do.call('[<-', c(list(x=res, value=x), dnx[nma])))
+        res[] <- x
+       return(res)
       }
     }
+          
+    # RETURN with old elements in their place
+    if(!fill | all(!nma))
+      return(do.call('[<-', c(list(x=res, value=x),
+        setNames(dnx[new], nm=c('i', 'j', 'k', 'l', 'm', 'n')[new]))))
+
+    # ASSIGN elements to new space only on nma dims
 
     # ASSIGN new dimnames in 'new' dims
     dnx[new] <- dimnames(res)[new]
