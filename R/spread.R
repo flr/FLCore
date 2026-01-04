@@ -51,14 +51,21 @@
 #' y <- 45
 #' foo(params=list(x=4))
 
-spread <- function(object, FORCE=FALSE, verbose=FALSE) {
+spread <- function(object, names=NULL, FORCE=FALSE, verbose=FALSE) {
 
+  # COERCE to list
   object <- as(object, 'list')
+
+  # SET evaluation frame
   frame <- sys.nframe() - 1
 
   # CHECK all elements are names
   if(any(nchar(names(object)) < 1))
     stop("all elements in input to spread() must be named")
+
+  # SELECT elements
+  if(!is.null(names))
+    object <- object[names]
 
   # CHECK names are not in use if FORCE=TRUE
   if(!FORCE)
