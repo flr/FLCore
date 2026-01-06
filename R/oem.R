@@ -73,6 +73,7 @@ setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
 
     # ADD propatage
     catch.n(index)[ages,] <- abnd
+    # catch.n(index) <- expand(abnd, age=dimnames(index)$age, fill=FALSE)
 
     # COMPUTE biomass index
     index(index) <- c(unitSums(quantSums(abnd *
