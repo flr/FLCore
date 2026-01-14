@@ -105,7 +105,7 @@ setquant <- function(x, value) {
 }
 # }}}
 
-#  [             {{{
+# [             {{{
 
 #' Extract
 #'
@@ -171,7 +171,7 @@ setquant <- function(x, value) {
 #'
 setMethod("[", signature(x="FLArray"),
     function(x, i, j, k, l, m, n, ..., drop=FALSE) {
-   
+
       # INTERPRET i as vector of elements
       if(!missing(i) && missing(j) && missing(k) && missing(l) &&
         missing(m) && missing(n) && drop) {
@@ -192,7 +192,7 @@ setMethod("[", signature(x="FLArray"),
       }
 
       dx <- dim(x)
-      
+
       if (missing(i))
         i  <-  seq(1, dx[1])
       if (missing(j))
@@ -1275,4 +1275,3 @@ whichdimnames <- function(x) {
 }
 
 # }}}
-

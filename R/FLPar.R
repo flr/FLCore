@@ -203,7 +203,7 @@ setMethod("[<-", signature(x="FLPar", value="ANY"),
       if(!do.call(missing, list(x=ds)))
         dx[[ds]] <- get(ds)
     }
-    
+
     res  <- new(class(x), do.call('[<-', c(list(x=x@.Data), dx, list(value=value))))
    
     # Add attributes not in standard object   
