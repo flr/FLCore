@@ -2274,8 +2274,12 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     nit <- max(c(dim(object)[6], dim(sr)[6], dim(fbar)[6]))
     object <- propagate(object, nit)
 
+    # SET recruitment age
+    recage <- dims(object)$min
+    nry <- seq(recage)
+
     # SUBSET for projection years
-    obj <- object[, c(yrs[1] - 1, yrs)]
+    obj <- object[, seq(yrs[1] - recage, yrs[length(yrs)])]
 
     # DIMS
     dm <- dim(obj)
@@ -2293,10 +2297,11 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     }
 
     # PARSE sr
-    if(is(sr, "FLQuant"))
+    if(is(sr, "FLQuant")) {
       sr <- predictModel(model=rec~a, params=FLPar(c(sr),
         dimnames=list(params="a", year=dimnames(sr)$year, 
         iter=dimnames(sr)$iter)))
+    }
  
     # SUBSET and EXPAND (JIC) if unit > 1
     deviances <- expand(window(deviances, start=dms$minyear, end=dms$maxyear),
@@ -2305,8 +2310,8 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     # COMPUTE harvest
     fages <- range(object, c("minfbar", "maxfbar"))
 
-    faa[, -1] <- (sel[, -1] %/%
-      quantMeans(sel[ac(seq(fages[1], fages[2])), -1])) %*% fbar
+    faa[, -nry] <- (sel[, -nry] %/%
+      quantMeans(sel[ac(seq(fages[1], fages[2])), -nry])) %*% fbar
 
     faa[is.na(faa)] <- 0
     
@@ -2316,9 +2321,6 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     msp <- m.spwn(obj)
     fsp <- harvest.spwn(obj)
     srp <- exp(-(faa * fsp) - (maa * msp)) * waa * mat
-
-    # SET recruitment age
-    recage <- dms$min
 
     # DEAL with potential covars
     covars <- NULL
@@ -2332,7 +2334,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       warning("Recruitment age in object is '0' and maturity for that age is set greater than 0. Contribution of age 0 SSB to recruitment dynamics is being ignored.")
 
     # LOOP over obj years (i is new year)
-    for (i in seq(dm[2])[-1]) {
+    for (i in seq(dm[2])[-nry]) {
 
       # n
       naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
@@ -2345,20 +2347,20 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
        naa[1, i] <- rep(c(eval(sr@model[[3]],
         c(as(sr@params, 'list'), list(
         ssb=c(colSums(naa[, i - recage, 1] * srp[, i - recage, 1],
-          na.rm=TRUE))), lapply(covars, '[', 1, i-recage)))) / dm[3], each=dm[3]) *
+          na.rm=TRUE))), lapply(covars, '[', 1, i - recage)))) / dm[3], each=dm[3]) *
         c(deviances[, i])
     }
 
   # UPDATE stock.n & harvest
-  stock.n(object)[, yrs] <- naa[, -1]
-  harvest(object)[, yrs] <- faa[, -1]
+  stock.n(object)[, yrs] <- naa[, -nry]
+  harvest(object)[, yrs] <- faa[, -nry]
   
   # UPDATE stock,
   stock(object) <- computeStock(object)
   
   # and catch.n
   catch.n(object)[, yrs] <- (naa * faa / (maa + faa) *
-    (1 - exp(-faa - maa)))[, -1]
+    (1 - exp(-faa - maa)))[, -nry]
 
   # SET landings.n & discards.n to 0 if NA
   landings.n(object)[, yrs][is.na(landings.n(object)[, yrs])] <- 0
