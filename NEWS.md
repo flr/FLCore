@@ -3,6 +3,10 @@
 ## BUG FIXES
 
 - ffwd(FLStock) failed if recage > 2
+ 
+## NEW FEATURES
+
+- as(FLQuant, 'FLPar') explicit method.
 
 # FLCore 2.6.20
 

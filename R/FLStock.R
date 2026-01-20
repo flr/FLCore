@@ -2298,26 +2298,26 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   
   # DEVIANCES
   if(missing(deviances)) {
-  deviances <- rec(obj) %=% 1
+    deviances <- rec(obj) %=% 1
   }
 
   # PARSE sr
   if(is(sr, "FLQuant")) {
-  sr <- predictModel(model=rec~a, params=FLPar(c(expand(sr, year=yrs)[, yrs]),
-    dimnames=list(params="a", year=yrs, iter=dimnames(sr)$iter)))
+    sr <- predictModel(model=rec~a, params=FLPar(c(expand(sr, year=yrs)[, yrs]),
+      dimnames=list(params="a", year=yrs, iter=dimnames(sr)$iter)))
   } else {
-  sr@params <- as(expand(as(sr@params, 'FLQuant'), year=yrs), 'FLPar')
+    sr@params <- as(expand(as(sr@params, 'FLQuant'), year=yrs), 'FLPar')
   }
   
   # SUBSET and EXPAND (JIC) if unit > 1
   deviances <- expand(window(deviances, start=yrs[1], end=yrs[length(yrs)]),
-  unit=dimnames(obj)$unit)
+    unit=dimnames(obj)$unit)
   
   # COMPUTE harvest
   fages <- range(object, c("minfbar", "maxfbar"))
   
   faa[, yrs] <- (sel[, yrs] %/%
-  quantMeans(sel[ac(seq(fages[1], fages[2])), yrs])) %*% fbar
+    quantMeans(sel[ac(seq(fages[1], fages[2])), yrs])) %*% fbar
   
   faa[is.na(faa)] <- 0
   
@@ -2331,34 +2331,34 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   # DEAL with potential covars
   covars <- NULL
   if(is(sr, 'FLSR')) {
-  if (length(sr@covar) > 0)
-    covars <- window(sr@covar, start=dms$minyear, end=dms$maxyear)
+    if (length(sr@covar) > 0)
+      covars <- window(sr@covar, start=dms$minyear, end=dms$maxyear)
   }
   
   # CHECK for mat > 0 if recage is 0
   if(recage == 0 & any(mat(object)[ac(recage),] > 0))
-  warning("Recruitment age in object is '0' and maturity for that age is set greater than 0. Contribution of age 0 SSB to recruitment dynamics is being ignored.")
+    warning("Recruitment age in object is '0' and maturity for that age is set greater than 0. Contribution of age 0 SSB to recruitment dynamics is being ignored.")
   
   # LOOP over obj years (i is new year)
   for (i in seq(recage + 1, length=length(yrs))) {
   
-  # n
-  naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
+   # n
+    naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
   
-  # pg
-  naa[dm[1], i] <- naa[dm[1], i] +
-    naa[dm[1], i-1] * exp(-faa[dm[1], i-1] - maa[dm[1], i-1])
+    # pg
+    naa[dm[1], i] <- naa[dm[1], i] +
+      naa[dm[1], i-1] * exp(-faa[dm[1], i-1] - maa[dm[1], i-1])
   
-  # eval model: rep & divide for unit (sex),
-   naa[1, i] <- rep(c(eval(sr@model[[3]],
-    # params,      
-    c(as(sr@params[, i - recage], 'list'), list(
-    # ssb * srp,
-    ssb=c(colSums(naa[, i - recage] * srp[, i - recage], na.rm=TRUE))),
-    # covars,
-    lapply(covars, '[', 1, i)))) / dm[3], each=dm[3]) *
-    # & deviances
-    c(deviances[, i - recage])
+    # eval model: rep & divide for unit (sex),
+    naa[1, i] <- rep(c(eval(sr@model[[3]],
+      # params,      
+      c(as(sr@params[, i - recage], 'list'), list(
+      # ssb * srp,
+      ssb=c(colSums(naa[, i - recage] * srp[, i - recage], na.rm=TRUE))),
+      # covars,
+      lapply(covars, '[', 1, i)))) / dm[3], each=dm[3]) *
+      # & deviances
+      c(deviances[, i - recage])
   }
   
   # UPDATE stock.n & harvest
@@ -2370,7 +2370,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   
   # and catch.n
   catch.n(object)[, yrs] <- (naa * faa / (maa + faa) *
-  (1 - exp(-faa - maa)))[, yrs]
+    (1 - exp(-faa - maa)))[, yrs]
   
   # SET landings.n & discards.n to 0 if NA
   landings.n(object)[, yrs][is.na(landings.n(object)[, yrs])] <- 0
@@ -2378,15 +2378,15 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   
   # CALCULATE landings.n from catch.n and ratio
   landings.n(object)[, yrs] <- (catch.n(object) * (landings.n(object) / 
-  (discards.n(object) + landings.n(object))))[, yrs]
+    (discards.n(object) + landings.n(object))))[, yrs]
   
   # CALCULATE discards
   discards.n(object)[, yrs] <- (catch.n(object) - landings.n(object))[, yrs]
   
   # COMPUTE average catch.wt
   catch.wt(object)[, yrs] <- weighted.mean(
-  FLQuants(L=landings.wt(object), D=discards.wt(object)),
-  FLQuants(L=landings.n(object), D=discards.n(object)))[, yrs]
+    FLQuants(L=landings.wt(object), D=discards.wt(object)),
+    FLQuants(L=landings.n(object), D=discards.n(object)))[, yrs]
   
   # COMPUTE catch
   catch(object)[, yrs] <- quantSums(catch.n(object) * catch.wt(object))[, yrs]

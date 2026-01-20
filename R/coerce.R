@@ -411,6 +411,13 @@ setAs('data.frame', 'FLPars',
       make.row.names = FALSE)))
   })
 
+setAs('FLQuant', 'FLPar',
+  function(from) {
+
+    return(FLPar(from@.Data))
+
+  })
+
 # }}}
 
 # TO list {{{
