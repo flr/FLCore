@@ -4,7 +4,7 @@
 \alias{spread}
 \title{A function to make available list elements inside a function or method}
 \usage{
-spread(object, FORCE = FALSE, verbose = FALSE)
+spread(object, names = NULL, FORCE = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{object}{A named list or vector whose elements are to be loaded into the calling environment.}

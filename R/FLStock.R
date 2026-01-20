@@ -2267,19 +2267,20 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
     }
 
-    # EXTRACT projection years
-    yrs <- match(dimnames(fbar)$year, dimnames(object)$year)
-
     # PROPAGATE if needed
     nit <- max(c(dim(object)[6], dim(sr)[6], dim(fbar)[6]))
     object <- propagate(object, nit)
 
-    # SET recruitment age
+    # GET recruitment age
     recage <- dims(object)$min
-    nry <- seq(recage)
+
+    # SET input yrs, data yrs, and projection yrs
+    yrs <- match(dimnames(fbar)$year, dimnames(object)$year)
+    dyrs <- seq(yrs[1] - 1 - recage, yrs[length(yrs)])
+    pyrs <- seq(2 + recage, length=length(yrs))
 
     # SUBSET for projection years
-    obj <- object[, seq(yrs[1] - recage, yrs[length(yrs)])]
+    obj <- object[, dyrs]
 
     # DIMS
     dm <- dim(obj)
@@ -2310,8 +2311,8 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     # COMPUTE harvest
     fages <- range(object, c("minfbar", "maxfbar"))
 
-    faa[, -nry] <- (sel[, -nry] %/%
-      quantMeans(sel[ac(seq(fages[1], fages[2])), -nry])) %*% fbar
+    faa[, pyrs] <- (sel[, pyrs] %/%
+      quantMeans(sel[ac(seq(fages[1], fages[2])), pyrs])) %*% fbar
 
     faa[is.na(faa)] <- 0
     
@@ -2334,7 +2335,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       warning("Recruitment age in object is '0' and maturity for that age is set greater than 0. Contribution of age 0 SSB to recruitment dynamics is being ignored.")
 
     # LOOP over obj years (i is new year)
-    for (i in seq(dm[2])[-nry]) {
+    for (i in pyrs) {
 
       # n
       naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
@@ -2352,15 +2353,15 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     }
 
   # UPDATE stock.n & harvest
-  stock.n(object)[, yrs] <- naa[, -nry]
-  harvest(object)[, yrs] <- faa[, -nry]
+  stock.n(object)[, yrs] <- naa[, pyrs]
+  harvest(object)[, yrs] <- faa[, pyrs]
   
   # UPDATE stock,
   stock(object) <- computeStock(object)
   
   # and catch.n
   catch.n(object)[, yrs] <- (naa * faa / (maa + faa) *
-    (1 - exp(-faa - maa)))[, -nry]
+    (1 - exp(-faa - maa)))[, pyrs]
 
   # SET landings.n & discards.n to 0 if NA
   landings.n(object)[, yrs][is.na(landings.n(object)[, yrs])] <- 0

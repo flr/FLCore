@@ -1,3 +1,9 @@
+ FLCore 2.6.22
+
+ BUG FIXES
+
+- ffwd(FLStock) failed if recage > 2
+
  FLCore 2.6.20
 
  NEW FEATURES

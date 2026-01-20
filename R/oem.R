@@ -939,6 +939,55 @@ ifelse(log,return(log(r0)),return(r0))
 
 # roc {{{
 
+#' Receiver Operating Characteristic table with True Skill Statistic (TSS)
+#'
+#' Compute an ROC-style table from binary labels and numeric indicator values.
+#' The function orders observations by the indicator, computes cumulative true
+#' / false positives and negatives, derives TPR and FPR, and returns the True
+#' Skill Statistic (TSS = TPR - FPR) for each threshold.
+#'
+#' @param label Logical, integer (0/1), or FLQuant giving the true class for
+#'   each observation (1 = positive, 0 = negative). Non-logical values are
+#'   coerced to 0/1. Labels must not be all 0 or all 1.
+#' @param ind Numeric vector or FLQuant of indicator / score values used to rank
+#'   observations.
+#' @param direction Character scalar, one of \code{">="} (default) or
+#'   \code{"<="}. If \code{">="}, larger \code{ind} values are treated as more
+#'   evidence for the positive class; if \code{"<="}, smaller \code{ind}
+#'   values are treated as more evidence for the positive class.
+#'
+#' @details
+#' When \code{label} and \code{ind} are FLQuant objects the function will
+#' propagate them along the 6th dimension if needed. The function checks that
+#' \code{label} contains only 0/1 and that both arguments have matching
+#' dimensions. Observations are ordered according to \code{ind} (respecting
+#' \code{direction}) and cumulative counts and rates are computed.
+#'
+#' @return A data.frame (model.frame output) sorted by the chosen threshold
+#'   order containing the columns:
+#'   \describe{
+#'     \item{ind}{indicator / score values}
+#'     \item{label}{coerced 0/1 label}
+#'     \item{TP, TN, FP, FN}{cumulative true/false positive/negative counts}
+#'     \item{TPR, FPR}{true positive rate and false positive rate}
+#'     \item{TSS}{True Skill Statistic, computed as TPR - FPR (i.e. tp/(tp+fn) - fp/(fp+tn))}
+#'   }
+#'
+#' @examples
+#' # simple numeric example
+#' roc(c(1, 0, 1, 0), c(0.8, 0.3, 0.6, 0.2))
+#'
+#' # treat smaller ind as evidence of positive class
+#' roc(c(1, 0, 1, 0), c(0.1, 0.4, 0.2, 0.9), direction = "<=")
+#'
+#' @seealso \code{\link{pROC::roc}} for alternative ROC utilities
+#' @export
+
+
+
+
+
+
 #' Receiver Operating Characteristic (ROC)
 #'
 #' A receiver operating characteristic (ROC) curve shows the ability of a
@@ -959,7 +1008,7 @@ ifelse(log,return(log(r0)),return(r0))
 #' ind <- acc(catch.n(ple4)[, ac(1960:2017)])
 #' # Compute TSS, returns data.frame
 #' roc(state >= 0.22, ind)
-#' # Needs ggplotFL
+#' # Needs ggplot2
 #' \dontrun{
 #' ggplot(roc(state >= 0.22, ind, direction='>='), aes(x=FPR, y=TPR)) +
 #'   geom_line() +
@@ -990,7 +1039,7 @@ roc <- function(label, ind, direction=c(">=", "<=")) {
     stop("label cannot be all TRUE or FALSE")
 
   # SET comparison direction
-  direction <- switch(match.arg(direction), ">=" =  FALSE, "<=" = TRUE)
+  direction <- switch(match.arg(direction), ">=" =  TRUE, "<=" = FALSE)
 
   # ORDER by descending ind
   idx <- rev(order(c(ind), decreasing=direction))
