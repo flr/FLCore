@@ -2250,140 +2250,150 @@ setMethod("ages", signature(object="FLStock"),
 
 ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
 
-    # HANDLE fwdControl
-    if(is(fbar, "fwdControl")) {
-      # CHECK single target per year & no max/min
-      if(length(fbar$year) != length(unique(fbar$year)))
-        stop("ffwd() can only project for yearly targets, try calling FLasher::fwd().")
+  # HANDLE fwdControl
+  if(is(fbar, "fwdControl")) {
 
-      # CHECK no max/min
-      # TODO: BETTER check
-      if(any(is.na(iters(fbar)[, "value",])))
-        stop("ffwd() can only handle targets and not min/max limits, try calling FLasher::fwd().")
-      
-      # CHECK target is fbar/f
-      if(!all(fbar$quant %in% c("f", "fbar")))
-        stop("ffwd() can only project for f/fbar targets, try calling FLasher::fwd().")
-      fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
-    }
+  # CHECK single target per year & no max/min
+  if(length(fbar$year) != length(unique(fbar$year)))
+    stop("ffwd() can only project for yearly targets, try calling FLasher::fwd().")
 
-    # PROPAGATE if needed
-    nit <- max(c(dim(object)[6], dim(sr)[6], dim(fbar)[6]))
-    object <- propagate(object, nit)
+  # CHECK no max/min TODO: BETTER check
+  if(any(is.na(iters(fbar)[, "value",])))
+    stop("ffwd() can only handle targets and not min/max limits, try calling FLasher::fwd().")
 
-    # GET recruitment age
-    recage <- dims(object)$min
+  # CHECK target is fbar/f
+  if(!all(fbar$quant %in% c("f", "fbar")))
+    stop("ffwd() can only project for f/fbar targets, try calling FLasher::fwd().")
+  
+  # CONVERT to FLQuant
+  fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
+  }
+  
+  # PROPAGATE if needed
+  nit <- max(c(dim(object)[6], dim(sr)[6], dim(fbar)[6]))
+  object <- propagate(object, nit)
+  
+  # GET recruitment age
+  recage <- dims(object)$min
+  
+  # PROJECTION years
+  yrs <- dimnames(fbar)$year
+  
+  # NECESSARY years as dim
+  idy <- match(yrs, dimnames(object)$year)
+  idy <- seq(idy[1] - max(1, recage), idy[length(idy)])
+  
+  # SUBSET for projection years
+  obj <- object[, idy]
+  
+  # DIMS
+  dm <- dim(obj)
+  dms <- dims(obj)
+  
+  # EXTRACT slots
+  naa <- stock.n(obj)
+  maa <- m(obj)
+  faa <- harvest(obj)
+  sel <- catch.sel(obj)
+  
+  # DEVIANCES
+  if(missing(deviances)) {
+  deviances <- rec(obj) %=% 1
+  }
 
-    # SET input yrs, data yrs, and projection yrs
-    yrs <- match(dimnames(fbar)$year, dimnames(object)$year)
-    dyrs <- seq(yrs[1] - 1 - recage, yrs[length(yrs)])
-    pyrs <- seq(2 + recage, length=length(yrs))
-
-    # SUBSET for projection years
-    obj <- object[, dyrs]
-
-    # DIMS
-    dm <- dim(obj)
-    dms <- dims(obj)
-
-    # EXTRACT slots
-    naa <- stock.n(obj)
-    maa <- m(obj)
-    faa <- harvest(obj)
-    sel <- catch.sel(obj)
-
-    # DEVIANCES
-    if(missing(deviances)) {
-      deviances <- rec(obj) %=% 1
-    }
-
-    # PARSE sr
-    if(is(sr, "FLQuant")) {
-      sr <- predictModel(model=rec~a, params=FLPar(c(sr),
-        dimnames=list(params="a", year=dimnames(sr)$year, 
-        iter=dimnames(sr)$iter)))
-    }
- 
-    # SUBSET and EXPAND (JIC) if unit > 1
-    deviances <- expand(window(deviances, start=dms$minyear, end=dms$maxyear),
-      unit=dimnames(obj)$unit)
-
-    # COMPUTE harvest
-    fages <- range(object, c("minfbar", "maxfbar"))
-
-    faa[, pyrs] <- (sel[, pyrs] %/%
-      quantMeans(sel[ac(seq(fages[1], fages[2])), pyrs])) %*% fbar
-
-    faa[is.na(faa)] <- 0
-    
-    # COMPUTE SRP multiplier
-    waa <- stock.wt(obj)
-    mat <- mat(obj)
-    msp <- m.spwn(obj)
-    fsp <- harvest.spwn(obj)
-    srp <- exp(-(faa * fsp) - (maa * msp)) * waa * mat
-
-    # DEAL with potential covars
-    covars <- NULL
-    if(is(sr, 'FLSR')) {
-      if (length(sr@covar) > 0)
-        covars <- window(sr@covar, start=dms$minyear, end=dms$maxyear)
-    }
-
-    # CHECK for mat > 0 if recage is 0
-    if(recage == 0 & any(mat(object)[ac(recage),] > 0))
-      warning("Recruitment age in object is '0' and maturity for that age is set greater than 0. Contribution of age 0 SSB to recruitment dynamics is being ignored.")
-
-    # LOOP over obj years (i is new year)
-    for (i in pyrs) {
-
-      # n
-      naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
-
-      # pg
-      naa[dm[1], i] <- naa[dm[1], i] +
-        naa[dm[1], i-1] * exp(-faa[dm[1], i-1] - maa[dm[1], i-1])
-
-      # rec * deviances
-       naa[1, i] <- rep(c(eval(sr@model[[3]],
-        c(as(sr@params, 'list'), list(
-        ssb=c(colSums(naa[, i - recage, 1] * srp[, i - recage, 1],
-          na.rm=TRUE))), lapply(covars, '[', 1, i - recage)))) / dm[3], each=dm[3]) *
-        c(deviances[, i])
-    }
-
+  # PARSE sr
+  if(is(sr, "FLQuant")) {
+  sr <- predictModel(model=rec~a, params=FLPar(c(expand(sr, year=yrs)[, yrs]),
+    dimnames=list(params="a", year=yrs, iter=dimnames(sr)$iter)))
+  } else {
+  sr@params <- as(expand(as(sr@params, 'FLQuant'), year=yrs), 'FLPar')
+  }
+  
+  # SUBSET and EXPAND (JIC) if unit > 1
+  deviances <- expand(window(deviances, start=yrs[1], end=yrs[length(yrs)]),
+  unit=dimnames(obj)$unit)
+  
+  # COMPUTE harvest
+  fages <- range(object, c("minfbar", "maxfbar"))
+  
+  faa[, yrs] <- (sel[, yrs] %/%
+  quantMeans(sel[ac(seq(fages[1], fages[2])), yrs])) %*% fbar
+  
+  faa[is.na(faa)] <- 0
+  
+  # COMPUTE SRP multiplier
+  waa <- stock.wt(obj)
+  mat <- mat(obj)
+  msp <- m.spwn(obj)
+  fsp <- harvest.spwn(obj)
+  srp <- exp(-(faa * fsp) - (maa * msp)) * waa * mat
+  
+  # DEAL with potential covars
+  covars <- NULL
+  if(is(sr, 'FLSR')) {
+  if (length(sr@covar) > 0)
+    covars <- window(sr@covar, start=dms$minyear, end=dms$maxyear)
+  }
+  
+  # CHECK for mat > 0 if recage is 0
+  if(recage == 0 & any(mat(object)[ac(recage),] > 0))
+  warning("Recruitment age in object is '0' and maturity for that age is set greater than 0. Contribution of age 0 SSB to recruitment dynamics is being ignored.")
+  
+  # LOOP over obj years (i is new year)
+  for (i in seq(recage + 1, length=length(yrs))) {
+  
+  # n
+  naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
+  
+  # pg
+  naa[dm[1], i] <- naa[dm[1], i] +
+    naa[dm[1], i-1] * exp(-faa[dm[1], i-1] - maa[dm[1], i-1])
+  
+  # eval model: rep & divide for unit (sex),
+   naa[1, i] <- rep(c(eval(sr@model[[3]],
+    # params,      
+    c(as(sr@params[, i - recage], 'list'), list(
+    # ssb * srp,
+    ssb=c(colSums(naa[, i - recage] * srp[, i - recage], na.rm=TRUE))),
+    # covars,
+    lapply(covars, '[', 1, i)))) / dm[3], each=dm[3]) *
+    # & deviances
+    c(deviances[, i - recage])
+  }
+  
   # UPDATE stock.n & harvest
-  stock.n(object)[, yrs] <- naa[, pyrs]
-  harvest(object)[, yrs] <- faa[, pyrs]
+  stock.n(object)[, yrs] <- naa[, yrs]
+  harvest(object)[, yrs] <- faa[, yrs]
   
   # UPDATE stock,
   stock(object) <- computeStock(object)
   
   # and catch.n
   catch.n(object)[, yrs] <- (naa * faa / (maa + faa) *
-    (1 - exp(-faa - maa)))[, pyrs]
-
+  (1 - exp(-faa - maa)))[, yrs]
+  
   # SET landings.n & discards.n to 0 if NA
   landings.n(object)[, yrs][is.na(landings.n(object)[, yrs])] <- 0
   discards.n(object)[, yrs][is.na(discards.n(object)[, yrs])] <- 0
   
   # CALCULATE landings.n from catch.n and ratio
   landings.n(object)[, yrs] <- (catch.n(object) * (landings.n(object) / 
-    (discards.n(object) + landings.n(object))))[, yrs]
-
+  (discards.n(object) + landings.n(object))))[, yrs]
+  
   # CALCULATE discards
   discards.n(object)[, yrs] <- (catch.n(object) - landings.n(object))[, yrs]
-
+  
   # COMPUTE average catch.wt
   catch.wt(object)[, yrs] <- weighted.mean(
-    FLQuants(L=landings.wt(object), D=discards.wt(object)),
-    FLQuants(L=landings.n(object), D=discards.n(object)))[, yrs]
-
+  FLQuants(L=landings.wt(object), D=discards.wt(object)),
+  FLQuants(L=landings.n(object), D=discards.n(object)))[, yrs]
+  
   # COMPUTE catch
   catch(object)[, yrs] <- quantSums(catch.n(object) * catch.wt(object))[, yrs]
-
+  
   return(object)
 }
+
 # }}}
 
 # ageopt {{{
