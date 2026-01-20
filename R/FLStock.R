@@ -2340,25 +2340,28 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     warning("Recruitment age in object is '0' and maturity for that age is set greater than 0. Contribution of age 0 SSB to recruitment dynamics is being ignored.")
   
   # LOOP over obj years (i is new year)
-  for (i in seq(recage + 1, length=length(yrs))) {
+  for (i in yrs) {
+
+    ia <- ac(an(i) - 1)
+    ir <- ac(an(i) - recage)
   
-   # n
-    naa[-1, i] <- naa[-dm[1], i-1] * exp(-faa[-dm[1], i-1] - maa[-dm[1], i-1])
+    # n
+    naa[-1, i] <- naa[-dm[1], ia] * exp(-faa[-dm[1], ia] - maa[-dm[1], ia])
   
     # pg
     naa[dm[1], i] <- naa[dm[1], i] +
-      naa[dm[1], i-1] * exp(-faa[dm[1], i-1] - maa[dm[1], i-1])
-  
+      naa[dm[1], ia] * exp(-faa[dm[1], ia] - maa[dm[1], ia])
+
     # eval model: rep & divide for unit (sex),
     naa[1, i] <- rep(c(eval(sr@model[[3]],
       # params,      
-      c(as(sr@params[, i - recage], 'list'), list(
+      c(as(sr@params[, i], 'list'), list(
       # ssb * srp,
-      ssb=c(colSums(naa[, i - recage] * srp[, i - recage], na.rm=TRUE))),
+      ssb=c(colSums(naa[, ir] * srp[, ir], na.rm=TRUE))),
       # covars,
       lapply(covars, '[', 1, i)))) / dm[3], each=dm[3]) *
       # & deviances
-      c(deviances[, i - recage])
+      c(deviances[, i])
   }
   
   # UPDATE stock.n & harvest
