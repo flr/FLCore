@@ -1323,10 +1323,9 @@ nounit <- function(stock) {
     (dat$landings.n + 1e-36), div))  / (c(landings.n(stock)) + 1e-36 * nun)
   discards.wt(stock) <- Reduce('+', split(dat$discards.wt *
     (dat$discards.n + 1e-36), div))  / (c(discards.n(stock)) + 1e-36 * nun)
-
   m(stock) <- Reduce('+', split(dat$m * dat$stock.n, div)) /
     c(stock.n(stock) + 1e-36)
- 
+
   # COMPUTE
 
   catch(stock) <- computeCatch(stock)
@@ -1494,6 +1493,11 @@ noarea <- function(stock) {
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
     spwn.season=1, rec.season=spwn.season, harvest=TRUE, weighted=FALSE) {
+
+  # RETURN if requested dims are already of length=1
+  if(all(dims %in% c("unit", "season", "area")[dim(object)[3:5] == 1])) {
+    return(object)
+  }
   
   # ORDER: season(unit(area))
   if(any(c("area", 5) %in% dims))
@@ -2253,20 +2257,20 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   # HANDLE fwdControl
   if(is(fbar, "fwdControl")) {
 
-  # CHECK single target per year & no max/min
-  if(length(fbar$year) != length(unique(fbar$year)))
-    stop("ffwd() can only project for yearly targets, try calling FLasher::fwd().")
+    # CHECK single target per year & no max/min
+    if(length(fbar$year) != length(unique(fbar$year)))
+      stop("ffwd() can only project for yearly targets, try calling FLasher::fwd().")
 
-  # CHECK no max/min TODO: BETTER check
-  if(any(is.na(iters(fbar)[, "value",])))
-    stop("ffwd() can only handle targets and not min/max limits, try calling FLasher::fwd().")
+    # CHECK no max/min TODO: BETTER check
+    if(any(is.na(iters(fbar)[, "value",])))
+      stop("ffwd() can only handle targets and not min/max limits, try calling FLasher::fwd().")
 
-  # CHECK target is fbar/f
-  if(!all(fbar$quant %in% c("f", "fbar")))
-    stop("ffwd() can only project for f/fbar targets, try calling FLasher::fwd().")
+    # CHECK target is fbar/f
+    if(!all(fbar$quant %in% c("f", "fbar")))
+      stop("ffwd() can only project for f/fbar targets, try calling FLasher::fwd().")
   
-  # CONVERT to FLQuant
-  fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
+    # CONVERT to FLQuant
+    fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
   }
   
   # PROPAGATE if needed
@@ -2332,7 +2336,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   covars <- NULL
   if(is(sr, 'FLSR')) {
     if (length(sr@covar) > 0)
-      covars <- window(sr@covar, start=dms$minyear, end=dms$maxyear)
+      covars <- window(sr@covar, start=yrs[1], end=yrs[length(yrs)])
   }
   
   # CHECK for mat > 0 if recage is 0

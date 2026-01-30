@@ -7,8 +7,9 @@ importFrom("iterators",
   "iter")
 
 importFrom("utils",
-  "packageDescription",
   "combn",
+  "head",
+  "packageDescription",
   "read.table",
   "tail")
 
@@ -432,6 +433,7 @@ exportMethods(
   "harvest<-",
   "harvest.spwn",
   "harvest.spwn<-",
+  "head",
   "hessian",
   "hessian<-",
   "hr",

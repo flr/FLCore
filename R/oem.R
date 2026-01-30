@@ -1017,14 +1017,14 @@ ifelse(log,return(log(r0)),return(r0))
 
 roc <- function(label, ind, direction=c(">=", "<=")) {
 
+  # CONVERT label to pseudo-logical (0/1)
+  if(is.logical(label))
+    label[] <- ifelse(c(label), 1, 0)
+
   # CHECK label is logical or pseudo-logical (0, 1)
   if(!all(c(label) %in% c(0, 1)))
     stop("label can only contain 0 and 1 for FALSE, TRUE")
  
-  # CONVERT label to pseudo-logical (0/1)
-  if(!is.numeric(label))
-    label[] <- ifelse(c(label), 1, 0)
-
   # PROPAGATE if needed
   its <- max(dim(label)[6], dim(ind)[6])
   label <- propagate(label, its)
