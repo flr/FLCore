@@ -3,24 +3,56 @@
 \name{roc}
 \alias{roc}
 \alias{auc}
-\title{Receiver Operating Characteristic (ROC)}
+\title{Receiver Operating Characteristic table with True Skill Statistic (TSS)}
 \usage{
 roc(label, ind, direction = c(">=", "<="))
 
 auc(x = NULL, TPR = x$TPR, FPR = x$FPR)
 }
+\arguments{
+\item{label}{Logical, integer (0/1), or FLQuant giving the true class for
+each observation (1 = positive, 0 = negative). Non-logical values are
+coerced to 0/1. Labels must not be all 0 or all 1.}
+
+\item{ind}{Numeric vector or FLQuant of indicator / score values used to rank
+observations.}
+
+\item{direction}{Character scalar, one of \code{">="} (default) or
+\code{"<="}. If \code{">="}, larger \code{ind} values are treated as more
+evidence for the positive class; if \code{"<="}, smaller \code{ind}
+values are treated as more evidence for the positive class.}
+}
+\value{
+A data.frame (model.frame output) sorted by the chosen threshold
+order containing the columns:
+\describe{
+\item{ind}{indicator / score values}
+\item{label}{coerced 0/1 label}
+\item{TP, TN, FP, FN}{cumulative true/false positive/negative counts}
+\item{TPR, FPR}{true positive rate and false positive rate}
+\item{TSS}{True Skill Statistic, computed as TPR - FPR (i.e. tp/(tp+fn) - fp/(fp+tn))}
+}
+}
 \description{
-A receiver operating characteristic (ROC) curve shows the ability of a
-binary classifier. Here it is applied to compare two sets of values,
-stored as two FLQuant objects. The first is the result of aplying a logical
-comparison of a given state against a reference value, so it contains a
-binary (0, 1) label. The second, the score, contains an alternative metric
-that attempts to measure the absolute value of the first.
-The examples below compare an observation of stock status, SSB being less
-than a reference point, and an alternative metric, here the catch curve
-estimates of total mortality.
+Compute an ROC-style table from binary labels and numeric indicator values.
+The function orders observations by the indicator, computes cumulative true
+/ false positives and negatives, derives TPR and FPR, and returns the True
+Skill Statistic (TSS = TPR - FPR) for each threshold.
+}
+\details{
+When \code{label} and \code{ind} are FLQuant objects the function will
+propagate them along the 6th dimension if needed. The function checks that
+\code{label} contains only 0/1 and that both arguments have matching
+dimensions. Observations are ordered according to \code{ind} (respecting
+\code{direction}) and cumulative counts and rates are computed.
 }
 \examples{
+# simple numeric example
+roc(c(1, 0, 1, 0), c(0.8, 0.3, 0.6, 0.2))
+
+# treat smaller ind as evidence of positive class
+roc(c(1, 0, 1, 0), c(0.1, 0.4, 0.2, 0.9), direction = "<=")
+
 data(ple4)
 # OM 'reality' on stock status (fbar)
 state <- fbar(ple4)[, ac(1960:2017)]
@@ -28,7 +60,7 @@ state <- fbar(ple4)[, ac(1960:2017)]
 ind <- acc(catch.n(ple4)[, ac(1960:2017)])
 # Compute TSS, returns data.frame
 roc(state >= 0.22, ind)
-# Needs ggplotFL
+# Needs ggplot2
 \dontrun{
 ggplot(roc(state >= 0.22, ind, direction='>='), aes(x=FPR, y=TPR)) +
   geom_line() +
@@ -37,4 +69,7 @@ ggplot(roc(state >= 0.22, ind, direction='>='), aes(x=FPR, y=TPR)) +
 # Computes auc using the output of roc()
 with(roc(state >= 0.22, ind), auc(TPR=TPR, FPR=FPR))
 auc(roc(state >= 0.22, ind))
+}
+\seealso{
+\code{\link{pROC::roc}} for alternative ROC utilities
 }

@@ -206,7 +206,8 @@ bevholt <- function()
   initial <- structure(function(rec, ssb) {
     a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
-    return(FLPar(a = a, b = a/b))},
+    return(FLPar(a = a, b = a/b))
+  },
 
   ## bounds
   lower=rep(-Inf, 2),

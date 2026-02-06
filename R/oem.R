@@ -551,31 +551,11 @@ setMethod("mase", signature(ref="FLIndices", preds="list"),
 
 # ar1rlnorm {{{
 
-#' Generates a time series of possible bias-corrected lognormal autocorrelated random values
-#'
-#' Thorston, 2020.
-#'
-#' @param rho Autocorrelation coefficient.
-#' @param years Vector of year names.
-#' @param iters Number of iterations.
-#' @param meanlog Mean of the series in log space.
-#' @param sdlog Marginal standard deviation in log space.
-#' @param bias.correct Should bias-correction be applied? Defaults to TRUE.
-#'
-#' @return An FLQuant object
-#'
-#' @author Iago Mosqueira (WMR), Henning Winker (JRC).
-#' @seealso \link{rlnorm}
-#' @keywords classes
-#' @references  Thorson, J. T. Predicting recruitment density dependence and intrinsic growth rate for all fishes worldwide using a data-integrated life-history model. Fish Fish. 2020; 21: 237– 251. https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427
-#' @examples
-#' devs <- ar1rlnorm(rho=0.6, years=2000:2030, iter=500, meanlog=0, sdlog=1)
-#' plot(devs)
-
 ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
   bias.correct=FALSE, ...) {
 
-  message("This function will soon be deprecated. Please use 'rlnormar1'")
+  .Deprecated(rlnormar1, package='FLCore',
+    msg=message("This function will soon be deprecated. Please use 'rlnormar1'"))
 
   # DIMs
 	n <- length(years)
@@ -603,6 +583,56 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 # }}}
 
 # rlnormar1 {{{
+
+#' Generate an AR(1) lognormal FLQuant time-series
+#'
+#' Simulate one or more iterated log-normal AR(1) series across specified
+#' years and return the results as an FLQuant.
+#'
+#' The function first draws independent normal samples with given
+#' `meanlog` and `sdlog`, constructs an AR(1) process with correlation
+#' parameter `rho`, and finally exponentiates the series. If
+#' `bias.correct = TRUE` the log-normal bias (0.5 * sdlog^2) is removed
+#' on the log-scale so that the resulting series have the requested
+#' `meanlog` on the log-scale.
+#'
+#' @param n Integer. Number of iterations to generate. If `NULL` (default)
+#'   `n` is set to the maximum length of `meanlog`, `sdlog` and `rho`.
+#' @param meanlog Numeric. Mean(s) of the normal (log) distribution for the
+#'   innovations. Recycled to length `n` if necessary.
+#' @param sdlog Numeric. Standard deviation(s) of the normal (log)
+#'   distribution for the innovations. Recycled to length `n` if necessary.
+#' @param rho Numeric. AR(1) autocorrelation parameter(s) in [-1, 1].
+#'   Recycled to length `n` if necessary.
+#' @param years Integer or character vector. Years (time dimension) for the
+#'   returned FLQuant (length determines number of time steps).
+#' @param bias.correct Logical. If TRUE (default FALSE) subtract
+#'   0.5 * sdlog^2 from the log-series before exponentiation to correct
+#'   for the lognormal bias.
+#'
+#' @return An object of class FLQuant with dimensions year x iter containing
+#'   the simulated log-normal AR(1) series.
+#'
+#' @details The simulation proceeds as follows:
+#'   1. Draw independent normal innovations: eps_{t,i} ~ N(meanlog_i, sdlog_i^2).
+#'   2. Build the AR(1) process: x_{t,i} = rho_i * x_{t-1,i} + sqrt(1 - rho_i^2) * eps_{t,i},
+#'      with x_{1,i} = eps_{1,i}.
+#'   3. Optionally apply bias correction on the log scale, then exponentiate:
+#'      y_{t,i} = exp(x_{t,i} - 0.5 * sdlog_i^2)  (if bias.correct = TRUE).
+#'
+#' @author Iago Mosqueira (WMR), Henning Winker (JRC).
+#'
+#' @examples
+#' # 6 years, 5 iterations, rho = 0.5, default meanlog/sdlog
+#' rlnormar1(n = 5, rho = 0.5, years = 2000:2005)
+#'
+#' # varying sdlog per iteration
+#' rlnormar1(n = 3, sdlog = c(0.5, 1, 1.5), rho = 0.3, years = 1990:1994)
+#'
+#' @seealso \link{rlnorm}
+#' @keywords statistics
+#' @references  Thorson, J. T. Predicting recruitment density dependence and intrinsic growth rate for all fishes worldwide using a data-integrated life-history model. Fish Fish. 2020; 21: 237– 251. https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427
+
 
 rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
   bias.correct=FALSE) {
