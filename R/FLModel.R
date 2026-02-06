@@ -123,6 +123,94 @@ setMethod('coef', signature(object='FLModel'),
 )  # }}}
 
 # fmle()    {{{
+
+
+#' Fit an FLModel by maximum likelihood
+#'
+#' Fit an \code{FLModel} object by maximising its log-likelihood using
+#' \code{optim} (the \code{mle} S4 method). The method builds the data list
+#' from the model object's slots, handles fixed parameters, supports iterative
+#' fitting over the \code{iter} dimension, computes the variance-covariance
+#' matrix and (negative) Hessian when available, and stores results back into
+#' the model slots (\code{params}, \code{logLik}, \code{vcov}, \code{hessian},
+#' \code{details}, \code{fitted}, and \code{residuals}).
+#'
+#' Two method signatures are provided: one accepting an \link{FLPar} for
+#' \code{start} and a more general one accepting lists or named vectors.
+#'
+#' @name fmle
+#' @rdname fmle-methods
+#' @aliases fmle fmle,FLModel,FLPar-method fmle,FLModel,ANY-method
+#' @exportMethod fmle
+#'
+#' @param object An object of class \code{FLModel}.
+#' @param start Initial parameter values. Can be an \link{FLPar} (handled by the
+#'   \code{FLPar} method) or a named list / numeric vector of starting values.
+#'   If missing and \code{object@initial} is a function, that function will be
+#'   used to produce starting values.
+#' @param method Optimization method passed to \code{optim}. Default is
+#'   \code{"Nelder-Mead"}.
+#' @param fixed A named list of parameters to hold fixed during optimization.
+#'   Elements may be length 1 (scalar) or length equal to the number of
+#'   iterations; names must match parameter names expected by the model
+#'   log-likelihood.
+#' @param control A list of control parameters passed to \code{optim} (default
+#'   \code{list(trace=1)}).
+#' @param lower,upper Numeric vectors of lower and upper parameter bounds.
+#'   These are used when \code{method} is \code{"L-BFGS-B"} or \code{"Brent"}.
+#'   If missing and the model provides bounds, \code{lower(object)} or
+#'   \code{upper(object)} will be used.
+#' @param seq.iter Logical; if \code{TRUE} (default) the method will fit across
+#'   iterations (the object's \code{iter} dimension) and return per-iteration
+#'   results. If \code{FALSE}, fitting is performed once.
+#' @param preconvert Logical; if \code{TRUE} the data objects are converted
+#'   (via \code{c}) prior to calling the log-likelihood, which can speed up
+#'   calls for some models. Default is \code{FALSE}.
+#' @param model Optional character or function to reset the model definition
+#'   (i.e. replace \code{object@model}) before fitting.
+#' @param ... Additional arguments passed to internal calls (for example to
+#'   \code{fmle} when invoked programmatically).
+#'
+#' @details
+#' The fmle method:
+#' - Matches formals of the model \code{logl} function to object slots and
+#'   supplied data to build the call environment.
+#' - Accepts fixed parameters via the \code{fixed} argument and removes them
+#'   from the optimisation vector.
+#' - If the model contains an \code{iter} dimension and \code{seq.iter=TRUE},
+#'   the method performs optimisation for each iteration and stores results in
+#'   the corresponding iteration slices of \code{params}, \code{vcov},
+#'   \code{hessian} and \code{logLik}.
+#' - Computes the variance-covariance matrix as the inverse of the Hessian
+#'   when available (silent on singular/invertible checks) and stores the
+#'   negative Hessian in \code{@hessian}.
+#' - On successful optimisation the fitted values and residuals are computed
+#'   via \code{predict(object)} and stored in \code{@fitted} and
+#'   \code{@residuals}. The optimisation \code{details} (call, value, counts,
+#'   convergence, message) are stored in \code{@details}.
+#'
+#' The method relies on the presence of a valid \code{logl} function in the
+#' model definition (accessible as \code{object@logl}). The names of parameters
+#' in \code{start} and \code{fixed} must match the argument names of
+#' \code{logl}.
+#'
+#' @returns The input \code{FLModel} object with updated slots:
+#'   \code{params}, \code{logLik}, \code{vcov}, \code{hessian}, \code{details},
+#'   \code{fitted} and \code{residuals}.
+#'
+#' @seealso \link[stats]{optim}, \link[stats]{logLik}, \link{predict}, \link{FLPar}
+#'
+#' @examples
+#' # Load the NS herring SRR dataset
+#' data(nsher)
+#' # Using an FLPar start
+#' fmle(nsher)
+#'
+#' # Fixing a parameter
+#' fmle(nsher, fixed=list(b=8e-3))
+#'
+#' @author The FLR Team; maintainer: Iago Mosqueira
+
 setMethod('fmle',
   signature(object='FLModel', start='FLPar'),
   function(object, start, method='Nelder-Mead', fixed=list(),
