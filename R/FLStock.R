@@ -1235,18 +1235,28 @@ setMethod("sr", signature(object="FLStock"),
 setMethod("catch.sel", signature(object="FLStock"),
   function(object) {
 
-    # SPLIT groups by numbers in dimnames
+    # IF no units
+    if(dim(object)[3] == 1)
+      return(harvest(object) %/% (apply(harvest(object), c(2:6), max) +
+      1e-32))
+
+    # SET groups by numbers in dimnames
     grs <- sub(".*?([0-9]+).*", "\\1", paste0(dimnames(object)$unit, 0))
 
+    # DIVIDE by groups
+    fss <- divide(harvest(object), dim=3, grs)
+
     # COMPUTE by unit group and merge
-    return(harvest(object) %/% ubind(lapply(split(harvest(object), grs),
-      function(x) apply(x, c (2, 4:6), max) + 1e-32)))
+    res <- ubind(lapply(unique(grs), function(x) ubind(fss[grs == x]) %/%
+      apply(ubind(fss[grs == x]), c (2, 4:6), max) + 1e-32))
+
+    # CORRECT dimnames
+    dimnames(res)$unit <- dimnames(object)$unit
     
-    # TODO: REMOVE
-    return(harvest(object) %/% (apply(harvest(object), c(2, 4:6), max) +
-      1e-32))
+    return(res)
   }
-) # }}}
+)
+# }}}
 
 # discards.ratio {{{
 setMethod("discards.ratio", signature(object="FLStock"),
