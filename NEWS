@@ -3,6 +3,8 @@
  BUG FIXES
 
 - ffwd(FLStock) failed if recage > 2
+- ffwd did not generate the correct FaA array for 2-sex models
+- catch.sel was not computed with single max across units for sexes
  
  NEW FEATURES
 
