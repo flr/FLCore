@@ -189,7 +189,7 @@ setAs('FLBiol', 'FLStock',
     dms <- dimnames(from@n)[1]
     spwn <- do.call(expand, c(list(x=from@spwn, fill=TRUE), dms))
     rang <- c(range(from))
-    rang <- c(rang, minfbar=unname(rang["min"]),
+    if(!('minfbar' %in% names(range))) rang <- c(rang, minfbar=unname(rang["min"]),
       maxfbar=unname(rang["max"]))
     
     res <- FLStock(stock.n=from@n, stock.wt=from@wt, m=from@m,
