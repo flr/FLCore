@@ -252,6 +252,8 @@ setMethod('FLSR', signature(model='missing'),
 #' @rdname as.FLSR
 #' @aliases as.FLSR,FLStock-method
 #' @keywords methods
+#'
+#' @author The FLR Team
 
 setMethod("as.FLSR", signature(object="FLStock"),
   function(object, rec.age = dims(stock.n(object))$min, ...)

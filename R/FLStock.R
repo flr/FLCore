@@ -1234,7 +1234,17 @@ setMethod("sr", signature(object="FLStock"),
 # catch.sel {{{
 setMethod("catch.sel", signature(object="FLStock"),
   function(object) {
-    return(harvest(object) %/% (apply(harvest(object), 2:6, max) + 1e-32))
+
+    # SPLIT groups by numbers in dimnames
+    grs <- sub(".*?([0-9]+).*", "\\1", paste0(dimnames(object)$unit, 0))
+
+    # COMPUTE by unit group and merge
+    return(harvest(object) %/% ubind(lapply(split(harvest(object), grs),
+      function(x) apply(x, c (2, 4:6), max) + 1e-32)))
+    
+    # TODO: REMOVE
+    return(harvest(object) %/% (apply(harvest(object), c(2, 4:6), max) +
+      1e-32))
   }
 ) # }}}
 
@@ -1264,7 +1274,7 @@ setMethod("discards.sel", signature(object="FLStock"),
 	function(object) {
 		res <- catch.sel(object) * discards.ratio(object)
     res[is.na(res)] <- 0
-		return(res %/% apply(res, 2:6, max, na.rm=TRUE))
+		return(res %/% apply(res, c(2, 4:6), max, na.rm=TRUE))
 	}
 ) # }}}
 
@@ -1273,7 +1283,7 @@ setMethod("landings.sel", signature(object="FLStock"),
 	function(object) {
 		res <- catch.sel(object) * (1 - discards.ratio(object))
     res[is.na(res)] <- 0
-    return(res %/% apply(res, 2:6, max, na.rm=TRUE))
+		return(res %/% apply(res, c(2, 4:6), max, na.rm=TRUE))
 	}
 ) # }}}
 
@@ -1753,7 +1763,7 @@ survivors <- function(object, rec=NA) {
   res[ages[-1], ] <- survs[ages[-length(ages)], ]
 
   # PLUSGROUP
-  res[ages[length(ages)]] <- res[ages[length(ages)]] +
+  res[ages[length(ages)],] <- res[ages[length(ages)],] +
     survs[ages[length(ages)], ]
 
   res[1,] <- rec
@@ -2270,7 +2280,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       stop("ffwd() can only project for f/fbar targets, try calling FLasher::fwd().")
   
     # CONVERT to FLQuant
-    fbar <- m(object)[1, ac(fbar$year)] %=% fbar$value
+    fbar <- m(object)[1, ac(fbar$year), 1] %=% fbar$value
   }
   
   # PROPAGATE if needed
@@ -2321,8 +2331,8 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   fages <- range(object, c("minfbar", "maxfbar"))
   
   faa[, yrs] <- (sel[, yrs] %/%
-    quantMeans(sel[ac(seq(fages[1], fages[2])), yrs])) %*% fbar
-  
+    unitMeans(quantMeans(sel[ac(seq(fages[1], fages[2])), yrs]))) %*% fbar
+
   faa[is.na(faa)] <- 0
   
   # COMPUTE SRP multiplier
@@ -2351,7 +2361,16 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
   
     # n
     naa[-1, i] <- naa[-dm[1], ia] * exp(-faa[-dm[1], ia] - maa[-dm[1], ia])
-  
+
+    # DEBUG:
+    # N 2024
+    # maa[-dm[1], ia] / stock.n(futa)[-26,'2024']
+    # N 2025
+    # naa[-1, i] / stock.n(futa)[-1,'2025']
+    # Z
+    # z(futa)[-dm[1],'2024']
+    # faa[-dm[1], ia] + maa[-dm[1], ia]
+
     # pg
     naa[dm[1], i] <- naa[dm[1], i] +
       naa[dm[1], ia] * exp(-faa[dm[1], ia] - maa[dm[1], ia])
@@ -2361,7 +2380,7 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
       # params,      
       c(as(sr@params[, i], 'list'), list(
       # ssb * srp,
-      ssb=c(colSums(naa[, ir] * srp[, ir], na.rm=TRUE))),
+      ssb=c(colSums(unitSums(naa[, ir] * srp[, ir]), na.rm=TRUE))),
       # covars,
       lapply(covars, '[', 1, i)))) / dm[3], each=dm[3]) *
       # & deviances
@@ -2396,7 +2415,8 @@ ffwd <- function(object, sr, fbar=control, control=fbar, deviances="missing") {
     FLQuants(L=landings.n(object), D=discards.n(object)))[, yrs]
   
   # COMPUTE catch
-  catch(object)[, yrs] <- quantSums(catch.n(object) * catch.wt(object))[, yrs]
+  catch(object)[, yrs] <- quantSums(catch.n(object) *
+    catch.wt(object))[, yrs]
   
   return(object)
 }

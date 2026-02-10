@@ -209,7 +209,7 @@ setMethod('coef', signature(object='FLModel'),
 #' # Fixing a parameter
 #' fmle(nsher, fixed=list(b=8e-3))
 #'
-#' @author The FLR Team; maintainer: Iago Mosqueira
+#' @author The FLR Team
 
 setMethod('fmle',
   signature(object='FLModel', start='FLPar'),
