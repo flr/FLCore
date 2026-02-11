@@ -67,4 +67,7 @@ sr_bh <- as.FLSR(ple4, model=rec~a*ssb/(b+ssb))
 \seealso{
 \code{\link{FLSR}}, \code{\link{as.FLSRs}}, \code{\link{FLStock}}
 }
+\author{
+The FLR Team
+}
 \keyword{methods}

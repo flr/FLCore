@@ -111,5 +111,5 @@ fmle(nsher, fixed=list(b=8e-3))
 \link[stats]{optim}, \link[stats]{logLik}, \link{predict}, \link{FLPar}
 }
 \author{
-The FLR Team; maintainer: Iago Mosqueira
+The FLR Team
 }
