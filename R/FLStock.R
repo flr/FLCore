@@ -1371,6 +1371,7 @@ setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
   function(x, w) {
     Reduce('+', Map('*', x, w)) / Reduce('+', lapply(w, '+', 1e-36))
   })
+# }}}
 
 # noseason {{{
 
@@ -1979,6 +1980,10 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
   function(x, end=dims(x)$maxyear, nsq=3, fun=c("mean", "geomean", "sample"),
     years=list(wt=nsq, mat=nsq, m=nsq, spwn=nsq, discards.ratio=nsq,
     catch.sel=nsq)) {
+
+    # RETURN if no new years
+    if(dims(x)$maxyear == end)
+      return(x)
 
     # DIMS
     dx <- dim(x)
