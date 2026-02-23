@@ -60,46 +60,46 @@ ruleset(ple4)
 #> $anyna$anyna
 #> function (x) 
 #> unlist(qapply(x, function(y) sum(is.na(y), na.rm = TRUE) > 0))
-#> <bytecode: 0x55bb43120a20>
-#> <environment: 0x55bb5ac03d68>
+#> <bytecode: 0x5577d0c60b78>
+#> <environment: 0x557819fc6b28>
 #> 
 #> 
 #> $catch.wt
 #> ~catch.wt > 0
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $landings.wt
 #> ~landings.wt > 0
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $discards.wt
 #> ~discards.wt > 0
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $stock.wt
 #> ~stock.wt > 0
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $mat
 #> ~mat <= 1 & mat >= 0
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $harvest.spwn
 #> ~harvest.spwn <= 1 & harvest.spwn >= 0
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $m.spwn
 #> ~m.spwn <= 1 & m.spwn >= 0
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $harvest
 #> ~harvest >= 0
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $cohorts
 #> $cohorts$rule
 #> ~ccohorts(stock.n)
-#> <environment: 0x55bb5ac03d68>
+#> <environment: 0x557819fc6b28>
 #> 
 #> $cohorts$ccohorts
 #> function (x) 
@@ -109,8 +109,8 @@ ruleset(ple4)
 #>     x <- FLCohort(x)[-dim(x)[1], seq(dim(x)[1], dim(x)[2] - dim(x)[1])]
 #>     return((x[-1, ]/x[-dim(x)[1], ]) < 1)
 #> }
-#> <bytecode: 0x55bb43124000>
-#> <environment: 0x55bb5ac03d68>
+#> <bytecode: 0x5577d0c60328>
+#> <environment: 0x557819fc6b28>
 #> 
 #> 
 #> $uoms
@@ -120,8 +120,8 @@ ruleset(ple4)
 #> $uoms$uoms
 #> function (x) 
 #> uomUnits(unlist(units(x)))
-#> <bytecode: 0x55bb43122908>
-#> <environment: 0x55bb5ac03d68>
+#> <bytecode: 0x5577d0c62c90>
+#> <environment: 0x557819fc6b28>
 #> 
 #> 
 # Extract single rule by name
@@ -133,8 +133,8 @@ ruleset(ple4, 'anyna')
 #> $anyna$anyna
 #> function (x) 
 #> unlist(qapply(x, function(y) sum(is.na(y), na.rm = TRUE) > 0))
-#> <bytecode: 0x55bb43120a20>
-#> <environment: 0x55bb5aba2d00>
+#> <bytecode: 0x5577d0c60b78>
+#> <environment: 0x55781a01a8c0>
 #> 
 #> 
 ```

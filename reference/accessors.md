@@ -223,8 +223,8 @@ getMethod('catch', 'FLS')
 #> }, target = new("signature", .Data = "FLS", names = "object", 
 #>     package = "FLCore"), defined = new("signature", .Data = "FLS", 
 #>     names = "object", package = "FLCore"), generic = "catch")
-#> <bytecode: 0x55bb3c267848>
-#> <environment: 0x55bb3c271c48>
+#> <bytecode: 0x5577cdaffbf0>
+#> <environment: 0x5577cdaf18a8>
 #> attr(,"target")
 #> An object of class “signature”
 #> object 
