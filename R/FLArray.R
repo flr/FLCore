@@ -926,7 +926,7 @@ setMethod("window", signature(x="FLArray"),
 
     # SUBSET by position if not extending
     if(end <= max & start >= min) {
-      return(x[, which(dnames$year %in% seq(start, end))])
+      return(x[, which(d2s %in% seq(start, end))])
     }
 
     # if extend=FALSE and end/start ask for it, error
