@@ -923,6 +923,12 @@ setMethod("window", signature(x="FLArray"),
     d2s <- as.numeric(dnames[[2]])
     min <- d2s[1]
     max <- d2s[length(d2s)]
+
+    # SUBSET by position if not extending
+    if(end <= max & start >= min) {
+      return(x[, which(dnames$year %in% seq(start, end))])
+    }
+
     # if extend=FALSE and end/start ask for it, error
     if(!extend && (as.numeric(start) < min | as.numeric(end) > max))
       stop("Object to be extended but extend=FALSE")
