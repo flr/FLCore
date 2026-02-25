@@ -205,12 +205,12 @@ The FLR Team
 #> $logl
 #> function (a, b, rec, ssb) 
 #> loglAR1(log(rec), log(a * ssb/(b + ssb)))
-#> <bytecode: 0x55607b123098>
-#> <environment: 0x55607f30d3b8>
+#> <bytecode: 0x557dd18fc488>
+#> <environment: 0x557dd6376b88>
 #> 
 #> $model
 #> rec ~ a * ssb/(b + ssb)
-#> <environment: 0x55607f30d3b8>
+#> <environment: 0x557dd6376b88>
 #> 
 #> $initial
 #> function (rec, ssb) 
@@ -219,8 +219,8 @@ The FLR Team
 #>     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #>     return(FLPar(a = a, b = a/b))
 #> }
-#> <bytecode: 0x55607b123680>
-#> <environment: 0x55607f30d3b8>
+#> <bytecode: 0x557dd18fca70>
+#> <environment: 0x557dd6376b88>
 #> attr(,"lower")
 #> [1] -Inf -Inf
 #> attr(,"upper")
@@ -231,8 +231,8 @@ The FLR Team
   bevholt()$logl
 #> function (a, b, rec, ssb) 
 #> loglAR1(log(rec), log(a * ssb/(b + ssb)))
-#> <bytecode: 0x55607b123098>
-#> <environment: 0x55607f2ab3b8>
+#> <bytecode: 0x557dd18fc488>
+#> <environment: 0x557dd630af68>
 
 # once an FLSR model is in the workspace ...
   data(nsher)

@@ -45,7 +45,7 @@ doi: [10.1093/icesjms/fsm012](https://doi.org/10.1093/icesjms/fsm012)
 
 ## License
 
-Copyright (c) 2004-2022 The FLR Team. Released under the [GPL
+Copyright (c) 2004-2026 The FLR Team. Released under the [GPL
 v2](http://www.gnu.org/licenses/gpl-2.0.md).
 
 ## Contact
