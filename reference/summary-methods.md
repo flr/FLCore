@@ -58,7 +58,7 @@ summary(flq)
 #> units:  kg 
 #> 
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    %NAs 
-#>   0.094   0.780   1.077   1.786   2.396   5.687   0.000 
+#>    0.18    0.52    0.87    1.56    1.58    6.30    0.00 
 
 data(ple4)
 summary(ple4)

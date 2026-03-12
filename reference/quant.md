@@ -47,7 +47,7 @@ summary(flq)
 #> units:  NA 
 #> 
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    %NAs 
-#>  -1.865  -0.519  -0.047   0.018   0.578   3.257   0.000 
+#>  -1.865  -0.469   0.021   0.135   0.860   3.257   0.000 
 
 
 # quant is 'quant' by default
@@ -66,5 +66,5 @@ summary(flq)
 #> units:  NA 
 #> 
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    %NAs 
-#>  -2.543  -0.654  -0.164  -0.064   0.622   2.284   0.000 
+#>   -2.54   -0.65   -0.19   -0.12    0.53    2.28    0.00 
 ```

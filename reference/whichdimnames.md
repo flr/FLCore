@@ -42,16 +42,18 @@ tes <- rlnorm(20, FLQuant(0, dim=c(1, 10)))
 # dimnames of values > 5
 whichdimnames(tes > 5)
 #>    quant year   unit season   area iter
-#> 1    all    2 unique    all unique    1
-#> 2    all    3 unique    all unique    2
-#> 3    all    7 unique    all unique    4
-#> 4    all    1 unique    all unique    5
-#> 5    all    4 unique    all unique    6
-#> 6    all    5 unique    all unique    9
-#> 7    all    9 unique    all unique   10
-#> 8    all   10 unique    all unique   11
-#> 9    all    2 unique    all unique   12
-#> 10   all   10 unique    all unique   12
-#> 11   all    6 unique    all unique   15
-#> 12   all    3 unique    all unique   20
+#> 1    all    4 unique    all unique    1
+#> 2    all    8 unique    all unique    1
+#> 3    all    4 unique    all unique    2
+#> 4    all   10 unique    all unique    4
+#> 5    all    1 unique    all unique    6
+#> 6    all    5 unique    all unique    8
+#> 7    all    9 unique    all unique    8
+#> 8    all    2 unique    all unique   10
+#> 9    all    3 unique    all unique   13
+#> 10   all    7 unique    all unique   14
+#> 11   all    8 unique    all unique   15
+#> 12   all   10 unique    all unique   15
+#> 13   all    8 unique    all unique   16
+#> 14   all    4 unique    all unique   19
 ```

@@ -1,5 +1,13 @@
 # Changelog
 
+## FLCore 2.6.25
+
+## FLCore 2.6.24
+
+### BUG FIXES
+
+- window(FLArray) became much faster for calls without extending
+
 ## FLCore 2.6.22
 
 ### BUG FIXES

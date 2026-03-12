@@ -229,7 +229,7 @@ FLQuants(SSB=FLQuant(2303), F=FLQuant(0.8)) / FLPar(SSB=1560, F=0.4)
 #> quant 1
 #>   all 2
 #> 
-#> units:  NA / NA 
+#> units:  NA 
 #> 
 
 # Product of each FLQuants element by a 'param' in FLPar

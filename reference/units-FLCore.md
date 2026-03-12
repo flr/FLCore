@@ -80,7 +80,7 @@ summary(flq)
 #> units:  t 
 #> 
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    %NAs 
-#>   -1.96   -0.71   -0.20   -0.12    0.49    2.08    0.00 
+#> -1.9623 -0.7002 -0.1438 -0.0017  0.6841  2.3884  0.0000 
 
 # units for a complex object
   data(ple4)
