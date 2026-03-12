@@ -155,10 +155,14 @@ setMethod('[', signature(x='FLPar'),
 				return(do.call('[', c(list(x=x@.Data), dx, list(drop=TRUE))))
 			}
     res <- new(class(x), do.call('[', c(list(x=x@.Data), dx, list(drop=FALSE))))
-    if(!missing(i))
+    if(!missing(i)) {
       units(res) <- units(x)[ifelse(is.numeric(i), i, match(i, dimnames(x)$params))]
-    else
+    } else {
       units(res) <- units(x)
+    }
+
+    # SET as character
+    units(res)[is.na(units(res))] <- "NA"
 
     # Add attributes not in standard object   
     if(length(attrs) > 0) {
@@ -367,8 +371,8 @@ setAs('FLQuant', 'FLPar',
 )
 
 setAs('FLPar', 'FLQuant',
-  function(from)
-  {
+  function(from) {
+
     # extract array
     data <- from@.Data
     # and names
