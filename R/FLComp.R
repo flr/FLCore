@@ -422,6 +422,7 @@ setMethod('mcf', signature(object='FLComp'),
 setMethod("dims", signature(obj="FLComp"),
   # Returns a list with different parameters
   function(obj, ...) {
+
     qnames <- getSlotNamesClass(obj, 'FLArray')
 
     range <- as.list(range(obj))

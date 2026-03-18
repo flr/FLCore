@@ -246,8 +246,22 @@ setMethod('as.FLStock', signature(object='data.frame'),
     }
 )
 
+#' @rdname coerce-methods
+#' @aliases coerce,FLStockLen,FLStock-method
+#' @section *FLStockLen* to *FLStock*:
+#'  - Changes quant from 'len' to 'age'
 
+setAs('FLStockLen', 'FLStock',
+  function(from) {
 
+    res <- do.call("FLStock", lapply(setNames(nm=slotNames(FLStock())),
+      function(x) slot(from, x)))
+
+    res <- qapply(res, setquant, "age")
+
+    return(res)
+  }
+)
 
 # }}}
 
