@@ -124,10 +124,14 @@ is.FLStock <- function(x)
 
   # F
   if(uns == 'f') {
-    res <- n * exp(-(h * ph + m * pm)) * wt * sel
+    # SET f to 0 if ph = 0
+    f <- ifelse(ph == 0, 0, h * ph)
+    res <- n * exp(-(f + m * pm)) * wt * sel
   # HR
 	} else if(uns == 'hr') {
-    res <- n * (1 - h * ph) * exp(-m * pm) * wt * sel
+    # SET h mult to 1 if ph = 0
+    hm <- ifelse(ph == 0, 1, 1 - h * ph)
+    res <- n * hm * exp(-m * pm) * wt * sel
   # else NA
   } else {
     res <- quantSums(n) %=% as.numeric(NA)
