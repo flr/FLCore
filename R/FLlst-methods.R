@@ -445,3 +445,11 @@ setMethod("effort<-", signature(object="FLIndices", value="FLQuants"),
   }
 )
 # }}}
+
+# propagate {{{
+setMethod("propagate", signature(object="FLlst"),
+	function(object, iter, fill.iter=TRUE) {
+
+    lapply(object, propagate, iter=iter, fill.iter=fill.iter)
+	}
+) # }}}
