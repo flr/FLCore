@@ -93,7 +93,7 @@ is.FLStock <- function(x)
 
 # biomass metrics: ssb, tsb, vb, exb {{{
 
-#' FLStodck biomass metrics
+#' FLStock biomass metrics
 #'
 #' @examples
 #' data(ple4)
@@ -2107,7 +2107,6 @@ setMethod("fwdWindow", signature(x="FLStock", y="missing"),
 
 # TODO ADD fbar input, ADD SRR 
 # NEEDS stock.n, m, f year 1
-
 
 setMethod("adjust", signature(object="FLStock"),
   function(object) {
