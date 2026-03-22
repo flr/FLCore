@@ -217,13 +217,13 @@ setMethod("metrics", signature(object="FLS", metrics="missing"),
     # HACK for some method dispatch problem
     foo <- selectMethod("metrics", c(object="FLS", metrics="list"))
 
-    # COMPUTE
-    res <- foo(object=object, metrics=c(list(Rec=rec, SSB=ssb, Catch=catch, F=fbar),
-      list(...)))
+    # COMPUTE rec, ssb, catch, landings, discards, fbar, hr
+    res <- foo(object=object, metrics=c(list(Rec=rec, SSB=ssb, Catch=catch,
+      Landings=landings, Discards=discards, F=fbar, HR=hr), list(...)))
 
-    # SET fbar name by units(harvest)
-    if(units(harvest(object)) == "HR")
-      names(res)[[4]] <- "HR"
+    # DROP F if units(harvest)) == 'hr'
+    if(tolower(units(harvest(object))) == "hr")
+      res <- res[-7]
 
     return(res)
   }
