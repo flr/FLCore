@@ -379,8 +379,8 @@ setAs('FLPar', 'FLQuant',
     names <- names(dimnames(data))
 
     # output FLQuant
-    res <- FLQuant(quant='params', units=ifelse(all(units(from) == 'NA'),
-      'NA', paste(units(from), collapse='_')))
+    res <- FLQuant(quant='params', units=as.character(ifelse(all(units(from) == 'NA'),
+      'NA', paste(units(from), collapse='_'))))
 
     # reshape data for FLQuant dimnames
     idx <- match(names(res), names)
