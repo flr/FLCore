@@ -29,7 +29,7 @@ vonbert
 #> {
 #>     linf * (1 - exp((-k * (age - t0))))
 #> }
-#> <bytecode: 0x55d818701a70>
+#> <bytecode: 0x559809b59788>
 #> <environment: namespace:FLCore>
 
 vonbert(linf=35, k=0.352, t0=-0.26, age=1:14)
