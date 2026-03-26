@@ -650,7 +650,7 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
   sdlog <- rep(c(sdlog), length=n)
 
   res <- matrix(rnorm(n * nyrs, mean=meanlog, sd=sdlog),
-    nrow=length(years), ncol=n)
+    nrow=length(years), ncol=n, byrow=TRUE)
 
   # BIAS correction
   logbias <- 0
