@@ -120,11 +120,15 @@ setMethod("lapply", signature(X="FLlst"),
     # GET output class
     cls <- getPlural(lst[[1]])
 
+    # RETURN list if not FLR
     if(cls == "list")
       return(lst)
 
     # CREATE output object if not list
-    X@.Data <- lst
+    if(cls %in% is(X))
+      X@.Data <- lst
+    else
+      X <- new(cls, lst)
 
     return(X)
 	}
