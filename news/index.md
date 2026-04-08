@@ -1,6 +1,11 @@
 # Changelog
 
-## FLCore 2.6.25
+## FLCore 2.6.28
+
+### BUG FIXES
+
+- Ensures lapply(FLlst) returns correct class when output is FLlst but
+  of different class as input.
 
 ## FLCore 2.6.24
 
