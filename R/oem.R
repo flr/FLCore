@@ -247,6 +247,10 @@ setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
 
     # GET mean index timing and dimnames
     t <- mean(range(x)[c("startf", "endf")])
+
+    # DEFAULTS to 0.5
+    if(is.na(t)) t <- 0.5
+
     dms <- dimnames(x)[1:2]
  
     # FLIndex
@@ -276,7 +280,7 @@ setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
       biy <- quantSums(nay * stock.wt(stock)[dms[[1]], dms[[2]]] *
         sel.pattern(x))
 
-      iq <- y / biy
+      iq <- y %/% biy
     }
 
     return(iq)
@@ -290,7 +294,7 @@ setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
 #' @examples
 #' computeQ(ple4.index, ple4, rlnorm(1, log(index(ple4.index)), 0.1))
 
-setMethod("computeQ", signature=c(indices="FLIndex", stock="FLStock",
+setMethod("computeQ", signature=c(indices="FLI", stock="FLStock",
   fit="FLQuant"), function(indices, stock, fit) {
     
     res <- computeQ(indices=FLIndices(A=indices), stock=stock, 
