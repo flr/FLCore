@@ -3,6 +3,7 @@
 ## BUG FIXES
 
 - Ensures lapply(FLlst) returns correct class when output is FLlst but of different class as input.
+- Corrects match of FLlst names in '['
 
 # FLCore 2.6.24
 
