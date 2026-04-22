@@ -92,6 +92,11 @@ setReplaceMethod("[", signature(x="FLlst", i="ANY", j="missing", value="ANY"),
 setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
   function(x, i, drop) {
 
+    # MATCH by name
+    if(is.character(i))
+      i <- match(i, names(x))
+
+    # SUBSET @.Data
     x@.Data <- x@.Data[i]
 
     return(x)
