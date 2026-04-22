@@ -2,12 +2,12 @@
 % Please edit documentation in R/FLStock.R
 \name{.biomass}
 \alias{.biomass}
-\title{FLStodck biomass metrics}
+\title{FLStock biomass metrics}
 \usage{
 .biomass(n, h, ph, m, pm, wt, sel, byage = FALSE)
 }
 \description{
-FLStodck biomass metrics
+FLStock biomass metrics
 }
 \examples{
 data(ple4)
