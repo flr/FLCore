@@ -1,6 +1,6 @@
-# FLStodck biomass metrics
+# FLStock biomass metrics
 
-FLStodck biomass metrics
+FLStock biomass metrics
 
 ## Usage
 

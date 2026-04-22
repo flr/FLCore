@@ -119,15 +119,15 @@ The FLR Team
   sr2 <- FLSR(model = 'ricker')
   sr2@model
 #> rec ~ a * ssb * exp(-b * ssb)
-#> <environment: 0x5606fd28bae0>
+#> <environment: 0x5633a415aea0>
   sr2@initial
 #> function (rec, ssb) 
 #> {
 #>     res <- coefficients(lm(log(c(rec)/c(ssb)) ~ c(ssb)))
 #>     return(FLPar(a = max(exp(res[1])), b = -max(res[2])))
 #> }
-#> <bytecode: 0x5606fd2889d0>
-#> <environment: 0x5606fd28bae0>
+#> <bytecode: 0x5633a415bbc0>
+#> <environment: 0x5633a415aea0>
 #> attr(,"lower")
 #> [1] -Inf -Inf
 #> attr(,"upper")
@@ -135,13 +135,13 @@ The FLR Team
   sr2@logl
 #> function (a, b, rec, ssb) 
 #> loglAR1(log(rec), log(a * ssb * exp(-b * ssb)))
-#> <bytecode: 0x5606fd289028>
-#> <environment: 0x5606fd28bae0>
+#> <bytecode: 0x5633a41583e8>
+#> <environment: 0x5633a415aea0>
 
   sr3 <- FLSR(model = 'bevholt')
   sr3@model
 #> rec ~ a * ssb/(b + ssb)
-#> <environment: 0x5606f5384200>
+#> <environment: 0x5633a4528400>
   sr3@initial
 #> function (rec, ssb) 
 #> {
@@ -149,8 +149,8 @@ The FLR Team
 #>     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #>     return(FLPar(a = a, b = a/b))
 #> }
-#> <bytecode: 0x5606f622fb50>
-#> <environment: 0x5606f5384200>
+#> <bytecode: 0x5633a4525248>
+#> <environment: 0x5633a4528400>
 #> attr(,"lower")
 #> [1] -Inf -Inf
 #> attr(,"upper")
@@ -158,8 +158,8 @@ The FLR Team
   sr3@logl
 #> function (a, b, rec, ssb) 
 #> loglAR1(log(rec), log(a * ssb/(b + ssb)))
-#> <bytecode: 0x5606f839d1e0>
-#> <environment: 0x5606f5384200>
+#> <bytecode: 0x5633a4525830>
+#> <environment: 0x5633a4528400>
 
   # Create an FLSR using a function.
   mysr1 <- function(){
