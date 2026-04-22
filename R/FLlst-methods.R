@@ -95,9 +95,19 @@ setMethod("[", signature(x="FLlst", i="ANY", j="missing", drop="ANY"),
     # MATCH by name
     if(is.character(i))
       i <- match(i, names(x))
+    
+    # CHECK for unmatched elemenrts
+    if(any(is.na(i)))
+      stop("Undefined elements selected.")
+
+    # GET selected names
+    nms <- names(x)[i]
 
     # SUBSET @.Data
     x@.Data <- x@.Data[i]
+
+    # ASSIGN names
+    names(x) <- nms
 
     return(x)
 

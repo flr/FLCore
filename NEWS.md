@@ -1,3 +1,7 @@
+# FLCore 2.6.30
+
+- Corrects (again) match of FLlst names in '['
+
 # FLCore 2.6.29
 
 ## BUG FIXES
