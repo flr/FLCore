@@ -195,8 +195,8 @@ fmle(nsher)
 #> Log-likelihood:  15.862(0) 
 #> Variance-covariance:    
 #>                a            b
-#>   a 255.33873127 1.808869e-02
-#>   b   0.01808869 1.992659e-06
+#>   a 255.33855758 1.808868e-02
+#>   b   0.01808868 1.992658e-06
 
 # Fixing a parameter
 fmle(nsher, fixed=list(b=8e-3))
@@ -241,5 +241,5 @@ fmle(nsher, fixed=list(b=8e-3))
 #> Log-likelihood:  15.309(0) 
 #> Variance-covariance:    
 #>            a
-#>   a 74.35686
+#>   a 74.35688
 ```
