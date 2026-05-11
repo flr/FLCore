@@ -1271,9 +1271,9 @@ setMethod("survprob", signature(object="FLBiol"),
 
 # setPlusGroup {{{
 setMethod('setPlusGroup', signature(x='FLBiol', plusgroup='numeric'),
-#' s.
+#' setPlusGroup helper for FLBiol
 #'
-#' Utility function used by FLCore methods.
+#' Update a `FLBiol` object after changing its plus group.
 #'
 #' @noRd
 s.<-  function(x, plusgroup, na.rm=FALSE)

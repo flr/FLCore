@@ -1965,9 +1965,9 @@ ssb_next <- function(x, fbar=0, wts.nyears=3, fbar.nyears=3) {
 } # }}}
 
 # targets {{{
-#' biomass_end
+#' biomass_end targets helper
 #'
-#' Utility function used by FLCore methods.
+#' Compute end-of-year biomass for target calculations.
 #'
 #' @noRd
 biomass_end <- function(x) {
