@@ -1176,6 +1176,11 @@ setMethod("params", signature(object="FLModel"),
   ) # }}}
 
 # cor2cov {{{
+#' cor2cov
+#'
+#' Convert a correlation matrix to a covariance matrix.
+#'
+#' @noRd
 cor2cov <- function(Correl,Var)
 {
   Covar  <-Correl
@@ -1310,6 +1315,11 @@ setMethod("propagate", signature(object="FLModel"),
 ) # }}}
 
 # getFLPar {{{
+#' getFLPar
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getFLPar <- function(object, formula=object@model)
 {
   # get FLQuant slots' names

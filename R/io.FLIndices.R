@@ -6,6 +6,11 @@
 # Notes:
 
 ## writeIndicesVPA		{{{
+#' writeIndicesVPA
+#'
+#' Write object contents to file.
+#'
+#' @noRd
 writeIndicesVPA <- function(FLIndices., file.) {
 
     # opens connection to the output file
@@ -54,6 +59,11 @@ writeIndicesVPA <- function(FLIndices., file.) {
 }	# }}}
 
 ## writeIndicesICA		{{{
+#' writeIndicesICA
+#'
+#' Write object contents to file.
+#'
+#' @noRd
 writeIndicesICA <- function(FLIndices., file., ssb.) {
 
     num <- length(FLIndices.)
@@ -139,6 +149,11 @@ writeIndicesICA <- function(FLIndices., file., ssb.) {
 }	# }}}
 
 ## readIndicesVPA		{{{
+#' readIndicesVPA
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readIndicesVPA <- function(file., sep="", quiet=TRUE, cchar='#', na.strings=na.strings) {
 
     # calculates number of fleets contained in Index file
@@ -234,6 +249,11 @@ readIndicesVPA <- function(file., sep="", quiet=TRUE, cchar='#', na.strings=na.s
 }	# }}}
 
 ## readIndicesAdapt		{{{
+#' readIndicesAdapt
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readIndicesAdapt <- function(file.,na.strings="NA") {
     skip.hash<-function(i) {
         i<-i+1
@@ -282,6 +302,11 @@ readIndicesAdapt <- function(file.,na.strings="NA") {
 }
 
 ## readIndicesCSA
+#' readIndicesCSA
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readIndicesCSA <- function(file.,na.strings="NA") {
     t.    <- scan(file=file.,skip=1,sep=",",na.strings=na.strings)
     nrow. <- length(t.)/9
@@ -306,12 +331,22 @@ readIndicesCSA <- function(file.,na.strings="NA") {
 } # }}}
 
 ## readIndicesICA		{{{
+#' readIndicesICA
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readIndicesICA <- function(file, file2, sep="", na.strings=na.strings) {
   if (file=="" & file2!="")       return(readIndicesICA.ssb(file.=file2,sep=sep))
   else if (file!="" & file2=="")  return(readIndicesVPA(file.=file,na.strings=na.strings))
   else                            return(FLIndices(c(readIndicesVPA(file.=file,na.strings=na.strings), readIndicesICA.ssb(file.=file2,sep=sep,na.strings=na.strings))))
   }
   
+#' readIndicesICA.ssb
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readIndicesICA.ssb <- function(file., sep="",na.strings=na.strings) {
       
       title<-scan(file=file.,skip=0,quiet=TRUE,nlines=1,what=character())
@@ -333,6 +368,11 @@ readIndicesICA.ssb <- function(file., sep="",na.strings=na.strings) {
 
 ## checkIndex	{{{
 # TODO 26/11/2004 iagoazti: Check whether all this is needed
+#' checkIndex
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 checkIndex <- function(Index, name=NULL, desc=NULL) {
     if (!inherits(Index, "FLIndex"))
         stop("Individual items returned should be 'FLIndex' objects!")
@@ -384,6 +424,11 @@ checkIndex <- function(Index, name=NULL, desc=NULL) {
 }	# }}}
 
 ## readFLIndices	{{{
+#' readFLIndices
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readFLIndices <- function(file, file2, type="VPA", index.names, descs,
     desc = paste("Imported from ", type, " file '", file, "'", sep = ""),na.strings="NA", sep="") {
 
@@ -424,6 +469,11 @@ readFLIndices <- function(file, file2, type="VPA", index.names, descs,
 }	# }}}
 
 # readFLIndex		{{{
+#' readFLIndex
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readFLIndex <- function(file, type="VPA", index.names, descs, 
     desc=paste("Imported from ", type, " file '", file, "'", sep="")) {
 
@@ -433,6 +483,11 @@ readFLIndex <- function(file, type="VPA", index.names, descs,
     return(res[[1]])
 }
 
+#' set.index
+#'
+#' Set values in a structured object.
+#'
+#' @noRd
 set.index <- function(smry.,index.,p.,l.,range) {
     yr.range  <- tapply(index.[,2],index.[,1],range)
 	for (i in 1:length(l.)) {
@@ -501,6 +556,11 @@ set.index <- function(smry.,index.,p.,l.,range) {
 }	# }}}
 
 # read.FLIndex {{{
+#' read.FLIndex
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 read.FLIndex <- function(...)
 {
   warning("read.FLIndex has been renamed as readFLIndex and will de deprecated", inmediate. = TRUE)
@@ -508,6 +568,11 @@ read.FLIndex <- function(...)
 }
 
 # read.FLIndices
+#' read.FLIndices
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 read.FLIndices <- function(...)
 {
   warning("read.FLIndices has been renamed as readFLIndices and will de deprecated", inmediate. = TRUE)

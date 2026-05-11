@@ -584,6 +584,11 @@ survRec <- function(ssf, R0, Sfrac, beta, SF0=ssf[,1]) {
   return(rec)
 }
 
+#' survSRR
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 survSRR <- function() {
 
   ## log likelihood, assuming normal log.
@@ -638,6 +643,11 @@ bevholtsig <- function() {
 
 # mixedsrr {{{
 
+#' mixed
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 mixed <- function(a, b, m=c(1, 2, 3), ssb) {
 
   rec <- ssb
@@ -838,6 +848,11 @@ setMethod("loglAR1", signature(obs = "numeric", hat = "numeric"),
      return(res)}) # }}}
 
 # SRModelName {{{
+#' SRModelName
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 SRModelName <- function(model){
   return(switch(gsub(" ", "", as.character(as.list(model)[length(model)])),
     "a*ssb*exp(-b*ssb)"                 = "ricker",
@@ -865,6 +880,11 @@ SRModelName <- function(model){
       NULL))} # }}}
 
 # SRNameCode {{{
+#' SRNameCode
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 SRNameCode <- function(name)
 {
   code <- switch(name,
@@ -894,6 +914,11 @@ SRNameCode <- function(name)
 } # }}}
 
 # spr2v {{{
+#' spr2v
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 spr2v <- function(model, spr, a=NULL, b=NULL, c=NULL, d=NULL)
 {
   # SSB as function of ssb/rec
@@ -910,6 +935,11 @@ spr2v <- function(model, spr, a=NULL, b=NULL, c=NULL, d=NULL)
 } # }}}
 
 # srr2s {{{
+#' srr2s
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 srr2s <- function(model, ssb=NULL, spr=NULL, a=NULL, b=NULL, c=1, d=NULL)
 {
   #recruits as function of ssb or ssb/rec
@@ -920,6 +950,11 @@ srr2s <- function(model, ssb=NULL, spr=NULL, a=NULL, b=NULL, c=1, d=NULL)
 } # }}}
 
 # abPars {{{
+#' abPars
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 abPars <- function(model, spr0, s=NULL, v, c=NULL, d=NULL)
 {
   # converts a & b parameterisation into steepness & virgin biomass (s & v)
@@ -944,6 +979,11 @@ abPars <- function(model, spr0, s=NULL, v, c=NULL, d=NULL)
 } # }}}
 
 # svPars {{{
+#' svPars
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 svPars <- function(model, spr0, a, b=NULL, c=NULL, d=NULL)
 {
   v <- spr2v(model, spr0, a, b, c, d)
@@ -956,6 +996,11 @@ svPars <- function(model, spr0, a, b=NULL, c=NULL, d=NULL)
 # }}}
 
 # abModel {{{
+#' abModel
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 abModel <- function(model)
 {
   if(is(model, 'formula'))
@@ -972,6 +1017,11 @@ abModel <- function(model)
 } # }}}
 
 # svModel {{{
+#' svModel
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 svModel <- function(model)
 {
   if(is(model, 'formula'))

@@ -88,6 +88,11 @@ setMethod('FLStock', signature(object='FLQuants'),
 # }}}
 
 # is.FLStock	{{{
+#' is.FLStock
+#'
+#' Check whether an object inherits from `FLStock`.
+#'
+#' @noRd
 is.FLStock <- function(x)
 	return(inherits(x, "FLStock"))	# }}}
 
@@ -109,6 +114,11 @@ is.FLStock <- function(x)
 #' exb(ple4)
 
 # .biomass
+#' .biomass
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 .biomass <- function(n, h, ph, m, pm, wt, sel, byage=FALSE) {
 
   # CALCULATE by harvest 'units'
@@ -161,6 +171,11 @@ setMethod("ssb", signature(object="FLStock"),
 )	
 
 # ssb_end
+#' ssb_end
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 ssb_end <- function(object, byage=FALSE, ...) {
 
   # PARSE extra arguments
@@ -176,6 +191,11 @@ ssb_end <- function(object, byage=FALSE, ...) {
 }
 
 # ssb_start
+#' ssb_start
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 ssb_start <- function(object, byage=FALSE, ...) {
 
   # PARSE extra arguments
@@ -237,6 +257,11 @@ setMethod("exb", signature(x="FLStock"),
 )
 
 # biomass_end
+#' biomass_end
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 biomass_end <- function(object, byage=TRUE, ...) {
 
   # PARSE extra arguments
@@ -270,6 +295,11 @@ setMethod("tsb", signature(object="FLStock"),
 
 # setPlusGroup function	{{{
 #  changes the level of the plus group of the stock object
+#' calc.pg
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 calc.pg <- function(s., i., k., r., pg., action, na.rm) {
 	q.<-slot(s.,i.)
 
@@ -302,6 +332,11 @@ calc.pg <- function(s., i., k., r., pg., action, na.rm) {
 
 	return(q.)}
 
+#' expandAgeFLStock
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 expandAgeFLStock<-function(object,maxage,keepPlusGroup=TRUE,...) {
 
     if (!inherits(object, "FLStock")) stop('not a FLStock object')
@@ -695,6 +730,11 @@ catchMature <- function(object) {
 # }}}
 
 # sop	{{{
+#' sop
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 sop <- function(stock, slot="catch") {
 	return(quantSums(slot(stock, paste(slot, ".n", sep="")) *
 		slot(stock, paste(slot, ".wt", sep=""))) / slot(stock, slot))
@@ -981,6 +1021,11 @@ setMethod("rec<-", signature(object="FLStock", value="FLQuant"),
 # }}}
 
 # mergeFLStock {{{
+#' mergeFLStock
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 mergeFLStock<-function(x, y)
     {
     if (!all(unlist(dims(x))==unlist(dims(y)))) stop("FLStock objects to combine have dim mismatch")
@@ -1310,6 +1355,11 @@ setMethod("dim", signature(x="FLStock"),
 
 # nounit {{{
 
+#' nounit
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 nounit <- function(stock) {
 
   # DIMS
@@ -1379,6 +1429,11 @@ setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
 
 # noseason {{{
 
+#' noseason
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 noseason <- function(stock, spwn.season=1, rec.season=spwn.season, 
   weighted=FALSE) {
 
@@ -1452,6 +1507,11 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season,
 
 # noarea {{{
 
+#' noarea
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 noarea <- function(stock) {
 
   old <- stock
@@ -1810,6 +1870,11 @@ Funwanted <- function(x, ages=dimnames(x)$age) {
     harvest(x)[ac(ages)])
 }
 
+#' Fwanted
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 Fwanted <- function(x, ages=dimnames(x)$age) {
 quantMeans((landings.n(x)[ac(ages),] / catch.n(x)[ac(ages),]) *
     harvest(x)[ac(ages)])
@@ -1900,6 +1965,11 @@ ssb_next <- function(x, fbar=0, wts.nyears=3, fbar.nyears=3) {
 } # }}}
 
 # targets {{{
+#' biomass_end
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 biomass_end <- function(x) {
   m.spwn(x) <- 1
   harvest.spwn(x) <- 1
@@ -1907,6 +1977,11 @@ biomass_end <- function(x) {
     harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
   }
 
+#' biomass_spawn
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 biomass_spawn <- function(x) {
 	return(quantSums(stock.n(x) * exp(-(harvest(x) *
     harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
@@ -2565,6 +2640,11 @@ setMethod("computeHarvest", signature(object="FLStock", catch="missing"),
   }
 )
 
+#' recomputeHarvest
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 recomputeHarvest <- function(x) {
   harvest(stock.n(x), catch.n(x), m(x), recompute=TRUE)
 }

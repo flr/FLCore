@@ -6,6 +6,11 @@
 # $Id: zzz.R 1635 2012-06-12 09:20:08Z imosqueira $
 
 
+#' .onAttach
+#'
+#' Run package startup actions on attach.
+#'
+#' @noRd
 .onAttach <- function(lib,pkg) {
   pkgdesc <- packageDescription("FLCore")
   builddate <- gsub(';.*$', '', pkgdesc$Packaged)
@@ -15,13 +20,28 @@
 }
 
 # ac
+#' ac
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 ac <- function(x, ...)
   as.character(x, ...)
 
 # an
+#' an
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 an <- function(x, ...)
   as.numeric(x, ...)
 
+#' run.info
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 run.info <- function(pkgs) {
 
   info <- as.matrix(c(unlist(setNames(lapply(pkgs, function(x)
@@ -40,6 +60,11 @@ run.info <- function(pkgs) {
 
 # find.original.name(s) {{{
 
+#' find.original.name
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 find.original.name <- function(fun) {
   objects <- ls(envir = environment(fun))
   
@@ -50,6 +75,11 @@ find.original.name <- function(fun) {
     }
 }
 
+#' find.original.names
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 find.original.names <- function(funs) {
   lapply(funs, find.original.name)
 }

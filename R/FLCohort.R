@@ -273,6 +273,11 @@ setMethod("propagate", signature(object="FLCohort"),
 ) # }}}
 
 # fillFLCdimnames       {{{
+#' fillFLCdimnames
+#'
+#' Fill missing dimension names to expected lengths.
+#'
+#' @noRd
 fillFLCdimnames <- function(dnames, dim=rep(1,6), iter=1) {
   # generate standard names for given dimensions
   if(!missing(iter))

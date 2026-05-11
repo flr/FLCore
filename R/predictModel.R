@@ -434,6 +434,11 @@ evalPredictModel <- function(object, slot, ...) {
 } # }}}
 
 # returnPredictModelSlot {{{
+#' returnPredictModelSlot
+#'
+#' Return selected components from an object.
+#'
+#' @noRd
 returnPredictModelSlot <- function(object, what=TRUE, slot, ...) {
 
     # TRUE, compute

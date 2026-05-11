@@ -5,6 +5,11 @@
 # $Id: io.FLStock.R 1022 2011-06-10 11:07:33Z imosqueira $
 
 # readFLStock		{{{
+#' readFLStock
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a", 
     type, "file. (", file, "). ", date()), m = 0.2, quant="age", quiet=TRUE,
     no.discards=FALSE, harvest.units, sep="", na.strings="NA")
@@ -95,6 +100,11 @@ readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a"
 }	# }}}
 
 # writeFLStock	{{{
+#' writeFLStock
+#'
+#' Write object contents to file.
+#'
+#' @noRd
 writeFLStock <- function(FLStock, output.file=FLStock@name, type="VPA") {
 	if (!inherits(FLStock, "FLStock"))
 		stop("FLStock must be an 'FLStock' object!")

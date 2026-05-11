@@ -503,6 +503,11 @@ setMethod("ages", signature(object="FLQuant"),
 # }}}
 
 # is.FLQuant       {{{
+#' is.FLQuant
+#'
+#' Check whether an object inherits from `FLQuant`.
+#'
+#' @noRd
 is.FLQuant  <-  function(x)
 return(is(x, "FLQuant"))
 # }}}
@@ -1589,10 +1594,20 @@ setMethod("catch.n", signature(object="FLQuant"),
 
 # harvest {{{
 
+#' baranovCatch
+#'
+#' Apply Baranov equations for catch and mortality.
+#'
+#' @noRd
 baranovCatch <- function(n, m, f) {
   return(n * (f / (m + f)) * (1 - exp(-(m + f))))
 }
 
+#' solveBaranov
+#'
+#' Solve for model quantities from observed values.
+#'
+#' @noRd
 solveBaranov <- function(n, m, c) {
 
   if(sum(is.na(c(n, m, c))) > 0)
@@ -1749,6 +1764,11 @@ setMethod("harvest", signature(object="FLQuant", catch="FLQuant"),
 ) # }}}
 
 # knit_print.FLQuant{{{
+#' knit_print.FLQuant
+#'
+#' Render object output for knitr documents.
+#'
+#' @noRd
 knit_print.FLQuant <- function(object, options, cols=5, inline=FALSE) {
 
     # dims
@@ -1789,6 +1809,11 @@ knit_print.FLQuant <- function(object, options, cols=5, inline=FALSE) {
 } # }}}
 
 # filldimnames       {{{
+#' filldimnames
+#'
+#' Fill missing dimension names to expected lengths.
+#'
+#' @noRd
 filldimnames <- function(dnames, dim=rep(1,6), iter=1) {
 # check only one name for quant in input
 if(length(names(dnames)[!names(dnames)%in%c("year","unit","season","area","iter")]) > 1)
@@ -2138,6 +2163,11 @@ setMethod("merge", signature(x="FLQuant", y="FLQuant"),
 # }}}
 
 # rho {{{
+#' rho
+#'
+#' Estimate lag-1 autocorrelation.
+#'
+#' @noRd
 rho <- function(x) {
   FLPar(rho=c(apply(x, 6, function(i)
     c(acf(c(i), plot=FALSE, na.action=na.pass)[1][[1]]))), units="")
@@ -2205,6 +2235,11 @@ rwalk <- function(x0, end=1, sd=0.05, delta=0) {
 # }}}
 
 # leslie {{{
+#' .leslie
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 .leslie <- function(object, fec) {
 
   if (length(object) != length(fec))

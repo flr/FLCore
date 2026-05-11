@@ -230,6 +230,11 @@ setMethod('cpue', signature(object='FLStock', index="missing"),
 
 # hyperstability {{{
 
+#' hyperstability
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 hyperstability <- function(object, omega=1, ref=yearMeans(object)) {
   return(ref %*% ((object %/% ref) ^ omega))
 } # }}}
@@ -310,10 +315,20 @@ setMethod("computeQ", signature=c(indices="FLI", stock="FLStock",
 
 # bias {{{
 
+#' bias
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 bias <- function(object, bias=0.02){
   return(FLQuant(cumprod(1 + rep(c(bias), dim(object)[2])), dimnames=dimnames(object)))
 }
 
+#' biased
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 biased <- function(object, bias=0.02){
   return(object * bias(object, bias=bias))
 } # }}}
@@ -435,6 +450,11 @@ setMethod("rlnoise", signature(n='numeric', len="FLQuant"),
 ) # }}}
 
 # noiseFn {{{
+#' noiseFn
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 noiseFn <- function(len, sd=1, b=0, burn=0, trunc=0, seed=NA) {
 
   # set.seed by call if given
@@ -555,6 +575,11 @@ setMethod("mase", signature(ref="FLIndices", preds="list"),
 
 # ar1rlnorm {{{
 
+#' ar1rlnorm
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
   bias.correct=FALSE, ...) {
 
@@ -680,6 +705,11 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
 # }}}
 
 # ar1deviances {{{
+#' ar1deviances
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 ar1deviances <- function(x, year) {
 
   rho <- rho(window(x, end=year))
@@ -895,6 +925,11 @@ sigma3 <- function(x, mixing="less", type="residual") {
 
 #
 
+#' .runs.test
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 .runs.test <- function(x, alternative="two.sided", threshold=median(x), pvalue="normal", plot=FALSE){
 
   # Performs the Runs Test for Randomness.
@@ -909,6 +944,11 @@ sigma3 <- function(x, mixing="less", type="residual") {
   #   n: the sample size, after the remotion of consecutive duplicate values.
   #   p.value: the asymptotic p-value.
   #
+#' druns
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 druns <- function(x, n1, n2, log = FALSE){
   stopifnot(is.numeric(x))
   x <- ifelse(x == round(x),x,1)

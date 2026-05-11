@@ -6,6 +6,11 @@
 # $Id:  $
 
 # readAdaptFile	{{{
+#' readAdaptFile
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readAdaptFile <- function(file., m. = m) {
     skip.hash <- function(i) {
         i <- i + 1
@@ -89,6 +94,11 @@ readAdaptFile <- function(file., m. = m) {
 }	# }}}
 
 # readCSAFile		{{{
+#' readCSAFile
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readCSAFile <- function(file.) {
     t.    <-scan(file=file.,skip=1,sep=",")
     nrow. <-length(t.)/9
@@ -130,6 +140,11 @@ readCSAFile <- function(file.) {
 }	# }}}
 
 # readPAFile		{{{
+#' readPAFile
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readPAFile <- function(file.) {
     getmatrix <- function(file., start, nlines, yrs, ages) {
         m. <- t(as.matrix(read.table(file = file., skip = start - 

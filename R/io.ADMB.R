@@ -5,6 +5,11 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 # $Id:  $
 
+#' readADMB
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readADMB<-function(file){
     ## read in data from ADMB Par or Rep file
     dat  <-scan(file,what="",sep="\n",skip=1)
@@ -16,6 +21,11 @@ readADMB<-function(file){
  
 # writeADMB {{{
 
+#' writeADMB
+#'
+#' Write object contents to file.
+#'
+#' @noRd
 writeADMB <- function(x, file, append=FALSE) {
 
   cat('#', names(x[1]),'\n', file=file, append=append)

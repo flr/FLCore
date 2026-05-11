@@ -1034,6 +1034,11 @@ setMethod("%=%", signature(object="FLArray", value="FLArray"),
 # }}}
 
 # matchDimnames {{{
+#' matchDimnames
+#'
+#' Match dimension names across objects.
+#'
+#' @noRd
 matchDimnames <- function(dnp, dnq) {
 
   # too tricky to explain ...

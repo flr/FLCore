@@ -1267,6 +1267,11 @@ whichdimnames <- function(x) {
   as.data.frame((lapply(setNames(nm=colnames(pos)), function(i)
     dms[[i]][pos[,i]])))
 }
+#' whichdimnames
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 whichdimnames <- function(x) {
 
   # GET positions by array dim

@@ -253,4 +253,9 @@ function(x, row.names, cohort=FALSE, timestep=FALSE, date=FALSE, drop=FALSE,
   } 
 ) # }}}
 
+#' se
+#'
+#' Compute the standard error of a vector.
+#'
+#' @noRd
 se <- function(x) sqrt(var(x)) / sqrt(n(x)) # Create own function

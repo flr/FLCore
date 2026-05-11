@@ -1271,6 +1271,11 @@ setMethod("survprob", signature(object="FLBiol"),
 
 # setPlusGroup {{{
 setMethod('setPlusGroup', signature(x='FLBiol', plusgroup='numeric'),
+#' s.
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 s.<-  function(x, plusgroup, na.rm=FALSE)
   {
   pg.wt.mean <-c("wt","m","fec","spwn")

@@ -11,12 +11,22 @@
 
 ##### Generic Functions ########################################################
 # panel functions
+#' srpanel
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 srpanel <- function(x, y, ...) {
 	panel.xyplot(x, y, col='gray40', cex=0.8)
 	panel.loess(x,y, col='red')
 	panel.abline(a=0, b=0, lty=2, col='blue')
 	}
 
+#' respanel
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 respanel <- function(x, y, ...) {
 	panel.xyplot(x, y, col='gray40', cex=0.8)
   panel.lmline(x, y, ..., col='red')
@@ -24,6 +34,11 @@ respanel <- function(x, y, ...) {
 	}
 
 # get dimensions to condition on
+#' condNms
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 condNms<-function(flq){
 		res <-names(flq)[c(1,3:5)][dim(flq)[c(1,3:5)]!=1]
 		res <-paste(res, collapse="+")
@@ -35,6 +50,11 @@ condNms<-function(flq){
 # compare fits
 
 # plots realtionship
+#' plotFunc
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotFunc<-function(obs,prd,indVar,indVar.,xttl="X",yttl="Y",mttl="",splt=c(1,1,1,1),more=FALSE)
   	{
     cond<-condNms(prd)
@@ -52,6 +72,11 @@ plotFunc<-function(obs,prd,indVar,indVar.,xttl="X",yttl="Y",mttl="",splt=c(1,1,1
 		invisible()
     }
 
+#' plotResidYr
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotResidYr<-function(resid,xttl="Year",yttl='Residuals',mttl="",splt=c(1,1,1,1),more=FALSE)
   	{
 		# 2. Residuals plotted against year
@@ -64,6 +89,11 @@ plotResidYr<-function(resid,xttl="Year",yttl='Residuals',mttl="",splt=c(1,1,1,1)
 		invisible()
     }
 
+#' plotResidX
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotResidX<-function(resid,Var,xttl="X",yttl='Residuals',mttl="",splt=c(1,1,1,1),more=FALSE)
   	{
     cond<-condNms(resid)
@@ -74,6 +104,11 @@ plotResidX<-function(resid,Var,xttl="X",yttl='Residuals',mttl="",splt=c(1,1,1,1)
 		invisible()
     }
 
+#' plotResidAR1
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotResidAR1<-function(resid,xttl='Residuals at t',yttl='Residuals at t+1',mttl='AR(1) Residuals',splt=c(1,1,1,1),more=FALSE)
   	{
 		# Residuals at time t vs. residuals at time t+1
@@ -88,6 +123,11 @@ plotResidAR1<-function(resid,xttl='Residuals at t',yttl='Residuals at t+1',mttl=
 		invisible()
     }
 
+#' plotResidQQ
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotResidQQ<-function(resid,xttl='Sample Quantiles',yttl='Residuals',mttl='Normal Q-Q Plot',splt=c(1,1,1,1),more=FALSE)
   	{
 		# qqplot of residuals
@@ -104,6 +144,11 @@ plotResidQQ<-function(resid,xttl='Sample Quantiles',yttl='Residuals',mttl='Norma
     invisible()
     }
 
+#' plotResidAll
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotResidAll<-function(resid,obs,prd,hat,indVar,indVar.,Xttl="X",Yttl="Y")
   	{
     # initial device settings

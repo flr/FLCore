@@ -7,6 +7,11 @@
 
 
 # readVPAFile		{{{
+#' readVPAFile
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readVPAFile <- function(file, sep = "", units = "NA", na.strings="NA",
   quiet = TRUE) {	
     if (!file.exists(file)){
@@ -60,6 +65,11 @@ readVPAFile <- function(file, sep = "", units = "NA", na.strings="NA",
 }	# }}}
 
 # readVPA		{{{
+#' readVPA
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readVPA <- function(file, sep = "", quiet=TRUE, na.strings="NA") {
     if (!file.exists(file)){
         if(quiet==TRUE) stop()
@@ -135,6 +145,11 @@ readVPA <- function(file, sep = "", quiet=TRUE, na.strings="NA") {
 }	# }}}
 
 # writeVPA - Mark Payne, DTU-Aqua		{{{
+#' writeVPA
+#'
+#' Write object contents to file.
+#'
+#' @noRd
 writeVPA <- function(FLStock, output.file=FLStock@name,slots="missing") {
     #Check for dimensions that Lowestoft VPA can't handle 
     if(dims(FLStock)$iter >1) stop("FLStock object contains more than

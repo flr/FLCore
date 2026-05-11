@@ -68,11 +68,21 @@ setMethod('FLIndex', signature(object='missing'),
 ) # }}}
 
 # is.FLIndex	{{{
+#' is.FLIndex
+#'
+#' Check whether an object inherits from `FLIndex`.
+#'
+#' @noRd
 is.FLIndex <- function(x)
     return(inherits(x, "FLIndex"))
 # }}}
 
 # plotinternal  {{{
+#' plotinternal
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotinternal <- function(x, ... )
 {
   pfun <- function(x,y,...)
@@ -103,6 +113,11 @@ plotinternal <- function(x, ... )
 } # }}}
 
 # plotts  {{{
+#' plotts
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotts <- function(x, ...)
 {
   dps <- as.data.frame(sweep(x@index,1,apply(x@index,  1,mean,na.rm=T),"/"))
@@ -113,6 +128,11 @@ plotts <- function(x, ...)
 } # }}}
 
 # pairwise comparison of age consistency  {{{
+#' pairwiseConsistency
+#'
+#' Compare paired values for consistency.
+#'
+#' @noRd
 pairwiseConsistency <- function(idx, show.scales=FALSE, log.scales=TRUE, ...)
 {
   #Convert to Cohorts
@@ -180,6 +200,11 @@ pairwiseConsistency <- function(idx, show.scales=FALSE, log.scales=TRUE, ...)
 }   # }}}
 
 # internal consistency  {{{
+#' plotInternalConsistency
+#'
+#' Plot diagnostics for the provided object.
+#'
+#' @noRd
 plotInternalConsistency <-  function(idx,log.scales=TRUE,
   cols=c("white", "yellow", "red"),use.rsq=TRUE,mark.significant=FALSE,...)
   {

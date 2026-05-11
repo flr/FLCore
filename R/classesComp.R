@@ -819,6 +819,11 @@ setClass("FLIndexBiomass",
 
 # FLModel  {{{
 
+#' newlogLik
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 newlogLik <- function(value=as.numeric(NA), nall=as.numeric(NA),
   nobs=as.numeric(NA), df=as.numeric(NA)) {
 

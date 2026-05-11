@@ -5,6 +5,11 @@
 # Maintainer: Iago Mosqueira, EC JRC G03
 
 # create retro stocks
+#' getRetros
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getRetros<-function(stk,fileNm,n){
   stks<-FLStocks()
   
@@ -46,6 +51,11 @@ getRetros<-function(stk,fileNm,n){
   return(stks)}
 
 # readVPA2Box {{{
+#' readVPA2Box
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readVPA2Box <- function(file,m=NULL,minage=1,retros=TRUE,printFiles=FALSE,...) {
   
   wrn=options()$warn
@@ -192,6 +202,11 @@ readVPA2Box <- function(file,m=NULL,minage=1,retros=TRUE,printFiles=FALSE,...) {
 } # }}}
 
 # getDir {{{
+#' getDir
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getDir <- function(file) {
   if (!grepl(.Platform$file.sep,file))
     res <- getwd()
@@ -200,9 +215,24 @@ getDir <- function(file) {
   return(res)
 } # }}}
 
+#' getFile
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getFile<-function(file) substr(file,max(gregexpr(.Platform$file.sep,file)[[1]])+1,nchar(file))
+#' getExt
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getExt <-function(file) substr(file,max(gregexpr("\\.",             file)[[1]])+1,nchar(file))
 
+#' posFile
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 posFile<-function(i,filename,char="-"){
   while (TRUE){
     firstChar<-substr(scan(filename, skip = i, nlines = 1, what = ("character"), quiet = TRUE)[1], 1, 1)
@@ -214,6 +244,11 @@ posFile<-function(i,filename,char="-"){
   
   return(i)}
 
+#' getFLQ
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getFLQ<-function(filename,pos1, pos2)
 {
   nyrs <-pos2-pos1-1
@@ -230,6 +265,11 @@ getFLQ<-function(filename,pos1, pos2)
 
 
 # vpa2boxfiles {{{
+#' vpa2BoxFiles
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 vpa2BoxFiles <- function(file,print=FALSE) {
   i <- skip.hash(0,file)
   j <- skip.until.hash(i,file)
@@ -243,6 +283,11 @@ vpa2BoxFiles <- function(file,print=FALSE) {
 } # }}}
 
 # skip.hash {{{
+#' skip.hash
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 skip.hash <- function(i,file) {
     i <- i+1
     while (substr(scan(file,skip=i,nlines=1,what=("character"),quiet=TRUE)[1],1,1)=="#")
@@ -250,6 +295,11 @@ skip.hash <- function(i,file) {
 
     return(i)}
 
+#' skip.until.hash
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 skip.until.hash <- function(i,file) {
     i <- i+1
     while (substr(scan(file,skip=i,nlines=1,what=("character"),quiet=TRUE)[1],1,1)!="#")
@@ -259,6 +309,11 @@ skip.until.hash <- function(i,file) {
 } # }}}
 
 # getNBootRetro {{{
+#' getNBootRetro
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getNBootRetro <- function(file) {
 
     tmp <- scan(file,what=character(),sep="\n",quiet=TRUE)
@@ -269,6 +324,11 @@ getNBootRetro <- function(file) {
 } # }}}
 
 # readBinary {{{
+#' readBinary
+#'
+#' Read data from file inputs.
+#'
+#' @noRd
 readBinary <- function(x,dmns=list(),size=4) {
   # Specify dims
   if ( "iter" %in% names(dmns))

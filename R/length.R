@@ -56,6 +56,11 @@ richards <- function(linf, k, b, m, age) {
 
 # invALK {{{
 
+#' invALK
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 invALK <- function(params, model=vonbert, age, cv=0.1, lmax=1.2, bin=1,
   max=ceiling(linf * lmax), reflen=NULL) {
 
@@ -138,6 +143,11 @@ lenSamples <- function(object, invALK, n=300) {
 
 # mlc {{{
 
+#' mlc
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 mlc <- function(samples) {
   return(quantSums(as.numeric(dimnames(samples)$len) * samples)
     / quantSums(samples))
@@ -165,6 +175,11 @@ mlc <- function(samples) {
 
 # TODO: LOOP over metric
 
+#' indicators.len
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 indicators.len <- function (object, indicators="lbar", model=vonbert, params,
   cv=0.1, lmax=1.25, bin=1, n=500, metric=catch.n, ...) {
 

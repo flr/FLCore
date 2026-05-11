@@ -77,10 +77,20 @@ setMethod( "readMFCL", signature(file="character"),
   return(stk)})
 
 # getExt {{{
+#' getExt
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getExt <- function(file)
   substr(file,max(gregexpr("\\.", file)[[1]])+1,nchar(file)) # }}}
 
 # getmfclstuff functions  {{{
+#' getqedlist
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getqedlist<-function(plotrepfile="plot.rep"){
 ## List of catchability+effort dev. vectors by fishery
   dat <- getplotdat4("# Catch.+effort dev. by realization",plotrepfile)
@@ -90,6 +100,11 @@ getqedlist<-function(plotrepfile="plot.rep"){
 
   split(dat, splitter)}
   
+#' getqlist
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getqlist<-function(plotrepfile="plot.rep"){
 ## List of catchability vectors by fishery
   dat <- getplotdat4("# Catchability by realization",plotrepfile)
@@ -99,6 +114,11 @@ getqlist<-function(plotrepfile="plot.rep"){
 
   split(dat, splitter)}
 
+#' getColist
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getColist<-function(plotrepfile="plot.rep"){
 ## Observed catch by fishery (down) and time (across)
 ##   Returns list w/ 1 element (vector) per fishery
@@ -108,12 +128,22 @@ getColist<-function(plotrepfile="plot.rep"){
   splitter <- rep(seq(nfish), nreal)
   split(dat, splitter)}
 
+#' getselect
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getselect<-function(plotrepfile="plot.rep"){
 ## Selectivity by age class (across) and fishery (down)
   dat <- getplotdat4("# Selectivity by age class",plotrepfile)
   nages <- getnages(plotrepfile)
   matrix(dat, byrow=TRUE,ncol=nages)}
 
+#' getCPUEolist
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getCPUEolist<-function(plotrepfile="plot.rep"){
 ## Observed CPUE by fishery (down) and time (across)
   dat <- getplotdat4("# Observed CPUE by fishery",plotrepfile)
@@ -123,31 +153,66 @@ getCPUEolist<-function(plotrepfile="plot.rep"){
 
   split(dat, splitter)}
 
+#' getFya
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getFya<-function(plotrepfile="plot.rep"){
 ## Fishing mortality by age class (across) and year (down)
   nages <- getnages(plotrepfile)
   dat <- getplotdat4("# Fishing mortality by .*down)$",plotrepfile)
   matrix(dat, byrow=TRUE,ncol=nages)}
 
+#' getmaturity
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getmaturity<-function (parfile = getoutputparfile("plot.rep")) {
   getplotdat1(parfile,h="# percent maturity")}
   
+#' getM.age
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getM.age<-function(plotrepfile="plot.rep"){
 ## Natural mortality at age
   getplotdat1(plotrepfile,h="# Natural mortality at age")}
 
+#' getwt.age
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getwt.age<-function(plotrepfile="plot.rep"){
 ## Mean weights at age
   getplotdat1("# Mean weights at age",plotrepfile)}
   
+#' getnreal
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getnreal<-function(plotrepfile="plot.rep"){
 ### Number of realizations per fishery
   getplotdat1(plotrepfile,h="# Number of realizations per fishery")}
 
+#' getnfish
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getnfish<-function(plotrepfile="plot.rep"){
 ## Number of fisheries
   getplotdat1(plotrepfile,h="# Number of fisheries")}
 
+#' getplotdat0
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getplotdat0 <- function(h,plotrepfile) {
   ##=================================================
   ## List remainder of line containing header h. 
@@ -161,6 +226,11 @@ getplotdat0 <- function(h,plotrepfile) {
   tt[length(tt)]
 }
 
+#' getplotdat4
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getplotdat4<-function(h="",plotrepfile) {
 ## Start listing after header h.  Quit if encounter
 ##  "^#"
@@ -177,6 +247,11 @@ getplotdat4<-function(h="",plotrepfile) {
   
   tt}
 
+#' getrtimes
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getrtimes<-function(plotrepfile="plot.rep"){
 ## Time of each realization by fishery (down)
   dat <- getplotdat4("# Time of each realization by fishery",plotrepfile)
@@ -185,15 +260,30 @@ getrtimes<-function(plotrepfile="plot.rep"){
   splitter <- rep(seq(nfish), nreal)
   split(dat, splitter)}
   
+#' getnreg
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getnreg<-function(plotrepfile="plot.rep"){
   ## Number of regions
   getplotdat1(plotrepfile,h="# Number of regions")}
 
+#' getplotdat1
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getplotdat1<-function (h = "", plotrepfile, skip = 1) {
     dat <- readLines(plotrepfile)
     recnum <- grep(h, dat)
     scanText(dat[recnum + skip], what = 0)}
     
+#' scanText
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 scanText<-function(string, what = character(0), ...){
 ## Like scan() but reading from a vector of character strings
     tc <- textConnection(string)
@@ -201,13 +291,28 @@ scanText<-function(string, what = character(0), ...){
     close(tc)
     return(result)}
     
+#' getnpd
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getnpd<-function(plotrepfile="plot.rep"){
 ## Number of time periods
   getplotdat1(plotrepfile,h="# Number of time periods")}
   
+#' getnyr
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getnyr<-function (plotrepfile = "plot.rep") {
     1 + diff(floor(range(unlist(getrtimes(plotrepfile)))))}  
 
+#' getNyar
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getNyar<-function (plotrepfile = "plot.rep", byyear = TRUE) {
 ### Population number array:  N[time pd, age, region]
   nreg <- getnreg(plotrepfile)
@@ -220,10 +325,20 @@ getNyar<-function (plotrepfile = "plot.rep", byyear = TRUE) {
                      drop = FALSE]
   aperm(a, c(2, 1, 3))}
 
+#' getnages
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getnages<-function(plotrepfile="plot.rep"){
 ## Number of age classes
   getplotdat1(plotrepfile,h="# Number of age classes")}
       
+#' getplotdat2
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getplotdat2 <- function(h,k="",plotrepfile) {
   ## Start listing after header h.  Skip if encounter
   ## header k.  Quit if encounter any other "^#"
@@ -241,6 +356,11 @@ getplotdat2 <- function(h,k="",plotrepfile) {
   
   tt}
 
+#' getBHSR
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getBHSR<-function(plotrepfile="plot.rep"){
   ## Beverton-Holt stock-recruitment relationship report
     qq <- if(.Platform$OS.type!="unix") '\" '
@@ -260,6 +380,11 @@ getBHSR<-function(plotrepfile="plot.rep"){
     
     output}
     
+#' scanpipe
+#'
+#' Utility function used by FLCore methods.
+#'
+#' @noRd
 scanpipe<-function (cmd, ...) {
 ##  scan from a connection and then tidy up.
     con <- pipe(cmd)
@@ -268,6 +393,11 @@ scanpipe<-function (cmd, ...) {
     
     out}
     
+#' getoutputparfile
+#'
+#' Extract values from structured inputs.
+#'
+#' @noRd
 getoutputparfile <- function(plotrepfile="plot.rep") {
   ##===============================================================
   ## returns string with name (and path) of .par file corresponding
