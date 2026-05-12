@@ -171,8 +171,9 @@ setMethod("lock", "FLlst", function(object){object@lock <- TRUE; object})
 
 #' Unlock an FLlst object so its length can be modified
 #'
-#' `unlock()` sets the internal `lock` slot to `FALSE`, allowing elements to be
-#' added to or removed from an [`FLlst`] object.
+#' `unlock()` sets the internal `lock` slot to `FALSE`, reversing the effect of
+#' `lock()` and allowing the length of an [`FLlst`] object to be modified
+#' again.
 #'
 #' @name unlock
 #' @rdname unlock
