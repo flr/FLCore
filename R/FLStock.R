@@ -228,12 +228,16 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
 #' @rdname exb
 #' @aliases exb exb-methods exb,FLStock-method
 #' @param x An [`FLStock`] object.
-#' @param sel Selection pattern to apply, defaulting to [`catch.sel()`].
-#' @param wt Mean weight to apply, defaulting to [`catch.wt()`].
+#' @param sel Selection pattern to apply, defaulting to `catch.sel(x)`.
+#' @param wt Mean weight to apply, defaulting to `catch.wt(x)`.
 #' @param byage Should exploitable biomass be returned by age rather than
 #'   aggregated over age?
 #' @param ... Additional named slot values temporarily used in the calculation.
 #' @return An [`FLQuant`] containing exploitable biomass.
+#' @details Exploitable biomass is the biomass available to the fishery after the
+#'   stock numbers are weighted by mean catch weight and the chosen selectivity
+#'   pattern. Set `byage = TRUE` when the contribution of each age needs to be
+#'   inspected before aggregating to the total exploitable biomass.
 #' @seealso [`biomass()`], [`vb()`], [`ssb()`], [`FLStock`]
 #' @author The FLR Team
 #' @keywords methods

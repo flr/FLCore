@@ -31,6 +31,8 @@ An \code{\link{FLQuant}} containing exploitable biomass.
 by applying the selected catchability pattern and weights to stock numbers.
 }
 \details{
+Exploitable biomass is the biomass available to the fishery after stock
+numbers are weighted by mean catch weight and the chosen selectivity pattern.
 Set \code{byage = TRUE} to keep the age structure instead of aggregating over
 age.
 }

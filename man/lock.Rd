@@ -20,6 +20,8 @@ A modified \code{\link{FLlst}} object with its \code{lock} slot updated.
 \description{
 \code{lock()} prevents elements being added to or removed from an
 \code{\link{FLlst}} object by setting its internal lock flag to \code{TRUE}.
+The related \code{\link{unlock}()} reverses the effect of \code{lock()} and
+allows the length of the object to be modified again.
 }
 \examples{
 fll <- FLlst(a=1:3, b=4:6)
