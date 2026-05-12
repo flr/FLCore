@@ -26,7 +26,7 @@ fll <- lock(FLlst(a=1:3, b=4:6))
 slot(unlock(fll), "lock")
 }
 \seealso{
-\link{lock}, \linkS4class{FLlst}
+\link{lock}, \link{collapse}, \linkS4class{FLlst}
 }
 \author{
 The FLR Team

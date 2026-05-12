@@ -176,7 +176,7 @@ setMethod("lock", "FLlst", function(object){object@lock <- TRUE; object})
 #' @aliases unlock unlock-methods unlock,FLlst-method
 #' @inheritParams lock
 #' @return A modified [`FLlst`] object with its `lock` slot updated.
-#' @seealso [`lock()`], [`FLlst`]
+#' @seealso [`lock()`], [`collapse()`], [`FLlst`]
 #' @author The FLR Team
 #' @keywords methods
 setGeneric("unlock", function(object, ...){

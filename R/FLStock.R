@@ -234,7 +234,7 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
 #'   aggregated over age?
 #' @param ... Additional named slot values temporarily used in the calculation.
 #' @return An [`FLQuant`] containing exploitable biomass.
-#' @details Exploitable biomass is the biomass available to the fishery after the
+#' @details Exploitable biomass is the biomass available to the fishery after
 #'   stock numbers are weighted by mean catch weight and the chosen selectivity
 #'   pattern. Set `byage = TRUE` to keep the age structure instead of
 #'   aggregating over age.
