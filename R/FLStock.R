@@ -236,8 +236,8 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
 #' @return An [`FLQuant`] containing exploitable biomass.
 #' @details Exploitable biomass is the biomass available to the fishery after the
 #'   stock numbers are weighted by mean catch weight and the chosen selectivity
-#'   pattern. Set `byage = TRUE` when the contribution of each age needs to be
-#'   inspected before aggregating to the total exploitable biomass.
+#'   pattern. Set `byage = TRUE` to keep the age structure instead of
+#'   aggregating over age.
 #' @seealso [`biomass()`], [`vb()`], [`ssb()`], [`FLStock`]
 #' @author The FLR Team
 #' @keywords methods

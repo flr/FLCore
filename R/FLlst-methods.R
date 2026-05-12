@@ -153,9 +153,7 @@ setMethod("lapply", signature(X="FLlst"),
 #' Lock an FLlst object against changes in length
 #'
 #' `lock()` prevents elements being added to or removed from an [`FLlst`]
-#' object by setting its internal lock flag to `TRUE`. `unlock()` reverses the
-#' effect of `lock()` and allows the length of an [`FLlst`] object to be
-#' modified again.
+#' object by setting its internal lock flag to `TRUE`.
 #'
 #' @name lock
 #' @rdname lock
