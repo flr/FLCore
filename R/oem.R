@@ -8,16 +8,46 @@
 
 # survey {{{
 
-#' A method to generate observations of abundance at age.
+#' Generate simulated survey observations of abundance
 #'
-#' @param object The object on which to draw the observation
+#' Creates a simulated observation of abundance-at-age or biomass index from
+#' an \code{FLStock} object representing the operating model (OM), replicating
+#' the sampling process of a scientific survey. The result is returned as an
+#' \code{FLIndex} or \code{FLIndexBiomass} object with the \code{index} slot
+#' populated.
 #'
-#' @return An FLQuant for the index of abundance
+#' @param object An \code{FLStock} operating model from which to draw the survey.
+#' @param index An \code{FLIndex}, \code{FLIndexBiomass}, or \code{FLIndices}
+#'   defining the survey design; if missing, a generic survey is constructed.
+#' @param sel Selectivity-at-age pattern to apply; defaults to
+#'   \code{sel.pattern(index)}.
+#' @param ages Character vector of ages to include; defaults to all ages in
+#'   \code{index}.
+#' @param timing Fraction of the year at which the survey takes place (0--1);
+#'   defaults to the midpoint of the \code{startf}/\code{endf} range entries.
+#' @param index.q Catchability of the survey; defaults to \code{index@index.q}.
+#' @param stability Hyperstability/hyperdepletion exponent applied to abundance;
+#'   1 (default) gives a linear response.
+#' @param biomass Logical; if \code{TRUE} and \code{index} is missing, returns
+#'   an \code{FLIndexBiomass} object; otherwise an \code{FLIndex}.
+#' @param catch.wt Mean weight-at-age used to convert numbers to biomass for
+#'   \code{FLIndexBiomass} surveys; defaults to \code{index@catch.wt}.
+#' @param ... Additional arguments passed to methods.
 #'
+#' @return An \code{FLIndex} or \code{FLIndexBiomass} object with the
+#'   \code{index} slot populated by the simulated survey observations, or a
+#'   list of such objects when \code{index} is of class \code{FLIndices}.
+#'
+#' @name survey
 #' @rdname survey
+#' @aliases survey survey-methods
+#' @docType methods
+#' @section Generic function: survey(object, index, ...)
+#'
 #' @author The FLR Team
-#' @seealso \link{FLComp}
-#' @keywords classes
+#' @seealso \linkS4class{FLIndex}, \linkS4class{FLIndexBiomass},
+#'   \linkS4class{FLStock}, \link{cpue}, \link{index}
+#' @keywords methods
 
 setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
 
@@ -129,6 +159,27 @@ setMethod("survey", signature(object="FLStock", index="FLIndices"),
 
 # index(FLStock) {{{
 
+#' Compute an abundance index from an FLStock
+#'
+#' Computes an abundance-at-age index from an \code{FLStock} object at a
+#' given survey timing, correcting stock numbers for the combined effect of
+#' fishing and natural mortality up to that point in the year.
+#'
+#' @param object An \code{FLStock} object from which to compute the index.
+#' @param sel Selectivity-at-age pattern to apply; defaults to
+#'   \code{catch.sel(object)}.
+#' @param ages Character vector of ages to include; defaults to all ages in
+#'   \code{sel}.
+#' @param timing Fraction of the year at which the index is computed (0--1);
+#'   defaults to 0.5 (mid-year).
+#'
+#' @return An \code{FLQuant} of abundance-at-age corrected for mortality up
+#'   to \code{timing} and filtered to the selected ages.
+#'
+#' @rdname index
+#' @author The FLR Team
+#' @seealso \linkS4class{FLStock}, \link{survey}
+#' @keywords methods
 #' @examples
 #' data(ple4)
 #' index(ple4, timing=0.9)
@@ -168,33 +219,44 @@ setMethod("index",   signature(object="FLStock"),
 
 # cpue {{{
 
-#' cpue, a method to generate an observation of a CPUE index of abundance
+#' Compute a CPUE index of abundance from an FLStock
 #'
 #' The observation of stock abundance by CPUE series from commercial fleets is an
-#' important step in the generation of management advice that needs to replicated
-#' on an Operating Model during any simulation exercise. This method gemnerates
-#' an observation of biomass or numbers-at-age from an FLstock being used as OM.
+#' important step in the generation of management advice that needs to be replicated
+#' on an Operating Model during any simulation exercise. This method generates
+#' an observation of biomass or numbers-at-age from an \code{FLStock} being used as OM.
 #'
-#' @param object The object from which to generate the observation.
-#' @param sel The selectivity of the survey, defaults to be 1 for all ages.
-#' @param effort Units of index to use to mimic effort series in the fishery, "f" or "hr"
-#' @param mass Is the index to be in weight at age?
+#' @param object An \code{FLStock} from which to generate the CPUE observation.
+#' @param index An optional index object (currently unused for the
+#'   \code{FLStock, missing} method).
+#' @param sel.pattern Selectivity pattern to apply; defaults to
+#'   \code{harvest(object)}.
+#' @param effort Units of effort used to mimic the effort series in the
+#'   fishery: \code{"f"} (default, fishing mortality), \code{"hr"} (harvest
+#'   rate), or a numeric value.
+#' @param biomass Logical; if \code{TRUE} (default) the index is summed across
+#'   ages and weighted by catch weight-at-age to give a biomass CPUE.
+#' @param ... Additional arguments passed to methods.
 #'
-#' @return An FLQuant for the index of abundance, age-disaggregated
+#' @return An \code{FLQuant} containing the CPUE index: age-disaggregated
+#'   if \code{biomass = FALSE}, or aggregated biomass CPUE if
+#'   \code{biomass = TRUE}.
 #'
 #' @name cpue
 #' @rdname cpue
 #' @aliases cpue cpue-methods
+#' @docType methods
+#' @section Generic function: cpue(object, index, ...)
 #'
-#' @author Laurie Kell & Iago Mosqueira, FLR Team.
-#' @seealso \link{FLComp}
+#' @author The FLR Team
+#' @seealso \link{survey}, \linkS4class{FLStock}
 #' @keywords methods
 #' @examples
 #'
 #' data(ple4)
 #' 
 #' cpue(ple4)
-#' # Am aggregated biomass CPUE
+#' # An aggregated biomass CPUE
 #' quantSums(cpue(ple4))
 #'
 #' \dontrun{
@@ -230,11 +292,64 @@ setMethod('cpue', signature(object='FLStock', index="missing"),
 
 # hyperstability {{{
 
+#' Apply hyperstability or hyperdepletion to an abundance index
+#'
+#' Modifies an abundance index to exhibit hyperstability (apparent abundance
+#' remains high even as true abundance declines) or hyperdepletion (apparent
+#' abundance drops faster than true abundance) relative to a reference level.
+#' The transformation applied is
+#' \eqn{I^* = I_{\rm ref} \cdot (I / I_{\rm ref})^\omega}, where
+#' \eqn{\omega < 1} produces hyperstability and \eqn{\omega > 1} produces
+#' hyperdepletion.
+#'
+#' @param object An \code{FLQuant} abundance index to transform.
+#' @param omega Numeric scalar; exponent controlling the degree of
+#'   hyperstability (\eqn{\omega < 1}) or hyperdepletion (\eqn{\omega > 1}).
+#'   Defaults to 1 (no transformation).
+#' @param ref Reference level of the index; defaults to the year means of
+#'   \code{object}.
+#'
+#' @return An \code{FLQuant} of the same dimensions as \code{object} with the
+#'   hyperstability/hyperdepletion transformation applied.
+#'
+#' @author The FLR Team
+#' @seealso \link{survey}, \link{cpue}
+#' @keywords utilities
+
 hyperstability <- function(object, omega=1, ref=yearMeans(object)) {
   return(ref %*% ((object %/% ref) ^ omega))
 } # }}}
 
 # computeQ(FLIndices, FLStock, FLQuants) {{{
+
+#' Compute catchability from model fit and observations
+#'
+#' Estimates the catchability coefficient (\eqn{Q}) for one or more survey
+#' indices given an \code{FLStock} operating model and the fitted index values
+#' from a stock assessment. The calculation accounts for survey timing,
+#' correcting stock numbers for total mortality (\eqn{Z}) at the time of the
+#' survey.
+#'
+#' @param indices An \code{FLIndices} or \code{FLI} object containing the
+#'   survey index definitions (timing, selectivity pattern, etc.).
+#' @param stock An \code{FLStock} operating model providing stock numbers and
+#'   weight-at-age.
+#' @param fit An \code{FLQuants} or \code{FLQuant} of fitted index values from
+#'   the stock assessment model.
+#' @param ... Additional arguments (unused).
+#'
+#' @return An \code{FLQuants} or \code{FLQuant} of estimated catchability
+#'   coefficients, one per index (or age for biomass indices).
+#'
+#' @name computeQ
+#' @rdname computeQ
+#' @aliases computeQ computeQ-methods
+#' @docType methods
+#' @section Generic function: computeQ(indices, stock, fit, ...)
+#'
+#' @author The FLR Team
+#' @seealso \link{survey}, \linkS4class{FLIndex}, \linkS4class{FLStock}
+#' @keywords methods
 
 setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
   fit="FLQuants"), function(indices, stock, fit) {
@@ -291,6 +406,7 @@ setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
   }
 )
 
+#' @rdname computeQ
 #' @examples
 #' computeQ(ple4.index, ple4, rlnorm(1, log(index(ple4.index)), 0.1))
 
@@ -310,9 +426,43 @@ setMethod("computeQ", signature=c(indices="FLI", stock="FLStock",
 
 # bias {{{
 
+#' Compute a cumulative multiplicative bias trend
+#'
+#' Computes a cumulative multiplicative bias factor that increases (or
+#' decreases) systematically over the years in an \code{FLQuant}. Starting
+#' from 1, each subsequent year is multiplied by \code{1 + bias}, producing
+#' a trend that can represent, e.g., a gradually increasing observation bias.
+#'
+#' @param object An \code{FLQuant} whose year dimension and dimnames are used.
+#' @param bias Numeric; per-year fractional bias; defaults to 0.02 (2\% per
+#'   year).
+#'
+#' @return An \code{FLQuant} with the same dimnames as \code{object}
+#'   containing the cumulative bias multipliers.
+#'
+#' @author The FLR Team
+#' @seealso \link{biased}
+#' @keywords utilities
+
 bias <- function(object, bias=0.02){
   return(FLQuant(cumprod(1 + rep(c(bias), dim(object)[2])), dimnames=dimnames(object)))
 }
+
+#' Apply a systematic bias trend to an abundance index
+#'
+#' Multiplies an \code{FLQuant} by a cumulative bias trend generated by
+#' \link{bias}, so that values drift away from truth over time.
+#'
+#' @param object An \code{FLQuant} to be biased.
+#' @param bias Numeric; per-year fractional bias passed to \link{bias};
+#'   defaults to 0.02.
+#'
+#' @return An \code{FLQuant} of the same dimensions as \code{object} with the
+#'   cumulative bias applied.
+#'
+#' @author The FLR Team
+#' @seealso \link{bias}
+#' @keywords utilities
 
 biased <- function(object, bias=0.02){
   return(object * bias(object, bias=bias))
@@ -344,6 +494,7 @@ biased <- function(object, bias=0.02){
 #' vt = b * vt-1 + s * sqrt(1 - b^2)
 #' s is a normally distributed random variable with mean = 0
 #' b is the autocorrelation parameter
+#' @author The FLR Team
 #' @examples
 #' \dontrun{
 #' flq <- FLQuant(1:100, quant="age")
@@ -435,6 +586,34 @@ setMethod("rlnoise", signature(n='numeric', len="FLQuant"),
 ) # }}}
 
 # noiseFn {{{
+
+#' Generate an autocorrelated noise series
+#'
+#' Internal helper that generates a numeric vector of autocorrelated noise
+#' following the AR(1) process described by Ranta and Kaitala (2001):
+#' \eqn{v_t = b \cdot v_{t-1} + s_t \sqrt{1 - b^2}}, where
+#' \eqn{s_t \sim N(0, \sigma^2)}.
+#'
+#' @param len Integer; length of the output vector (after burn-in removal).
+#' @param sd Numeric; standard deviation of the innovations; defaults to 1.
+#' @param b Numeric; autocorrelation parameter in \eqn{[-1, 1]}; 0 gives
+#'   white noise; defaults to 0.
+#' @param burn Integer; number of initial values to discard as burn-in;
+#'   defaults to 0.
+#' @param trunc Numeric; if > 0, values outside
+#'   \eqn{(-(1 - \mathrm{trunc}), 1 - \mathrm{trunc})} are truncated;
+#'   defaults to 0 (no truncation).
+#' @param seed Integer or \code{NA}; random seed passed to \code{set.seed};
+#'   if \code{NA} (default) the seed is not set.
+#'
+#' @return A numeric vector of length \code{len} containing the simulated
+#'   autocorrelated deviates.
+#'
+#' @author The FLR Team
+#' @references Ranta, E. and Kaitala, V. (2001). Proc. R. Soc. Lond. B.
+#' @seealso \link{rnoise}, \link{rlnoise}
+#' @keywords internal
+
 noiseFn <- function(len, sd=1, b=0, burn=0, trunc=0, seed=NA) {
 
   # set.seed by call if given
@@ -475,14 +654,37 @@ noiseFn <- function(len, sd=1, b=0, burn=0, trunc=0, seed=NA) {
 
 #' Compute mean absolute scaled error (MASE)
 #'
-#' Franses, PH. "A note on the Mean Absolute Scaled Error". International Journal of Forecasting. 32 (1): 20–22. doi:10.1016/j.ijforecast.2015.03.008.
+#' Computes the Mean Absolute Scaled Error (MASE) between a reference
+#' (naive) prediction and one or more alternative predictions.
+#' MASE is scale-independent and robust to outliers, making it useful for
+#' comparing forecast accuracy across different indices or time series.
 #'
-#' @param ref Reference or naive prediction.
-#' @param preds Predicitions to compare to reference.
-#' @param order Are predictions in 'inverse' (default) or 'ahead' order.
-#' @param ... Extra arguments.
+#' @references Franses, P.H. (2016). A note on the Mean Absolute Scaled
+#'   Error. \emph{International Journal of Forecasting}, 32(1):20--22.
+#'   \doi{10.1016/j.ijforecast.2015.03.008}.
 #'
-#' @return A numeric vector of the same length as 'preds'.
+#' @param ref Reference or naive prediction, an \code{FLQuant} or
+#'   \code{FLIndices} time series.
+#' @param preds Predictions to compare to the reference; an \code{FLQuants}
+#'   or a list of \code{FLIndices}.
+#' @param order Character; whether predictions are in \code{"inverse"}
+#'   (default, most recent first) or \code{"ahead"} order.
+#' @param wt Mean weights-at-age to use when converting index numbers to
+#'   biomass (only for the \code{FLIndices, list} method).
+#' @param ... Additional arguments passed to methods.
+#'
+#' @return A numeric scalar (or named numeric vector for the
+#'   \code{FLIndices, list} method) giving the MASE value(s).
+#'
+#' @name mase
+#' @rdname mase
+#' @aliases mase mase-methods
+#' @docType methods
+#' @section Generic function: mase(ref, preds, ...)
+#'
+#' @author The FLR Team
+#' @seealso \link{runstest}
+#' @keywords methods
 
 setGeneric("mase", function(ref, preds, ...) standardGeneric('mase'))
 
@@ -555,6 +757,29 @@ setMethod("mase", signature(ref="FLIndices", preds="list"),
 
 # ar1rlnorm {{{
 
+#' Generate an AR(1) lognormal FLQuant time-series (deprecated)
+#'
+#' @description
+#' Deprecated. Please use \link{rlnormar1} instead.
+#'
+#' @param rho Numeric; AR(1) autocorrelation parameter in \eqn{[-1, 1]}.
+#' @param years Integer or character vector of years for the time dimension.
+#' @param iters Integer; number of iterations to generate; defaults to 1.
+#' @param meanlog Numeric; mean of the normal (log) distribution; defaults to
+#'   0.
+#' @param sdlog Numeric; standard deviation of the normal (log) distribution;
+#'   defaults to 1.
+#' @param bias.correct Logical; if \code{TRUE} apply log-normal bias
+#'   correction; defaults to \code{FALSE}.
+#' @param ... Additional arguments (unused).
+#'
+#' @return An \code{FLQuant} with dimensions
+#'   \code{1 x length(years) x 1 x 1 x 1 x iters}.
+#'
+#' @author The FLR Team
+#' @seealso \link{rlnormar1}
+#' @keywords utilities
+
 ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
   bias.correct=FALSE, ...) {
 
@@ -624,7 +849,7 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 #'   3. Optionally apply bias correction on the log scale, then exponentiate:
 #'      y_{t,i} = exp(x_{t,i} - 0.5 * sdlog_i^2)  (if bias.correct = TRUE).
 #'
-#' @author Iago Mosqueira (WMR), Henning Winker (JRC).
+#' @author The FLR Team
 #'
 #' @examples
 #' # 6 years, 5 iterations, rho = 0.5, default meanlog/sdlog
@@ -680,6 +905,27 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
 # }}}
 
 # ar1deviances {{{
+
+#' Extend AR(1) log-normal deviances beyond a given year
+#'
+#' Replaces the values of an \code{FLQuant} beyond a specified year with
+#' simulated AR(1) log-normal deviates, using the autocorrelation and
+#' standard deviation estimated from the historical period up to and
+#' including that year.
+#'
+#' @param x An \code{FLQuant} of log-normal deviances with historical data
+#'   up to at least \code{year}.
+#' @param year Integer or character; the last year of the historical period.
+#'   Values in \code{x} after this year will be replaced by simulations.
+#'
+#' @return An \code{FLQuant} of the same dimensions as \code{x}, with years
+#'   after \code{year} replaced by AR(1) log-normal simulations estimated
+#'   from the historical data.
+#'
+#' @author The FLR Team
+#' @seealso \link{rlnormar1}
+#' @keywords utilities
+
 ar1deviances <- function(x, year) {
 
   rho <- rho(window(x, end=year))
@@ -694,14 +940,37 @@ ar1deviances <- function(x, year) {
 
 # runstest {{{
 
-#' Computes Runs Test p-values
+#' Compute runs test p-values for residual randomness
 #'
-#' @param fit The result of a model fit.
-#' @param obs The observations used in the fit.
-#' @param combine Should ages be combined by addition, defaults to TRUE.
-#' @param ... Extra arguments.
+#' Applies the non-parametric runs test to assess whether residuals from a
+#' stock assessment model fit are randomly distributed around zero (i.e. no
+#' systematic trend or autocorrelation). A p-value < 0.05 indicates
+#' significant non-randomness. The function accepts residuals directly, or
+#' computes log-residuals from a pair of fit and observations.
 #'
-#' @return A list with elements 'p.values' and 'pass'.
+#' @param fit Residuals or model-fitted values; an \code{FLQuant},
+#'   \code{FLQuants}, or \code{numeric} vector.  When \code{obs} is also
+#'   provided, \code{fit} and \code{obs} are used to compute log-residuals.
+#' @param obs Observations corresponding to \code{fit}; an \code{FLQuant},
+#'   \code{FLQuants}, or \code{numeric} vector.  If missing, \code{fit} is
+#'   treated directly as residuals.
+#' @param combine Logical; if \code{TRUE} (default) ages are summed before
+#'   the test is applied.
+#' @param ... Additional arguments passed to methods.
+#'
+#' @return A \code{data.frame} with columns \code{lcl}, \code{ucl},
+#'   \code{p.value}, \code{pass} (TRUE if p-value >= 0.05), and \code{qname},
+#'   one row per index or iteration.
+#'
+#' @name runstest
+#' @rdname runstest
+#' @aliases runstest runstest-methods
+#' @docType methods
+#' @section Generic function: runstest(fit, obs, ...)
+#'
+#' @author The FLR Team
+#' @seealso \link{sigma3}
+#' @keywords methods
     
 setGeneric("runstest", function(fit, obs, ...)
   standardGeneric("runstest"))
@@ -826,19 +1095,36 @@ setMethod("runstest", signature(fit="numeric", obs="missing"),
   }
 )
 
-#' @rdname runstest
-
 # }}}
 
 # sigma3 (FLQuant) {{{
 
-#' Compute the 3-sigma limits and the corresponding p-value
+#' Compute 3-sigma control limits and a runs test p-value
 #'
-#' @param x An object of class FLQuant.
-#' @param mixing Alternative hypothesis to be tested. One of "two.sided", "less" (default) or "greater".
+#' Computes the 3-sigma control limits (lower and upper) for an
+#' \code{FLQuant} time series using the average moving range method
+#' (Montgomery, 2009), and performs a non-parametric runs test to assess
+#' whether the series shows a systematic trend.
 #'
-#' @return A list with elements 'lcl', 'ucl' and 'p.value'.
+#' @param x An \code{FLQuant} time series (typically residuals).
+#' @param mixing Character; alternative hypothesis for the runs test.  One
+#'   of \code{"two.sided"}, \code{"less"} (default, tests for trend), or
+#'   \code{"greater"}.
+#' @param type Character; reserved for future use; currently ignored.
 #'
+#' @return A named list with elements:
+#'   \describe{
+#'     \item{lcl}{Lower 3-sigma control limit (negative).}
+#'     \item{ucl}{Upper 3-sigma control limit (positive).}
+#'     \item{p.value}{p-value from the runs test; values >= 0.05 suggest
+#'       acceptable randomness.}
+#'   }
+#'
+#' @name sigma3
+#' @rdname sigma3
+#' @author The FLR Team
+#' @seealso \link{runstest}, \link{.runs.test}
+#' @keywords utilities
 #' @examples
 #' data(ple4)
 #' sigma3(catch.n(ple4))
@@ -893,7 +1179,40 @@ sigma3 <- function(x, mixing="less", type="residual") {
   return(list(lcl = lcl, ucl = ucl, p.value = pvalue))
 }
 
-#
+#' @title Runs test for randomness
+#'
+#' @description Internal implementation of the runs test for randomness.
+#'   Performs the runs test against a threshold value, returning a list of
+#'   class \code{"htest"} with the test statistic, p-value, and related
+#'   diagnostics. This function is called internally by \link{sigma3}.
+#'
+#' @param x A numeric vector containing the data.
+#' @param alternative Character; the alternative hypothesis.  One of
+#'   \code{"two.sided"} (default), \code{"left.sided"}, or
+#'   \code{"right.sided"} (abbreviations \code{"t"}, \code{"l"},
+#'   \code{"r"} are accepted).
+#' @param threshold Numeric; the threshold used to dichotomise \code{x}
+#'   into above/below; defaults to \code{median(x)}.
+#' @param pvalue Character; method to compute p-values; \code{"normal"}
+#'   (default, normal approximation) or \code{"exact"} (exact distribution).
+#' @param plot Logical; reserved for future use; currently ignored.
+#'
+#' @return A list of class \code{"htest"} with elements:
+#'   \describe{
+#'     \item{statistic}{Normalised test statistic.}
+#'     \item{p.value}{Asymptotic (or exact) p-value.}
+#'     \item{runs}{Total number of runs.}
+#'     \item{mu}{Expected number of runs under the null.}
+#'     \item{var}{Variance of the number of runs under the null.}
+#'     \item{method}{Character description of the test.}
+#'     \item{data.name}{Name of the data object.}
+#'     \item{parameter}{Named vector with runs, n1, n2, n.}
+#'     \item{alternative}{Description of the alternative hypothesis.}
+#'   }
+#'
+#' @author The FLR Team
+#' @seealso \link{sigma3}, \link{runstest}
+#' @keywords internal
 
 .runs.test <- function(x, alternative="two.sided", threshold=median(x), pvalue="normal", plot=FALSE){
 
@@ -977,39 +1296,47 @@ ifelse(log,return(log(r0)),return(r0))
 #'
 #' A receiver operating characteristic (ROC) curve shows the ability of a
 #' binary classifier. Here it is applied to compare two sets of values,
-#' stored as two FLQuant objects. The first is the result of aplying a logical
-#' comparison of a given state against a reference value, so it contains a 
+#' stored as two FLQuant objects. The first is the result of applying a logical
+#' comparison of a given state against a reference value, so it contains a
 #' binary (0, 1) label. The second, the score, contains an alternative metric
 #' that attempts to measure the absolute value of the first.
-#' The examples below compare an observation of stock status, SSB being less 
-#' than a reference point, and an alternative metric, here the catch curve 
+#' The examples below compare an observation of stock status, SSB being less
+#' than a reference point, and an alternative metric, here the catch curve
 #' estimates of total mortality.
-#' @param label Logical, integer (0/1), or FLQuant giving the true class for
-#'   each observation (1 = positive, 0 = negative). Non-logical values are
-#'   coerced to 0/1. Labels must not be all 0 or all 1.
-#' @param ind Numeric vector or FLQuant of indicator / score values used to rank
-#'   observations.
+#'
+#' @param label Logical, integer (0/1), or \code{FLQuant} giving the true
+#'   class for each observation (1 = positive, 0 = negative). Non-logical
+#'   values are coerced to 0/1. Labels must not be all 0 or all 1.
+#' @param ind Numeric vector or \code{FLQuant} of indicator / score values
+#'   used to rank observations.
 #' @param direction Character scalar, one of \code{">="} (default) or
-#'   \code{"<="}. If \code{">="}, larger \code{ind} values are treated as more
-#'   evidence for the positive class; if \code{"<="}, smaller \code{ind}
-#'   values are treated as more evidence for the positive class.
+#'   \code{"<="}. If \code{">="}, larger \code{ind} values are treated as
+#'   more evidence for the positive class; if \code{"<="}, smaller
+#'   \code{ind} values are treated as more evidence for the positive class.
 #'
 #' @details
-#' When \code{label} and \code{ind} are FLQuant objects the function will
-#' propagate them along the 6th dimension if needed. The function checks that
-#' \code{label} contains only 0/1 and that both arguments have matching
+#' When \code{label} and \code{ind} are \code{FLQuant} objects the function
+#' will propagate them along the 6th dimension if needed. The function checks
+#' that \code{label} contains only 0/1 and that both arguments have matching
 #' dimensions. Observations are ordered according to \code{ind} (respecting
 #' \code{direction}) and cumulative counts and rates are computed.
 #'
-#' @return A data.frame (model.frame output) sorted by the chosen threshold
-#'   order containing the columns:
+#' @return A \code{data.frame} sorted by the chosen threshold order containing
+#'   the columns:
 #'   \describe{
 #'     \item{ind}{indicator / score values}
 #'     \item{label}{coerced 0/1 label}
 #'     \item{TP, TN, FP, FN}{cumulative true/false positive/negative counts}
 #'     \item{TPR, FPR}{true positive rate and false positive rate}
-#'     \item{TSS}{True Skill Statistic, computed as TPR - FPR (i.e. tp/(tp+fn) - fp/(fp+tn))}
+#'     \item{TSS}{True Skill Statistic, computed as TPR - FPR
+#'       (i.e. tp/(tp+fn) - fp/(fp+tn))}
 #'   }
+#'
+#' @name roc
+#' @rdname roc
+#' @author The FLR Team
+#' @seealso \link{auc}
+#' @keywords utilities
 #' @examples
 #' data(ple4)
 #' # OM 'reality' on stock status (fbar)
@@ -1082,12 +1409,28 @@ roc <- function(label, ind, direction=c(">=", "<=")) {
 
 # auc {{{
 
-#' Area under the curve
-#' The area under the ROC (auc, Area under the Curve), is calculated from
-#' the true and false positive rates (TPR and FPR). The two columns
-#' returned by the `roc()` function with those names can be passed on to this 
-#' function.
+#' Area under the ROC curve
+#'
+#' Computes the area under the receiver operating characteristic curve (AUC)
+#' using the trapezoidal rule applied to the true positive rate (TPR) and
+#' false positive rate (FPR). AUC ranges from 0 to 1; a value of 0.5
+#' indicates no discriminating ability (equivalent to random guessing),
+#' while a value of 1 indicates perfect discrimination.
+#'
+#' @param x A \code{data.frame} returned by \link{roc}, from which
+#'   \code{TPR} and \code{FPR} are extracted if not supplied directly.
+#'   Defaults to \code{NULL}.
+#' @param TPR Numeric vector of true positive rates, typically
+#'   \code{x$TPR}.
+#' @param FPR Numeric vector of false positive rates, typically
+#'   \code{x$FPR}.
+#'
+#' @return A single numeric value: the area under the ROC curve.
+#'
 #' @rdname roc
+#' @author The FLR Team
+#' @seealso \link{roc}
+#' @keywords utilities
 #' @examples
 #' # Computes auc using the output of roc()
 #' with(roc(state >= 0.22, ind), auc(TPR=TPR, FPR=FPR))
