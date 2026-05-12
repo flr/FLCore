@@ -18,8 +18,9 @@ unlock(object, ...)
 A modified \code{\link{FLlst}} object with its \code{lock} slot updated.
 }
 \description{
-\code{unlock()} reverses the effect of \code{\link{lock}()} and allows the
-length of an \code{\link{FLlst}} object to be modified again.
+\code{unlock()} sets the internal \code{lock} slot to \code{FALSE},
+reversing the effect of \code{\link{lock}()} and allowing the length of an
+\code{\link{FLlst}} object to be modified again.
 }
 \examples{
 fll <- lock(FLlst(a=1:3, b=4:6))
