@@ -1922,7 +1922,7 @@ setMethod("append", signature(x="FLQuant", values="numeric"),
 #' @name residuals-FLQuant
 #' @rdname residuals-FLQuant
 #'
-#' Residual diagnostics for fitted [`FLQuant`] objects.
+#' Residual diagnostics for fitted [`FLQuant`] objects
 #'
 #' `residuals()` dispatches to one of the FLCore residual helper methods for an
 #' observed and fitted [`FLQuant`]. The related `rraw()`, `rlog()`,

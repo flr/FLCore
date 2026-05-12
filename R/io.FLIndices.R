@@ -532,7 +532,7 @@ set.index <- function(smry.,index.,p.,l.,range) {
 #' @rdname readFLIndices
 read.FLIndex <- function(...)
 {
-  warning("read.FLIndex has been renamed as readFLIndex and will de deprecated", inmediate. = TRUE)
+  warning("read.FLIndex has been renamed as readFLIndex and will de deprecated", immediate. = TRUE)
   readFLIndex(...)
 }
 
@@ -540,6 +540,6 @@ read.FLIndex <- function(...)
 #' @rdname readFLIndices
 read.FLIndices <- function(...)
 {
-  warning("read.FLIndices has been renamed as readFLIndices and will de deprecated", inmediate. = TRUE)
+  warning("read.FLIndices has been renamed as readFLIndices and will de deprecated", immediate. = TRUE)
   readFLIndices(...)
 } # }}}
