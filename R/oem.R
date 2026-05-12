@@ -330,7 +330,8 @@ hyperstability <- function(object, omega=1, ref=yearMeans(object)) {
 #' correcting stock numbers for total mortality (\eqn{Z}) at the time of the
 #' survey.
 #'
-#' @param indices An \code{FLIndices} or \code{FLI} object containing the
+#' @param indices An \code{FLIndices} or \code{FLI} (the virtual base class
+#'   shared by \code{FLIndex} and \code{FLIndexBiomass}) object containing the
 #'   survey index definitions (timing, selectivity pattern, etc.).
 #' @param stock An \code{FLStock} operating model providing stock numbers and
 #'   weight-at-age.
@@ -610,7 +611,9 @@ setMethod("rlnoise", signature(n='numeric', len="FLQuant"),
 #'   autocorrelated deviates.
 #'
 #' @author The FLR Team
-#' @references Ranta, E. and Kaitala, V. (2001). Proc. R. Soc. Lond. B.
+#' @references Ranta, E. and Kaitala, V. (2001). Travelling waves in vole
+#'   population dynamics. \emph{Proceedings of the Royal Society of London.
+#'   Series B: Biological Sciences}, 268(1474), 1595--1600.
 #' @seealso \link{rnoise}, \link{rlnoise}
 #' @keywords internal
 
