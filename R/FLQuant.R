@@ -743,6 +743,24 @@ setMethod("quantile", signature(x="FLQuant"),
 ) # }}}
 
 # iters     {{{
+#' Display the iterations stored in an FLQuant
+#'
+#' `iters()` prints each iteration contained in an [`FLQuant`] together with the
+#' units stored in the object. It is intended as a compact inspection helper
+#' when working with iterated FLR objects.
+#'
+#' @name iters
+#' @rdname iters
+#' @aliases iters iters-methods iters,FLQuant-method
+#' @param object An [`FLQuant`] object.
+#' @return `iters()` is called for its side effect of printing each iteration
+#'   and returns `NULL` invisibly.
+#' @seealso [`iter()`], [`propagate()`], [`FLQuant`]
+#' @author The FLR Team
+#' @keywords methods
+#' @examples
+#' flq <- FLQuant(1:8, dim=c(2, 2, 1, 1, 1, 2))
+#' iters(flq)
 setGeneric("iters", function(object, ...) {
 value  <-  standardGeneric("iters")
 value
@@ -997,6 +1015,24 @@ setMethod("mvrnorm",
 )# }}}
 
 # PV{{{
+#' Calculate plotless variance for a yearly FLQuant time series
+#'
+#' `pv()` calculates the plotless variance index described by Heath (2006) for
+#' a yearly time series stored in an [`FLQuant`].
+#'
+#' @name pv
+#' @rdname pv
+#' @aliases pv pv-methods pv,FLQuant-method
+#' @param object An [`FLQuant`] containing a yearly time series.
+#' @param dist Should the distribution of pairwise distances be returned instead
+#'   of the scalar plotless variance summary?
+#' @return If `dist = FALSE`, a numeric scalar containing plotless variance. If
+#'   `dist = TRUE`, a numeric vector with pairwise scaled distances.
+#' @seealso [`FLQuant`], [`yearVars()`]
+#' @references Heath MR. 2006. Plotted and tabulated indices of change in the
+#'   state of marine ecosystems. *Oikos* 115:573-581.
+#' @author The FLR Team
+#' @keywords methods
 setGeneric("pv", function(object, ...)
 standardGeneric("pv"))
 
@@ -1886,6 +1922,29 @@ setMethod("append", signature(x="FLQuant", values="numeric"),
 #' @name residuals-FLQuant
 #' @rdname residuals-FLQuant
 #'
+#' Residual diagnostics for fitted [`FLQuant`] objects.
+#'
+#' `residuals()` dispatches to one of the FLCore residual helper methods for an
+#' observed and fitted [`FLQuant`]. The related `rraw()`, `rlog()`,
+#' `rlogstandard()`, `rstandard()` and `rstudent()` methods return residuals on
+#' different scales.
+#'
+#' @aliases rraw rraw-methods rraw,FLQuant,FLQuant-method
+#' @aliases rlog rlog-methods rlog,FLQuant,FLQuant-method
+#' @aliases rlogstandard rlogstandard-methods rlogstandard,FLQuant,FLQuant-method
+#' @aliases rstandard rstandard-methods rstandard,FLQuant,ANY-method
+#' @aliases rstudent rstudent-methods rstudent,FLQuant,ANY-method
+#' @param object,obs,model Observed values as an [`FLQuant`].
+#' @param fit Fitted values as an [`FLQuant`] with dimensions compatible with
+#'   the observed values.
+#' @param type The residual scale to be used by `residuals()`: `"log"`,
+#'   `"logstandard"`, `"standard"` or `"pearson"`, `"student"`, or `"raw"`.
+#' @param sdlog,sd Optional dispersion inputs used by the standardised
+#'   residual methods.
+#' @param internal Should `rstudent()` return internally studentised residuals?
+#' @param ... Additional arguments passed to the selected residual method.
+#' @return An [`FLQuant`] containing residuals on the requested scale.
+#' @seealso [`FLQuant`], [`fitted()`], [`yearVars()`]
 #' @examples
 #' data(ple4)
 #' fit <- rlnorm(1, log(catch(ple4)), 0.1)

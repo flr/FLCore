@@ -11,6 +11,14 @@
 # http://cran.r-project.org/web/packages/numDeriv/index.html
 
 # computeHessian {{{
+#' @rdname computeHessian
+#' @aliases computeHessian,FLModel-method
+#' @param eps A small perturbation used in the numerical approximation.
+#' @param d Relative step size used to initialise perturbations.
+#' @param zero.tol Threshold used to treat values as zero.
+#' @param r Number of Richardson extrapolation steps.
+#' @param v Reduction factor applied to the perturbation at each Richardson
+#'   iteration.
 setMethod("computeHessian", signature(object="FLModel"),
   function(object, eps=1e-4, d=0.0001,
     zero.tol=sqrt(.Machine$double.eps/7e-7), r=4, v=2) {
@@ -40,6 +48,13 @@ setMethod("computeHessian", signature(object="FLModel"),
 )  # }}}
 
 # computeD  {{{
+#' @rdname computeD
+#' @aliases computeD,FLModel-method
+#' @param params Parameter values passed to the model likelihood. Defaults to
+#'   `as(object@params, "list")`.
+#' @param method Numerical differentiation method. Currently only Richardson
+#'   extrapolation is implemented.
+#' @inheritParams computeHessian
 setMethod("computeD", signature(object="FLModel"),
     function(object, params=as(object@params, 'list'), method="Richardson",
     eps=1e-4, d=0.0001, zero.tol=sqrt(.Machine$double.eps/7e-7), r=4, v=2) {
@@ -134,6 +149,13 @@ setMethod("computeD", signature(object="FLModel"),
 
 # gradient {{{
 # TODO: check and polish
+#' @rdname gradient
+#' @aliases gradient,function,FLPar-method
+#' @param method Numerical differentiation method. Currently only Richardson
+#'   extrapolation is implemented.
+#' @inheritParams computeHessian
+#' @param show.details Should intermediate Richardson approximations be printed?
+#' @param ... Additional arguments passed to `func`.
 setMethod('gradient', signature(func='function', x='FLPar'),
   function(func, x, method="Richardson", eps=1e-4, d=0.0001,
       zero.tol=sqrt(.Machine$double.eps/7e-7), r=4, v=2, show.details=FALSE, ...)
@@ -202,5 +224,4 @@ setMethod('gradient', signature(func='function', x='FLPar'),
     }
   }
 ) # }}}
-
 

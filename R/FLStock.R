@@ -219,6 +219,24 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
   }
 )
 
+#' Calculate exploitable biomass
+#'
+#' `exb()` returns exploitable biomass for an [`FLStock`] object by applying the
+#' selected catchability pattern and weights to stock numbers.
+#'
+#' @name exb
+#' @rdname exb
+#' @aliases exb exb-methods exb,FLStock-method
+#' @param x An [`FLStock`] object.
+#' @param sel Selection pattern to apply, defaulting to [`catch.sel()`].
+#' @param wt Mean weight to apply, defaulting to [`catch.wt()`].
+#' @param byage Should exploitable biomass be returned by age rather than
+#'   aggregated over age?
+#' @param ... Additional named slot values temporarily used in the calculation.
+#' @return An [`FLQuant`] containing exploitable biomass.
+#' @seealso [`biomass()`], [`vb()`], [`ssb()`], [`FLStock`]
+#' @author The FLR Team
+#' @keywords methods
 # exb
 setGeneric("exb", function(x, ...) standardGeneric("exb"))
 

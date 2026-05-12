@@ -123,8 +123,26 @@ plotResidAll<-function(resid,obs,prd,hat,indVar,indVar.,Xttl="X",Yttl="Y")
     invisible()
     }
 
+#' Plot diagnostic panels for an FLSR fit
+#'
+#' `plotA()` draws a set of lattice-based diagnostic plots for an [`FLSR`]
+#' object, including fitted relationships, residual plots, autocorrelation
+#' checks and Q-Q plots.
+#'
+#' @name plotA
+#' @rdname plotA
+#' @aliases plotA plotA-methods plotA,FLSR,missing-method
+#' @param x An [`FLSR`] object.
+#' @param y Unused.
+#' @param ... Unused.
+#' @return `plotA()` is called for its side effect of producing diagnostic
+#'   plots and returns `NULL` invisibly.
+#' @seealso [`plot()`], [`residuals()`], [`fitted()`], [`FLSR`]
+#' @author The FLR Team
+#' @keywords methods
 setGeneric('plotA', function(x,y, ...)
 		standardGeneric('plotA'))
+#' @rdname plotA
 setMethod("plotA", signature(x="FLSR", y="missing"),
 
 function(x)

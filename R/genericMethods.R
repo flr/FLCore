@@ -1105,6 +1105,21 @@ setGeneric("autoParscale", function(object, ...)
 setGeneric("sigma", function(object, ...)
   standardGeneric("sigma"))
 
+#' Numerically differentiate an FLModel likelihood
+#'
+#' `gradient()` approximates the gradient of a model function with respect to an
+#' [`FLPar`] parameter vector. The related `computeD()` and
+#' `computeHessian()` methods provide first- and second-order numerical
+#' derivatives for [`FLModel`] objects.
+#'
+#' @name gradient
+#' @rdname gradient
+#' @param func A function, generally the likelihood component to be evaluated.
+#' @param x An [`FLPar`] object containing parameter values.
+#' @return For `gradient()`, a numeric vector of first derivatives.
+#' @seealso [`computeD()`], [`computeHessian()`], [`FLModel`], [`FLPar`]
+#' @author The FLR Team
+#' @keywords methods
 # gradient
 setGeneric("gradient", function(func, x, ...)
   standardGeneric("gradient"))
@@ -1117,10 +1132,37 @@ setGeneric("surface", function(fitted, ...)
 setGeneric("parscale", function(object, ...)
   standardGeneric("parscale"))
 
+#' Compute the Hessian matrix for an FLModel
+#'
+#' `computeHessian()` numerically approximates the Hessian matrix of the
+#' likelihood for an [`FLModel`] object.
+#'
+#' @name computeHessian
+#' @rdname computeHessian
+#' @param object An [`FLModel`] object.
+#' @return An array containing the approximated Hessian matrix, with parameter
+#'   names used as dimnames.
+#' @seealso [`computeD()`], [`gradient()`], [`FLModel`]
+#' @author The FLR Team
+#' @keywords methods
 # computeHessian
 setGeneric("computeHessian", function(object, ...)
   standardGeneric("computeHessian"))
 
+#' Compute first and second derivative terms for an FLModel
+#'
+#' `computeD()` numerically approximates first derivatives and the lower
+#' triangle of the Hessian for an [`FLModel`] object, returning the intermediate
+#' matrix used by [`computeHessian()`].
+#'
+#' @name computeD
+#' @rdname computeD
+#' @param object An [`FLModel`] object.
+#' @return A numeric matrix containing first derivatives and second derivative
+#'   terms.
+#' @seealso [`computeHessian()`], [`gradient()`], [`FLModel`]
+#' @author The FLR Team
+#' @keywords methods
 # computeD
 setGeneric("computeD", function(object, ...)
   standardGeneric("computeD"))
@@ -1526,6 +1568,20 @@ setGeneric("uppq<-", function(x, value) standardGeneric("uppq<-"))
 setGeneric("lowq", function(x, ...) standardGeneric("lowq"))
 setGeneric("lowq<-", function(x, value) standardGeneric("lowq<-"))
 
+#' Return the plural class name associated with an object
+#'
+#' `getPlural()` maps an FLCore object class to the corresponding container
+#' class used to store multiple objects of that type.
+#'
+#' @name getPlural
+#' @rdname getPlural
+#' @param object An object for which the plural class name is required.
+#' @return A character vector of length one giving the name of the plural class,
+#'   or `"list"` when no FLCore plural class is defined.
+#' @seealso [`FLlst`], [`FLQuants`], [`FLCohorts`], [`FLStocks`],
+#'   [`FLIndices`], [`FLBiols`], [`FLSRs`], [`FLModelSims`]
+#' @author The FLR Team
+#' @keywords methods
 # getPlural
 setGeneric("getPlural", function(object, ...) standardGeneric("getPlural"))
 
@@ -2063,4 +2119,3 @@ setGeneric("se", function(x, ...) standardGeneric("se"))
 setGeneric("biomass", function(x, ...) standardGeneric("biomass"))
 
 setGeneric("depletion", function(x, ...) standardGeneric("depletion"))
-

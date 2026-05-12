@@ -384,6 +384,33 @@ checkIndex <- function(Index, name=NULL, desc=NULL) {
 }	# }}}
 
 ## readFLIndices	{{{
+#' Read one or more survey indices from exchange files
+#'
+#' `readFLIndices()` imports an indices file and returns an [`FLIndices`]
+#' container. `readFLIndex()` is a convenience wrapper returning the first
+#' [`FLIndex`] in the imported object. The legacy `read.FLIndices()` and
+#' `read.FLIndex()` wrappers are retained for backward compatibility.
+#'
+#' @name readFLIndices
+#' @rdname readFLIndices
+#' @aliases readFLIndices readFLIndex read.FLIndices read.FLIndex
+#' @param file Path to the main indices input file.
+#' @param file2 Optional secondary file required by some formats, such as
+#'   `"ICA"`.
+#' @param type File format to read. Supported values are `"VPA"`, `"Adapt"`,
+#'   `"CSA"` and `"ICA"`.
+#' @param index.names Optional character vector used to override the names of
+#'   individual indices in the returned object.
+#' @param descs Optional character vector of descriptions for individual indices.
+#' @param desc Description to assign to the returned object when the file does
+#'   not already provide one.
+#' @param na.strings Character vector used to identify missing values.
+#' @param sep Field separator passed to the file reader.
+#' @return `readFLIndices()` returns an [`FLIndices`] object. `readFLIndex()`
+#'   returns a single [`FLIndex`] object, warning when the input contains more
+#'   than one index.
+#' @seealso [`FLIndex`], [`FLIndices`], [`readFLStock()`]
+#' @author The FLR Team
 readFLIndices <- function(file, file2, type="VPA", index.names, descs,
     desc = paste("Imported from ", type, " file '", file, "'", sep = ""),na.strings="NA", sep="") {
 
@@ -424,6 +451,7 @@ readFLIndices <- function(file, file2, type="VPA", index.names, descs,
 }	# }}}
 
 # readFLIndex		{{{
+#' @rdname readFLIndices
 readFLIndex <- function(file, type="VPA", index.names, descs, 
     desc=paste("Imported from ", type, " file '", file, "'", sep="")) {
 
@@ -501,6 +529,7 @@ set.index <- function(smry.,index.,p.,l.,range) {
 }	# }}}
 
 # read.FLIndex {{{
+#' @rdname readFLIndices
 read.FLIndex <- function(...)
 {
   warning("read.FLIndex has been renamed as readFLIndex and will de deprecated", inmediate. = TRUE)
@@ -508,6 +537,7 @@ read.FLIndex <- function(...)
 }
 
 # read.FLIndices
+#' @rdname readFLIndices
 read.FLIndices <- function(...)
 {
   warning("read.FLIndices has been renamed as readFLIndices and will de deprecated", inmediate. = TRUE)

@@ -5,6 +5,38 @@
 # $Id: io.FLStock.R 1022 2011-06-10 11:07:33Z imosqueira $
 
 # readFLStock		{{{
+#' Read and write FLStock objects from assessment exchange files
+#'
+#' `readFLStock()` imports stock assessment input files into an [`FLStock`]
+#' object. `writeFLStock()` writes an [`FLStock`] to a supported exchange
+#' format.
+#'
+#' @name readFLStock
+#' @rdname readFLStock
+#' @aliases readFLStock writeFLStock
+#' @param file Path to the input file.
+#' @param type File format to read or write. Supported input types are `"VPA"`,
+#'   `"Adapt"`, `"PA"` and `"CSA"`. `writeFLStock()` currently supports
+#'   `"VPA"`.
+#' @param name Optional name to assign to the returned object.
+#' @param desc Optional description to assign to the returned object.
+#' @param m Natural mortality value used by some input readers.
+#' @param quant Name of the first dimension to assign to imported FLQuant slots.
+#' @param quiet Should file reading be quiet?
+#' @param no.discards Should discards-related slots be filled with zero after
+#'   import?
+#' @param harvest.units Units to assign to the `harvest` slot. When missing, a
+#'   sensible default is selected from `type`.
+#' @param sep Field separator passed to the file reader.
+#' @param na.strings Character vector used to identify missing values in the
+#'   input.
+#' @param FLStock An [`FLStock`] object to write.
+#' @param output.file Path to the output file.
+#' @return `readFLStock()` returns an [`FLStock`] object. `writeFLStock()`
+#'   returns the value produced by the format-specific writer, and is mainly
+#'   used for its side effect of writing files.
+#' @seealso [`FLStock`], [`readFLIndices()`], [`readVPAFile()`]
+#' @author The FLR Team
 readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a", 
     type, "file. (", file, "). ", date()), m = 0.2, quant="age", quiet=TRUE,
     no.discards=FALSE, harvest.units, sep="", na.strings="NA")
@@ -95,6 +127,7 @@ readFLStock <- function(file, type = "VPA", name, desc = paste("Imported from a"
 }	# }}}
 
 # writeFLStock	{{{
+#' @rdname readFLStock
 writeFLStock <- function(FLStock, output.file=FLStock@name, type="VPA") {
 	if (!inherits(FLStock, "FLStock"))
 		stop("FLStock must be an 'FLStock' object!")

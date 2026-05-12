@@ -150,12 +150,36 @@ setMethod("lapply", signature(X="FLlst"),
 )  # }}}
 
 # lock/unlock {{{
+#' Lock an FLlst object against changes in length
+#'
+#' `lock()` prevents elements being added to or removed from an [`FLlst`]
+#' object by setting its internal lock flag to `TRUE`. `unlock()` reverses that
+#' operation.
+#'
+#' @name lock
+#' @rdname lock
+#' @aliases lock lock-methods lock,FLlst-method
+#' @param object An [`FLlst`] object.
+#' @return A modified [`FLlst`] object with its `lock` slot updated.
+#' @seealso [`unlock()`], [`FLlst`], [`collapse()`]
+#' @author The FLR Team
+#' @keywords methods
 setGeneric("lock", function(object, ...){
 	standardGeneric("lock")
 })
 
 setMethod("lock", "FLlst", function(object){object@lock <- TRUE; object})
 
+#' Unlock an FLlst object so its length can be modified
+#'
+#' @name unlock
+#' @rdname unlock
+#' @aliases unlock unlock-methods unlock,FLlst-method
+#' @inheritParams lock
+#' @return A modified [`FLlst`] object with its `lock` slot updated.
+#' @seealso [`lock()`], [`FLlst`]
+#' @author The FLR Team
+#' @keywords methods
 setGeneric("unlock", function(object, ...){
 	standardGeneric("unlock")
 })
@@ -271,6 +295,20 @@ setMethod("as.data.frame", signature(x="FLComps", row.names="missing",
 ) # }}}
 
 # collapse {{{
+#' Collapse the iterations stored across an FLlst object
+#'
+#' `collapse()` concatenates the iterations contained in each element of an
+#' [`FLlst`] object into a single [`FLQuant`].
+#'
+#' @name collapse
+#' @rdname collapse
+#' @aliases collapse collapse-methods collapse,FLlst-method
+#' @param x An [`FLlst`] object whose elements share compatible dimensions.
+#' @param ... Unused.
+#' @return An [`FLQuant`] containing all iterations from the elements in `x`.
+#' @seealso [`FLlst`], [`lock()`], [`iter()`], [`propagate()`]
+#' @author The FLR Team
+#' @keywords methods
 setGeneric("collapse", function(x, ...) standardGeneric("collapse"))
 setMethod("collapse", signature(x='FLlst'),
   function(x) {
