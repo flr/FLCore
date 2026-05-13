@@ -351,6 +351,7 @@ setAs("FLPar", "list",
   }
 )
 
+# FLQ -> FLPar
 setAs('FLQuant', 'FLPar',
   function(from)
   {
@@ -358,10 +359,13 @@ setAs('FLQuant', 'FLPar',
     if(quant(from) != 'params')
       stop("'quant' in FLQuant must be 'params'")
 
-    # extract array with dims of length < 1 collapsed
-    res <- from@.Data[,,,,,,drop=TRUE]
+    # GET dimnames needed in FLPar
+    dnms <- dimnames(from)
+    lens <- unlist(lapply(dnms[2:5], length))
+    pnms <- c(dnms[1], dnms[2:5][lens > 1], dnms[6])
 
-    res <- FLPar(res)
+    # ASSEMBLE FLPar
+    res <- FLPar(c(from@.Data), dimnames=pnms)
 
     if(validObject(res))
       return(res)
@@ -370,6 +374,7 @@ setAs('FLQuant', 'FLPar',
   }
 )
 
+# FLPar -> FLQuant
 setAs('FLPar', 'FLQuant',
   function(from) {
 
@@ -378,27 +383,15 @@ setAs('FLPar', 'FLQuant',
     # and names
     names <- names(dimnames(data))
 
-    # output FLQuant
-    res <- FLQuant(quant='params', units=as.character(ifelse(all(units(from) == 'NA'),
-      'NA', paste(units(from), collapse='_'))))
-
-    # reshape data for FLQuant dimnames
-    idx <- match(names(res), names)
+    # match with FLQuant
+    idx <- match(c("params", "year", "unit", "season", "area", "iter"), names)
     idx <- idx[!is.na(idx)]
     data <- aperm(data, idx)
 
-
-    # get dim and dimnames for FLQuant
-    idx <- names(res) %in% names(dimnames(data))
-    dim <- rep(1,6)
-    dim[idx] <- dim(data)
-    dnames <- dimnames(res)
-    dnames[idx] <- dimnames(data)
-  
-    res@.Data <- array(data, dim=dim, dimnames=dnames)
+    # output FLQuant
+    res <- FLQuant(c(data), dimnames=dimnames(data))
 
     return(res)
-
   }
 )
 
