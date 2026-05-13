@@ -351,6 +351,13 @@ hyperstability <- function(object, omega=1, ref=yearMeans(object)) {
 #' @author The FLR Team
 #' @seealso \link{survey}, \linkS4class{FLIndex}, \linkS4class{FLStock}
 #' @keywords methods
+#' @examples
+#' # Load datasets
+#' data(ple4)
+#' data(ple4.indices)
+#' # Compute for each index and pseudo-noisy fit
+#' pseudofit <- lapply(ple4.indices, function(x) index(x) * 0.8)
+#' computeQ(ple4.indices, ple4, pseudofit)
 
 setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
   fit="FLQuants"), function(indices, stock, fit) {
@@ -409,7 +416,8 @@ setMethod("computeQ", signature=c(indices="FLIndices", stock="FLStock",
 
 #' @rdname computeQ
 #' @examples
-#' computeQ(ple4.index, ple4, rlnorm(1, log(index(ple4.index)), 0.1))
+#' #  Compute for single index and pseudo-noisy fit
+#' computeQ(ple4.indices[[1]], ple4, rlnorm(1, log(index(ple4.indices[[1]])), 0.1))
 
 setMethod("computeQ", signature=c(indices="FLI", stock="FLStock",
   fit="FLQuant"), function(indices, stock, fit) {

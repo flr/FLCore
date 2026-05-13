@@ -109,7 +109,7 @@ is.FLStock <- function(x)
 #' exb(ple4)
 
 # .biomass
-.biomass <- function(n, h, ph, m, pm, wt, sel, byage=FALSE) {
+.biomass <- function(n, h, ph, m, pm, wt, sel, byage=FALSE, byunit=FALSE) {
 
   # CALCULATE by harvest 'units'
   uns <- units(h)
@@ -140,28 +140,32 @@ is.FLStock <- function(x)
   if(!byage)
     res <- quantSums(res)
 
+  if(!byunit)
+    res <- unitSums(res)
+
   return(res)
 }
 
 # ssb
 setMethod("ssb", signature(object="FLStock"),
-	function(object, byage=FALSE, ...) {
+	function(object, byage=FALSE, byunit=FALSE, ...) {
     
     # PARSE extra arguments
     args <- list(...)
+
     for(i in names(args))
       slot(object, i)[] <- c(args[[i]])
     
     res <- .biomass(n=stock.n(object), h=harvest(object),
       ph=harvest.spwn(object), m=m(object), pm=m.spwn(object),
-      wt=stock.wt(object), sel=mat(object), byage=byage)
+      wt=stock.wt(object), sel=mat(object), byage=byage, byunit=byunit)
 
-    return(unitSums(res))
+    return(res)
 	}
 )	
 
 # ssb_end
-ssb_end <- function(object, byage=FALSE, ...) {
+ssb_end <- function(object, byage=FALSE, byunit=FALSE, ...) {
 
   # PARSE extra arguments
   args <- list(...)
@@ -170,13 +174,13 @@ ssb_end <- function(object, byage=FALSE, ...) {
 
   res <- .biomass(n=stock.n(object), h=harvest(object),
     ph=1, m=m(object), pm=1, wt=stock.wt(object),
-    sel=mat(object), byage=byage)
+    sel=mat(object), byage=byage, byunit=byunit)
 
   return(res)
 }
 
 # ssb_start
-ssb_start <- function(object, byage=FALSE, ...) {
+ssb_start <- function(object, byage=FALSE, byunit=FALSE, ...) {
 
   # PARSE extra arguments
   args <- list(...)
@@ -185,7 +189,7 @@ ssb_start <- function(object, byage=FALSE, ...) {
 
   res <- .biomass(n=stock.n(object), h=harvest(object),
     ph=0, m=m(object), pm=0, wt=stock.wt(object),
-    sel=mat(object), byage=byage)
+    sel=mat(object), byage=byage, byunit=byunit)
 
   return(res)
 }
@@ -252,7 +256,7 @@ biomass_end <- function(object, byage=TRUE, ...) {
 
 # tsb
 setMethod("tsb", signature(object="FLStock"),
-	function(object, time=m.spwn(object), byage=FALSE, ...) {
+	function(object, time=m.spwn(object), byage=FALSE, byunit=FALSE, ...) {
 
     # PARSE extra arguments
     args <- list(...)
@@ -262,7 +266,7 @@ setMethod("tsb", signature(object="FLStock"),
     # CALL .biomass with sel = 1
     .biomass(n=stock.n(object), wt=stock.wt(object), h=harvest(object),
       m=m(object), ph=harvest.spwn(object), pm=m.spwn(object), 
-      sel=1, byage=byage)
+      sel=1, byage=byage, byunit=byunit)
   }
 )
 
