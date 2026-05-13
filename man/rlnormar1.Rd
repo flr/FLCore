@@ -73,6 +73,6 @@ Thorson, J. T. Predicting recruitment density dependence and intrinsic growth ra
 \link{rlnorm}
 }
 \author{
-Iago Mosqueira (WMR), Henning Winker (JRC).
+The FLR Team
 }
 \keyword{statistics}

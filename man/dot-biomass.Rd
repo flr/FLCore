@@ -4,7 +4,7 @@
 \alias{.biomass}
 \title{FLStock biomass metrics}
 \usage{
-.biomass(n, h, ph, m, pm, wt, sel, byage = FALSE)
+.biomass(n, h, ph, m, pm, wt, sel, byage = FALSE, byunit = FALSE)
 }
 \description{
 FLStock biomass metrics

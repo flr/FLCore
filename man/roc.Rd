@@ -10,44 +10,63 @@ roc(label, ind, direction = c(">=", "<="))
 auc(x = NULL, TPR = x$TPR, FPR = x$FPR)
 }
 \arguments{
-\item{label}{Logical, integer (0/1), or FLQuant giving the true class for
-each observation (1 = positive, 0 = negative). Non-logical values are
-coerced to 0/1. Labels must not be all 0 or all 1.}
+\item{label}{Logical, integer (0/1), or \code{FLQuant} giving the true
+class for each observation (1 = positive, 0 = negative). Non-logical
+values are coerced to 0/1. Labels must not be all 0 or all 1.}
 
-\item{ind}{Numeric vector or FLQuant of indicator / score values used to rank
-observations.}
+\item{ind}{Numeric vector or \code{FLQuant} of indicator / score values
+used to rank observations.}
 
 \item{direction}{Character scalar, one of \code{">="} (default) or
-\code{"<="}. If \code{">="}, larger \code{ind} values are treated as more
-evidence for the positive class; if \code{"<="}, smaller \code{ind}
-values are treated as more evidence for the positive class.}
+\code{"<="}. If \code{">="}, larger \code{ind} values are treated as
+more evidence for the positive class; if \code{"<="}, smaller
+\code{ind} values are treated as more evidence for the positive class.}
+
+\item{x}{A \code{data.frame} returned by \link{roc}, from which
+\code{TPR} and \code{FPR} are extracted if not supplied directly.
+Defaults to \code{NULL}.}
+
+\item{TPR}{Numeric vector of true positive rates, typically
+\code{x$TPR}.}
+
+\item{FPR}{Numeric vector of false positive rates, typically
+\code{x$FPR}.}
 }
 \value{
-A data.frame (model.frame output) sorted by the chosen threshold
-order containing the columns:
+A \code{data.frame} sorted by the chosen threshold order containing
+the columns:
 \describe{
 \item{ind}{indicator / score values}
 \item{label}{coerced 0/1 label}
 \item{TP, TN, FP, FN}{cumulative true/false positive/negative counts}
 \item{TPR, FPR}{true positive rate and false positive rate}
-\item{TSS}{True Skill Statistic, computed as TPR - FPR (i.e. tp/(tp+fn) - fp/(fp+tn))}
+\item{TSS}{True Skill Statistic, computed as TPR - FPR
+(i.e. tp/(tp+fn) - fp/(fp+tn))}
 }
+
+A single numeric value: the area under the ROC curve.
 }
 \description{
 A receiver operating characteristic (ROC) curve shows the ability of a
 binary classifier. Here it is applied to compare two sets of values,
-stored as two FLQuant objects. The first is the result of aplying a logical
+stored as two FLQuant objects. The first is the result of applying a logical
 comparison of a given state against a reference value, so it contains a
 binary (0, 1) label. The second, the score, contains an alternative metric
 that attempts to measure the absolute value of the first.
 The examples below compare an observation of stock status, SSB being less
 than a reference point, and an alternative metric, here the catch curve
 estimates of total mortality.
+
+Computes the area under the receiver operating characteristic curve (AUC)
+using the trapezoidal rule applied to the true positive rate (TPR) and
+false positive rate (FPR). AUC ranges from 0 to 1; a value of 0.5
+indicates no discriminating ability (equivalent to random guessing),
+while a value of 1 indicates perfect discrimination.
 }
 \details{
-When \code{label} and \code{ind} are FLQuant objects the function will
-propagate them along the 6th dimension if needed. The function checks that
-\code{label} contains only 0/1 and that both arguments have matching
+When \code{label} and \code{ind} are \code{FLQuant} objects the function
+will propagate them along the 6th dimension if needed. The function checks
+that \code{label} contains only 0/1 and that both arguments have matching
 dimensions. Observations are ordered according to \code{ind} (respecting
 \code{direction}) and cumulative counts and rates are computed.
 }
@@ -69,3 +88,12 @@ ggplot(roc(state >= 0.22, ind, direction='>='), aes(x=FPR, y=TPR)) +
 with(roc(state >= 0.22, ind), auc(TPR=TPR, FPR=FPR))
 auc(roc(state >= 0.22, ind))
 }
+\seealso{
+\link{auc}
+
+\link{roc}
+}
+\author{
+The FLR Team
+}
+\keyword{utilities}

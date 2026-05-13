@@ -98,3 +98,6 @@ vt = b * vt-1 + s * sqrt(1 - b^2)
 s is a normally distributed random variable with mean = 0
 b is the autocorrelation parameter
 }
+\author{
+The FLR Team
+}
