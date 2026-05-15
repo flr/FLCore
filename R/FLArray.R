@@ -923,7 +923,13 @@ setMethod("window", signature(x="FLArray"),
     d2s <- as.numeric(dnames[[2]])
     min <- d2s[1]
     max <- d2s[length(d2s)]
-
+ 
+    # IF end or start are negative, substract from object
+    if(end < 0)
+      end <- dims(x)$maxyear + end
+    if(start < 0)
+      start <- dims(x)$maxyear + start + 1
+ 
     # SUBSET by position if not extending
     if(end <= max & start >= min) {
       return(x[, which(d2s %in% seq(start, end))])
@@ -940,12 +946,6 @@ setMethod("window", signature(x="FLArray"),
       else
         stop("'extend' is numeric and 'end' provided, don't know what to do")
 
-    # IF end or start are negative, substract from object
-    if(end < 0)
-      end <- dims(x)$maxyear + end
-    if(start < 0)
-      start <- dims(x)$maxyear + start + 1
-    
     # construct new object
     d2nms <- as.character(seq(start, end, by=frequency))
     dnames[[2]] <- d2nms
