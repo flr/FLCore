@@ -1301,6 +1301,13 @@ s.<-  function(x, plusgroup, na.rm=FALSE)
 )# }}}
 
 # fbar {{{
+
+#' @describeIn fbar For FLBiol objects, fbar is calculated from stock numbers (n) and
+#'   natural mortality (m) by estimating fishing mortality from the cohort
+#'   decline, i.e., F = log(n[age]/n[age+1]) - M[age]
+#' @param minAge Minimum age. Defaults to min + 1.
+#' @param maxAge Maximum age. Defaults to max - 1.
+
 setMethod("fbar", signature(object="FLBiol"),
  function(object, minAge=dims(object)$min + 1, maxAge=dims(object)$max - 1, ...)
  {

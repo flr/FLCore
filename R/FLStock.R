@@ -502,6 +502,27 @@ setMethod("ssf", signature(object="FLStock"),
 )	# }}}
 
 # fbar		{{{
+
+#' @describeIn fbar The `minfbar` and `maxfbar` entries of the `range` slot are
+#' specific to the [FLCore::FLStock-class] class, and define the reference age range
+#' for fishing-mortality calculations. These are set when the [FLCore::FLStock-class]
+#' object is created or read, and can be altered using [FLCore::`range()<-`].
+#' @seealso [FLCore::FLStock-class]
+#' @examples
+#' data(ple4)
+#'
+#' # Default fbar using minfbar/maxfbar from range slot
+#' fbar(ple4)
+#'
+#' # Override age range for a one-off calculation
+#' fbar(ple4, min = 3, max = 6)
+#'
+#' # Inspect the reference age range stored in the object
+#' range(ple4, c("minfbar", "maxfbar"))
+#'
+#' @author FLR Team
+#' @keywords methods
+
 setMethod("fbar", signature(object="FLStock"),
   function(object, min=range(object, 'minfbar'), max=range(object, 'maxfbar')) {
 

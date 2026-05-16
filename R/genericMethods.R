@@ -861,9 +861,40 @@ setGeneric("computeHarvest", function(object, catch, ...)
 	setGeneric("tb", function(object, ...)
 		standardGeneric("tb"))
 
-# fbar
+# fbar {{{
+
+#' Mean fishing mortality over a selected age range
+#'
+#' Computes the arithmetic mean of the [FLCore::harvest()] slot over a
+#' contiguous range of ages.
+#'
+#' @param object An [FLCore::FLStock-class] object.
+#' @param min Integer. Minimum age to include in the mean. Defaults to the
+#'   value stored in `range(object, "minfbar")`; if that value is `NA`, the
+#'   smallest age in the object (`range(object, "min")`) is used instead.
+#' @param max Integer. Maximum age to include in the mean. Defaults to the
+#'   value stored in `range(object, "maxfbar")`; if that value is `NA`, the
+#'   largest age in the object (`range(object, "max")`) is used instead.
+#'
+#' @return An [FLCore::FLQuant-class] with the `quant` dimension collapsed to
+#'   one, containing the arithmetic mean of [FLCore::harvest()] over ages
+#'   `min` to `max` inclusive, as computed by [FLCore::quantMeans()].
+#'
+#' @details
+#'  Overriding `min` and `max` directly allows a one-off calculation over a
+#' different age range without modifying the object.
+#'
+#' The method accepts both `"f"` and `"hr"` as valid units for the
+#' [FLCore::harvest()] slot and applies [FLCore::quantMeans()] identically in
+#' both cases.
+#'
+#' @seealso [FLCore::harvest()], [FLCore::quantMeans()], [base::range()]
+#' @author FLR Team
+#' @keywords methods
+
 	setGeneric("fbar", function(object, ...)
 		standardGeneric("fbar"))
+# }}}
 
 # mbar
 	setGeneric("mbar", function(object, ...)
