@@ -26,3 +26,10 @@ data(ple4)
 stock.n(ple4[, ac(2002:2006)])
 survivors(ple4[, ac(2002:2006)])
 }
+\seealso{
+\linkS4class{FLStock}
+}
+\author{
+FLR Team
+}
+\keyword{manip}

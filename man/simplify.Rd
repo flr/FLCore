@@ -3,10 +3,19 @@
 \name{simplify}
 \alias{simplify}
 \alias{simplify-methods}
+\alias{nounit}
+\alias{noseason}
+\alias{noarea}
 \alias{simplify,FLStock-method}
 \title{Aggregate or select along unwanted dimensions}
 \usage{
 simplify(object, ...)
+
+nounit(stock)
+
+noseason(stock, spwn.season = 1, rec.season = spwn.season, weighted = FALSE)
+
+noarea(stock)
 
 \S4method{simplify}{FLStock}(
   object,
@@ -19,15 +28,58 @@ simplify(object, ...)
 }
 \arguments{
 \item{object}{A complex \strong{FLR} object to aggregate.}
+
+\item{stock}{An object of class \link{FLStock}.}
+
+\item{spwn.season}{Integer. Season used to set spawning timing slots
+(\code{harvest.spwn}, \code{m.spwn}) and to extract maturity. Defaults to \code{1}.}
+
+\item{rec.season}{Integer. Season in which age-0 recruits first appear.
+Defaults to \code{spwn.season}.}
+
+\item{weighted}{Logical. If \code{TRUE}, weight-at-age slots are collapsed as
+abundance-weighted means; otherwise simple means are used. Defaults to
+\code{FALSE}.}
 }
 \value{
 An object of the same class as the input.
+
+An \link{FLStock} with the relevant dimension reduced to length 1.
 }
 \description{
 Objects of many FLR classes might be aggregated along the "unit", "season",
 and/or "area" dimensions according to the type of data they contain.
+
+Helper functions called by \code{\link[=simplify]{simplify()}} to collapse the \emph{unit}, \emph{season},
+or \emph{area} dimension of an \link{FLStock} object to a single level.
+Numbers-at-age slots are summed across the collapsed dimension; weight-at-age
+and natural mortality slots are computed as abundance-weighted means.
+Aggregate biomass slots are recomputed after collapsing.
+}
+\section{Functions}{
+\itemize{
+\item \code{noseason()}: Collapse the \emph{season} dimension, summing catches and
+computing weighted-mean weights-at-age and total natural mortality.
+
+\item \code{noarea()}: Collapse the \emph{area} dimension, summing catches and
+computing abundance-weighted means for weights-at-age and natural mortality.
+
+}}
+\examples{
+data(ple4)
+# nounit: collapse a stock with a single unit (no-op)
+nounit(ple4)
+
+# noseason: collapse seasons (stock has 1 season, so no-op)
+noseason(expand(ple4, season=1:4))
+# noarea: collapse areas (stock has 1 area, so no-op)
+noarea(ple4)
+}
+\seealso{
+\code{\link[=simplify]{simplify()}}
 }
 \author{
 The FLR Team
 }
+\keyword{manip}
 \keyword{methods}

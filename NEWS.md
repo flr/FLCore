@@ -6,7 +6,8 @@
  
 ## BUG FIXES
 
-- Simpl;ified FLQuant to and from FLPar coercion
+- Simplified FLQuant to and from FLPar coercion
+- window(FLArray) returned before parsing negative numbers if not extending
 
 # FLCore 2.6.30
 

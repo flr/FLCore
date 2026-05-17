@@ -88,25 +88,120 @@ setMethod('FLStock', signature(object='FLQuants'),
 # }}}
 
 # is.FLStock	{{{
+
+#' Is this an FLStock object?
+#'
+#' Checks whether an object inherits from the FLStock class.
+#'
+#' @param x An object to test
+#'
+#' @return A logical value, TRUE if x inherits from FLStock
+#'
+#' @author FLR Team
+#' @seealso \linkS4class{FLStock}
+#' @keywords classes
+#' @examples
+#' data(ple4)
+#' is.FLStock(ple4)
+#' is.FLStock(stock.n(ple4))
+
 is.FLStock <- function(x)
-	return(inherits(x, "FLStock"))	# }}}
+	return(inherits(x, "FLStock"))
+# }}}
 
-# biomass metrics: ssb, tsb, vb, exb {{{
+# biomass metrics: ssb, tsb, vb, exb, biomass, _end, _start {{{
 
-#' FLStock biomass metrics
+#' Biomass metrics for FLStock
+#'
+#' A family of functions and methods to compute different biomass quantities
+#' from an \linkS4class{FLStock} object, varying in which component of the
+#' stock is selected and at what point in the time step mortality is evaluated.
+#'
+#' All calculations use the internal \code{.biomass} workhorse, which applies
+#' fishing mortality (F or harvest rate) and natural mortality proportionally
+#' according to the \code{harvest.spwn} and \code{m.spwn} timing fractions.
+#'
+#' \describe{
+#'   \item{\code{ssb}}{Spawning stock biomass at the spawning fraction of the
+#'     time step, weighted by maturity-at-age. Mortality applied up to
+#'     \code{harvest.spwn} and \code{m.spwn}.}
+#'   \item{\code{ssb_end}}{Spawning stock biomass at the \emph{end} of the
+#'     time step (\code{ph = pm = 1}): full annual F and M applied before
+#'     weighting by maturity.}
+#'   \item{\code{ssb_start}}{Spawning stock biomass at the \emph{start} of the
+#'     time step (\code{ph = pm = 0}): no mortality applied, numbers weighted
+#'     by maturity and stock weight only.}
+#'   \item{\code{ssb_next}}{Projected SSB for the year immediately following
+#'     the last year in the object, calculated from survivors and an assumed
+#'     \code{fbar}. Weights-at-age and maturity are averaged over the last
+#'     \code{wts.nyears} years; selectivity, M and spawning fractions over the
+#'     last \code{fbar.nyears} years.}
+#'   \item{\code{tsb}}{Total stock biomass (all ages, \code{sel = 1}) at the
+#'     spawning fraction of the time step.}
+#'   \item{\code{biomass_end}}{Total stock biomass at the end of the time step
+#'     (\code{ph = pm = 1}, \code{sel = 1}).}
+#'   \item{\code{biomass_spawn}}{Total stock biomass surviving to the spawning
+#'     fraction, using the stored \code{harvest.spwn} and \code{m.spwn}
+#'     slots directly.}
+#'   \item{\code{vb}}{Vulnerable biomass at the \emph{start} of the time step
+#'     (\code{ph = pm = 0}), using a user-supplied or default
+#'     (\code{catch.sel}) selectivity.}
+#'   \item{\code{exb}}{Exploitable biomass at the start of the time step,
+#'     using \code{catch.sel} and \code{catch.wt} by default, or
+#'     user-supplied \code{sel} and \code{wt}.}
+#' }
+#'
+#' @param object,x An object of class \linkS4class{FLStock}.
+#' @param byage Logical; if \code{TRUE} return values by age rather than
+#'   summing over ages. Default \code{FALSE} (except \code{biomass_end}
+#'   where it is \code{TRUE}).
+#' @param byunit Logical; if \code{TRUE} return values by unit rather than
+#'   summing over units. Default \code{FALSE}.
+#' @param sel Selectivity-at-age as an \linkS4class{FLQuant}. Defaults to
+#'   \code{catch.sel(x)} in \code{vb} and \code{exb}.
+#' @param wt Weight-at-age as an \linkS4class{FLQuant}. Defaults to
+#'   \code{catch.wt(x)} in \code{exb}.
+#' @param time Fraction of year at which biomass is evaluated in \code{tsb};
+#'   defaults to \code{m.spwn(object)}.
+#' @param fbar Assumed mean fishing mortality for the projected extra year in
+#'   \code{ssb_next}. Default \code{0}.
+#' @param wts.nyears Number of years over which to average weights-at-age and
+#'   maturity for the projected year in \code{ssb_next}. Default \code{3}.
+#' @param fbar.nyears Number of years over which to average selectivity, M and
+#'   spawning fractions for the projected year in \code{ssb_next}. Default \code{3}.
+#' @param ... Named slot–value pairs to temporarily override slots of
+#'   \code{object} before calculation (e.g. \code{m = 0.2}).
+#'
+#' @return An \linkS4class{FLQuant} with the requested biomass quantity.
+#'   Dimensions depend on \code{byage} and \code{byunit}.
+#'
+#' @author FLR Team
+#' @seealso \code{\link{fbar}}, \code{\link{catch}}, \linkS4class{FLStock}
+#' @keywords manip
+#' @name biomass_metrics
 #'
 #' @examples
 #' data(ple4)
-#' # SSB at spawning time
+#'
+#' # SSB at spawning fraction of the year
 #' ssb(ple4)
-#' # SSB at end of time step (year)
-#' ssb_end(ple4)
-#' # SSB at start of time step (year)
+#'
+#' # SSB at start and end of the time step
 #' ssb_start(ple4)
-#' # Vulnerable biomass at start of time step (year)
+#' ssb_end(ple4)
+#'
+#' # Projected SSB for year after last, assuming fbar = 0.3
+#' ssb_next(ple4, fbar = 0.3)
+#'
+#' # Total stock biomass
+#' tsb(ple4)
+#' biomass_end(ple4)
+#' biomass_spawn(ple4)
+#'
+#' # Vulnerable and exploitable biomass
 #' vb(ple4)
-#' # Exploitable biomass at start of time step (year)
 #' exb(ple4)
+NULL
 
 # .biomass
 .biomass <- function(n, h, ph, m, pm, wt, sel, byage=FALSE, byunit=FALSE) {
@@ -147,6 +242,8 @@ is.FLStock <- function(x)
 }
 
 # ssb
+#' @rdname biomass_metrics
+
 setMethod("ssb", signature(object="FLStock"),
 	function(object, byage=FALSE, byunit=FALSE, ...) {
     
@@ -165,6 +262,8 @@ setMethod("ssb", signature(object="FLStock"),
 )	
 
 # ssb_end
+#' @rdname biomass_metrics
+
 ssb_end <- function(object, byage=FALSE, byunit=FALSE, ...) {
 
   # PARSE extra arguments
@@ -180,6 +279,8 @@ ssb_end <- function(object, byage=FALSE, byunit=FALSE, ...) {
 }
 
 # ssb_start
+#' @rdname biomass_metrics
+
 ssb_start <- function(object, byage=FALSE, byunit=FALSE, ...) {
 
   # PARSE extra arguments
@@ -195,6 +296,8 @@ ssb_start <- function(object, byage=FALSE, byunit=FALSE, ...) {
 }
 
 # vb
+#' @rdname biomass_metrics
+
 setMethod("vb", signature(x="FLStock", sel="ANY"),
 	function(x, sel, byage=FALSE, ...) {
 
@@ -208,6 +311,9 @@ setMethod("vb", signature(x="FLStock", sel="ANY"),
       ph=0, m=m(x), pm=0, sel=sel, byage=byage)
   }
 )
+
+# ssb_end
+#' @rdname biomass_metrics
 
 setMethod("vb", signature(x="FLStock", sel="missing"),
 	function(x, byage=FALSE, ...) {
@@ -224,7 +330,7 @@ setMethod("vb", signature(x="FLStock", sel="missing"),
 )
 
 # exb
-setGeneric("exb", function(x, ...) standardGeneric("exb"))
+#' @rdname biomass_metrics
 
 setMethod("exb", signature(x="FLStock"),
 	function(x, sel=catch.sel(x), wt=catch.wt(x), byage=FALSE, ...) {
@@ -241,6 +347,8 @@ setMethod("exb", signature(x="FLStock"),
 )
 
 # biomass_end
+#' @rdname biomass_metrics
+
 biomass_end <- function(object, byage=TRUE, ...) {
 
   # PARSE extra arguments
@@ -255,6 +363,8 @@ biomass_end <- function(object, byage=TRUE, ...) {
 
 
 # tsb
+#' @rdname biomass_metrics
+
 setMethod("tsb", signature(object="FLStock"),
 	function(object, time=m.spwn(object), byage=FALSE, byunit=FALSE, ...) {
 
@@ -269,6 +379,84 @@ setMethod("tsb", signature(object="FLStock"),
       sel=1, byage=byage, byunit=byunit)
   }
 )
+
+# ssb_next
+#' @rdname biomass_metrics
+
+ssb_next <- function(x, fbar=0, wts.nyears=3, fbar.nyears=3) {
+
+  my <- dims(x)$maxyear
+  fages <- range(x, c("minfbar", "maxfbar"))
+  
+  # EXTEND slots and COMPUTE wts.nyears average for extra year
+
+  # mat
+  xmat <- window(mat(x)[,-1], end=my + 1)
+  xmat[, ac(my + 1)] <- yearMeans(xmat[, ac(seq(my - wts.nyears, my))])
+
+  # wt
+  xwt <- window(stock.wt(x)[,-1], end=my + 1)
+  xwt[, ac(my + 1)] <- yearMeans(xwt[, ac(seq(my - wts.nyears, my))])
+
+  # SOLVE for fmultiplier, returns harvest from fbar and catch.sel
+
+  if(fbar > 0) {
+
+    f <- function(i) {
+      abs(c(quantMeans(i * yearMeans(catch.sel(x)[ac(seq(fages[1], fages[2])),
+        ac(seq(my - fbar.nyears, my))])) - c(fbar)))
+    }
+
+    fmu <- optimise(f, c(fbar / 5, fbar * 5))$minimum
+
+  } else {
+
+    fmu <- 0
+  }
+  
+  # EXTEND slots and COMPUTE fbar.nyears average for extra year
+
+  # harvest
+  har <- window(harvest(x)[,-1], end=my + 1)
+  cs <- yearMeans(catch.sel(x)[, ac(seq(my - fbar.nyears + 1, my))])
+  har[, ac(my + 1)] <- cs %/% quantMeans(cs[ac(seq(fages[1], fages[2])),]) * fbar
+
+  # DEBUG
+  # har[, ac(my + 1)] <- yearMeans(catch.sel(x)[, ac(seq(my - fbar.nyears, my))]) * fmu
+  
+  # m
+  mn <- window(m(x)[,-1], end=my + 1)
+  mn[, ac(my + 1)] <- yearMeans(mn[, ac(seq(my - fbar.nyears, my))])
+
+  # m.spawn
+  ms <- window(m.spwn(x)[,-1], end=my + 1)
+  ms[, ac(my + 1)] <- yearMeans(ms[, ac(seq(my - fbar.nyears, my))])
+
+  # harvest.spawn
+  hs <- window(harvest.spwn(x)[,-1], end=my + 1)
+  hs[, ac(my + 1)] <- yearMeans(hs[, ac(seq(my - fbar.nyears, my))])
+
+  return(quantSums(survivors(x) * exp(- (har * hs) - (mn * ms)) * xwt * xmat))
+
+}
+
+# biomass_end
+#' @rdname biomass_metrics
+
+biomass_end <- function(x) {
+  m.spwn(x) <- 1
+  harvest.spwn(x) <- 1
+	return(quantSums(stock.n(x) * exp(-(harvest(x) *
+    harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
+  }
+
+# biomass_spawn
+#' @rdname biomass_metrics
+
+biomass_spawn <- function(x) {
+	return(quantSums(stock.n(x) * exp(-(harvest(x) *
+    harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
+}
 
 # }}}
 
@@ -602,18 +790,21 @@ setMethod("mbar", signature(object="FLStock"),
 
 # meanage {{{
 
-#' Calculate the mean age in the stock and catch
+#' Calculate mean age in stock and catch
 #'
-#' Average age in the stock numbers or catch-at-age.
+#' Computes the average age in the stock numbers, weighted by abundance.
 #'
 #' @param object An age-structured FLStock object
+#'
 #' @return An FLQuant object
-#' @author The FLR Team
-#' @seealso \link{FLComp}
+#'
+#' @author FLR Team
+#' @seealso \link{meanageCatch}
 #' @keywords ts
 #' @examples
 #' data(ple4)
 #' meanage(ple4)
+
 meanage <- function(object) {
 
   res <- quantSums(stock.n(object) * ages(object)) /
@@ -622,9 +813,10 @@ meanage <- function(object) {
   return(res)
 }
 
-#' @rdname meanage
+#' @describeIn meanage Computes the average age in the catch-at-age, weighted by numbers caught.
 #' @examples
 #' meanageCatch(ple4)
+
 meanageCatch <- function(object) {
 
   res <- quantSums(catch.n(object) * ages(object)) /
@@ -636,18 +828,10 @@ meanageCatch <- function(object) {
 
 # meanwt {{{
 
-#' Calculate the mean weight in stock and catch
-#'
-#' Average weight in the stock numbers or catch-at-age.
-#'
-#' @param object An age-structured FLStock object
-#' @return An FLQuant object
-#' @author The FLR Team
-#' @seealso \link{FLComp}
-#' @keywords ts
+#' @describeIn meanage Calculate the mean weight-at-age in stock and catch
 #' @examples
-#' data(ple4)
 #' meanwt(ple4)
+
 meanwt <- function(object) {
 
   res <- quantSums(stock.n(object) * stock.wt(object)) /
@@ -655,7 +839,7 @@ meanwt <- function(object) {
   return(res)
 }
 
-#' @rdname meanwt
+#' @describeIn meanwt Computes the average weight in the catch, weighted by numbers caught.
 #' @examples
 #' meanwtCatch(ple4)
 meanwtCatch <- function(object) {
@@ -720,6 +904,21 @@ catchMature <- function(object) {
 # }}}
 
 # sop	{{{
+
+#' Calculate sum of products for a slot
+#'
+#' Computes the sum of products of numbers and weights for a specified slot
+#' (catch, landings, or discards) divided by the total.
+#'
+#' @param stock An object of class FLStock
+#' @param slot The slot prefix ("catch", "landings", or "discards")
+#'
+#' @return An FLQuant object
+#'
+#' @author FLR Team
+#' @seealso \linkS4class{FLStock}
+#' @keywords manip
+
 sop <- function(stock, slot="catch") {
 	return(quantSums(slot(stock, paste(slot, ".n", sep="")) *
 		slot(stock, paste(slot, ".wt", sep=""))) / slot(stock, slot))
@@ -1006,18 +1205,41 @@ setMethod("rec<-", signature(object="FLStock", value="FLQuant"),
 # }}}
 
 # mergeFLStock {{{
-mergeFLStock<-function(x, y)
-    {
+
+#' Merge two FLStock objects
+#'
+#' Combines two FLStock objects by adding their abundances and catches,
+#' and computing weighted mean biological parameters.
+#'
+#' @param x An object of class FLStock
+#' @param y An object of class FLStock
+#'
+#' @return A merged FLStock object
+#'
+#' @author FLR Team
+#' @seealso \linkS4class{FLStock}
+#' @keywords manip
+#' @examples
+#' data(ple4)
+#' # Split into two stocks
+#' stk1 <- ple4
+#' stk2 <- ple4
+#' # Merge them back
+#' mergeFLStock(stk1, stk2)
+
+mergeFLStock<-function(x, y) {
+
     if (!all(unlist(dims(x))==unlist(dims(y)))) stop("FLStock objects to combine have dim mismatch")
 
-    res<-FLStock(stock     =stock(     x)   +stock(  y),
-                 stock.n   =stock.n(   x)   +stock.n(y),
-                 catch     =catch(     x)   +catch(  y),
-                 catch.n   =catch.n(   x)   +catch.n(y),
-                 landings  =landings(  x)+landings(  y),
-                 landings.n=landings.n(x)+landings.n(y),
-                 discards  =discards(  x)+discards(  y),
-                 discards.n=discards.n(x)+discards.n(y))
+    res <- FLStock(
+      stock     =stock(     x)   +stock(  y),
+      stock.n   =stock.n(   x)   +stock.n(y),
+      catch     =catch(     x)   +catch(  y),
+      catch.n   =catch.n(   x)   +catch.n(y),
+      landings  =landings(  x)+landings(  y),
+      landings.n=landings.n(x)+landings.n(y),
+      discards  =discards(  x)+discards(  y),
+      discards.n=discards.n(x)+discards.n(y))
 
     name(res) = paste(name(x),"merged with", name(y))
     desc(res) = paste(desc(x),"merged with", desc(y))
@@ -1333,7 +1555,51 @@ setMethod("dim", signature(x="FLStock"),
   }
 ) # }}}
 
+# weighted.mean {{{
+
+#' @examples
+#' data(ple4)
+#' x <- FLQuants(landings.wt(ple4), discards.wt(ple4))
+#' w <- FLQuants(landings.n(ple4), discards.n(ple4))
+#' # Computes weighted mean of landings and discards weights-at-age
+#' weighted.mean(x, w)
+
+setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
+  function(x, w) {
+    Reduce('+', Map('*', x, w)) / Reduce('+', lapply(w, '+', 1e-36))
+  })
+# }}}
+
 # nounit {{{
+
+#' Collapse FLStock dimensions to a single level
+#'
+#' Helper functions called by [simplify()] to collapse the *unit*, *season*,
+#' or *area* dimension of an [FLStock] object to a single level.
+#' Numbers-at-age slots are summed across the collapsed dimension; weight-at-age
+#' and natural mortality slots are computed as abundance-weighted means.
+#' Aggregate biomass slots are recomputed after collapsing.
+#'
+#' @param stock An object of class [FLStock].
+#' @param spwn.season Integer. Season used to set spawning timing slots
+#'   (`harvest.spwn`, `m.spwn`) and to extract maturity. Defaults to `1`.
+#' @param rec.season Integer. Season in which age-0 recruits first appear.
+#'   Defaults to `spwn.season`.
+#' @param weighted Logical. If `TRUE`, weight-at-age slots are collapsed as
+#'   abundance-weighted means; otherwise simple means are used. Defaults to
+#'   `FALSE`.
+#'
+#' @return An [FLStock] with the relevant dimension reduced to length 1.
+#'
+#' @seealso [simplify()]
+#' @keywords manip
+#' @examples
+#' data(ple4)
+#' # nounit: collapse a stock with a single unit (no-op)
+#' nounit(ple4)
+#'
+#' @rdname simplify
+#' @aliases nounit
 
 nounit <- function(stock) {
 
@@ -1387,22 +1653,14 @@ nounit <- function(stock) {
 
 # }}}
 
-# weighted.mean {{{
-
-#' @examples
-#' data(ple4)
-#' x <- FLQuants(landings.wt(ple4), discards.wt(ple4))
-#' w <- FLQuants(landings.n(ple4), discards.n(ple4))
-#' # Computes weighted mean of landings and discards weights-at-age
-#' weighted.mean(x, w)
-
-setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
-  function(x, w) {
-    Reduce('+', Map('*', x, w)) / Reduce('+', lapply(w, '+', 1e-36))
-  })
-# }}}
-
 # noseason {{{
+
+#' @describeIn simplify Collapse the *season* dimension, summing catches and
+#'   computing weighted-mean weights-at-age and total natural mortality.
+#' @examples
+#' # noseason: collapse seasons (stock has 1 season, so no-op)
+#' noseason(expand(ple4, season=1:4))
+#' @aliases noseason
 
 noseason <- function(stock, spwn.season=1, rec.season=spwn.season, 
   weighted=FALSE) {
@@ -1476,6 +1734,13 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season,
  # }}}
 
 # noarea {{{
+
+#' @describeIn simplify Collapse the *area* dimension, summing catches and
+#'   computing abundance-weighted means for weights-at-age and natural mortality.
+#' @examples
+#' # noarea: collapse areas (stock has 1 area, so no-op)
+#' noarea(ple4)
+#' @aliases noarea
 
 noarea <- function(stock) {
 
@@ -1727,15 +1992,25 @@ setMethod("append", signature(x="FLStock", values="FLStock"),
 
 #' Generate a matrix to compute Mohn's rho for a single metric
 #'
-#' A common measure of the strength of stock assessment retrospective
-#' patterns is Mohn's rho. This function does not carry out the calculation
-#' but returns a matrix with the metrics value for the n restrospective
-#' runs, in columns, and n + 2 years, in rows.
+#' Creates a matrix to compute Mohn's rho for a single metric from
+#' retrospective analysis results. A common measure of the strength of stock
+# assessment, retrospective patterns is Mohn's rho. This function does not carry
+#' out the calculation but returns a matrix with the metrics value for the n
+#' restrospective runs, in columns, and n + 2 years, in rows.
 #'
 #' @param stocks An FLStocks object from a restrospective analysis
 #' @param metric Metric to be computed, as a character vector or function
+#' @param ... Additional arguments passed to the metric function
 #'
 #' @return A metrics of n + 2 x n, where n is the numbers of objects in stocks.
+#' @author FLR Team
+#' @seealso \linkS4class{FLStocks}
+#' @keywords ts
+#' @examples
+#' data(ple4)
+#' # Create retrospective runs
+#' stks <- FLStocks(lapply(0:5, function(i) window(ple4, end=2017-i)))
+#' mohnMatrix(stks, "fbar")
 
 mohnMatrix <- function(stocks, metric="fbar", ...) {
 
@@ -1780,7 +2055,9 @@ mohnMatrix <- function(stocks, metric="fbar", ...) {
 #' @param rec Value for recruitment, first age abundance, 'numeric' or 'FLQuant'.'
 #'
 #' @return The abundances at age of the survivors, 'FLQuant'.
-#'
+#' @author FLR Team
+#' @keywords manip
+#' @seealso \linkS4class{FLStock}
 #' @examples
 #' data(ple4)
 #' stock.n(ple4[, ac(2002:2006)])
@@ -1835,109 +2112,12 @@ Funwanted <- function(x, ages=dimnames(x)$age) {
     harvest(x)[ac(ages)])
 }
 
+#' @rdname Fwanted
+
 Fwanted <- function(x, ages=dimnames(x)$age) {
 quantMeans((landings.n(x)[ac(ages),] / catch.n(x)[ac(ages),]) *
     harvest(x)[ac(ages)])
 } # }}}
-
-# ssb_next {{{
-
-#' Calculate next yera's SSB from survivors and Fbar
-#'
-#' The spawning stock biomass (SSB) of the stock gets calculated from the
-#' survivors of the previous year. This provides a value for the first year
-#' after the end of the object. Weights-at-age, maturity in this extra year are
-#' calculated as averages over the last *wts.nyears*.
-#'
-#' For stocks spawning later in the year, a value for the average fishing
-#' mortality, *fbar*, expected in that year can be provided. Mortality until
-#' spawning is then calculated, with M and selectivity assumed in the extra year
-#' to be an average of the last *fbar.nyears*.
-#'
-#' @param x An FLStock object containing estimates of abundance and harvesting.
-#' @param fbar The Fbar rate assumed on the extra year. Defaults to 0.
-#' @param wts.nyears Number of years in calculation of mean weight-at-age and maturity for the extra year.
-#' @param fbar.nyears Number of years in calculation of mean selectivity, natural mortality and fraction of F abnd M before spawning for the extra year.
-#'
-#' @return An FLQuant.
-#'
-#' @examples
-#' data(ple4)
-#' ssb_next(ple4)
-#' # Compare with ssb()
-#' ssb(ple4)[, ac(2014:2017)] / ssb_next(ple4)[, ac(2014:2017)]
-
-ssb_next <- function(x, fbar=0, wts.nyears=3, fbar.nyears=3) {
-
-  my <- dims(x)$maxyear
-  fages <- range(x, c("minfbar", "maxfbar"))
-  
-  # EXTEND slots and COMPUTE wts.nyears average for extra year
-
-  # mat
-  xmat <- window(mat(x)[,-1], end=my + 1)
-  xmat[, ac(my + 1)] <- yearMeans(xmat[, ac(seq(my - wts.nyears, my))])
-
-  # wt
-  xwt <- window(stock.wt(x)[,-1], end=my + 1)
-  xwt[, ac(my + 1)] <- yearMeans(xwt[, ac(seq(my - wts.nyears, my))])
-
-  # SOLVE for fmultiplier, returns harvest from fbar and catch.sel
-
-  if(fbar > 0) {
-
-    f <- function(i) {
-      abs(c(quantMeans(i * yearMeans(catch.sel(x)[ac(seq(fages[1], fages[2])),
-        ac(seq(my - fbar.nyears, my))])) - c(fbar)))
-    }
-
-    fmu <- optimise(f, c(fbar / 5, fbar * 5))$minimum
-
-  } else {
-
-    fmu <- 0
-  }
-  
-  # EXTEND slots and COMPUTE fbar.nyears average for extra year
-
-  # harvest
-  har <- window(harvest(x)[,-1], end=my + 1)
-  cs <- yearMeans(catch.sel(x)[, ac(seq(my - fbar.nyears + 1, my))])
-  har[, ac(my + 1)] <- cs %/% quantMeans(cs[ac(seq(fages[1], fages[2])),]) * fbar
-
-  # DEBUG
-  # har[, ac(my + 1)] <- yearMeans(catch.sel(x)[, ac(seq(my - fbar.nyears, my))]) * fmu
-  
-  # m
-  mn <- window(m(x)[,-1], end=my + 1)
-  mn[, ac(my + 1)] <- yearMeans(mn[, ac(seq(my - fbar.nyears, my))])
-
-  # m.spawn
-  ms <- window(m.spwn(x)[,-1], end=my + 1)
-  ms[, ac(my + 1)] <- yearMeans(ms[, ac(seq(my - fbar.nyears, my))])
-
-  # harvest.spawn
-  hs <- window(harvest.spwn(x)[,-1], end=my + 1)
-  hs[, ac(my + 1)] <- yearMeans(hs[, ac(seq(my - fbar.nyears, my))])
-
-  return(quantSums(survivors(x) * exp(- (har * hs) - (mn * ms)) * xwt * xmat))
-
-} # }}}
-
-# targets {{{
-biomass_end <- function(x) {
-  m.spwn(x) <- 1
-  harvest.spwn(x) <- 1
-	return(quantSums(stock.n(x) * exp(-(harvest(x) *
-    harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
-  }
-
-biomass_spawn <- function(x) {
-	return(quantSums(stock.n(x) * exp(-(harvest(x) *
-    harvest.spwn(x) + m(x) * m.spwn(x))) * stock.wt(x)))
-}
-
-# }}}
 
 # production {{{
 

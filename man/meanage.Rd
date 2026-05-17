@@ -3,11 +3,14 @@
 \name{meanage}
 \alias{meanage}
 \alias{meanageCatch}
-\title{Calculate the mean age in the stock and catch}
+\alias{meanwt}
+\title{Calculate mean age in stock and catch}
 \usage{
 meanage(object)
 
 meanageCatch(object)
+
+meanwt(object)
 }
 \arguments{
 \item{object}{An age-structured FLStock object}
@@ -16,17 +19,25 @@ meanageCatch(object)
 An FLQuant object
 }
 \description{
-Average age in the stock numbers or catch-at-age.
+Computes the average age in the stock numbers, weighted by abundance.
 }
+\section{Functions}{
+\itemize{
+\item \code{meanageCatch()}: Computes the average age in the catch-at-age, weighted by numbers caught.
+
+\item \code{meanwt()}: Calculate the mean weight-at-age in stock and catch
+
+}}
 \examples{
 data(ple4)
 meanage(ple4)
 meanageCatch(ple4)
+meanwt(ple4)
 }
 \seealso{
-\link{FLComp}
+\link{meanageCatch}
 }
 \author{
-The FLR Team
+FLR Team
 }
 \keyword{ts}

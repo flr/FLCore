@@ -894,7 +894,6 @@ setGeneric("computeHarvest", function(object, catch, ...)
 
 	setGeneric("fbar", function(object, ...)
 		standardGeneric("fbar"))
-# }}}
 
 # mbar
 	setGeneric("mbar", function(object, ...)
@@ -903,6 +902,7 @@ setGeneric("computeHarvest", function(object, catch, ...)
 # zbar
 	setGeneric("zbar", function(object, ...)
 		standardGeneric("zbar"))
+# }}}
 
 # ssbpurec
 	setGeneric("ssbpurec", function(object, ...)
@@ -1027,14 +1027,6 @@ setGeneric("computeStock", function(object, ...)
 		standardGeneric("computeStock"))
 
 # }}}
-
-# tsb
-	setGeneric("tsb", function(object, ...)
-		standardGeneric("tsb"))
-
-# fbar
-	setGeneric("fbar", function(object, ...)
-		standardGeneric("fbar"))
 
 # hr
 	setGeneric("hr", function(object, ...)
@@ -2065,7 +2057,7 @@ setGeneric("group", function(x, FUN, ...)
 #' Catch curve estimates of total mortality at age (Z)
 #'
 #'
-#' @param object
+#' @param object An input object of the right class
 #' @examples
 #' data(ple4)
 
@@ -2095,3 +2087,4 @@ setGeneric("biomass", function(x, ...) standardGeneric("biomass"))
 
 setGeneric("depletion", function(x, ...) standardGeneric("depletion"))
 
+setGeneric("exb", function(x, ...) standardGeneric("exb"))

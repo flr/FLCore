@@ -206,7 +206,7 @@ setClass("FLQuant",
 #' @section Constructor:
 #'  Inputs can be of class:
 #'  \describe{
-#'    \item{\code{FLQuant}:}{An FLQuant object with iters (i.e. dim[6] > 1)}
+#'    \item{\code{FLQuant}:}{An FLQuant object with iters (i.e. dim\\[6\\] > 1)}
 #' }
 #' @section Validity: \describe{
 #'  \item{iter:}{iter dimension is of length 5.}
