@@ -73,7 +73,7 @@ original \code{FLQuant} using \code{\link[base]{apply}}.
 
 Inputs can be of class:
 \describe{
-\item{\code{FLQuant}:}{An FLQuant object with iters (i.e. dim\link{6} > 1)}
+\item{\code{FLQuant}:}{An FLQuant object with iters (i.e. dim\[6\] > 1)}
 }
 }
 

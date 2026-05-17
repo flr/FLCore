@@ -1204,41 +1204,20 @@ setMethod("rec<-", signature(object="FLStock", value="FLQuant"),
 )
 # }}}
 
-# mergeFLStock {{{
-
-#' Merge two FLStock objects
-#'
-#' Combines two FLStock objects by adding their abundances and catches,
-#' and computing weighted mean biological parameters.
-#'
-#' @param x An object of class FLStock
-#' @param y An object of class FLStock
-#'
-#' @return A merged FLStock object
-#'
-#' @author FLR Team
-#' @seealso \linkS4class{FLStock}
-#' @keywords manip
-#' @examples
-#' data(ple4)
-#' # Split into two stocks
-#' stk1 <- ple4
-#' stk2 <- ple4
-#' # Merge them back
-#' mergeFLStock(stk1, stk2)
+# "+" {{{
 
 mergeFLStock<-function(x, y) {
 
     if (!all(unlist(dims(x))==unlist(dims(y)))) stop("FLStock objects to combine have dim mismatch")
 
     res <- FLStock(
-      stock     =stock(     x)   +stock(  y),
-      stock.n   =stock.n(   x)   +stock.n(y),
-      catch     =catch(     x)   +catch(  y),
-      catch.n   =catch.n(   x)   +catch.n(y),
-      landings  =landings(  x)+landings(  y),
+      stock = stock(x) + stock(  y),
+      stock.n=stock.n(x)+stock.n(y),
+      catch=catch(x)+catch(y),
+      catch.n=catch.n(x)+catch.n(y),
+      landings=landings(x)+landings(y),
       landings.n=landings.n(x)+landings.n(y),
-      discards  =discards(  x)+discards(  y),
+      discards=discards(x)+discards(y),
       discards.n=discards.n(x)+discards.n(y))
 
     name(res) = paste(name(x),"merged with", name(y))
@@ -1252,41 +1231,57 @@ mergeFLStock<-function(x, y) {
 
 #    args <- list(...)
 
-    if (!is.null(args) && any(names(args) == "m"))
-       m(res)<-args$m
-    else
-       {
-       warning("adding m slots, this might not be want you want")
+#    if (!is.null(args) && any(names(args) == "m"))
+#       m(res)<-args$m
+#    else
+#       {
+#       warning("adding m slots, this might not be want you want")
        m(res)<-(m(x)+m(y))/2
-       }
+#       }
 
-    if (!is.null(args) && any(names(args) == "m.spwn"))
-       m.spwn(res)<-args$m.spwn
-    else
-       {
-       warning("adding m.spwn slots, this might not be want you want")
+#    if (!is.null(args) && any(names(args) == "m.spwn"))
+#       m.spwn(res)<-args$m.spwn
+#    else
+#       {
+#       warning("adding m.spwn slots, this might not be want you want")
        m.spwn(res)      <-(harvest.spwn(x)+harvest.spwn(y))/2
-       }
+#       }
 
-    if (!is.null(args) && any(names(args) == "harvest.spwn"))
-       harvest.spwn(res)<-args$harvest.spwn
-    else
-       {
-       warning("adding harvest.spwn slots, this might not be want you want")
+#    if (!is.null(args) && any(names(args) == "harvest.spwn"))
+#       harvest.spwn(res)<-args$harvest.spwn
+#    else
+#       {
+#       warning("adding harvest.spwn slots, this might not be want you want")
        harvest.spwn(res)<-(harvest.spwn(x)+harvest.spwn(y))/2
-       }
+#       }
 
     mat(res)    <-(mat(x)*stock.n(x)+mat(y)*stock.n(y))/(stock.n(x)+stock.n(y))
 
     harvest(res)<-FLQuant(harvest(res),dimnames=dimnames(m(res)))
 
-    #harvest(res)<-calcF(m(res),catch.n(res),stock.n(res))
+    harvest(res)<-computeHarvest(res)
 
     return(res)
     }
-# }}}
 
-# "+"      {{{
+#' Adds two FLStock objects
+#'
+#' Combines two FLStock objects by adding their abundances and catches,
+#' and computing weighted mean biological parameters.
+#'
+#' @param e1 An object of class FLStock
+#' @param e2 An object of class FLStock
+#'
+#' @return A summed-up FLStock object
+#'
+#' @author FLR Team
+#' @seealso \linkS4class{FLStock}
+#' @keywords manip
+#' @examples
+#' data(ple4)
+#' # Addc ple4 to itself
+#' ple4 + ple4
+
 setMethod("+", signature(e1="FLStock", e2="FLStock"),
 	function(e1, e2) {
     if(validObject(e1) & validObject(e2))

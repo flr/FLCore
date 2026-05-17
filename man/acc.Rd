@@ -6,6 +6,9 @@
 \usage{
 acc(object, ...)
 }
+\arguments{
+\item{object}{An input object of the right class}
+}
 \description{
 Catch curve estimates of total mortality at age (Z)
 }
