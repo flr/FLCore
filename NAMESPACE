@@ -126,7 +126,7 @@ export(
   "abPars",
   "ac",
   "an",
-  "ar1deviances",
+  "ar1pars",
   "ar1rlnorm",
   "as.FLSRs",
   "auc",

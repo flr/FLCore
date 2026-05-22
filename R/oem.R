@@ -659,113 +659,6 @@ noiseFn <- function(len, sd=1, b=0, burn=0, trunc=0, seed=NA) {
   return(x)
 }# }}}
 
-# Diagnostics
-
-# mase {{{
-
-#' Compute mean absolute scaled error (MASE)
-#'
-#' Computes the Mean Absolute Scaled Error (MASE) between a reference
-#' (naive) prediction and one or more alternative predictions.
-#' MASE is scale-independent and robust to outliers, making it useful for
-#' comparing forecast accuracy across different indices or time series.
-#'
-#' @references Franses, P.H. (2016). A note on the Mean Absolute Scaled
-#'   Error. \emph{International Journal of Forecasting}, 32(1):20--22.
-#'   \doi{10.1016/j.ijforecast.2015.03.008}.
-#'
-#' @param ref Reference or naive prediction, an \code{FLQuant} or
-#'   \code{FLIndices} time series.
-#' @param preds Predictions to compare to the reference; an \code{FLQuants}
-#'   or a list of \code{FLIndices}.
-#' @param order Character; whether predictions are in \code{"inverse"}
-#'   (default, most recent first) or \code{"ahead"} order.
-#' @param wt Mean weights-at-age to use when converting index numbers to
-#'   biomass (only for the \code{FLIndices, list} method).
-#' @param ... Additional arguments passed to methods.
-#'
-#' @return A numeric scalar (or named numeric vector for the
-#'   \code{FLIndices, list} method) giving the MASE value(s).
-#'
-#' @name mase
-#' @rdname mase
-#' @aliases mase mase-methods
-#' @docType methods
-#' @section Generic function: mase(ref, preds, ...)
-#'
-#' @author The FLR Team
-#' @seealso \link{runstest}
-#' @keywords methods
-
-setGeneric("mase", function(ref, preds, ...) standardGeneric('mase'))
-
-#' @rdname mase
-
-setMethod("mase", signature(ref="FLQuant", preds="FLQuants"),
-  function(ref, preds, order=c("inverse", "ahead")) {
-
-    # SET dims
-    fy <- dims(ref)$maxyear
-    nyears <- length(preds)
-
-    # REVERSE if ahead
-    if(match.arg(order) == "ahead")
-      preds <- preds[rev(seq(length(preds)))]
-
-    # ADD names if missing
-    if(is.null(names(preds)))
-      names(preds) <- seq(fy - 1, fy - nyears)
-    
-    # \sum_{t=T-h+1}^{T} |\hat{y}_t - y_t|
-    num  <- abs(log(mapply(function(x, y) x[, y], preds,
-      y=ac(seq(fy, fy - nyears + 1)), SIMPLIFY=TRUE)) -
-      log(ref[, ac(seq(fy, fy - nyears + 1))]))
-
-    # \sum_{t=T-h+1}^{T} |y_t - y_{t-1}|
-    den <- abs(log(ref[, ac(seq(fy, fy - nyears + 1))]) -
-      log(ref[, ac(seq(fy - 1, fy - nyears))]))
-
-    mase <- (1 / nyears * sum(num)) / (1 / nyears * sum(den))
-
-    return(mase)
-  }
-)
-
-#' @rdname mase
-#' @param wt Mean weights-at-age to use with indices.
-
-setMethod("mase", signature(ref="FLIndices", preds="list"),
-  function(ref, preds, order="inverse", wt="missing") {
-
-    # CHECK classes in list
-    if(!all(unlist(lapply(preds, is, "FLIndices"))))
-      stop("All elements in 'preds' list must be of class 'FLIndices'.")
-
-    if(!all(unlist(lapply(preds, length)) == length(ref)))
-      stop("'FLIndices' in 'preds' must have the same length as 'ref'.")
-
-    # TODO CHECK names and warn if first matches last year of ref
-
-    indices <- c(list(ref), preds)
-
-    # TODO PARSE wt and add to indices
-
-    res <- unlist(lapply(setNames(nm=names(indices[[1]])), function(i) {
-      # COMPUTE index in biomass
-      flqs <- lapply(indices, function(x) {
-        if(is(x, "FLIndexBiomass"))
-          index(x[[i]])
-        else
-          quantSums(index(x[[i]]) * catch.wt(x[[i]]))
-      })
-      mase(flqs[[1]], FLQuants(flqs[-1]), order=order)
-    }))
-
-    return(res)
-  }
-)
-# }}}
-
 # ar1rlnorm {{{
 
 #' Generate an AR(1) lognormal FLQuant time-series (deprecated)
@@ -873,9 +766,24 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 #' @keywords statistics
 #' @references  Thorson, J. T. Predicting recruitment density dependence and intrinsic growth rate for all fishes worldwide using a data-integrated life-history model. Fish Fish. 2020; 21: 237– 251. https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427
 
-
 rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
   bias.correct=FALSE) {
+  
+  # IF n = FLQuant
+  if(is(n, "FLQuant")) {
+  
+    # COMPUTE sd and rho from arima
+    pars <- ar1pars(x)
+
+    # ASSIGN to arguments
+    if(missing(sdlog))
+      sdlog <- pars$sd
+
+    if(missing(rho))
+      rho <- pars$rho
+
+    return(rlnormar1(dim(x)[6], meanlog, sdlog, rho, years=years))
+  }
 
   # SET iters
   if(is.null(n))
@@ -915,6 +823,52 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
 
 # }}}
 
+# ar1pars {{{
+
+#' Estimate AR(1) Parameters from an FLQuant Object
+#'
+#' Fits an AR(1) model to each iteration of an \code{FLQuant} object and returns
+#' the estimated standard deviation and autocorrelation coefficient from the
+#' AR process.
+#'
+#' @param x An \code{FLQuant} object with a time series.
+#'
+#' @return An \code{FLPar} object with two parameters:
+#'   \describe{
+#'     \item{\code{sd}}{Residual standard deviation, computed as the square root
+#'       of the estimated innovation variance (\code{sigma2}) from the AR(1) fit.}
+#'     \item{\code{rho}}{AR(1) autocorrelation coefficient.}
+#'   }
+#'
+#' @details
+#' For each iteration in \code{x}, an \code{ARIMA(1, 0, 0)} model is fitted via
+#' \code{\link[stats]{arima}}. The innovation standard deviation (\code{sd}) and
+#' the AR(1) coefficient (\code{rho}) are extracted and assembled into a new
+#' \code{FLPar}.
+#'
+#' @seealso \code{\link[stats]{arima}}, \code{\link[FLCore]{FLQuant}}
+#'
+#' @examples
+#' # Example dataset
+#' data(ple4)
+#' # Compute AR1 parameters on catch
+#' ar1pars(catch(ple4))
+
+ar1pars <- function(x) {
+
+  mat <- apply(unclass(x), 6, function(i) {
+    # RUN arima(1,0,0)
+    ar <- arima(c(i), order=c(1L, 0L, 0L))
+    # RETURN sd, rho
+    c(sd=sqrt(ar$sigma2), rho=unname(coef(ar)['ar1']))
+  })
+  
+  FLPar(unname(mat), dimnames=list(params=c("sd", "rho"),
+    iter=seq(dims(x)$iter)), units=c("", ""))
+}
+
+# }}}
+
 # ar1deviances {{{
 
 #' Extend AR(1) log-normal deviances beyond a given year
@@ -947,6 +901,113 @@ ar1deviances <- function(x, year) {
 
   return(x)
 }
+# }}}
+
+# Diagnostics
+
+# mase {{{
+
+#' Compute mean absolute scaled error (MASE)
+#'
+#' Computes the Mean Absolute Scaled Error (MASE) between a reference
+#' (naive) prediction and one or more alternative predictions.
+#' MASE is scale-independent and robust to outliers, making it useful for
+#' comparing forecast accuracy across different indices or time series.
+#'
+#' @references Franses, P.H. (2016). A note on the Mean Absolute Scaled
+#'   Error. \emph{International Journal of Forecasting}, 32(1):20--22.
+#'   \doi{10.1016/j.ijforecast.2015.03.008}.
+#'
+#' @param ref Reference or naive prediction, an \code{FLQuant} or
+#'   \code{FLIndices} time series.
+#' @param preds Predictions to compare to the reference; an \code{FLQuants}
+#'   or a list of \code{FLIndices}.
+#' @param order Character; whether predictions are in \code{"inverse"}
+#'   (default, most recent first) or \code{"ahead"} order.
+#' @param wt Mean weights-at-age to use when converting index numbers to
+#'   biomass (only for the \code{FLIndices, list} method).
+#' @param ... Additional arguments passed to methods.
+#'
+#' @return A numeric scalar (or named numeric vector for the
+#'   \code{FLIndices, list} method) giving the MASE value(s).
+#'
+#' @name mase
+#' @rdname mase
+#' @aliases mase mase-methods
+#' @docType methods
+#' @section Generic function: mase(ref, preds, ...)
+#'
+#' @author The FLR Team
+#' @seealso \link{runstest}
+#' @keywords methods
+
+setGeneric("mase", function(ref, preds, ...) standardGeneric('mase'))
+
+#' @rdname mase
+
+setMethod("mase", signature(ref="FLQuant", preds="FLQuants"),
+  function(ref, preds, order=c("inverse", "ahead")) {
+
+    # SET dims
+    fy <- dims(ref)$maxyear
+    nyears <- length(preds)
+
+    # REVERSE if ahead
+    if(match.arg(order) == "ahead")
+      preds <- preds[rev(seq(length(preds)))]
+
+    # ADD names if missing
+    if(is.null(names(preds)))
+      names(preds) <- seq(fy - 1, fy - nyears)
+    
+    # \sum_{t=T-h+1}^{T} |\hat{y}_t - y_t|
+    num  <- abs(log(mapply(function(x, y) x[, y], preds,
+      y=ac(seq(fy, fy - nyears + 1)), SIMPLIFY=TRUE)) -
+      log(ref[, ac(seq(fy, fy - nyears + 1))]))
+
+    # \sum_{t=T-h+1}^{T} |y_t - y_{t-1}|
+    den <- abs(log(ref[, ac(seq(fy, fy - nyears + 1))]) -
+      log(ref[, ac(seq(fy - 1, fy - nyears))]))
+
+    mase <- (1 / nyears * sum(num)) / (1 / nyears * sum(den))
+
+    return(mase)
+  }
+)
+
+#' @rdname mase
+#' @param wt Mean weights-at-age to use with indices.
+
+setMethod("mase", signature(ref="FLIndices", preds="list"),
+  function(ref, preds, order="inverse", wt="missing") {
+
+    # CHECK classes in list
+    if(!all(unlist(lapply(preds, is, "FLIndices"))))
+      stop("All elements in 'preds' list must be of class 'FLIndices'.")
+
+    if(!all(unlist(lapply(preds, length)) == length(ref)))
+      stop("'FLIndices' in 'preds' must have the same length as 'ref'.")
+
+    # TODO CHECK names and warn if first matches last year of ref
+
+    indices <- c(list(ref), preds)
+
+    # TODO PARSE wt and add to indices
+
+    res <- unlist(lapply(setNames(nm=names(indices[[1]])), function(i) {
+      # COMPUTE index in biomass
+      flqs <- lapply(indices, function(x) {
+        if(is(x, "FLIndexBiomass"))
+          index(x[[i]])
+        else
+          quantSums(index(x[[i]]) * catch.wt(x[[i]]))
+      })
+      mase(flqs[[1]], FLQuants(flqs[-1]), order=order)
+    }))
+
+    return(res)
+  }
+)
 # }}}
 
 # runstest {{{
