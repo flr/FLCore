@@ -722,6 +722,7 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 #'   Recycled to length `n` if necessary.
 #' @param years Integer or character vector. Years (time dimension) for the
 #'   returned FLQuant (length determines number of time steps).
+#' @param quant Name of the first dimension, `quant`. Defaults to 'age'.
 #' @param bias.correct Logical. If TRUE (default FALSE) subtract
 #'   0.5 * sdlog^2 from the log-series before exponentiation to correct
 #'   for the lognormal bias.
