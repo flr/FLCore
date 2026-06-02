@@ -751,7 +751,7 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 #' @keywords statistics
 #' @references  Thorson, J. T. Predicting recruitment density dependence and intrinsic growth rate for all fishes worldwide using a data-integrated life-history model. Fish Fish. 2020; 21: 237– 251. https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427
 
-rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
+rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years, quant="age",
   bias.correct=FALSE, initlog=NULL) {
 
   # SET iters
@@ -791,7 +791,7 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
   res <- exp(res - logbias)
 
   # ASSEMBLE FLQuant
-  out <- FLQuant(c(res), dimnames=list(year=years, iter=seq(n)))
+  out <- FLQuant(c(res), dimnames=list(year=years, iter=seq(n)), quant=quant)
 
   return(out)
 }
