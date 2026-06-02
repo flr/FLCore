@@ -792,7 +792,8 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years, quant="age",
   res <- exp(res - logbias)
 
   # ASSEMBLE FLQuant
-  out <- FLQuant(c(res), dimnames=list(year=years, iter=seq(n)), quant=quant)
+  out <- FLQuant(c(res), dimnames=list(year=years, iter=seq(n)), quant=quant,
+    units="")
 
   return(out)
 }
