@@ -690,28 +690,8 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
   .Deprecated(rlnormar1, package='FLCore',
     msg=message("This function will soon be deprecated. Please use 'rlnormar1'"))
 
-  # DIMs
-	n <- length(years)
-
-  # BIAS correction
-  logbias <- 0
-
-  if(bias.correct)
-    logbias <- 0.5 * c(sdlog) ^ 2
-
-  rhosq <- c(rho) ^ 2
-
-  #
-  res <- matrix(rnorm(n * iters, mean=meanlog, sd=sdlog), nrow=n, ncol=iters)
-
-	res <- apply(res, 2, function(x) {
-		for(i in 2:n)
-			x[i] <- rho * x[i-1] + sqrt(1 - rhosq) * x[i]
-		return(exp(x - logbias))
-	})
-
-	return(FLQuant(array(res, dim=c(1,n,1,1,1,iters)),
-		dimnames=list(year=years, iter=seq(1, iters), ...)))
+  return(rlnormar1(n=iters, meanlog=meanlog, sdlog=sdlog, rho=rho, years=years,
+  bias.correct=FALSE, ...))
 }
 # }}}
 
@@ -728,6 +708,9 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 #' `bias.correct = TRUE` the log-normal bias (0.5 * sdlog^2) is removed
 #' on the log-scale so that the resulting series have the requested
 #' `meanlog` on the log-scale.
+#' When `initlog` is set, its value is used as starting point for the process,
+#' as mean for year - 1, so that it transitions from that value to meanlog
+#' following the given autocorrelation.
 #'
 #' @param n Integer. Number of iterations to generate. If `NULL` (default)
 #'   `n` is set to the maximum length of `meanlog`, `sdlog` and `rho`.
@@ -742,6 +725,8 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 #' @param bias.correct Logical. If TRUE (default FALSE) subtract
 #'   0.5 * sdlog^2 from the log-series before exponentiation to correct
 #'   for the lognormal bias.
+#' @param initlog The mean in log space of the previous process to use as
+#'    starting point.
 #'
 #' @return An object of class FLQuant with dimensions year x iter containing
 #'   the simulated log-normal AR(1) series.
@@ -767,23 +752,7 @@ ar1rlnorm <- function(rho, years, iters=1, meanlog=0, sdlog=1,
 #' @references  Thorson, J. T. Predicting recruitment density dependence and intrinsic growth rate for all fishes worldwide using a data-integrated life-history model. Fish Fish. 2020; 21: 237– 251. https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427
 
 rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
-  bias.correct=FALSE) {
-  
-  # IF n = FLQuant
-  if(is(n, "FLQuant")) {
-  
-    # COMPUTE sd and rho from arima
-    pars <- ar1pars(x)
-
-    # ASSIGN to arguments
-    if(missing(sdlog))
-      sdlog <- pars$sd
-
-    if(missing(rho))
-      rho <- pars$rho
-
-    return(rlnormar1(dim(x)[6], meanlog, sdlog, rho, years=years))
-  }
+  bias.correct=FALSE, initlog=NULL) {
 
   # SET iters
   if(is.null(n))
@@ -793,21 +762,26 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
   nyrs <- length(years)
 
   # REPEAT inputs to correct size
-  rho <- rep(c(rho), length=n)
+  rho     <- rep(c(rho),     length=n)
   meanlog <- rep(c(meanlog), length=n)
-  sdlog <- rep(c(sdlog), length=n)
+  sdlog   <- rep(c(sdlog),   length=n)
 
   res <- matrix(rnorm(n * nyrs, mean=meanlog, sd=sdlog),
-    nrow=length(years), ncol=n, byrow=TRUE)
+    nrow=nyrs, ncol=n, byrow=TRUE)
 
   # BIAS correction
   logbias <- 0
-
   if(bias.correct)
     logbias <- 0.5 * sdlog ^ 2
 
   # RHOSQ
   rhosq <- rho ^ 2
+
+  # SET initial state from initlog
+  if(!is.null(initlog)) {
+    initlog <- rep(c(initlog), length=n)
+    res[1, ] <- rho * initlog + sqrt(1 - rhosq) * res[1, ]
+  }
 
   # FILL along years
   for(y in seq(nyrs)[-1])
@@ -816,9 +790,10 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years,
   # APPLY bias correction
   res <- exp(res - logbias)
 
+  # ASSEMBLE FLQuant
   out <- FLQuant(c(res), dimnames=list(year=years, iter=seq(n)))
 
-	return(out)
+  return(out)
 }
 
 # }}}

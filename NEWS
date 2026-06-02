@@ -3,6 +3,8 @@
  USER-VISIBLE CHANGES
 
 - biomass FLStock metrics (e.g. ssb) now have a byunit option, defaults to FALSE so adds up across units.
+- rlnormar1 now accepts an FLQuant as input from which sdlog and rho are computed if not provided. 
+- New function ar1pars to compute sdlog and rho for an AR1 process from an FLQuant using arima(1,0,0).
  
  BUG FIXES
 
