@@ -266,55 +266,131 @@ setMethod("unitSums", signature(x="FLQuants"),
 
 # weighted.mean {{{
 
-#' Weighted means along a FLQuants.
+#' Weighted means across FLQuants
 #'
-#' Facilitates the calculation of weighted means across a FLQuants object.
+#' @description
+#' Two `weighted.mean` methods are provided for objects of class `FLQuants`,
+#' a `list` of `FLQuant` to be averaged element-wise. They differ in the
+#' class of the weights argument, `w`, and, more importantly, in how each
+#' one handles `NA` values in `x`. See *NA handling* below before choosing
+#' between them.
 #'
-#' An object of class FLQuants containing elements over which an average is to
-#' computed, is combined with another one, of the same length, containing
-#' values to be used as weights. The overall weighted mean is calculated by
-#' computing the product of each element to its corresponding weight, and
-#' dividing by the sum of all weights.
-#' NAs in the value elements are substituted for zeroes, so do not influence
-#' the mean. Weights are addedn a small quantity (1e-36) to avoid division over zero
-#' errors
+#' @details
+#' **`w = "FLQuants"`**: weights can vary across every dimension of `x`
+#' (age, year, iter, ...), not just by element, since `w` is itself a list
+#' of `FLQuant` matching `x` in length and dimensions. This is the method to
+#' use when, for example, combining landings and discards weights-at-age
+#' weighted by landings and discards numbers-at-age, where the weights
+#' themselves change by age and year.
 #'
-#' @param x Values to be averaged, as an object of class `FLQuants`.
-#' @param w weights to be used, as an object of class `FLQuants`.
+#' **`w = "numeric"`**: a single scalar weight is given per element of `x`,
+#' constant across all dimensions. This is the simpler case of combining a
+#' small number of series (e.g. CPUE or survey indices) with fixed relative
+#' importance.
 #'
-#' @return A single `FLQuant` object.
+#' @section NA handling — the key difference:
+#' For `w = "FLQuants"`: `NA` values in `x` are zeroed out for the
+#' numerator, and the corresponding weight is also zeroed via an internal
+#' NA-flag `FLQuants`, so an `NA` element contributes neither to the
+#' weighted sum nor to the sum of weights at that position. A small constant
+#' (`1e-36`) is added to the summed weights to avoid division by zero where
+#' every weight is zero. If the result is *still* `NA` at some position
+#' (e.g. every element of `x` was `NA` there), it is replaced by the plain,
+#' unweighted arithmetic mean of `x`, `Reduce('+', x) / length(x)` — note
+#' this fallback is computed from the original `x`, so it can itself remain
+#' `NA` if `x` is `NA` at every element for that position; this method has
+#' no `na.rm` argument, the behaviour above is not toggleable.
 #'
+#' For `w = "numeric"`: NA handling is controlled by `na.rm`. With the
+#' default `na.rm = TRUE`, `NA` values are excluded from both the weighted
+#' sum and the sum of weights (`wsum`, tracked explicitly rather than via an
+#' epsilon), so a missing index does not dilute the indices that do have
+#' data; positions where every element of `x` is `NA` return `NA` directly,
+#' with no arithmetic-mean fallback. With `na.rm = FALSE`, no special
+#' handling is applied and any `NA` in `x` propagates to the result, as for
+#' the default `stats::weighted.mean`.
+#'
+#' @param x An `FLQuants` object containing the values to be averaged.
+#' @param w Weights to be used, either as an `FLQuants` object of the same
+#' length and dimensions as `x`, or as a `numeric` vector with one value
+#' per element of `x`.
+#' @param na.rm Only used when `w` is `numeric`: should `NA` values be
+#' excluded element-wise, rather than propagated? `logical`, defaults to
+#' `TRUE`. Ignored, with no equivalent behaviour, when `w` is `FLQuants`.
+#' @param ... Extra arguments, currently unused.
+#'
+#' @return A single `FLQuant` object with the weighted mean across `x`.
+#'
+#' @name weighted.mean
+#' @rdname weighted.mean
+#' @aliases weighted.mean,FLQuants,FLQuants-method weighted.mean,FLQuants,numeric-method
+#' @docType methods
 #' @author The FLR Team
-#' @seealso [FLCore::FLQuants stats::weighted.mean]
+#' @seealso [FLCore::FLQuants] [stats::weighted.mean]
 #' @keywords methods
 #' @md
 #' @examples
 #' data(ple4)
+#'
+#' # w = "FLQuants": weights vary by age and year
 #' x <- FLQuants(landings.wt(ple4), discards.wt(ple4))
 #' w <- FLQuants(landings.n(ple4), discards.n(ple4))
-#' # Weighted mean of landings and discards weights-at-age
 #' weighted.mean(x, w)
+#'
+#' \dontrun{
+#' # w = "numeric": a single fixed weight per element of x
+#' fqs <- FLQuants(a=catch(ple4), b=catch(ple4) * 1.1)
+#' weighted.mean(fqs, w=c(1, 3))
+#' }
+NULL
 
+#' @rdname weighted.mean
+#' @export
 setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
   function(x, w) {
-
   # TURN value NAs to 0s
   xa <- lapply(x, function(i) ifelse(is.na(i), 0, i))
-  
+
   # CREATE NA flags
   na <- FLQuants(lapply(x, function(i) FLQuant(ifelse(is.na(i), 0, 1))))
- 
+
   # COMPUTE average
   res <- Reduce('+', Map('*', x, w * na)) / Reduce('+', lapply(w * na, '+', 1e-36))
-
   # COMPUTE arithmetic mean
   arm <- Reduce('+', x) / length(x)
-
   # SUBSTITUTE NAs with arithmetic mean
   res[is.na(res)] <- c(arm[is.na(res)])
-
   return(res)
 })
+
+#' @rdname weighted.mean
+#' @export
+setMethod("weighted.mean", signature(x="FLQuants", w="numeric"),
+  function(x, w, na.rm=TRUE, ...) {
+  if(length(w) != length(x))
+    stop("'w' must be of the same length as 'x'")
+  if(isTRUE(na.rm)) {
+    # ACCUMULATE weighted sum, weight sum and non-NA count, NAs as 0
+    acc <- Reduce(function(acc, y) {
+      ind <- y[[1]]
+      wi <- y[[2]]
+      isna <- is.na(ind)
+      ind[isna] <- 0
+      list(
+        sum  = acc$sum + ind * wi,
+        wsum = acc$wsum + wi * !isna,
+        n    = acc$n + !isna
+      )
+    }, Map(list, x, w), init=list(sum=0, wsum=0, n=0))
+    out <- acc$sum / acc$wsum
+    out[acc$n == 0] <- NA
+  } else {
+    # STANDARD weighted mean, NAs propagate
+    out <- Reduce(`+`, Map(function(i, wi) i * wi, x, w)) / sum(w)
+  }
+  return(out)
+  }
+)
 
 # }}}
 
