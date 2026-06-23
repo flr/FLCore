@@ -1550,21 +1550,6 @@ setMethod("dim", signature(x="FLStock"),
   }
 ) # }}}
 
-# weighted.mean {{{
-
-#' @examples
-#' data(ple4)
-#' x <- FLQuants(landings.wt(ple4), discards.wt(ple4))
-#' w <- FLQuants(landings.n(ple4), discards.n(ple4))
-#' # Computes weighted mean of landings and discards weights-at-age
-#' weighted.mean(x, w)
-
-setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
-  function(x, w) {
-    Reduce('+', Map('*', x, w)) / Reduce('+', lapply(w, '+', 1e-36))
-  })
-# }}}
-
 # nounit {{{
 
 #' Collapse FLStock dimensions to a single level

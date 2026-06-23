@@ -606,6 +606,7 @@ setMethod("vecage", "FLComp", function(object){
 
 setMethod("metrics", signature(object="FLComp", metrics="list"),
   function(object, metrics, ...) {
+
     return(FLQuants(lapply(metrics, function(x) {
       # CALL each function
       do.call("metrics", list(object=object, metrics=x, ...))

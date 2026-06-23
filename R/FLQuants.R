@@ -348,6 +348,7 @@ NULL
 #' @export
 setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
   function(x, w) {
+
   # TURN value NAs to 0s
   xa <- lapply(x, function(i) ifelse(is.na(i), 0, i))
 
@@ -367,8 +368,10 @@ setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
 #' @export
 setMethod("weighted.mean", signature(x="FLQuants", w="numeric"),
   function(x, w, na.rm=TRUE, ...) {
+
   if(length(w) != length(x))
     stop("'w' must be of the same length as 'x'")
+  
   if(isTRUE(na.rm)) {
     # ACCUMULATE weighted sum, weight sum and non-NA count, NAs as 0
     acc <- Reduce(function(acc, y) {
@@ -388,7 +391,7 @@ setMethod("weighted.mean", signature(x="FLQuants", w="numeric"),
     # STANDARD weighted mean, NAs propagate
     out <- Reduce(`+`, Map(function(i, wi) i * wi, x, w)) / sum(w)
   }
-  return(out)
+  return(FLQuant(out))
   }
 )
 

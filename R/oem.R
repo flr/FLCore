@@ -833,9 +833,13 @@ rlnormar1 <- function(n=NULL, meanlog=0, sdlog=1, rho=0, years, quant="age",
 
 ar1pars <- function(x) {
 
+  # LAPPLY on list | FLQuants
+  if(is(x, "list"))
+    return(lapply(x, ar1pars))
+
   mat <- apply(unclass(x), 6, function(i) {
     # RUN arima(1,0,0)
-    ar <- arima(c(i), order=c(1L, 0L, 0L))
+    ar <- arima(c(i), order=c(1L, 0L, 0L), method="ML")
     # RETURN sd, rho
     c(sd=sqrt(ar$sigma2), rho=unname(coef(ar)['ar1']))
   })
