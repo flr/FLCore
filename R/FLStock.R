@@ -1206,68 +1206,51 @@ setMethod("rec<-", signature(object="FLStock", value="FLQuant"),
 
 # "+" {{{
 
-mergeFLStock<-function(x, y) {
+mergeFLStock <- function(x, y) {
 
-    if (!all(unlist(dims(x))==unlist(dims(y)))) stop("FLStock objects to combine have dim mismatch")
+  # RESULT object
+  z <- x
 
-    res <- FLStock(
-      stock = stock(x) + stock(  y),
-      stock.n=stock.n(x)+stock.n(y),
-      catch=catch(x)+catch(y),
-      catch.n=catch.n(x)+catch.n(y),
-      landings=landings(x)+landings(y),
-      landings.n=landings.n(x)+landings.n(y),
-      discards=discards(x)+discards(y),
-      discards.n=discards.n(x)+discards.n(y))
+  # CHECK stock has by fleet catch
+  if(dim(catch(x))[5] > dim(stock(x))[5])
+    fun <- 'abind'
+  else
+    fun <- '+'
 
-    name(res) = paste(name(x),"merged with", name(y))
-    desc(res) = paste(desc(x),"merged with", desc(y))
-    res@range = x@range
+  # SLOTS to abind or sum
+  nms <- c("catch", "landings", "discards",
+    "catch.n", "landings.n", "discards.n",
+    "catch.wt", "landings.wt", "discards.wt")
 
-    stock.wt(res)   <-(   stock.wt(x)*stock.n(x)      +stock.wt(y)*stock.n(y))/(stock.n(x)+stock.n(y))
-    catch.wt(res)   <-(   catch.wt(x)*catch.n(x)      +catch.wt(y)*catch.n(y))/(catch.n(x)+catch.n(y))
-    landings.wt(res)<-(landings.wt(x)*landings.n(x)+landings.wt(y)*landings.n(y))/(landings.n(x)+landings.n(y))
-    discards.wt(res)<-(discards.wt(x)*discards.n(x)+discards.wt(y)*discards.n(y))/(discards.n(x)+discards.n(y))
+  for(i in nms) {
+    slot(z, i) <- do.call(fun, list(slot(x, i), slot(y, i)))
+  }
 
-#    args <- list(...)
+  # SLOTS to add
+  nms <- c("stock", "stock.n")
 
-#    if (!is.null(args) && any(names(args) == "m"))
-#       m(res)<-args$m
-#    else
-#       {
-#       warning("adding m slots, this might not be want you want")
-       m(res)<-(m(x)+m(y))/2
-#       }
+  for(i in nms) {
+    slot(z, i) <- slot(x, i) + slot(y, i)
+  }
 
-#    if (!is.null(args) && any(names(args) == "m.spwn"))
-#       m.spwn(res)<-args$m.spwn
-#    else
-#       {
-#       warning("adding m.spwn slots, this might not be want you want")
-       m.spwn(res)      <-(harvest.spwn(x)+harvest.spwn(y))/2
-#       }
+  # SLOTS to (weighted) average over stock.n
+  nms <- c("m", "mat", "harvest", "harvest.spwn", "m.spwn",
+    "stock.wt")
 
-#    if (!is.null(args) && any(names(args) == "harvest.spwn"))
-#       harvest.spwn(res)<-args$harvest.spwn
-#    else
-#       {
-#       warning("adding harvest.spwn slots, this might not be want you want")
-       harvest.spwn(res)<-(harvest.spwn(x)+harvest.spwn(y))/2
-#       }
+  for(i in nms) {
+    slot(z, i) <- weighted.mean(FLQuants(slot(x, i), slot(y, i)),
+      FLQuants(slot(x, "stock.n"), slot(y, "stock.n")))
+  }
 
-    mat(res)    <-(mat(x)*stock.n(x)+mat(y)*stock.n(y))/(stock.n(x)+stock.n(y))
+  units(harvest(z)) <- "f"
 
-    harvest(res)<-FLQuant(harvest(res),dimnames=dimnames(m(res)))
-
-    harvest(res)<-computeHarvest(res)
-
-    return(res)
-    }
+  return(z)
+}
 
 #' Adds two FLStock objects
 #'
 #' Combines two FLStock objects by adding their abundances and catches,
-#' and computing weighted mean biological parameters.
+#' and computing weighted mean of biological parameters and harvest.
 #'
 #' @param e1 An object of class FLStock
 #' @param e2 An object of class FLStock
