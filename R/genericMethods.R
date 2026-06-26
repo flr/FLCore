@@ -657,9 +657,16 @@ setGeneric("quant<-", function(object, value)
 #' @seealso \linkS4class{FLComp}, \linkS4class{FLQuant}
 #' @keywords methods
 
-setGeneric("iter", useAsDefault = iterators::iter)
+setGeneric("iter", function(obj, ...)
+  standardGeneric("iter"))
+# setGeneric("iter", useAsDefault = iterators::iter)
 setGeneric("iter<-", function(object, ..., value)
-  standardGeneric("iter<-")) # }}}
+  standardGeneric("iter<-"))
+
+setMethod("iter", "ANY", function(obj, ...) {
+    iterators::iter(obj, ...)
+})
+# }}}
 
 # lower & upper {{{
 

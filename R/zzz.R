@@ -14,6 +14,10 @@
   packageStartupMessage(paste("FLCore (Version ", pkgdesc$Version, ", packaged: ", builddate, ")", sep = ""))
 }
 
+.onLoad <- function(lib,pkg) {
+  setOldClass(c("ihasNext", "abstractiter", "iter"))  # iterators S3 classes
+}
+
 # ac
 ac <- function(x, ...)
   as.character(x, ...)
