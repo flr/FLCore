@@ -1,8 +1,5 @@
 import("methods")
 
-importFrom("ggplot2",
-  "%+%")
-
 importFrom("iterators",
   "iter")
 

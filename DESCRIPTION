@@ -1,6 +1,6 @@
 Package: FLCore
 Title: Core Package of FLR, Fisheries Modelling in R
-Version: 2.6.30.9012
+Version: 2.6.30.9013
 Authors@R: c(
   person("Iago", "Mosqueira", email = "iago.mosqueira@wur.nl",
     role = "cre", comment=c(c(ORCID = "0000-0002-3252-0591"))),
@@ -25,8 +25,7 @@ Imports:
   MASS,
   stats,
   stats4,
-  utils,
-  ggplot2
+  utils
 Suggests:
   testthat,
   rlang,

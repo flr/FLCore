@@ -1242,9 +1242,8 @@ setGeneric("catchSel", function(object, ...){
 # %+%
 #' @rdname operators
 #' @aliases %+% % %+%-methods
-#setGeneric("%+%", function(e1, e2)
-#  standardGeneric("%+%"))
-setGeneric("%+%", useAsDefault = ggplot2::`%+%`)
+setGeneric("%+%", function(e1, e2)
+  standardGeneric("%+%"))
 
 # %-%
 #' @rdname operators

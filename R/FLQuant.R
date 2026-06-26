@@ -260,11 +260,11 @@ setMethod("FLQuant", signature(object="FLQuant"),
           odnames[[3]][odnames[[3]]%in%dnames[[3]]],
           odnames[[4]][odnames[[4]]%in%dnames[[4]]],
           odnames[[5]][odnames[[5]]%in%dnames[[5]]],]  <-
-      object[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
+      c(object[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
              odnames[[2]][odnames[[2]]%in%dnames[[2]]],
              odnames[[3]][odnames[[3]]%in%dnames[[3]]],
              odnames[[4]][odnames[[4]]%in%dnames[[4]]],
-             odnames[[5]][odnames[[5]]%in%dnames[[5]]],]
+             odnames[[5]][odnames[[5]]%in%dnames[[5]]],])
     else
       res[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
           odnames[[2]][odnames[[2]]%in%dnames[[2]]],
@@ -272,15 +272,15 @@ setMethod("FLQuant", signature(object="FLQuant"),
           odnames[[4]][odnames[[4]]%in%dnames[[4]]],
           odnames[[5]][odnames[[5]]%in%dnames[[5]]],
           odnames[[6]][odnames[[6]]%in%dnames[[6]]]]  <-
-      object[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
+      c(object[odnames[[1]][odnames[[1]]%in%dnames[[1]]],
              odnames[[2]][odnames[[2]]%in%dnames[[2]]],
              odnames[[3]][odnames[[3]]%in%dnames[[3]]],
              odnames[[4]][odnames[[4]]%in%dnames[[4]]],
              odnames[[5]][odnames[[5]]%in%dnames[[5]]],
-             odnames[[6]][odnames[[6]]%in%dnames[[6]]]]
+             odnames[[6]][odnames[[6]]%in%dnames[[6]]]])
 
-    # listo!
-return(res)
+  # listo!
+  return(res)
 }
 )# }}}
 
