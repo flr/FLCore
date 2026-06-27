@@ -185,7 +185,7 @@ indicators.len <- function (object, indicators="lbar", model=vonbert, params,
   # OBTAIN names from functions
   nms <- unlist(lapply(indicators, function(x)
       if(is(x, "function"))
-        find.original.name(x)
+        find_original_name(x)
       else
         x
     ))

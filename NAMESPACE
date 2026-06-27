@@ -1,5 +1,8 @@
 import("methods")
 
+importFrom("iterators",
+  "nextElem")
+
 importFrom("utils",
   "combn",
   "head",
@@ -152,7 +155,8 @@ export(
   "is.FLQuant",
   "is.FLStock",
   "ivonbert",
-  "find.original.name",
+  "find_original_name",
+  "find_original_names",
   "FLParPoint",
   "geomean",
   "getPlural",

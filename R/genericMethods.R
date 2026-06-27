@@ -663,9 +663,25 @@ setGeneric("iter", function(obj, ...)
 setGeneric("iter<-", function(object, ..., value)
   standardGeneric("iter<-"))
 
-setMethod("iter", "ANY", function(obj, ...) {
-    iterators::iter(obj, ...)
+setMethod("iter", "ANY", function(obj, i, ...) {
+  # if called with a numeric/integer second arg, it's a subset call
+  # that missed all FLR methods - return NULL or error informatively  
+  if (!missing(i) && is.numeric(i)) {
+    stop("no iter method for class ", class(obj))
+  }
+  # otherwise it's an iterator request
+  checkFunc <- list(...)$checkFunc %||% function(...) TRUE
+  recycle   <- list(...)$recycle   %||% FALSE
+  state <- new.env()
+  state$i <- 0L
+  state$obj <- obj
+  n <- length(obj)
+  it <- list(state=state, length=n, checkFunc=checkFunc, recycle=recycle)
+  class(it) <- c('containeriter', 'iter')
+  it
 })
+
+
 # }}}
 
 # lower & upper {{{

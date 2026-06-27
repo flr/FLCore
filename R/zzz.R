@@ -14,8 +14,9 @@
   packageStartupMessage(paste("FLCore (Version ", pkgdesc$Version, ", packaged: ", builddate, ")", sep = ""))
 }
 
-.onLoad <- function(lib,pkg) {
-  setOldClass(c("ihasNext", "abstractiter", "iter"))  # iterators S3 classes
+# SET iter S3 to call iter(ANY) S4
+.onLoad <- function(lib, pkg) {
+  setOldClass(c("containeriter", "iter"))
 }
 
 # ac
@@ -42,19 +43,96 @@ run.info <- function(pkgs) {
   return(info)
 }
 
-# find.original.name(s) {{{
+# find_original_name(s) {{{
 
-find.original.name <- function(fun) {
-  objects <- ls(envir = environment(fun))
-  
-  for (i in objects) {
-    if (identical(fun, get(i, envir = environment(fun)))) {
-      return(substr(i, rev(unlist(gregexpr(':', i)))[1] + 1, nchar(i)))
-        }
+find_original_name <- function(fun) {
+
+  # CHECK input
+  if(!is.function(fun))
+    stop("Input must be a function")
+
+  # RETURN cached attribute, works across save & load
+  nm <- attr(fun, ".name")
+  if(!is.null(nm) && nzchar(nm))
+    return(nm)
+
+  # 'NULL' function
+  if(is.null(formals(fun)))
+    if(is.null(tryCatch(do.call(fun, args=list()), error=function(e) NA)))
+      return("NULL")
+
+  fun_body    <- body(fun)
+  fun_formals <- formals(fun)
+
+  # FUNCTIONS to match function body and formals
+  .match_strict <- function(obj)
+    is.function(obj) &&
+    identical(body(obj),    fun_body) &&
+    identical(formals(obj), fun_formals)
+
+  .match_body <- function(obj)
+    is.function(obj) &&
+    identical(body(obj), fun_body)
+
+  # FUNCTION to search a namespace
+  .search_ns <- function(ns, pkg) {
+    objs <- ls(envir=ns, all.names=TRUE)
+    for(i in objs) {
+      obj <- tryCatch(get(i, envir=ns, inherits=FALSE), error=function(e) NULL)
+      if(!is.null(obj) && .match_strict(obj))
+        return(paste(pkg, i, sep="::"))
     }
+    for(i in objs) {
+      obj <- tryCatch(get(i, envir=ns, inherits=FALSE), error=function(e) NULL)
+      if(!is.null(obj) && .match_body(obj))
+        return(paste(pkg, i, sep="::"))
+    }
+    NULL
+  }
+
+  # GET environment of function
+  ns <- environment(fun)
+
+  # SEARCH the global environment
+  objs <- setdiff(ls(envir = .GlobalEnv, all.names = TRUE), ".Last.value")
+
+  for(i in objs) {
+    obj <- tryCatch(get(i, envir = .GlobalEnv, inherits = FALSE),
+                    error = function(e) NULL)
+    if(!is.null(obj) && .match_strict(obj))
+      return(paste(".GlobalEnv", i, sep = "::"))
+  }
+
+  for(i in objs) {
+    obj <- tryCatch(get(i, envir = .GlobalEnv, inherits = FALSE),
+                    error = function(e) NULL)
+    if(!is.null(obj) && .match_body(obj))
+      return(paste(".GlobalEnv", i, sep = "::"))
+  }
+
+  # SEARCH current namespace
+  if(isNamespace(ns)) {
+    hit <- .search_ns(ns, getNamespaceName(ns))
+    if(!is.null(hit)) return(hit)
+  }
+
+  # SEARCH deserialised namespace
+  pkg_guess <- sub("^package:", "", environmentName(ns))
+  if(nchar(pkg_guess) > 0 && pkg_guess %in% loadedNamespaces()) {
+    hit <- .search_ns(asNamespace(pkg_guess), pkg_guess)
+    if(!is.null(hit)) return(hit)
+  }
+
+  # SCAN all loaded namespaces
+  for(pkg in loadedNamespaces()) {
+    hit <- .search_ns(asNamespace(pkg), pkg)
+    if(!is.null(hit)) return(hit)
+  }
+
+  return("NULL")
 }
 
-find.original.names <- function(funs) {
-  lapply(funs, find.original.name)
+find_original_names <- function(funs) {
+  unlist(lapply(funs, find.original.name))
 }
 # }}}
