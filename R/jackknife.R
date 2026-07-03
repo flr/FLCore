@@ -70,17 +70,36 @@ setMethod('jackknife', signature(object='FLQuant'),
       rep(FALSE, prod(dres[-6]))), dim=dres[c(seq(1, 6)[-dim], dim)]),
       c(perms, 6))
  
-    # ASSIGN idx to corresponding dims in res   
-    if(dim==1)
-      res[nas[[1]], ][idx] <- NA
-    if(dim==2)
-      res[,nas[[1]], ][idx] <- NA
-    if(dim==3)
-      res[,,nas[[1]], ][idx] <- NA
-    if(dim==4)
-      res[,,,nas[[1]], ][idx] <- NA
-    if(dim==5)
-      res[,,,,nas[[1]], ][idx] <- NA
+    # ASSIGN idx to corresponding dims in res
+    res_array <- res@.Data
+    
+    if(dim==1) {
+      tmp <- res_array[nas[[1]], , , , , , drop=FALSE]
+      tmp[idx] <- NA
+      res_array[nas[[1]], , , , , ] <- tmp
+    }
+    if(dim==2) {
+      tmp <- res_array[, nas[[1]], , , , , drop=FALSE]
+      tmp[idx] <- NA
+      res_array[, nas[[1]], , , , ] <- tmp
+    }
+    if(dim==3) {
+      tmp <- res_array[, , nas[[1]], , , , drop=FALSE]
+      tmp[idx] <- NA
+      res_array[, , nas[[1]], , , ] <- tmp
+    }
+    if(dim==4) {
+      tmp <- res_array[, , , nas[[1]], , , drop=FALSE]
+      tmp[idx] <- NA
+      res_array[, , , nas[[1]], , ] <- tmp
+    }
+    if(dim==5) {
+      tmp <- res_array[, , , , nas[[1]], , drop=FALSE]
+      tmp[idx] <- NA
+      res_array[, , , , nas[[1]], ] <- tmp
+    }
+    
+    res@.Data <- res_array
 
     res <- new("FLQuantJK", res, orig=object)
 
