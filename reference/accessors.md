@@ -174,6 +174,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 
 # To access the catch slot in an FLStock, use
@@ -223,8 +224,8 @@ getMethod('catch', 'FLS')
 #> }, target = new("signature", .Data = "FLS", names = "object", 
 #>     package = "FLCore"), defined = new("signature", .Data = "FLS", 
 #>     names = "object", package = "FLCore"), generic = "catch")
-#> <bytecode: 0x56149d0878f8>
-#> <environment: 0x56149d095150>
+#> <bytecode: 0x555ba090aab0>
+#> <environment: 0x555ba08fc880>
 #> attr(,"target")
 #> An object of class “signature”
 #> object 

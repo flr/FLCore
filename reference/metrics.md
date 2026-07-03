@@ -1055,6 +1055,8 @@ metrics(ple4, metrics=list(PG=function(x) stock.n(x)[10,]))
 data(ple4.biol)
 #> Warning: namespace ‘colorspace’ is not available and has been replaced
 #> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘ggplot2’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
 #> Warning: namespace ‘Rcpp’ is not available and has been replaced
 #> by .GlobalEnv when processing object ‘ple4.biol’
 #> Warning: namespace ‘dplyr’ is not available and has been replaced
@@ -1068,6 +1070,10 @@ data(ple4.biol)
 #> Warning: namespace ‘shiny’ is not available and has been replaced
 #> by .GlobalEnv when processing object ‘ple4.biol’
 #> Warning: namespace ‘htmlwidgets’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘gtable’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘scales’ is not available and has been replaced
 #> by .GlobalEnv when processing object ‘ple4.biol’
 # Get default metrics
 metrics(ple4.biol)

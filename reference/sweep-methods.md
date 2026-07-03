@@ -33,6 +33,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
 # Get ratio of max value by year
 sweep(flq, 2, apply(flq, 2, max), "/")

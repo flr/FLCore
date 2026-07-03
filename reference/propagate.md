@@ -43,6 +43,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # An FLQuant with one iter (dim(flq)[6] == 1)
 flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age')
 

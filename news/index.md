@@ -1,6 +1,25 @@
 # Changelog
 
+## FLCore 2.6.31
+
+### USER-VISIBLE CHANGES
+
+- biomass FLStock metrics (e.g. ssb) now have a byunit option, defaults
+  to FALSE so adds up across units.
+- rlnormar1 now accepts an FLQuant as input from which sdlog and rho are
+  computed if not provided.
+- New function ar1pars to compute sdlog and rho for an AR1 process from
+  an FLQuant using arima(1,0,0).
+
+### BUG FIXES
+
+- Simplified FLQuant to and from FLPar coercion
+- window(FLArray) returned before parsing negative numbers if not
+  extending
+
 ## FLCore 2.6.30
+
+### BUG FIXES
 
 - Corrects (finally) match of FLlst names in ‘\[’
 

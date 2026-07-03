@@ -1,6 +1,10 @@
-# Computes Runs Test p-values
+# Compute runs test p-values for residual randomness
 
-Computes Runs Test p-values
+Applies the non-parametric runs test to assess whether residuals from a
+stock assessment model fit are randomly distributed around zero (i.e. no
+systematic trend or autocorrelation). A p-value \< 0.05 indicates
+significant non-randomness. The function accepts residuals directly, or
+computes log-residuals from a pair of fit and observations.
 
 ## Usage
 
@@ -30,23 +34,40 @@ runstest(fit, obs, combine = TRUE)
 
 - fit:
 
-  The result of a model fit.
+  Residuals or model-fitted values; an `FLQuant`, `FLQuants`, or
+  `numeric` vector. When `obs` is also provided, `fit` and `obs` are
+  used to compute log-residuals.
 
 - obs:
 
-  The observations used in the fit.
+  Observations corresponding to `fit`; an `FLQuant`, `FLQuants`, or
+  `numeric` vector. If missing, `fit` is treated directly as residuals.
 
 - ...:
 
-  Extra arguments.
+  Additional arguments passed to methods.
 
 - combine:
 
-  Should ages be combined by addition, defaults to TRUE.
+  Logical; if `TRUE` (default) ages are summed before the test is
+  applied.
 
 ## Value
 
-A list with elements 'p.values' and 'pass'.
+A `data.frame` with columns `lcl`, `ucl`, `p.value`, `pass` (TRUE if
+p-value \>= 0.05), and `qname`, one row per index or iteration.
+
+## Generic function
+
+runstest(fit, obs, ...)
+
+## See also
+
+[sigma3](sigma3.md)
+
+## Author
+
+The FLR Team
 
 ## Examples
 

@@ -1,6 +1,10 @@
-# A method to generate observations of abundance at age.
+# Generate simulated survey observations of abundance
 
-A method to generate observations of abundance at age.
+Creates a simulated observation of abundance-at-age or biomass index
+from an `FLStock` object representing the operating model (OM),
+replicating the sampling process of a scientific survey. The result is
+returned as an `FLIndex` or `FLIndexBiomass` object with the `index`
+slot populated.
 
 ## Usage
 
@@ -49,15 +53,63 @@ survey(object, index, ...)
 
 - object:
 
-  The object on which to draw the observation
+  An `FLStock` operating model from which to draw the survey.
+
+- index:
+
+  An `FLIndex`, `FLIndexBiomass`, or `FLIndices` defining the survey
+  design; if missing, a generic survey is constructed.
+
+- ...:
+
+  Additional arguments passed to methods.
+
+- sel:
+
+  Selectivity-at-age pattern to apply; defaults to `sel.pattern(index)`.
+
+- ages:
+
+  Character vector of ages to include; defaults to all ages in `index`.
+
+- timing:
+
+  Fraction of the year at which the survey takes place (0–1); defaults
+  to the midpoint of the `startf`/`endf` range entries.
+
+- index.q:
+
+  Catchability of the survey; defaults to `index@index.q`.
+
+- stability:
+
+  Hyperstability/hyperdepletion exponent applied to abundance; 1
+  (default) gives a linear response.
+
+- catch.wt:
+
+  Mean weight-at-age used to convert numbers to biomass for
+  `FLIndexBiomass` surveys; defaults to `index@catch.wt`.
+
+- biomass:
+
+  Logical; if `TRUE` and `index` is missing, returns an `FLIndexBiomass`
+  object; otherwise an `FLIndex`.
 
 ## Value
 
-An FLQuant for the index of abundance
+An `FLIndex` or `FLIndexBiomass` object with the `index` slot populated
+by the simulated survey observations, or a list of such objects when
+`index` is of class `FLIndices`.
+
+## Generic function
+
+survey(object, index, ...)
 
 ## See also
 
-[FLComp](FLComp.md)
+[FLIndex](FLIndex.md), [FLIndexBiomass](FLIndexBiomass.md),
+[FLStock](FLStock.md), [cpue](cpue.md), [index](accessors.md)
 
 ## Author
 

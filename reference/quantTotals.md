@@ -30,6 +30,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rlnorm(100), dim=c(10,10))
 quantTotals(flq)
 #> An object of class "FLQuant"

@@ -40,6 +40,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # no 'iter'
   flq <- FLQuant(rnorm(80), dim=c(4,20), quant='age', units='kg')
   flq

@@ -36,6 +36,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(nsher)
 BIC(nsher)
 #> [1] -24.11118

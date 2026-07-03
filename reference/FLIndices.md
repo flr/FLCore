@@ -66,6 +66,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4.index)
 flis <- FLIndices(INDa=ple4.index, INDb=window(ple4.index, end=2000))
 ```

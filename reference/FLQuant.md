@@ -192,6 +192,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # creating a new FLQuant
 flq <- FLQuant()
 flq <- FLQuant(1:10, dim=c(2,5))

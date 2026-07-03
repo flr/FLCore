@@ -111,6 +111,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 summary(computeLandings(ple4))
 #> An object of class "FLQuant" with:

@@ -41,6 +41,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(1:8)
 flj <- jackknife(flq)
 iters(flj)

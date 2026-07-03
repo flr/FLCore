@@ -136,6 +136,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 a <- FLQuant(2, dim=c(3,3,2))
 b <- FLQuant(3, dim=c(3,3,1))
 

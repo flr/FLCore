@@ -103,6 +103,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 # xyplot on FLQuant
   xyplot(data~year|age, catch.n(ple4)[, 1:20])

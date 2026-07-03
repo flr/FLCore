@@ -1,10 +1,10 @@
-# cpue, a method to generate an observation of a CPUE index of abundance
+# Compute a CPUE index of abundance from an FLStock
 
 The observation of stock abundance by CPUE series from commercial fleets
 is an important step in the generation of management advice that needs
-to replicated on an Operating Model during any simulation exercise. This
-method gemnerates an observation of biomass or numbers-at-age from an
-FLstock being used as OM.
+to be replicated on an Operating Model during any simulation exercise.
+This method generates an observation of biomass or numbers-at-age from
+an `FLStock` being used as OM.
 
 ## Usage
 
@@ -24,36 +24,53 @@ cpue(
 
 - object:
 
-  The object from which to generate the observation.
+  An `FLStock` from which to generate the CPUE observation.
+
+- index:
+
+  An optional index object (currently unused for the `FLStock, missing`
+  method).
+
+- ...:
+
+  Additional arguments passed to methods.
+
+- sel.pattern:
+
+  Selectivity pattern to apply; defaults to `harvest(object)`.
 
 - effort:
 
-  Units of index to use to mimic effort series in the fishery, "f" or
-  "hr"
+  Units of effort used to mimic the effort series in the fishery: `"f"`
+  (default, fishing mortality), `"hr"` (harvest rate), or a numeric
+  value.
 
-- sel:
+- biomass:
 
-  The selectivity of the survey, defaults to be 1 for all ages.
-
-- mass:
-
-  Is the index to be in weight at age?
+  Logical; if `TRUE` (default) the index is summed across ages and
+  weighted by catch weight-at-age to give a biomass CPUE.
 
 ## Value
 
-An FLQuant for the index of abundance, age-disaggregated
+An `FLQuant` containing the CPUE index: age-disaggregated if
+`biomass = FALSE`, or aggregated biomass CPUE if `biomass = TRUE`.
+
+## Generic function
+
+cpue(object, index, ...)
 
 ## See also
 
-[FLComp](FLComp.md)
+[survey](survey.md), [FLStock](FLStock.md)
 
 ## Author
 
-Laurie Kell & Iago Mosqueira, FLR Team.
+The FLR Team
 
 ## Examples
 
 ``` r
+
 data(ple4)
 
 cpue(ple4)
@@ -83,7 +100,7 @@ cpue(ple4)
 #>   all 108121
 #> 
 #> units:  t 
-# Am aggregated biomass CPUE
+# An aggregated biomass CPUE
 quantSums(cpue(ple4))
 #> An object of class "FLQuant"
 #> , , unit = unique, season = all, area = unique

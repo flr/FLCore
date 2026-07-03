@@ -104,6 +104,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # Normally, FLModel objects won't be created if "class" is not set
   summary(FLModel(length~width*alpha))
 #> An object of class "FLModel"

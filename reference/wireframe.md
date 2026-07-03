@@ -34,6 +34,7 @@ Method to plot 3D representations of FLQuant objects
 ## Examples
 
 ``` r
+
 data(ple4)
 wireframe(data~age+year, data=harvest(ple4))
 

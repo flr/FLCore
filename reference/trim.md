@@ -54,6 +54,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rnorm(90), dimnames=list(age=1:10, year=2000:2016))
 
 trim(flq, year=2000:2005)

@@ -1,8 +1,9 @@
 # Compute mean absolute scaled error (MASE)
 
-Franses, PH. "A note on the Mean Absolute Scaled Error". International
-Journal of Forecasting. 32 (1): 20–22.
-doi:10.1016/j.ijforecast.2015.03.008.
+Computes the Mean Absolute Scaled Error (MASE) between a reference
+(naive) prediction and one or more alternative predictions. MASE is
+scale-independent and robust to outliers, making it useful for comparing
+forecast accuracy across different indices or time series.
 
 ## Usage
 
@@ -20,19 +21,22 @@ mase(ref, preds, order = "inverse", wt = "missing")
 
 - ref:
 
-  Reference or naive prediction.
+  Reference or naive prediction, an `FLQuant` or `FLIndices` time
+  series.
 
 - preds:
 
-  Predicitions to compare to reference.
+  Predictions to compare to the reference; an `FLQuants` or a list of
+  `FLIndices`.
 
 - ...:
 
-  Extra arguments.
+  Additional arguments passed to methods.
 
 - order:
 
-  Are predictions in 'inverse' (default) or 'ahead' order.
+  Character; whether predictions are in `"inverse"` (default, most
+  recent first) or `"ahead"` order.
 
 - wt:
 
@@ -40,4 +44,24 @@ mase(ref, preds, order = "inverse", wt = "missing")
 
 ## Value
 
-A numeric vector of the same length as 'preds'.
+A numeric scalar (or named numeric vector for the `FLIndices, list`
+method) giving the MASE value(s).
+
+## Generic function
+
+mase(ref, preds, ...)
+
+## References
+
+Franses, P.H. (2016). A note on the Mean Absolute Scaled Error.
+*International Journal of Forecasting*, 32(1):20–22.
+[doi:10.1016/j.ijforecast.2015.03.008](https://doi.org/10.1016/j.ijforecast.2015.03.008)
+.
+
+## See also
+
+[runstest](runstest.md)
+
+## Author
+
+The FLR Team

@@ -86,7 +86,7 @@ https://doi-org.ezproxy.library.wur.nl/10.1111/faf.12427
 
 ## Author
 
-Iago Mosqueira (WMR), Henning Winker (JRC).
+The FLR Team
 
 ## Examples
 
@@ -99,13 +99,13 @@ rlnormar1(n = 5, rho = 0.5, years = 2000:2005)
 #> , , unit = unique, season = all, area = unique
 #> 
 #>      year
-#> quant 2000          2001          2002          2003          2004         
+#> age   2000          2001          2002          2003          2004         
 #>   all 0.963(0.7060) 0.442(0.3261) 0.699(0.4347) 0.368(0.0928) 0.460(0.2223)
 #>      year
-#> quant 2005         
+#> age   2005         
 #>   all 2.657(3.8044)
 #> 
-#> units:  NA 
+#> units:   
 
 # varying sdlog per iteration
 rlnormar1(n = 3, sdlog = c(0.5, 1, 1.5), rho = 0.3, years = 1990:1994)
@@ -115,8 +115,8 @@ rlnormar1(n = 3, sdlog = c(0.5, 1, 1.5), rho = 0.3, years = 1990:1994)
 #> , , unit = unique, season = all, area = unique
 #> 
 #>      year
-#> quant 1990         1991         1992         1993         1994        
+#> age   1990         1991         1992         1993         1994        
 #>   all 0.331(0.281) 0.148(0.194) 0.318(0.202) 0.389(0.168) 1.449(0.238)
 #> 
-#> units:  NA 
+#> units:   
 ```

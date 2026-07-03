@@ -79,6 +79,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # Compute various FLStock indicators
   data(ple4)
   fqs <- FLQuants(ssb=ssb(ple4), catch=catch(ple4), rec=rec(ple4),

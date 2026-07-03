@@ -87,6 +87,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # Create an FLIndex object.
 fli <- FLIndex(index=FLQuant(rnorm(8), dim=c(1,8)), name="myTestFLindex")
 summary(fli)

@@ -86,6 +86,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 flq <- catch.n(ple4)
 flc <- FLCohort(flq)

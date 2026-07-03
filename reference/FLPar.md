@@ -49,6 +49,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 FLPar(rnorm(4), params=c('a','b','c','sigma2'))
 #> An object of class "FLPar"
 #> params

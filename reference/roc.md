@@ -2,13 +2,19 @@
 
 A receiver operating characteristic (ROC) curve shows the ability of a
 binary classifier. Here it is applied to compare two sets of values,
-stored as two FLQuant objects. The first is the result of aplying a
+stored as two FLQuant objects. The first is the result of applying a
 logical comparison of a given state against a reference value, so it
 contains a binary (0, 1) label. The second, the score, contains an
 alternative metric that attempts to measure the absolute value of the
 first. The examples below compare an observation of stock status, SSB
 being less than a reference point, and an alternative metric, here the
 catch curve estimates of total mortality.
+
+Computes the area under the receiver operating characteristic curve
+(AUC) using the trapezoidal rule applied to the true positive rate (TPR)
+and false positive rate (FPR). AUC ranges from 0 to 1; a value of 0.5
+indicates no discriminating ability (equivalent to random guessing),
+while a value of 1 indicates perfect discrimination.
 
 ## Usage
 
@@ -22,13 +28,13 @@ auc(x = NULL, TPR = x$TPR, FPR = x$FPR)
 
 - label:
 
-  Logical, integer (0/1), or FLQuant giving the true class for each
+  Logical, integer (0/1), or `FLQuant` giving the true class for each
   observation (1 = positive, 0 = negative). Non-logical values are
   coerced to 0/1. Labels must not be all 0 or all 1.
 
 - ind:
 
-  Numeric vector or FLQuant of indicator / score values used to rank
+  Numeric vector or `FLQuant` of indicator / score values used to rank
   observations.
 
 - direction:
@@ -38,10 +44,23 @@ auc(x = NULL, TPR = x$TPR, FPR = x$FPR)
   `"<="`, smaller `ind` values are treated as more evidence for the
   positive class.
 
+- x:
+
+  A `data.frame` returned by roc, from which `TPR` and `FPR` are
+  extracted if not supplied directly. Defaults to `NULL`.
+
+- TPR:
+
+  Numeric vector of true positive rates, typically `x$TPR`.
+
+- FPR:
+
+  Numeric vector of false positive rates, typically `x$FPR`.
+
 ## Value
 
-A data.frame (model.frame output) sorted by the chosen threshold order
-containing the columns:
+A `data.frame` sorted by the chosen threshold order containing the
+columns:
 
 - ind:
 
@@ -64,13 +83,25 @@ containing the columns:
   True Skill Statistic, computed as TPR - FPR (i.e. tp/(tp+fn) -
   fp/(fp+tn))
 
+A single numeric value: the area under the ROC curve.
+
 ## Details
 
-When `label` and `ind` are FLQuant objects the function will propagate
+When `label` and `ind` are `FLQuant` objects the function will propagate
 them along the 6th dimension if needed. The function checks that `label`
 contains only 0/1 and that both arguments have matching dimensions.
 Observations are ordered according to `ind` (respecting `direction`) and
 cumulative counts and rates are computed.
+
+## See also
+
+auc
+
+roc
+
+## Author
+
+The FLR Team
 
 ## Examples
 

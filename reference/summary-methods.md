@@ -49,6 +49,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
 summary(flq)
 #> An object of class "FLQuant" with:

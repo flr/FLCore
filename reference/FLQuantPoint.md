@@ -84,7 +84,7 @@ Inputs can be of class:
 
 - `FLQuant`::
 
-  An FLQuant object with iters (i.e. dim6 \> 1)
+  An FLQuant object with iters (i.e. dim\\6\\ \> 1)
 
 ## Validity
 
@@ -107,6 +107,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rlnorm(2000), dim=c(10,20,1,1,1,200), units="kg")
 flqp <- FLQuantPoint(flq)
 flqp <- FLQuantPoint(flq, probs=c(0.05, 0.95))

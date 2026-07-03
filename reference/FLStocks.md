@@ -67,6 +67,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 fls <- FLStocks(sa=ple4, sb=window(ple4, end=1980))
 summary(fls)

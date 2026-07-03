@@ -52,6 +52,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(nsher)
 bnsher <- nsher
 model(bnsher) <- bevholt

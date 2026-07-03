@@ -39,6 +39,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(nsher)
 AIC(nsher)
 #> [1] -27.7245

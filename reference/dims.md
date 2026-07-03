@@ -168,6 +168,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rnorm(96), dim=c(3,8,1,4), quant='age')
 dims(flq)
 #> $age

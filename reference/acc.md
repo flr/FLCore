@@ -8,6 +8,12 @@ Catch curve estimates of total mortality at age (Z)
 acc(object, ...)
 ```
 
+## Arguments
+
+- object:
+
+  An input object of the right class
+
 ## Examples
 
 ``` r

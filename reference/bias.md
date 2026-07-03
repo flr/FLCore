@@ -5,6 +5,11 @@ Pellentesque eleifend odio ac rutrum luctus. Aenean placerat porttitor
 commodo. Pellentesque eget porta libero. Pellentesque molestie mi sed
 orci feugiat, non mollis enim tristique.
 
+Computes a cumulative multiplicative bias factor that increases (or
+decreases) systematically over the years in an `FLQuant`. Starting from
+1, each subsequent year is multiplied by `1 + bias`, producing a trend
+that can represent, e.g., a gradually increasing observation bias.
+
 ## Usage
 
 ``` r
@@ -13,6 +18,8 @@ bias(x)
 
 # S4 method for class 'FLParJK'
 bias(x)
+
+bias(object, bias = 0.02)
 ```
 
 ## Arguments
@@ -21,9 +28,20 @@ bias(x)
 
   An object holding estimates obtained through jackknife
 
+- object:
+
+  An `FLQuant` whose year dimension and dimnames are used.
+
+- bias:
+
+  Numeric; per-year fractional bias; defaults to 0.02 (2\\ year).
+
 ## Value
 
 A value for the mean bias
+
+An `FLQuant` with the same dimnames as `object` containing the
+cumulative bias multipliers.
 
 ## Details
 
@@ -41,6 +59,8 @@ arcu in, dapibus dictum felis.
 
 [FLComp](FLComp.md)
 
+[biased](biased.md)
+
 ## Author
 
 The FLR Team
@@ -48,6 +68,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(1:8)
 flj <- jackknife(flq)
 bias(flj)

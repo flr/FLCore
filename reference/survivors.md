@@ -26,6 +26,14 @@ survivors(object, rec = NA)
 
 The abundances at age of the survivors, 'FLQuant'.
 
+## See also
+
+[FLStock](FLStock.md)
+
+## Author
+
+FLR Team
+
 ## Examples
 
 ``` r

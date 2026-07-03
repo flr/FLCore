@@ -1,6 +1,6 @@
-# Calculate the mean age in the stock and catch
+# Calculate mean age in stock and catch
 
-Average age in the stock numbers or catch-at-age.
+Computes the average age in the stock numbers, weighted by abundance.
 
 ## Usage
 
@@ -8,6 +8,8 @@ Average age in the stock numbers or catch-at-age.
 meanage(object)
 
 meanageCatch(object)
+
+meanwt(object)
 ```
 
 ## Arguments
@@ -20,13 +22,20 @@ meanageCatch(object)
 
 An FLQuant object
 
+## Functions
+
+- `meanageCatch()`: Computes the average age in the catch-at-age,
+  weighted by numbers caught.
+
+- `meanwt()`: Calculate the mean weight-at-age in stock and catch
+
 ## See also
 
-[FLComp](FLComp.md)
+meanageCatch
 
 ## Author
 
-The FLR Team
+FLR Team
 
 ## Examples
 
@@ -74,4 +83,31 @@ meanageCatch(ple4)
 #>   all 3.03 2.88 3.09 3.29 3.35
 #> 
 #> units:   
+meanwt(ple4)
+#> An object of class "FLQuant"
+#> , , unit = unique, season = all, area = unique
+#> 
+#>      year
+#> age   1957   1958   1959   1960   1961   1962   1963   1964   1965   1966  
+#>   all 0.2298 0.2095 0.1942 0.1944 0.1888 0.2306 0.2262 0.1348 0.1358 0.1693
+#>      year
+#> age   1967   1968   1969   1970   1971   1972   1973   1974   1975   1976  
+#>   all 0.2125 0.2442 0.2274 0.2159 0.2451 0.2814 0.1639 0.1562 0.1835 0.2159
+#>      year
+#> age   1977   1978   1979   1980   1981   1982   1983   1984   1985   1986  
+#>   all 0.2006 0.2052 0.2005 0.1921 0.1714 0.1380 0.1505 0.1654 0.1570 0.1102
+#>      year
+#> age   1987   1988   1989   1990   1991   1992   1993   1994   1995   1996  
+#>   all 0.1259 0.1306 0.1480 0.1568 0.1651 0.1641 0.1831 0.1857 0.1658 0.1444
+#>      year
+#> age   1997   1998   1999   2000   2001   2002   2003   2004   2005   2006  
+#>   all 0.0996 0.1140 0.1348 0.1391 0.1630 0.1224 0.1491 0.1431 0.1453 0.1663
+#>      year
+#> age   2007   2008   2009   2010   2011   2012   2013   2014   2015   2016  
+#>   all 0.1405 0.1582 0.1803 0.1832 0.1622 0.1657 0.1741 0.1826 0.1722 0.1853
+#>      year
+#> age   2017  
+#>   all 0.1794
+#> 
+#> units:  kg 
 ```

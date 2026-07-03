@@ -83,6 +83,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 fjk <- jackknife(stock(ple4))
 # New object has as many iters as length of jackknifed dimension (defaults to 'year')

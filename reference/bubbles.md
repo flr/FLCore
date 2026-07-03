@@ -39,6 +39,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 bubbles(age~year, data=catch.n(ple4))
 

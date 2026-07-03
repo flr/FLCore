@@ -45,6 +45,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # EXAMPLE function
 foo <- function (params) {
   a <- spread(params)

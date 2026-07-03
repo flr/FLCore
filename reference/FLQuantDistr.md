@@ -128,6 +128,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 fqd <- FLQuantDistr(catch.n(ple4), var=catch.n(ple4) * 10, distr='norm')
 ```

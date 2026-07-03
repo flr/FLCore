@@ -74,6 +74,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # Conversion between weights
 FLQuant(1, units='kg') * FLQuant(1000, units='1')
 #> An object of class "FLQuant"

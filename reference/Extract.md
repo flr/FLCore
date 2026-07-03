@@ -151,6 +151,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rnorm(200), dimnames=list(age=0:4, year=1991:2000,
   season=1:4))
 

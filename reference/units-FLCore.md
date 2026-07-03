@@ -68,6 +68,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rnorm(100), dim=c(5,20), units='kg')
 units(flq)
 #> [1] "kg"

@@ -31,6 +31,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 # quant is 'quant' by default
   quant(FLQuant())
 #> [1] "quant"

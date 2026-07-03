@@ -42,6 +42,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flq <- FLQuant(rlnorm(90), dim=c(3,10), units='kg')
 flp <- FLPar(a=99)
 

@@ -123,6 +123,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 idx <- FLIndexBiomass(index=FLQuant(1:10, quant='age'))
 
 data(ple4)

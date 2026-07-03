@@ -30,6 +30,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 flp <- FLPar(c(t(mvrnorm(500, mu=c(0, 120, 0.01, 20),
   Sigma=matrix(.7, nrow=4, ncol=4) + diag(4) * 0.3))),
   dimnames=list(params=c('a','b','c','d'), iter=1:500), units="NA")

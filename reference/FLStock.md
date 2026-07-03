@@ -166,6 +166,7 @@ The FLR Team
 ## Examples
 
 ``` r
+
 data(ple4)
 summary(ple4)
 #> An object of class "FLStock"
