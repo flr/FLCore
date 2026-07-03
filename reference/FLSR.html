@@ -134,15 +134,15 @@ formulation implemented for each of them.</p>
 <span class="r-in"><span>  <span class="va">sr2</span> <span class="op">&lt;-</span> <span class="fu">FLSR</span><span class="op">(</span>model <span class="op">=</span> <span class="st">'ricker'</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">sr2</span><span class="op">@</span><span class="va">model</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rec ~ a * ssb * exp(-b * ssb)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555bc2e52f30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55da765dbed8&gt;</span>
 <span class="r-in"><span>  <span class="va">sr2</span><span class="op">@</span><span class="va">initial</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (rec, ssb) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     res &lt;- coefficients(lm(log(c(rec)/c(ssb)) ~ c(ssb)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(FLPar(a = max(exp(res[1])), b = -max(res[2])))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555bc2e53cc0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555bc2e52f30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55da765dcbf8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55da765dbed8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"lower")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"upper")</span>
@@ -150,13 +150,13 @@ formulation implemented for each of them.</p>
 <span class="r-in"><span>  <span class="va">sr2</span><span class="op">@</span><span class="va">logl</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (a, b, rec, ssb) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> loglAR1(log(rec), log(a * ssb * exp(-b * ssb)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555bc2e504e8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555bc2e52f30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55da765dd250&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55da765dbed8&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="va">sr3</span> <span class="op">&lt;-</span> <span class="fu">FLSR</span><span class="op">(</span>model <span class="op">=</span> <span class="st">'bevholt'</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">sr3</span><span class="op">@</span><span class="va">model</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rec ~ a * ssb/(b + ssb)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555bc321de00&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55da7699d1e0&gt;</span>
 <span class="r-in"><span>  <span class="va">sr3</span><span class="op">@</span><span class="va">initial</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (rec, ssb) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
@@ -164,8 +164,8 @@ formulation implemented for each of them.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     b &lt;- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     return(FLPar(a = a, b = a/b))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555bc321ea40&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555bc321de00&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55da7699de20&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55da7699d1e0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"lower")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -Inf -Inf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"upper")</span>
@@ -173,8 +173,8 @@ formulation implemented for each of them.</p>
 <span class="r-in"><span>  <span class="va">sr3</span><span class="op">@</span><span class="va">logl</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (a, b, rec, ssb) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> loglAR1(log(rec), log(a * ssb/(b + ssb)))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x555bc321f028&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x555bc321de00&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55da7699e408&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55da7699d1e0&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Create an FLSR using a function.</span></span></span>
 <span class="r-in"><span>  <span class="va">mysr1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span></span>
