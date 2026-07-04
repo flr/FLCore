@@ -306,19 +306,26 @@ setMethod("[<-", signature(x="FLArray", value="FLArray"),
     same <- which(dim(value) == dim(x))
     diff <- which(dim(value) != dim(x))
     dper <- c(same, diff)
-    y <- aperm(x, dper)
     
-    # 
-    iper <- list(i, j, k, l, m, n)[dper]
-    names(iper) <- c('i','j','k','l','m','n')
-    
-    # call [<-
-    y <- do.call('[<-', c(list(x=y), iper, list(value=aperm(unname(value), dper))))
+    # Work directly with .Data slots to prevent deep call stack
+    if(length(diff) == 0) {
+      # Simple case: dimensions match, no permutation needed
+      x@.Data[i, j, k, l, m, n] <- value@.Data
+    } else {
+      # Complex case: need permutation, but work with arrays not FLArray
+      y <- aperm(x@.Data, dper)
+      iper <- list(i, j, k, l, m, n)[dper]
+      names(iper) <- c('i','j','k','l','m','n')
+      
+      # Assign to array using direct indexing instead of recursive [<-
+      y[iper$i, iper$j, iper$k, iper$l, iper$m, iper$n] <- 
+        aperm(value@.Data, dper)
+      
+      # re-aperm
+      x@.Data <- aperm(y, order(dper))
+    }
 
-    # re-aperm
-    y <- aperm(y, order(dper))
-
-     return(new(class(x), y, units=units(x)))
+    return(x)
   }
 )   # }}}
 

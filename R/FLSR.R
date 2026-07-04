@@ -301,8 +301,15 @@ setMethod('lowess', signature(x='FLSR', y='missing', f='ANY', delta='ANY', iter=
         dim=dim(iter(rec(x),i)))
       out <- lowess(iter(rec(x),i)@.Data[!idx]~iter(ssb(x),i)@.Data[!idx],
         f=f, delta=delta, iter=iter)
-      suppressWarnings(iter(rec, i)[!idx][order(ssb(x)[!idx])] <- out$y)
-      suppressWarnings(iter(ssb, i)[!idx][order(ssb(x)[!idx])] <- out$x)
+      # Avoid chained subset replacement for R 4.7 compatibility
+      # Work with plain arrays to avoid recursive [<- calls in FLArray methods
+      ord <- order(ssb(x)[!idx])
+      rec_data <- rec@.Data[,,,,,i, drop=FALSE]
+      rec_data[!idx][ord] <- out$y
+      rec@.Data[,,,,,i] <- rec_data
+      ssb_data <- ssb@.Data[,,,,,i, drop=FALSE]
+      ssb_data[!idx][ord] <- out$x
+      ssb@.Data[,,,,,i] <- ssb_data
      }
 
     return(FLQuants(rec=rec, ssb=ssb))
