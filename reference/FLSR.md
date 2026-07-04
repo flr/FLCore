@@ -120,15 +120,15 @@ The FLR Team
   sr2 <- FLSR(model = 'ricker')
   sr2@model
 #> rec ~ a * ssb * exp(-b * ssb)
-#> <environment: 0x55da765dbed8>
+#> <environment: 0x560d490ace60>
   sr2@initial
 #> function (rec, ssb) 
 #> {
 #>     res <- coefficients(lm(log(c(rec)/c(ssb)) ~ c(ssb)))
 #>     return(FLPar(a = max(exp(res[1])), b = -max(res[2])))
 #> }
-#> <bytecode: 0x55da765dcbf8>
-#> <environment: 0x55da765dbed8>
+#> <bytecode: 0x560d490a7e30>
+#> <environment: 0x560d490ace60>
 #> attr(,"lower")
 #> [1] -Inf -Inf
 #> attr(,"upper")
@@ -136,13 +136,13 @@ The FLR Team
   sr2@logl
 #> function (a, b, rec, ssb) 
 #> loglAR1(log(rec), log(a * ssb * exp(-b * ssb)))
-#> <bytecode: 0x55da765dd250>
-#> <environment: 0x55da765dbed8>
+#> <bytecode: 0x560d490a8488>
+#> <environment: 0x560d490ace60>
 
   sr3 <- FLSR(model = 'bevholt')
   sr3@model
 #> rec ~ a * ssb/(b + ssb)
-#> <environment: 0x55da7699d1e0>
+#> <environment: 0x560d4946de68>
   sr3@initial
 #> function (rec, ssb) 
 #> {
@@ -150,8 +150,8 @@ The FLR Team
 #>     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
 #>     return(FLPar(a = a, b = a/b))
 #> }
-#> <bytecode: 0x55da7699de20>
-#> <environment: 0x55da7699d1e0>
+#> <bytecode: 0x560d4946eaa8>
+#> <environment: 0x560d4946de68>
 #> attr(,"lower")
 #> [1] -Inf -Inf
 #> attr(,"upper")
@@ -159,8 +159,8 @@ The FLR Team
   sr3@logl
 #> function (a, b, rec, ssb) 
 #> loglAR1(log(rec), log(a * ssb/(b + ssb)))
-#> <bytecode: 0x55da7699e408>
-#> <environment: 0x55da7699d1e0>
+#> <bytecode: 0x560d4946f100>
+#> <environment: 0x560d4946de68>
 
   # Create an FLSR using a function.
   mysr1 <- function(){
@@ -475,6 +475,8 @@ summary(nsher)
 #>   b   0.0180887 1.992659e-06
 
 plot(nsher)
+#> Warning: Selected elements do not form a coherent 6D array
+#> Warning: Selected elements do not form a coherent 6D array
 
 
 # change model
@@ -526,5 +528,7 @@ nsher <- fmle(nsher)
 #>     67 function evaluations used
 
 plot(nsher)
+#> Warning: Selected elements do not form a coherent 6D array
+#> Warning: Selected elements do not form a coherent 6D array
 
 ```

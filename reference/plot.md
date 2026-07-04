@@ -108,6 +108,8 @@ plot(ple4.index)
 # FLSR
 data(nsher)
 plot(nsher)
+#> Warning: Selected elements do not form a coherent 6D array
+#> Warning: Selected elements do not form a coherent 6D array
 
 
 # FLPar
