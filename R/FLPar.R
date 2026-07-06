@@ -697,9 +697,8 @@ setMethod('sweep', signature(x='FLPar'),
 # apply {{{
 #' @rdname apply-methods
 setMethod('apply', signature(X='FLPar'),
-  function(X, MARGIN, FUN, ...)
-  {
-    res <- callNextMethod()
+  function(X, MARGIN, FUN, ...) {
+    res <- apply(X@.Data, MARGIN, FUN)
     do.call(class(X), list(res, units=units(X)))
   }
 ) # }}}
