@@ -122,7 +122,7 @@ setMethod('coef', signature(object='FLModel'),
   }
 )  # }}}
 
-# fmle()    {{{
+#mle()    {{{
 
 
 #' Fit an FLModel by maximum likelihood
@@ -382,8 +382,8 @@ setMethod('fmle',
     }
 
     # LOOP over iters TODO: MOVE to doPar?
-    for (it in 1:iter)
-    {
+    for (it in 1:iter) {
+
       # data
       if(seq.iter)
         data <- lapply(alldata, iter, it)
@@ -427,7 +427,6 @@ setMethod('fmle',
         method=method, hessian=TRUE, control=control,
         lower=lower, upper=upper, gr=gr)))
 
-
       # warning if convergence is not 0, and do not load results
       if(out$convergence != 0) {
         warning("optimizer could not achieve convergence")
@@ -435,11 +434,21 @@ setMethod('fmle',
 
         # output
         # place out$par in right iter dim
-        iter(object@params[names(start),], it) <- out$par
+        # Avoid chained subset replacement for R 4.7 compatibility
+        # Work directly with .Data slot
+        param_idx <- match(names(start), dimnames(object@params)$params)
+        for(i in seq_along(param_idx)) {
+          object@params@.Data[param_idx[i], it] <- out$par[i]
+        }
         # fixed
-        if(length(fixed) > 0)
-          iter(object@params, it)[fixnm,] <-
-            unlist(lapply(fixed, function(x) c(x)[ifelse(length(x) == 1, 1, it)]))
+        if(length(fixed) > 0) {
+          # Avoid chained subset replacement for R 4.7 compatibility
+          fix_idx <- match(fixnm, dimnames(object@params)$params)
+          fix_vals <- unlist(lapply(fixed, function(x) c(x)[ifelse(length(x) == 1, 1, it)]))
+          for(i in seq_along(fix_idx)) {
+            object@params@.Data[fix_idx[i], it] <- fix_vals[i]
+          }
+        }
         # TODO make details list of lists if iter > 1?
         object@details <- list(call=call, value=out$value, count=out$counts,
           convergence=out$convergence, message=out$message)
@@ -469,7 +478,7 @@ setMethod('fmle',
 
       }
     }
- 
+
     # LOAD output
     fitted(object) <- predict(object)
     units(fitted(object)) <- units(slot(object, as.character(object@model[[2]])))
