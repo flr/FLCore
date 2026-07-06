@@ -616,7 +616,7 @@ setMethod('expand', signature(x='FLArray'),
       if(!fill)
         return(res)
       else {
-        res[] <- x
+        res[] <- c(x)
        return(res)
       }
     }
