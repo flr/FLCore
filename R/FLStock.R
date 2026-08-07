@@ -233,10 +233,10 @@ NULL
 	}
 
   if(!byage)
-    res <- quantSums(res)
+    res <- quantSums(res, na.rm=FALSE)
 
-  if(!byunit)
-    res <- unitSums(res)
+  if(!byunit & dim(res)[3] > 1)
+    res <- unitSums(res, na.rm=FALSE)
 
   return(res)
 }

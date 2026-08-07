@@ -423,6 +423,7 @@ setMethod('fmle',
         stop("No starting values provided and no initial function available")
 
       # CALL optim TODO: protect environment
+
       out <- do.call('optim', c(list(par=unlist(start), fn=loglfoo,
         method=method, hessian=TRUE, control=control,
         lower=lower, upper=upper, gr=gr)))
