@@ -229,6 +229,7 @@ NULL
     res <- n * hm * exp(-m * pm) * wt * sel
   # else NA
   } else {
+    warning("'harvest' slot has no units, must be 'f' or 'hr'")
     res <- quantSums(n) %=% as.numeric(NA)
 	}
 

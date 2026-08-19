@@ -60,9 +60,13 @@ setGeneric("survey", function(object, index, ...) standardGeneric("survey"))
 
 setMethod("survey",   signature(object="FLStock", index="FLIndex"),
   function(object, index, sel=sel.pattern(index),
+    index.q = index@index.q, stability=1,
     ages = dimnames(index)$age,
-    timing = mean(range(index, c("startf", "endf"))),
-    index.q = index@index.q, stability=1) {
+    timing = mean(range(index, c("startf", "endf")))) {
+
+    # SET sel and index.q to 1 if NA
+    if(all(is.na(sel))) sel <- sel %=% 1
+    if(all(is.na(index.q))) index.q <- index.q %=% 1
 
     # COMPUTE index
     abnd <- index(object, sel=sel, ages=ages, timing=timing)
@@ -85,10 +89,14 @@ setMethod("survey",   signature(object="FLStock", index="FLIndex"),
 
 setMethod("survey", signature(object="FLStock", index="FLIndexBiomass"),
   function(object, index, sel=sel.pattern(index),
-    ages=ac(seq(range(index, c('min')), range(index, c('max')))),
-    timing = mean(range(index, c("startf", "endf"))),
     catch.wt = index@catch.wt,
-    index.q = index@index.q, stability = 1) {
+    index.q = index@index.q, stability = 1,
+    ages=ac(seq(range(index, c('min')), range(index, c('max')))),
+    timing = mean(range(index, c("startf", "endf")))){
+
+    # SET sel and index.q to 1 if NA
+    if(all(is.na(sel))) sel <- sel %=% 1
+    if(all(is.na(index.q))) index.q <- index.q %=% 1
 
     # CHECK timing
     if(is.na(timing))
@@ -430,8 +438,6 @@ setMethod("computeQ", signature=c(indices="FLI", stock="FLStock",
   }
 )
 # }}}
-
-# Noise
 
 # bias {{{
 
