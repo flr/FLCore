@@ -659,7 +659,7 @@ setGeneric("quant<-", function(object, value)
 
 setGeneric("iter", function(obj, ...)
   standardGeneric("iter"))
-# setGeneric("iter", useAsDefault = iterators::iter)
+#setGeneric("iter", useAsDefault = iterators::iter)
 setGeneric("iter<-", function(object, ..., value)
   standardGeneric("iter<-"))
 
