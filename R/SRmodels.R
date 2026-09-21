@@ -677,7 +677,7 @@ mixedsrr <- function() {
   initial <- structure(function(rec, ssb) {
     a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
-    return(FLPar(a = a, b = a/b, c=1))},
+    return(FLPar(a = a, b = a/b, m=1))},
 
   ## bounds
   lower=rep(-Inf, 2),
