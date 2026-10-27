@@ -1190,52 +1190,37 @@ setMethod("runstest", signature(fit="numeric", obs="missing"),
 #' data(nsher)
 #' sigma3(residuals(nsher))
 
-sigma3 <- function(x, mixing="less", type="residual") {
+sigma3 <- function(x, mixing=c("less", "two.sided"), alpha=0.05) {
 
-  # COMPUTE average moving rate
+  mixing <- match.arg(mixing)
+  x <- c(x)
 
-  mr <- abs(diff(x - 0))
+  # moving-range sigma, as before
+  mr <- abs(diff(x))
   amr <- mean(mr, na.rm=TRUE)
-  
-  # COMPUTE upper limit for moving ranges
+  mr <- mr[!is.na(mr) & mr < 3.267 * amr]
+  stdev <- mean(mr, na.rm=TRUE) / 1.128
 
-  ulmr <- 3.267 * amr
+  # runs test on signs, NAs removed
+  y <- ifelse(x[!is.na(x)] < 0, -1, 1)
+  n <- length(y)
+  n1 <- sum(y > 0)
+  alt <- c(less="left.sided", two.sided="two.sided")[[mixing]]
 
-  # REMOVE moving ranges greater than ulmr and recalculate amr, Nelson 1982
-
-  mr  <- c(mr)[c(mr) < ulmr]
-  amr <- mean(mr, na.rm = TRUE)
-
-  # Calculate standard deviation, Montgomery, 6.33
-
-  stdev <- amr / 1.128
-
-  # Calculate control limits
-  lcl <- -3 * stdev
-  ucl <- 3 * stdev
-
-  # SET alternative
-  alternative <- c("two.sided", "left.sided")[which(c("two.sided", "less") %in% mixing)]
-
-  if(nlevels(factor(sign(x))) > 1) {
-
-    # Make the runs test non-parametric
-    y <- ifelse(x < 0, -1, 1)
-    
-    #
-    runstest <- .runs.test(c(y), threshold = 0, alternative = alternative)
-    
-    if(is.na(runstest$p.value)) {
-      p.value <- 0.001 
-    } else {
-      pvalue <- round(runstest$p.value, 3)
-    }
-
+  if(n < 2) {
+    pvalue <- NA_real_
+  } else if(n1 == 0 || n1 == n) {
+    # one sign only: P(all same sign), a bias flag and not a runs-test p
+    pvalue <- 2^(1 - n)
+  } else if(mixing == "less" && 2 / choose(n, n1) >= alpha) {
+    # exact left-sided test cannot reach alpha at these n1, n2
+    pvalue <- NA_real_
   } else {
-    pvalue <- 0.001
+    pvalue <- .runs.test(y, threshold=0, alternative=alt,
+      pvalue="exact")$p.value
   }
- 
-  return(list(lcl = lcl, ucl = ucl, p.value = pvalue))
+
+  list(lcl=-3 * stdev, ucl=3 * stdev, p.value=pvalue)
 }
 
 #' @title Runs test for randomness
