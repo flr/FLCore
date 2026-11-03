@@ -13,7 +13,7 @@ fbar(object, ...)
 \S4method{fbar}{FLBiol}(object, minAge = dims(object)$min + 1, maxAge = dims(object)$max - 1, ...)
 }
 \arguments{
-\item{object}{An \linkS4class{FLStock} object.}
+\item{object}{An \link[=FLStock-class]{FLStock} object.}
 
 \item{min}{Integer. Minimum age to include in the mean. Defaults to the
 value stored in \code{range(object, "minfbar")}; if that value is \code{NA}, the
@@ -28,7 +28,7 @@ largest age in the object (\code{range(object, "max")}) is used instead.}
 \item{maxAge}{Maximum age. Defaults to max - 1.}
 }
 \value{
-An \linkS4class{FLQuant} with the \code{quant} dimension collapsed to
+An \link[=FLQuant-class]{FLQuant} with the \code{quant} dimension collapsed to
 one, containing the arithmetic mean of \code{\link[=harvest]{harvest()}} over ages
 \code{min} to \code{max} inclusive, as computed by \code{\link[=quantMeans]{quantMeans()}}.
 }
@@ -47,9 +47,9 @@ both cases.
 \section{Methods (by class)}{
 \itemize{
 \item \code{fbar(FLStock)}: The \code{minfbar} and \code{maxfbar} entries of the \code{range} slot are
-specific to the \linkS4class{FLStock} class, and define the reference age range
-for fishing-mortality calculations. These are set when the \linkS4class{FLStock}
-object is created or read, and can be altered using .
+specific to the \link[=FLStock-class]{FLStock} class, and define the reference age range
+for fishing-mortality calculations. These are set when the \link[=FLStock-class]{FLStock}
+object is created or read, and can be altered using \link[=`range()<-`]{FLCore::\verb{range()<-}}.
 
 \item \code{fbar(FLBiol)}: For FLBiol objects, fbar is calculated from stock numbers (n) and
 natural mortality (m) by estimating fishing mortality from the cohort
@@ -72,7 +72,7 @@ range(ple4, c("minfbar", "maxfbar"))
 \seealso{
 \code{\link[=harvest]{harvest()}}, \code{\link[=quantMeans]{quantMeans()}}, \code{\link[base:range]{base::range()}}
 
-\linkS4class{FLStock}
+\link[=FLStock-class]{FLStock}
 }
 \author{
 FLR Team

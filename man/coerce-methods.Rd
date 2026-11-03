@@ -3,7 +3,34 @@
 \docType{methods}
 \name{coerce-methods}
 \alias{coerce-methods}
+\alias{coerce,data.frame,FLQuant-method}
+\alias{coerce,FLBiol,FLStock-method}
+\alias{coerce,data.frame,FLStock-method}
+\alias{coerce,FLStockLen,FLStock-method}
+\alias{coerce,FLComp,FLQuants-method}
+\alias{coerce,FLStock,FLQuants-method}
+\alias{coerce,FLBiol,FLSR-method}
+\alias{coerce,FLSR,predictModel-method}
 \title{Convert Objects Between Classes}
+\usage{
+\S4method{coerce}{FLArray,data.frame}(from, to = "data.frame", strict = TRUE)
+
+\S4method{coerce}{FLPar,data.frame}(from, to = "data.frame", strict = TRUE)
+
+\S4method{coerce}{data.frame,FLQuant}(from, to = "FLQuant", strict = TRUE)
+
+\S4method{coerce}{FLBiol,FLStock}(from, to = "FLStock", strict = TRUE)
+
+\S4method{coerce}{data.frame,FLStock}(from, to = "FLStock", strict = TRUE)
+
+\S4method{coerce}{FLStockLen,FLStock}(from, to = "FLStock", strict = TRUE)
+
+\S4method{coerce}{FLComp,FLQuants}(from, to = "FLQuants", strict = TRUE)
+
+\S4method{coerce}{FLBiol,FLSR}(from, to = "FLSR", strict = TRUE)
+
+\S4method{coerce}{FLSR,predictModel}(from, to = "predictModel", strict = TRUE)
+}
 \arguments{
 \item{object}{Object to be converted.}
 
@@ -36,11 +63,76 @@ The last one contains the actual numbers stored in the array, in a column
 type \code{numeric}, while all others are \code{factor}.
 }
 
+\section{data.frame to FLQuant}{
+
+A \emph{data.frame} with the right column names is converted into an \emph{FLQuant}
+object with missing values being added. Missing columns are assumed to
+contain the default dimnames in \emph{FLQuant}.
+}
+
+\section{\emph{FLBiol} to \emph{FLStock}}{
+
+\itemize{
+\item \emph{n} = \emph{stock.n}
+\item \emph{wt} = \emph{stock.wt}
+\item \emph{m} = \emph{m}
+\item \emph{mat} = \emph{mat()}
+\item \emph{m.spwm}, \emph{harvest.spwn} = \emph{spwn}
+}
+}
+
+\section{\emph{data.frame} to \emph{FLStock}}{
+
+A \emph{data.frame} with the right column names is converted into an \emph{FLStock}
+object with missing values being added.
+}
+
+\section{\emph{FLStockLen} to \emph{FLStock}}{
+
+\itemize{
+\item Changes quant from 'len' to 'age'
+}
+}
+
+\section{FLComp to FLQuant}{
+
+A \emph{data.frame} with the right column names is converted into an \emph{FLQuant}
+}
+
+\section{FLBiol to FLSR}{
+
+Slots \code{rec} and \code{ssb} in \code{FLSR} are populated from \code{n[1,]} and the result of
+\code{ssb()}, adjusted from recruitment age. Note \code{ssb(FLBiol)} only corrects for
+natural mortality (\code{m}) to time of spanwing (\code{spwn}).
+}
+
+\section{FLSR to predictModel}{
+
+Places the \code{model} and \code{params} slots the same-named slots of \code{predictModel}.
+The \code{residuals} \code{FLQuant} is stored under that name in the base \code{FLQuants}
+slot.
+}
+
 \examples{
 # from FLQuant to data.frame
 as(FLQuant(rnorm(100), dim=c(5, 20)), "data.frame")
 # from FLPar to data.frame
 as(FLPar(phi=rnorm(10), rho=rlnorm(10)), "data.frame")
+# from data.frame to FLQuant
+as(data.frame(age=rep(1:4, each=3), year=2011:2013, data=rnorm(12)), "FLQuant")
+# from FLBiol to FLStock
+data(ple4.biol)
+fls <- as(ple4.biol, 'FLStock')
+# from data.frame to FLStock
+df <- data.frame(slot="m", age=rep(1:5, each=5), year=rep(2000:2004, 5),
+  data=0.2, units="m")
+fls <- as(df, 'FLStock')
+# from data.frame to FLQuant
+# from FLBiol to FLSR
+as(ple4.biol, "FLSR")
+# from FLSR to predictModel
+data(nsher)
+as(nsher, 'predictModel')
 }
 \seealso{
 \link[base:as]{base::as}, \link[base:coerce]{base::coerce}

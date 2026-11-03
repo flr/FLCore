@@ -16,7 +16,7 @@ A summed-up FLStock object
 }
 \description{
 Combines two FLStock objects by adding their abundances and catches,
-and computing weighted mean biological parameters.
+and computing weighted mean of biological parameters and harvest.
 }
 \examples{
 data(ple4)

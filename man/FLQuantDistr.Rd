@@ -6,13 +6,10 @@
 \alias{FLQuantDistr}
 \alias{FLQuantDistr-methods}
 \alias{FLQuantDistr-class}
-\alias{FLQuantDistr,ANY,ANY-method}
 \alias{FLQuantDistr,FLQuant,FLQuant-method}
 \title{A class for samples of a probability distribution}
 \usage{
 FLQuantDistr(object, var, ...)
-
-\S4method{FLQuantDistr}{ANY,ANY}(object, var, ...)
 
 \S4method{FLQuantDistr}{FLQuant,FLQuant}(object, var, units = object@units, distr = "norm")
 }

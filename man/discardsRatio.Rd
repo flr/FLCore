@@ -27,7 +27,7 @@ discardsRatio(ple4)
 discardsRatio(ple4, value="total")
 }
 \seealso{
-\linkS4class{FLStock}
+\link[=FLStock-class]{FLStock}
 }
 \author{
 The FLR Team

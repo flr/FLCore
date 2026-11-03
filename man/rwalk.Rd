@@ -39,7 +39,7 @@ rwalk(rec(ple4), end=5)
 rwalk(rec(ple4), end=2020)
 }
 \seealso{
-\linkS4class{FLQuant} \link{rnorm}
+\link[=FLQuant-class]{FLQuant} \link{rnorm}
 }
 \author{
 Iago Mosqueira, WMR (2023)

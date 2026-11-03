@@ -28,7 +28,7 @@ computeHarvest(ple4)
 recomputeHarvest(ple4)
 }
 \seealso{
-\linkS4class{FLStock} \code{\link[=harvest]{harvest()}} \linkS4class{FLQuant}
+\link[=FLStock-class]{FLStock} \code{\link[=harvest]{harvest()}} \link[=FLQuant-class]{FLQuant}
 }
 \author{
 The FLR Team

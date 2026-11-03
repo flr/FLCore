@@ -18,7 +18,7 @@ An object of the same class as the input.
 }
 \description{
 Objects of FLR classes can vary in the length along the sixth dimension
-in any slot of class \linkS4class{FLQuant}. This reduces object size and memory
+in any slot of class \link[=FLQuant-class]{FLQuant}. This reduces object size and memory
 usage. If an object has been extended fully, for example by using
 \code{\link[=propagate]{propagate}}, we can slim down the object by reducing
 any slot where all iters are identical and keeping only yhe first \emph{iter}.
@@ -39,7 +39,7 @@ sple4 <- slim(ple4)
 summary(sple4)
 }
 \seealso{
-\linkS4class{FLQuant} \code{\link[=propagate]{propagate}}
+\link[=FLQuant-class]{FLQuant} \code{\link[=propagate]{propagate}}
 }
 \author{
 The FLR Team
