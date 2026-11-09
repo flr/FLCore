@@ -133,6 +133,6 @@ find_original_name <- function(fun) {
 }
 
 find_original_names <- function(funs) {
-  unlist(lapply(funs, find.original.name))
+  unlist(lapply(funs, find_original_name))
 }
 # }}}
