@@ -1100,8 +1100,9 @@ setMethod("bubbles", signature(x="formula", data ="FLQuants"),
 #' Method to plot 3D representations of FLQuant objects
 #'
 #' @name wireframe
-#' @aliases wireframe wireframe,FLQuant-method
+#' @aliases wireframe wireframe,formula,FLQuant-method
 #' @docType methods
+#' @section Generic function: wireframe(x, data, ...)
 #'
 #' @param x a \code{formula} formula for lattice
 #' @param data a \code{FLQuant} object with the values
@@ -1111,7 +1112,6 @@ setMethod("bubbles", signature(x="formula", data ="FLQuants"),
 #' 
 #' data(ple4)
 #' wireframe(data~age+year, data=harvest(ple4))
-#'
 
 setMethod("wireframe", c("formula","FLQuant"),
   function(x, data, ...) {
