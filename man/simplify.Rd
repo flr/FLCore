@@ -13,7 +13,7 @@ simplify(object, ...)
 
 nounit(stock)
 
-noseason(stock, spwn.season = 1, rec.season = spwn.season, weighted = FALSE)
+noseason(stock, spwn.season = 1, rec.season = spwn.season)
 
 noarea(stock)
 
@@ -22,8 +22,7 @@ noarea(stock)
   dims = c("unit", "season", "area")[dim(object)[3:5] > 1],
   spwn.season = 1,
   rec.season = spwn.season,
-  harvest = TRUE,
-  weighted = FALSE
+  harvest = TRUE
 )
 }
 \arguments{
@@ -36,10 +35,6 @@ noarea(stock)
 
 \item{rec.season}{Integer. Season in which age-0 recruits first appear.
 Defaults to \code{spwn.season}.}
-
-\item{weighted}{Logical. If \code{TRUE}, weight-at-age slots are collapsed as
-abundance-weighted means; otherwise simple means are used. Defaults to
-\code{FALSE}.}
 }
 \value{
 An object of the same class as the input.
