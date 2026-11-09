@@ -69,7 +69,7 @@ metrics(ple4.biol, PG=function(x) n(x)[10,])
 metrics(ple4.biol, metrics=list(PG=function(x) n(x)[10,]))
 }
 \seealso{
-\link{FLComp}, link{FLStock}, \link{FLBiol}
+\link{FLComp}, \link{FLStock}, \link{FLBiol}
 }
 \author{
 The FLR Team

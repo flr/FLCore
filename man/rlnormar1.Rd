@@ -51,11 +51,14 @@ on the log-scale so that the resulting series have the requested
 
 The simulation proceeds as follows:
 \enumerate{
-\item Draw independent normal innovations: eps_{t,i} ~ N(meanlog_i, sdlog_i^2).
-\item Build the AR(1) process: x_{t,i} = rho_i * x_{t-1,i} + sqrt(1 - rho_i^2) * eps_{t,i},
-with x_{1,i} = eps_{1,i}.
+\item Draw independent normal innovations:
+\eqn{\epsilon_{t,i} \sim N(meanlog_i, sdlog_i^2)}.
+\item Build the AR(1) process:
+\eqn{x_{t,i} = \rho_i x_{t-1,i} + \sqrt{1 - \rho_i^2} \epsilon_{t,i}},
+with \eqn{x_{1,i} = \epsilon_{1,i}}.
 \item Optionally apply bias correction on the log scale, then exponentiate:
-y_{t,i} = exp(x_{t,i} - 0.5 * sdlog_i^2)  (if bias.correct = TRUE).
+\eqn{y_{t,i} = \exp(x_{t,i} - 0.5 sdlog_i^2)}
+(if bias.correct = TRUE).
 }
 }
 \examples{
