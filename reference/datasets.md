@@ -4,29 +4,38 @@ Example datasets for the classes defined in FLCore.
 
 ## Details
 
-- `ple4`, [`FLStock`](FLStock.md)A dataset for North Sea (ICES Area IV)
-  plaice. Catch, landings, discards, natural mortality, weight-at-age
-  and maturity, together with the VPA estimated abundances and fishing
-  mortalities.
+- `ple4`, [`FLStock`](FLStock.md):
 
-- `ple4sex`, [`FLStock`](FLStock.md)A dataset of North Sea (ICES
-  Area IV) plaice disaggregated by sex. Catch, yield, landings,
+  A dataset for North Sea (ICES Area IV) plaice. Catch, landings,
   discards, natural mortality, weight-at-age and maturity, together with
   the VPA estimated abundances and fishing mortalities.
 
-- ple4.index, [`FLIndex`](FLIndex.md)A dataset of North Sea (ICES
-  Area IV) plaice survey catch per unit effort, index and index
-  variance.
+- `ple4sex`, [`FLStock`](FLStock.md):
 
-- ple4.indices, [`FLIndices`](FLIndices.md)A dataset of three North Sea
-  (ICES Area IV) plaice survey catch per unit effort series. Index and
-  index variance.
+  A dataset of North Sea (ICES Area IV) plaice disaggregated by sex.
+  Catch, yield, landings, discards, natural mortality, weight-at-age and
+  maturity, together with the VPA estimated abundances and fishing
+  mortalities.
 
-- ple4.biol, [`FLBiol`](FLBiol.md)A dataset of the North Sea plaice
-  population. Numbers, natural mortality, mass and fecundity-at-age.
+- ple4.index, [`FLIndex`](FLIndex.md):
 
-- nsher , [`FLSR`](FLSR.md)Stock and recruit data and fitted
-  relationship for autumn spawning North Sea herring.
+  A dataset of North Sea (ICES Area IV) plaice survey catch per unit
+  effort, index and index variance.
+
+- ple4.indices, [`FLIndices`](FLIndices.md):
+
+  A dataset of three North Sea (ICES Area IV) plaice survey catch per
+  unit effort series. Index and index variance.
+
+- ple4.biol, [`FLBiol`](FLBiol.md):
+
+  A dataset of the North Sea plaice population. Numbers, natural
+  mortality, mass and fecundity-at-age.
+
+- nsher , [`FLSR`](FLSR.md):
+
+  Stock and recruit data and fitted relationship for autumn spawning
+  North Sea herring.
 
 Datasets can be loaded by issuing the `data` command, like in
 `data(ple4)`.

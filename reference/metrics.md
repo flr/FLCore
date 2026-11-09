@@ -47,7 +47,7 @@ arguments, like in ther examples below.
 
 ## See also
 
-[FLComp](FLComp.md), linkFLStock, [FLBiol](FLBiol.md)
+[FLComp](FLComp.md), [FLStock](FLStock.md), [FLBiol](FLBiol.md)
 
 ## Author
 

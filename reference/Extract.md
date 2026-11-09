@@ -124,21 +124,21 @@ in formulas.
 
 ## Generic function
 
-- :
+- `[`:
 
-  x,i,j,drop
+  `[x,i,j,drop]`
 
-- :
+- `[<-`:
 
-  \[\<-(x,i,j,value)
+  `[<-(x,i,j,value)`
 
-- :
+- `[[<-`:
 
-  \[\[\<-(x,i,j,value)
+  `[[<-(x,i,j,value)`
 
-- :
+- `\$<-`:
 
-  \\\<-(x,name,value)
+  `\$<-(x,name,value)`
 
 ## See also
 
