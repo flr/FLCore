@@ -133,9 +133,9 @@ setquant <- function(x, value) {
 #' @rdname Extract
 #' @aliases [,FLArray,ANY,ANY,ANY-method
 #' @docType methods
-#' @section Generic function: \describe{ \item{\code{[}}{[x,i,j,drop]}
-#' \item{\code{[<-}}{[<-(x,i,j,value)} \item{\code{[[<-}}{[[<-(x,i,j,value)}
-#' \item{\code{\$<-}}{\$<-(x,name,value)} }
+#' @section Generic function: \describe{ \item{\code{[}}{\code{[x,i,j,drop]}}
+#' \item{\code{[<-}}{\code{[<-(x,i,j,value)}} \item{\code{[[<-}}{\code{[[<-(x,i,j,value)}}
+#' \item{\code{\$<-}}{\code{\$<-(x,name,value)}} }
 #' @param x object from which to extract or replace element(s)
 #' @param i,j,k,l,m,n indices specifying elements to extract or replace on any of the six dimensions.
 #' @param ... indices specifying elements to extract or replace by dimension name.

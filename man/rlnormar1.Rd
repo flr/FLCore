@@ -10,7 +10,9 @@ rlnormar1(
   sdlog = 1,
   rho = 0,
   years,
-  bias.correct = FALSE
+  quant = "age",
+  bias.correct = FALSE,
+  initlog = NULL
 )
 }
 \arguments{
@@ -29,9 +31,14 @@ Recycled to length \code{n} if necessary.}
 \item{years}{Integer or character vector. Years (time dimension) for the
 returned FLQuant (length determines number of time steps).}
 
+\item{quant}{Name of the first dimension, \code{quant}. Defaults to 'age'.}
+
 \item{bias.correct}{Logical. If TRUE (default FALSE) subtract
 0.5 * sdlog^2 from the log-series before exponentiation to correct
 for the lognormal bias.}
+
+\item{initlog}{The mean in log space of the previous process to use as
+starting point.}
 }
 \value{
 An object of class FLQuant with dimensions year x iter containing
@@ -48,6 +55,9 @@ parameter \code{rho}, and finally exponentiates the series. If
 \code{bias.correct = TRUE} the log-normal bias (0.5 * sdlog^2) is removed
 on the log-scale so that the resulting series have the requested
 \code{meanlog} on the log-scale.
+When \code{initlog} is set, its value is used as starting point for the process,
+as mean for year - 1, so that it transitions from that value to meanlog
+following the given autocorrelation.
 
 The simulation proceeds as follows:
 \enumerate{
