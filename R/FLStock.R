@@ -1549,9 +1549,6 @@ setMethod("dim", signature(x="FLStock"),
 #'   (`harvest.spwn`, `m.spwn`) and to extract maturity. Defaults to `1`.
 #' @param rec.season Integer. Season in which age-0 recruits first appear.
 #'   Defaults to `spwn.season`.
-#' @param weighted Logical. If `TRUE`, weight-at-age slots are collapsed as
-#'   abundance-weighted means; otherwise simple means are used. Defaults to
-#'   `FALSE`.
 #'
 #' @return An [FLStock] with the relevant dimension reduced to length 1.
 #'
@@ -1575,35 +1572,42 @@ nounit <- function(stock) {
   if(nun == 1)
     return(stock)
  
-  # DIVISION vectors
-  div <- rep(rep(seq(dis[3]), each=prod(dis[1:2])), prod(dis[4:6]))
-
-  # CONVERT to vectors
-  dat <- qapply(stock, c)
-
-  # TODO: REPLICATE if length differs
+  # KEEP full stock
+  full <- stock
 
   # SUBSET and rename
   stock <- stock[,,1]
   dimnames(stock) <- list(unit="unique")
 
+  # F/M: F values if both F and M present, average across units otherwise
+  unt <- dimnames(full)$unit
+  if(all(c("F", "M") %in% unt)) {
+    fidx <- which(unt == "F")
+    mat(stock)[] <- mat(full)[,,fidx]
+    harvest.spwn(stock)[] <- harvest.spwn(full)[,,fidx]
+    m.spwn(stock)[] <- m.spwn(full)[,,fidx]
+  } else {
+    mat(stock)[] <- Reduce('+', divide(mat(full), 3)) / nun
+    harvest.spwn(stock)[] <- Reduce('+', divide(harvest.spwn(full), 3)) / nun
+    m.spwn(stock)[] <- Reduce('+', divide(m.spwn(full), 3)) / nun
+  }
+
   # sum: *.n
-  stock.n(stock)[] <- Reduce('+', split(dat$stock.n, div))
-  catch.n(stock)[] <- Reduce('+', split(dat$catch.n, div))
-  landings.n(stock)[] <- Reduce('+', split(dat$landings.n, div))
-  discards.n(stock)[] <- Reduce('+', split(dat$discards.n, div))
+  stock.n(stock)[] <- Reduce('+', divide(stock.n(full), 3))
+  catch.n(stock)[] <- Reduce('+', divide(catch.n(full), 3))
+  landings.n(stock)[] <- Reduce('+', divide(landings.n(full), 3))
+  discards.n(stock)[] <- Reduce('+', divide(discards.n(full), 3))
 
   # weighted mean: *.wt, m
-  stock.wt(stock) <- Reduce('+', split(dat$stock.wt *
-    (dat$stock.n + 1e-36), div))  / (c(stock.n(stock)) + 1e-36 * nun)
-  catch.wt(stock) <- Reduce('+', split(dat$catch.wt *
-    (dat$catch.n + 1e-36), div))  / (c(catch.n(stock)) + 1e-36 * nun)
-  landings.wt(stock) <- Reduce('+', split(dat$landings.wt *
-    (dat$landings.n + 1e-36), div))  / (c(landings.n(stock)) + 1e-36 * nun)
-  discards.wt(stock) <- Reduce('+', split(dat$discards.wt *
-    (dat$discards.n + 1e-36), div))  / (c(discards.n(stock)) + 1e-36 * nun)
-  m(stock) <- Reduce('+', split(dat$m * dat$stock.n, div)) /
-    c(stock.n(stock) + 1e-36)
+  stock.wt(stock)[] <- weighted.mean(divide(stock.wt(full), 3),
+    divide(stock.n(full), 3))
+  catch.wt(stock)[] <- weighted.mean(divide(catch.wt(full), 3),
+    divide(catch.n(full), 3))
+  landings.wt(stock)[] <- weighted.mean(divide(landings.wt(full), 3),
+    divide(landings.n(full), 3))
+  discards.wt(stock)[] <- weighted.mean(divide(discards.wt(full), 3),
+    divide(discards.n(full), 3))
+  m(stock)[] <- weighted.mean(divide(m(full), 3), divide(stock.n(full), 3))
 
   # COMPUTE
 
@@ -1626,8 +1630,16 @@ nounit <- function(stock) {
 #' noseason(expand(ple4, season=1:4))
 #' @aliases noseason
 
-noseason <- function(stock, spwn.season=1, rec.season=spwn.season, 
-  weighted=FALSE) {
+# m: sum
+# mat: spawn.season
+# harvest.spwn, m.spwn: spawn.season
+# catch/discards/landings.n: sum
+# stock.n: 1st season, but age=0 corrected for rec.season
+# catch/discards/landings/stock.wt: weighted mean
+# stock/catch/landings/discards: recompute
+# harvest: recompute
+
+noseason <- function(stock, spwn.season=1, rec.season=spwn.season) {
 
   # DIMS
   dis <- dim(stock)
@@ -1637,45 +1649,33 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season,
   if(nse == 1)
     return(stock)
  
-  # DIVISION vectors
-  div <- rep(rep(seq(dis[4]), each=prod(dis[1:3])), prod(dis[5:6]))
-
-  # CONVERT to vectors
-  dat <- qapply(stock, c)
-
-  # KEEP rec elements to assign back
-  recm <- m(stock)[1,]
-  recn <- stock.n(stock)[1,]
+  # KEEP full stock and rec elements to assign back
+  full <- stock
+  recm <- m(full)[1,]
+  recn <- stock.n(full)[1,]
 
   # SUBSET and rename, n as in season 1
   stock <- stock[,,,1]
   dimnames(stock) <- list(season="all")
 
+  # m
+  m(stock)[] <- Reduce('+', divide(m(full), 4))
+
   # mat
-  mat(stock)[] <- split(dat$mat, div)[[spwn.season]]
+  mat(stock)[] <- mat(full)[,,,spwn.season]
 
   # spwn
   harvest.spwn(stock)[] <- m.spwn(stock)[] <- ((spwn.season - 1) / nse)
   
   # means: wt
-  if(weighted) {
-#    stock.wt(stock) <- Reduce("+", Map("*", split(dat$stock.wt, div),
-#      split(dat$stock.n, div))) / Reduce("+", split(dat$stock.n, div))
-    catch.wt(stock) <- Reduce("+", Map("*", split(dat$catch.wt, div),
-      split(dat$catch.n, div))) / Reduce("+", split(dat$catch.n, div))
-    landings.wt(stock) <- Reduce("+", Map("*", split(dat$landings.wt, div),
-      split(dat$landings.n, div))) / Reduce("+", split(dat$landings.n, div))
-    discards.wt(stock) <- Reduce("+", Map("*", split(dat$discards.wt, div),
-      split(dat$discards.n, div))) / Reduce("+", split(dat$discards.n, div))
-  } else {
- #   stock.wt(stock) <- Reduce('+', split(dat$stock.wt, div)) / nse
-    catch.wt(stock) <- Reduce('+', split(dat$catch.wt, div)) / nse
-    landings.wt(stock) <- Reduce('+', split(dat$landings.wt, div)) / nse
-    discards.wt(stock) <- Reduce('+', split(dat$discards.wt, div)) / nse
-  }
-  
-  # sums: m, catch
-  m(stock) <- Reduce('+', split(dat$m, div))
+  stock.wt(stock)[] <- weighted.mean(divide(stock.wt(full), 4),
+    divide(stock.n(full), 4))
+  landings.wt(stock)[] <- weighted.mean(divide(landings.wt(full), 4),
+    divide(landings.n(full), 4))
+  discards.wt(stock)[] <- weighted.mean(divide(discards.wt(full), 4),
+    divide(discards.n(full), 4))
+  catch.wt(stock)[] <- weighted.mean(divide(catch.wt(full), 4),
+    divide(catch.n(full), 4))
 
   # CORRECT Ns at spwn.season for age = 0
   if(dimnames(stock)$age[1] == "0" & rec.season > 1) {
@@ -1683,9 +1683,10 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season,
     m(stock)["0",,, 1] <- seasonSums(recm["0",,, seq(dis[4]) >= rec.season])
   }
 
-  catch.n(stock) <- Reduce('+', split(dat$catch.n, div))
-  landings.n(stock) <- Reduce('+', split(dat$landings.n, div))
-  discards.n(stock) <- Reduce('+', split(dat$discards.n, div))
+  # catch/landings/discards/stock.n: sum
+  landings.n(stock)[] <- Reduce('+', divide(landings.n(full), 4))
+  discards.n(stock)[] <- Reduce('+', divide(discards.n(full), 4))
+  catch.n(stock)[] <- Reduce('+', divide(catch.n(full), 4))
   
   catch(stock) <- computeCatch(stock)
   landings(stock) <- computeLandings(stock)
@@ -1708,49 +1709,39 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season,
 
 noarea <- function(stock) {
 
-  old <- stock
+  # DIMS
+  dis <- dim(stock)
+  nar <- dis[5]
 
+  # END if no areas
+  if(nar == 1)
+    return(stock)
+
+  # KEEP full stock
+  full <- stock
+
+  # SUBSET and rename
   stock <- stock[,,,,1]
   dimnames(stock) <- list(area="unique")
 
   # sum: *.n
+  stock.n(stock)[] <- Reduce('+', divide(stock.n(full), 5))
+  catch.n(stock)[] <- Reduce('+', divide(catch.n(full), 5))
+  landings.n(stock)[] <- Reduce('+', divide(landings.n(full), 5))
+  discards.n(stock)[] <- Reduce('+', divide(discards.n(full), 5))
 
-  stock.n(stock) <- areaSums(stock.n(old))
-  catch.n(stock) <- areaSums(catch.n(old))
-  landings.n(stock) <- areaSums(landings.n(old))
-  discards.n(stock) <- areaSums(discards.n(old))
-
-  # weighted mean: *.wt, m
-  
-  stock.wt(stock) <- areaSums(stock.wt(old) * stock.n(old)) /
-    areaSums(stock.n(old))
-  stock.wt(stock)[is.na(stock.wt(stock))] <-
-    areaMeans(stock.wt(old))[is.na(stock.wt(stock))]
-
-  catch.wt(stock) <- areaSums(catch.wt(old) * catch.n(old)) /
-    areaSums(catch.n(old))
-  catch.wt(stock)[is.na(catch.wt(stock))] <- 
-    areaMeans(catch.wt(old))[is.na(catch.wt(stock))]
-
-  landings.wt(stock) <- areaSums(landings.wt(old) * landings.n(old)) /
-    areaSums(landings.n(old))
-  landings.wt(stock)[is.na(landings.wt(stock))] <- 
-    areaMeans(landings.wt(old))[is.na(landings.wt(stock))]
-
-  discards.wt(stock) <- areaSums(discards.wt(old) * discards.n(old)) /
-    areaSums(discards.n(old))
-  discards.wt(stock)[is.na(discards.wt(stock))] <- 
-    areaMeans(discards.wt(old))[is.na(discards.wt(stock))]
-
-  # m
-  m(stock) <- areaSums(m(old) * stock.n(old)) /
-    areaSums(stock.n(old))
-  m(stock)[is.na(m(stock))] <- areaMeans(m(old))[is.na(m(stock))]
-
-  # mat
-  mat(stock) <- areaSums(mat(old) * (stock.n(old) * stock.wt(old))) / 
-    areaSums((stock.n(old) * stock.wt(old)))
-  mat(stock)[is.na(mat(stock))] <- areaMeans(mat(old))[is.na(mat(stock))]
+  # weighted mean: *.wt, m, mat
+  stock.wt(stock)[] <- weighted.mean(divide(stock.wt(full), 5),
+    divide(stock.n(full), 5))
+  catch.wt(stock)[] <- weighted.mean(divide(catch.wt(full), 5),
+    divide(catch.n(full), 5))
+  landings.wt(stock)[] <- weighted.mean(divide(landings.wt(full), 5),
+    divide(landings.n(full), 5))
+  discards.wt(stock)[] <- weighted.mean(divide(discards.wt(full), 5),
+    divide(discards.n(full), 5))
+  m(stock)[] <- weighted.mean(divide(m(full), 5), divide(stock.n(full), 5))
+  mat(stock)[] <- weighted.mean(divide(mat(full), 5),
+    divide(stock.n(full) * stock.wt(full), 5))
 
   # COMPUTE
 
@@ -1771,7 +1762,7 @@ noarea <- function(stock) {
 
 setMethod("simplify", signature(object="FLStock"),
   function(object, dims=c("unit", "season", "area")[dim(object)[3:5] > 1],
-    spwn.season=1, rec.season=spwn.season, harvest=TRUE, weighted=FALSE) {
+    spwn.season=1, rec.season=spwn.season, harvest=TRUE) {
 
   # RETURN if requested dims are already of length=1
   if(all(dims %in% c("unit", "season", "area")[dim(object)[3:5] == 1])) {
@@ -1786,8 +1777,7 @@ setMethod("simplify", signature(object="FLStock"),
     object <- nounit(object)
 
   if(any(c("season", 4) %in% dims))
-    object <- noseason(object, spwn.season=spwn.season, rec.season=rec.season,
-      weighted=weighted)
+    object <- noseason(object, spwn.season=spwn.season, rec.season=rec.season)
 
   # harvest
   if(harvest) {

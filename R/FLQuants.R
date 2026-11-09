@@ -349,18 +349,32 @@ NULL
 setMethod("weighted.mean", signature(x="FLQuants", w="FLQuants"),
   function(x, w) {
 
-  # TURN value NAs to 0s
-  xa <- lapply(x, function(i) ifelse(is.na(i), 0, i))
+  # CHECK dims
+  if(!all(mapply(function(a, b) identical(dim(a), dim(b)), x, w)))
+    stop("'x' and 'w' must have the same dimensions")
 
-  # CREATE NA flags
-  na <- FLQuants(lapply(x, function(i) FLQuant(ifelse(is.na(i), 0, 1))))
+  # ACCUMULATE weighted sum, weight sum and non-NA count, NAs skipped
+  
+  num <- den <- cnt <- 0
+  
+  for(k in seq_along(x)) {
+    xi <- x[[k]]@.Data
+    wi <- w[[k]]@.Data
+    isna <- is.na(xi)
+    xi[isna] <- 0
+    num <- num + xi * wi
+    den <- den + wi * !isna
+    cnt <- cnt + !isna
+  }
 
-  # COMPUTE average
-  res <- Reduce('+', Map('*', x, w * na)) / Reduce('+', lapply(w * na, '+', 1e-36))
-  # COMPUTE arithmetic mean
-  arm <- Reduce('+', x) / length(x)
-  # SUBSTITUTE NAs with arithmetic mean
-  res[is.na(res)] <- c(arm[is.na(res)])
+  # SET NA where no value is available
+  out <- num / (den + 1e-36)
+  out[cnt == 0] <- NA
+
+  # EXTRACT 1st and ASSIGN result
+  res <- x[[1]]
+  res[] <- out
+
   return(res)
 })
 
