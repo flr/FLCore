@@ -10,7 +10,9 @@ rlnormar1(
   sdlog = 1,
   rho = 0,
   years,
-  bias.correct = FALSE
+  quant = "age",
+  bias.correct = FALSE,
+  initlog = NULL
 )
 }
 \arguments{
@@ -29,9 +31,14 @@ Recycled to length \code{n} if necessary.}
 \item{years}{Integer or character vector. Years (time dimension) for the
 returned FLQuant (length determines number of time steps).}
 
+\item{quant}{Name of the first dimension, \code{quant}. Defaults to 'age'.}
+
 \item{bias.correct}{Logical. If TRUE (default FALSE) subtract
 0.5 * sdlog^2 from the log-series before exponentiation to correct
 for the lognormal bias.}
+
+\item{initlog}{The mean in log space of the previous process to use as
+starting point.}
 }
 \value{
 An object of class FLQuant with dimensions year x iter containing
@@ -48,14 +55,20 @@ parameter \code{rho}, and finally exponentiates the series. If
 \code{bias.correct = TRUE} the log-normal bias (0.5 * sdlog^2) is removed
 on the log-scale so that the resulting series have the requested
 \code{meanlog} on the log-scale.
+When \code{initlog} is set, its value is used as starting point for the process,
+as mean for year - 1, so that it transitions from that value to meanlog
+following the given autocorrelation.
 
 The simulation proceeds as follows:
 \enumerate{
-\item Draw independent normal innovations: eps_{t,i} ~ N(meanlog_i, sdlog_i^2).
-\item Build the AR(1) process: x_{t,i} = rho_i * x_{t-1,i} + sqrt(1 - rho_i^2) * eps_{t,i},
-with x_{1,i} = eps_{1,i}.
+\item Draw independent normal innovations:
+\eqn{\epsilon_{t,i} \sim N(meanlog_i, sdlog_i^2)}.
+\item Build the AR(1) process:
+\eqn{x_{t,i} = \rho_i x_{t-1,i} + \sqrt{1 - \rho_i^2} \epsilon_{t,i}},
+with \eqn{x_{1,i} = \epsilon_{1,i}}.
 \item Optionally apply bias correction on the log scale, then exponentiate:
-y_{t,i} = exp(x_{t,i} - 0.5 * sdlog_i^2)  (if bias.correct = TRUE).
+\eqn{y_{t,i} = \exp(x_{t,i} - 0.5 sdlog_i^2)}
+(if bias.correct = TRUE).
 }
 }
 \examples{

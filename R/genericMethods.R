@@ -1669,7 +1669,7 @@ setGeneric("fwd", function(object, fishery, control, ...)
 #' @aliases metrics metrics-methods
 #'
 #' @author The FLR Team
-#' @seealso \link{FLComp}, link{FLStock}, \link{FLBiol}
+#' @seealso \link{FLComp}, \link{FLStock}, \link{FLBiol}
 #' @keywords methods
 #' @md
 setGeneric("metrics", function(object, metrics, ...)

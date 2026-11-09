@@ -13,7 +13,7 @@
 Example datasets for the classes defined in FLCore.
 }
 \details{
-\itemize{
+\describe{
 \item{\code{ple4}, \code{\link{FLStock}}}{A dataset for North Sea (ICES Area IV)
 plaice. Catch, landings, discards, natural mortality, weight-at-age and maturity,
 together with the VPA estimated abundances and fishing mortalities.}
