@@ -342,3 +342,10 @@ setMethod("dbind", signature(x="FLS", y="FLS"),
   }
 )
 # }}}
+
+# catches {{{
+setMethod("catches", signature(object="FLS"), function(object) {
+  ubind(metrics(object, list(Catch=catch, Landings=landings,
+    Discards=discards)))
+})
+# }}}

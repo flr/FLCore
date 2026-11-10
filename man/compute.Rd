@@ -140,8 +140,6 @@ catch(ple4) <- computeCatch(ple4, slot="all")
 }
 \seealso{
 \link{FLComp}
-
-\link{FLComp}
 }
 \author{
 The FLR Team

@@ -315,21 +315,21 @@ segregDa <- function(){
 
 #' @name SRModels
 #' @aliases geomean
-geomean<-function() 
-    {
-    logl <- function(a, rec)
-      loglAR1(log(rec), log(FLQuant(rep(a, length(rec)))))
+geomean <- function() {
+  
+  logl <- function(a, rec)
+    loglAR1(log(rec), log(FLQuant(rep(a, length(rec)))))
     
-    initial <- structure(function(rec) {
-        return(FLPar(a = exp(mean(log(rec), na.rm=TRUE))))
-        }, 
-        lower = c(1e-08), upper = rep(Inf))
+  initial <- structure(function(rec) {
+    return(FLPar(a = exp(mean(log(rec), na.rm=TRUE))))
+  }, lower = c(1e-08), upper = Inf)
     
 		# TRICK: 
-    model <- rec ~ a + ssb/ssb - 1
+  model <- rec ~ a + ssb/ssb - 1
     
-    return(list(logl = logl, model = model, initial = initial))
-    } # }}}
+  return(list(logl = logl, model = model, initial = initial))
+} # }}}
+
 
 # shepherd  {{{
 
@@ -677,7 +677,7 @@ mixedsrr <- function() {
   initial <- structure(function(rec, ssb) {
     a <- max(quantile(c(rec), 0.75, na.rm = TRUE))
     b <- max(quantile(c(rec)/c(ssb), 0.9, na.rm = TRUE))
-    return(FLPar(a = a, b = a/b, c=1))},
+    return(FLPar(a = a, b = a/b, m=1))},
 
   ## bounds
   lower=rep(-Inf, 2),

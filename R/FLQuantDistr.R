@@ -4,8 +4,6 @@
 # Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
 # Maintainer: Iago Mosqueira, EC JRC G03
 
-## FLQuantDistr()	{{{
-#' @rdname FLQuantDistr
 #' @aliases FLQuantDistr,ANY,ANY-method
 setMethod("FLQuantDistr", signature(object="ANY", var="ANY"),
 	function(object, var, ...) {
@@ -23,7 +21,13 @@ setMethod("FLQuantDistr", signature(object="ANY", var="ANY"),
 #' @aliases FLQuantDistr,FLQuant,FLQuant-method
 setMethod("FLQuantDistr", signature(object="FLQuant", var="FLQuant"),
   function(object, var, units=object@units, distr='norm') {
-		return(new('FLQuantDistr', object, var=var, units=units, distr=distr))
+
+    res <- new('FLQuantDistr', FLQuant(object@.Data), var=var, distr=distr)
+    
+    # OVERRIDE 'methods' attribute assigment from object
+    res@units <- units
+    
+    return(res)
 	}
 ) # }}}
 

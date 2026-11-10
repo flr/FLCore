@@ -25,7 +25,7 @@ data(ple4)
 as.FLSRs(ple4, model=c("bevholt", "segreg"))
 }
 \seealso{
-\linkS4class{FLSRs} \linkS4class{FLSRs} \code{\link[=as.FLSR]{as.FLSR()}}
+\link[=FLSRs-class]{FLSRs} \link[=FLSRs-class]{FLSRs} \code{\link[=as.FLSR]{as.FLSR()}}
 }
 \author{
 FLR Team, 2023.

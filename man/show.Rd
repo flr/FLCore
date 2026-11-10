@@ -50,8 +50,6 @@ length > 1 on the last dimension (\emph{iter}).
 }
 \seealso{
 \link{FLComp}
-
-\link{FLComp}
 }
 \author{
 The FLR Team

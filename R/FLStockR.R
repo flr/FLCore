@@ -6,17 +6,27 @@
 #
 # Distributed under the terms of the EUPL-1.2
 
-# FLStockR
-
-#' @examples
-#' library(FLSRTMB)
-#' data(ple4)
-#' srr <- srrTMB(as.FLSR(ple4, model='bevholtSV'), spr0=spr0y(ple4))
-#' sr <- predictModel(params=params(srr), model=bevholt()$model)
-#' object <- FLStockR(ple4, refpts=FLPar(BMSY=150000, SB0=1.74e6), sr=sr)
-
 # FLStockR class {{{
 
+#' Class FLStockR
+#'
+#' An \code{FLStock} extended with reference points and a stock-recruitment
+#' relationship, allowing the computation of biological reference points and
+#' stock depletion directly from the stock object.
+#'
+#' @name FLStockR
+#' @aliases FLStockR-class
+#' @docType class
+#' @section Slots: \describe{
+#'  \item{.Data}{Inherited from \code{FLStock}.}
+#'  \item{refpts}{Biological reference points. \code{FLPar}.}
+#'  \item{sr}{Stock-recruitment relationship. \code{predictModel}.}
+#' }
+#' @seealso \code{\link{FLStock}}, \code{\link{FLPar}}, \code{\link{predictModel}}
+#' @examples
+#' data(ple4)
+#' object <- FLStockR(ple4, refpts=FLPar(BMSY=150000, SB0=1.74e6),
+#'   sr=predictModel(model=rec~a*ssb/(b+ssb), params=FLPar(a=1155334, b=56040)))
 setClass("FLStockR", representation(
   "FLStock",
   refpts="FLPar",

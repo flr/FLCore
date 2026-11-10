@@ -1,6 +1,7 @@
 import("methods")
 
 importFrom("iterators",
+#  "iter",
   "nextElem")
 
 importFrom("utils",
@@ -22,6 +23,7 @@ importFrom("stats4",
 importFrom("stats",
   "acf",
   "AIC",
+  "arima",
   "as.formula",
   "coef",
   "coefficients",
@@ -238,6 +240,7 @@ export(
   "whichdimnames",
   "writeADMB",
   "writeFLStock",
+  "wt_at_time",
   "ybind",
   "yearSample")
 

@@ -33,7 +33,7 @@ yearSample(rec(ple4)[, ac(2013:2017)], 20)
 yearSample(rec(ple4)[, ac(2013:2017)], 20, year=2000:2019)
 }
 \seealso{
-\linkS4class{FLQuant} \code{\link[=sample]{sample()}}
+\link[=FLQuant-class]{FLQuant} \code{\link[=sample]{sample()}}
 }
 \author{
 Iago Mosqueira (WMR)

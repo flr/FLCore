@@ -91,8 +91,6 @@ dims(flq)
 }
 \seealso{
 \code{\link[base]{dimnames}}, \code{\link{FLQuant}}
-
-\code{\link[base]{dimnames}}, \code{\link{FLQuant}}
 }
 \author{
 The FLR Team

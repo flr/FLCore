@@ -1,8 +1,8 @@
 # coerce - Various coercion methods for FLCore classes
 # FLCore/R/coerce.R
 
-# Copyright 2003-2016 FLR Team. Distributed under the GPL 2 or later
-# Maintainer: Iago Mosqueira, EC JRC
+# Copyright 2003-2026 FLR Team. Distributed under the GPL 2 or later
+# Maintainer: Iago Mosqueira, WMR (NL)
 
 #' Convert Objects Between Classes
 #'
@@ -541,7 +541,7 @@ setAs('FLBiol', 'FLSR',
     ssb <- ssb[, seq(1, dim(ssb)[2] - rage)]
 
     res <- FLSR(name=name(from), desc=desc(from), rec=rec, ssb=ssb,
-      model=model(rec(from, FALSE)), params=params(rec(from, FALSE)))
+      model=geomean, params=FLPar(c(yearMeans(rec))))
 
     # PREDICT if possible
     pred <- tryCatch(predict(res))

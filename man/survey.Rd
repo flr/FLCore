@@ -16,21 +16,21 @@ survey(object, index, ...)
   object,
   index,
   sel = sel.pattern(index),
-  ages = dimnames(index)$age,
-  timing = mean(range(index, c("startf", "endf"))),
   index.q = index@index.q,
-  stability = 1
+  stability = 1,
+  ages = dimnames(index)$age,
+  timing = mean(range(index, c("startf", "endf")))
 )
 
 \S4method{survey}{FLStock,FLIndexBiomass}(
   object,
   index,
   sel = sel.pattern(index),
-  ages = ac(seq(range(index, c("min")), range(index, c("max")))),
-  timing = mean(range(index, c("startf", "endf"))),
   catch.wt = index@catch.wt,
   index.q = index@index.q,
-  stability = 1
+  stability = 1,
+  ages = ac(seq(range(index, c("min")), range(index, c("max")))),
+  timing = mean(range(index, c("startf", "endf")))
 )
 
 \S4method{survey}{FLStock,missing}(
@@ -56,16 +56,16 @@ defining the survey design; if missing, a generic survey is constructed.}
 \item{sel}{Selectivity-at-age pattern to apply; defaults to
 \code{sel.pattern(index)}.}
 
+\item{index.q}{Catchability of the survey; defaults to \code{index@index.q}.}
+
+\item{stability}{Hyperstability/hyperdepletion exponent applied to abundance;
+1 (default) gives a linear response.}
+
 \item{ages}{Character vector of ages to include; defaults to all ages in
 \code{index}.}
 
 \item{timing}{Fraction of the year at which the survey takes place (0--1);
 defaults to the midpoint of the \code{startf}/\code{endf} range entries.}
-
-\item{index.q}{Catchability of the survey; defaults to \code{index@index.q}.}
-
-\item{stability}{Hyperstability/hyperdepletion exponent applied to abundance;
-1 (default) gives a linear response.}
 
 \item{catch.wt}{Mean weight-at-age used to convert numbers to biomass for
 \code{FLIndexBiomass} surveys; defaults to \code{index@catch.wt}.}

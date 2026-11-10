@@ -4,7 +4,7 @@
 \alias{sigma3}
 \title{Compute 3-sigma control limits and a runs test p-value}
 \usage{
-sigma3(x, mixing = "less", type = "residual")
+sigma3(x, mixing = c("less", "two.sided"), alpha = 0.05)
 }
 \arguments{
 \item{x}{An \code{FLQuant} time series (typically residuals).}

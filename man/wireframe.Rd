@@ -3,7 +3,7 @@
 \docType{methods}
 \name{wireframe}
 \alias{wireframe}
-\alias{wireframe,FLQuant-method}
+\alias{wireframe,formula,FLQuant-method}
 \title{Method wireframe}
 \usage{
 \S4method{wireframe}{formula,FLQuant}(x, data, ...)
@@ -24,9 +24,12 @@ a \code{wireframe} plot
 \details{
 Method to plot 3D representations of FLQuant objects
 }
+\section{Generic function}{
+ wireframe(x, data, ...)
+}
+
 \examples{
 
 data(ple4)
 wireframe(data~age+year, data=harvest(ple4))
-
 }

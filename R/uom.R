@@ -75,6 +75,33 @@ diag(uomTable['-',nums,nums]) <- rep(uoms[snums], nn)
 diag(uomTable['+',nnums,nnums]) <- uoms[nnums]
 diag(uomTable['-',nnums,nnums]) <- uoms[nnums]
 
+# Equivalent numbers for + and -
+diag(uomTable['+', 1:10, 11:20]) <- uoms[snums]
+diag(uomTable['+', 1:10, 21:30]) <- uoms[snums]
+diag(uomTable['+', 1:10, 31:40]) <- uoms[snums]
+diag(uomTable['+', 11:20, 1:10]) <- uoms[snums]
+diag(uomTable['+', 11:20, 21:30]) <- uoms[snums]
+diag(uomTable['+', 11:20, 31:40]) <- uoms[snums]
+diag(uomTable['+', 21:30, 1:10]) <- uoms[snums]
+diag(uomTable['+', 21:30, 11:20]) <- uoms[snums]
+diag(uomTable['+', 21:30, 31:40]) <- uoms[snums]
+diag(uomTable['+', 31:40, 1:10]) <- uoms[snums]
+diag(uomTable['+', 31:40, 11:20]) <- uoms[snums]
+diag(uomTable['+', 31:40, 21:30]) <- uoms[snums]
+
+diag(uomTable['-', 1:10, 11:20]) <- uoms[snums]
+diag(uomTable['-', 1:10, 21:30]) <- uoms[snums]
+diag(uomTable['-', 1:10, 31:40]) <- uoms[snums]
+diag(uomTable['-', 11:20, 1:10]) <- uoms[snums]
+diag(uomTable['-', 11:20, 21:30]) <- uoms[snums]
+diag(uomTable['-', 11:20, 31:40]) <- uoms[snums]
+diag(uomTable['-', 21:30, 1:10]) <- uoms[snums]
+diag(uomTable['-', 21:30, 11:20]) <- uoms[snums]
+diag(uomTable['-', 21:30, 31:40]) <- uoms[snums]
+diag(uomTable['-', 31:40, 1:10]) <- uoms[snums]
+diag(uomTable['-', 31:40, 11:20]) <- uoms[snums]
+diag(uomTable['-', 31:40, 21:30]) <- uoms[snums]
+
 # 1 * N = N
 uomTable['*', c('1', '1e0', '10^0', '1e+00'), nums] <- rep(rep(uoms[snums], nn), each=nn)
 uomTable['*', nums, c('1', '1e0', '10^0', '1e+00')] <- rep(uoms[snums], nn^2)
