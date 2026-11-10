@@ -1675,7 +1675,7 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season) {
   catch.wt(stock)[] <- weighted.mean(divide(catch.wt(full), 4),
     divide(catch.n(full), 4))
   # spwn time: stock.wt
-  stock.wt(stock) <- wt_at_time(stock.wt(stock), (spwn.season - 1) / nse)
+  stock.wt(stock) <- stock.wt(stock)[,,, spwn.season]
 
   # CORRECT Ns at spwn.season for age = 0
   if(dimnames(stock)$age[1] == "0" & rec.season > 1) {
