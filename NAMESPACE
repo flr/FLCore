@@ -240,6 +240,7 @@ export(
   "whichdimnames",
   "writeADMB",
   "writeFLStock",
+  "wt_at_time",
   "ybind",
   "yearSample")
 

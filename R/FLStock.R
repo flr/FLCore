@@ -1664,18 +1664,18 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season) {
   # mat
   mat(stock)[] <- mat(full)[,,,spwn.season]
 
-  # spwn
+# spwn
   harvest.spwn(stock)[] <- m.spwn(stock)[] <- ((spwn.season - 1) / nse)
   
   # means: wt
-  stock.wt(stock)[] <- weighted.mean(divide(stock.wt(full), 4),
-    divide(stock.n(full), 4))
   landings.wt(stock)[] <- weighted.mean(divide(landings.wt(full), 4),
     divide(landings.n(full), 4))
   discards.wt(stock)[] <- weighted.mean(divide(discards.wt(full), 4),
     divide(discards.n(full), 4))
   catch.wt(stock)[] <- weighted.mean(divide(catch.wt(full), 4),
     divide(catch.n(full), 4))
+  # spwn time: stock.wt
+  stock.wt(stock) <- wt_at_time(stock.wt(stock), (spwn.season - 1) / nse)
 
   # CORRECT Ns at spwn.season for age = 0
   if(dimnames(stock)$age[1] == "0" & rec.season > 1) {
@@ -1691,7 +1691,7 @@ noseason <- function(stock, spwn.season=1, rec.season=spwn.season) {
   catch(stock) <- computeCatch(stock)
   landings(stock) <- computeLandings(stock)
   discards(stock) <- computeDiscards(stock)
-  stock(stock) <- computeStock(stock)
+  stock(stock)[] <- computeStock(full[,,,1])
   
   return(stock)
 
@@ -2810,4 +2810,70 @@ setMethod("leslie", signature(object="FLStock", fec="FLQuant"),
     return(leslie(survivors, fec))
   }
 )
+# }}}
+
+# wt_at_time {{{
+
+#' Interpolate cohort weights at any time within the year
+#'
+#' Interpolates weights-at-age at a fraction of the year, following each cohort
+#' between consecutive season nodes. The node after the last season is the next
+#' year's first season at age + 1. Annual input (one season) interpolates
+#' across years. The plus group and final year have no successor, so w1 = w0.
+#'
+#' @param x An FLQuant of weights at the start of each season. Annual objects (one 
+#'   season) are also accepted.
+#' @param time Fraction of the year in [0, 1] at which to interpolate.
+#' @param method Interpolation method: one of "linear", "cuberoot", "loglin"
+#'   or "power".
+#' @param k Exponent used by the "power" method.
+#'
+#' @return An FLQuant with the same age, year, unit, area and iter dimensions,
+#'   and a single season named after \code{time}.
+#'
+#' @examples
+#' x <- FLQuant(NA, dimnames = list(age = 1:3, year = 2000:2002, season = 1:4))
+#' x[] <- 1 + outer(1:3, 2000:2002, function(a, y) 0.2 * a + 0.3 * (y - 2000))
+#' wt_at_time(x, time = 0.25, method = "linear")
+
+wt_at_time <- function(x, time = 0.5, method = c("linear", "cuberoot", "loglin", "power"), k = 2) {
+
+  # CHECK input args
+  method <- match.arg(method)
+  stopifnot(is.numeric(time), length(time) == 1, time >= 0, time <= 1)
+
+  # EXTRACT elements
+  A  <- x@.Data
+  d  <- dim(A)
+  na <- d[1]; ny <- d[2]; ns <- d[4]
+
+  # SET position in the seasonal grid
+  pos <- time * ns
+  s0  <- min(floor(pos) + 1, ns)
+  f   <- pos - (s0 - 1)
+
+  w0 <- A[, , , s0, , , drop = FALSE]
+  if (s0 < ns) {
+    w1 <- A[, , , s0 + 1, , , drop = FALSE]
+  } else {
+    w1 <- w0
+    if (na > 1 && ny > 1)
+      w1[1:(na - 1), 1:(ny - 1), , 1, , ] <- A[2:na, 2:ny, , 1, , , drop = FALSE]
+  }
+
+  # COMPUTE by method
+  wt <- switch(method,
+    linear   = w0 + f * (w1 - w0),
+    cuberoot = (w0^(1/3) + f * (w1^(1/3) - w0^(1/3)))^3,
+    loglin   = w0 * (w1 / w0)^f,
+    power    = w0 + (f^k) * (w1 - w0)
+  )
+
+  # ASSIGN
+  res <- x[, , , 1, , , drop = FALSE]
+  res@.Data[] <- wt
+  dimnames(res) <- list(season="all")
+
+  res
+}
 # }}}
