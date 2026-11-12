@@ -1630,15 +1630,6 @@ nounit <- function(stock) {
 #' noseason(expand(ple4, season=1:4))
 #' @aliases noseason
 
-# m: sum
-# mat: spawn.season
-# harvest.spwn, m.spwn: spawn.season
-# catch/discards/landings.n: sum
-# stock.n: 1st season, but age=0 corrected for rec.season
-# catch/discards/landings/stock.wt: weighted mean
-# stock/catch/landings/discards: recompute
-# harvest: recompute
-
 noseason <- function(stock, spwn.season=1, rec.season=spwn.season) {
 
   # DIMS
