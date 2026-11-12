@@ -16,10 +16,10 @@ survey(
   object,
   index,
   sel = sel.pattern(index),
-  ages = dimnames(index)$age,
-  timing = mean(range(index, c("startf", "endf"))),
   index.q = index@index.q,
-  stability = 1
+  stability = 1,
+  ages = dimnames(index)$age,
+  timing = mean(range(index, c("startf", "endf")))
 )
 
 # S4 method for class 'FLStock,FLIndexBiomass'
@@ -27,11 +27,11 @@ survey(
   object,
   index,
   sel = sel.pattern(index),
-  ages = ac(seq(range(index, c("min")), range(index, c("max")))),
-  timing = mean(range(index, c("startf", "endf"))),
   catch.wt = index@catch.wt,
   index.q = index@index.q,
-  stability = 1
+  stability = 1,
+  ages = ac(seq(range(index, c("min")), range(index, c("max")))),
+  timing = mean(range(index, c("startf", "endf")))
 )
 
 # S4 method for class 'FLStock,missing'
@@ -68,15 +68,6 @@ survey(object, index, ...)
 
   Selectivity-at-age pattern to apply; defaults to `sel.pattern(index)`.
 
-- ages:
-
-  Character vector of ages to include; defaults to all ages in `index`.
-
-- timing:
-
-  Fraction of the year at which the survey takes place (0–1); defaults
-  to the midpoint of the `startf`/`endf` range entries.
-
 - index.q:
 
   Catchability of the survey; defaults to `index@index.q`.
@@ -85,6 +76,15 @@ survey(object, index, ...)
 
   Hyperstability/hyperdepletion exponent applied to abundance; 1
   (default) gives a linear response.
+
+- ages:
+
+  Character vector of ages to include; defaults to all ages in `index`.
+
+- timing:
+
+  Fraction of the year at which the survey takes place (0–1); defaults
+  to the midpoint of the `startf`/`endf` range entries.
 
 - catch.wt:
 

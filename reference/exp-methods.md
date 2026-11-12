@@ -14,13 +14,15 @@ log(x, ...)
 
 ## Details
 
-This method simply calls R's base::exp and
+This method simply calls R's
+[base::exp](https://rdrr.io/r/base/Log.html) and
 [base::drop](https://rdrr.io/r/base/drop.html), but take care of
 returning the right units of measurement, that is "" or character(1).
 
 ## See also
 
-base::exp base::log
+[base::exp](https://rdrr.io/r/base/Log.html)
+[base::log](https://rdrr.io/r/base/Log.html)
 
 ## Author
 

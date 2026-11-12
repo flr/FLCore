@@ -31,11 +31,14 @@ a `wireframe` plot
 
 Method to plot 3D representations of FLQuant objects
 
+## Generic function
+
+wireframe(x, data, ...)
+
 ## Examples
 
 ``` r
 
 data(ple4)
 wireframe(data~age+year, data=harvest(ple4))
-
 ```

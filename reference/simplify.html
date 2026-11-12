@@ -60,7 +60,7 @@ Aggregate biomass slots are recomputed after collapsing.</p>
 <span></span>
 <span><span class="fu">nounit</span><span class="op">(</span><span class="va">stock</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">noseason</span><span class="op">(</span><span class="va">stock</span>, spwn.season <span class="op">=</span> <span class="fl">1</span>, rec.season <span class="op">=</span> <span class="va">spwn.season</span>, weighted <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">noseason</span><span class="op">(</span><span class="va">stock</span>, spwn.season <span class="op">=</span> <span class="fl">1</span>, rec.season <span class="op">=</span> <span class="va">spwn.season</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">noarea</span><span class="op">(</span><span class="va">stock</span><span class="op">)</span></span>
 <span></span>
@@ -70,8 +70,7 @@ Aggregate biomass slots are recomputed after collapsing.</p>
 <span>  dims <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"unit"</span>, <span class="st">"season"</span>, <span class="st">"area"</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">object</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">]</span>,</span>
 <span>  spwn.season <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  rec.season <span class="op">=</span> <span class="va">spwn.season</span>,</span>
-<span>  harvest <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  weighted <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  harvest <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -95,12 +94,6 @@ Aggregate biomass slots are recomputed after collapsing.</p>
 <dt id="arg-rec-season">rec.season<a class="anchor" aria-label="anchor" href="#arg-rec-season"></a></dt>
 <dd><p>Integer. Season in which age-0 recruits first appear.
 Defaults to <code>spwn.season</code>.</p></dd>
-
-
-<dt id="arg-weighted">weighted<a class="anchor" aria-label="anchor" href="#arg-weighted"></a></dt>
-<dd><p>Logical. If <code>TRUE</code>, weight-at-age slots are collapsed as
-abundance-weighted means; otherwise simple means are used. Defaults to
-<code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

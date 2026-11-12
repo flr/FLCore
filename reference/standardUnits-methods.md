@@ -67,7 +67,8 @@ summary(stk)
 #> 
 #> Metrics: 
 #>   rec: NA - NA (NA)
-#>   ssb: 0 - 0  (NA) 
+#> Warning: 'harvest' slot has no units, must be 'f' or 'hr'
+#>   ssb: NA - NA  (NA) 
 #>   catch: 2.8 - 119.5  (NA) 
 #>   fbar: NA - NA (NA)
 # Obtain standard units for the class as a list
@@ -139,7 +140,7 @@ summary(stk)
 #> 
 #> Metrics: 
 #>   rec: NA - NA (NA)
-#>   ssb: 0 - 0  (t) 
+#>   ssb: NA - NA  (t) 
 #>   catch: 2.8 - 119.5  (t) 
 #>   fbar: NA - NA (NA)
 # units<- methjod also accepts a function to be called to provide units
@@ -206,7 +207,7 @@ summary(stk)
 #> 
 #> Metrics: 
 #>   rec: NA - NA (NA)
-#>   ssb: 0 - 0  (t) 
+#>   ssb: NA - NA  (t) 
 #>   catch: 2.8 - 119.5  (t) 
 #>   fbar: NA - NA (NA)
 ```

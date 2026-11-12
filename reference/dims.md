@@ -158,9 +158,6 @@ dims(obj)
 [`dimnames`](https://rdrr.io/r/base/dimnames.html),
 [`FLQuant`](FLQuant.md)
 
-[`dimnames`](https://rdrr.io/r/base/dimnames.html),
-[`FLQuant`](FLQuant.md)
-
 ## Author
 
 The FLR Team

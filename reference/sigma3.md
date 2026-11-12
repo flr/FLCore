@@ -8,7 +8,7 @@ shows a systematic trend.
 ## Usage
 
 ``` r
-sigma3(x, mixing = "less", type = "residual")
+sigma3(x, mixing = c("less", "two.sided"), alpha = 0.05)
 ```
 
 ## Arguments
@@ -63,7 +63,7 @@ sigma3(catch.n(ple4))
 #> [1] 90490.17
 #> 
 #> $p.value
-#> [1] 0.001
+#> [1] 4.706875e-184
 #> 
 data(nsher)
 sigma3(residuals(nsher))
@@ -74,6 +74,6 @@ sigma3(residuals(nsher))
 #> [1] 1.189247
 #> 
 #> $p.value
-#> [1] 0.234
+#> [1] -221.5893
 #> 
 ```

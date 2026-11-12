@@ -5,6 +5,37 @@ classes, both basic R ones, like `data.frame`, and others defined in the
 package. For the specifics of the precise calculations carried out for
 each pair of classes, see below.
 
+## Usage
+
+``` r
+# S4 method for class 'FLArray,data.frame'
+coerce(from, to = "data.frame", strict = TRUE)
+
+# S4 method for class 'FLPar,data.frame'
+coerce(from, to = "data.frame", strict = TRUE)
+
+# S4 method for class 'data.frame,FLQuant'
+coerce(from, to = "FLQuant", strict = TRUE)
+
+# S4 method for class 'FLBiol,FLStock'
+coerce(from, to = "FLStock", strict = TRUE)
+
+# S4 method for class 'data.frame,FLStock'
+coerce(from, to = "FLStock", strict = TRUE)
+
+# S4 method for class 'FLStockLen,FLStock'
+coerce(from, to = "FLStock", strict = TRUE)
+
+# S4 method for class 'FLComp,FLQuants'
+coerce(from, to = "FLQuants", strict = TRUE)
+
+# S4 method for class 'FLBiol,FLSR'
+coerce(from, to = "FLSR", strict = TRUE)
+
+# S4 method for class 'FLSR,predictModel'
+coerce(from, to = "predictModel", strict = TRUE)
+```
+
 ## Arguments
 
 - object:
@@ -34,6 +65,51 @@ The two or more dimensions of an *FLPar* objects are converted into
 three or more columns. For a 2D objects, they are named *params*, *iter*
 and *data*. The last one contains the actual numbers stored in the
 array, in a column type `numeric`, while all others are `factor`.
+
+## data.frame to FLQuant
+
+A *data.frame* with the right column names is converted into an
+*FLQuant* object with missing values being added. Missing columns are
+assumed to contain the default dimnames in *FLQuant*.
+
+## *FLBiol* to *FLStock*
+
+- *n* = *stock.n*
+
+- *wt* = *stock.wt*
+
+- *m* = *m*
+
+- *mat* = *mat()*
+
+- *m.spwm*, *harvest.spwn* = *spwn*
+
+## *data.frame* to *FLStock*
+
+A *data.frame* with the right column names is converted into an
+*FLStock* object with missing values being added.
+
+## *FLStockLen* to *FLStock*
+
+- Changes quant from 'len' to 'age'
+
+## FLComp to FLQuant
+
+A *data.frame* with the right column names is converted into an
+*FLQuant*
+
+## FLBiol to FLSR
+
+Slots `rec` and `ssb` in `FLSR` are populated from `n[1,]` and the
+result of [`ssb()`](ssb.md), adjusted from recruitment age. Note
+`ssb(FLBiol)` only corrects for natural mortality (`m`) to time of
+spanwing (`spwn`).
+
+## FLSR to predictModel
+
+Places the `model` and `params` slots the same-named slots of
+`predictModel`. The `residuals` `FLQuant` is stored under that name in
+the base `FLQuants` slot.
 
 ## See also
 
@@ -172,4 +248,109 @@ as(FLPar(phi=rnorm(10), rho=rlnorm(10)), "data.frame")
 #> 18    rho    9  4.53796306
 #> 19    phi   10 -0.52723224
 #> 20    rho   10  0.43943025
+# from data.frame to FLQuant
+as(data.frame(age=rep(1:4, each=3), year=2011:2013, data=rnorm(12)), "FLQuant")
+#> An object of class "FLQuant"
+#> , , unit = unique, season = all, area = unique
+#> 
+#>    year
+#> age 2011   2012   2013  
+#>   1 -0.448 -1.451 -1.073
+#>   2  1.501  1.906  0.598
+#>   3  1.298 -0.337  0.577
+#>   4 -2.098  0.972  1.257
+#> 
+#> units:  NA 
+# from FLBiol to FLStock
+data(ple4.biol)
+#> Warning: namespace ‘colorspace’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘ggplot2’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘Rcpp’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘dplyr’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘data.table’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘remotes’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘xtable’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘shiny’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘htmlwidgets’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘gtable’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+#> Warning: namespace ‘scales’ is not available and has been replaced
+#> by .GlobalEnv when processing object ‘ple4.biol’
+fls <- as(ple4.biol, 'FLStock')
+# from data.frame to FLStock
+df <- data.frame(slot="m", age=rep(1:5, each=5), year=rep(2000:2004, 5),
+  data=0.2, units="m")
+fls <- as(df, 'FLStock')
+# from data.frame to FLQuant
+# from FLBiol to FLSR
+as(ple4.biol, "FLSR")
+#> An object of class "FLSR"
+#> 
+#> Name: PLE 
+#> Description: Plaice in IV. ICES WGNSSK 2018. FLAAP 
+#> Quant: age 
+#> Dims:  age   year    unit    season  area    iter
+#>  1   60  1   1   1   1   
+#> 
+#> Range:  min  minyear max maxyear 
+#>  1   1958    1   2017    
+#> 
+#> 
+#> Model:   rec ~ a + ssb/ssb - 1
+#> An object of class "FLPar"
+#> params
+#>       a 
+#> 1119523 
+#> units:  NA 
+#> Log-likelihood:  NA(NA) 
+#> Variance-covariance:       params
+#> params  a
+#>      a NA
+# from FLSR to predictModel
+data(nsher)
+as(nsher, 'predictModel')
+#> $ residuals 
+#> An object of class "FLQuant"
+#> , , unit = unique, season = all, area = unique
+#> 
+#>    year
+#> age 1960     1961     1962     1963     1964     1965     1966     1967    
+#>   0 -1.15378  0.96234 -0.00354  0.35803  0.56182 -0.23488 -0.49358 -0.13445
+#>    year
+#> age 1968     1969     1970     1971     1972     1973     1974     1975    
+#>   0  0.14964 -0.45162  0.26880  0.26852 -0.22839 -0.79382  0.26790 -1.16366
+#>    year
+#> age 1976     1977     1978     1979     1980     1981     1982     1983    
+#>   0 -1.15490 -0.22336 -0.45775 -0.08418  0.19285  0.66942  0.93046  0.58859
+#>    year
+#> age 1984     1985     1986     1987     1988     1989     1990     1991    
+#>   0  0.22503  0.62943  0.82707  0.62975 -0.08775 -0.15797 -0.25362 -0.32134
+#>    year
+#> age 1992     1993     1994     1995     1996     1997     1998     1999    
+#>   0  0.36452  0.33240 -0.11115  0.15238  0.35094 -0.36569 -0.47569  0.42681
+#>    year
+#> age 2000     2001     2002     2003     2004    
+#>   0 -0.07039  0.70086 -0.03528 -0.72674 -0.67404
+#> 
+#> units:   
+#> 
+#> model:  
+#> rec ~ a * ssb * exp(-b * ssb)
+#> <environment: R_EmptyEnv>
+#> 
+#> params:  
+#> An object of class "FLPar"
+#> params
+#>        a        b 
+#> 1.19e+02 9.45e-03 
+#> units:  NA 
 ```

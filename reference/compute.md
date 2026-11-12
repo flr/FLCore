@@ -102,8 +102,6 @@ computeStock(object, ...)
 
 [FLComp](FLComp.md)
 
-[FLComp](FLComp.md)
-
 ## Author
 
 The FLR Team

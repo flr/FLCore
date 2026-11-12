@@ -36,6 +36,7 @@
 <url><loc>/reference/FLSRs.html</loc></url>
 <url><loc>/reference/FLStock.html</loc></url>
 <url><loc>/reference/FLStockLen.html</loc></url>
+<url><loc>/reference/FLStockR.html</loc></url>
 <url><loc>/reference/FLStocks.html</loc></url>
 <url><loc>/reference/FLlst.html</loc></url>
 <url><loc>/reference/FUNCTION.html</loc></url>
@@ -48,6 +49,7 @@
 <url><loc>/reference/append-methods.html</loc></url>
 <url><loc>/reference/apply-methods.html</loc></url>
 <url><loc>/reference/ar1deviances.html</loc></url>
+<url><loc>/reference/ar1pars.html</loc></url>
 <url><loc>/reference/ar1rlnorm.html</loc></url>
 <url><loc>/reference/as.FLSR.html</loc></url>
 <url><loc>/reference/as.FLSRs.html</loc></url>
@@ -135,10 +137,11 @@
 <url><loc>/reference/uomTable.html</loc></url>
 <url><loc>/reference/upperlower-methods.html</loc></url>
 <url><loc>/reference/verify.html</loc></url>
-<url><loc>/reference/weighted.mean-FLQuants-FLQuants-method.html</loc></url>
+<url><loc>/reference/weighted.mean.html</loc></url>
 <url><loc>/reference/which_iter.html</loc></url>
 <url><loc>/reference/whichdimnames.html</loc></url>
 <url><loc>/reference/wireframe.html</loc></url>
+<url><loc>/reference/wt_at_time.html</loc></url>
 <url><loc>/reference/yearSample.html</loc></url>
 <url><loc>/reference/z-methods.html</loc></url>
 </urlset>

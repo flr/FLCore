@@ -63,7 +63,7 @@ The method accepts both `"f"` and `"hr"` as valid units for the
   slot are specific to the [FLStock](FLStock.md) class, and define the
   reference age range for fishing-mortality calculations. These are set
   when the [FLStock](FLStock.md) object is created or read, and can be
-  altered using .
+  altered using FLCore::`range()<-`.
 
 - `fbar(FLBiol)`: For FLBiol objects, fbar is calculated from stock
   numbers (n) and natural mortality (m) by estimating fishing mortality

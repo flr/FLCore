@@ -9,9 +9,6 @@ to generate, for example, random numbers with those mean and variances.
 ``` r
 FLQuantDistr(object, var, ...)
 
-# S4 method for class 'ANY,ANY'
-FLQuantDistr(object, var, ...)
-
 # S4 method for class 'FLQuant,FLQuant'
 FLQuantDistr(object, var, units = object@units, distr = "norm")
 ```

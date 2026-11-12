@@ -45,6 +45,35 @@ the specifics of the precise calculations carried out for each pair of
 classes, see below.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for class 'FLArray,data.frame'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"data.frame"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'FLPar,data.frame'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"data.frame"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'data.frame,FLQuant'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"FLQuant"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'FLBiol,FLStock'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"FLStock"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'data.frame,FLStock'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"FLStock"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'FLStockLen,FLStock'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"FLStock"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'FLComp,FLQuants'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"FLQuants"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'FLBiol,FLSR'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"FLSR"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for class 'FLSR,predictModel'</span></span>
+<span><span class="fu">coerce</span><span class="op">(</span><span class="va">from</span>, to <span class="op">=</span> <span class="st">"predictModel"</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
@@ -81,6 +110,59 @@ while all others are <code>factor</code>.</p>
 more columns. For a 2D objects, they are named <em>params</em>, <em>iter</em> and <em>data</em>.
 The last one contains the actual numbers stored in the array, in a column
 type <code>numeric</code>, while all others are <code>factor</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="data-frame-to-flquant">data.frame to FLQuant<a class="anchor" aria-label="anchor" href="#data-frame-to-flquant"></a></h2>
+
+
+<p>A <em>data.frame</em> with the right column names is converted into an <em>FLQuant</em>
+object with missing values being added. Missing columns are assumed to
+contain the default dimnames in <em>FLQuant</em>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="flbiol-to-flstock"><em>FLBiol</em> to <em>FLStock</em><a class="anchor" aria-label="anchor" href="#flbiol-to-flstock"></a></h2>
+
+
+<ul><li><p><em>n</em> = <em>stock.n</em></p></li>
+<li><p><em>wt</em> = <em>stock.wt</em></p></li>
+<li><p><em>m</em> = <em>m</em></p></li>
+<li><p><em>mat</em> = <em>mat()</em></p></li>
+<li><p><em>m.spwm</em>, <em>harvest.spwn</em> = <em>spwn</em></p></li>
+</ul></div>
+    <div class="section level2">
+    <h2 id="data-frame-to-flstock"><em>data.frame</em> to <em>FLStock</em><a class="anchor" aria-label="anchor" href="#data-frame-to-flstock"></a></h2>
+
+
+<p>A <em>data.frame</em> with the right column names is converted into an <em>FLStock</em>
+object with missing values being added.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="flstocklen-to-flstock"><em>FLStockLen</em> to <em>FLStock</em><a class="anchor" aria-label="anchor" href="#flstocklen-to-flstock"></a></h2>
+
+
+<ul><li><p>Changes quant from 'len' to 'age'</p></li>
+</ul></div>
+    <div class="section level2">
+    <h2 id="flcomp-to-flquant">FLComp to FLQuant<a class="anchor" aria-label="anchor" href="#flcomp-to-flquant"></a></h2>
+
+
+<p>A <em>data.frame</em> with the right column names is converted into an <em>FLQuant</em></p>
+    </div>
+    <div class="section level2">
+    <h2 id="flbiol-to-flsr">FLBiol to FLSR<a class="anchor" aria-label="anchor" href="#flbiol-to-flsr"></a></h2>
+
+
+<p>Slots <code>rec</code> and <code>ssb</code> in <code>FLSR</code> are populated from <code>n[1,]</code> and the result of
+<code><a href="ssb.html">ssb()</a></code>, adjusted from recruitment age. Note <code>ssb(FLBiol)</code> only corrects for
+natural mortality (<code>m</code>) to time of spanwing (<code>spwn</code>).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="flsr-to-predictmodel">FLSR to predictModel<a class="anchor" aria-label="anchor" href="#flsr-to-predictmodel"></a></h2>
+
+
+<p>Places the <code>model</code> and <code>params</code> slots the same-named slots of <code>predictModel</code>.
+The <code>residuals</code> <code>FLQuant</code> is stored under that name in the base <code>FLQuants</code>
+slot.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -219,6 +301,111 @@ type <code>numeric</code>, while all others are <code>factor</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18    rho    9  4.53796306</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19    phi   10 -0.52723224</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20    rho   10  0.43943025</span>
+<span class="r-in"><span><span class="co"># from data.frame to FLQuant</span></span></span>
+<span class="r-in"><span><span class="fu">as</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>age<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, each<span class="op">=</span><span class="fl">3</span><span class="op">)</span>, year<span class="op">=</span><span class="fl">2011</span><span class="op">:</span><span class="fl">2013</span>, data<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span>, <span class="st">"FLQuant"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "FLQuant"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age 2011   2012   2013  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1 -0.448 -1.451 -1.073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2  1.501  1.906  0.598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3  1.298 -0.337  0.577</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4 -2.098  0.972  1.257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> units:  NA </span>
+<span class="r-in"><span><span class="co"># from FLBiol to FLStock</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ple4.biol</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘colorspace’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘ggplot2’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘Rcpp’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘dplyr’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘data.table’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘remotes’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘xtable’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘shiny’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘htmlwidgets’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘gtable’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>namespace ‘scales’ is not available and has been replaced</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> by .GlobalEnv when processing object ‘ple4.biol’</span>
+<span class="r-in"><span><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">ple4.biol</span>, <span class="st">'FLStock'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># from data.frame to FLStock</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>slot<span class="op">=</span><span class="st">"m"</span>, age<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, each<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, year<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2000</span><span class="op">:</span><span class="fl">2004</span>, <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  data<span class="op">=</span><span class="fl">0.2</span>, units<span class="op">=</span><span class="st">"m"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fls</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">df</span>, <span class="st">'FLStock'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># from data.frame to FLQuant</span></span></span>
+<span class="r-in"><span><span class="co"># from FLBiol to FLSR</span></span></span>
+<span class="r-in"><span><span class="fu">as</span><span class="op">(</span><span class="va">ple4.biol</span>, <span class="st">"FLSR"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "FLSR"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Name: PLE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Description: Plaice in IV. ICES WGNSSK 2018. FLAAP </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Quant: age </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dims:  age 	year	unit	season	area	iter</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	1	60	1	1	1	1	</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Range:  min	minyear	max	maxyear </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	1	1958	1	2017	</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: 	rec ~ a + ssb/ssb - 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "FLPar"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1119523 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> units:  NA </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Log-likelihood:  NA(NA) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Variance-covariance:       params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> params  a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      a NA</span>
+<span class="r-in"><span><span class="co"># from FLSR to predictModel</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">nsher</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">as</span><span class="op">(</span><span class="va">nsher</span>, <span class="st">'predictModel'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ residuals </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "FLQuant"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , unit = unique, season = all, area = unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age 1960     1961     1962     1963     1964     1965     1966     1967    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0 -1.15378  0.96234 -0.00354  0.35803  0.56182 -0.23488 -0.49358 -0.13445</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age 1968     1969     1970     1971     1972     1973     1974     1975    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0  0.14964 -0.45162  0.26880  0.26852 -0.22839 -0.79382  0.26790 -1.16366</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age 1976     1977     1978     1979     1980     1981     1982     1983    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0 -1.15490 -0.22336 -0.45775 -0.08418  0.19285  0.66942  0.93046  0.58859</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age 1984     1985     1986     1987     1988     1989     1990     1991    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0  0.22503  0.62943  0.82707  0.62975 -0.08775 -0.15797 -0.25362 -0.32134</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age 1992     1993     1994     1995     1996     1997     1998     1999    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0  0.36452  0.33240 -0.11115  0.15238  0.35094 -0.36569 -0.47569  0.42681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age 2000     2001     2002     2003     2004    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0 -0.07039  0.70086 -0.03528 -0.72674 -0.67404</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> units:   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> model:  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> rec ~ a * ssb * exp(-b * ssb)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: R_EmptyEnv&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> params:  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "FLPar"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        a        b </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.19e+02 9.45e-03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> units:  NA </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

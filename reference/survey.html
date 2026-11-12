@@ -57,10 +57,10 @@ populated.</p>
 <span>  <span class="va">object</span>,</span>
 <span>  <span class="va">index</span>,</span>
 <span>  sel <span class="op">=</span> <span class="fu"><a href="accessors.html">sel.pattern</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span>,</span>
-<span>  ages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">$</span><span class="va">age</span>,</span>
-<span>  timing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">index</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"startf"</span>, <span class="st">"endf"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  index.q <span class="op">=</span> <span class="va">index</span><span class="op">@</span><span class="va">index.q</span>,</span>
-<span>  stability <span class="op">=</span> <span class="fl">1</span></span>
+<span>  stability <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  ages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">$</span><span class="va">age</span>,</span>
+<span>  timing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">index</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"startf"</span>, <span class="st">"endf"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'FLStock,FLIndexBiomass'</span></span>
@@ -68,11 +68,11 @@ populated.</p>
 <span>  <span class="va">object</span>,</span>
 <span>  <span class="va">index</span>,</span>
 <span>  sel <span class="op">=</span> <span class="fu"><a href="accessors.html">sel.pattern</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span>,</span>
-<span>  ages <span class="op">=</span> <span class="fu">ac</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">index</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"min"</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">index</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"max"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  timing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">index</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"startf"</span>, <span class="st">"endf"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  catch.wt <span class="op">=</span> <span class="va">index</span><span class="op">@</span><span class="va">catch.wt</span>,</span>
 <span>  index.q <span class="op">=</span> <span class="va">index</span><span class="op">@</span><span class="va">index.q</span>,</span>
-<span>  stability <span class="op">=</span> <span class="fl">1</span></span>
+<span>  stability <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  ages <span class="op">=</span> <span class="fu">ac</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">index</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"min"</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">index</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"max"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  timing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">index</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"startf"</span>, <span class="st">"endf"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'FLStock,missing'</span></span>
@@ -112,6 +112,15 @@ defining the survey design; if missing, a generic survey is constructed.</p></dd
 <code>sel.pattern(index)</code>.</p></dd>
 
 
+<dt id="arg-index-q">index.q<a class="anchor" aria-label="anchor" href="#arg-index-q"></a></dt>
+<dd><p>Catchability of the survey; defaults to <code>index@index.q</code>.</p></dd>
+
+
+<dt id="arg-stability">stability<a class="anchor" aria-label="anchor" href="#arg-stability"></a></dt>
+<dd><p>Hyperstability/hyperdepletion exponent applied to abundance;
+1 (default) gives a linear response.</p></dd>
+
+
 <dt id="arg-ages">ages<a class="anchor" aria-label="anchor" href="#arg-ages"></a></dt>
 <dd><p>Character vector of ages to include; defaults to all ages in
 <code>index</code>.</p></dd>
@@ -120,15 +129,6 @@ defining the survey design; if missing, a generic survey is constructed.</p></dd
 <dt id="arg-timing">timing<a class="anchor" aria-label="anchor" href="#arg-timing"></a></dt>
 <dd><p>Fraction of the year at which the survey takes place (0–1);
 defaults to the midpoint of the <code>startf</code>/<code>endf</code> range entries.</p></dd>
-
-
-<dt id="arg-index-q">index.q<a class="anchor" aria-label="anchor" href="#arg-index-q"></a></dt>
-<dd><p>Catchability of the survey; defaults to <code>index@index.q</code>.</p></dd>
-
-
-<dt id="arg-stability">stability<a class="anchor" aria-label="anchor" href="#arg-stability"></a></dt>
-<dd><p>Hyperstability/hyperdepletion exponent applied to abundance;
-1 (default) gives a linear response.</p></dd>
 
 
 <dt id="arg-catch-wt">catch.wt<a class="anchor" aria-label="anchor" href="#arg-catch-wt"></a></dt>

@@ -1,7 +1,7 @@
 # Adds two FLStock objects
 
 Combines two FLStock objects by adding their abundances and catches, and
-computing weighted mean biological parameters.
+computing weighted mean of biological parameters and harvest.
 
 ## Usage
 
@@ -51,7 +51,7 @@ ple4 + ple4
 #> 
 #> Metrics: 
 #>   rec: 734900 - 8607360  (1000) 
-#>   ssb: 406782 - 1826579  (NA) 
+#>   ssb: 406782 - 1826579  (t) 
 #>   catch: 156721 - 630489  (t) 
 #>   fbar: 0.20 - 0.72  (f) 
 ```

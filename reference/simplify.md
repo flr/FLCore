@@ -18,7 +18,7 @@ simplify(object, ...)
 
 nounit(stock)
 
-noseason(stock, spwn.season = 1, rec.season = spwn.season, weighted = FALSE)
+noseason(stock, spwn.season = 1, rec.season = spwn.season)
 
 noarea(stock)
 
@@ -28,8 +28,7 @@ simplify(
   dims = c("unit", "season", "area")[dim(object)[3:5] > 1],
   spwn.season = 1,
   rec.season = spwn.season,
-  harvest = TRUE,
-  weighted = FALSE
+  harvest = TRUE
 )
 ```
 
@@ -52,12 +51,6 @@ simplify(
 
   Integer. Season in which age-0 recruits first appear. Defaults to
   `spwn.season`.
-
-- weighted:
-
-  Logical. If `TRUE`, weight-at-age slots are collapsed as
-  abundance-weighted means; otherwise simple means are used. Defaults to
-  `FALSE`.
 
 ## Value
 
